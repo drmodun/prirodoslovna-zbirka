@@ -11,8 +11,209 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
+enum Role {
+  SUPER
+  ADMIN
+  USER
+}
+
+enum MemberRole {
+  OWNER
+  TEACHER
+  MEMBER
+  GUEST
+}
+
+enum County {
+  SPLITSKO_DALMATINSKA
+  DUBROVACKO_NERETVANSKA
+  SIBENSKO_KNINSKA
+  ZADARSKA
+  ZAGREBACKA
+  KARLOVACKA
+  VARAZDINSKA
+  KOPRIVNICKO_KRIZEVACKA
+  KRAPINSKO_ZAGORSKA
+  MEDIMURSKA
+  OSIJECKO_BARANJSKA
+  POZESKO_SLAVONSKA
+  PRIMORSKO_GORANSKA
+  SISACKO_MOSLAVACKA
+  VUKOVARSKO_SRIJEMSKA
+  GRAD_ZAGREB
+  BJELOVARSKO_BILOGORSKA
+  BRODSKO_POSAVSKA
+  ISTARSKA
+  LICKO_SENJSKA
+  MECKO_MOSLAVACKA
+  VIROVITICKO_PODRAVSKA
+  OTHER
+}
+
+model Categorization {
+  id      String   @id @default(uuid())
+  genus   String
+  kingdom String
+  domain  String
+  phylum  String
+  class   String
+  order   String
+  family  String
+  Species Species?
+}
+
 model User {
-  id    Int     @id @default(autoincrement())
-  email String  @unique
-  name  String?
+  id                       String                    @id @default(uuid())
+  email                    String                    @unique
+  firstName                String
+  lastName                 String
+  password                 String
+  code                     String
+  role                     Role                      @default(USER)
+  createdAt                DateTime                  @default(now())
+  updatedAt                DateTime                  @default(now()) @updatedAt
+  Posts                    Posts?
+  location                 County
+  OrganisationUser         OrganisationUser[]
+  Likes                    Likes?
+  FavouriteSpecies         FavouriteSpecies?
+  FavouriteMinerals        FavouriteMinerals?
+  UserOrganisationFollower UserOrganisationFollower?
+  followers                UserFollows[]             @relation("following")
+  following                UserFollows[]             @relation("follower")
+}
+
+model Species {
+  id               String             @id @default(uuid())
+  name             String
+  latinName        String
+  description      String
+  funFacts         String[]
+  attributes       Json
+  mainImage        String
+  categorizationId String             @unique
+  Categorization   Categorization     @relation(fields: [categorizationId], references: [id])
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @default(now()) @updatedAt
+  Organisation     Organisation?      @relation(fields: [organisationId], references: [id])
+  organisationId   String?
+  FavouriteSpecies FavouriteSpecies[]
+}
+
+model Organisation {
+  id                       String                     @id @default(uuid())
+  name                     String
+  websiteUrl               String
+  description              String
+  email                    String
+  isApproved               Boolean                    @default(false)
+  mainImage                String
+  otherImages              String[]
+  createdAt                DateTime                   @default(now())
+  updatedAt                DateTime                   @default(now()) @updatedAt
+  location                 County
+  OrganisationPost         SocialPost?
+  Species                  Species[]
+  Mineral                  Mineral[]
+  OrganisationUser         OrganisationUser[]
+  UserOrganisationFollower UserOrganisationFollower[]
+}
+
+model Mineral {
+  id                String              @id @default(uuid())
+  name              String
+  description       String
+  mainImage         String
+  otherImages       String[]
+  createdAt         DateTime            @default(now())
+  greekName         String
+  updatedAt         DateTime            @default(now()) @updatedAt
+  Organisation      Organisation?       @relation(fields: [organisationId], references: [id])
+  organisationId    String?
+  FavouriteMinerals FavouriteMinerals[]
+}
+
+model Posts {
+  id         String   @id @default(uuid())
+  title      String
+  images     String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @default(now()) @updatedAt
+  authorId   String   @unique
+  author     User     @relation(fields: [authorId], references: [id])
+  isApproved Boolean  @default(false)
+  Likes      Likes[]
+}
+
+model SocialPost {
+  id           String       @id @default(uuid())
+  title        String
+  text         String
+  images       String
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @default(now()) @updatedAt
+  authorId     String       @unique
+  organisation Organisation @relation(fields: [authorId], references: [id])
+  isApproved   Boolean      @default(false)
+}
+
+model OrganisationUser {
+  role           MemberRole
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @default(now()) @updatedAt
+  organisation   Organisation @relation(fields: [organisationId], references: [id])
+  organisationId String
+  user           User         @relation(fields: [userId], references: [id])
+  userId         String
+
+  @@id([organisationId, userId])
+}
+
+model Likes {
+  createdAt DateTime @default(now())
+  userId    String   @unique
+  user      User     @relation(fields: [userId], references: [id])
+  postId    String
+  post      Posts    @relation(fields: [postId], references: [id])
+
+  @@id([postId, userId])
+}
+
+model FavouriteSpecies {
+  createdAt DateTime @default(now())
+  userId    String   @unique
+  user      User     @relation(fields: [userId], references: [id])
+  speciesId String
+  species   Species  @relation(fields: [speciesId], references: [id])
+
+  @@id([speciesId, userId])
+}
+
+model FavouriteMinerals {
+  createdAt DateTime @default(now())
+  userId    String   @unique
+  user      User     @relation(fields: [userId], references: [id])
+  mineralId String
+  mineral   Mineral  @relation(fields: [mineralId], references: [id])
+
+  @@id([mineralId, userId])
+}
+
+model UserOrganisationFollower {
+  createdAt      DateTime     @default(now())
+  userId         String       @unique
+  user           User         @relation(fields: [userId], references: [id])
+  organisationId String
+  organisation   Organisation @relation(fields: [organisationId], references: [id])
+
+  @@id([organisationId, userId])
+}
+
+model UserFollows {
+  follower    User   @relation("follower", fields: [followerId], references: [id])
+  followerId  String
+  following   User   @relation("following", fields: [followingId], references: [id])
+  followingId String
+
+  @@id([followerId, followingId])
 }
