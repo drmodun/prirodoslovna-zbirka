@@ -6,9 +6,8 @@ generator client {
 }
 
 datasource db {
-  provider  = "postgresql"
-  url       = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL")
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 enum Role {
@@ -17,11 +16,15 @@ enum Role {
   USER
 }
 
+enum ExponatKind {
+  PROCARIOT
+  EUCARIOT
+  MINERAL
+}
+
 enum MemberRole {
-  OWNER
-  TEACHER
+  ADMIN
   MEMBER
-  GUEST
 }
 
 enum County {
@@ -45,7 +48,6 @@ enum County {
   BRODSKO_POSAVSKA
   ISTARSKA
   LICKO_SENJSKA
-  MECKO_MOSLAVACKA
   VIROVITICKO_PODRAVSKA
   OTHER
 }
@@ -59,7 +61,7 @@ model Categorization {
   class   String
   order   String
   family  String
-  Species Species?
+  Exponat Exponat?
 }
 
 model User {
@@ -76,28 +78,28 @@ model User {
   location                 County
   OrganisationUser         OrganisationUser[]
   Likes                    Likes?
-  FavouriteSpecies         FavouriteSpecies?
-  FavouriteMinerals        FavouriteMinerals?
+  FavouriteExponat         FavouriteExponat?
   UserOrganisationFollower UserOrganisationFollower?
   followers                UserFollows[]             @relation("following")
   following                UserFollows[]             @relation("follower")
 }
 
-model Species {
+model Exponat {
   id               String             @id @default(uuid())
   name             String
-  latinName        String
+  alternateName    String
+  ExponatKind      ExponatKind
   description      String
   funFacts         String[]
   attributes       Json
   mainImage        String
-  categorizationId String             @unique
-  Categorization   Categorization     @relation(fields: [categorizationId], references: [id])
+  categorizationId String?            @unique
+  Categorization   Categorization?    @relation(fields: [categorizationId], references: [id])
   createdAt        DateTime           @default(now())
   updatedAt        DateTime           @default(now()) @updatedAt
   Organisation     Organisation?      @relation(fields: [organisationId], references: [id])
   organisationId   String?
-  FavouriteSpecies FavouriteSpecies[]
+  FavouriteExponat FavouriteExponat[]
 }
 
 model Organisation {
@@ -113,24 +115,9 @@ model Organisation {
   updatedAt                DateTime                   @default(now()) @updatedAt
   location                 County
   OrganisationPost         SocialPost?
-  Species                  Species[]
-  Mineral                  Mineral[]
+  Exponat                  Exponat[]
   OrganisationUser         OrganisationUser[]
   UserOrganisationFollower UserOrganisationFollower[]
-}
-
-model Mineral {
-  id                String              @id @default(uuid())
-  name              String
-  description       String
-  mainImage         String
-  otherImages       String[]
-  createdAt         DateTime            @default(now())
-  greekName         String
-  updatedAt         DateTime            @default(now()) @updatedAt
-  Organisation      Organisation?       @relation(fields: [organisationId], references: [id])
-  organisationId    String?
-  FavouriteMinerals FavouriteMinerals[]
 }
 
 model Posts {
@@ -179,24 +166,14 @@ model Likes {
   @@id([postId, userId])
 }
 
-model FavouriteSpecies {
+model FavouriteExponat {
   createdAt DateTime @default(now())
   userId    String   @unique
   user      User     @relation(fields: [userId], references: [id])
-  speciesId String
-  species   Species  @relation(fields: [speciesId], references: [id])
+  ExponatId String
+  Exponat   Exponat  @relation(fields: [ExponatId], references: [id])
 
-  @@id([speciesId, userId])
-}
-
-model FavouriteMinerals {
-  createdAt DateTime @default(now())
-  userId    String   @unique
-  user      User     @relation(fields: [userId], references: [id])
-  mineralId String
-  mineral   Mineral  @relation(fields: [mineralId], references: [id])
-
-  @@id([mineralId, userId])
+  @@id([ExponatId, userId])
 }
 
 model UserOrganisationFollower {
@@ -210,10 +187,10 @@ model UserOrganisationFollower {
 }
 
 model UserFollows {
-  follower    User   @relation("follower", fields: [followerId], references: [id])
-  followerId  String
-  following   User   @relation("following", fields: [followingId], references: [id])
-  followingId String
+  follower   User   @relation("follower", fields: [followerId], references: [id])
+  followerId String
+  followee   User   @relation("following", fields: [followeeId], references: [id])
+  followeeId String
 
-  @@id([followerId, followingId])
+  @@id([followerId, followeeId])
 }
