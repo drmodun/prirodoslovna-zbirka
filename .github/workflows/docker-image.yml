@@ -3,7 +3,7 @@ name: Docker image build
 on:
   push:
     branches-ignore:
-      - main
+      - master 
   workflow_dispatch:
 
 jobs:
@@ -48,6 +48,6 @@ jobs:
           file: ./apps/api/Dockerfile
           push: true
           tags: ghcr.io/${{ github.repository }}:${{ github.sha }},
-            ghcr.io/${{ github.repository }}:${{ github.ref_name == 'main' && 'latest' || 'unstable' }}
+            ghcr.io/${{ github.repository }}:${{ github.ref_name == 'master ' && 'latest' || 'unstable' }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
