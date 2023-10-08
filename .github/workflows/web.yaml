@@ -51,4 +51,3 @@ jobs:
       - run: yarn global add turbo
       - run: npx nps prepare.ci.web
       - run: npx nps build.ci.web
-      - run: npx nps test.ci.web

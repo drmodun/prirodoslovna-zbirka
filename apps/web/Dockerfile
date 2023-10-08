@@ -31,3 +31,4 @@ WORKDIR /app
 COPY --from=sourcer /app/ .
 WORKDIR /app/apps/web/
 CMD [ "npm", "start" ]
+    
