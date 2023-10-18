@@ -8,7 +8,3 @@ export interface UpdatePostRequest {
   title?: string;
   images?: string[];
 }
-
-export interface setApprovalRequest {
-  approved: boolean;
-}
