@@ -16,3 +16,4 @@ export interface SmallUserResponse {
   avatar: string;
   role: number;
 }
+

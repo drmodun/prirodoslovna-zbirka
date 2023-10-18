@@ -123,7 +123,7 @@ model Organisation {
 model Posts {
   id         String   @id @default(uuid())
   title      String
-  images     String
+  images     String[]
   createdAt  DateTime @default(now())
   updatedAt  DateTime @default(now()) @updatedAt
   authorId   String   @unique
