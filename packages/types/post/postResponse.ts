@@ -16,11 +16,3 @@ export interface PostApprovalResponse {
   id: string;
   approved: boolean;
 }
-
-export interface PostApprovalAuthorResponse {
-  id: string;
-  title: string;
-  approved: boolean;
-  authorId: string;
-  message?: string;
-}

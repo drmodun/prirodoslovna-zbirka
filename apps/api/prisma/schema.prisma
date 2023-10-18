@@ -54,7 +54,7 @@ enum County {
 }
 
 model Categorization {
-  id      String   @id @default(uuid())
+  id      String    @id @default(uuid())
   genus   String
   kingdom String
   domain  String
@@ -62,7 +62,8 @@ model Categorization {
   class   String
   order   String
   family  String
-  Exponat Exponat?
+  Exponat Exponat[]
+  //possibly change this to make the categorization applicable to other organisations which will use this exponat
 }
 
 model User {
@@ -91,6 +92,7 @@ model Exponat {
   alternateName    String
   ExponatKind      ExponatKind
   description      String
+  isApproved       Boolean            @default(false)
   funFacts         String[]
   attributes       Json
   mainImage        String
