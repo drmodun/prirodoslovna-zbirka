@@ -1,3 +1,6 @@
+import { ExponatExtendedResponse } from "./exponat/exponatResponses";
+import { PostResponse } from "./post/postResponse";
+
 export interface LoginRequest {
   email: string;
   password: string;
@@ -27,4 +30,12 @@ export interface ApprovalAuthorResponse {
   approved: boolean;
   authorId: string;
   message?: string;
+}
+
+export interface IncomingApprovalRequest {
+  id: string;
+  approved: boolean;
+  auhorId: string;
+  auhtorName: string;
+  entity: Organisation | ExponatExtendedResponse | PostResponse;
 }

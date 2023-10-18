@@ -39,3 +39,10 @@ export enum County {
   VIROVITICKO_PODRAVSKA,
   OTHER,
 }
+
+export enum AdminApprovalRequestType {
+  ORGANISATION,
+  EXPONAT,
+  MEMBER,
+  POST
+}
