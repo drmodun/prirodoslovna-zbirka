@@ -6,8 +6,9 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 enum Role {
@@ -127,7 +128,7 @@ model Posts {
   createdAt  DateTime @default(now())
   updatedAt  DateTime @default(now()) @updatedAt
   authorId   String   @unique
-  author     User     @relation(fields: [authorId], references: [id])
+  author     User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
   isApproved Boolean  @default(false)
   Likes      Likes[]
 }
@@ -140,7 +141,7 @@ model SocialPost {
   createdAt    DateTime     @default(now())
   updatedAt    DateTime     @default(now()) @updatedAt
   authorId     String       @unique
-  organisation Organisation @relation(fields: [authorId], references: [id])
+  organisation Organisation @relation(fields: [authorId], references: [id], onDelete: Cascade)
   isApproved   Boolean      @default(false)
 }
 
@@ -148,9 +149,9 @@ model OrganisationUser {
   role           MemberRole
   createdAt      DateTime     @default(now())
   updatedAt      DateTime     @default(now()) @updatedAt
-  organisation   Organisation @relation(fields: [organisationId], references: [id])
+  organisation   Organisation @relation(fields: [organisationId], references: [id], onDelete: Cascade)
   organisationId String
-  user           User         @relation(fields: [userId], references: [id])
+  user           User         @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId         String
 
   @@id([organisationId, userId])
@@ -159,9 +160,9 @@ model OrganisationUser {
 model Likes {
   createdAt DateTime @default(now())
   userId    String   @unique
-  user      User     @relation(fields: [userId], references: [id])
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   postId    String
-  post      Posts    @relation(fields: [postId], references: [id])
+  post      Posts    @relation(fields: [postId], references: [id], onDelete: Cascade)
 
   @@id([postId, userId])
 }
@@ -169,9 +170,9 @@ model Likes {
 model FavouriteExponat {
   createdAt DateTime @default(now())
   userId    String   @unique
-  user      User     @relation(fields: [userId], references: [id])
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   ExponatId String
-  Exponat   Exponat  @relation(fields: [ExponatId], references: [id])
+  Exponat   Exponat  @relation(fields: [ExponatId], references: [id], onDelete: Cascade)
 
   @@id([ExponatId, userId])
 }
@@ -179,17 +180,17 @@ model FavouriteExponat {
 model UserOrganisationFollower {
   createdAt      DateTime     @default(now())
   userId         String       @unique
-  user           User         @relation(fields: [userId], references: [id])
+  user           User         @relation(fields: [userId], references: [id], onDelete: Cascade)
   organisationId String
-  organisation   Organisation @relation(fields: [organisationId], references: [id])
+  organisation   Organisation @relation(fields: [organisationId], references: [id], onDelete: Cascade)
 
   @@id([organisationId, userId])
 }
 
 model UserFollows {
-  follower   User   @relation("follower", fields: [followerId], references: [id])
+  follower   User   @relation("follower", fields: [followerId], references: [id], onDelete: Cascade)
   followerId String
-  followee   User   @relation("following", fields: [followeeId], references: [id])
+  followee   User   @relation("following", fields: [followeeId], references: [id], onDelete: Cascade)
   followeeId String
 
   @@id([followerId, followeeId])

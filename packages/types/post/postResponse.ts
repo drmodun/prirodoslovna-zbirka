@@ -22,5 +22,5 @@ export interface PostApprovalAuthorResponse {
   title: string;
   approved: boolean;
   authorId: string;
-  mesasge?: string;
+  message?: string;
 }
