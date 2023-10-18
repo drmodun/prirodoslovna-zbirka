@@ -1,4 +1,8 @@
 import { ExponatExtendedResponse } from "./exponat/exponatResponses";
+import {
+  ExtendedOrganisationResponse,
+  OrganisationResponseShort,
+} from "./organisation/organisationResponses";
 import { PostResponse } from "./post/postResponse";
 
 export interface LoginRequest {
@@ -37,5 +41,5 @@ export interface IncomingApprovalRequest {
   approved: boolean;
   auhorId: string;
   auhtorName: string;
-  entity: Organisation | ExponatExtendedResponse | PostResponse;
+  entity: ExtendedOrganisationResponse | ExponatExtendedResponse | PostResponse;
 }
