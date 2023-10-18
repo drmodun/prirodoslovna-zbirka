@@ -10,7 +10,7 @@ export interface CreateExponatRequest {
   attributes: Json;
   mainImage: string;
   isApproved: boolean;
-  cateogorisationId: string;
+  cateogorizationId: string;
 }
 
 export interface CreateCategorizationRequest {
