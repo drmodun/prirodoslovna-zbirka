@@ -20,7 +20,7 @@ export class CreateOrganisationDto {
 
   @ApiProperty()
   @IsUrl()
-  website: string;
+  websiteUrl: string;
 
   @ApiProperty()
   mainImage: string;

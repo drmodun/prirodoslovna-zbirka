@@ -109,7 +109,7 @@ model Organisation {
   id                       String                     @id @default(uuid())
   name                     String
   websiteUrl               String
-  description              String
+  description              String                     @unique
   email                    String
   isApproved               Boolean                    @default(false)
   mainImage                String
