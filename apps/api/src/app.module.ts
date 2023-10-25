@@ -3,7 +3,8 @@ import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { validationSchemaForEnv } from './config/environment-variables';
-import { PersistenceModule } from './persistence/persistence.module';
+import { PrismaModule } from './Prisma/Prisma.module';
+import { OrganisationsModule } from './organisations/organisations.module';
 
 @Module({
   imports: [
@@ -11,7 +12,8 @@ import { PersistenceModule } from './persistence/persistence.module';
       isGlobal: true,
       validationSchema: validationSchemaForEnv,
     }),
-    PersistenceModule,
+    PrismaModule,
+    OrganisationsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
