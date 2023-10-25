@@ -7,6 +7,7 @@ export interface CreateOrganisationRequest {
   websiteUrl: string;
   mainImage: string;
   otherImages: string[];
+  email: string;
 }
 
 export interface UpdateOrganisationRequest {
