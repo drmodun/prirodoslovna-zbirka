@@ -28,6 +28,10 @@ export interface SortingRequest {
   direction: SortType;
 }
 
+export interface SortArg {
+  [key: string]: string;
+}
+
 export const sortQueryBuilder = (request: SortingRequest) => {
   switch (request.attribute) {
     case SortingEnum.NAME:
@@ -44,3 +48,8 @@ export const sortQueryBuilder = (request: SortingRequest) => {
       };
   }
 };
+
+export interface QueryResponse<T> {
+  data: T[];
+  pagination: PagiantaionResponse;
+}
