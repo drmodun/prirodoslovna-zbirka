@@ -13,8 +13,15 @@ export class OrganisationsService {
     });
   }
 
-  findAll() {
-    return `This action returns all organisations`;
+  async findAll() {
+    const result = await this.prisma.organisation.findMany({
+      where: {
+        name: {
+          contains: 'cat',
+          mode: 'insensitive',
+        },
+      },
+    });
   }
 
   findOne(id: number) {
