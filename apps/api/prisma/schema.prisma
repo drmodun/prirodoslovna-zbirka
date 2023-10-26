@@ -119,7 +119,7 @@ model Organisation {
   updatedAt                DateTime                   @default(now()) @updatedAt
   location                 County
   OrganisationPost         SocialPost?
-  Exponat                  Exponat[]
+  Exponats                  Exponat[]
   OrganisationUser         OrganisationUser[]
   UserOrganisationFollower UserOrganisationFollower[]
 }

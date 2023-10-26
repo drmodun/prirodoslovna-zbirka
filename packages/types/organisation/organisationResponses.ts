@@ -27,5 +27,6 @@ export interface OrganisationResponseShort {
   mainImage: string;
   updatedAt: Date;
   isFavorite?: boolean;
-  favouriteCount: number;
+  exponatCount: number;
+  points: number;
 }

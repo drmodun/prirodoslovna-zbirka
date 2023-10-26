@@ -4,6 +4,10 @@ import { UpdateOrganisationDto } from './dto/update-organisation.dto';
 import { PrismaService } from 'src/Prisma/prisma.service';
 import { OrganisationQuery } from '../../../../packages/types/organisation/organisationRequest';
 import {
+  OrganisationResponseShort,
+  ExtendedOrganisationResponse,
+} from '../../../../packages/types/organisation/organisationResponses';
+import {
   PaginationRequest,
   QueryResponse,
   SortingRequest,
@@ -21,7 +25,7 @@ export class OrganisationsService {
     });
   }
 
-  async findAll(
+  async findAllShort(
     filter?: OrganisationQuery,
     sorting?: SortingRequest,
     pagination?: PaginationRequest,
@@ -30,24 +34,33 @@ export class OrganisationsService {
 
     const result = await this.prisma.organisation.findMany({
       where: {
-        name: filter?.name,
-        location: filter?.location as any,
+        ...(filter?.name && { name: filter.name }),
+        ...(filter?.location && { location: filter.location as any }),
         //fix enums later;
+      },
+      select: {
+        id: true,
+        name: true,
+        location: true,
+        websiteUrl: true,
+        mainImage: true,
+        updatedAt: true,
+        Exponat: {
+          select: {
+            _count: {
+              select: {
+                FavouriteExponat: true,
+              },
+            },
+          },
+        },
       },
       orderBy: sort,
       skip: pagination?.page - 1 * pagination?.size,
       take: pagination?.size,
     });
 
-    return {
-      data: result,
-      pagination: {
-        page: pagination?.page,
-        pageSize: pagination?.size,
-        totalItems: result.length,
-        totalPages: Math.ceil(result.length / pagination?.size),
-      },
-    } as QueryResponse<Organisation>;
+    return result;
   }
 
   findOne(id: number) {
