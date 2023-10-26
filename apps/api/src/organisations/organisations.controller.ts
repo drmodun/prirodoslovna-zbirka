@@ -6,11 +6,23 @@ import {
   Patch,
   Param,
   Delete,
+  Query,
 } from '@nestjs/common';
 import { OrganisationsService } from './organisations.service';
 import { CreateOrganisationDto } from './dto/create-organisation.dto';
 import { UpdateOrganisationDto } from './dto/update-organisation.dto';
-
+import { PaginationParams } from 'src/config/pagination';
+import {
+  PaginationRequest,
+  SortingEnum,
+  SortingRequest,
+} from '../../../../packages/types/query';
+import { SortingParams } from 'src/config/sorting';
+import {
+  OrganisationQuery,
+  UpdateOrganisationRequest,
+  CreateOrganisationRequest,
+} from '../../../../packages/types/organisation/organisationRequest';
 @Controller('organisations')
 export class OrganisationsController {
   constructor(private readonly organisationsService: OrganisationsService) {}
@@ -21,7 +33,12 @@ export class OrganisationsController {
   }
 
   @Get()
-  findAll() {
+  async findAll(
+    @PaginationParams() paginationParam?: PaginationRequest,
+    @SortingParams([SortingEnum.NAME, SortingEnum.COUNTY, SortingEnum.POINTS])
+    sorting?: SortingRequest,
+    @Query() filter?: OrganisationQuery,
+  ) {
     return this.organisationsService.findAll();
   }
 
