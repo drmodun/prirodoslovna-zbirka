@@ -18,3 +18,8 @@ export interface UpdateOrganisationRequest {
   mainImage?: string;
   otherImages?: string[];
 }
+
+export interface OrganisationQuery {
+  name?: string;
+  location?: County;
+}
