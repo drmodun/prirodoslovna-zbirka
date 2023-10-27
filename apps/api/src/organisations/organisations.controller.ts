@@ -22,8 +22,12 @@ import {
   OrganisationQuery,
   UpdateOrganisationRequest,
   CreateOrganisationRequest,
-} from '../../../../packages/types/organisation/organisationRequest';
-import { OrganisationResponseShort } from '../../../../packages/types/organisation/organisationResponses';
+} from '../../../../packages/types/organisation/organisationRequests';
+import {
+  ExtendedOrganisationResponse,
+  OrganisationResponseShort,
+} from '../../../../packages/types/organisation/organisationResponses';
+import { ExponatResponseShort } from '../../../../packages/types/exponat/exponatResponses';
 @Controller('organisations')
 export class OrganisationsController {
   constructor(private readonly organisationsService: OrganisationsService) {}
@@ -33,7 +37,7 @@ export class OrganisationsController {
     return this.organisationsService.create(createOrganisationDto);
   }
 
-  @Get()
+  @Get('/short')
   async findAllShort(
     @PaginationParams() paginationParam?: PaginationRequest,
     @SortingParams([SortingEnum.NAME, SortingEnum.COUNTY, SortingEnum.POINTS])
@@ -41,9 +45,9 @@ export class OrganisationsController {
     @Query() filter?: OrganisationQuery,
   ) {
     const items = await this.organisationsService.findAllShort(
-      paginationParam,
-      sorting,
       filter,
+      sorting,
+      paginationParam,
     );
 
     const mapped = items.map((org) => {
@@ -61,6 +65,8 @@ export class OrganisationsController {
         //possibly already make this in sql later
         isFavorite: false,
         updatedAt: org.updatedAt,
+        followerCount: org._count.UserOrganisationFollower,
+        memberCount: org._count.OrganisationUser,
       } as OrganisationResponseShort;
     });
 
@@ -69,15 +75,49 @@ export class OrganisationsController {
       pagination: {
         page: paginationParam?.page,
         pageSize: paginationParam?.size,
-        totalItems: items.count,
-        totalPages: Math.ceil(
-          (await this.organisationsService.count(filter)) /
-
+      },
+    };
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.organisationsService.findOne(+id);
+    const item = await this.organisationsService.findOne(id);
+
+    const mappedExponats = item.Exponat.map((exponat) => {
+      return {
+        alternateName: exponat.alternateName,
+        description: exponat.description,
+        id: exponat.id,
+        mainImage: exponat.mainImage,
+        name: exponat.name,
+        updatedAt: exponat.updatedAt,
+        favouriteCount: exponat._count.FavouriteExponat,
+        organizationId: item.id,
+        organizationName: item.name,
+        isFavorite: false,
+      } as ExponatResponseShort;
+    });
+
+    const mapped = {
+      createdAt: item.createdAt,
+      description: item.description,
+      email: item.email,
+      exponats: mappedExponats,
+      followersAmount: item._count.UserOrganisationFollower,
+      points: item.Exponat.reduce(
+        (acc, curr) => acc + curr._count.FavouriteExponat,
+        0,
+      ),
+      id: item.id,
+      isFollowing: false,
+      location: item.location,
+      mainImage: item.mainImage,
+      membersAmount: item._count.OrganisationUser,
+      name: item.name,
+      otherImages: item.otherImages,
+      updatedAt: item.updatedAt,
+      websiteUrl: item.websiteUrl,
+    } as ExtendedOrganisationResponse;
   }
 
   @Patch(':id')

@@ -25,7 +25,7 @@ export interface ExponatExtendedResponse {
 
 export interface ExponatResponseShort {
   id: string;
-  title: string;
+  name: string;
   description: string;
   mainImage: string;
   alternateName: string;
