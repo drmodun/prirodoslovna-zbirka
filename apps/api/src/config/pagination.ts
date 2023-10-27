@@ -22,7 +22,6 @@ export const PaginationParams = createParamDecorator(
         'Invalid pagination params: Max size is 100',
       );
     }
-    console.log(page, size);
 
     return { page, size };
   },

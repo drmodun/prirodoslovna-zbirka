@@ -7,7 +7,6 @@ import {
   Param,
   Delete,
   Query,
-  BadRequestException,
 } from '@nestjs/common';
 import { OrganisationsService } from './organisations.service';
 import { CreateOrganisationDto } from './dto/create-organisation.dto';
@@ -19,17 +18,12 @@ import {
   SortingRequest,
 } from '../../../../packages/types/query';
 import { SortingParams } from 'src/config/sorting';
-import {
-  OrganisationQuery,
-  UpdateOrganisationRequest,
-  CreateOrganisationRequest,
-} from '../../../../packages/types/organisation/organisationRequests';
+import { OrganisationQuery } from '../../../../packages/types/organisation/organisationRequests';
 import {
   ExtendedOrganisationResponse,
   OrganisationResponseShort,
 } from '../../../../packages/types/organisation/organisationResponses';
 import { ExponatResponseShort } from '../../../../packages/types/exponat/exponatResponses';
-import { MutationStatus } from '../../../../packages/types/responses';
 import { ShortSocialPostResponse } from '../../../../packages/types/socialPost/socialPostResponses';
 import { ApiQuery, ApiTags } from '@nestjs/swagger';
 import { County } from '@prisma/client';

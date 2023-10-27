@@ -1,19 +1,13 @@
-import { Injectable, Query } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { CreateOrganisationDto } from './dto/create-organisation.dto';
 import { UpdateOrganisationDto } from './dto/update-organisation.dto';
 import { PrismaService } from 'src/Prisma/prisma.service';
 import { OrganisationQuery } from '../../../../packages/types/organisation/organisationRequests';
 import {
-  OrganisationResponseShort,
-  ExtendedOrganisationResponse,
-} from '../../../../packages/types/organisation/organisationResponses';
-import {
   PaginationRequest,
-  QueryResponse,
   SortingRequest,
   sortQueryBuilder,
 } from '../../../../packages/types/query';
-import { County } from '@prisma/client';
 
 @Injectable()
 export class OrganisationsService {
