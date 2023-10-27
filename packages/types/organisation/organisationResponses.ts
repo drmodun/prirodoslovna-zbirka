@@ -1,6 +1,6 @@
 import { Role } from "../enums";
 import { ExponatResponseShort } from "../exponat/exponatResponses";
-
+import { ShortSocialPostResponse } from "../socialPost/socialPostResponses";
 export interface ExtendedOrganisationResponse {
   id: string;
   name: string;
@@ -17,6 +17,7 @@ export interface ExtendedOrganisationResponse {
   isFollowing: boolean;
   exponats: ExponatResponseShort[];
   points: number;
+  posts: ShortSocialPostResponse[];
 }
 
 export interface OrganisationResponseShort {

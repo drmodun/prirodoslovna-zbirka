@@ -2,7 +2,7 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
   previewFeatures = ["fullTextSearch"]
 }
 
@@ -110,16 +110,16 @@ model Organisation {
   id                       String                     @id @default(uuid())
   name                     String
   websiteUrl               String
-  description              String                     @unique
-  email                    String
+  description              String                     
+  email                    String                    @unique
   isApproved               Boolean                    @default(false)
   mainImage                String
   otherImages              String[]
   createdAt                DateTime                   @default(now())
   updatedAt                DateTime                   @default(now()) @updatedAt
   location                 County
-  OrganisationPost         SocialPost?
-  Exponats                  Exponat[]
+  OrganisationPost         SocialPost[]
+  Exponats                 Exponat[]
   OrganisationUser         OrganisationUser[]
   UserOrganisationFollower UserOrganisationFollower[]
 }
