@@ -13,7 +13,6 @@ import { Request } from 'express';
 export const SortingParams = createParamDecorator(
   (validParams, ctx: ExecutionContext): SortingRequest => {
     const req: Request = ctx.switchToHttp().getRequest();
-    console.log(req.query.attribute as SortingEnum);
     const sortAttribute = req.query.attribute as SortingEnum;
     const direction = req.query.direction as SortType;
     if (!req.query.attribute || !req.query.direction) return null;

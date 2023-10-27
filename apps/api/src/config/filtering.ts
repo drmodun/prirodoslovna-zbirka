@@ -26,7 +26,6 @@ export enum FilterRule {
   IS_NULL = 'isnull',
   STARTS_WITH = 'startsWith',
   HAS_EVERY = 'hasEvery',
-  
 }
 
 export const FilteringParams = createParamDecorator(
