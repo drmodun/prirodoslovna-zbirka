@@ -42,7 +42,7 @@ export const sortQueryBuilder = (request: SortingRequest) => {
     case SortingEnum.NAME:
       return { name: request.direction };
     case SortingEnum.COUNTY:
-      return { county: request.direction };
+      return { location: request.direction };
     case SortingEnum.POINTS:
       return { points: request.direction };
     case SortingEnum.POST_AMOUNT:

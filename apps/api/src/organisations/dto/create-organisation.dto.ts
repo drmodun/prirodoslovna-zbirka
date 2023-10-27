@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { County } from '@prisma/client';
-import { IsEmail, IsString, IsUrl, MinLength } from 'class-validator';
+import { IsEmail, IsEnum, IsString, IsUrl, MinLength } from 'class-validator';
 
 export class CreateOrganisationDto {
   @IsString()
@@ -18,16 +18,19 @@ export class CreateOrganisationDto {
   @ApiProperty()
   email: string;
 
-  @ApiProperty()
   @IsUrl()
+  @ApiProperty()
   websiteUrl: string;
 
+  @IsString()
   @ApiProperty()
   mainImage: string;
 
+  @IsString({ each: true })
   @ApiProperty()
   otherImages: string[];
 
+  @IsEnum(County)
   @ApiProperty()
   location: County;
 }

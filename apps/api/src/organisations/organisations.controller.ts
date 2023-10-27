@@ -31,7 +31,10 @@ import {
 import { ExponatResponseShort } from '../../../../packages/types/exponat/exponatResponses';
 import { MutationStatus } from '../../../../packages/types/responses';
 import { ShortSocialPostResponse } from '../../../../packages/types/socialPost/socialPostResponses';
+import { ApiQuery, ApiTags } from '@nestjs/swagger';
+import { County } from '@prisma/client';
 @Controller('organisations')
+@ApiTags('organisations')
 export class OrganisationsController {
   constructor(private readonly organisationsService: OrganisationsService) {}
 
@@ -57,6 +60,12 @@ export class OrganisationsController {
   }
 
   @Get('/short')
+  @ApiQuery({ name: 'page', required: false })
+  @ApiQuery({ name: 'size', required: false })
+  @ApiQuery({ name: 'name', required: false })
+  @ApiQuery({ name: 'location', required: false, enum: County })
+  @ApiQuery({ name: 'attribute', required: false, enum: SortingEnum })
+  @ApiQuery({ name: 'direction', required: false, enum: ['asc', 'desc'] })
   async findAllShort(
     @PaginationParams() paginationParam?: PaginationRequest,
     @SortingParams([SortingEnum.NAME, SortingEnum.COUNTY, SortingEnum.POINTS])
@@ -99,7 +108,7 @@ export class OrganisationsController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  async findOne(@Param('id') id: string) {
     const item = await this.organisationsService.findOne(id);
 
     const mappedExponats = item.Exponats.map((exponat) => {
