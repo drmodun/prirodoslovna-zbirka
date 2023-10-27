@@ -3,11 +3,16 @@ export interface PaginationRequest {
   size: number;
 }
 
-export interface PagiantaionResponse {
+export interface LongPaginationResponse {
   totalItems: number;
   page: number;
   pageSize: number;
   totalPages: number;
+}
+
+export interface PagiantaionResponse {
+  page: number;
+  pageSize: number;
 }
 
 export enum SortingEnum {
