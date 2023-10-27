@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
   Query,
+  BadRequestException,
 } from '@nestjs/common';
 import { OrganisationsService } from './organisations.service';
 import { CreateOrganisationDto } from './dto/create-organisation.dto';
@@ -28,6 +29,8 @@ import {
   OrganisationResponseShort,
 } from '../../../../packages/types/organisation/organisationResponses';
 import { ExponatResponseShort } from '../../../../packages/types/exponat/exponatResponses';
+import { MutationStatus } from '../../../../packages/types/responses';
+import { ShortSocialPostResponse } from '../../../../packages/types/socialPost/socialPostResponses';
 @Controller('organisations')
 export class OrganisationsController {
   constructor(private readonly organisationsService: OrganisationsService) {}
@@ -117,6 +120,20 @@ export class OrganisationsController {
       otherImages: item.otherImages,
       updatedAt: item.updatedAt,
       websiteUrl: item.websiteUrl,
+      posts: item.OrganisationPosts.map((post) => {
+        return {
+         id: post.id,
+         createdAt: post.createdAt,
+         images: post.images,
+         isApproved: post.isApproved,
+         organisationId: post.organisationId,
+         organisationMainImage: item.mainImage,
+         organisationName: item.name,
+         text: post.text,
+         title: post.title,
+         updatedAt: post.updatedAt,
+        } as ShortSocialPostResponse;
+      }
     } as ExtendedOrganisationResponse;
   }
 
@@ -125,11 +142,19 @@ export class OrganisationsController {
     @Param('id') id: string,
     @Body() updateOrganisationDto: UpdateOrganisationDto,
   ) {
-    return this.organisationsService.update(+id, updateOrganisationDto);
+    const item = this.organisationsService.update(id, updateOrganisationDto);
+
+    if (!item) {
+      throw new BadRequestException();
+    }
+
+    return { update: MutationStatus.SUCCESS };
   }
+  }
+
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.organisationsService.remove(+id);
+    return this.organisationsService.remove(id);
   }
 }

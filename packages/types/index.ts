@@ -6,3 +6,5 @@ export * from "./organisation/organisationRequests";
 export * from "./user/userResponses";
 export * from "./user/userRequests";
 export * from "./query";
+export * from "./responses";
+export * from "./socialPost/socialPostResponses";

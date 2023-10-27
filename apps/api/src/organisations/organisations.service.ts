@@ -117,11 +117,20 @@ export class OrganisationsService {
     return item;
   }
 
-  update(id: number, updateOrganisationDto: UpdateOrganisationDto) {
-    return `This action updates a #${id} organisation`;
+  async update(id: string, updateOrganisationDto: UpdateOrganisationDto) {
+    return await this.prisma.organisation.update({
+      where: {
+        id,
+      },
+      data: updateOrganisationDto,
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} organisation`;
+  async remove(id: string) {
+    return await this.prisma.organisation.delete({
+      where: {
+        id,
+      },
+    });
   }
 }
