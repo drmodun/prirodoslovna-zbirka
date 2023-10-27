@@ -118,10 +118,10 @@ model Organisation {
   createdAt                DateTime                   @default(now())
   updatedAt                DateTime                   @default(now()) @updatedAt
   location                 County
-  OrganisationPost         SocialPost[]
+  OrganisationPosts        SocialPost[]
   Exponats                 Exponat[]
-  OrganisationUser         OrganisationUser[]
-  UserOrganisationFollower UserOrganisationFollower[]
+  OrganisationUsers         OrganisationUser[]
+  UserOrganisationFollowers UserOrganisationFollower[]
 }
 
 model Posts {
@@ -140,7 +140,7 @@ model SocialPost {
   id           String       @id @default(uuid())
   title        String
   text         String
-  images       String
+  images       String[]
   createdAt    DateTime     @default(now())
   updatedAt    DateTime     @default(now()) @updatedAt
   authorId     String       @unique

@@ -35,9 +35,25 @@ import { ShortSocialPostResponse } from '../../../../packages/types/socialPost/s
 export class OrganisationsController {
   constructor(private readonly organisationsService: OrganisationsService) {}
 
+  //creates brand new organisation and returns the created organisation
   @Post()
-  create(@Body() createOrganisationDto: CreateOrganisationDto) {
-    return this.organisationsService.create(createOrganisationDto);
+  async create(@Body() createOrganisationDto: CreateOrganisationDto) {
+    const item = await this.organisationsService.create(createOrganisationDto);
+
+    const mapped = {
+      id: item.id,
+      name: item.name,
+      mainImage: item.mainImage,
+      location: item.location,
+      websiteUrl: item.websiteUrl,
+      updatedAt: item.updatedAt,
+      exponatCount: 0,
+      memberCount: 0,
+      followerCount: 0,
+      points: 0,
+    } as OrganisationResponseShort;
+
+    return mapped;
   }
 
   @Get('/short')
@@ -60,16 +76,16 @@ export class OrganisationsController {
         location: org.location,
         websiteUrl: org.websiteUrl,
         mainImage: org.mainImage,
-        exponatCount: org.Exponat.length,
-        points: org.Exponat.reduce(
+        exponatCount: org.Exponats.length,
+        points: org.Exponats.reduce(
           (acc, curr) => acc + curr._count.FavouriteExponat,
           0,
         ),
         //possibly already make this in sql later
         isFavorite: false,
         updatedAt: org.updatedAt,
-        followerCount: org._count.UserOrganisationFollower,
-        memberCount: org._count.OrganisationUser,
+        followerCount: org._count.UserOrganisationFollowers,
+        memberCount: org._count.OrganisationUsers,
       } as OrganisationResponseShort;
     });
 
@@ -86,7 +102,7 @@ export class OrganisationsController {
   findOne(@Param('id') id: string) {
     const item = await this.organisationsService.findOne(id);
 
-    const mappedExponats = item.Exponat.map((exponat) => {
+    const mappedExponats = item.Exponats.map((exponat) => {
       return {
         alternateName: exponat.alternateName,
         description: exponat.description,
@@ -106,8 +122,8 @@ export class OrganisationsController {
       description: item.description,
       email: item.email,
       exponats: mappedExponats,
-      followersAmount: item._count.UserOrganisationFollower,
-      points: item.Exponat.reduce(
+      followersAmount: item._count.UserOrganisationFollowers,
+      points: item.Exponats.reduce(
         (acc, curr) => acc + curr._count.FavouriteExponat,
         0,
       ),
@@ -115,46 +131,42 @@ export class OrganisationsController {
       isFollowing: false,
       location: item.location,
       mainImage: item.mainImage,
-      membersAmount: item._count.OrganisationUser,
+      membersAmount: item._count.OrganisationUsers,
       name: item.name,
       otherImages: item.otherImages,
       updatedAt: item.updatedAt,
       websiteUrl: item.websiteUrl,
       posts: item.OrganisationPosts.map((post) => {
         return {
-         id: post.id,
-         createdAt: post.createdAt,
-         images: post.images,
-         isApproved: post.isApproved,
-         organisationId: post.organisationId,
-         organisationMainImage: item.mainImage,
-         organisationName: item.name,
-         text: post.text,
-         title: post.title,
-         updatedAt: post.updatedAt,
+          createdAt: post.createdAt,
+          id: post.id,
+          images: post.images,
+          text: post.text,
+          updatedAt: post.updatedAt,
+          organisationId: item.id,
+          organisationName: item.name,
+          organisationMainImage: item.mainImage,
+          title: post.title,
+          isApproved: post.isApproved,
         } as ShortSocialPostResponse;
-      }
+      }),
     } as ExtendedOrganisationResponse;
+
+    return mapped;
   }
 
   @Patch(':id')
-  update(
+  async update(
     @Param('id') id: string,
     @Body() updateOrganisationDto: UpdateOrganisationDto,
   ) {
-    const item = this.organisationsService.update(id, updateOrganisationDto);
-
-    if (!item) {
-      throw new BadRequestException();
-    }
-
-    return { update: MutationStatus.SUCCESS };
+    return await this.organisationsService.update(id, updateOrganisationDto);
   }
-  }
-
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.organisationsService.remove(id);
+  async remove(@Param('id') id: string) {
+    return await this.organisationsService.remove(id);
   }
+
+  //TODO: add admin approval and disapproval and creation request endpoints
 }

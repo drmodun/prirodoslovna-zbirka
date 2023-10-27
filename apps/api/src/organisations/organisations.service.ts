@@ -41,9 +41,9 @@ export class OrganisationsService {
       select: {
         _count: {
           select: {
-            Exponat: true,
-            UserOrganisationFollower: true,
-            OrganisationUser: true,
+            Exponats: true,
+            UserOrganisationFollowers: true,
+            OrganisationUsers: true,
           },
         },
         id: true,
@@ -52,7 +52,7 @@ export class OrganisationsService {
         websiteUrl: true,
         mainImage: true,
         updatedAt: true,
-        Exponat: {
+        Exponats: {
           select: {
             _count: {
               select: {
@@ -78,9 +78,9 @@ export class OrganisationsService {
       select: {
         _count: {
           select: {
-            Exponat: true,
-            UserOrganisationFollower: true,
-            OrganisationUser: true,
+            Exponats: true,
+            UserOrganisationFollowers: true,
+            OrganisationUsers: true,
           },
         },
         id: true,
@@ -92,9 +92,9 @@ export class OrganisationsService {
         description: true,
         createdAt: true,
         email: true,
-        OrganisationPost: true,
+        OrganisationPosts: true,
         updatedAt: true,
-        Exponat: {
+        Exponats: {
           select: {
             id: true,
             name: true,
@@ -118,7 +118,7 @@ export class OrganisationsService {
   }
 
   async update(id: string, updateOrganisationDto: UpdateOrganisationDto) {
-    return await this.prisma.organisation.update({
+    await this.prisma.organisation.update({
       where: {
         id,
       },
@@ -127,7 +127,7 @@ export class OrganisationsService {
   }
 
   async remove(id: string) {
-    return await this.prisma.organisation.delete({
+    await this.prisma.organisation.delete({
       where: {
         id,
       },
