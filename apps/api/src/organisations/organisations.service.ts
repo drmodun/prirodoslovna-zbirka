@@ -34,7 +34,9 @@ export class OrganisationsService {
 
     const result = await this.prisma.organisation.findMany({
       where: {
-        ...(filter?.name && { search: filter.name, mode: 'insensitive' }),
+        ...(filter?.name && {
+          name: { search: filter.name, mode: 'insensitive' },
+        }),
         ...(filter?.location && { location: filter.location as any }),
         //fix enums later;
       },
@@ -63,7 +65,7 @@ export class OrganisationsService {
         },
       },
       orderBy: sort,
-      skip: pagination?.page - 1 * pagination?.size,
+      skip: (pagination?.page - 1) * pagination?.size,
       take: pagination?.size,
     });
 

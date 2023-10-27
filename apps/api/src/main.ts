@@ -11,7 +11,7 @@ async function bootstrap() {
   app.enableCors();
 
   const config = new DocumentBuilder()
-    .setTitle('Median')
+    .setTitle('Medisaan')
     .setDescription('The Median API description')
     .setVersion('0.1')
     .addBearerAuth()
