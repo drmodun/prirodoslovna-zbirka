@@ -120,6 +120,21 @@ export class OrganisationsController {
       } as ExponatResponseShort;
     });
 
+    const mappedPosts = item.OrganisationPosts.map((post) => {
+      return {
+        createdAt: post.createdAt,
+        id: post.id,
+        images: post.images,
+        text: post.text,
+        updatedAt: post.updatedAt,
+        organisationId: item.id,
+        organisationName: item.name,
+        organisationMainImage: item.mainImage,
+        title: post.title,
+        isApproved: post.isApproved,
+      } as ShortSocialPostResponse;
+    });
+
     const mapped = {
       createdAt: item.createdAt,
       description: item.description,
@@ -139,20 +154,7 @@ export class OrganisationsController {
       otherImages: item.otherImages,
       updatedAt: item.updatedAt,
       websiteUrl: item.websiteUrl,
-      posts: item.OrganisationPosts.map((post) => {
-        return {
-          createdAt: post.createdAt,
-          id: post.id,
-          images: post.images,
-          text: post.text,
-          updatedAt: post.updatedAt,
-          organisationId: item.id,
-          organisationName: item.name,
-          organisationMainImage: item.mainImage,
-          title: post.title,
-          isApproved: post.isApproved,
-        } as ShortSocialPostResponse;
-      }),
+      posts: mappedPosts,
     } as ExtendedOrganisationResponse;
 
     return mapped;

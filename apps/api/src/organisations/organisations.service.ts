@@ -34,20 +34,14 @@ export class OrganisationsService {
         ...(filter?.location && { location: filter.location as any }),
         //fix enums later;
       },
-      select: {
+      include: {
         _count: {
           select: {
             Exponats: true,
-            UserOrganisationFollowers: true,
             OrganisationUsers: true,
+            UserOrganisationFollowers: true,
           },
         },
-        id: true,
-        name: true,
-        location: true,
-        websiteUrl: true,
-        mainImage: true,
-        updatedAt: true,
         Exponats: {
           select: {
             _count: {
@@ -71,35 +65,9 @@ export class OrganisationsService {
       where: {
         id,
       },
-      select: {
-        _count: {
-          select: {
-            Exponats: true,
-            UserOrganisationFollowers: true,
-            OrganisationUsers: true,
-          },
-        },
-        id: true,
-        name: true,
-        location: true,
-        websiteUrl: true,
-        mainImage: true,
-        otherImages: true,
-        description: true,
-        createdAt: true,
-        email: true,
-        OrganisationPosts: true,
-        updatedAt: true,
+      include: {
         Exponats: {
-          select: {
-            id: true,
-            name: true,
-            mainImage: true,
-            alternateName: true,
-            organisationId: true,
-            updatedAt: true,
-            description: true,
-            //later add isFavourite check for user or make a separate endpoint
+          include: {
             _count: {
               select: {
                 FavouriteExponat: true,
@@ -107,6 +75,10 @@ export class OrganisationsService {
             },
           },
         },
+        _count: true,
+        OrganisationPosts: true,
+        UserOrganisationFollowers: true,
+        OrganisationUsers: true,
       },
     });
 
