@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { CreateOrganisationDto } from './dto/create-organisation.dto';
 import { UpdateOrganisationDto } from './dto/update-organisation.dto';
-import { PrismaService } from 'src/Prisma/prisma.service';
+import { PrismaService } from 'src/prisma/prisma.service';
 import { OrganisationQuery } from '../../../../packages/types/organisation/organisationRequests';
 import {
   PaginationRequest,
