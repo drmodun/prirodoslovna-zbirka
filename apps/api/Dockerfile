@@ -23,7 +23,7 @@ WORKDIR /app
 COPY --from=installer /app/ .
 COPY --from=builder /app/out/full/ .
 COPY .gitignore .gitignore
-RUN yarn turbo run build --filter=api...
+RUN yarn turbo run build
 FROM node:16-alpine as runner
 WORKDIR /app
 COPY --from=sourcer /app/ .
