@@ -20,6 +20,9 @@ export enum SortingEnum {
   COUNTY = "county",
   POST_AMOUNT = "postAmount",
   POINTS = "points",
+  FOLLOWERS = "followers",
+  FOLLOWING = "following",
+  FOLLOWERS_ORGANISATION = "followersOrganisation",
   //...
 }
 
@@ -48,6 +51,18 @@ export const sortQueryBuilder = (request: SortingRequest) => {
     case SortingEnum.POST_AMOUNT:
       return {
         posts: {
+          _count: request.direction,
+        },
+      };
+    case SortingEnum.FOLLOWERS:
+      return {
+        followers: {
+          _count: request.direction,
+        },
+      };
+    case SortingEnum.FOLLOWING:
+      return {
+        following: {
           _count: request.direction,
         },
       };
