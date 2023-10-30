@@ -5,6 +5,7 @@ import { AppService } from './app.service';
 import { validationSchemaForEnv } from './config/environment-variables';
 import { PrismaModule } from './prisma/prisma.module';
 import { OrganisationsModule } from './organisations/organisations.module';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { OrganisationsModule } from './organisations/organisations.module';
     }),
     PrismaModule,
     OrganisationsModule,
+    UsersModule,
   ],
   controllers: [AppController],
   providers: [AppService],
