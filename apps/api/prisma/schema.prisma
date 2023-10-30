@@ -77,10 +77,10 @@ model User {
   role                     Role                      @default(USER)
   createdAt                DateTime                  @default(now())
   updatedAt                DateTime                  @default(now()) @updatedAt
-  Posts                    Posts?
+  Posts                    Post[]
   location                 County
   OrganisationUser         OrganisationUser[]
-  Likes                    Likes?
+  Likes                    Like[]
   FavouriteExponat         FavouriteExponat?
   UserOrganisationFollower UserOrganisationFollower?
   followers                UserFollows[]             @relation("following")
@@ -124,7 +124,7 @@ model Organisation {
   UserOrganisationFollowers UserOrganisationFollower[]
 }
 
-model Posts {
+model Post {
   id         String   @id @default(uuid())
   title      String
   images     String[]
@@ -133,7 +133,7 @@ model Posts {
   authorId   String   @unique
   author     User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
   isApproved Boolean  @default(false)
-  Likes      Likes[]
+  Likes      Like[]
 }
 
 model SocialPost {
@@ -160,12 +160,12 @@ model OrganisationUser {
   @@id([organisationId, userId])
 }
 
-model Likes {
+model Like {
   createdAt DateTime @default(now())
   userId    String   @unique
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   postId    String
-  post      Posts    @relation(fields: [postId], references: [id], onDelete: Cascade)
+  Post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
 
   @@id([postId, userId])
 }
