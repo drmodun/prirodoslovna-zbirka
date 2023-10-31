@@ -24,7 +24,7 @@ export class OrganisationsService {
     sorting?: SortingRequest,
     pagination?: PaginationRequest,
   ) {
-    const sort = sortQueryBuilder(sorting);
+    const sort = sorting && sortQueryBuilder(sorting);
 
     const result = await this.prisma.organisation.findMany({
       where: {
@@ -42,6 +42,7 @@ export class OrganisationsService {
             UserOrganisationFollowers: true,
           },
         },
+
         Exponats: {
           select: {
             _count: {
@@ -52,7 +53,7 @@ export class OrganisationsService {
           },
         },
       },
-      orderBy: sort,
+      ...(sort && { orderBy: sort }),
       skip: (pagination?.page - 1) * pagination?.size,
       take: pagination?.size,
     });
