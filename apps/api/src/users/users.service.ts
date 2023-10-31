@@ -60,10 +60,9 @@ export class UsersService {
   }
 
   async findOne(id: string) {
+    console.log(id);
     return await this.prisma.user.findUniqueOrThrow({
-      where: {
-        id: id,
-      },
+      where: { id: id },
       include: {
         _count: true,
         Posts: {
