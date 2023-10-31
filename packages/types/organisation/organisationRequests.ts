@@ -7,6 +7,7 @@ export interface CreateOrganisationRequest {
   websiteUrl: string;
   mainImage: string;
   otherImages: string[];
+  email: string;
 }
 
 export interface UpdateOrganisationRequest {
@@ -16,4 +17,9 @@ export interface UpdateOrganisationRequest {
   websiteUrl?: string;
   mainImage?: string;
   otherImages?: string[];
+}
+
+export interface OrganisationQuery {
+  name?: string;
+  location?: County;
 }

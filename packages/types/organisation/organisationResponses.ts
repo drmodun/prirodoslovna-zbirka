@@ -1,9 +1,10 @@
 import { Role } from "../enums";
 import { ExponatResponseShort } from "../exponat/exponatResponses";
-
+import { ShortSocialPostResponse } from "../socialPost/socialPostResponses";
 export interface ExtendedOrganisationResponse {
   id: string;
   name: string;
+  email: string;
   description: string;
   location: string;
   websiteUrl: string;
@@ -12,11 +13,11 @@ export interface ExtendedOrganisationResponse {
   createdAt: Date;
   updatedAt: Date;
   followersAmount: number;
+  membersAmount: number;
   isFollowing: boolean;
-  role?: Role;
-  isFavorite?: boolean;
-  favouriteCount: number;
   exponats: ExponatResponseShort[];
+  points: number;
+  posts: ShortSocialPostResponse[];
 }
 
 export interface OrganisationResponseShort {
@@ -26,6 +27,9 @@ export interface OrganisationResponseShort {
   websiteUrl: string;
   mainImage: string;
   updatedAt: Date;
-  isFavorite?: boolean;
-  favouriteCount: number;
+  isFollowed?: boolean;
+  exponatCount: number;
+  followerCount: number;
+  memberCount: number;
+  points: number;
 }

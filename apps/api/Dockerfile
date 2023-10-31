@@ -22,9 +22,10 @@ FROM node:16-alpine AS sourcer
 WORKDIR /app
 COPY --from=installer /app/ .
 COPY --from=builder /app/out/full/ .
+COPY .env .env
+COPY turbo.json turbo.json
 COPY .gitignore .gitignore
-RUN yarn turbo run build --scope=api --include-dependencies --no-deps
-
+RUN yarn turbo run build
 FROM node:16-alpine as runner
 WORKDIR /app
 COPY --from=sourcer /app/ .

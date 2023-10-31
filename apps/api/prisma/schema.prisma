@@ -2,13 +2,14 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["fullTextSearch"]
 }
 
 datasource db {
-  provider  = "postgresql"
-  url       = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL")
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL") // if using neondb cloud db
 }
 
 enum Role {
@@ -106,21 +107,21 @@ model Exponat {
 }
 
 model Organisation {
-  id                       String                     @id @default(uuid())
-  name                     String
-  websiteUrl               String
-  description              String
-  email                    String
-  isApproved               Boolean                    @default(false)
-  mainImage                String
-  otherImages              String[]
-  createdAt                DateTime                   @default(now())
-  updatedAt                DateTime                   @default(now()) @updatedAt
-  location                 County
-  OrganisationPost         SocialPost?
-  Exponat                  Exponat[]
-  OrganisationUser         OrganisationUser[]
-  UserOrganisationFollower UserOrganisationFollower[]
+  id                        String                     @id @default(uuid())
+  name                      String
+  websiteUrl                String
+  description               String
+  email                     String                     @unique
+  isApproved                Boolean                    @default(false)
+  mainImage                 String
+  otherImages               String[]
+  createdAt                 DateTime                   @default(now())
+  updatedAt                 DateTime                   @default(now()) @updatedAt
+  location                  County
+  OrganisationPosts         SocialPost[]
+  Exponats                  Exponat[]
+  OrganisationUsers         OrganisationUser[]
+  UserOrganisationFollowers UserOrganisationFollower[]
 }
 
 model Posts {
@@ -139,7 +140,7 @@ model SocialPost {
   id           String       @id @default(uuid())
   title        String
   text         String
-  images       String
+  images       String[]
   createdAt    DateTime     @default(now())
   updatedAt    DateTime     @default(now()) @updatedAt
   authorId     String       @unique
