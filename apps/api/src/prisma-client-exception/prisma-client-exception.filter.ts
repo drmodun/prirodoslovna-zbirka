@@ -70,6 +70,7 @@ export class PrismaClientExceptionFilter extends BaseExceptionFilter {
 
       default:
         // default 500 error code
+        console.error(exception);
         super.catch(exception, host);
         break;
     }
