@@ -13,7 +13,7 @@ export interface ExtendedUserResponse {
   avatar: string;
   followerCount: number;
   followingCount: number;
-
+  location: string;
   //not sure if this is needed here
   likedPosts: PostResponse[];
 

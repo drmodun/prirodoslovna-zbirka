@@ -29,7 +29,7 @@ export class UsersService {
     sorting?: SortingRequest,
     pagination?: PaginationRequest,
   ) {
-    const sort = sortQueryBuilder(sorting);
+    const sort = sorting && sortQueryBuilder(sorting);
 
     return await this.prisma.user.findMany({
       where: {
@@ -43,7 +43,8 @@ export class UsersService {
         ...(filter?.role && { role: filter.role as any }),
       },
 
-      orderBy: sort,
+      ...(sort && { orderBy: sort }),
+
       skip: (pagination?.page - 1) * pagination?.size,
       take: pagination?.size,
 

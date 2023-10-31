@@ -24,6 +24,7 @@ export class RegisterUserDto {
   location: County;
 
   @IsString()
+  @ApiProperty()
   //later make this behave differently for blob storage
   profileImage: string;
 

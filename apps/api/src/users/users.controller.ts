@@ -120,6 +120,7 @@ export class UsersController {
       createdAt: item.createdAt,
       updatedAt: item.updatedAt,
       posts: posts,
+      location: item.location,
       likedPosts: likedPosts,
       followingCount: item._count.following,
     };
