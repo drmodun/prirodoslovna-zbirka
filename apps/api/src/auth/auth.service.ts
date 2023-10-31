@@ -22,7 +22,7 @@ export class AuthService {
 
     const user = await this.prismaService.user.findUnique({
       where: {
-        email
+        email,
       },
     });
 
