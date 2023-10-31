@@ -7,11 +7,14 @@ import {
   Param,
   Delete,
   Query,
+  UseGuards,
+  Req,
+  UnauthorizedException,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { RegisterUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { ApiQuery, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { PaginationParams } from 'src/config/pagination';
 import {
   PaginationRequest,
@@ -25,6 +28,7 @@ import {
   ShortUserResponse,
 } from '../../../../packages/types/user/userResponses';
 import { PostResponse } from '../../../../packages/types/post/postResponse';
+import { JwtAuthGuard } from 'src/auth/jwt-auth-guard';
 
 @Controller('users')
 @ApiTags('users')
@@ -80,52 +84,57 @@ export class UsersController {
 
   @Get(':id')
   async findOne(@Param('id') id: string) {
-    const item = await this.usersService.findOne(id);
+    try {
+      const item = await this.usersService.findOne(id);
 
-    const posts: PostResponse[] = item.Posts.map((post) => {
-      return {
-        authorAvatar: item.profileImage,
-        authorId: item.id,
-        authorName: item.firstName + ' ' + item.lastName,
-        id: post.id,
-        images: post.images,
-        likeScore: post._count.Likes,
-        title: post.title,
-        exponatId: post.Exponat.id,
-        exponatName: post.Exponat.name,
+      const posts: PostResponse[] = item.Posts.map((post) => {
+        return {
+          authorAvatar: item.profileImage,
+          authorId: item.id,
+          authorName: item.firstName + ' ' + item.lastName,
+          id: post.id,
+          images: post.images,
+          likeScore: post._count.Likes,
+          title: post.title,
+          exponatId: post.Exponat.id,
+          exponatName: post.Exponat.name,
+        };
+      });
+
+      const likedPosts: PostResponse[] = item.Likes.map((like) => {
+        return {
+          authorAvatar: like.Post.author.profileImage,
+          authorId: like.Post.author.id,
+          authorName:
+            like.Post.author.firstName + ' ' + like.Post.author.lastName,
+          id: like.Post.id,
+          images: like.Post.images,
+          likeScore: like.Post._count.Likes,
+          title: like.Post.title,
+          exponatId: like.Post.Exponat.id,
+          exponatName: like.Post.Exponat.name,
+        };
+      });
+      const mapped: ExtendedUserResponse = {
+        email: item.email,
+        firstName: item.firstName,
+        lastName: item.lastName,
+        followerCount: item._count.followers,
+        id: item.id,
+        avatar: item.profileImage,
+        createdAt: item.createdAt,
+        updatedAt: item.updatedAt,
+        posts: posts,
+        location: item.location,
+        likedPosts: likedPosts,
+        followingCount: item._count.following,
       };
-    });
 
-    const likedPosts: PostResponse[] = item.Likes.map((like) => {
-      return {
-        authorAvatar: like.Post.author.profileImage,
-        authorId: like.Post.author.id,
-        authorName:
-          like.Post.author.firstName + ' ' + like.Post.author.lastName,
-        id: like.Post.id,
-        images: like.Post.images,
-        likeScore: like.Post._count.Likes,
-        title: like.Post.title,
-        exponatId: like.Post.Exponat.id,
-        exponatName: like.Post.Exponat.name,
-      };
-    });
-    const mapped: ExtendedUserResponse = {
-      email: item.email,
-      firstName: item.firstName,
-      lastName: item.lastName,
-      followerCount: item._count.followers,
-      id: item.id,
-      avatar: item.profileImage,
-      createdAt: item.createdAt,
-      updatedAt: item.updatedAt,
-      posts: posts,
-      location: item.location,
-      likedPosts: likedPosts,
-      followingCount: item._count.following,
-    };
-
-    return mapped;
+      return mapped;
+    } catch (e) {
+      console.log(e);
+      throw new UnauthorizedException();
+    }
   }
 
   @Patch(':id')
@@ -133,8 +142,10 @@ export class UsersController {
     return (await this.usersService.update(id, updateUserDto)) !== null;
   }
 
-  @Delete(':id')
-  async remove(@Param('id') id: string) {
-    return (await this.usersService.remove(id)) !== null;
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
+  @Delete()
+  async remove(@Req() req: any) {
+    return (await this.usersService.remove(req.user.id)) !== null;
   }
 }

@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { RegisterUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { PrismaService } from 'src/Prisma/prisma.service';
@@ -9,6 +9,7 @@ import {
   SortingRequest,
   sortQueryBuilder,
 } from '../../../../packages/types/query';
+import { NotFoundError } from 'rxjs';
 
 @Injectable()
 export class UsersService {
@@ -60,8 +61,7 @@ export class UsersService {
   }
 
   async findOne(id: string) {
-    console.log(id);
-    return await this.prisma.user.findUniqueOrThrow({
+     const user = await this.prisma.user.findUnique({
       where: { id: id },
       include: {
         _count: true,
@@ -103,6 +103,8 @@ export class UsersService {
         },
       },
     });
+
+    return user;
   }
 
   async update(id: string, updateUserDto: UpdateUserDto) {
