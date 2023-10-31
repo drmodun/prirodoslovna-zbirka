@@ -73,6 +73,7 @@ model User {
   firstName                String
   lastName                 String
   password                 String
+  profileImage             String
   activationCode           String                    @default(uuid()) //this creates unique code for user
   role                     Role                      @default(USER)
   createdAt                DateTime                  @default(now())
@@ -104,6 +105,7 @@ model Exponat {
   Organisation     Organisation?      @relation(fields: [organisationId], references: [id])
   organisationId   String?
   FavouriteExponat FavouriteExponat[]
+  Posts            Post[]
 }
 
 model Organisation {
@@ -134,6 +136,8 @@ model Post {
   author     User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
   isApproved Boolean  @default(false)
   Likes      Like[]
+  ExponatId  String?
+  Exponat    Exponat? @relation(fields: [ExponatId], references: [id])
 }
 
 model SocialPost {

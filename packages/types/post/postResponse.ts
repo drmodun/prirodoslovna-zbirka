@@ -1,14 +1,13 @@
 export interface PostResponse {
   id: string;
   title: string;
-  content: string;
   images: string[];
   authorId: string;
   authorName: string;
-  approved: boolean;
   authorAvatar: string;
   likeScore: number;
-  isLiked?: boolean;
+  exponatId: string;
+  exponatName: string;
   // add likes and stuff
 }
 

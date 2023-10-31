@@ -18,8 +18,6 @@ export interface ExponatExtendedResponse {
   categorizationId: string;
   cateforization: CategorizationResponse;
   posts: PostResponse[];
-
-  isFavorite?: boolean;
   favouriteCount: number;
 }
 
@@ -32,7 +30,6 @@ export interface ExponatResponseShort {
   organizationId: string;
   organizationName: string;
   updatedAt: Date;
-  isFavorite?: boolean;
   favouriteCount: number;
   //"Shorts" are designed for card format
 }

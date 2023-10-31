@@ -5,7 +5,7 @@ export interface RegisterRequest extends LoginRequest {
   firstName: string;
   lastName: string;
   location: County;
-  profilePicture: string;
+  profileImage: string;
   email: string;
   password: string;
 }

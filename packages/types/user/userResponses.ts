@@ -11,19 +11,14 @@ export interface ExtendedUserResponse {
   lastName: string;
   email: string;
   avatar: string;
-  role: number;
   followerCount: number;
   followingCount: number;
-  isFollowing: boolean;
-  isFollower: boolean;
+
   //not sure if this is needed here
   likedPosts: PostResponse[];
-  favouriteExponats: ExponatResponseShort[];
 
   createdAt: Date;
   updatedAt: Date;
-
-  memberOrganisations: OrganisationResponseShort[];
 
   posts: PostResponse[];
 }

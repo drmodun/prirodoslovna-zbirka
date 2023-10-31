@@ -5,7 +5,6 @@ import {
   IsEnum,
   IsString,
   IsStrongPassword,
-  IsUrl,
   MinLength,
 } from 'class-validator';
 
@@ -26,7 +25,7 @@ export class RegisterUserDto {
 
   @IsString()
   //later make this behave differently for blob storage
-  profilePicture: string;
+  profileImage: string;
 
   @IsStrongPassword()
   @ApiProperty()
