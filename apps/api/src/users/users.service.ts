@@ -8,7 +8,7 @@ import {
   PaginationRequest,
   SortingRequest,
   sortQueryBuilder,
-} from 'dist/packages/types/query';
+} from '../../../../packages/types/query';
 
 @Injectable()
 export class UsersService {
@@ -65,15 +65,35 @@ export class UsersService {
       },
       include: {
         _count: true,
-        Posts: true,
-        OrganisationUser: {
+        Posts: {
           include: {
-            organisation: true,
+            _count: {
+              select: {
+                Likes: true,
+              },
+            },
+            Exponat: {
+              select: {
+                name: true,
+                id: true,
+              },
+            },
           },
         },
+
         Likes: {
           include: {
-            Post: true,
+            Post: {
+              include: {
+                Exponat: true,
+                author: true,
+                _count: {
+                  select: {
+                    Likes: true,
+                  },
+                },
+              },
+            },
           },
         },
         FavouriteExponat: {

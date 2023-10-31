@@ -3,7 +3,6 @@ export interface ShortSocialPostResponse {
   title: string;
   text: string;
   images: string[];
-  isApproved: boolean;
   organisationId: string;
   organisationName: string;
   organisationMainImage: string;
