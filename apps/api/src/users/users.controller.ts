@@ -29,6 +29,7 @@ import {
 } from '../../../../packages/types/user/userResponses';
 import { PostResponse } from '../../../../packages/types/post/postResponse';
 import { JwtAuthGuard } from 'src/auth/jwt-auth-guard';
+import { Role } from '@prisma/client';
 
 @Controller('users')
 @ApiTags('users')
@@ -137,9 +138,39 @@ export class UsersController {
     }
   }
 
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @Patch(':id')
-  async update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
+  async adminUpdate(
+    @Param('id') id: string,
+    @Body() updateUserDto: UpdateUserDto,
+    @Req() req: any,
+  ) {
+    if (req.user.role !== Role.ADMIN) {
+      throw new UnauthorizedException();
+    }
+
     return (await this.usersService.update(id, updateUserDto)) !== null;
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
+  @Delete(':id')
+  async adminDelete(@Param('id') id: string, @Req() req: any) {
+    if (req.user.role !== Role.ADMIN) {
+      throw new UnauthorizedException();
+    }
+
+    return (await this.usersService.remove(id)) !== null;
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
+  @Patch()
+  async update(@Body() updateUserDto: UpdateUserDto, @Req() req: any) {
+    return (
+      (await this.usersService.update(req.user.id, updateUserDto)) !== null
+    );
   }
 
   @UseGuards(JwtAuthGuard)
