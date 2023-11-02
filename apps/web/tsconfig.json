@@ -16,6 +16,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
+    "baseUrl": "./src",
     "incremental": true,
     "plugins": [
       {
@@ -24,8 +25,16 @@
     ],
     "paths": {
       "@/*": [
-        "./src/*"
-      ]
+        "./app/*"
+      ],
+      "styles/*": ["./styles/*"],
+      "assets/*": ["./assets/*"],
+      "components/*": ["./components/*"],
+      "utils/*": ["./utils/*"],
+      "api/*": ["./api/*"],
+      "shared/*": ["./shared/*"],
+      
+      
     },
     "forceConsistentCasingInFileNames": true
   },
