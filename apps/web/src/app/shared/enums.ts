@@ -1,11 +1,11 @@
-enum InputType {
+export enum InputType {
   PASSWORD,
   TEXT,
   FILE,
   NUMBER,
 }
 
-enum ButtonColor {
-  GREEN,
-  BLUE,
+export enum ButtonColor {
+  GREEN = "green",
+  BLUE = "blue",
 }
