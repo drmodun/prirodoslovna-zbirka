@@ -1,4 +1,3 @@
-"use client";
 import Image from "next/image";
 import styles from "./page.module.scss";
 import BaseButton from "components/BaseButton";
@@ -6,11 +5,6 @@ import { ButtonColor } from "./shared/enums";
 export default function Home() {
   return (
     <main className={styles.main}>
-      <BaseButton
-        onClick={() => console.log("clicked")}
-        text="Click me"
-        initColor={ButtonColor.BLUE}
-      ></BaseButton>
       <div className={styles.description}>
         <p>
           Get started by editing&nbsp;
