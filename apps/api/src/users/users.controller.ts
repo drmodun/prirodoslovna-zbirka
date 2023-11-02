@@ -10,6 +10,7 @@ import {
   UseGuards,
   Req,
   UnauthorizedException,
+  NotFoundException,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { RegisterUserDto } from './dto/create-user.dto';
@@ -85,6 +86,7 @@ export class UsersController {
 
   @Get(':id')
   async findOne(@Param('id') id: string) {
+    console.log('idhfidsf');
     try {
       const item = await this.usersService.findOne(id);
 
@@ -133,8 +135,8 @@ export class UsersController {
 
       return mapped;
     } catch (e) {
-      console.log(e);
-      throw new UnauthorizedException();
+      console.log(e, 1);
+      throw new NotFoundException();
     }
   }
 
