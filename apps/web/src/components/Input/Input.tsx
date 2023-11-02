@@ -1,3 +1,4 @@
+"use client";
 import { FieldValues, UseFormReturn } from "react-hook-form";
 import classes from "./Input.module.scss";
 import Image from "next/image";
