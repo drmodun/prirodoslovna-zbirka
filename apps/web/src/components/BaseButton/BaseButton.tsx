@@ -6,7 +6,7 @@ import { ButtonColor } from "@/shared/enums";
 
 export interface BaseButtonPros {
   text: string;
-  onClick: () => void;
+  onClick?: () => void;
   initColor?: ButtonColor;
 }
 

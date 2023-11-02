@@ -7,7 +7,7 @@ import toast from "react-hot-toast";
 const login = (data: LoginRequest) =>
   api.post<never, JWTResponse>("/auth/login", data);
 
-export const useLogin = (navigate: () => void) => {
+export const useLogin = () => {
   return useMutation(login, {
     onMutate: () => {
       return { toastId: toast.loading("Logging in...") };
@@ -15,8 +15,6 @@ export const useLogin = (navigate: () => void) => {
     onSuccess: ({ access_token }, _variables, context) => {
       localStorage.setItem("access_token", access_token);
       toast.success("Logged in successfully!", { id: context?.toastId });
-
-      navigate();
     },
     onError: (error: string, _variables, context) => {
       toast.error(error, { id: context?.toastId });
