@@ -1,0 +1,50 @@
+@import "styles/calc.scss";
+@import "styles/variables.scss";
+
+.button {
+  border: none;
+  border-radius: vw-calc(30) vw-calc(30) vw-calc(8) vw-calc(30);
+  box-shadow: 0 0 vw-calc(8) rgba(0, 0, 0, 0.15);
+
+  &:hover {
+    box-shadow: 0 0 vw-calc(8) rgba(0, 0, 0, 0.25);
+  }
+
+  &:active {
+    box-shadow: 0 0 vw-calc(8) rgba(0, 0, 0, 0.35);
+  }
+
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  min-width: vw-calc(200);
+  padding: vw-calc(15) vw-calc(30);
+  font-size: vw-calc(16);
+  height: vw-calc(60);
+
+  &.green {
+    background-color: $green;
+    color: $primary;
+
+    &:hover {
+      background-color: darken($green, 5%);
+    }
+
+    &:active {
+      background-color: darken($green, 10%);
+    }
+  }
+
+  &.blue {
+    background-color: $primary;
+    color: $blue;
+
+    &:hover {
+      background-color: darken($blue, 5%);
+    }
+
+    &:active {
+      background-color: darken($blue, 10%);
+    }
+  }
+}
