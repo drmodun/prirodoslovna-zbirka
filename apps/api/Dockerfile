@@ -22,7 +22,6 @@ FROM node:16-alpine AS sourcer
 WORKDIR /app
 COPY --from=installer /app/ .
 COPY --from=builder /app/out/full/ .
-COPY turbo.json turbo.json
 COPY .gitignore .gitignore
 RUN yarn turbo run build
 FROM node:16-alpine as runner
