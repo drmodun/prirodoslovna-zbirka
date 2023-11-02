@@ -5,7 +5,9 @@ export interface RegisterRequest extends LoginRequest {
   firstName: string;
   lastName: string;
   location: County;
-  profilePicture: string;
+  profileImage: string;
+  email: string;
+  password: string;
 }
 
 export interface UpdateUserInfoRequest {
@@ -15,3 +17,9 @@ export interface UpdateUserInfoRequest {
   profilePicture?: string;
 }
 
+export interface UserQuery {
+  name?: string;
+  location?: County;
+  organisation?: string;
+  role?: number;
+}

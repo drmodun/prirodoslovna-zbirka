@@ -1,4 +1,7 @@
-import { ExponatExtendedResponse } from "../exponat/exponatResponses";
+import {
+  ExponatExtendedResponse,
+  ExponatResponseShort,
+} from "../exponat/exponatResponses";
 import { OrganisationResponseShort } from "../organisation/organisationResponses";
 import { PostResponse } from "../post/postResponse";
 
@@ -8,29 +11,25 @@ export interface ExtendedUserResponse {
   lastName: string;
   email: string;
   avatar: string;
-  role: number;
   followerCount: number;
   followingCount: number;
-  isFollowing: boolean;
-  isFollower: boolean;
+  location: string;
   //not sure if this is needed here
   likedPosts: PostResponse[];
-  favouriteExponats: ExponatExtendedResponse[];
 
   createdAt: Date;
   updatedAt: Date;
 
-  memberOrganisations: OrganisationResponseShort[];
-
   posts: PostResponse[];
-  exponats: ExponatExtendedResponse[];
 }
 
-export interface SmallUserResponse {
+export interface ShortUserResponse {
   id: string;
   firstName: string;
   lastName: string;
   email: string;
-  avatar: string;
-  role: number;
+  avatar?: string;
+  role?: number;
+  followerCount: number;
+  postCount: number;
 }

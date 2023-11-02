@@ -53,7 +53,7 @@ export class OrganisationsController {
     return mapped;
   }
 
-  @Get('/short')
+  @Get()
   @ApiQuery({ name: 'page', required: false })
   @ApiQuery({ name: 'size', required: false })
   @ApiQuery({ name: 'name', required: false })

@@ -14,7 +14,6 @@ export interface ExtendedOrganisationResponse {
   updatedAt: Date;
   followersAmount: number;
   membersAmount: number;
-  isFollowing: boolean;
   exponats: ExponatResponseShort[];
   points: number;
   posts: ShortSocialPostResponse[];
@@ -27,7 +26,6 @@ export interface OrganisationResponseShort {
   websiteUrl: string;
   mainImage: string;
   updatedAt: Date;
-  isFollowed?: boolean;
   exponatCount: number;
   followerCount: number;
   memberCount: number;
