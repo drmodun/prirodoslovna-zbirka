@@ -12,12 +12,18 @@
     "test:ci": "jest --ci"
   },
   "dependencies": {
+    "@hookform/resolvers": "^3.3.2",
     "@types/react": "^18.2.34",
+    "axios": "^1.6.0",
     "clsx": "^2.0.0",
     "next": "13.5.4",
     "react": "^18",
     "react-dom": "^18",
-    "sass": "^1.69.5"
+    "react-hook-form": "^7.47.0",
+    "react-hot-toast": "^2.4.1",
+    "react-query": "^3.39.3",
+    "sass": "^1.69.5",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "@types/node": "^20",
