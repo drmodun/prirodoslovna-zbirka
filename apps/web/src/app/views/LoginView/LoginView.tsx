@@ -16,9 +16,6 @@ const LoginView = () => (
         <SignInForm />
       </QueryClientWrapper>
     </div>
-    <div className={classes.wave}>
-      <Image layout={"fill"} src={wave} alt="val" />
-    </div>
   </div>
 );
 
