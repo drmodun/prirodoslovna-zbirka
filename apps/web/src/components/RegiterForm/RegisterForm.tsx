@@ -12,12 +12,45 @@ import classes from "./SignInForm.module.scss";
 import Link from "next/link";
 import { ButtonColor } from "@/shared/enums";
 import { QueryClient, QueryClientProvider } from "react-query";
+import { County } from "../../../../../packages/types/enums";
 
-export const SignInForm = () => {
-  const schema = z.object({
-    email: z.string().email(),
-    password: z.string().min(6).max(100),
-  });
+export const ReegisterForm = () => {
+  const schema = z
+    .object({
+      firstName: z.string().min(2).max(100),
+      lastName: z.string().min(2).max(100),
+      location: z.enum([
+        "SPLITSKO_DALMATINSKA",
+        "DUBROVACKO_NERETVANSKA",
+        "SIBENSKO_KNINSKA",
+        "ZADARSKA",
+        "ZAGREBACKA",
+        "KARLOVACKA",
+        "VARAZDINSKA",
+        "KOPRIVNICKO_KRIZEVACKA",
+        "KRAPINSKO_ZAGORSKA",
+        "MEDIMURSKA",
+        "OSIJECKO_BARANJSKA",
+        "POZESKO_SLAVONSKA",
+        "PRIMORSKO_GORANSKA",
+        "SISACKO_MOSLAVACKA",
+        "VUKOVARSKO_SRIJEMSKA",
+        "GRAD_ZAGREB",
+        "BJELOVARSKO_BILOGORSKA",
+        "BRODSKO_POSAVSKA",
+        "ISTARSKA",
+        "LICKO_SENJSKA",
+        "VIROVITICKO_PODRAVSKA",
+        "OTHER",
+      ]),
+      email: z.string().email(),
+      password: z.string().min(6).max(100),
+      passwordConfirmation: z.string().min(6).max(100),
+    })
+    .refine((data) => data.password === data.passwordConfirmation, {
+      message: "Passwords don't match",
+      path: ["passwordConfirmation"],
+    });
 
   const form = useForm({
     resolver: zodResolver(schema),
@@ -31,11 +64,32 @@ export const SignInForm = () => {
 
   return (
     <form onSubmit={form.handleSubmit(onSubmit)} className={classes.form}>
+      <Input
+        form={form}
+        attribute="firstName"
+        question="First Name"
+        image={email}
+      />
+      <Input
+        form={form}
+        attribute="lastName"
+        question="Last Name"
+        image={email}
+      />
+      
       <Input form={form} attribute="email" question="Email" image={email} />
       <Input
         form={form}
         attribute="password"
         question="Password"
+        isPassword
+        image={password}
+        isDisabled={login.isLoading}
+      />
+      <Input
+        form={form}
+        attribute="passwordConfirmation"
+        question="Password Confirmation"
         isPassword
         image={password}
         isDisabled={login.isLoading}
