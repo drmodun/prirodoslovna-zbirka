@@ -2,23 +2,25 @@
 @import "styles/calc";
 
 .container {
-  width: vw-calc(150);
-  height: vw-calc(150);
+  width: vw-calc(200);
+  height: vw-calc(200);
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 
   .drop {
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
+    position: relative;
+    width: vw-calc(200);
+    height: vw-calc(200);
   }
 
   .user {
-    img {
-      width: vw-calc(65);
-      height: vw-calc(65);
-      object-fit: cover;
-    }
+    position: relative;
+    top: vw-calc(-120);
+    width: vw-calc(65);
+    height: vw-calc(65);
+    z-index: 2;
   }
 }
