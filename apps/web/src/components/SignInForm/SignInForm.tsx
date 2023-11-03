@@ -7,6 +7,12 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import email from "assets/images/email.svg";
 import BaseButton from "components/BaseButton";
+import classes from "./SignInForm.module.scss";
+import Link from "next/link";
+import { ButtonColor } from "@/shared/enums";
+import { QueryClient, QueryClientProvider } from "react-query";
+
+const queryClient = new QueryClient();
 
 export const SignInForm = () => {
   const schema = z.object({
@@ -25,7 +31,7 @@ export const SignInForm = () => {
   };
 
   return (
-    <form onSubmit={form.handleSubmit(onSubmit)}>
+    <form onSubmit={form.handleSubmit(onSubmit)} className={classes.form}>
       <Input form={form} attribute="email" question="Email" image={email} />
       <Input
         form={form}
@@ -34,7 +40,12 @@ export const SignInForm = () => {
         isPassword
         isDisabled={login.isLoading}
       />
-      <BaseButton text="Sign In" />
+      <div className={classes.buttons}>
+        <BaseButton text="Sign In" />
+        <Link href="/regitration">
+          <BaseButton text="Sign up" initColor={ButtonColor.BLUE} />
+        </Link>
+      </div>
     </form>
   );
 };
