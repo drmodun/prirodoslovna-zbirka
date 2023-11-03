@@ -13,6 +13,7 @@ import Link from "next/link";
 import { ButtonColor } from "@/shared/enums";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { County } from "../../../../../packages/types/enums";
+import { SelectInput } from "components/SelectInput/SelectInput";
 
 export const ReegisterForm = () => {
   const schema = z
@@ -76,7 +77,21 @@ export const ReegisterForm = () => {
         question="Last Name"
         image={email}
       />
-      
+      <SelectInput
+        label="Location"
+        name="location"
+        options={Object.values(County)
+          .filter((county) => county.length > 2)
+          .map((county) => ({
+            label: county
+              .replace("_", "-")
+              .toLowerCase()
+              .charAt(0)
+              .toUpperCase(),
+            value: county,
+          }))}
+        form={form}
+      />
       <Input form={form} attribute="email" question="Email" image={email} />
       <Input
         form={form}
