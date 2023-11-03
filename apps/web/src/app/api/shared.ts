@@ -2,7 +2,7 @@ import axios, { AxiosError, AxiosResponse } from "axios";
 import toast from "react-hot-toast";
 
 export const api = axios.create({
-  baseURL: "/api",
+  baseURL: "http://localhost:5500",
   timeout: 5000,
   headers: {
     "Content-Type": "application/json",

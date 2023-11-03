@@ -26,13 +26,17 @@ export const Input = ({
   const { register } = form;
   return (
     <div className={classes.container}>
-      <label htmlFor="question">{question}</label>
-      {image && <Image src={image} alt={question} className={classes.image} />}
+      {image && (
+        <div className={classes.image}>
+          <Image layout="fill" src={image} alt={question} />{" "}
+        </div>
+      )}
       <input
         {...register(attribute)}
         type={isPassword ? "password" : "text"}
         className={clsx(classes.input, classes[status])}
         disabled={isDisabled}
+        placeholder={question}
       />
     </div>
   );
