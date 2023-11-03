@@ -27,17 +27,15 @@ export const SelectInput = ({
   const { register } = form;
   return (
     <div className={classes.container}>
-      <label htmlFor={name} className={classes.label}>
-        {label}
-      </label>
       <select
         {...register(name)}
         className={classes.select}
         disabled={isDisabled}
+        placeholder={label}
       >
         {options.map((option) => (
-          <option key={option} value={option}>
-            {option}
+          <option key={option.value} value={option.value}>
+            {option.label}
           </option>
         ))}
       </select>

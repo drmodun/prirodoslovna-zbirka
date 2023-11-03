@@ -1,2 +1,28 @@
-.conatiner {
+@import "styles/variables.scss";
+@import "~styles/calc.scss";
+
+.container {
+  width: vw-calc(450);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid $secondary;
+
+  .select {
+    border-radius: vw-calc(30);
+    width: 100%;
+    height: 100%;
+    height: vw-calc(60);
+    padding: vw-calc(15) vw-calc(20);
+    border: none;
+    outline: none;
+    background-color: transparent;
+    font-size: vw-calc(16);
+    color: $text;
+
+    &::placeholder {
+      color: $secondary;
+    }
+  }
 }
