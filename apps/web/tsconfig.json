@@ -33,7 +33,7 @@
       "utils/*": ["./utils/*"],
       "api/*": ["./api/*"],
       "shared/*": ["./shared/*"],
-      "assets/*": ["./assets/*"],
+      "views/*": ["./views/*"],
       
     },
     "forceConsistentCasingInFileNames": true
