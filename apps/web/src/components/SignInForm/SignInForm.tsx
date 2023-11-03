@@ -6,6 +6,7 @@ import Input from "components/Input";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import email from "assets/images/email.svg";
+import password from "assets/images/password.svg";
 import BaseButton from "components/BaseButton";
 import classes from "./SignInForm.module.scss";
 import Link from "next/link";
@@ -38,6 +39,7 @@ export const SignInForm = () => {
         attribute="password"
         question="Password"
         isPassword
+        image={password}
         isDisabled={login.isLoading}
       />
       <div className={classes.buttons}>
