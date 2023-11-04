@@ -8,11 +8,10 @@ import { z } from "zod";
 import email from "assets/images/email.svg";
 import password from "assets/images/password.svg";
 import BaseButton from "components/BaseButton";
-import classes from "./SignInForm.module.scss";
+import classes from "./RegisterForm.module.scss";
 import Link from "next/link";
 import { ButtonColor } from "@/shared/enums";
-import { QueryClient, QueryClientProvider } from "react-query";
-import { County } from "../../../../../packages/types/enums";
+import County from "@biosfera/types";
 import { SelectInput } from "components/SelectInput/SelectInput";
 
 export const ReegisterForm = () => {
