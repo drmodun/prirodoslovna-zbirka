@@ -3,7 +3,7 @@ import {
   createParamDecorator,
   ExecutionContext,
 } from '@nestjs/common';
-import { PaginationRequest } from '../../../../packages/types/query';
+import { PaginationRequest } from '@biosfera/types';
 import { Request } from 'express';
 
 export const PaginationParams = createParamDecorator(

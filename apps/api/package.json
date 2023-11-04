@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "@nestjs/common": "^10.1.3",
+    "@biosfera/types" : "*",
     "@nestjs/config": "^3.0.0",
     "@nestjs/core": "^10.1.3",
     "@nestjs/jwt": "^10.1.1",

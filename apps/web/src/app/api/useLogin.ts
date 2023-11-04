@@ -1,4 +1,4 @@
-import { JWTResponse, LoginRequest } from "../../../../../packages/types/auth";
+import { JWTResponse, LoginRequest } from "@biosfera/types";
 import { useMutation } from "react-query";
 
 import { api } from "./shared";
