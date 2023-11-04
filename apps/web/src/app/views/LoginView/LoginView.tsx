@@ -4,6 +4,7 @@ import classes from "./LoginView.module.scss";
 import wave from "assets/images/wave.svg";
 import { QueryClientWrapper } from "@/utility/wrappers/queryWrapper";
 import Image from "next/image";
+import ReegisterForm from "components/RegiterForm";
 
 const LoginView = () => (
   <div className={classes.container}>
@@ -14,6 +15,7 @@ const LoginView = () => (
     <div className={classes.form}>
       <QueryClientWrapper>
         <SignInForm />
+        <ReegisterForm />
       </QueryClientWrapper>
     </div>
     <div className={classes.wave}>
