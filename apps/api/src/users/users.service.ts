@@ -3,12 +3,12 @@ import { RegisterUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { PrismaService } from 'src/Prisma/prisma.service';
 import * as bcrypt from 'bcrypt';
-import { UserQuery } from '../../../../packages/types/user/userRequests';
+import { UserQuery } from '@biosfera/types';
 import {
   PaginationRequest,
   SortingRequest,
   sortQueryBuilder,
-} from '../../../../packages/types/query';
+} from '@biosfera/types';
 
 @Injectable()
 export class UsersService {

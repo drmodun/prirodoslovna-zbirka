@@ -21,14 +21,11 @@ import {
   PaginationRequest,
   SortingEnum,
   SortingRequest,
-} from '../../../../packages/types/query';
-import { UserQuery } from '../../../../packages/types/user/userRequests';
+} from '@biosfera/types';
+import { UserQuery } from '@biosfera/types';
 import { SortingParams } from '../config/sorting';
-import {
-  ExtendedUserResponse,
-  ShortUserResponse,
-} from '../../../../packages/types/user/userResponses';
-import { PostResponse } from '../../../../packages/types/post/postResponse';
+import { ExtendedUserResponse, ShortUserResponse } from '@biosfera/types';
+import { PostResponse } from '@biosfera/types';
 import { JwtAuthGuard } from 'src/auth/jwt-auth-guard';
 import { Role } from '@prisma/client';
 

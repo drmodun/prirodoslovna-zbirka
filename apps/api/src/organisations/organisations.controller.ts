@@ -16,15 +16,15 @@ import {
   PaginationRequest,
   SortingEnum,
   SortingRequest,
-} from '../../../../packages/types/query';
+} from '@biosfera/types';
 import { SortingParams } from 'src/config/sorting';
-import { OrganisationQuery } from '../../../../packages/types/organisation/organisationRequests';
+import { OrganisationQuery } from '@biosfera/types';
 import {
   ExtendedOrganisationResponse,
   OrganisationResponseShort,
-} from '../../../../packages/types/organisation/organisationResponses';
-import { ExponatResponseShort } from '../../../../packages/types/exponat/exponatResponses';
-import { ShortSocialPostResponse } from '../../../../packages/types/socialPost/socialPostResponses';
+} from '@biosfera/types';
+import { ExponatResponseShort } from '@biosfera/types';
+import { ShortSocialPostResponse } from '@biosfera/types';
 import { ApiQuery, ApiTags } from '@nestjs/swagger';
 import { County } from '@prisma/client';
 @Controller('organisations')
