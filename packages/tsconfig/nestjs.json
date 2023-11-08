@@ -3,12 +3,13 @@
   "extends": "./base.json",
   "compilerOptions": {
     "module": "commonjs",
+    "moduleResolution": "NodeNext",
     "declaration": true,
     "removeComments": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
-    "target": "es2017",
+    "target": "ESNext",
     "sourceMap": true,
     "incremental": true,
     "skipLibCheck": true,
@@ -16,6 +17,7 @@
     "noImplicitAny": false,
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
+    "resolveJsonModule": true,
     "noFallthroughCasesInSwitch": false
   }
 }
