@@ -1,6 +1,4 @@
 {
-  "$schema": "https://json.schemastore.org/tsconfig",
-  "display": "Library",
   "compilerOptions": {
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
@@ -11,5 +9,6 @@
     "noEmit": true,
     "strict": true,
     "strictPropertyInitialization": false
-  }
+  },
+  "exclude": ["node_modules"]
 }
