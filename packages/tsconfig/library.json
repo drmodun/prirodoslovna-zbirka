@@ -1,12 +1,11 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
   "display": "Library",
-  "extends": "./base.json",
   "compilerOptions": {
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
-    "moduleResolution": "NodeNext",
+    "moduleResolution": "node",
     "preserveWatchOutput": true,
     "skipLibCheck": true,
     "noEmit": true,
