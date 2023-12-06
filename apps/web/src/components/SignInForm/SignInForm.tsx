@@ -42,7 +42,7 @@ export const SignInForm = () => {
       />
       <div className={classes.buttons}>
         <BaseButton text="Sign In" />
-        <Link href="/registration">
+        <Link href="/register">
           <BaseButton text="Register" initColor={ButtonColor.BLUE} />
         </Link>
       </div>
