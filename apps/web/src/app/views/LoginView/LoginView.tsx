@@ -15,7 +15,6 @@ const LoginView = () => (
     <div className={classes.form}>
       <QueryClientWrapper>
         <SignInForm />
-        <RegisterForm />
       </QueryClientWrapper>
     </div>
     <div className={classes.wave}>
