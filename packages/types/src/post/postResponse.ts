@@ -4,7 +4,6 @@ export interface PostResponse {
   images: string[];
   authorId: string;
   authorName: string;
-  authorAvatar: string;
   likeScore: number;
   exponatId: string;
   exponatName: string;
