@@ -14,6 +14,7 @@ import { ButtonColor } from "@/shared/enums";
 import { County } from "@biosfera/types";
 import { SelectInput } from "components/SelectInput/SelectInput";
 import { useRegister } from "@/api/useRegister";
+import { makeCountyName } from "@/utility/static/countyNameMaker";
 
 export const ReegisterForm = () => {
   const schema = z
@@ -84,7 +85,7 @@ export const ReegisterForm = () => {
         options={Object.values(County)
           .filter((county) => county.length > 2)
           .map((county) => ({
-            label: county.replace("_", "-").toLowerCase(),
+            label: makeCountyName(county),
             value: county,
           }))}
         form={form}
