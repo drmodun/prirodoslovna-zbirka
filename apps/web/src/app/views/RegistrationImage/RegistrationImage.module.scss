@@ -1,0 +1,28 @@
+@import "styles/variables";
+@import "styles/vw-calc";
+
+.container {
+  width: vw-calc(400);
+  height: vw-calc(250);
+
+  .lion {
+    width: 100%;
+    height: 100%;
+    position: relative;
+  }
+
+  .crystal {
+    width: 50%;
+    height: vw-calc(200);
+    top: vw-calc(50);
+    position: relative;
+  }
+
+  .bacteria {
+    width: 50%;
+    height: vw-calc(400);
+    top: vw-calc(50);
+    right: vw-calc(50);
+    position: relative;
+  }
+}
