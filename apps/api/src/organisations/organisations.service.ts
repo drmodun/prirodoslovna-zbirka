@@ -1,6 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { CreateOrganisationDto } from './dto/create-organisation.dto';
-import { UpdateOrganisationDto } from './dto/update-organisation.dto';
+import {
+  CreateOrganisationDto,
+  UpdateOrganisationDto,
+} from './dto/organisations.dto';
 import { PrismaService } from '../prisma/prisma.service';
 import { OrganisationQuery } from '@biosfera/types';
 import {

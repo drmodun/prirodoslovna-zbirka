@@ -9,8 +9,10 @@ import {
   Query,
 } from '@nestjs/common';
 import { OrganisationsService } from './organisations.service';
-import { CreateOrganisationDto } from './dto/create-organisation.dto';
-import { UpdateOrganisationDto } from './dto/update-organisation.dto';
+import {
+  CreateOrganisationDto,
+  UpdateOrganisationDto,
+} from './dto/organisations.dto';
 import { PaginationParams } from 'src/config/pagination';
 import {
   PaginationRequest,
@@ -60,6 +62,11 @@ export class OrganisationsController {
   @ApiQuery({ name: 'location', required: false, enum: County })
   @ApiQuery({ name: 'attribute', required: false, enum: SortingEnum })
   @ApiQuery({ name: 'direction', required: false, enum: ['asc', 'desc'] })
+  @ApiQuery({
+    name: 'isApproved',
+    required: false,
+    enum: ['true', 'false'],
+  })
   async findAllShort(
     @PaginationParams() paginationParam?: PaginationRequest,
     @SortingParams([SortingEnum.NAME, SortingEnum.COUNTY, SortingEnum.POINTS])
