@@ -1,9 +1,11 @@
 @import "styles/variables";
-@import "styles/vw-calc";
+@import "styles/calc";
 
 .container {
   width: vw-calc(400);
   height: vw-calc(250);
+  flex-direction: row;
+  flex-wrap: wrap;
 
   .lion {
     width: 100%;
@@ -14,14 +16,15 @@
   .crystal {
     width: 50%;
     height: vw-calc(200);
-    top: vw-calc(50);
+    top: vw-calc(-500);
+    left: vw-calc(150);
     position: relative;
   }
 
   .bacteria {
     width: 50%;
     height: vw-calc(400);
-    top: vw-calc(50);
+    top: vw-calc(-250);
     right: vw-calc(50);
     position: relative;
   }

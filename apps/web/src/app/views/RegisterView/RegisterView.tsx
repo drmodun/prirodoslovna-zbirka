@@ -16,7 +16,7 @@ export const RegisterView = () => {
         </div>
         <div className={classes.title}>Registracija</div>
         <div className={classes.description}>
-          Dobrosošli u Prirodoslovnu zbirku! Ispunjavanjem ove forme stvorit
+          Dobrodošli u Prirodoslovnu zbirku! Ispunjavanjem ove forme stvorit
           ćete novi račun s kojim ćete moći pristupiti stranici i njenim
           resursima.
         </div>
