@@ -1,14 +1,47 @@
+import {
+  IsString,
+  MinLength,
+  IsEnum,
+  IsStrongPassword,
+  IsEmail,
+} from "class-validator";
 import { LoginRequest } from "../auth";
 import { County } from "../enums";
 
-export interface RegisterRequest extends LoginRequest {
-  firstName: string;
-  lastName: string;
-  location: County;
-  profileImage: string;
-  email: string;
-  password: string;
-}
+export const getRegisterUserDto = (ApiPropertySwagger?: any) => {
+  const ApiProperty = ApiPropertySwagger || function () {};
+
+  class RegisterUserDto {
+    @IsString()
+    @MinLength(2)
+    @ApiProperty()
+    firstName: string;
+
+    @IsString()
+    @MinLength(2)
+    @ApiProperty()
+    lastName: string;
+
+    @IsEnum(County)
+    @ApiProperty()
+    location: County;
+
+    @IsString()
+    @ApiProperty()
+    //later make this behave differently for blob storage
+    profileImage: string;
+
+    @IsStrongPassword()
+    @ApiProperty()
+    password: string;
+
+    @IsEmail()
+    @ApiProperty()
+    email: string;
+  }
+
+  return RegisterUserDto;
+};
 
 export interface UpdateUserInfoRequest {
   firstName?: string;
