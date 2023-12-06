@@ -2,9 +2,10 @@
 @import "~styles/calc.scss";
 
 .container {
-  width: vw-calc(450);
+  width: vw-calc(400);
   position: relative;
   display: flex;
+  border-radius: vw-calc(30);
   align-items: center;
   justify-content: center;
   border: 1px solid $secondary;
