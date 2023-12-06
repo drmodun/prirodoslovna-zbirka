@@ -99,13 +99,7 @@ export class OrganisationsController {
       } as OrganisationResponseShort;
     });
 
-    return {
-      data: mapped,
-      pagination: {
-        page: paginationParam?.page,
-        pageSize: paginationParam?.size,
-      },
-    };
+    return mapped;
   }
 
   @Get(':id')
