@@ -26,11 +26,6 @@ export const getRegisterUserDto = (ApiPropertySwagger?: any) => {
     @ApiProperty()
     location: County;
 
-    @IsString()
-    @ApiProperty()
-    //later make this behave differently for blob storage
-    profileImage: string;
-
     @IsStrongPassword()
     @ApiProperty()
     password: string;
