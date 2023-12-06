@@ -8,14 +8,14 @@
   ],
   "scripts": {
     "build": "turbo run build",
-    "dev": "turbo run dev --parallel",
+    "dev": "turbo run dev",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
     "prettier": "^3.0.0",
     "prisma": "^5.1.0",
-    "turbo": "1.10.12"
+    "turbo": "^1.10.16"
   },
   "engines": {
     "npm": ">=7.0.0",
