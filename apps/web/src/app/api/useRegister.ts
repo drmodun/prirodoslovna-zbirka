@@ -9,7 +9,7 @@ const registerRequest = getRegisterUserDto();
 export class RegisterRequest extends registerRequest {}
 
 const register = (data: RegisterRequest) =>
-  api.post<never, JWTResponse>("/user", data);
+  api.post<never, JWTResponse>("/users", data);
 
 export const useRegister = () => {
   return useMutation(register, {

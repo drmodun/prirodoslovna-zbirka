@@ -11,8 +11,9 @@ import BaseButton from "components/BaseButton";
 import classes from "./RegisterForm.module.scss";
 import Link from "next/link";
 import { ButtonColor } from "@/shared/enums";
-import {County} from "@biosfera/types";
+import { County } from "@biosfera/types";
 import { SelectInput } from "components/SelectInput/SelectInput";
+import { useRegister } from "@/api/useRegister";
 
 export const ReegisterForm = () => {
   const schema = z
@@ -56,10 +57,11 @@ export const ReegisterForm = () => {
     resolver: zodResolver(schema),
   });
 
-  const login = useLogin();
+  const register = useRegister();
 
   const onSubmit = async (data: any) => {
-    await login.mutateAsync(data);
+    console.log(data);
+    await register.mutateAsync(data);
   };
 
   return (
@@ -82,11 +84,7 @@ export const ReegisterForm = () => {
         options={Object.values(County)
           .filter((county) => county.length > 2)
           .map((county) => ({
-            label: county
-              .replace("_", "-")
-              .toLowerCase()
-              .charAt(0)
-              .toUpperCase(),
+            label: county.replace("_", "-").toLowerCase(),
             value: county,
           }))}
         form={form}
@@ -98,7 +96,7 @@ export const ReegisterForm = () => {
         question="Password"
         isPassword
         image={password}
-        isDisabled={login.isLoading}
+        isDisabled={register.isLoading}
       />
       <Input
         form={form}
@@ -106,12 +104,12 @@ export const ReegisterForm = () => {
         question="Password Confirmation"
         isPassword
         image={password}
-        isDisabled={login.isLoading}
+        isDisabled={register.isLoading}
       />
       <div className={classes.buttons}>
         <BaseButton text="Register" />
-        <Link href="/regitration">
-          <BaseButton text="Sign up" initColor={ButtonColor.BLUE} />
+        <Link href="/login">
+          <BaseButton text="Sign in" initColor={ButtonColor.BLUE} />
         </Link>
       </div>
     </form>
