@@ -2,12 +2,14 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["fullTextSearch"]
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL") // if using neondb cloud db
 }
 
 enum Role {
@@ -53,7 +55,7 @@ enum County {
 }
 
 model Categorization {
-  id      String   @id @default(uuid())
+  id      String    @id @default(uuid())
   genus   String
   kingdom String
   domain  String
@@ -61,7 +63,8 @@ model Categorization {
   class   String
   order   String
   family  String
-  Exponat Exponat?
+  Exponat Exponat[]
+  //possibly change this to make the categorization applicable to other organisations which will use this exponat
 }
 
 model User {
@@ -70,14 +73,15 @@ model User {
   firstName                String
   lastName                 String
   password                 String
-  code                     String
+  hasProfileImage          Boolean                   @default(false)
+  activationCode           String                    @default(uuid()) //this creates unique code for user
   role                     Role                      @default(USER)
   createdAt                DateTime                  @default(now())
   updatedAt                DateTime                  @default(now()) @updatedAt
-  Posts                    Posts?
+  Posts                    Post[]
   location                 County
   OrganisationUser         OrganisationUser[]
-  Likes                    Likes?
+  Likes                    Like[]
   FavouriteExponat         FavouriteExponat?
   UserOrganisationFollower UserOrganisationFollower?
   followers                UserFollows[]             @relation("following")
@@ -90,6 +94,7 @@ model Exponat {
   alternateName    String
   ExponatKind      ExponatKind
   description      String
+  isApproved       Boolean            @default(false)
   funFacts         String[]
   attributes       Json
   mainImage        String
@@ -100,47 +105,50 @@ model Exponat {
   Organisation     Organisation?      @relation(fields: [organisationId], references: [id])
   organisationId   String?
   FavouriteExponat FavouriteExponat[]
+  Posts            Post[]
 }
 
 model Organisation {
-  id                       String                     @id @default(uuid())
-  name                     String
-  websiteUrl               String
-  description              String
-  email                    String
-  isApproved               Boolean                    @default(false)
-  mainImage                String
-  otherImages              String[]
-  createdAt                DateTime                   @default(now())
-  updatedAt                DateTime                   @default(now()) @updatedAt
-  location                 County
-  OrganisationPost         SocialPost?
-  Exponat                  Exponat[]
-  OrganisationUser         OrganisationUser[]
-  UserOrganisationFollower UserOrganisationFollower[]
+  id                        String                     @id @default(uuid())
+  name                      String
+  websiteUrl                String
+  description               String
+  email                     String                     @unique
+  isApproved                Boolean                    @default(false)
+  mainImage                 String
+  otherImages               String[]
+  createdAt                 DateTime                   @default(now())
+  updatedAt                 DateTime                   @default(now()) @updatedAt
+  location                  County
+  OrganisationPosts         SocialPost[]
+  Exponats                  Exponat[]
+  OrganisationUsers         OrganisationUser[]
+  UserOrganisationFollowers UserOrganisationFollower[]
 }
 
-model Posts {
+model Post {
   id         String   @id @default(uuid())
   title      String
-  images     String
+  images     String[]
   createdAt  DateTime @default(now())
   updatedAt  DateTime @default(now()) @updatedAt
   authorId   String   @unique
-  author     User     @relation(fields: [authorId], references: [id])
+  author     User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
   isApproved Boolean  @default(false)
-  Likes      Likes[]
+  Likes      Like[]
+  ExponatId  String?
+  Exponat    Exponat? @relation(fields: [ExponatId], references: [id])
 }
 
 model SocialPost {
   id           String       @id @default(uuid())
   title        String
   text         String
-  images       String
+  images       String[]
   createdAt    DateTime     @default(now())
   updatedAt    DateTime     @default(now()) @updatedAt
   authorId     String       @unique
-  organisation Organisation @relation(fields: [authorId], references: [id])
+  organisation Organisation @relation(fields: [authorId], references: [id], onDelete: Cascade)
   isApproved   Boolean      @default(false)
 }
 
@@ -148,20 +156,20 @@ model OrganisationUser {
   role           MemberRole
   createdAt      DateTime     @default(now())
   updatedAt      DateTime     @default(now()) @updatedAt
-  organisation   Organisation @relation(fields: [organisationId], references: [id])
+  organisation   Organisation @relation(fields: [organisationId], references: [id], onDelete: Cascade)
   organisationId String
-  user           User         @relation(fields: [userId], references: [id])
+  user           User         @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId         String
 
   @@id([organisationId, userId])
 }
 
-model Likes {
+model Like {
   createdAt DateTime @default(now())
   userId    String   @unique
-  user      User     @relation(fields: [userId], references: [id])
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   postId    String
-  post      Posts    @relation(fields: [postId], references: [id])
+  Post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
 
   @@id([postId, userId])
 }
@@ -169,9 +177,9 @@ model Likes {
 model FavouriteExponat {
   createdAt DateTime @default(now())
   userId    String   @unique
-  user      User     @relation(fields: [userId], references: [id])
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   ExponatId String
-  Exponat   Exponat  @relation(fields: [ExponatId], references: [id])
+  Exponat   Exponat  @relation(fields: [ExponatId], references: [id], onDelete: Cascade)
 
   @@id([ExponatId, userId])
 }
@@ -179,17 +187,17 @@ model FavouriteExponat {
 model UserOrganisationFollower {
   createdAt      DateTime     @default(now())
   userId         String       @unique
-  user           User         @relation(fields: [userId], references: [id])
+  user           User         @relation(fields: [userId], references: [id], onDelete: Cascade)
   organisationId String
-  organisation   Organisation @relation(fields: [organisationId], references: [id])
+  organisation   Organisation @relation(fields: [organisationId], references: [id], onDelete: Cascade)
 
   @@id([organisationId, userId])
 }
 
 model UserFollows {
-  follower   User   @relation("follower", fields: [followerId], references: [id])
+  follower   User   @relation("follower", fields: [followerId], references: [id], onDelete: Cascade)
   followerId String
-  followee   User   @relation("following", fields: [followeeId], references: [id])
+  followee   User   @relation("following", fields: [followeeId], references: [id], onDelete: Cascade)
   followeeId String
 
   @@id([followerId, followeeId])

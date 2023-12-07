@@ -1,0 +1,37 @@
+@import "styles/variables.scss";
+@import "styles/calc.scss";
+.container {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+  background-color: $primary;
+  flex-direction: column;
+
+  .drop {
+    margin-top: vw-calc(75);
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: vw-calc(-20);
+  }
+
+  .title {
+    color: $title;
+    text-align: center;
+    font-size: vw-calc(50);
+    font-weight: 700;
+    margin-bottom: vw-calc(50);
+  }
+
+  .wave {
+    width: 100vw;
+    position: relative;
+    height: vw-calc(300);
+    bottom: 0;
+    left: 0;
+  }
+}

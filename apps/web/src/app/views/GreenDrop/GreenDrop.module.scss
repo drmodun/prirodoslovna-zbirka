@@ -1,0 +1,26 @@
+@import "styles/variables";
+@import "styles/calc";
+
+.container {
+  width: vw-calc(200);
+  height: vw-calc(200);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  .drop {
+    position: relative;
+    width: vw-calc(200);
+    height: vw-calc(200);
+  }
+
+  .user {
+    position: relative;
+    top: vw-calc(-120);
+    width: vw-calc(65);
+    height: vw-calc(65);
+    z-index: 2;
+  }
+}
