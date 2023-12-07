@@ -20,11 +20,9 @@ export const RegisterView = () => {
           ćete novi račun s kojim ćete moći pristupiti stranici i njenim
           resursima.
         </div>
-        <div className={classes.form}>
-          <QueryClientWrapper>
-            <ReegisterForm />
-          </QueryClientWrapper>
-        </div>
+        <QueryClientWrapper>
+          <ReegisterForm />
+        </QueryClientWrapper>
       </div>
       <RegistrationImage />
     </div>

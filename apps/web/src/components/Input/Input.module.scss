@@ -1,5 +1,5 @@
 @import "styles/variables.scss";
-@import "~styles/calc.scss";
+@import "styles/calc.scss";
 
 .container {
   width: vw-calc(400);
@@ -13,6 +13,13 @@
   align-items: center;
   justify-content: space-between;
   position: relative;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    height: vw-mobile-calc(40);
+    border-radius: vw-mobile-calc(20);
+    padding: vw-mobile-calc(0) vw-mobile-calc(20);
+  }
 
   &.error {
     border-color: $red;
@@ -59,6 +66,12 @@
     width: vw-calc(20);
     height: vw-calc(20);
     position: relative;
+
+    @media (max-width: 768px) {
+      width: vw-mobile-calc(20);
+      height: vw-mobile-calc(20);
+      margin-right: vw-mobile-calc(10);
+    }
   }
 
   .input {
@@ -67,11 +80,18 @@
     border: none;
     outline: none;
     background-color: transparent;
-    font-size: vw-calc(16);
     color: $text;
 
     &::placeholder {
       color: $secondary;
+    }
+  }
+
+  input {
+    font-size: vw-calc(16);
+
+    @media (max-width: 768px) {
+      font-size: vw-mobile-calc(16);
     }
   }
 }
