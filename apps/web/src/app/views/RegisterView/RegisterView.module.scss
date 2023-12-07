@@ -8,14 +8,25 @@
   min-height: 100vh;
   align-items: center;
   padding: vw-calc(50);
-  justify-content: center;
+  justify-content: space-around;
   background-color: $primary;
   flex-direction: row;
+
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+    padding: vw-mobile-calc(50);
+    justify-content: center;
+  }
 
   .registerSection {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+
+    @media screen and (max-width: 768px) {
+      align-items: center;
+      justify-content: center;
+    }
 
     .logo {
       display: flex;
@@ -24,26 +35,47 @@
       height: vw-calc(40);
       margin-bottom: vw-calc(20);
 
+      @media screen and (max-width: 768px) {
+        margin-bottom: vw-mobile-calc(20);
+        width: vw-mobile-calc(170);
+        height: vw-mobile-calc(40);
+      }
+
       .image {
         width: vw-calc(40);
         height: vw-calc(40);
         position: relative;
         margin-right: vw-calc(10);
+
+        @media screen and (max-width: 768px) {
+          width: vw-mobile-calc(40);
+          height: vw-mobile-calc(40);
+          margin-right: vw-mobile-calc(10);
+        }
       }
 
       .logoTitle {
         font-size: vw-calc(30);
         font-weight: 700;
         color: $title;
+
+        @media screen and (max-width: 768px) {
+          font-size: vw-mobile-calc(30);
+        }
       }
     }
 
     .title {
       color: $title;
       text-align: center;
-      font-size: vw-calc(100);
+      font-size: vw-calc(85);
       font-weight: 700;
       margin-bottom: vw-calc(35);
+
+      @media screen and (max-width: 768px) {
+        font-size: vw-mobile-calc(35);
+        margin-bottom: vw-mobile-calc(35);
+      }
     }
 
     .description {
@@ -51,6 +83,13 @@
       color: $text;
       width: vw-calc(400);
       margin-bottom: vw-calc(50);
+
+      @media screen and (max-width: 768px) {
+        width: vw-mobile-calc(300);
+        margin-bottom: vw-mobile-calc(50);
+        font-size: vw-mobile-calc(16);
+        text-align: center;
+      }
     }
   }
 }

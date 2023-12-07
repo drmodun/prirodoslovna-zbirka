@@ -22,6 +22,14 @@
   font-size: vw-calc(16);
   height: vw-calc(60);
 
+  @media (max-width: 768px) {
+    min-width: vw-mobile-calc(140);
+    font-size: vw-mobile-calc(16);
+    height: vw-mobile-calc(50);
+    border-radius: vw-mobile-calc(20) vw-mobile-calc(20) vw-mobile-calc(8)
+      vw-mobile-calc(20);
+  }
+
   &.green {
     background-color: $green;
     color: $primary;

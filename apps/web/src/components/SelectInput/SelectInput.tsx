@@ -2,6 +2,7 @@ import { InputResult } from "@/shared/enums";
 import { FieldValues, UseFormReturn } from "react-hook-form";
 import classes from "./SelectInput.module.scss";
 
+//TODO: Maybe make this a custom dropdown
 export interface Option {
   value: string;
   label: string;
