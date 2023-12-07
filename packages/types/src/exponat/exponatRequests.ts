@@ -56,14 +56,12 @@ export interface CreateCategorizationRequest {
   domain: string;
 }
 
-export interface UpdateExponatRequest {
+export interface ExponatQuery {
   name?: string;
+  authorId?: string;
   alternateName?: string;
-  exponatKind?: ExponatKind;
-  description?: string;
-  funFacts?: string[];
-  attributes?: Json;
-  mainImage?: string;
-  isApproved?: boolean;
-  cateogorisationId?: string;
+  createdAt?: Date;
+  minFavoriteCount?: number;
+  maxFavoriteCount?: number;
+  organisationId?: string;
 }

@@ -23,6 +23,9 @@ export enum SortingEnum {
   FOLLOWERS = "followers",
   FOLLOWING = "following",
   FOLLOWERS_ORGANISATION = "followersOrganisation",
+  FAVOURITES = "favourites",
+  CREATED_AT = "createdAt",
+  ALTERNATE_NAME = "alternateName",
   //...
 }
 
@@ -66,6 +69,23 @@ export const sortQueryBuilder = (request: SortingRequest) => {
           _count: request.direction,
         },
       };
+    case SortingEnum.FOLLOWERS_ORGANISATION:
+      return {
+        OrganisationUser: {
+          _count: request.direction,
+        },
+      };
+    case SortingEnum.FAVOURITES:
+      return {
+        FavouriteExponat: {
+          _count: request.direction,
+        },
+      };
+    case SortingEnum.CREATED_AT:
+      return { createdAt: request.direction };
+    case SortingEnum.ALTERNATE_NAME:
+      return { alternateName: request.direction };
+    default:
   }
 };
 
