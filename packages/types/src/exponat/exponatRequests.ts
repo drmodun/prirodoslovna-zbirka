@@ -4,7 +4,7 @@ import { Json } from "../jsonObjects";
 
 export type ExponatKindType = "PROCARIOT" | "EUCARIOT" | "MINERAL";
 
-export const getCreateExponatRequest = (ApiPropertySwagger?: any) => {
+export const getCreateExponatDto = (ApiPropertySwagger?: any) => {
   const ApiProperty = ApiPropertySwagger || function () {};
 
   class CreateExponatDto {
@@ -33,7 +33,7 @@ export const getCreateExponatRequest = (ApiPropertySwagger?: any) => {
 
     @IsEnum(ExponatKind)
     @ApiProperty()
-    exponatKind: ExponatKindType;
+    ExponatKind: ExponatKindType;
 
     @IsJSON()
     @ApiProperty()

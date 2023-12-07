@@ -30,6 +30,7 @@ export interface ExponatResponseShort {
   organizationId: string;
   organizationName: string;
   updatedAt: Date;
+  postCount: number;
   favouriteCount: number;
   //"Shorts" are designed for card format
 }
