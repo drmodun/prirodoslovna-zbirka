@@ -6,6 +6,7 @@ import {
   PaginationRequest,
   SortingRequest,
   sortQueryBuilder,
+  sortQueryBuilderWithComplexFilters,
 } from '@biosfera/types';
 
 @Injectable()
@@ -15,6 +16,14 @@ export class ExponatsService {
   async create(createExponatDto: CreateExponatDto) {
     return await this.prisma.exponat.create({
       data: createExponatDto,
+      include: {
+        Organisation: {
+          select: {
+            name: true,
+            id: true,
+          },
+        },
+      },
     });
   }
 
@@ -23,7 +32,7 @@ export class ExponatsService {
     sorting?: SortingRequest,
     pagination?: PaginationRequest,
   ) {
-    const sort = sorting && sortQueryBuilder(sorting);
+    const sort = sorting && sortQueryBuilderWithComplexFilters(sorting);
     return await this.prisma.exponat.findMany({
       where: {
         ...(filter?.name && {

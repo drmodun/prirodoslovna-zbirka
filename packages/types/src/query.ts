@@ -75,17 +75,11 @@ export const sortQueryBuilder = (request: SortingRequest) => {
           _count: request.direction,
         },
       };
-    case SortingEnum.FAVOURITES:
-      return {
-        FavouriteExponat: {
-          _count: request.direction,
-        },
-      };
+
     case SortingEnum.CREATED_AT:
       return { createdAt: request.direction };
     case SortingEnum.ALTERNATE_NAME:
       return { alternateName: request.direction };
-    default:
   }
 };
 
@@ -93,3 +87,17 @@ export interface QueryResponse<T> {
   data: T[];
   pagination: PagiantaionResponse;
 }
+
+export const sortQueryBuilderWithComplexFilters = (request: SortingRequest) => {
+  const simple = sortQueryBuilder(request);
+  if (simple) return simple;
+
+  switch (request.attribute) {
+    case SortingEnum.FAVOURITES:
+      return {
+        FavouriteExponat: {
+          _count: request.direction,
+        },
+      };
+  }
+};
