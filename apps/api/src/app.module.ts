@@ -3,15 +3,27 @@ import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { validationSchemaForEnv } from './config/environment-variables';
-import { PersistenceModule } from './persistence/persistence.module';
+import { PrismaModule } from './prisma/prisma.module';
+import { OrganisationsModule } from './organisations/organisations.module';
+import { UsersModule } from './users/users.module';
+import { AuthModule } from './auth/auth.module';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 @Module({
   imports: [
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', '..', '..', 'web', 'dist'),
+      exclude: ['/api/(.*)'],
+    }),
     ConfigModule.forRoot({
       isGlobal: true,
       validationSchema: validationSchemaForEnv,
     }),
-    PersistenceModule,
+    PrismaModule,
+    OrganisationsModule,
+    UsersModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
