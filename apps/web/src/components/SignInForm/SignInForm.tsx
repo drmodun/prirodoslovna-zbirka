@@ -13,8 +13,6 @@ import Link from "next/link";
 import { ButtonColor } from "@/shared/enums";
 import { QueryClient, QueryClientProvider } from "react-query";
 
-const queryClient = new QueryClient();
-
 export const SignInForm = () => {
   const schema = z.object({
     email: z.string().email(),
@@ -44,8 +42,8 @@ export const SignInForm = () => {
       />
       <div className={classes.buttons}>
         <BaseButton text="Sign In" />
-        <Link href="/regitration">
-          <BaseButton text="Sign up" initColor={ButtonColor.BLUE} />
+        <Link href="/register">
+          <BaseButton text="Register" initColor={ButtonColor.BLUE} />
         </Link>
       </div>
     </form>

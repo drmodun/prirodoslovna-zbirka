@@ -1,13 +1,15 @@
 import { Injectable } from '@nestjs/common';
-import { CreateOrganisationDto } from './dto/create-organisation.dto';
-import { UpdateOrganisationDto } from './dto/update-organisation.dto';
-import { PrismaService } from 'src/prisma/prisma.service';
-import { OrganisationQuery } from '../../../../packages/types/organisation/organisationRequests';
+import {
+  CreateOrganisationDto,
+  UpdateOrganisationDto,
+} from './dto/organisations.dto';
+import { PrismaService } from '../prisma/prisma.service';
+import { OrganisationQuery } from '@biosfera/types';
 import {
   PaginationRequest,
   SortingRequest,
   sortQueryBuilder,
-} from '../../../../packages/types/query';
+} from '@biosfera/types';
 
 @Injectable()
 export class OrganisationsService {
@@ -24,7 +26,7 @@ export class OrganisationsService {
     sorting?: SortingRequest,
     pagination?: PaginationRequest,
   ) {
-    const sort = sortQueryBuilder(sorting);
+    const sort = sorting && sortQueryBuilder(sorting);
 
     const result = await this.prisma.organisation.findMany({
       where: {
@@ -52,7 +54,7 @@ export class OrganisationsService {
           },
         },
       },
-      orderBy: sort,
+      ...(sort && { orderBy: sort }),
       skip: (pagination?.page - 1) * pagination?.size,
       take: pagination?.size,
     });

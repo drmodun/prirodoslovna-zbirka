@@ -9,22 +9,24 @@ import {
   Query,
 } from '@nestjs/common';
 import { OrganisationsService } from './organisations.service';
-import { CreateOrganisationDto } from './dto/create-organisation.dto';
-import { UpdateOrganisationDto } from './dto/update-organisation.dto';
+import {
+  CreateOrganisationDto,
+  UpdateOrganisationDto,
+} from './dto/organisations.dto';
 import { PaginationParams } from 'src/config/pagination';
 import {
   PaginationRequest,
   SortingEnum,
   SortingRequest,
-} from '../../../../packages/types/query';
+} from '@biosfera/types';
 import { SortingParams } from 'src/config/sorting';
-import { OrganisationQuery } from '../../../../packages/types/organisation/organisationRequests';
+import { OrganisationQuery } from '@biosfera/types';
 import {
   ExtendedOrganisationResponse,
   OrganisationResponseShort,
-} from '../../../../packages/types/organisation/organisationResponses';
-import { ExponatResponseShort } from '../../../../packages/types/exponat/exponatResponses';
-import { ShortSocialPostResponse } from '../../../../packages/types/socialPost/socialPostResponses';
+} from '@biosfera/types';
+import { ExponatResponseShort } from '@biosfera/types';
+import { ShortSocialPostResponse } from '@biosfera/types';
 import { ApiQuery, ApiTags } from '@nestjs/swagger';
 import { County } from '@prisma/client';
 @Controller('organisations')
@@ -60,6 +62,11 @@ export class OrganisationsController {
   @ApiQuery({ name: 'location', required: false, enum: County })
   @ApiQuery({ name: 'attribute', required: false, enum: SortingEnum })
   @ApiQuery({ name: 'direction', required: false, enum: ['asc', 'desc'] })
+  @ApiQuery({
+    name: 'isApproved',
+    required: false,
+    enum: ['true', 'false'],
+  })
   async findAllShort(
     @PaginationParams() paginationParam?: PaginationRequest,
     @SortingParams([SortingEnum.NAME, SortingEnum.COUNTY, SortingEnum.POINTS])
@@ -92,13 +99,7 @@ export class OrganisationsController {
       } as OrganisationResponseShort;
     });
 
-    return {
-      data: mapped,
-      pagination: {
-        page: paginationParam?.page,
-        pageSize: paginationParam?.size,
-      },
-    };
+    return mapped;
   }
 
   @Get(':id')

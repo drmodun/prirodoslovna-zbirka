@@ -13,22 +13,18 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
-import { RegisterUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
+import { RegisterUserDto, UpdateUserDto } from './dto/users.dto';
 import { ApiBearerAuth, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { PaginationParams } from 'src/config/pagination';
 import {
   PaginationRequest,
   SortingEnum,
   SortingRequest,
-} from '../../../../packages/types/query';
-import { UserQuery } from '../../../../packages/types/user/userRequests';
+} from '@biosfera/types';
+import { UserQuery } from '@biosfera/types';
 import { SortingParams } from '../config/sorting';
-import {
-  ExtendedUserResponse,
-  ShortUserResponse,
-} from '../../../../packages/types/user/userResponses';
-import { PostResponse } from '../../../../packages/types/post/postResponse';
+import { ExtendedUserResponse, ShortUserResponse } from '@biosfera/types';
+import { PostResponse } from '@biosfera/types';
 import { JwtAuthGuard } from 'src/auth/jwt-auth-guard';
 import { Role } from '@prisma/client';
 
@@ -92,7 +88,6 @@ export class UsersController {
 
       const posts: PostResponse[] = item.Posts.map((post) => {
         return {
-          authorAvatar: item.profileImage,
           authorId: item.id,
           authorName: item.firstName + ' ' + item.lastName,
           id: post.id,
@@ -106,7 +101,6 @@ export class UsersController {
 
       const likedPosts: PostResponse[] = item.Likes.map((like) => {
         return {
-          authorAvatar: like.Post.author.profileImage,
           authorId: like.Post.author.id,
           authorName:
             like.Post.author.firstName + ' ' + like.Post.author.lastName,
@@ -124,7 +118,6 @@ export class UsersController {
         lastName: item.lastName,
         followerCount: item._count.followers,
         id: item.id,
-        avatar: item.profileImage,
         createdAt: item.createdAt,
         updatedAt: item.updatedAt,
         posts: posts,
