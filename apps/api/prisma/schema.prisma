@@ -97,7 +97,7 @@ model Exponat {
   isApproved       Boolean            @default(false)
   funFacts         String[]
   attributes       Json
-  mainImage        String
+  mainImage        String             
   categorizationId String?            @unique
   Categorization   Categorization?    @relation(fields: [categorizationId], references: [id])
   createdAt        DateTime           @default(now())
