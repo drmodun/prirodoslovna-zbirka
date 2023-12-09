@@ -15,12 +15,13 @@ import {
   UpdateExponatDto,
 } from './dto/exponats.dto';
 import {
+  ExponatExtendedResponse,
   ExponatResponseShort,
   PaginationRequest,
+  PostResponse,
   SortingEnum,
   SortingRequest,
 } from '@biosfera/types';
-import { ApiQuery } from '@nestjs/swagger';
 import { PaginationParams } from 'src/config/pagination';
 import { SortingParams } from 'src/config/sorting';
 
@@ -80,17 +81,60 @@ export class ExponatsController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.exponatsService.findOne(id);
+  async findOne(@Param('id') id: string) {
+    const item = await this.exponatsService.findOne(id);
+
+    const posts: PostResponse[] = item.Posts.map((post) => {
+      return {
+        authorId: post.authorId,
+        authorName: post.author.firstName + ' ' + post.author.lastName,
+        exponatId: item.id,
+        exponatName: item.name,
+        id: post.id,
+        images: post.images,
+        likeScore: post._count.Likes,
+        title: post.title,
+      } as PostResponse;
+    });
+
+    const mapped = {
+      alternateName: item.alternateName,
+      id: item.id,
+      title: item.name,
+      attributes: item.attributes,
+      categorization: {
+        class: item.Categorization.class,
+        domain: item.Categorization.domain,
+        family: item.Categorization.family,
+        genus: item.Categorization.genus,
+        kingdom: item.Categorization.kingdom,
+        order: item.Categorization.order,
+        phylum: item.Categorization.phylum,
+      },
+      createdAt: item.createdAt,
+      description: item.description,
+      favouriteCount: item._count.FavouriteExponat,
+      funFacts: item.funFacts,
+      mainImage: item.mainImage,
+      organizationId: item.organisationId,
+      organizationName: item.Organisation.name,
+      updatedAt: item.updatedAt,
+      posts: posts,
+    } as ExponatExtendedResponse;
+
+    return mapped;
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateExponatDto: UpdateExponatDto) {
-    return this.exponatsService.update(id, updateExponatDto);
+  async update(
+    @Param('id') id: string,
+    @Body() updateExponatDto: UpdateExponatDto,
+  ) {
+    return await this.exponatsService.update(id, updateExponatDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.exponatsService.remove(id);
+  async remove(@Param('id') id: string) {
+    return await this.exponatsService.remove(id);
   }
 }
