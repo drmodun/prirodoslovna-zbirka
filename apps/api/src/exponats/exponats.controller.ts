@@ -6,10 +6,23 @@ import {
   Patch,
   Param,
   Delete,
+  Query,
 } from '@nestjs/common';
 import { ExponatsService } from './exponats.service';
-import { CreateExponatDto, UpdateExponatDto } from './dto/exponats.dto';
-import { ExponatResponseShort } from '@biosfera/types';
+import {
+  CreateExponatDto,
+  ExponatQuery,
+  UpdateExponatDto,
+} from './dto/exponats.dto';
+import {
+  ExponatResponseShort,
+  PaginationRequest,
+  SortingEnum,
+  SortingRequest,
+} from '@biosfera/types';
+import { ApiQuery } from '@nestjs/swagger';
+import { PaginationParams } from 'src/config/pagination';
+import { SortingParams } from 'src/config/sorting';
 
 @Controller('exponats')
 export class ExponatsController {
@@ -36,8 +49,34 @@ export class ExponatsController {
   }
 
   @Get()
-  findAll() {
-    return this.exponatsService.findAll();
+  async findAll(
+    @PaginationParams() paginationParam?: PaginationRequest,
+    @SortingParams([SortingEnum.NAME, SortingEnum.COUNTY, SortingEnum.POINTS])
+    sorting?: SortingRequest,
+    @Query() filter?: ExponatQuery,
+  ) {
+    const items = await this.exponatsService.findAll(
+      filter,
+      sorting,
+      paginationParam,
+    );
+
+    const mapped = items.map((item) => {
+      return {
+        id: item.id,
+        name: item.name,
+        mainImage: item.mainImage,
+        updatedAt: item.updatedAt,
+        favouriteCount: item._count.FavouriteExponat,
+        postCount: item._count.Posts,
+        alternateName: item.alternateName,
+        description: item.description,
+        organizationId: item.organisationId,
+        organizationName: item.Organisation.name,
+      } as ExponatResponseShort;
+    });
+
+    return mapped;
   }
 
   @Get(':id')

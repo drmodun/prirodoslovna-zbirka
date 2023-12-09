@@ -118,6 +118,7 @@ export class OrganisationsController {
         organizationId: item.id,
         organizationName: item.name,
         isFavorite: false,
+        postCount: exponat._count.Posts,
       } as ExponatResponseShort;
     });
 

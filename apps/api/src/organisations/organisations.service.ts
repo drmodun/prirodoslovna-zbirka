@@ -73,6 +73,7 @@ export class OrganisationsService {
             _count: {
               select: {
                 FavouriteExponat: true,
+                Posts: true,
               },
             },
           },
