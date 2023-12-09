@@ -43,9 +43,7 @@ export class ExponatsService {
         ...(filter?.organisationId && {
           organisationId: filter.organisationId,
         }),
-        ...(filter?.authorId && {
-          authorId: filter.authorId,
-        }),
+
         ...(filter.minFavoriteCount && {
           _count: {
             FavouriteExponat: {
