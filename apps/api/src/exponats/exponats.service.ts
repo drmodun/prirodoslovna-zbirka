@@ -112,7 +112,21 @@ export class ExponatsService {
             id: true,
           },
         },
-        Posts: true,
+        Posts: {
+          include: {
+            _count: {
+              select: {
+                Likes: true,
+              },
+            },
+            author: {
+              select: {
+                firstName: true,
+                lastName: true,
+              },
+            },
+          },
+        },
       },
     });
   }

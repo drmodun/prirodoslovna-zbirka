@@ -5,8 +5,6 @@ export interface ExponatExtendedResponse {
   id: string;
   title: string;
   description: string;
-  authorId: string;
-  authorName: string;
   mainImage: string;
   alternateName: string;
   organizationId: string;
@@ -15,8 +13,7 @@ export interface ExponatExtendedResponse {
   attributes: Json;
   createdAt: Date;
   updatedAt: Date;
-  categorizationId: string;
-  cateforization: CategorizationResponse;
+  categorization: CategorizationResponse;
   posts: PostResponse[];
   favouriteCount: number;
 }
