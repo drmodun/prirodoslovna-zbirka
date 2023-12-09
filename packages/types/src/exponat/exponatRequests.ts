@@ -84,10 +84,6 @@ export const getExponatQuery = (ApiPropertySwagger?: any) => {
 
     @IsString()
     @ApiProperty({ required: false })
-    authorId: string;
-
-    @IsString()
-    @ApiProperty({ required: false })
     alternateName: string;
 
     @IsString()

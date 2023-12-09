@@ -54,7 +54,13 @@ export class ExponatsController {
   @Get()
   async findAll(
     @PaginationParams() paginationParam?: PaginationRequest,
-    @SortingParams([SortingEnum.NAME, SortingEnum.COUNTY, SortingEnum.POINTS])
+    @SortingParams([
+      SortingEnum.NAME,
+      SortingEnum.CREATED_AT,
+      SortingEnum.POST_AMOUNT,
+      SortingEnum.FAVOURITES,
+      SortingEnum.ALTERNATE_NAME,
+    ])
     sorting?: SortingRequest,
     @Query() filter?: ExponatQuery,
   ) {

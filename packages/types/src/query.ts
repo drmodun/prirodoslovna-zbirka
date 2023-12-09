@@ -53,7 +53,7 @@ export const sortQueryBuilder = (request: SortingRequest) => {
       return { points: request.direction };
     case SortingEnum.POST_AMOUNT:
       return {
-        posts: {
+        Posts: {
           _count: request.direction,
         },
       };
