@@ -5,7 +5,6 @@ import {
   ExponatQuery,
   PaginationRequest,
   SortingRequest,
-  sortQueryBuilder,
   sortQueryBuilderWithComplexFilters,
 } from '@biosfera/types';
 

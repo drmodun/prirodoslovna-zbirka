@@ -1,6 +1,14 @@
-import { IsString, MinLength, IsEnum, IsJSON, IsUUID } from "class-validator";
+import {
+  IsString,
+  MinLength,
+  IsEnum,
+  IsJSON,
+  IsUUID,
+  IsNumber,
+} from "class-validator";
 import { ExponatKind } from "../enums";
 import { Json } from "../jsonObjects";
+import { SortType, SortingEnum } from "../query";
 
 export type ExponatKindType = "PROCARIOT" | "EUCARIOT" | "MINERAL";
 
@@ -65,3 +73,52 @@ export interface ExponatQuery {
   maxFavoriteCount?: number;
   organisationId?: string;
 }
+
+export const getExponatQuery = (ApiPropertySwagger?: any) => {
+  const ApiProperty = ApiPropertySwagger || function () {};
+
+  class ExponatQueryDto {
+    @IsString()
+    @ApiProperty({ required: false })
+    name: string;
+
+    @IsString()
+    @ApiProperty({ required: false })
+    authorId: string;
+
+    @IsString()
+    @ApiProperty({ required: false })
+    alternateName: string;
+
+    @IsString()
+    @ApiProperty({ type: Date, required: false })
+    createdAt: Date;
+
+    @IsString()
+    @ApiProperty({ required: false })
+    minFavoriteCount: number;
+
+    @IsString()
+    @ApiProperty({ required: false })
+    maxFavoriteCount: number;
+
+    @IsString()
+    @ApiProperty({ required: false })
+    organisationId: string;
+
+    @IsEnum(SortingEnum)
+    @ApiProperty({ enum: SortingEnum, required: false })
+    attribute: SortingEnum;
+
+    @IsEnum(SortType)
+    @ApiProperty({ enum: SortType, required: false })
+    direction: SortType;
+
+    @ApiProperty({ required: false })
+    page: number;
+
+    @ApiProperty({ required: false })
+    size: number;
+  }
+  return ExponatQueryDto;
+};
