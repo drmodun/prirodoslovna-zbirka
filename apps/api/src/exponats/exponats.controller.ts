@@ -24,7 +24,9 @@ import {
 } from '@biosfera/types';
 import { PaginationParams } from 'src/config/pagination';
 import { SortingParams } from 'src/config/sorting';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('exponats')
 @Controller('exponats')
 export class ExponatsController {
   constructor(private readonly exponatsService: ExponatsService) {}
