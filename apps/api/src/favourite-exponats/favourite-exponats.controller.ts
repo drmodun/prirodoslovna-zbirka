@@ -1,47 +1,31 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
-} from '@nestjs/common';
+import { Controller, Get, Patch, Param, UseGuards, Req } from '@nestjs/common';
 import { FavouriteExponatsService } from './favourite-exponats.service';
-import { CreateFavouriteExponatDto } from './dto/create-favourite-exponat.dto';
-import { UpdateFavouriteExponatDto } from './dto/update-favourite-exponat.dto';
+import { JwtAuthGuard } from 'src/auth/jwt-auth-guard';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('favourite-exponats')
 @Controller('favourite-exponats')
 export class FavouriteExponatsController {
   constructor(
     private readonly favouriteExponatsService: FavouriteExponatsService,
   ) {}
 
-  @Post()
-  create(@Body() createFavouriteExponatDto: CreateFavouriteExponatDto) {
-    return this.favouriteExponatsService.create(createFavouriteExponatDto);
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
+  @Get('user')
+  async findAllForUser(@Req() req: any) {
+    return this.favouriteExponatsService.findAllForUser(req.user.id);
   }
 
-  @Get()
-  findAll() {
-    return this.favouriteExponatsService.findAll();
+  @Get(':exponatId')
+  async findOne(@Param('exponatId') id: string) {
+    return this.favouriteExponatsService.findAllForExponat(id);
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.favouriteExponatsService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(
-    @Param('id') id: string,
-    @Body() updateFavouriteExponatDto: UpdateFavouriteExponatDto,
-  ) {
-    return this.favouriteExponatsService.update(+id, updateFavouriteExponatDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.favouriteExponatsService.remove(+id);
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
+  @Patch(':exponaid')
+  async toggle(@Param('exponatId') id: string, @Req() req: any) {
+    return this.favouriteExponatsService.toggle(req.user.id, id);
   }
 }
