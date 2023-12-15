@@ -57,7 +57,7 @@ export class FavouriteExponatsController {
 
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
-  @Patch(':exponaid')
+  @Patch(':exponatId')
   async toggle(@Param('exponatId') id: string, @Req() req: any) {
     return (
       (await this.favouriteExponatsService.toggle(req.user.id, id)) != null
