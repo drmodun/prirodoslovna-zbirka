@@ -1,4 +1,4 @@
-import { ExponatResponseShort } from "src/exponat/exponatResponses";
+import { ExponatResponseShort } from "../exponat/exponatResponses";
 
 export interface CategorizationResponseShort {
   id: string;
