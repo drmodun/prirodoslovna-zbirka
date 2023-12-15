@@ -10,4 +10,5 @@ export * from "./responses";
 export * from "./socialPost/socialPostResponses";
 export * from "./post/postRequests"
 export * from "./post/postResponse"
-export * from "./auth"
+export * from "./auth";
+export * from "./categorization/categorizationRequests"
