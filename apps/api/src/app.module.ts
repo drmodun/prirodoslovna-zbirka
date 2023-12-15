@@ -10,6 +10,7 @@ import { AuthModule } from './auth/auth.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import { ExponatsModule } from './exponats/exponats.module';
+import { FavouriteExponatsModule } from './favourite-exponats/favourite-exponats.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { ExponatsModule } from './exponats/exponats.module';
     UsersModule,
     AuthModule,
     ExponatsModule,
+    FavouriteExponatsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
