@@ -9,7 +9,6 @@ import {
   PaginationRequest,
   SortingRequest,
   sortCategorizationQueryBuilderWithComplexFilters,
-  ž,
 } from '@biosfera/types';
 
 @Injectable()
@@ -49,6 +48,13 @@ export class CategorizationsService {
         ...(filter?.kingdom && {
           kingdom: { search: filter.kingdom, mode: 'insensitive' },
         }),
+      },
+      include: {
+        _count: {
+          select: {
+            Exponat: true,
+          },
+        },
       },
       //TODO: Possibly add filtering based on nnumbers of exponats or something
       skip: (pagination?.page - 1) * pagination?.size,
