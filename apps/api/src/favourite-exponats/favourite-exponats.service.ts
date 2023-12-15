@@ -73,7 +73,7 @@ export class FavouriteExponatsService {
       },
       include: {
         user: {
-          select: {
+          include: {
             _count: {
               select: {
                 followers: true,
