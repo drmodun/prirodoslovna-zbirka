@@ -74,7 +74,7 @@ export class CategorizationsController {
       return {
         family: item.family,
         numberOfExponats: item._count.Exponat,
-        id: item.family,
+        id: item.id,
       } as CategorizationResponseShort;
     });
 

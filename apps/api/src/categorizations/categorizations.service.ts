@@ -10,7 +10,7 @@ import {
   SortingRequest,
   sortCategorizationQueryBuilderWithComplexFilters,
 } from '@biosfera/types';
-
+//TODO: Make error handling for non existing entities on search so it does not throw a 500 error when searcjing for related properties
 @Injectable()
 export class CategorizationsService {
   constructor(private readonly prisma: PrismaService) {}

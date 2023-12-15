@@ -1,5 +1,5 @@
 import { IsEnum, IsString } from "class-validator";
-import { SortingEnum, SortType } from "src/query";
+import { SortingEnum, SortType } from "../query";
 
 export const getCreateCategorizationDto = (ApiPropertySwagger: any) => {
   const ApiProperty = ApiPropertySwagger || function () {};
