@@ -75,6 +75,19 @@ export class CategorizationsService {
           },
         },
         Exponat: {
+          include: {
+            _count: {
+              select: {
+                Posts: true,
+                FavouriteExponat: true,
+              },
+            },
+            Organisation: {
+              select: {
+                name: true,
+              },
+            },
+          },
           orderBy: {
             Posts: {
               _count: 'desc',
