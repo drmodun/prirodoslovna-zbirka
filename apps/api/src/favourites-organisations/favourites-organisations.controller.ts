@@ -1,45 +1,48 @@
-žimport { Controller, Get, Patch, Param, UseGuards, Req } from '@nestjs/common';
-import { FavouriteExponatsService } from './favourite-exponats.service';
+import { Controller, Get, Patch, Param, UseGuards, Req } from '@nestjs/common';
+import { FavouriteOrganisationsService } from './favourites-organisations.service';
 import { JwtAuthGuard } from 'src/auth/jwt-auth-guard';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { ExponatResponseShort, ShortUserResponse } from '@biosfera/types';
+import { OrganisationResponseShort, ShortUserResponse } from '@biosfera/types';
 
-@ApiTags('favourite-exponats')
-@Controller('favourite-exponats')
-export class FavouriteExponatsController {
+@ApiTags('favourite-orgranisations')
+@Controller('favourite-orgranisations')
+export class FavouriteOrgranisationsController {
   constructor(
-    private readonly favouriteExponatsService: FavouriteExponatsService,
+    private readonly favouriteOrgranisationsService: FavouriteOrganisationsService,
   ) {}
 
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   @Get('user')
   async findAllForUser(@Req() req: any) {
-    const exponats = await this.favouriteExponatsService.findAllForUser(
-      req.user.id,
-    );
+    const orgranisations =
+      await this.favouriteOrgranisationsService.findAllForUser(req.user.id);
 
-    const mapped = exponats.map((connection) => {
+    const mapped = orgranisations.map((connection) => {
       return {
-        alternateName: connection.Exponat.alternateName,
-        name: connection.Exponat.name,
-        id: connection.Exponat.id,
-        description: connection.Exponat.description,
-        favouriteCount: connection.Exponat._count.FavouriteExponat,
-        organizationId: connection.Exponat.organisationId,
-        mainImage: connection.Exponat.mainImage,
-        postCount: connection.Exponat._count.Posts,
-        updatedAt: connection.Exponat.updatedAt,
-        organizationName: connection.Exponat.Organisation.name,
-      } as ExponatResponseShort;
+        exponatCount: connection.organisation._count.Exponats,
+        followerCount: connection.organisation._count.UserOrganisationFollowers,
+        location: connection.organisation.location,
+        mainImage: connection.organisation.mainImage,
+        name: connection.organisation.name,
+        updatedAt: connection.organisation.updatedAt,
+        points: connection.organisation.Exponats.reduce(
+          (acc, curr) => acc + curr._count.FavouriteExponat,
+          0,
+        ),
+        memberCount: connection.organisation._count.OrganisationUsers,
+        id: connection.organisationId,
+        websiteUrl: connection.organisation.websiteUrl,
+      } as OrganisationResponseShort;
     });
 
     return mapped;
   }
 
-  @Get(':exponatId')
-  async findAllForExponat(@Param('exponatId') id: string) {
-    const users = await this.favouriteExponatsService.findAllForExponat(id);
+  @Get(':orgranisationId')
+  async findAllForOrgranisation(@Param('orgranisationId') id: string) {
+    const users =
+      await this.favouriteOrgranisationsService.findAllForOrganisation(id);
 
     const mapped = users.map((connection) => {
       return {
@@ -57,10 +60,11 @@ export class FavouriteExponatsController {
 
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
-  @Patch(':exponatId')
-  async toggle(@Param('exponatId') id: string, @Req() req: any) {
+  @Patch(':orgranisationId')
+  async toggle(@Param('orgranisationId') id: string, @Req() req: any) {
     return (
-      (await this.favouriteExponatsService.toggle(req.user.id, id)) != null
+      (await this.favouriteOrgranisationsService.toggle(req.user.id, id)) !=
+      null
     );
   }
 }
