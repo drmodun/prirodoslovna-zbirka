@@ -8,14 +8,26 @@ import {
   Delete,
   UseGuards,
   Req,
+  Query,
 } from '@nestjs/common';
 import { SocialPostsService } from './social-posts.service';
-import { CreateSocialPostDto } from './dto/create-social-post.dto';
-import { UpdateSocialPostDto } from './dto/update-social-post.dto';
+import {
+  CreateSocialPostDto,
+  SocialPostQuery,
+  UpdateSocialPostDto,
+} from './dto/socialPost.dto';
 import { JwtAuthGuard } from 'src/auth/jwt-auth-guard';
-import { ApiBearerAuth } from '@nestjs/swagger';
-import { ShortSocialPostResponse } from '@biosfera/types';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import {
+  PaginationRequest,
+  ShortSocialPostResponse,
+  SortingEnum,
+  SortingRequest,
+} from '@biosfera/types';
+import { PaginationParams } from 'src/config/pagination';
+import { SortingParams } from 'src/config/sorting';
 
+@ApiTags('social-posts')
 @Controller('social-posts')
 export class SocialPostsController {
   constructor(private readonly socialPostsService: SocialPostsService) {}
@@ -50,14 +62,35 @@ export class SocialPostsController {
   }
 
   @Get()
-  findAll() {
-    return this.socialPostsService.findAll();
+  async findAll(
+    @PaginationParams() paginationParam?: PaginationRequest,
+    @SortingParams([SortingEnum.TITLE, SortingEnum.ORGANISATION])
+    sorting?: SortingRequest,
+    @Query() filter?: SocialPostQuery,
+  ) {
+    const posts = await this.socialPostsService.findAll(
+      filter,
+      sorting,
+      paginationParam,
+    );
+
+    const mapped = posts.map((post) => {
+      return {
+        createdAt: post.createdAt,
+        id: post.id,
+        images: post.images,
+        organisationId: post.authorId,
+        text: post.text,
+        organisationMainImage: post.organisation.mainImage,
+        organisationName: post.organisation.name,
+        title: post.title,
+        updatedAt: post.updatedAt,
+      };
+    });
+    return mapped;
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.socialPostsService.findOne(+id);
-  }
+  //TODO: Not sure if findOne is needed, also not sure if any extended responses are needed
 
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
