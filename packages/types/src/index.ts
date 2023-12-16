@@ -8,6 +8,7 @@ export * from "./user/userRequests";
 export * from "./query";
 export * from "./responses";
 export * from "./socialPost/socialPostResponses";
-export * from "./post/postRequests"
-export * from "./post/postResponse"
-export * from "./auth"
+export * from "./post/postRequests";
+export * from "./post/postResponse";
+export * from "./auth";
+export * from "./socialPost";
