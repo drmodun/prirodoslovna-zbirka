@@ -45,6 +45,9 @@ export class SocialPostsService {
         authorId: organisationId,
         isApproved: true, //TODO: Discuess default approval status for social posts
       },
+      include: {
+        organisation: true,
+      },
     });
   }
 
@@ -69,10 +72,10 @@ export class SocialPostsService {
   }
 
   async update(
-    UpdateSocialPostDto: UpdateSocialPostDto,
-    organisationId: string,
-    userId: string,
+    updateSocialPostDto: UpdateSocialPostDto,
     id: string,
+    userId: string,
+    organisationId: string,
   ) {
     const check = await this.checkForValidity(userId, organisationId);
 
@@ -82,7 +85,7 @@ export class SocialPostsService {
       where: {
         id,
       },
-      data: UpdateSocialPostDto,
+      data: updateSocialPostDto,
     });
   }
 
