@@ -90,7 +90,7 @@ export class OrganisationsController {
         points: org.Exponats.reduce(
           (acc, curr) => acc + curr._count.FavouriteExponat,
           0,
-        // ),
+        ),
         //possibly already make this in sql later
         isFavorite: false,
         updatedAt: org.updatedAt,
