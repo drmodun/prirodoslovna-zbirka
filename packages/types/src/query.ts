@@ -26,6 +26,8 @@ export enum SortingEnum {
   FAVOURITES = "favourites",
   CREATED_AT = "createdAt",
   ALTERNATE_NAME = "alternateName",
+  ORGANISATION = "organisation",
+  TITLE = "title",
   //...
 }
 
@@ -82,7 +84,6 @@ export const sortQueryBuilder = (request: SortingRequest) => {
       return { alternateName: request.direction };
   }
 };
-
 export interface QueryResponse<T> {
   data: T[];
   pagination: PagiantaionResponse;
@@ -98,6 +99,21 @@ export const sortQueryBuilderWithComplexFilters = (request: SortingRequest) => {
         FavouriteExponat: {
           _count: request.direction,
         },
+      };
+  }
+};
+
+export const socialPostSortQueryBuilder = (request: SortingRequest) => {
+  switch (request.attribute) {
+    case SortingEnum.ORGANISATION:
+      return {
+        organisation: {
+          name: request.direction,
+        },
+      };
+    case SortingEnum.TITLE:
+      return {
+        title: request.direction,
       };
   }
 };
