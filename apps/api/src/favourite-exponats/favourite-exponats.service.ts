@@ -43,6 +43,10 @@ export class FavouriteExponatsService {
       where: {
         userId,
       },
+      orderBy: {
+        createdAt: 'desc',
+      },
+
       include: {
         Exponat: {
           include: {
@@ -71,6 +75,9 @@ export class FavouriteExponatsService {
       where: {
         ExponatId: exponatId,
       },
+      orderBy: {
+        createdAt: 'desc',
+      },
       include: {
         user: {
           include: {
@@ -98,3 +105,4 @@ export class FavouriteExponatsService {
     return action;
   }
 }
+//TODO: Decide if there is any point in actually using createdAt field, only used in sorting and not in dtos
