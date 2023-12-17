@@ -9,7 +9,7 @@ generator client {
 datasource db {
   provider  = "postgresql"
   url       = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL") // if using neondb cloud db
+  //directUrl = env("DIRECT_URL") // if using neondb cloud db
 }
 
 enum Role {
