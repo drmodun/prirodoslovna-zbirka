@@ -11,6 +11,7 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import { ExponatsModule } from './exponats/exponats.module';
 import { SocialPostsModule } from './social-posts/social-posts.module';
+import { FavouriteExponatsModule } from './favourite-exponats/favourite-exponats.module';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { SocialPostsModule } from './social-posts/social-posts.module';
     AuthModule,
     ExponatsModule,
     SocialPostsModule,
+    FavouriteExponatsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
