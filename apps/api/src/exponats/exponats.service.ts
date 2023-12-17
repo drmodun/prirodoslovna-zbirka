@@ -5,7 +5,7 @@ import {
   ExponatQuery,
   PaginationRequest,
   SortingRequest,
-  sortQueryBuilderWithComplexFilters,
+  sortExponatQueryBuilderWithComplexFilters,
 } from '@biosfera/types';
 
 @Injectable()
@@ -31,7 +31,7 @@ export class ExponatsService {
     sorting?: SortingRequest,
     pagination?: PaginationRequest,
   ) {
-    const sort = sorting && sortQueryBuilderWithComplexFilters(sorting);
+    const sort = sorting && sortExponatQueryBuilderWithComplexFilters(sorting);
     return await this.prisma.exponat.findMany({
       where: {
         ...(filter?.name && {

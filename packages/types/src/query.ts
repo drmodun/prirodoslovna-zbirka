@@ -26,6 +26,16 @@ export enum SortingEnum {
   FAVOURITES = "favourites",
   CREATED_AT = "createdAt",
   ALTERNATE_NAME = "alternateName",
+  ORGANISATION = "organisation",
+  TITLE = "title",
+  EXPONAT_AMOUNT = "exponatAmount",
+  GENUS = "genus",
+  FAMILY = "family",
+  KINGDOM = "kingdom",
+  DOMAIN = "domain",
+  PHYLUM = "phylum",
+  CLASS = "class",
+  ORDER = "order",
   //...
 }
 
@@ -82,13 +92,14 @@ export const sortQueryBuilder = (request: SortingRequest) => {
       return { alternateName: request.direction };
   }
 };
-
 export interface QueryResponse<T> {
   data: T[];
   pagination: PagiantaionResponse;
 }
 
-export const sortQueryBuilderWithComplexFilters = (request: SortingRequest) => {
+export const sortExponatQueryBuilderWithComplexFilters = (
+  request: SortingRequest
+) => {
   const simple = sortQueryBuilder(request);
   if (simple) return simple;
 
@@ -101,3 +112,58 @@ export const sortQueryBuilderWithComplexFilters = (request: SortingRequest) => {
       };
   }
 };
+
+export const socialPostSortQueryBuilder = (request: SortingRequest) => {
+  switch (request.attribute) {
+    case SortingEnum.ORGANISATION:
+      return {
+        organisation: {
+          name: request.direction,
+        },
+      };
+    case SortingEnum.TITLE:
+      return {
+        title: request.direction,
+      }
+  }
+}
+export const sortCategorizationQueryBuilderWithComplexFilters = (
+  request: SortingRequest
+) => {
+  switch (request.attribute) {
+    case SortingEnum.EXPONAT_AMOUNT:
+      return {
+        Exponat: {
+          _count: request.direction,
+        },
+      };
+    case SortingEnum.GENUS:
+      return {
+        genus: request.direction,
+      };
+    case SortingEnum.PHYLUM:
+      return {
+        phylum: request.direction,
+      };
+    case SortingEnum.FAMILY:
+      return {
+        family: request.direction,
+      };
+    case SortingEnum.CLASS:
+      return {
+        class: request.direction,
+      };
+    case SortingEnum.DOMAIN:
+      return {
+        domain: request.direction,
+      };
+    case SortingEnum.ORDER:
+      return {
+        order: request.direction,
+      };
+    case SortingEnum.KINGDOM:
+      return {
+        kingdom: request.direction,
+      };
+  }
+}
