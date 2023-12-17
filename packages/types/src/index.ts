@@ -11,5 +11,6 @@ export * from "./socialPost/socialPostResponses";
 export * from "./post/postRequests";
 export * from "./post/postResponse";
 export * from "./auth";
+export * from "./socialPost";
 export * from "./categorization/categorizationRequests";
 export * from "./categorization/categorizationResponses";
