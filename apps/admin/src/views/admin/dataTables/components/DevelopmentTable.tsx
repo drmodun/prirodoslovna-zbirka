@@ -18,7 +18,7 @@ import { Link } from '@chakra-ui/next-js';
 import { Interface } from 'readline';
 // Assets
 
-type Link = {
+export type LinkObject = {
 	label: string;
 	link: string;
 };
@@ -30,7 +30,7 @@ type Indexable = {
   
 
 // const columns = columnsDataCheck;
-export default function ComplexTable(props: { tableData: any, rows?: string[], title: string, links?: Link[] }) {
+export default function ComplexTable(props: { tableData: any, rows?: string[], title: string, links?: LinkObject[] }) {
 	const { tableData, rows, title, links } = props;
 //	console.log(tableData, rows, columnHelper, props.tableData[0]);
 	const [ sorting, setSorting ] = React.useState<SortingState>([]);
@@ -115,7 +115,7 @@ export default function ComplexTable(props: { tableData: any, rows?: string[], t
 							return (
 								<Tr key={row.id}>
 									{rows.map((cell) => {
-										const isLinked = links?.find((link: Link) => link.label === cell);
+										const isLinked = links?.find((link: LinkObject) => link.label === cell);
 										return (
 											<Td
 												key={row.id + cell}
