@@ -12,108 +12,62 @@ import Card from 'components/card/Card';
 import Menu from 'components/menu/MainMenu';
 import { AndroidLogo, AppleLogo, WindowsLogo } from 'components/icons/Icons';
 import * as React from 'react';
+import { Type } from 'typescript';
+import { AdminOrganisationResponseShort, AdminUserResponseShort } from 'types/responses';
+import { Link } from '@chakra-ui/next-js';
+import { Interface } from 'readline';
 // Assets
 
-type RowObj = {
-	name: string;
-	tech: any;
-	date: string;
-	progress: number;
+type Link = {
+	label: string;
+	link: string;
 };
 
-const columnHelper = createColumnHelper<RowObj>();
+type Indexable = {
+	[key: string]: any;
+};
+
+  
 
 // const columns = columnsDataCheck;
-export default function ComplexTable(props: { tableData: any }) {
-	const { tableData } = props;
+export default function ComplexTable(props: { tableData: any, rows?: string[], title: string, links?: Link[] }) {
+	const columnHelper = createColumnHelper<AdminUserResponseShort>();
+	const { tableData, rows, title, links } = props;
+	console.log(tableData, rows, columnHelper, props.tableData[0]);
 	const [ sorting, setSorting ] = React.useState<SortingState>([]);
 	const textColor = useColorModeValue('secondaryGray.900', 'white');
 	const iconColor = useColorModeValue('secondaryGray.500', 'white');
 	const borderColor = useColorModeValue('gray.200', 'whiteAlpha.100');
 	let defaultData = tableData;
-	const columns = [
-		columnHelper.accessor('name', {
-			id: 'name',
+	const columns = rows.map((row: string) => 
+		{ 
+		console.log(row);
+		const isLink = links?.find((link: Link) => link.label === row);
+		const helper = columnHelper.accessor("name", {
+			id: row,
 			header: () => (
 				<Text
 					justifyContent='space-between'
 					align='center'
 					fontSize={{ sm: '10px', lg: '12px' }}
 					color='gray.400'>
-					NAME
+					{row}
 				</Text>
 			),
 			cell: (info: any) => (
 				<Flex align='center'>
+					
 					<Text color={textColor} fontSize='sm' fontWeight='700'>
-						{info.getValue()}
+						{"attempt"}
 					</Text>
-				</Flex>
-			)
-		}),
-		columnHelper.accessor('tech', {
-			id: 'tech',
-			header: () => (
-				<Text
-					justifyContent='space-between'
-					align='center'
-					fontSize={{ sm: '10px', lg: '12px' }}
-					color='gray.400'>
-					STATUS
-				</Text>
-			),
-			cell: (info) => (
-				<Flex align='center'>
-					{info.getValue().map((item: string, key: number) => {
-						if (item === 'apple') {
-							return <AppleLogo key={key} color={iconColor} me='16px' h='18px' w='15px' />;
-						} else if (item === 'android') {
-							return <AndroidLogo key={key} color={iconColor} me='16px' h='18px' w='16px' />;
-						} else if (item === 'windows') {
-							return <WindowsLogo key={key} color={iconColor} h='18px' w='19px' />;
-						}
-					})}
-				</Flex>
-			)
-		}),
-		columnHelper.accessor('date', {
-			id: 'date',
-			header: () => (
-				<Text
-					justifyContent='space-between'
-					align='center'
-					fontSize={{ sm: '10px', lg: '12px' }}
-					color='gray.400'>
-					DATE
-				</Text>
-			),
-			cell: (info) => (
-				<Text color={textColor} fontSize='sm' fontWeight='700'>
-					{info.getValue()}
-				</Text>
-			)
-		}),
-		columnHelper.accessor('progress', {
-			id: 'progress',
-			header: () => (
-				<Text
-					justifyContent='space-between'
-					align='center'
-					fontSize={{ sm: '10px', lg: '12px' }}
-					color='gray.400'>
-					PROGRESS
-				</Text>
-			),
-			cell: (info) => (
-				<Flex align='center'>
-					<Text me='10px' color={textColor} fontSize='sm' fontWeight='700'>
-						{info.getValue()}%
-					</Text>
-					<Progress variant='table' colorScheme='brandScheme' h='8px' w='63px' value={info.getValue()} />
+				
 				</Flex>
 			)
 		})
-	];
+		console.log(helper);
+		return helper;
+	}
+	);
 	const [ data, setData ] = React.useState(() => [ ...defaultData ]);
 	const table = useReactTable({
 		data,
@@ -130,7 +84,7 @@ export default function ComplexTable(props: { tableData: any }) {
 		<Card flexDirection='column' w='100%' px='0px' overflowX={{ sm: 'scroll', lg: 'hidden' }}>
 			<Flex px='25px' mb="8px" justifyContent='space-between' align='center'>
 				<Text color={textColor} fontSize='22px' fontWeight='700' lineHeight='100%'>
-					Complex Table
+					{props.title}
 				</Text>
 				<Menu />
 			</Flex>
