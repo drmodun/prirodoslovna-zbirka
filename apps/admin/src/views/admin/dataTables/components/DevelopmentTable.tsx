@@ -31,8 +31,8 @@ type Indexable = {
 
 // const columns = columnsDataCheck;
 export default function ComplexTable(props: { tableData: any, rows?: string[], title: string, links?: Link[] }) {
-#	const { tableData, rows, title, links } = props;
-	console.log(tableData, rows, columnHelper, props.tableData[0]);
+	const { tableData, rows, title, links } = props;
+//	console.log(tableData, rows, columnHelper, props.tableData[0]);
 	const [ sorting, setSorting ] = React.useState<SortingState>([]);
 	const textColor = useColorModeValue('secondaryGray.900', 'white');
 	const iconColor = useColorModeValue('secondaryGray.500', 'white');
@@ -80,7 +80,7 @@ export default function ComplexTable(props: { tableData: any, rows?: string[], t
 	// 	debugTable: true
 	// });
 	return (
-		<Card flexDirection='column' w='100%' px='0px' overflowX={{ sm: 'scroll', lg: 'hidden' }}>
+		<Card flexDirection='column' w={"100%"}  minW='70vw' px='0px' overflowX={{ sm: 'scroll', lg: 'auto' }}>
 			<Flex px='25px' mb="8px" justifyContent='space-between' align='center'>
 				<Text color={textColor} fontSize='22px' fontWeight='700' lineHeight='100%'>
 					{props.title}
@@ -115,15 +115,24 @@ export default function ComplexTable(props: { tableData: any, rows?: string[], t
 							return (
 								<Tr key={row.id}>
 									{rows.map((cell) => {
+										const isLinked = links?.find((link: Link) => link.label === cell);
 										return (
 											<Td
 												key={row.id + cell}
 												fontSize={{ sm: '14px' }}
 												minW={{ sm: '150px', md: '200px', lg: 'auto' }}
 												borderColor='transparent'>
+													{ isLinked ? ( 
+													<Link href={"/" + title + "/" + row[isLinked.link]}> 
 													<Text color={textColor} fontSize='sm' fontWeight='700'>
 														{row[cell]}
 													</Text>
+													</Link>)
+														 : (
+													<Text color={textColor} fontSize='sm' fontWeight='700'>
+														{row[cell]}
+													</Text>)
+													}
 											</Td>
 										);
 									})}
