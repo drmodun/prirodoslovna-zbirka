@@ -95,11 +95,6 @@ export default function UserReports() {
         />
         <MiniStatistics growth="+23%" name="Sales" value="$574.34" />
         <MiniStatistics
-          startContent={
-            <Box height={'56px'} width={'56px'}>
-              <ChakraNextAvatar src={Usa} height={'56px'} width={'56px'} />
-            </Box>
-          }
           endContent={
             <Flex mt="10px">
               <Select

@@ -112,7 +112,7 @@ export default function NFT(props: {
 								'2xl': '0px'
 							}}
 							fontSize='12px'>
-							{bidders.map((avt, key) => <NextAvatar key={key} h={'32px'} w={'32px'} src={avt} />)}
+							{bidders.map((avt, key) => <NextAvatar alt='image' key={key} h={'32px'} w={'32px'} src={avt} />)}
 						</AvatarGroup>
 					</Flex>
 					<Flex
