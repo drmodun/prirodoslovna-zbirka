@@ -4,6 +4,7 @@ const nextConfig = {
   swcMinify: true,
   basePath: process.env.NEXT_PUBLIC_BASE_PATH,
   assetPrefix: process.env.NEXT_PUBLIC_BASE_PATH,
+  transpilePackages: ['@biosfera/types'],
   images: {
     domains: [
       'images.unsplash.com',

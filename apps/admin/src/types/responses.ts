@@ -15,11 +15,5 @@ export type AdminOrganisationResponseShort = {
   points: number;
 };
 
-export type AdminUserResponseShort = {
-  id: string;
-  name: string;
-  email: string;
-  role: number;
-  organisation: AdminOrganisationResponseShort;
-};
+
     

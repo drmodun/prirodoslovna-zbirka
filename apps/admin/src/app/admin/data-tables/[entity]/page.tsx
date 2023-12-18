@@ -48,8 +48,8 @@ const DataTables = ({
   {items && <DevelopmentTable 
   tableData={items}
   title={params.entity}
-  rows={['name', 'description', 'role', 'createdAt', 'updatedAt']}
-  links={[{label: 'name', link: 'id'}]}
+  rows={['firstName', 'lastName', 'location', 'email', 'updatedAt']}
+  links={[{label: 'firstName', link: 'id'}]}
   />}
   </SimpleGrid>
     </Box>
