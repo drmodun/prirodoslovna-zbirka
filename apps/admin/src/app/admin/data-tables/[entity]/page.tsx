@@ -3,6 +3,7 @@ import { Box, SimpleGrid } from '@chakra-ui/react';
 import DevelopmentTable from 'views/admin/dataTables/components/DevelopmentTable';
 import React from 'react';
 import { api } from 'types/base';
+import { adminTableMappings } from 'types/responses';
 
 const getEntities = async (params: any, searchParams: any ) => {
   try{
@@ -48,8 +49,8 @@ const DataTables = ({
   {items && <DevelopmentTable 
   tableData={items}
   title={params.entity}
-  rows={['firstName', 'lastName', 'location', 'email', 'updatedAt']}
-  links={[{label: 'firstName', link: 'id'}]}
+  rows={adminTableMappings[params.entity].fields}
+  links={adminTableMappings[params.entity].links}
   />}
   </SimpleGrid>
     </Box>

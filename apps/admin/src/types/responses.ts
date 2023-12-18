@@ -1,3 +1,5 @@
+import { ExponatResponseShort } from '@biosfera/types';
+
 export enum Role {
   Admin = 'admin',
   User = 'user',
@@ -15,5 +17,72 @@ export type AdminOrganisationResponseShort = {
   points: number;
 };
 
+export type AdminTableMappings = {
+  [key: string]: {
+    fields: string[];
+    links: {
+      label: string;
+      link: string;
+    }[];
+  };
+};
 
-    
+export const adminTableMappings: AdminTableMappings = {
+  organisations: {
+    fields: ['name', 'location', 'exponatCount', 'memberCount'],
+    links: [
+      {
+        label: 'name',
+        link: 'id',
+      },
+    ],
+  },
+  users: {
+    fields: ['firstName', 'lastName', 'email', 'location'],
+    links: [
+      {
+        label: 'name',
+        link: 'id',
+      },
+    ],
+  },
+  exponats: {
+    fields: ['name', 'alternateName', 'organizationName', 'postCount'],
+    links: [
+      {
+        label: 'name',
+        link: 'id',
+      },
+      {
+        label: 'organizationName',
+        link: 'organizationId',
+      },
+    ],
+  },
+  posts: {
+    fields: ['title', 'authorName', 'exponatName', 'likesCount'],
+    links: [
+      {
+        label: 'title',
+        link: 'id',
+      },
+      {
+        label: 'authorName',
+        link: 'authorId',
+      },
+      {
+        label: 'exponatName',
+        link: 'exponatId',
+      },
+    ],
+  },
+  categorizations: {
+    fields: ['name', 'family', 'exponatCount'],
+    links: [
+      {
+        label: 'name',
+        link: 'id',
+      },
+    ],
+  },
+};
