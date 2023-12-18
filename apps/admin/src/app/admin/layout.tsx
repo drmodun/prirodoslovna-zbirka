@@ -40,7 +40,7 @@ export default function AdminLayout(props: DashboardLayoutProps) {
 
   return (
     <Box h="100vh" w="100vw" bg={bg}>
-      <SidebarContext.Provider
+      <SidebarContext.Provider 
         value={{
           toggleSidebar,
           setToggleSidebar,

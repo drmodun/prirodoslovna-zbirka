@@ -43,6 +43,7 @@ export default function Banner (props: {
         mx='auto'
         src={avatar}
         h='87px'
+        alt='avatar'
         w='87px'
         mt='-43px'
         border='4px solid'
