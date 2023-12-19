@@ -10,10 +10,7 @@ export default function Banner(props: { object: Indexable; type: string }) {
   // Chakra Color Mode
   const textColorPrimary = useColorModeValue('secondaryGray.900', 'white');
   const textColorSecondary = 'gray.400';
-  const borderColor = useColorModeValue(
-    'white !important',
-    '#111C44 !important',
-  );
+
   return (
     <Card
       w={'100%'}

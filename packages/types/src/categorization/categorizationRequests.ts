@@ -1,7 +1,7 @@
 import { IsEnum, IsString } from "class-validator";
 import { SortingEnum, SortType } from "../query";
 
-export const getCreateCategorizationDto = (ApiPropertySwagger: any) => {
+export const getCreateCategorizationDto = (ApiPropertySwagger?: any) => {
   const ApiProperty = ApiPropertySwagger || function () {};
 
   class CreateCategorizationDto {
@@ -37,7 +37,7 @@ export const getCreateCategorizationDto = (ApiPropertySwagger: any) => {
   return CreateCategorizationDto;
 };
 
-export const getCategorizationQuery = (ApiPropertySwagger: any) => {
+export const getCategorizationQuery = (ApiPropertySwagger?: any) => {
   const ApiProperty = ApiPropertySwagger || function () {};
 
   class CategorizationQuery {
