@@ -60,7 +60,7 @@ export const adminTableMappings: AdminTableMappings = {
     ],
   },
   posts: {
-    fields: ['title', 'authorName', 'exponatName', 'likesCount'],
+    fields: ['title', 'authorName', 'exponatName', 'likeScore'],
     links: [
       {
         label: 'title',
@@ -86,3 +86,8 @@ export const adminTableMappings: AdminTableMappings = {
     ],
   },
 };
+
+adminTableMappings.likedPosts = adminTableMappings.posts;
+adminTableMappings.favouriteExponats = adminTableMappings.exponats;
+adminTableMappings.favouriteOrganisations = adminTableMappings.organisations;
+adminTableMappings.members = adminTableMappings.users;
