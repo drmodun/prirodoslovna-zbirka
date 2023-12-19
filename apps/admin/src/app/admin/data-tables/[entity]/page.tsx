@@ -1,30 +1,32 @@
-"use client"
+'use client';
 import { Box, SimpleGrid } from '@chakra-ui/react';
 import DevelopmentTable from 'views/admin/dataTables/components/DevelopmentTable';
 import React from 'react';
 import { api } from 'types/base';
 import { adminTableMappings } from 'types/responses';
 
-const getEntities = async (params: any, searchParams: any ) => {
-  try{
+const getEntities = async (params: any, searchParams: any) => {
+  try {
     if (!searchParams.page || !searchParams.size) {
       searchParams.page = 1;
       searchParams.size = 10;
     }
-    const response = await api.get("/" + params.entity, {params: searchParams});
+    const response = await api.get('/' + params.entity, {
+      params: searchParams,
+    });
     return response.data;
-  }
-  catch(error){
+  } catch (error) {
     console.log(error);
   }
-}
+};
 
 const DataTables = ({
-  params, searchParams = {}
-} : {
-  params: any,
-  searchParams?: any; }
-) => {
+  params,
+  searchParams = {},
+}: {
+  params: any;
+  searchParams?: any;
+}) => {
   console.log(params);
 
   const [items, setItems] = React.useState<any[]>([]);
@@ -42,19 +44,21 @@ const DataTables = ({
         columns={{ sm: 1, md: 2 }}
         spacing={{ base: '20px', xl: '20px' }}
       >
-{/*        <CheckTable tableData={tableDataCheck} />
+        {/*        <CheckTable tableData={tableDataCheck} />
         <ColumnsTable tableData={tableDataColumns} />
         <ComplexTable tableData={tableDataComplex} />
   */}
-  {items && <DevelopmentTable 
-  tableData={items}
-  title={params.entity}
-  rows={adminTableMappings[params.entity].fields}
-  links={adminTableMappings[params.entity].links}
-  />}
-  </SimpleGrid>
+        {items && (
+          <DevelopmentTable
+            tableData={items}
+            title={params.entity}
+            rows={adminTableMappings[params.entity].fields}
+            links={adminTableMappings[params.entity].links}
+          />
+        )}
+      </SimpleGrid>
     </Box>
   );
-}
+};
 
 export default DataTables;

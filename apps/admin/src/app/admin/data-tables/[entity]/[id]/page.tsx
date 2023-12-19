@@ -69,7 +69,7 @@ export default function ProfileOverview({
       pt={{ base: '130px', md: '80px', xl: '80px' }}
       flexDirection={'column'}
     >
-      {item && <Banner object={item} />}
+      {item && <Banner type={params.entity} object={item} />}
       <Upload
         gridArea={{
           base: '3 / 1 / 4 / 2',
