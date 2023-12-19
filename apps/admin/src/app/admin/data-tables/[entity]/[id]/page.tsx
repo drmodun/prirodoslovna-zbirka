@@ -37,7 +37,6 @@ import banner from 'img/auth/banner.png';
 import avatar from 'img/avatars/avatar4.png';
 import { useEffect, useState } from 'react';
 import { api } from 'types/base';
-import { ExtendedUserResponse, ShortUserResponse } from '@biosfera/types';
 import Other from 'views/admin/profile/components/Storage';
 import ComplexTable, {
   Indexable,
@@ -51,18 +50,18 @@ export default function ProfileOverview({
   params: any;
   searchParams: any;
 }) {
-  const [user, setUser] = useState<Indexable>();
-  const getUserInfo = async (params: any) => {
+  const [item, setItem] = useState<Indexable>();
+  const getItemInfo = async (params: any) => {
     try {
-      const response = await api.get(`/users/${params.userId}`);
-      setUser(response.data);
+      const response = await api.get(`/${params.entity}/${params.id}`);
+      setItem(response.data);
     } catch (err) {
       console.log(err);
     }
   };
 
   useEffect(() => {
-    getUserInfo(params);
+    getItemInfo(params);
   }, [params]);
 
   return (
@@ -70,7 +69,7 @@ export default function ProfileOverview({
       pt={{ base: '130px', md: '80px', xl: '80px' }}
       flexDirection={'column'}
     >
-      {user && <Banner object={user} />}
+      {item && <Banner object={item} />}
       <Upload
         gridArea={{
           base: '3 / 1 / 4 / 2',
@@ -81,20 +80,21 @@ export default function ProfileOverview({
         pb={{ base: '100px', lg: '20px' }}
       />
 
-      {user && Object.keys(user).map((key) => {
-        const isArray =
-          Array.isArray(user[key]) && typeof user[key][0] != 'string';
-        if (isArray)
-          return (
-            <ComplexTable
-              tableData={user[key]}
-              title={key}
-              rows={adminTableMappings[key].fields}
-              key={key}
-              links={adminTableMappings[key].links}
-            />
-          );
-      })}
+      {item &&
+        Object.keys(item).map((key) => {
+          const isArray =
+            Array.isArray(item[key]) && typeof item[key][0] != 'string';
+          if (isArray)
+            return (
+              <ComplexTable
+                tableData={item[key]}
+                title={key}
+                rows={adminTableMappings[key].fields}
+                key={key}
+                links={adminTableMappings[key].links}
+              />
+            );
+        })}
     </Box>
   );
 }
