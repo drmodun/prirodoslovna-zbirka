@@ -1,19 +1,5 @@
 import { ExponatResponseShort } from '@biosfera/types';
 import { LinkObject } from 'views/admin/dataTables/components/DevelopmentTable';
-import {
-  CategorizationQuery,
-  CreateCategorizationDto,
-  CreateExponatDto,
-  CreateOrganisationDto,
-  ExponatQuery,
-  OrganisationQuery,
-  RegisterUserDto,
-  UpdateCategorizationDto,
-  UpdateExponatDto,
-  UpdateOrganisationDto,
-  UpdateUserDto,
-  UserQuery,
-} from './dto';
 
 export enum Role {
   Admin = 'admin',
@@ -50,7 +36,7 @@ export const adminTableMappings: AdminTableMappings = {
         link: 'id',
       },
     ],
-    dto: [CreateOrganisationDto, UpdateOrganisationDto, OrganisationQuery],
+    //    dto: [CreateOrganisationDto, UpdateOrganisationDto, OrganisationQuery],
   },
   users: {
     fields: ['firstName', 'lastName', 'email', 'location'],
@@ -61,7 +47,7 @@ export const adminTableMappings: AdminTableMappings = {
         link: 'id',
       },
     ],
-    dto: [RegisterUserDto, UpdateUserDto, UserQuery],
+    //    dto: [RegisterUserDto, UpdateUserDto, UserQuery],
   },
   exponats: {
     fields: ['name', 'alternateName', 'organizationName', 'postCount'],
@@ -77,7 +63,7 @@ export const adminTableMappings: AdminTableMappings = {
         link: 'organizationId',
       },
     ],
-    dto: [CreateExponatDto, UpdateExponatDto, ExponatQuery],
+    //    dto: [CreateExponatDto, UpdateExponatDto, ExponatQuery],
   },
   posts: {
     fields: ['title', 'authorName', 'exponatName', 'likeScore'],
@@ -108,11 +94,11 @@ export const adminTableMappings: AdminTableMappings = {
         link: 'id',
       },
     ],
-    dto: [
+    /*    dto: [
       CreateCategorizationDto,
       UpdateCategorizationDto,
       CategorizationQuery,
-    ],
+    ],*/
   },
 };
 
