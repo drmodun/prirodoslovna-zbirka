@@ -39,6 +39,21 @@ export const getCreateOrganisationDto = (ApiPropertySwagger?: any) => {
   return CreateOrganisationDto;
 };
 
+export const getOrganisationQuery = (ApiPropertySwagger?: any) => {
+  const ApiProperty = ApiPropertySwagger || function () {};
+  class UpdatedOrganisationQuery {
+    @IsString()
+    @ApiProperty()
+    name: string;
+
+    @IsString()
+    @ApiProperty()
+    location: County;
+  }
+
+  return UpdatedOrganisationQuery;
+};
+
 export interface OrganisationQuery {
   name?: string;
   location?: County;

@@ -26,18 +26,11 @@ import { Box, Grid } from '@chakra-ui/react';
 
 // Custom components
 import Banner from 'views/admin/profile/components/Banner';
-import General from 'views/admin/profile/components/General';
-import Notifications from 'views/admin/profile/components/Notifications';
-import Projects from 'views/admin/profile/components/Projects';
-import Storage from 'views/admin/profile/components/Storage';
 import Upload from 'views/admin/profile/components/Upload';
 
 // Assets
-import banner from 'img/auth/banner.png';
-import avatar from 'img/avatars/avatar4.png';
 import { useEffect, useState } from 'react';
 import { api } from 'types/base';
-import Other from 'views/admin/profile/components/Storage';
 import ComplexTable, {
   Indexable,
 } from 'views/admin/dataTables/components/DevelopmentTable';
@@ -51,6 +44,8 @@ export default function ProfileOverview({
   searchParams: any;
 }) {
   const [item, setItem] = useState<Indexable>();
+  const [formData, setFormData] = useState<Indexable>();
+
   const getItemInfo = async (params: any) => {
     try {
       const response = await api.get(`/${params.entity}/${params.id}`);
@@ -63,6 +58,12 @@ export default function ProfileOverview({
   useEffect(() => {
     getItemInfo(params);
   }, [params]);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [item]);
+
+  //TODO: Add funfacts as list object here csv
 
   return (
     <Box
