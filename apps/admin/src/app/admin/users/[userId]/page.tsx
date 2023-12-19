@@ -39,6 +39,10 @@ import { useEffect, useState } from 'react';
 import { api } from 'types/base';
 import { ExtendedUserResponse, ShortUserResponse } from '@biosfera/types';
 import Other from 'views/admin/profile/components/Storage';
+import ComplexTable, {
+  Indexable,
+} from 'views/admin/dataTables/components/DevelopmentTable';
+import { adminTableMappings } from 'types/responses';
 
 export default function ProfileOverview({
   params,
@@ -47,7 +51,7 @@ export default function ProfileOverview({
   params: any;
   searchParams: any;
 }) {
-  const [user, setUser] = useState<ExtendedUserResponse>();
+  const [user, setUser] = useState<Indexable>();
   const getUserInfo = async (params: any) => {
     try {
       const response = await api.get(`/users/${params.userId}`);
@@ -62,81 +66,35 @@ export default function ProfileOverview({
   }, [params]);
 
   return (
-    <Box pt={{ base: '130px', md: '80px', xl: '80px' }}>
-      <Grid
-        templateColumns={{
-          base: '1fr',
-          lg: '1.34fr 1fr 1.62fr',
+    <Box
+      pt={{ base: '130px', md: '80px', xl: '80px' }}
+      flexDirection={'column'}
+    >
+      {user && <Banner object={user} />}
+      <Upload
+        gridArea={{
+          base: '3 / 1 / 4 / 2',
+          lg: '1 / 3 / 2 / 4',
         }}
-        templateRows={{
-          base: 'repeat(3, 1fr)',
-          lg: '1fr',
-        }}
-        gap={{ base: '20px', xl: '20px' }}
-      >
-        {user && <Banner
-          gridArea="1 / 1 / 2 / 2"
-          banner={banner}
-          avatar={avatar}
-          name={user.firstName + ' ' + user.lastName}
-          job={user.email}
-          posts={user.posts.length.toString()}
-          followers={user.followerCount.toString()}
-          following={user.followingCount.toString()}
-        />}
-        {user && <Other
-          gridArea={{ base: '2 / 1 / 3 / 2', lg: '1 / 2 / 2 / 3' }}
-          firstProp={user.location}
-          secondProp={new Date(user.updatedAt).toLocaleTimeString()}
-        />}
-        <Upload
-          gridArea={{
-            base: '3 / 1 / 4 / 2',
-            lg: '1 / 3 / 2 / 4',
-          }}
-          minH={{ base: 'auto', lg: '420px', '2xl': '365px' }}
-          pe="20px"
-          pb={{ base: '100px', lg: '20px' }}
-        />
-      </Grid>
-      <Grid
-        mb="20px"
-        templateColumns={{
-          base: '1fr',
-          lg: 'repeat(2, 1fr)',
-          '2xl': '1.34fr 1.62fr 1fr',
-        }}
-        templateRows={{
-          base: '1fr',
-          lg: 'repeat(2, 1fr)',
-          '2xl': '1fr',
-        }}
-        gap={{ base: '20px', xl: '20px' }}
-      >
-        <Projects
-          banner={banner}
-          avatar={avatar}
-          name="Adela Parkson"
-          job="Product Designer"
-          posts="17"
-          followers="9.7k"
-          following="274"
-        />
-        <General
-          gridArea={{ base: '2 / 1 / 3 / 2', lg: '1 / 2 / 2 / 3' }}
-          minH="365px"
-          pe="20px"
-        />
-        <Notifications
-          used={25.6}
-          total={50}
-          gridArea={{
-            base: '3 / 1 / 4 / 2',
-            lg: '2 / 1 / 3 / 3',
-            '2xl': '1 / 3 / 2 / 4',
-          }}
-        />
-      </Grid>
+        minH={{ base: 'auto', lg: '420px', '2xl': '365px' }}
+        pe="20px"
+        pb={{ base: '100px', lg: '20px' }}
+      />
+
+      {user && Object.keys(user).map((key) => {
+        const isArray =
+          Array.isArray(user[key]) && typeof user[key][0] != 'string';
+        if (isArray)
+          return (
+            <ComplexTable
+              tableData={user[key]}
+              title={key}
+              rows={adminTableMappings[key].fields}
+              key={key}
+              links={adminTableMappings[key].links}
+            />
+          );
+      })}
     </Box>
   );
 }

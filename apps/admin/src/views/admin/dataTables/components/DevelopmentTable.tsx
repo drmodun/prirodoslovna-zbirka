@@ -23,7 +23,7 @@ export type LinkObject = {
 	link: string;
 };
 
-type Indexable = {
+export type Indexable = {
 	[key: string]: any;
 };
 
