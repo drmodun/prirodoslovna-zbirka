@@ -1,4 +1,5 @@
 import { ExponatResponseShort } from '@biosfera/types';
+import { LinkObject } from 'views/admin/dataTables/components/DevelopmentTable';
 
 export enum Role {
   Admin = 'admin',
@@ -20,10 +21,7 @@ export type AdminOrganisationResponseShort = {
 export type AdminTableMappings = {
   [key: string]: {
     fields: string[];
-    links: {
-      label: string;
-      link: string;
-    }[];
+    links: LinkObject[];
   };
 };
 
@@ -33,6 +31,7 @@ export const adminTableMappings: AdminTableMappings = {
     links: [
       {
         label: 'name',
+        type: 'organisations',
         link: 'id',
       },
     ],
@@ -42,6 +41,7 @@ export const adminTableMappings: AdminTableMappings = {
     links: [
       {
         label: 'firstName',
+        type: 'users',
         link: 'id',
       },
     ],
@@ -51,10 +51,12 @@ export const adminTableMappings: AdminTableMappings = {
     links: [
       {
         label: 'name',
+        type: 'exponats',
         link: 'id',
       },
       {
         label: 'organizationName',
+        type: 'organisations',
         link: 'organizationId',
       },
     ],
@@ -64,14 +66,17 @@ export const adminTableMappings: AdminTableMappings = {
     links: [
       {
         label: 'title',
+        type: 'posts',
         link: 'id',
       },
       {
+        type: 'users',
         label: 'authorName',
         link: 'authorId',
       },
       {
         label: 'exponatName',
+        type: 'exponats',
         link: 'exponatId',
       },
     ],
@@ -81,6 +86,7 @@ export const adminTableMappings: AdminTableMappings = {
     links: [
       {
         label: 'name',
+        type: 'categotizations',
         link: 'id',
       },
     ],
