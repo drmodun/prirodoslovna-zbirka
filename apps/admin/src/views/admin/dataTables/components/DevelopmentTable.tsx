@@ -114,7 +114,7 @@ export default function ComplexTable(props: {
                         borderColor="transparent"
                       >
                         {isLinked ? (
-                          <Link href={'/admin/' + isLinked.type + '/' + row[isLinked.link]}>
+                          <Link href={'/admin/data-tables/' + isLinked.type + '/' + row[isLinked.link]}>
                             <Text
                               color={textColor}
                               fontSize="sm"
