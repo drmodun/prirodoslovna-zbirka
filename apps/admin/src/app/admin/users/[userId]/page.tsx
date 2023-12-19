@@ -23,7 +23,6 @@
 
 // Chakra imports
 import { Box, Grid } from '@chakra-ui/react';
-import AdminLayout from 'layouts/admin';
 
 // Custom components
 import Banner from 'views/admin/profile/components/Banner';
@@ -36,11 +35,34 @@ import Upload from 'views/admin/profile/components/Upload';
 // Assets
 import banner from 'img/auth/banner.png';
 import avatar from 'img/avatars/avatar4.png';
+import { useEffect, useState } from 'react';
+import { api } from 'types/base';
+import { ExtendedUserResponse, ShortUserResponse } from '@biosfera/types';
+import Other from 'views/admin/profile/components/Storage';
 
-export default function ProfileOverview() {
+export default function ProfileOverview({
+  params,
+  searchParams,
+}: {
+  params: any;
+  searchParams: any;
+}) {
+  const [user, setUser] = useState<ExtendedUserResponse>();
+  const getUserInfo = async (params: any) => {
+    try {
+      const response = await api.get(`/users/${params.userId}`);
+      setUser(response.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getUserInfo(params);
+  }, [params]);
+
   return (
     <Box pt={{ base: '130px', md: '80px', xl: '80px' }}>
-      {/* Main Fields */}
       <Grid
         templateColumns={{
           base: '1fr',
@@ -52,21 +74,21 @@ export default function ProfileOverview() {
         }}
         gap={{ base: '20px', xl: '20px' }}
       >
-        <Banner
+        {user && <Banner
           gridArea="1 / 1 / 2 / 2"
           banner={banner}
           avatar={avatar}
-          name="Adela Parkson"
-          job="Product Designer"
-          posts="17"
-          followers="9.7k"
-          following="274"
-        />
-        <Storage
+          name={user.firstName + ' ' + user.lastName}
+          job={user.email}
+          posts={user.posts.length.toString()}
+          followers={user.followerCount.toString()}
+          following={user.followingCount.toString()}
+        />}
+        {user && <Other
           gridArea={{ base: '2 / 1 / 3 / 2', lg: '1 / 2 / 2 / 3' }}
-          used={25.6}
-          total={50}
-        />
+          firstProp={user.location}
+          secondProp={new Date(user.updatedAt).toLocaleTimeString()}
+        />}
         <Upload
           gridArea={{
             base: '3 / 1 / 4 / 2',

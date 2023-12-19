@@ -41,7 +41,7 @@ export const adminTableMappings: AdminTableMappings = {
     fields: ['firstName', 'lastName', 'email', 'location'],
     links: [
       {
-        label: 'name',
+        label: 'firstName',
         link: 'id',
       },
     ],
@@ -77,7 +77,7 @@ export const adminTableMappings: AdminTableMappings = {
     ],
   },
   categorizations: {
-    fields: ['name', 'family', 'exponatCount'],
+    fields: ['family', 'numberOfExponats'],
     links: [
       {
         label: 'name',
