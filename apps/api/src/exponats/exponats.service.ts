@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { CreateExponatDto, UpdateExponatDto } from './dto/exponats.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import {
@@ -7,12 +7,20 @@ import {
   SortingRequest,
   sortExponatQueryBuilderWithComplexFilters,
 } from '@biosfera/types';
+import { Role } from '@prisma/client';
 
 @Injectable()
 export class ExponatsService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async create(createExponatDto: CreateExponatDto) {
+  async create(createExponatDto: CreateExponatDto, userId: string) {
+    const check = await this.checkForValidity(
+      userId,
+      createExponatDto.authorId,
+    );
+
+    if (!check) throw new UnauthorizedException();
+
     return await this.prisma.exponat.create({
       data: createExponatDto,
       include: {
@@ -30,6 +38,7 @@ export class ExponatsService {
     filter?: ExponatQuery,
     sorting?: SortingRequest,
     pagination?: PaginationRequest,
+    approval?: boolean,
   ) {
     const sort = sorting && sortExponatQueryBuilderWithComplexFilters(sorting);
     return await this.prisma.exponat.findMany({
@@ -62,6 +71,9 @@ export class ExponatsService {
           createdAt: {
             gte: filter.createdAt,
           },
+        }),
+        ...(approval && {
+          isApproved: approval,
         }),
       },
       include: {
@@ -144,5 +156,52 @@ export class ExponatsService {
         id,
       },
     });
+  }
+
+  async changeApprovalStatus(
+    id: string,
+    userId: string,
+    organisationId: string,
+  ) {
+    const check = await this.checkForValidity(userId, organisationId, true);
+    if (!check) return false;
+    const current = await this.prisma.exponat.findFirst({
+      where: {
+        id,
+      },
+    });
+    await this.prisma.exponat.update({
+      where: {
+        id,
+      },
+      data: {
+        isApproved: !current.isApproved,
+      },
+    });
+  }
+
+  private async checkForValidity(
+    userId: string,
+    organisationId: string,
+    adminOnly: boolean = false,
+  ) {
+    const connection = await this.prisma.organisationUser.findFirst({
+      where: {
+        userId,
+        organisationId,
+      },
+    });
+
+    if (!connection) {
+      const checkForSuper = await this.prisma.user.findFirst({
+        where: {
+          id: userId,
+        },
+      });
+      if (checkForSuper.role !== Role.SUPER) return false;
+      return true;
+    }
+    if (adminOnly && connection.role !== Role.ADMIN) return false;
+    return true;
   }
 }
