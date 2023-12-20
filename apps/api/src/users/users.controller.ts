@@ -26,7 +26,7 @@ import { SortingParams } from '../config/sorting';
 import { ExtendedUserResponse, ShortUserResponse } from '@biosfera/types';
 import { PostResponse } from '@biosfera/types';
 import { JwtAuthGuard } from 'src/auth/jwt-auth-guard';
-import { Role } from '@prisma/client';
+import { OptionalJwtAuthGuard } from 'src/auth/optional-jwt-auth-guard';
 
 @Controller('users')
 @ApiTags('users')
@@ -80,9 +80,11 @@ export class UsersController {
     return mapped;
   }
 
+  @UseGuards(OptionalJwtAuthGuard)
+  @ApiBearerAuth()
   @Get(':id')
-  async findOne(@Param('id') id: string) {
-    console.log('idhfidsf');
+  async findOne(@Param('id') id: string, @Req() req: any) {
+    console.log(req.user);
     try {
       const item = await this.usersService.findOne(id);
 
@@ -221,7 +223,6 @@ export class UsersController {
 
       return mapped;
     } catch (e) {
-      console.log(e, 1);
       throw new NotFoundException();
     }
   }
