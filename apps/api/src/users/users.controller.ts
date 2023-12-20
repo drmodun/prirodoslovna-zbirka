@@ -135,32 +135,6 @@ export class UsersController {
 
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
-  @Patch(':id')
-  async adminUpdate(
-    @Param('id') id: string,
-    @Body() updateUserDto: UpdateUserDto,
-    @Req() req: any,
-  ) {
-    if (req.user.role !== Role.ADMIN) {
-      throw new UnauthorizedException();
-    }
-
-    return (await this.usersService.update(id, updateUserDto)) !== null;
-  }
-
-  @UseGuards(JwtAuthGuard)
-  @ApiBearerAuth()
-  @Delete(':id')
-  async adminDelete(@Param('id') id: string, @Req() req: any) {
-    if (req.user.role !== Role.ADMIN) {
-      throw new UnauthorizedException();
-    }
-
-    return (await this.usersService.remove(id)) !== null;
-  }
-
-  @UseGuards(JwtAuthGuard)
-  @ApiBearerAuth()
   @Patch()
   async update(@Body() updateUserDto: UpdateUserDto, @Req() req: any) {
     return (
@@ -173,5 +147,30 @@ export class UsersController {
   @Delete()
   async remove(@Req() req: any) {
     return (await this.usersService.remove(req.user.id)) !== null;
+  }
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
+  @Patch(':id')
+  async adminUpdate(
+    @Param('id') id: string,
+    @Body() updateUserDto: UpdateUserDto,
+    @Req() req: any,
+  ) {
+    if (req.user.role !== Role.SUPER) {
+      throw new UnauthorizedException();
+    }
+
+    return (await this.usersService.update(id, updateUserDto)) !== null;
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
+  @Delete(':id')
+  async adminDelete(@Param('id') id: string, @Req() req: any) {
+    if (req.user.role !== 'super') {
+      throw new UnauthorizedException();
+    }
+
+    return (await this.usersService.remove(id)) !== null;
   }
 }

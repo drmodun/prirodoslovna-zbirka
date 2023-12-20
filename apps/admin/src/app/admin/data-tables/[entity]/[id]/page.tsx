@@ -71,7 +71,7 @@ export default function ProfileOverview({
       flexDirection={'column'}
     >
       {item && <Banner type={params.entity} object={item} />}
-      <Upload
+      {params && <Upload
         gridArea={{
           base: '3 / 1 / 4 / 2',
           lg: '1 / 3 / 2 / 4',
@@ -79,7 +79,9 @@ export default function ProfileOverview({
         minH={{ base: 'auto', lg: '420px', '2xl': '365px' }}
         pe="20px"
         pb={{ base: '100px', lg: '20px' }}
-      />
+        id={params.id}
+        type={params.entity}
+      />}
 
       {item &&
         Object.keys(item).map((key) => {
