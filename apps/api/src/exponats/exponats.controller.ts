@@ -158,6 +158,7 @@ export class ExponatsController {
     const mapped = {
       alternateName: item.alternateName,
       id: item.id,
+      isApproved: item.isApproved,
       title: item.name,
       attributes: item.attributes,
       categorization: {

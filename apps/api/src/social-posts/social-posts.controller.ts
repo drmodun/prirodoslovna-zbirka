@@ -91,6 +91,26 @@ export class SocialPostsController {
     return mapped;
   }
 
+  @Get(':id')
+  async findOne(@Param('id') id: string) {
+    const post = await this.socialPostsService.findOne(id);
+
+    const mapped: ShortSocialPostResponse = {
+      createdAt: post.createdAt,
+      id: post.id,
+      images: post.images,
+      organisationId: post.authorId,
+      text: post.text,
+      organisationMainImage: post.organisation.mainImage,
+      organisationName: post.organisation.name,
+      title: post.title,
+      updatedAt: post.updatedAt,
+      isApproved: post.isApproved,
+    };
+
+    return mapped;
+  }
+
   @Get('approved')
   async findAllApproved(
     @PaginationParams() paginationParam?: PaginationRequest,
