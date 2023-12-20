@@ -23,6 +23,7 @@ export type AdminTableMappings = {
     fields: string[];
     links: LinkObject[];
     dto?: any[];
+    hasApproval?: boolean;
   };
 };
 
@@ -36,6 +37,7 @@ export const adminTableMappings: AdminTableMappings = {
         link: 'id',
       },
     ],
+    hasApproval: true,
     //    dto: [CreateOrganisationDto, UpdateOrganisationDto, OrganisationQuery],
   },
   users: {
