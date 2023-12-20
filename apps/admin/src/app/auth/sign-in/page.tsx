@@ -47,6 +47,7 @@ import Link from 'next/link';
 import { FcGoogle } from 'react-icons/fc';
 import { MdOutlineRemoveRedEye } from 'react-icons/md';
 import { RiEyeCloseLine } from 'react-icons/ri';
+import { loginUser } from 'utils/adminApi';
 
 export default function SignIn() {
   // Chakra color mode
@@ -66,6 +67,19 @@ export default function SignIn() {
     { bg: 'whiteAlpha.200' },
   );
   const [show, setShow] = React.useState(false);
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
+
+  const handleFormSubmit = async () => {
+    const signIn = await loginUser({ email, password });
+    if (signIn) {
+      alert('logged in');
+      window.location.href = '/admin';
+    } else {
+      console.log('not logged in');
+    }
+  };
+
   const handleClick = () => setShow(!show);
   return (
     <DefaultAuthLayout illustrationBackground={'/img/auth/auth.png'}>
@@ -107,23 +121,6 @@ export default function SignIn() {
           me="auto"
           mb={{ base: '20px', md: 'auto' }}
         >
-          <Button
-            fontSize="sm"
-            me="0px"
-            mb="26px"
-            py="15px"
-            h="50px"
-            borderRadius="16px"
-            bgColor={googleBg}
-            color={googleText}
-            fontWeight="500"
-            _hover={googleHover}
-            _active={googleActive}
-            _focus={googleActive}
-          >
-            <Icon as={FcGoogle} w="20px" h="20px" me="10px" />
-            Sign in with Google
-          </Button>
           <Flex align="center" mb="25px">
             <HSeparator />
             <Text color="gray.400" mx="14px">
@@ -146,6 +143,8 @@ export default function SignIn() {
               isRequired={true}
               variant="auth"
               fontSize="sm"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               ms={{ base: '0px', md: '0px' }}
               type="email"
               placeholder="mail@simmmple.com"
@@ -169,6 +168,8 @@ export default function SignIn() {
                 placeholder="Min. 8 characters"
                 mb="24px"
                 size="lg"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 type={show ? 'text' : 'password'}
                 variant="auth"
               />
@@ -181,34 +182,6 @@ export default function SignIn() {
                 />
               </InputRightElement>
             </InputGroup>
-            <Flex justifyContent="space-between" align="center" mb="24px">
-              <FormControl display="flex" alignItems="center">
-                <Checkbox
-                  id="remember-login"
-                  colorScheme="brandScheme"
-                  me="10px"
-                />
-                <FormLabel
-                  htmlFor="remember-login"
-                  mb="0"
-                  fontWeight="normal"
-                  color={textColor}
-                  fontSize="sm"
-                >
-                  Keep me logged in
-                </FormLabel>
-              </FormControl>
-              <Link href="/auth/forgot-password">
-                <Text
-                  color={textColorBrand}
-                  fontSize="sm"
-                  w="124px"
-                  fontWeight="500"
-                >
-                  Forgot password?
-                </Text>
-              </Link>
-            </Flex>
             <Button
               fontSize="sm"
               variant="brand"
@@ -216,31 +189,11 @@ export default function SignIn() {
               w="100%"
               h="50"
               mb="24px"
+              onClick={handleFormSubmit}
             >
               Sign In
             </Button>
           </FormControl>
-          <Flex
-            flexDirection="column"
-            justifyContent="center"
-            alignItems="start"
-            maxW="100%"
-            mt="0px"
-          >
-            <Link href="/auth/sign-up">
-              <Text color={textColorDetails} fontWeight="400" fontSize="14px">
-                Not registered yet?
-                <Text
-                  color={textColorBrand}
-                  as="span"
-                  ms="5px"
-                  fontWeight="500"
-                >
-                  Create an Account
-                </Text>
-              </Text>
-            </Link>
-          </Flex>
         </Flex>
       </Flex>
     </DefaultAuthLayout>
