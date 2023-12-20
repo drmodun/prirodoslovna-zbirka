@@ -104,4 +104,20 @@ export class OrganisationsService {
       },
     });
   }
+
+  async changeApprovalStatus(id: string) {
+    const current = await this.prisma.organisation.findFirst({
+      where: {
+        id,
+      },
+    });
+    await this.prisma.organisation.update({
+      where: {
+        id,
+      },
+      data: {
+        isApproved: !current.isApproved,
+      },
+    });
+  }
 }

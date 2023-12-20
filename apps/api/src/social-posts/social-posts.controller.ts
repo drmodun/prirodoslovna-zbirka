@@ -85,6 +85,38 @@ export class SocialPostsController {
         organisationName: post.organisation.name,
         title: post.title,
         updatedAt: post.updatedAt,
+        isApproved: post.isApproved,
+      };
+    });
+    return mapped;
+  }
+
+  @Get('approved')
+  async findAllApproved(
+    @PaginationParams() paginationParam?: PaginationRequest,
+    @SortingParams([SortingEnum.TITLE, SortingEnum.ORGANISATION])
+    sorting?: SortingRequest,
+    @Query() filter?: SocialPostQuery,
+  ) {
+    const posts = await this.socialPostsService.findAll(
+      filter,
+      sorting,
+      paginationParam,
+    );
+
+    const approved = posts.filter((post) => post.isApproved);
+
+    const mapped = approved.map((post) => {
+      return {
+        createdAt: post.createdAt,
+        id: post.id,
+        images: post.images,
+        organisationId: post.authorId,
+        text: post.text,
+        organisationMainImage: post.organisation.mainImage,
+        organisationName: post.organisation.name,
+        title: post.title,
+        updatedAt: post.updatedAt,
       };
     });
     return mapped;
@@ -118,6 +150,23 @@ export class SocialPostsController {
     @Req() req: any,
   ) {
     const socialPost = await this.socialPostsService.remove(
+      id,
+      req.user.id,
+      organisationId,
+    );
+
+    return socialPost !== null;
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
+  @Patch(':organizationId/:id/approval')
+  async changeApprovalStatus(
+    @Param('organizationId') organisationId: string,
+    @Param('id') id: string,
+    @Req() req: any,
+  ) {
+    const socialPost = await this.socialPostsService.changeApprovalStatus(
       id,
       req.user.id,
       organisationId,

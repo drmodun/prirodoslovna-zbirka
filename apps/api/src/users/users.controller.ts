@@ -156,7 +156,7 @@ export class UsersController {
     @Body() updateUserDto: UpdateUserDto,
     @Req() req: any,
   ) {
-    if (req.user.role !== Role.SUPER) {
+    if (req.user.role !== 'super') {
       throw new UnauthorizedException();
     }
 
