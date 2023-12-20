@@ -52,6 +52,7 @@ import tableDataCheck from 'views/admin/default/variables/tableDataCheck';
 import tableDataComplex from 'views/admin/default/variables/tableDataComplex';
 // Assets
 import Usa from 'img/dashboards/usa.png';
+import useUser from '../../../contexts/UserContext';
 
 export default function Default() {
   // Chakra Color Mode
