@@ -28,6 +28,7 @@
     "noImplicitThis": true,
     "strictNullChecks": false,
     "downlevelIteration": true,
+    "experimentalDecorators": true,
     "baseUrl": "src",
     "paths": {
       "@assets/*": [
