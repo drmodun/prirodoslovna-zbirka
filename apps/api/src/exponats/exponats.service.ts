@@ -158,12 +158,20 @@ export class ExponatsService {
     });
   }
 
-  async changeApprovalStatus(
-    id: string,
-    userId: string,
-    organisationId: string,
-  ) {
-    const check = await this.checkForValidity(userId, organisationId, true);
+  async changeApprovalStatus(id: string, userId: string) {
+    const exponat = await this.prisma.exponat.findFirst({
+      where: {
+        id,
+      },
+    });
+
+    if (!exponat) return false;
+
+    const check = await this.checkForValidity(
+      userId,
+      exponat.organisationId,
+      true,
+    );
     if (!check) return false;
     const current = await this.prisma.exponat.findFirst({
       where: {
