@@ -25,6 +25,7 @@ export class OrganisationsService {
     filter?: OrganisationQuery,
     sorting?: SortingRequest,
     pagination?: PaginationRequest,
+    approval?: boolean,
   ) {
     const sort = sorting && sortQueryBuilder(sorting);
 
@@ -34,6 +35,9 @@ export class OrganisationsService {
           name: { search: filter.name, mode: 'insensitive' },
         }),
         ...(filter?.location && { location: filter.location as any }),
+        ...(approval && {
+          isApproved: approval,
+        }),
         //fix enums later;
       },
       include: {

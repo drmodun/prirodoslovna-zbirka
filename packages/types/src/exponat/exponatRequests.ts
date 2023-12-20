@@ -50,6 +50,8 @@ export const getCreateExponatDto = (ApiPropertySwagger?: any) => {
     @IsUUID()
     @ApiProperty()
     cateogorizationId: string;
+
+    authorId?: string;
   }
   return CreateExponatDto;
 };

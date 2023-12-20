@@ -65,12 +65,14 @@ export class SocialPostsService {
     filter: SocialPostQuery,
     sorting?: SortingRequest,
     pagination?: PaginationRequest,
+    approval?: boolean,
   ) {
     const sort = socialPostSortQueryBuilder(sorting);
     const posts = this.prisma.socialPost.findMany({
       where: {
         ...(filter?.title && { title: filter.title }),
         ...(filter?.authorId && { title: filter.authorId }),
+        ...(approval && { isApproved: approval }),
       },
 
       orderBy: sort,

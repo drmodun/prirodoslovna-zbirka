@@ -125,11 +125,10 @@ export class OrganisationsController {
       filter,
       sorting,
       paginationParam,
+      true,
     );
 
-    const approved = items.filter((org) => org.isApproved);
-
-    const mapped = approved.map((org) => {
+    const mapped = items.map((org) => {
       return {
         id: org.id,
         name: org.name,

@@ -102,11 +102,10 @@ export class SocialPostsController {
       filter,
       sorting,
       paginationParam,
+      true,
     );
 
-    const approved = posts.filter((post) => post.isApproved);
-
-    const mapped = approved.map((post) => {
+    const mapped = posts.map((post) => {
       return {
         createdAt: post.createdAt,
         id: post.id,

@@ -7,6 +7,8 @@ import {
   Param,
   Delete,
   Query,
+  UseGuards,
+  Req,
 } from '@nestjs/common';
 import { ExponatsService } from './exponats.service';
 import {
@@ -24,32 +26,13 @@ import {
 } from '@biosfera/types';
 import { PaginationParams } from 'src/config/pagination';
 import { SortingParams } from 'src/config/sorting';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { JwtAuthGuard } from 'src/auth/jwt-auth-guard';
 
 @ApiTags('exponats')
 @Controller('exponats')
 export class ExponatsController {
   constructor(private readonly exponatsService: ExponatsService) {}
-
-  @Post()
-  async create(@Body() createOrganisationDto: CreateExponatDto) {
-    const item = await this.exponatsService.create(createOrganisationDto);
-
-    const mapped = {
-      id: item.id,
-      name: item.name,
-      mainImage: item.mainImage,
-      updatedAt: item.updatedAt,
-      favouriteCount: 0,
-      postCount: 0,
-      alternateName: item.alternateName,
-      description: item.description,
-      organizationId: item.organisationId,
-      organizationName: item.Organisation.name,
-    } as ExponatResponseShort;
-
-    return mapped;
-  }
 
   @Get()
   async findAll(
@@ -68,6 +51,73 @@ export class ExponatsController {
       filter,
       sorting,
       paginationParam,
+    );
+
+    const mapped = items.map((item) => {
+      return {
+        id: item.id,
+        name: item.name,
+        mainImage: item.mainImage,
+        updatedAt: item.updatedAt,
+        favouriteCount: item._count.FavouriteExponat,
+        postCount: item._count.Posts,
+        alternateName: item.alternateName,
+        description: item.description,
+        organizationId: item.organisationId,
+        organizationName: item.Organisation.name,
+      } as ExponatResponseShort;
+    });
+
+    return mapped;
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
+  @Post(':organisationId')
+  async create(
+    @Param('organisationId') organisationId: string,
+    @Body() createOrganisationDto: CreateExponatDto,
+    @Req() req: any,
+  ) {
+    createOrganisationDto.authorId = organisationId;
+    const item = await this.exponatsService.create(
+      createOrganisationDto,
+      req.user.id,
+    );
+
+    const mapped = {
+      id: item.id,
+      name: item.name,
+      mainImage: item.mainImage,
+      updatedAt: item.updatedAt,
+      favouriteCount: 0,
+      postCount: 0,
+      alternateName: item.alternateName,
+      description: item.description,
+      organizationId: item.organisationId,
+      organizationName: item.Organisation.name,
+    } as ExponatResponseShort;
+
+    return mapped;
+  }
+  @Get('approved')
+  async findAllApproved(
+    @PaginationParams() paginationParam?: PaginationRequest,
+    @SortingParams([
+      SortingEnum.NAME,
+      SortingEnum.CREATED_AT,
+      SortingEnum.POST_AMOUNT,
+      SortingEnum.FAVOURITES,
+      SortingEnum.ALTERNATE_NAME,
+    ])
+    sorting?: SortingRequest,
+    @Query() filter?: ExponatQuery,
+  ) {
+    const items = await this.exponatsService.findAll(
+      filter,
+      sorting,
+      paginationParam,
+      true,
     );
 
     const mapped = items.map((item) => {
@@ -144,5 +194,12 @@ export class ExponatsController {
   @Delete(':id')
   async remove(@Param('id') id: string) {
     return await this.exponatsService.remove(id);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
+  @Patch(':id/approval')
+  async changeApprovalStatus(@Param('id') id: string) {
+    return await this.exponatsService.changeApprovalStatus(id);
   }
 }
