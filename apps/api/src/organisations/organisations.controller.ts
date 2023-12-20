@@ -207,6 +207,7 @@ export class OrganisationsController {
       otherImages: item.otherImages,
       updatedAt: item.updatedAt,
       websiteUrl: item.websiteUrl,
+      isApproved: item.isApproved,
       posts: mappedPosts,
     } as ExtendedOrganisationResponse;
 

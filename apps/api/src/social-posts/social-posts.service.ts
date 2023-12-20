@@ -86,6 +86,19 @@ export class SocialPostsService {
     return posts;
   }
 
+  async findOne(id: string) {
+    const post = await this.prisma.socialPost.findFirst({
+      where: {
+        id,
+      },
+      include: {
+        organisation: true,
+      },
+    });
+
+    return post;
+  }
+
   async update(
     updateSocialPostDto: UpdateSocialPostDto,
     id: string,

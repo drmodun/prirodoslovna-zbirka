@@ -7,5 +7,6 @@ export interface ShortSocialPostResponse {
   organisationName: string;
   organisationMainImage: string;
   createdAt: Date;
+  isApproved?: boolean;
   updatedAt: Date;
 }

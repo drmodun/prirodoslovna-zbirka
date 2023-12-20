@@ -8,6 +8,7 @@ export interface ExponatExtendedResponse {
   mainImage: string;
   alternateName: string;
   organizationId: string;
+  isApproved?: boolean;
   organizationName: string;
   funFacts: string[];
   attributes: Json;
@@ -24,6 +25,7 @@ export interface ExponatResponseShort {
   description: string;
   mainImage: string;
   alternateName: string;
+  isApproved?: boolean;
   organizationId: string;
   organizationName: string;
   updatedAt: Date;
