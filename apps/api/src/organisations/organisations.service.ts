@@ -66,13 +66,21 @@ export class OrganisationsService {
     return result;
   }
 
-  async findOne(id: string) {
+  async findOne(id: string, approval?: boolean) {
     const item = await this.prisma.organisation.findFirstOrThrow({
       where: {
         id,
+        ...(approval && {
+          isApproved: approval,
+        }),
       },
       include: {
         Exponats: {
+          where: {
+            ...(approval && {
+              isApproved: approval,
+            }),
+          },
           include: {
             _count: {
               select: {
@@ -83,7 +91,13 @@ export class OrganisationsService {
           },
         },
         _count: true,
-        OrganisationPosts: true,
+        OrganisationPosts: {
+          where: {
+            ...(approval && {
+              isApproved: approval,
+            }),
+          },
+        },
         UserOrganisationFollowers: true,
         OrganisationUsers: true,
       },

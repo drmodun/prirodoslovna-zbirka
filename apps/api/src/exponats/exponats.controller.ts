@@ -149,6 +149,53 @@ export class ExponatsController {
         authorName: post.author.firstName + ' ' + post.author.lastName,
         exponatId: item.id,
         exponatName: item.name,
+        isApproved: post.isApproved,
+        id: post.id,
+        images: post.images,
+        likeScore: post._count.Likes,
+        title: post.title,
+      } as PostResponse;
+    });
+
+    const mapped = {
+      alternateName: item.alternateName,
+      id: item.id,
+      isApproved: item.isApproved,
+      title: item.name,
+      attributes: item.attributes,
+      categorization: {
+        class: item.Categorization.class,
+        domain: item.Categorization.domain,
+        family: item.Categorization.family,
+        genus: item.Categorization.genus,
+        kingdom: item.Categorization.kingdom,
+        order: item.Categorization.order,
+        phylum: item.Categorization.phylum,
+      },
+      createdAt: item.createdAt,
+      description: item.description,
+      favouriteCount: item._count.FavouriteExponat,
+      funFacts: item.funFacts,
+      mainImage: item.mainImage,
+      organizationId: item.organisationId,
+      organizationName: item.Organisation.name,
+      updatedAt: item.updatedAt,
+      posts: posts,
+    } as ExponatExtendedResponse;
+
+    return mapped;
+  }
+
+  @Get('approved/:id')
+  async findOneApproved(@Param('id') id: string) {
+    const item = await this.exponatsService.findOne(id, true);
+
+    const posts: PostResponse[] = item.Posts.map((post) => {
+      return {
+        authorId: post.authorId,
+        authorName: post.author.firstName + ' ' + post.author.lastName,
+        exponatId: item.id,
+        exponatName: item.name,
         id: post.id,
         images: post.images,
         likeScore: post._count.Likes,

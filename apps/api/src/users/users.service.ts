@@ -58,12 +58,18 @@ export class UsersService {
     });
   }
 
-  async findOne(id: string) {
+  async findOne(id: string, approval?: boolean) {
     const user = await this.prisma.user.findUniqueOrThrow({
-      where: { id: id },
+      where: {
+        id: id,
+        ...(approval && { isApproved: approval }),
+      },
       include: {
         _count: true,
         Posts: {
+          where: {
+            ...(approval && { isApproved: approval }),
+          },
           include: {
             _count: {
               select: {
@@ -80,6 +86,13 @@ export class UsersService {
         },
 
         Likes: {
+          where: {
+            ...(approval && {
+              Post: {
+                isApproved: approval,
+              },
+            }),
+          },
           include: {
             Post: {
               include: {
@@ -95,6 +108,13 @@ export class UsersService {
           },
         },
         FavouriteExponat: {
+          where: {
+            ...(approval && {
+              Exponat: {
+                isApproved: approval,
+              },
+            }),
+          },
           include: {
             Exponat: true,
           },

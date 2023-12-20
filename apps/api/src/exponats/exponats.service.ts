@@ -102,10 +102,11 @@ export class ExponatsService {
     });
   }
 
-  async findOne(id: string) {
+  async findOne(id: string, approval?: boolean) {
     return await this.prisma.exponat.findUnique({
       where: {
         id,
+        ...(approval && { isApproved: approval }),
       },
       include: {
         _count: {
@@ -123,6 +124,9 @@ export class ExponatsService {
           },
         },
         Posts: {
+          where: {
+            ...(approval && { isApproved: approval }),
+          },
           include: {
             _count: {
               select: {

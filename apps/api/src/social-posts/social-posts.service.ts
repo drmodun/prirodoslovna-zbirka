@@ -86,10 +86,11 @@ export class SocialPostsService {
     return posts;
   }
 
-  async findOne(id: string) {
+  async findOne(id: string, approval?: boolean) {
     const post = await this.prisma.socialPost.findFirst({
       where: {
         id,
+        ...(approval && { isApproved: approval }),
       },
       include: {
         organisation: true,

@@ -173,4 +173,58 @@ export class UsersController {
 
     return (await this.usersService.remove(id)) !== null;
   }
+
+  @Get('approved/:id')
+  async findOneApproved(@Param('id') id: string) {
+    try {
+      const item = await this.usersService.findOne(id, true);
+
+      const posts: PostResponse[] = item.Posts.map((post) => {
+        return {
+          authorId: item.id,
+          authorName: item.firstName + ' ' + item.lastName,
+          id: post.id,
+          images: post.images,
+          likeScore: post._count.Likes,
+          title: post.title,
+          exponatId: post.Exponat.id,
+          exponatName: post.Exponat.name,
+        };
+      });
+
+      const likedPosts: PostResponse[] = item.Likes.map((like) => {
+        return {
+          authorId: like.Post.author.id,
+          authorName:
+            like.Post.author.firstName + ' ' + like.Post.author.lastName,
+          id: like.Post.id,
+          images: like.Post.images,
+          likeScore: like.Post._count.Likes,
+          title: like.Post.title,
+          exponatId: like.Post.Exponat.id,
+          exponatName: like.Post.Exponat.name,
+        };
+      });
+      const mapped: ExtendedUserResponse = {
+        email: item.email,
+        firstName: item.firstName,
+        lastName: item.lastName,
+        followerCount: item._count.followers,
+        id: item.id,
+        createdAt: item.createdAt,
+        updatedAt: item.updatedAt,
+        posts: posts,
+        location: item.location,
+        likedPosts: likedPosts,
+        followingCount: item._count.following,
+      };
+
+      return mapped;
+    } catch (e) {
+      console.log(e, 1);
+      throw new NotFoundException();
+    }
+  }
 }
+
+//TODO: add approval double route for other connected apis and properties such as likes
