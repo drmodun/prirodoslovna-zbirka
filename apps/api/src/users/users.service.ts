@@ -62,7 +62,6 @@ export class UsersService {
     const user = await this.prisma.user.findUniqueOrThrow({
       where: {
         id: id,
-        ...(approval && { isApproved: approval }),
       },
       include: {
         _count: true,
