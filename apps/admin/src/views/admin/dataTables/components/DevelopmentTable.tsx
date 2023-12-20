@@ -1,5 +1,6 @@
 import {
   Box,
+  Checkbox,
   Flex,
   Progress,
   Table,
@@ -28,6 +29,7 @@ import { Type } from 'typescript';
 import { AdminOrganisationResponseShort } from 'types/responses';
 import { Link } from '@chakra-ui/next-js';
 import { Interface } from 'readline';
+import { ApprovalCheckbox } from 'components/approvalCheckbox/approvalCheckbox';
 // Assets
 
 export type LinkObject = {
@@ -77,6 +79,23 @@ export default function ComplexTable(props: {
         <Table variant="simple" color="gray.500" mb="24px" mt="12px">
           <Thead>
             <Tr>
+              {tableData && tableData[0]?.isApproved !== undefined && (
+                <Th
+                  pe="10px"
+                  borderColor={borderColor}
+                  cursor="pointer"
+                  minW={{ sm: '150px', md: '200px', lg: 'auto' }}
+                >
+                  <Flex
+                    justifyContent="space-between"
+                    align="center"
+                    fontSize={{ sm: '10px', lg: '12px' }}
+                    color="gray.400"
+                  >
+                    <Text>Approval</Text>
+                  </Flex>
+                </Th>
+              )}
               {rows.map((header) => {
                 return (
                   <Th
@@ -102,6 +121,27 @@ export default function ComplexTable(props: {
             {tableData.map((row: any) => {
               return (
                 <Tr key={row.id}>
+                  {tableData && tableData[0]?.isApproved !== undefined && (
+                    <Td
+                      key={row.id + 'approval'}
+                      fontSize={{ sm: '14px' }}
+                      minW={{ sm: '150px', md: '200px', lg: 'auto' }}
+                      borderColor="transparent"
+                    >
+                      <Flex
+                        justifyContent="space-between"
+                        align="center"
+                        fontSize={{ sm: '10px', lg: '12px' }}
+                        color="gray.400"
+                      >
+                        <ApprovalCheckbox
+                          isApproved={row.isApproved}
+                          type={title}
+                          id={row.id}
+                        />
+                      </Flex>
+                    </Td>
+                  )}
                   {rows.map((cell) => {
                     const isLinked = links?.find(
                       (link: LinkObject) => link.label === cell,
@@ -114,7 +154,14 @@ export default function ComplexTable(props: {
                         borderColor="transparent"
                       >
                         {isLinked ? (
-                          <Link href={'/admin/data-tables/' + isLinked.type + '/' + row[isLinked.link]}>
+                          <Link
+                            href={
+                              '/admin/data-tables/' +
+                              isLinked.type +
+                              '/' +
+                              row[isLinked.link]
+                            }
+                          >
                             <Text
                               color={textColor}
                               fontSize="sm"

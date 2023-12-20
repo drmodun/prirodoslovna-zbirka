@@ -17,6 +17,7 @@ import { MdUpload } from 'react-icons/md';
 import Dropzone from 'views/admin/profile/components/Dropzone';
 import { api } from '../../../../types/base';
 import { useState } from 'react';
+import { ApprovalCheckbox } from 'components/approvalCheckbox/approvalCheckbox';
 
 export default function Upload(props: {
   used?: number;
@@ -56,17 +57,6 @@ export default function Upload(props: {
     return confirmationDialog;
   };
 
-  const changeApprovalStatus = async () => {
-    try {
-      const response = await api.patch(`/${type}/${id}/approval`);
-      if (response.status === 200) {
-        setApproved((prev) => !prev);
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
   return (
     <Card {...rest} mb="20px" alignItems="center" p="20px">
       <Flex h="100%" direction={{ base: 'column', '2xl': 'row' }}>
@@ -99,12 +89,7 @@ export default function Upload(props: {
               justifyContent={'space-between'}
               textAlign="start"
             >
-              <Checkbox
-                defaultChecked={approved}
-                colorScheme="brandScheme"
-                me="10px"
-                onChange={changeApprovalStatus}
-              />
+              <ApprovalCheckbox isApproved={isApproved} type={type} id={id} />
               <Text
                 color={textColorSecondary}
                 fontSize="md"
