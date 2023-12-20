@@ -155,14 +155,13 @@ export class OrganisationsController {
   async findOne(@Param('id') id: string) {
     const item = await this.organisationsService.findOne(id);
 
-    const mappedExponats = item.Exponats.filter(
-      (exponat) => exponat.isApproved,
-    ).map((exponat) => {
+    const mappedExponats = item.Exponats.map((exponat) => {
       return {
         alternateName: exponat.alternateName,
         description: exponat.description,
         id: exponat.id,
         mainImage: exponat.mainImage,
+        isApproved: exponat.isApproved,
         name: exponat.name,
         updatedAt: exponat.updatedAt,
         favouriteCount: exponat._count.FavouriteExponat,
@@ -230,6 +229,67 @@ export class OrganisationsController {
   @Patch(':id/approval')
   async changeApprovalStatus(@Param('id') id: string) {
     return await this.organisationsService.changeApprovalStatus(id);
+  }
+
+  @Get('approved/:id')
+  async findOneApproved(@Param('id') id: string) {
+    const item = await this.organisationsService.findOne(id, true);
+
+    const mappedExponats = item.Exponats.map((exponat) => {
+      return {
+        alternateName: exponat.alternateName,
+        description: exponat.description,
+        id: exponat.id,
+        mainImage: exponat.mainImage,
+        name: exponat.name,
+        updatedAt: exponat.updatedAt,
+        favouriteCount: exponat._count.FavouriteExponat,
+        organizationId: item.id,
+        organizationName: item.name,
+        isFavorite: false,
+        postCount: exponat._count.Posts,
+      } as ExponatResponseShort;
+    });
+
+    const mappedPosts = item.OrganisationPosts.map((post) => {
+      return {
+        createdAt: post.createdAt,
+        id: post.id,
+        images: post.images,
+        text: post.text,
+        updatedAt: post.updatedAt,
+        organisationId: item.id,
+        organisationName: item.name,
+        organisationMainImage: item.mainImage,
+        title: post.title,
+        isApproved: post.isApproved,
+      } as ShortSocialPostResponse;
+    });
+
+    const mapped = {
+      createdAt: item.createdAt,
+      description: item.description,
+      email: item.email,
+      exponats: mappedExponats,
+      followersAmount: item._count.UserOrganisationFollowers,
+      points: item.Exponats.reduce(
+        (acc, curr) => acc + curr._count.FavouriteExponat,
+        0,
+      ),
+      id: item.id,
+      isFollowing: false,
+      location: item.location,
+      mainImage: item.mainImage,
+      membersAmount: item._count.OrganisationUsers,
+      name: item.name,
+      otherImages: item.otherImages,
+      updatedAt: item.updatedAt,
+      websiteUrl: item.websiteUrl,
+      isApproved: item.isApproved,
+      posts: mappedPosts,
+    } as ExtendedOrganisationResponse;
+
+    return mapped;
   }
 
   //TODO: add admin approval and disapproval and creation request endpoints

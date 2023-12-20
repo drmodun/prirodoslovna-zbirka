@@ -132,12 +132,33 @@ export class SocialPostsController {
         images: post.images,
         organisationId: post.authorId,
         text: post.text,
+        isApproved: post.isApproved,
         organisationMainImage: post.organisation.mainImage,
         organisationName: post.organisation.name,
         title: post.title,
         updatedAt: post.updatedAt,
       };
     });
+    return mapped;
+  }
+
+  @Get('approved/:id')
+  async findOneApproved(@Param('id') id: string) {
+    const post = await this.socialPostsService.findOne(id, true);
+
+    const mapped: ShortSocialPostResponse = {
+      createdAt: post.createdAt,
+      id: post.id,
+      images: post.images,
+      organisationId: post.authorId,
+      text: post.text,
+      organisationMainImage: post.organisation.mainImage,
+      organisationName: post.organisation.name,
+      title: post.title,
+      updatedAt: post.updatedAt,
+      isApproved: post.isApproved,
+    };
+
     return mapped;
   }
 
