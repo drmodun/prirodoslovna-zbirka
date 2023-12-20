@@ -96,6 +96,56 @@ export class OrganisationsController {
         updatedAt: org.updatedAt,
         followerCount: org._count.UserOrganisationFollowers,
         memberCount: org._count.OrganisationUsers,
+        isApproved: org.isApproved,
+      } as OrganisationResponseShort;
+    });
+
+    return mapped;
+  }
+
+  @Get('approved')
+  @ApiQuery({ name: 'page', required: false })
+  @ApiQuery({ name: 'size', required: false })
+  @ApiQuery({ name: 'name', required: false })
+  @ApiQuery({ name: 'location', required: false, enum: County })
+  @ApiQuery({ name: 'attribute', required: false, enum: SortingEnum })
+  @ApiQuery({ name: 'direction', required: false, enum: ['asc', 'desc'] })
+  @ApiQuery({
+    name: 'isApproved',
+    required: false,
+    enum: ['true', 'false'],
+  })
+  async findAllShortApproved(
+    @PaginationParams() paginationParam?: PaginationRequest,
+    @SortingParams([SortingEnum.NAME, SortingEnum.COUNTY, SortingEnum.POINTS])
+    sorting?: SortingRequest,
+    @Query() filter?: OrganisationQuery,
+  ) {
+    const items = await this.organisationsService.findAllShort(
+      filter,
+      sorting,
+      paginationParam,
+    );
+
+    const approved = items.filter((org) => org.isApproved);
+
+    const mapped = approved.map((org) => {
+      return {
+        id: org.id,
+        name: org.name,
+        location: org.location,
+        websiteUrl: org.websiteUrl,
+        mainImage: org.mainImage,
+        exponatCount: org.Exponats.length,
+        points: org.Exponats.reduce(
+          (acc, curr) => acc + curr._count.FavouriteExponat,
+          0,
+        ),
+        //possibly already make this in sql later
+        isFavorite: false,
+        updatedAt: org.updatedAt,
+        followerCount: org._count.UserOrganisationFollowers,
+        memberCount: org._count.OrganisationUsers,
       } as OrganisationResponseShort;
     });
 
@@ -106,7 +156,9 @@ export class OrganisationsController {
   async findOne(@Param('id') id: string) {
     const item = await this.organisationsService.findOne(id);
 
-    const mappedExponats = item.Exponats.map((exponat) => {
+    const mappedExponats = item.Exponats.filter(
+      (exponat) => exponat.isApproved,
+    ).map((exponat) => {
       return {
         alternateName: exponat.alternateName,
         description: exponat.description,
@@ -173,6 +225,11 @@ export class OrganisationsController {
   @Delete(':id')
   async remove(@Param('id') id: string) {
     return await this.organisationsService.remove(id);
+  }
+
+  @Patch(':id/approval')
+  async changeApprovalStatus(@Param('id') id: string) {
+    return await this.organisationsService.changeApprovalStatus(id);
   }
 
   //TODO: add admin approval and disapproval and creation request endpoints
