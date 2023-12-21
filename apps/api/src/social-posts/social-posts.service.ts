@@ -156,4 +156,18 @@ export class SocialPostsService {
       },
     });
   }
+
+  async checkForExistingValidity(userId: string, socialPostId: string) {
+    const post = await this.prisma.socialPost.findFirst({
+      where: {
+        id: socialPostId,
+      },
+    });
+
+    if (!post) return false;
+
+    const check = await this.checkForValidity(userId, post.authorId);
+
+    return check;
+  }
 }

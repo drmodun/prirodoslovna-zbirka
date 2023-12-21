@@ -28,12 +28,15 @@ import { PaginationParams } from 'src/config/pagination';
 import { SortingParams } from 'src/config/sorting';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/jwt-auth-guard';
+import { OptionalJwtAuthGuard } from 'src/auth/optional-jwt-auth-guard';
 
 @ApiTags('exponats')
 @Controller('exponats')
 export class ExponatsController {
   constructor(private readonly exponatsService: ExponatsService) {}
 
+  @UseGuards(OptionalJwtAuthGuard)
+  @ApiBearerAuth()
   @Get()
   async findAll(
     @PaginationParams() paginationParam?: PaginationRequest,
@@ -46,11 +49,15 @@ export class ExponatsController {
     ])
     sorting?: SortingRequest,
     @Query() filter?: ExponatQuery,
+    @Req() req?: any,
   ) {
+    const isAdmin = req.user?.role === 'super';
+
     const items = await this.exponatsService.findAll(
       filter,
       sorting,
       paginationParam,
+      !isAdmin,
     );
 
     const mapped = items.map((item) => {
@@ -62,6 +69,7 @@ export class ExponatsController {
         favouriteCount: item._count.FavouriteExponat,
         postCount: item._count.Posts,
         alternateName: item.alternateName,
+        ...(isAdmin && { isApproved: item.isApproved }),
         description: item.description,
         organizationId: item.organisationId,
         organizationName: item.Organisation.name,
@@ -101,47 +109,14 @@ export class ExponatsController {
 
     return mapped;
   }
-  @Get('approved')
-  async findAllApproved(
-    @PaginationParams() paginationParam?: PaginationRequest,
-    @SortingParams([
-      SortingEnum.NAME,
-      SortingEnum.CREATED_AT,
-      SortingEnum.POST_AMOUNT,
-      SortingEnum.FAVOURITES,
-      SortingEnum.ALTERNATE_NAME,
-    ])
-    sorting?: SortingRequest,
-    @Query() filter?: ExponatQuery,
-  ) {
-    const items = await this.exponatsService.findAll(
-      filter,
-      sorting,
-      paginationParam,
-      true,
-    );
 
-    const mapped = items.map((item) => {
-      return {
-        id: item.id,
-        name: item.name,
-        mainImage: item.mainImage,
-        updatedAt: item.updatedAt,
-        favouriteCount: item._count.FavouriteExponat,
-        postCount: item._count.Posts,
-        alternateName: item.alternateName,
-        description: item.description,
-        organizationId: item.organisationId,
-        organizationName: item.Organisation.name,
-      } as ExponatResponseShort;
-    });
-
-    return mapped;
-  }
-
+  @UseGuards(OptionalJwtAuthGuard)
+  @ApiBearerAuth()
   @Get(':id')
-  async findOne(@Param('id') id: string) {
-    const item = await this.exponatsService.findOne(id);
+  async findOne(@Param('id') id: string, @Req() req?: any) {
+    const isAdmin =
+      req.user && (await this.exponatsService.checkUserRole(req?.user?.id, id));
+    const item = await this.exponatsService.findOne(id, !isAdmin);
 
     const posts: PostResponse[] = item.Posts.map((post) => {
       return {
@@ -149,7 +124,7 @@ export class ExponatsController {
         authorName: post.author.firstName + ' ' + post.author.lastName,
         exponatId: item.id,
         exponatName: item.name,
-        isApproved: post.isApproved,
+        ...(isAdmin && { isApproved: post.isApproved }),
         id: post.id,
         images: post.images,
         likeScore: post._count.Likes,
@@ -160,54 +135,8 @@ export class ExponatsController {
     const mapped = {
       alternateName: item.alternateName,
       id: item.id,
-      isApproved: item.isApproved,
       title: item.name,
-      attributes: item.attributes,
-      categorization: {
-        class: item.Categorization.class,
-        domain: item.Categorization.domain,
-        family: item.Categorization.family,
-        genus: item.Categorization.genus,
-        kingdom: item.Categorization.kingdom,
-        order: item.Categorization.order,
-        phylum: item.Categorization.phylum,
-      },
-      createdAt: item.createdAt,
-      description: item.description,
-      favouriteCount: item._count.FavouriteExponat,
-      funFacts: item.funFacts,
-      mainImage: item.mainImage,
-      organizationId: item.organisationId,
-      organizationName: item.Organisation.name,
-      updatedAt: item.updatedAt,
-      posts: posts,
-    } as ExponatExtendedResponse;
-
-    return mapped;
-  }
-
-  @Get('approved/:id')
-  async findOneApproved(@Param('id') id: string) {
-    const item = await this.exponatsService.findOne(id, true);
-
-    const posts: PostResponse[] = item.Posts.map((post) => {
-      return {
-        authorId: post.authorId,
-        authorName: post.author.firstName + ' ' + post.author.lastName,
-        exponatId: item.id,
-        exponatName: item.name,
-        id: post.id,
-        images: post.images,
-        likeScore: post._count.Likes,
-        title: post.title,
-      } as PostResponse;
-    });
-
-    const mapped = {
-      alternateName: item.alternateName,
-      id: item.id,
-      isApproved: item.isApproved,
-      title: item.name,
+      ...(isAdmin && { isApproved: item.isApproved }),
       attributes: item.attributes,
       categorization: {
         class: item.Categorization.class,

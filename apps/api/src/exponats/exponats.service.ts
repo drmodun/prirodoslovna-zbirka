@@ -102,6 +102,26 @@ export class ExponatsService {
     });
   }
 
+  async checkUserRole(userId: string, exponatId: string) {
+    const exponat = await this.prisma.exponat.findFirst({
+      where: {
+        id: exponatId,
+      },
+    });
+
+    if (!exponat) return false;
+
+    const check = await this.checkForValidity(
+      userId,
+      exponat.organisationId,
+      true,
+    );
+
+    if (!check) return false;
+
+    return true;
+  }
+
   async findOne(id: string, approval?: boolean) {
     return await this.prisma.exponat.findUnique({
       where: {

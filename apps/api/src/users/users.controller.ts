@@ -112,7 +112,7 @@ export class UsersController {
           likeScore: like.Post._count.Likes,
           title: like.Post.title,
           exponatId: like.Post.Exponat.id,
-          isApproved: like.Post.isApproved,
+          ...(isAdmin && { isApproved: like.Post.isApproved }),
           exponatName: like.Post.Exponat.name,
         };
       });
