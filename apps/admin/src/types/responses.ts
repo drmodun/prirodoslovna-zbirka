@@ -1,4 +1,9 @@
-import { ExponatResponseShort } from '@biosfera/types';
+import {
+  ExponatQuery,
+  ExponatResponseShort,
+  OrganisationQuery,
+  UserQuery,
+} from '@biosfera/types';
 import { LinkObject } from 'views/admin/dataTables/components/DevelopmentTable';
 
 export enum Role {
@@ -23,6 +28,7 @@ export type AdminTableMappings = {
     fields: string[];
     links: LinkObject[];
     dto?: any[];
+    query?: any;
     hasApproval?: boolean;
   };
 };
@@ -38,6 +44,12 @@ export const adminTableMappings: AdminTableMappings = {
       },
     ],
     hasApproval: true,
+    query: {
+      location: '',
+      name: '',
+      attribute: '',
+      direction: 'asc',
+    },
     //    dto: [CreateOrganisationDto, UpdateOrganisationDto, OrganisationQuery],
   },
   users: {
@@ -49,6 +61,15 @@ export const adminTableMappings: AdminTableMappings = {
         link: 'id',
       },
     ],
+    query: {
+      name: '',
+      email: '',
+      location: '',
+      organisation: '',
+      attribute: '',
+      direction: 'asc',
+      role: -1,
+    },
     //    dto: [RegisterUserDto, UpdateUserDto, UserQuery],
   },
   exponats: {
@@ -65,6 +86,15 @@ export const adminTableMappings: AdminTableMappings = {
         link: 'organizationId',
       },
     ],
+    query: {
+      name: '',
+      alternateName: '',
+      organisationId: '',
+      minFavoriteCount: -1,
+      maxFavoriteCount: -1,
+      attribute: '',
+      direction: 'asc',
+    } as ExponatQuery,
     //    dto: [CreateExponatDto, UpdateExponatDto, ExponatQuery],
   },
   posts: {
@@ -86,6 +116,13 @@ export const adminTableMappings: AdminTableMappings = {
         link: 'exponatId',
       },
     ],
+    query: {
+      title: '',
+      authorId: '',
+      exponatId: '',
+      attribute: '',
+      direction: 'asc',
+    },
   },
   categorizations: {
     fields: ['family', 'numberOfExponats'],
@@ -96,11 +133,44 @@ export const adminTableMappings: AdminTableMappings = {
         link: 'id',
       },
     ],
+    query: {
+      genus: '',
+      kingdom: '',
+      domain: '',
+      phylum: '',
+      class: '',
+      order: '',
+      family: '',
+      attribute: '',
+      direction: 'asc',
+    },
     /*    dto: [
       CreateCategorizationDto,
       UpdateCategorizationDto,
       CategorizationQuery,
     ],*/
+  },
+  socialPosts: {
+    fields: ['title', 'organisationName', 'updatedAt'],
+    links: [
+      {
+        label: 'title',
+        type: 'socialPosts',
+        link: 'id',
+      },
+      {
+        label: 'organisationName',
+        type: 'organisations',
+        link: 'organisationId',
+      },
+    ],
+    hasApproval: true,
+    query: {
+      authorId: '',
+      title: '',
+      attribute: '',
+      direction: 'asc',
+    },
   },
 };
 
