@@ -26,6 +26,7 @@ import {
 } from '@biosfera/types';
 import { PaginationParams } from 'src/config/pagination';
 import { SortingParams } from 'src/config/sorting';
+import { OptionalJwtAuthGuard } from 'src/auth/optional-jwt-auth-guard';
 
 @ApiTags('social-posts')
 @Controller('social-posts')
@@ -91,9 +92,17 @@ export class SocialPostsController {
     return mapped;
   }
 
+  @UseGuards(OptionalJwtAuthGuard)
+  @ApiBearerAuth()
   @Get(':id')
-  async findOne(@Param('id') id: string) {
-    const post = await this.socialPostsService.findOne(id);
+  async findOne(@Param('id') id: string, @Req() req: any) {
+    const isAdmin =
+      req.user &&
+      (await this.socialPostsService.checkForExistingValidity(
+        req.user?.id,
+        id,
+      ));
+    const post = await this.socialPostsService.findOne(id, !isAdmin);
 
     const mapped: ShortSocialPostResponse = {
       createdAt: post.createdAt,
@@ -104,65 +113,13 @@ export class SocialPostsController {
       organisationMainImage: post.organisation.mainImage,
       organisationName: post.organisation.name,
       title: post.title,
+      ...(isAdmin && { isApproved: post.isApproved }),
       updatedAt: post.updatedAt,
       isApproved: post.isApproved,
     };
 
     return mapped;
   }
-
-  @Get('approved')
-  async findAllApproved(
-    @PaginationParams() paginationParam?: PaginationRequest,
-    @SortingParams([SortingEnum.TITLE, SortingEnum.ORGANISATION])
-    sorting?: SortingRequest,
-    @Query() filter?: SocialPostQuery,
-  ) {
-    const posts = await this.socialPostsService.findAll(
-      filter,
-      sorting,
-      paginationParam,
-      true,
-    );
-
-    const mapped = posts.map((post) => {
-      return {
-        createdAt: post.createdAt,
-        id: post.id,
-        images: post.images,
-        organisationId: post.authorId,
-        text: post.text,
-        isApproved: post.isApproved,
-        organisationMainImage: post.organisation.mainImage,
-        organisationName: post.organisation.name,
-        title: post.title,
-        updatedAt: post.updatedAt,
-      };
-    });
-    return mapped;
-  }
-
-  @Get('approved/:id')
-  async findOneApproved(@Param('id') id: string) {
-    const post = await this.socialPostsService.findOne(id, true);
-
-    const mapped: ShortSocialPostResponse = {
-      createdAt: post.createdAt,
-      id: post.id,
-      images: post.images,
-      organisationId: post.authorId,
-      text: post.text,
-      organisationMainImage: post.organisation.mainImage,
-      organisationName: post.organisation.name,
-      title: post.title,
-      updatedAt: post.updatedAt,
-      isApproved: post.isApproved,
-    };
-
-    return mapped;
-  }
-
-  //TODO: Not sure if findOne is needed, also not sure if any extended responses are needed
 
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()

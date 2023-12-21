@@ -7,6 +7,8 @@ import {
   Param,
   Delete,
   Query,
+  UseGuards,
+  Req,
 } from '@nestjs/common';
 import { OrganisationsService } from './organisations.service';
 import {
@@ -27,8 +29,9 @@ import {
 } from '@biosfera/types';
 import { ExponatResponseShort } from '@biosfera/types';
 import { ShortSocialPostResponse } from '@biosfera/types';
-import { ApiQuery, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { County } from '@prisma/client';
+import { OptionalJwtAuthGuard } from 'src/auth/optional-jwt-auth-guard';
 @Controller('organisations')
 @ApiTags('organisations')
 export class OrganisationsController {
@@ -55,6 +58,8 @@ export class OrganisationsController {
     return mapped;
   }
 
+  @UseGuards(OptionalJwtAuthGuard)
+  @ApiBearerAuth()
   @Get()
   @ApiQuery({ name: 'page', required: false })
   @ApiQuery({ name: 'size', required: false })
@@ -72,11 +77,14 @@ export class OrganisationsController {
     @SortingParams([SortingEnum.NAME, SortingEnum.COUNTY, SortingEnum.POINTS])
     sorting?: SortingRequest,
     @Query() filter?: OrganisationQuery,
+    @Req() req?: any,
   ) {
+    const isAdmin = req?.user?.role === 'super';
     const items = await this.organisationsService.findAllShort(
       filter,
       sorting,
       paginationParam,
+      !isAdmin,
     );
 
     const mapped = items.map((org) => {
@@ -86,6 +94,7 @@ export class OrganisationsController {
         location: org.location,
         websiteUrl: org.websiteUrl,
         mainImage: org.mainImage,
+        ...(isAdmin && { isApproved: org.isApproved }),
         exponatCount: org.Exponats.length,
         points: org.Exponats.reduce(
           (acc, curr) => acc + curr._count.FavouriteExponat,
@@ -103,57 +112,13 @@ export class OrganisationsController {
     return mapped;
   }
 
-  @Get('approved')
-  @ApiQuery({ name: 'page', required: false })
-  @ApiQuery({ name: 'size', required: false })
-  @ApiQuery({ name: 'name', required: false })
-  @ApiQuery({ name: 'location', required: false, enum: County })
-  @ApiQuery({ name: 'attribute', required: false, enum: SortingEnum })
-  @ApiQuery({ name: 'direction', required: false, enum: ['asc', 'desc'] })
-  @ApiQuery({
-    name: 'isApproved',
-    required: false,
-    enum: ['true', 'false'],
-  })
-  async findAllShortApproved(
-    @PaginationParams() paginationParam?: PaginationRequest,
-    @SortingParams([SortingEnum.NAME, SortingEnum.COUNTY, SortingEnum.POINTS])
-    sorting?: SortingRequest,
-    @Query() filter?: OrganisationQuery,
-  ) {
-    const items = await this.organisationsService.findAllShort(
-      filter,
-      sorting,
-      paginationParam,
-      true,
-    );
-
-    const mapped = items.map((org) => {
-      return {
-        id: org.id,
-        name: org.name,
-        location: org.location,
-        websiteUrl: org.websiteUrl,
-        mainImage: org.mainImage,
-        exponatCount: org.Exponats.length,
-        points: org.Exponats.reduce(
-          (acc, curr) => acc + curr._count.FavouriteExponat,
-          0,
-        ),
-        //possibly already make this in sql later
-        isFavorite: false,
-        updatedAt: org.updatedAt,
-        followerCount: org._count.UserOrganisationFollowers,
-        memberCount: org._count.OrganisationUsers,
-      } as OrganisationResponseShort;
-    });
-
-    return mapped;
-  }
-
+  @UseGuards(OptionalJwtAuthGuard)
+  @ApiBearerAuth()
   @Get(':id')
-  async findOne(@Param('id') id: string) {
-    const item = await this.organisationsService.findOne(id);
+  async findOne(@Param('id') id: string, @Req() req?: any) {
+    const isAdmin = req?.user?.role === 'super';
+
+    const item = await this.organisationsService.findOne(id, !isAdmin);
 
     const mappedExponats = item.Exponats.map((exponat) => {
       return {
@@ -163,6 +128,7 @@ export class OrganisationsController {
         mainImage: exponat.mainImage,
         isApproved: exponat.isApproved,
         name: exponat.name,
+        ...(isAdmin && { isApproved: exponat.isApproved }),
         updatedAt: exponat.updatedAt,
         favouriteCount: exponat._count.FavouriteExponat,
         organizationId: item.id,
@@ -183,6 +149,8 @@ export class OrganisationsController {
         organisationName: item.name,
         organisationMainImage: item.mainImage,
         title: post.title,
+        ...(isAdmin && { isApproved: item.isApproved }),
+
         isApproved: post.isApproved,
       } as ShortSocialPostResponse;
     });
@@ -204,6 +172,7 @@ export class OrganisationsController {
       membersAmount: item._count.OrganisationUsers,
       name: item.name,
       otherImages: item.otherImages,
+      ...(isAdmin && { isApproved: item.isApproved }),
       updatedAt: item.updatedAt,
       websiteUrl: item.websiteUrl,
       isApproved: item.isApproved,
@@ -230,67 +199,5 @@ export class OrganisationsController {
   async changeApprovalStatus(@Param('id') id: string) {
     return await this.organisationsService.changeApprovalStatus(id);
   }
-
-  @Get('approved/:id')
-  async findOneApproved(@Param('id') id: string) {
-    const item = await this.organisationsService.findOne(id, true);
-
-    const mappedExponats = item.Exponats.map((exponat) => {
-      return {
-        alternateName: exponat.alternateName,
-        description: exponat.description,
-        id: exponat.id,
-        mainImage: exponat.mainImage,
-        name: exponat.name,
-        updatedAt: exponat.updatedAt,
-        favouriteCount: exponat._count.FavouriteExponat,
-        organizationId: item.id,
-        organizationName: item.name,
-        isFavorite: false,
-        postCount: exponat._count.Posts,
-      } as ExponatResponseShort;
-    });
-
-    const mappedPosts = item.OrganisationPosts.map((post) => {
-      return {
-        createdAt: post.createdAt,
-        id: post.id,
-        images: post.images,
-        text: post.text,
-        updatedAt: post.updatedAt,
-        organisationId: item.id,
-        organisationName: item.name,
-        organisationMainImage: item.mainImage,
-        title: post.title,
-        isApproved: post.isApproved,
-      } as ShortSocialPostResponse;
-    });
-
-    const mapped = {
-      createdAt: item.createdAt,
-      description: item.description,
-      email: item.email,
-      exponats: mappedExponats,
-      followersAmount: item._count.UserOrganisationFollowers,
-      points: item.Exponats.reduce(
-        (acc, curr) => acc + curr._count.FavouriteExponat,
-        0,
-      ),
-      id: item.id,
-      isFollowing: false,
-      location: item.location,
-      mainImage: item.mainImage,
-      membersAmount: item._count.OrganisationUsers,
-      name: item.name,
-      otherImages: item.otherImages,
-      updatedAt: item.updatedAt,
-      websiteUrl: item.websiteUrl,
-      isApproved: item.isApproved,
-      posts: mappedPosts,
-    } as ExtendedOrganisationResponse;
-
-    return mapped;
-  }
-
   //TODO: add admin approval and disapproval and creation request endpoints
 }
