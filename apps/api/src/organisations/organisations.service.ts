@@ -32,7 +32,10 @@ export class OrganisationsService {
     const result = await this.prisma.organisation.findMany({
       where: {
         ...(filter?.name && {
-          name: { search: filter.name, mode: 'insensitive' },
+          name: {
+            search: filter.name.replace(/(\w)\s+(\w)/g, '$1 <-> $2'),
+            mode: 'insensitive',
+          },
         }),
         ...(filter?.location && { location: filter.location as any }),
         ...(approval && {

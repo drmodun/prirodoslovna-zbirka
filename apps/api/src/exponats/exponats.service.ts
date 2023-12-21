@@ -44,10 +44,16 @@ export class ExponatsService {
     return await this.prisma.exponat.findMany({
       where: {
         ...(filter?.name && {
-          name: { search: filter.name, mode: 'insensitive' },
+          name: {
+            search: filter.name.replace(/(\w)\s+(\w)/g, '$1 <-> $2'),
+            mode: 'insensitive',
+          },
         }),
         ...(filter?.alternateName && {
-          alternateName: { search: filter.alternateName, mode: 'insensitive' },
+          alternateName: {
+            search: filter.alternateName.replace(/(\w)\s+(\w)/g, '$1 <-> $2'),
+            mode: 'insensitive',
+          },
         }),
         ...(filter?.organisationId && {
           organisationId: filter.organisationId,
