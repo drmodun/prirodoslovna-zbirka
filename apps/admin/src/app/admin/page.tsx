@@ -43,7 +43,6 @@ export default function Default() {
 
   return (
     <Box
-      pt={{ base: '130px', md: '80px', xl: '80px' }}
       justifyContent={'center'}
       w={'100%'}
       alignItems={'center'}
