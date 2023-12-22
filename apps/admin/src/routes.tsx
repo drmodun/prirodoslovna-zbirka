@@ -73,7 +73,7 @@ const routes: IRoute[] = [
     icon: <Icon as={MdPostAdd} width="20px" height="20px" color="inherit" />,
   },
   {
-    name: 'Socaial (organisation) posts',
+    name: 'Social (organisation) posts',
     layout: '/admin',
     path: '/data-tables/social-posts',
     icon: <Icon as={MdAnnouncement} width="20px" height="20px" color="inherit" />,
