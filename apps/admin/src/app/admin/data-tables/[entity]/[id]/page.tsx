@@ -67,7 +67,6 @@ export default function ProfileOverview({
 
   return (
     <Box
-      pt={{ base: '130px', md: '80px', xl: '80px' }}
       flexDirection={'column'}
     >
       {item && <Banner type={params.entity} object={item} />}
