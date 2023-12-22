@@ -1,5 +1,5 @@
 'use client';
-import { Box, SimpleGrid } from '@chakra-ui/react';
+import { Box, Button, SimpleGrid } from '@chakra-ui/react';
 import DevelopmentTable, {
   Indexable,
 } from 'views/admin/dataTables/components/DevelopmentTable';
@@ -60,7 +60,7 @@ const DataTables = ({
 
   const handleSearchObject = () => {
     const paramsObject = {} as Indexable;
-    paramsObject.page = page;
+    paramsObject.page = 1;
     paramsObject.size = size;
 
     Object.keys(search).forEach((key) => {
@@ -81,8 +81,7 @@ const DataTables = ({
     <Box pt={{ base: '130px', md: '80px', xl: '80px' }}>
       <Pagination
         entity={params.entity}
-        currentPage={page}
-        onChange={setPage}
+        currentPage={Number(searchParams.page) ?? 1}
         searchParams={handleSearchObject()}
       />
       {items && (
@@ -100,7 +99,7 @@ const DataTables = ({
           query: handleSearchObject(),
         }}
       >
-        Search
+        <Button>Search</Button>
       </Link>
     </Box>
   );
