@@ -1,8 +1,4 @@
-import {
-  getCreateExponatDto,
-  getCreateOrganisationDto,
-  getExponatQuery,
-} from '@biosfera/types';
+import { getCreateOrganisationDto } from '@biosfera/types';
 import { ApiProperty, PartialType } from '@nestjs/swagger';
 
 export const _createOrganisationDto = getCreateOrganisationDto(ApiProperty);
