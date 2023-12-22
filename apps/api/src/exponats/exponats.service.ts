@@ -171,7 +171,23 @@ export class ExponatsService {
     });
   }
 
-  async update(id: string, request: UpdateExponatDto) {
+  async update(id: string, request: UpdateExponatDto, userId: string) {
+    const exponat = await this.prisma.exponat.findFirst({
+      where: {
+        id,
+      },
+    });
+
+    if (!exponat) return false;
+
+    const check = await this.checkForValidity(
+      userId,
+      exponat.organisationId,
+      true,
+    );
+
+    if (!check) return false;
+
     await this.prisma.exponat.update({
       where: {
         id,

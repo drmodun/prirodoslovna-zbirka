@@ -150,7 +150,7 @@ export const adminTableMappings: AdminTableMappings = {
       CategorizationQuery,
     ],*/
   },
-  socialPosts: {
+  'social-posts': {
     fields: ['title', 'organisationName', 'updatedAt'],
     links: [
       {

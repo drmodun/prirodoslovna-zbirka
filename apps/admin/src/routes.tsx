@@ -5,6 +5,9 @@ import {
   MdHome,
   MdLock,
   MdOutlineShoppingCart,
+  MdPostAdd,
+  MdBiotech,
+  MdAnnouncement,
 } from 'react-icons/md';
 
 // Admin Imports
@@ -22,46 +25,64 @@ const routes: IRoute[] = [
   {
     name: 'Main Dashboard',
     layout: '/admin',
-    path: '/default',
+    path: '',
+    icon: <Icon as={MdHome} width="20px" height="20px" color="inherit" />,
+  },
+  // {
+  //   name: 'NFT Marketplace',
+  //   layout: '/admin',
+  //   path: '/nft-marketplace',
+  //   icon: (
+  //     <Icon
+  //       as={MdOutlineShoppingCart}
+  //       width="20px"
+  //       height="20px"
+  //       color="inherit"
+  //     />
+  //   ),
+  //   secondary: true,
+  // },
+  // {
+  //   name: 'Data Tables',
+  //   layout: '/admin',
+  //   icon: <Icon as={MdBarChart} width="20px" height="20px" color="inherit" />,
+  //   path: '/data-tables',
+  // },
+  {
+    name: 'Users',
+    layout: '/admin',
+    path: '/data-tables/users',
+    icon: <Icon as={MdPerson} width="20px" height="20px" color="inherit" />,
+  },
+  {
+    name: 'Organisations',
+    layout: '/admin',
+    path: '/data-tables/organisations',
     icon: <Icon as={MdHome} width="20px" height="20px" color="inherit" />,
   },
   {
-    name: 'NFT Marketplace',
+    name: 'Exponats',
     layout: '/admin',
-    path: '/nft-marketplace',
-    icon: (
-      <Icon
-        as={MdOutlineShoppingCart}
-        width="20px"
-        height="20px"
-        color="inherit"
-      />
-    ),
-    secondary: true,
+    path: '/data-tables/exponats',
+    icon: <Icon as={MdBiotech} width="20px" height="20px" color="inherit" />,
   },
   {
-    name: 'Data Tables',
+    name: 'Posts',
     layout: '/admin',
-    icon: <Icon as={MdBarChart} width="20px" height="20px" color="inherit" />,
-    path: '/data-tables',
+    path: '/data-tables/posts',
+    icon: <Icon as={MdPostAdd} width="20px" height="20px" color="inherit" />,
   },
   {
-    name: 'Profile',
+    name: 'Socaial (organisation) posts',
     layout: '/admin',
-    path: '/profile',
-    icon: <Icon as={MdPerson} width="20px" height="20px" color="inherit" />,
+    path: '/data-tables/social-posts',
+    icon: <Icon as={MdAnnouncement} width="20px" height="20px" color="inherit" />,
   },
   {
     name: 'Sign In',
     layout: '/auth',
     path: '/sign-in',
     icon: <Icon as={MdLock} width="20px" height="20px" color="inherit" />,
-  },
-  {
-    name: 'RTL Admin',
-    layout: '/rtl',
-    path: '/rtl-default',
-    icon: <Icon as={MdHome} width="20px" height="20px" color="inherit" />,
   },
 ];
 
