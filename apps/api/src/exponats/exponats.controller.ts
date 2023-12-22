@@ -161,12 +161,19 @@ export class ExponatsController {
     return mapped;
   }
 
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @Patch(':id')
   async update(
     @Param('id') id: string,
     @Body() updateExponatDto: UpdateExponatDto,
+    @Req() req: any,
   ) {
-    return await this.exponatsService.update(id, updateExponatDto);
+    return await this.exponatsService.update(
+      id,
+      updateExponatDto,
+      req.user?.id,
+    );
   }
 
   @Delete(':id')
