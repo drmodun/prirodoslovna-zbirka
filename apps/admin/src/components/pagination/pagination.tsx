@@ -5,12 +5,10 @@ import { Indexable } from 'views/admin/dataTables/components/DevelopmentTable';
 export const Pagination = ({
   currentPage,
   searchParams,
-  onChange,
   entity,
 }: {
   currentPage: number;
   searchParams: Indexable;
-  onChange: any;
   entity: string;
 }) => (
   <Flex w={'20%'} minW={'20vw'} alignContent={'center'} marginBottom={'20px'}>
@@ -23,13 +21,7 @@ export const Pagination = ({
         },
       }}
     >
-      <Button
-        onClick={() => {
-          onChange((prev: number) => prev - 1);
-        }}
-      >
-        {'<'}
-      </Button>
+      <Button>{'<'}</Button>
     </Link>
     <Text
       w={'10%'}
@@ -51,13 +43,7 @@ export const Pagination = ({
         },
       }}
     >
-      <Button
-        onClick={() => {
-          onChange((prev: number) => prev + 1);
-        }}
-      >
-        {'>'}
-      </Button>
+      <Button>{'>'}</Button>
     </Link>
   </Flex>
 );

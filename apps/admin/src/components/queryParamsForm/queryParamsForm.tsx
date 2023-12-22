@@ -39,7 +39,7 @@ export const QueryParamsForm = ({
             display="flex"
             ms="4px"
             width="100%"
-            fontSize="sm"
+            fontSize="md"
             fontWeight="500"
             color={textColor}
             mb="8px"
@@ -49,7 +49,7 @@ export const QueryParamsForm = ({
           <Input
             isRequired={true}
             variant="auth"
-            fontSize="sm"
+            fontSize="lg"
             value={defaultData[key]}
             defaultValue={defaultData[key]}
             _placeholder={{ color: textColorSecondary }}
