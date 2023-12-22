@@ -8,6 +8,7 @@ import { api } from 'types/base';
 import { adminTableMappings } from 'types/responses';
 import { QueryParamsForm } from 'components/queryParamsForm/queryParamsForm';
 import Link from 'next/link';
+import { Pagination } from 'components/pagination/pagination';
 
 const getEntities = async (params: any, searchParams: any) => {
   try {
@@ -33,9 +34,16 @@ const DataTables = ({
 }) => {
   console.log(params);
 
+  const handleParamsInit = (mapped: Indexable) => {
+    const initSearchParams = {} as Indexable;
+    Object.keys(mapped).forEach((key) => {
+      initSearchParams[key] = searchParams[key] ?? mapped[key];
+    });
+    return initSearchParams;
+  };
   const [items, setItems] = React.useState<any[]>([]);
   const [search, setSearch] = React.useState<Indexable>(
-    adminTableMappings[params.entity].query,
+    handleParamsInit(adminTableMappings[params.entity].query),
   );
   const [page, setPage] = React.useState(1);
   const [size, setSize] = React.useState(10);
@@ -71,10 +79,12 @@ const DataTables = ({
 
   return (
     <Box pt={{ base: '130px', md: '80px', xl: '80px' }}>
-      {/*        <CheckTable tableData={tableDataCheck} />
-        <ColumnsTable tableData={tableDataColumns} />
-        <ComplexTable tableData={tableDataComplex} />
-  */}
+      <Pagination
+        entity={params.entity}
+        currentPage={page}
+        onChange={setPage}
+        searchParams={handleSearchObject()}
+      />
       {items && (
         <DevelopmentTable
           tableData={items}
