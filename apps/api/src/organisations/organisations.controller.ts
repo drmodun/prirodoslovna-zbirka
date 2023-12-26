@@ -7,6 +7,8 @@ import {
   Param,
   Delete,
   Query,
+  UseGuards,
+  Req,
 } from '@nestjs/common';
 import { OrganisationsService } from './organisations.service';
 import {
@@ -27,8 +29,9 @@ import {
 } from '@biosfera/types';
 import { ExponatResponseShort } from '@biosfera/types';
 import { ShortSocialPostResponse } from '@biosfera/types';
-import { ApiQuery, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { County } from '@prisma/client';
+import { OptionalJwtAuthGuard } from 'src/auth/optional-jwt-auth-guard';
 @Controller('organisations')
 @ApiTags('organisations')
 export class OrganisationsController {
@@ -55,6 +58,8 @@ export class OrganisationsController {
     return mapped;
   }
 
+  @UseGuards(OptionalJwtAuthGuard)
+  @ApiBearerAuth()
   @Get()
   @ApiQuery({ name: 'page', required: false })
   @ApiQuery({ name: 'size', required: false })
@@ -72,11 +77,14 @@ export class OrganisationsController {
     @SortingParams([SortingEnum.NAME, SortingEnum.COUNTY, SortingEnum.POINTS])
     sorting?: SortingRequest,
     @Query() filter?: OrganisationQuery,
+    @Req() req?: any,
   ) {
+    const isAdmin = req?.user?.role === 'super';
     const items = await this.organisationsService.findAllShort(
       filter,
       sorting,
       paginationParam,
+      !isAdmin,
     );
 
     const mapped = items.map((org) => {
@@ -86,6 +94,7 @@ export class OrganisationsController {
         location: org.location,
         websiteUrl: org.websiteUrl,
         mainImage: org.mainImage,
+        ...(isAdmin && { isApproved: org.isApproved }),
         exponatCount: org.Exponats.length,
         points: org.Exponats.reduce(
           (acc, curr) => acc + curr._count.FavouriteExponat,
@@ -96,15 +105,20 @@ export class OrganisationsController {
         updatedAt: org.updatedAt,
         followerCount: org._count.UserOrganisationFollowers,
         memberCount: org._count.OrganisationUsers,
+        isApproved: org.isApproved,
       } as OrganisationResponseShort;
     });
 
     return mapped;
   }
 
+  @UseGuards(OptionalJwtAuthGuard)
+  @ApiBearerAuth()
   @Get(':id')
-  async findOne(@Param('id') id: string) {
-    const item = await this.organisationsService.findOne(id);
+  async findOne(@Param('id') id: string, @Req() req?: any) {
+    const isAdmin = req?.user?.role === 'super';
+
+    const item = await this.organisationsService.findOne(id, !isAdmin);
 
     const mappedExponats = item.Exponats.map((exponat) => {
       return {
@@ -112,7 +126,9 @@ export class OrganisationsController {
         description: exponat.description,
         id: exponat.id,
         mainImage: exponat.mainImage,
+        isApproved: exponat.isApproved,
         name: exponat.name,
+        ...(isAdmin && { isApproved: exponat.isApproved }),
         updatedAt: exponat.updatedAt,
         favouriteCount: exponat._count.FavouriteExponat,
         organizationId: item.id,
@@ -133,6 +149,8 @@ export class OrganisationsController {
         organisationName: item.name,
         organisationMainImage: item.mainImage,
         title: post.title,
+        ...(isAdmin && { isApproved: item.isApproved }),
+
         isApproved: post.isApproved,
       } as ShortSocialPostResponse;
     });
@@ -154,8 +172,10 @@ export class OrganisationsController {
       membersAmount: item._count.OrganisationUsers,
       name: item.name,
       otherImages: item.otherImages,
+      ...(isAdmin && { isApproved: item.isApproved }),
       updatedAt: item.updatedAt,
       websiteUrl: item.websiteUrl,
+      isApproved: item.isApproved,
       posts: mappedPosts,
     } as ExtendedOrganisationResponse;
 
@@ -175,5 +195,9 @@ export class OrganisationsController {
     return await this.organisationsService.remove(id);
   }
 
+  @Patch(':id/approval')
+  async changeApprovalStatus(@Param('id') id: string) {
+    return await this.organisationsService.changeApprovalStatus(id);
+  }
   //TODO: add admin approval and disapproval and creation request endpoints
 }

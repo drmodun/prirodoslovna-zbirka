@@ -25,15 +25,22 @@ export class OrganisationsService {
     filter?: OrganisationQuery,
     sorting?: SortingRequest,
     pagination?: PaginationRequest,
+    approval?: boolean,
   ) {
     const sort = sorting && sortQueryBuilder(sorting);
 
     const result = await this.prisma.organisation.findMany({
       where: {
         ...(filter?.name && {
-          name: { search: filter.name, mode: 'insensitive' },
+          name: {
+            search: filter.name.replace(/(\w)\s+(\w)/g, '$1 <-> $2'),
+            mode: 'insensitive',
+          },
         }),
         ...(filter?.location && { location: filter.location as any }),
+        ...(approval && {
+          isApproved: approval,
+        }),
         //fix enums later;
       },
       include: {
@@ -62,13 +69,21 @@ export class OrganisationsService {
     return result;
   }
 
-  async findOne(id: string) {
+  async findOne(id: string, approval?: boolean) {
     const item = await this.prisma.organisation.findFirstOrThrow({
       where: {
         id,
+        ...(approval && {
+          isApproved: approval,
+        }),
       },
       include: {
         Exponats: {
+          where: {
+            ...(approval && {
+              isApproved: approval,
+            }),
+          },
           include: {
             _count: {
               select: {
@@ -79,7 +94,13 @@ export class OrganisationsService {
           },
         },
         _count: true,
-        OrganisationPosts: true,
+        OrganisationPosts: {
+          where: {
+            ...(approval && {
+              isApproved: approval,
+            }),
+          },
+        },
         UserOrganisationFollowers: true,
         OrganisationUsers: true,
       },
@@ -101,6 +122,22 @@ export class OrganisationsService {
     await this.prisma.organisation.delete({
       where: {
         id,
+      },
+    });
+  }
+
+  async changeApprovalStatus(id: string) {
+    const current = await this.prisma.organisation.findFirst({
+      where: {
+        id,
+      },
+    });
+    await this.prisma.organisation.update({
+      where: {
+        id,
+      },
+      data: {
+        isApproved: !current.isApproved,
       },
     });
   }
