@@ -30,4 +30,5 @@ export interface OrganisationResponseShort {
   followerCount: number;
   memberCount: number;
   points: number;
+  isApproved?: boolean;
 }

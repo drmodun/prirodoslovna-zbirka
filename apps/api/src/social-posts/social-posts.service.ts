@@ -24,7 +24,17 @@ export class SocialPostsService {
       },
     });
 
-    if (!connection) return false;
+    if (!connection) {
+      const checkIsSuper = await this.prisma.user.findFirst({
+        where: {
+          id: userId,
+        },
+      });
+
+      if (checkIsSuper.role !== Role.SUPER) throw new UnauthorizedException();
+
+      return true;
+    }
 
     return connection?.role === Role.ADMIN;
   }
@@ -55,13 +65,14 @@ export class SocialPostsService {
     filter: SocialPostQuery,
     sorting?: SortingRequest,
     pagination?: PaginationRequest,
+    approval?: boolean,
   ) {
     const sort = socialPostSortQueryBuilder(sorting);
     const posts = this.prisma.socialPost.findMany({
       where: {
-        isApproved: true,
         ...(filter?.title && { title: filter.title }),
         ...(filter?.authorId && { title: filter.authorId }),
+        ...(approval && { isApproved: approval }),
       },
 
       orderBy: sort,
@@ -73,6 +84,20 @@ export class SocialPostsService {
     });
 
     return posts;
+  }
+
+  async findOne(id: string, approval?: boolean) {
+    const post = await this.prisma.socialPost.findFirst({
+      where: {
+        id,
+        ...(approval && { isApproved: approval }),
+      },
+      include: {
+        organisation: true,
+      },
+    });
+
+    return post;
   }
 
   async update(
@@ -103,5 +128,46 @@ export class SocialPostsService {
         id,
       },
     });
+  }
+
+  async changeApprovalStatus(
+    id: string,
+    userId: string,
+    organisationId: string,
+  ) {
+    const check = await this.checkForValidity(userId, organisationId);
+
+    if (!check) throw new UnauthorizedException();
+
+    const post = await this.prisma.socialPost.findFirst({
+      where: {
+        id,
+      },
+    });
+
+    if (!post) return false;
+
+    return await this.prisma.socialPost.update({
+      where: {
+        id,
+      },
+      data: {
+        isApproved: !post.isApproved,
+      },
+    });
+  }
+
+  async checkForExistingValidity(userId: string, socialPostId: string) {
+    const post = await this.prisma.socialPost.findFirst({
+      where: {
+        id: socialPostId,
+      },
+    });
+
+    if (!post) return false;
+
+    const check = await this.checkForValidity(userId, post.authorId);
+
+    return check;
   }
 }

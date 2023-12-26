@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { CreateExponatDto, UpdateExponatDto } from './dto/exponats.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import {
@@ -7,12 +7,20 @@ import {
   SortingRequest,
   sortExponatQueryBuilderWithComplexFilters,
 } from '@biosfera/types';
+import { Role } from '@prisma/client';
 
 @Injectable()
 export class ExponatsService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async create(createExponatDto: CreateExponatDto) {
+  async create(createExponatDto: CreateExponatDto, userId: string) {
+    const check = await this.checkForValidity(
+      userId,
+      createExponatDto.authorId,
+    );
+
+    if (!check) throw new UnauthorizedException();
+
     return await this.prisma.exponat.create({
       data: createExponatDto,
       include: {
@@ -30,15 +38,22 @@ export class ExponatsService {
     filter?: ExponatQuery,
     sorting?: SortingRequest,
     pagination?: PaginationRequest,
+    approval?: boolean,
   ) {
     const sort = sorting && sortExponatQueryBuilderWithComplexFilters(sorting);
     return await this.prisma.exponat.findMany({
       where: {
         ...(filter?.name && {
-          name: { search: filter.name, mode: 'insensitive' },
+          name: {
+            search: filter.name.replace(/(\w)\s+(\w)/g, '$1 <-> $2'),
+            mode: 'insensitive',
+          },
         }),
         ...(filter?.alternateName && {
-          alternateName: { search: filter.alternateName, mode: 'insensitive' },
+          alternateName: {
+            search: filter.alternateName.replace(/(\w)\s+(\w)/g, '$1 <-> $2'),
+            mode: 'insensitive',
+          },
         }),
         ...(filter?.organisationId && {
           organisationId: filter.organisationId,
@@ -62,6 +77,9 @@ export class ExponatsService {
           createdAt: {
             gte: filter.createdAt,
           },
+        }),
+        ...(approval && {
+          isApproved: approval,
         }),
       },
       include: {
@@ -90,10 +108,31 @@ export class ExponatsService {
     });
   }
 
-  async findOne(id: string) {
+  async checkUserRole(userId: string, exponatId: string) {
+    const exponat = await this.prisma.exponat.findFirst({
+      where: {
+        id: exponatId,
+      },
+    });
+
+    if (!exponat) return false;
+
+    const check = await this.checkForValidity(
+      userId,
+      exponat.organisationId,
+      true,
+    );
+
+    if (!check) return false;
+
+    return true;
+  }
+
+  async findOne(id: string, approval?: boolean) {
     return await this.prisma.exponat.findUnique({
       where: {
         id,
+        ...(approval && { isApproved: approval }),
       },
       include: {
         _count: {
@@ -111,6 +150,9 @@ export class ExponatsService {
           },
         },
         Posts: {
+          where: {
+            ...(approval && { isApproved: approval }),
+          },
           include: {
             _count: {
               select: {
@@ -129,7 +171,23 @@ export class ExponatsService {
     });
   }
 
-  async update(id: string, request: UpdateExponatDto) {
+  async update(id: string, request: UpdateExponatDto, userId: string) {
+    const exponat = await this.prisma.exponat.findFirst({
+      where: {
+        id,
+      },
+    });
+
+    if (!exponat) return false;
+
+    const check = await this.checkForValidity(
+      userId,
+      exponat.organisationId,
+      true,
+    );
+
+    if (!check) return false;
+
     await this.prisma.exponat.update({
       where: {
         id,
@@ -144,5 +202,60 @@ export class ExponatsService {
         id,
       },
     });
+  }
+
+  async changeApprovalStatus(id: string, userId: string) {
+    const exponat = await this.prisma.exponat.findFirst({
+      where: {
+        id,
+      },
+    });
+
+    if (!exponat) return false;
+
+    const check = await this.checkForValidity(
+      userId,
+      exponat.organisationId,
+      true,
+    );
+    if (!check) return false;
+    const current = await this.prisma.exponat.findFirst({
+      where: {
+        id,
+      },
+    });
+    await this.prisma.exponat.update({
+      where: {
+        id,
+      },
+      data: {
+        isApproved: !current.isApproved,
+      },
+    });
+  }
+
+  private async checkForValidity(
+    userId: string,
+    organisationId: string,
+    adminOnly: boolean = false,
+  ) {
+    const connection = await this.prisma.organisationUser.findFirst({
+      where: {
+        userId,
+        organisationId,
+      },
+    });
+
+    if (!connection) {
+      const checkForSuper = await this.prisma.user.findFirst({
+        where: {
+          id: userId,
+        },
+      });
+      if (checkForSuper.role !== Role.SUPER) return false;
+      return true;
+    }
+    if (adminOnly && connection.role !== Role.ADMIN) return false;
+    return true;
   }
 }

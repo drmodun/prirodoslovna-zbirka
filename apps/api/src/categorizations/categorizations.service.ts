@@ -31,22 +31,40 @@ export class CategorizationsService {
     return await this.prisma.categorization.findMany({
       where: {
         ...(filter?.genus && {
-          genus: { search: filter.genus, mode: 'insensitive' },
+          genus: {
+            search: filter.genus.replace(/(\w)\s+(\w)/g, '$1 <-> $2'),
+            mode: 'insensitive',
+          },
         }),
         ...(filter?.phylum && {
-          phylum: { search: filter.phylum, mode: 'insensitive' },
+          phylum: {
+            search: filter.phylum.replace(/(\w)\s+(\w)/g, '$1 <-> $2'),
+            mode: 'insensitive',
+          },
         }),
         ...(filter?.order && {
-          order: { search: filter.order, mode: 'insensitive' },
+          order: {
+            search: filter.order.replace(/(\w)\s+(\w)/g, '$1 <-> $2'),
+            mode: 'insensitive',
+          },
         }),
         ...(filter?.domain && {
-          domain: { search: filter.domain, mode: 'insensitive' },
+          domain: {
+            search: filter.domain.replace(/(\w)\s+(\w)/g, '$1 <-> $2'),
+            mode: 'insensitive',
+          },
         }),
         ...(filter?.family && {
-          family: { search: filter.family, mode: 'insensitive' },
+          family: {
+            search: filter.family.replace(/(\w)\s+(\w)/g, '$1 <-> $2'),
+            mode: 'insensitive',
+          },
         }),
         ...(filter?.kingdom && {
-          kingdom: { search: filter.kingdom, mode: 'insensitive' },
+          kingdom: {
+            search: filter.kingdom.replace(/(\w)\s+(\w)/g, '$1 <-> $2'),
+            mode: 'insensitive',
+          },
         }),
       },
       include: {

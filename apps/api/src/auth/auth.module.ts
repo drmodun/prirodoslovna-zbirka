@@ -8,6 +8,7 @@ import { PassportModule } from '@nestjs/passport';
 import { UsersModule } from 'src/users/users.module';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from './jwt.strategy';
+import { OptionalStrategy } from './optional-jwt.strategy';
 
 export const jwtSecret = env.JWT_SECRET;
 
@@ -22,6 +23,6 @@ export const jwtSecret = env.JWT_SECRET;
     }),
   ],
   controllers: [AuthController],
-  providers: [AuthService, PrismaService, JwtStrategy],
+  providers: [AuthService, PrismaService, JwtStrategy, OptionalStrategy],
 })
 export class AuthModule {}

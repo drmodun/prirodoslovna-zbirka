@@ -7,8 +7,8 @@ generator client {
 }
 
 datasource db {
-  provider  = "postgresql"
-  url       = env("DATABASE_URL")
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
   //directUrl = env("DIRECT_URL") // if using neondb cloud db
 }
 
@@ -71,6 +71,7 @@ model User {
   id                       String                    @id @default(uuid())
   email                    String                    @unique
   firstName                String
+  bio                      String                    @default("Homo sapiens u biosferi")
   lastName                 String
   password                 String
   hasProfileImage          Boolean                   @default(false)
@@ -99,10 +100,10 @@ model Exponat {
   attributes       Json
   mainImage        String
   categorizationId String?
-  Categorization   Categorization?    @relation(fields: [categorizationId], references: [id])
+  Categorization   Categorization?    @relation(fields: [categorizationId], references: [id], onDelete: Cascade)
   createdAt        DateTime           @default(now())
   updatedAt        DateTime           @default(now()) @updatedAt
-  Organisation     Organisation?      @relation(fields: [organisationId], references: [id])
+  Organisation     Organisation?      @relation(fields: [organisationId], references: [id], onDelete: Cascade)
   organisationId   String?
   FavouriteExponat FavouriteExponat[]
   Posts            Post[]
@@ -137,7 +138,7 @@ model Post {
   isApproved Boolean  @default(false)
   Likes      Like[]
   ExponatId  String?
-  Exponat    Exponat? @relation(fields: [ExponatId], references: [id])
+  Exponat    Exponat? @relation(fields: [ExponatId], references: [id], onDelete: Cascade)
 }
 
 model SocialPost {
