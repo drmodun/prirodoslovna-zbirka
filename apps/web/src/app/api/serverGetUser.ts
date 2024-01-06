@@ -1,7 +1,7 @@
 import { ExtendedUserResponse } from "@biosfera/types";
 import { baseURL } from "./shared";
 
-export const getUser = async (id: string) => {
+export const serverGetUser = async (id: string) => {
   try {
     const response = await fetch(`${baseURL}/users/${id}`, {
       cache: "no-store",
