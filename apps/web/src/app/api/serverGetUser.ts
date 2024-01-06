@@ -1,5 +1,5 @@
-import { error } from "console";
-import { api, baseURL } from "./shared";
+import { ExtendedUserResponse } from "@biosfera/types";
+import { baseURL } from "./shared";
 
 export const getUser = async (id: string) => {
   try {
