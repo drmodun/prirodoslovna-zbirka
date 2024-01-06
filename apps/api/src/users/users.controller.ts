@@ -124,6 +124,8 @@ export class UsersController {
         location: item.location,
         likedPosts: likedPosts,
         followingCount: item._count.following,
+        hasProfileImage: item.hasProfileImage,
+        likeCount: item.Posts.reduce((agg, curr) => agg + curr._count.Likes, 0),
       };
 
       return mapped;

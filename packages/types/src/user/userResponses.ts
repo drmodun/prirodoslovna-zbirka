@@ -15,11 +15,13 @@ export interface ExtendedUserResponse {
   location: string;
   //TODO: Update this thing
   likedPosts: PostResponse[];
-
+  likeCount: number;
   createdAt: Date;
   updatedAt: Date;
-
+  hasProfileImage: boolean;
   posts: PostResponse[];
+  //organisations: the organisations the user is a member of
+  //maybe add liked exponats or something
 }
 
 export interface ShortUserResponse {
