@@ -1,6 +1,7 @@
 import Image from "next/image";
 import classes from "./UserCard.module.scss";
 import Link from "next/link";
+import clsx from "clsx";
 
 export interface UserCardProps {
   firstName: string;
@@ -29,8 +30,14 @@ export const UserCard = ({
     </div>
     <span className={classes.name}>{`${firstName} ${lastName}`}</span>
     <div className={classes.info}>
-      <span className={classes.attribute}>Posts: {postCount}</span>
-      <span className={classes.attribute}>Likes: {likeScore}</span>
+      <div className={clsx(classes.attribute, classes.posts)}>
+        <span>Posts:</span>
+        <span>{postCount}</span>
+      </div>
+      <div className={clsx(classes.attribute, classes.likes)}>
+        <span>Likes:</span>
+        <span>{likeScore}</span>
+      </div>
     </div>
     <div className={classes.follows}>
       <Link

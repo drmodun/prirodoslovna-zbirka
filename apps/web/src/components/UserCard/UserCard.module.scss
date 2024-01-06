@@ -41,7 +41,6 @@
       width: 100%;
       height: 100%;
       border-radius: 50%;
-      filter: invert(1);
     }
   }
 
@@ -49,7 +48,7 @@
     font-size: vw-calc(40);
     font-weight: 600;
     color: $primary;
-    margin-bottom: vw-calc(60);
+    margin-bottom: vw-calc(20);
 
     @media screen and (max-width: 768px) {
       font-size: 10vw;
@@ -83,11 +82,23 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     align-items: flex-start;
-    color: $primary;
     font-size: vw-calc(28);
     font-weight: 600;
+
+    .attribute {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      &.posts {
+        color: $green;
+      }
+
+      &.likes {
+        color: $blue;
+      }
+    }
 
     @media screen and (max-width: 768px) {
       font-size: 5vw;
