@@ -8,7 +8,7 @@
   border-radius: vw-calc(30);
   padding: vw-calc(0) vw-calc(20);
   font-size: vw-calc(16);
-  background-color: $primary;
+  background-color: $background-color;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -32,7 +32,7 @@
   &.disabled {
     border-color: $secondary;
     background-color: $secondary;
-    color: $primary;
+    color: $button-text-color;
 
     .image {
       filter: invert(1);
@@ -59,7 +59,7 @@
   }
 
   &.disabled::placeholder {
-    color: $primary;
+    color: $button-text-color;
   }
 
   .image {

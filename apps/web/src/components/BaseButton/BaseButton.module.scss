@@ -32,7 +32,7 @@
 
   &.green {
     background-color: $green;
-    color: $primary;
+    color: $button-text-color;
 
     &:hover {
       background-color: darken($green, 5%);
@@ -44,7 +44,7 @@
   }
 
   &.blue {
-    background-color: $primary;
+    background-color: $background-color;
     color: $blue;
 
     &:hover {

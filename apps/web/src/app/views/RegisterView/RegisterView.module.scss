@@ -9,7 +9,7 @@
   align-items: center;
   padding: vw-calc(50);
   justify-content: space-around;
-  background-color: $primary;
+  background-color: $background-color;
   flex-direction: row;
 
   @media screen and (max-width: 768px) {

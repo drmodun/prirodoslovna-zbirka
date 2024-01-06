@@ -5,8 +5,8 @@ import Link from "next/link";
 export interface UserCardProps {
   firstName: string;
   lastName: string;
-  followers: string;
-  following: string;
+  followers: number;
+  following: number;
   avatar: string;
   id: string;
   likeScore: number;
