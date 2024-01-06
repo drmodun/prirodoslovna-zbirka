@@ -13,7 +13,7 @@ export interface ExtendedUserResponse {
   followerCount: number;
   followingCount: number;
   location: string;
-  //not sure if this is needed here
+  //TODO: Update this thing
   likedPosts: PostResponse[];
 
   createdAt: Date;
