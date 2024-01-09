@@ -18,7 +18,7 @@ export const UserCard = ({ user }: UserCardProps) => (
       />
     </div>
     <span className={classes.name}>{`${user.firstName} ${user.lastName}`}</span>
-    <span className={classes.email}></span>
+    <span className={classes.email}>{user.email}</span>
     <div className={classes.info}>
       <div className={clsx(classes.attribute, classes.posts)}>
         <span>Posts:</span>

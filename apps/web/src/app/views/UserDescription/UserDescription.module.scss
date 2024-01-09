@@ -7,23 +7,27 @@
   align-items: flex-start;
   justify-content: center;
   gap: vw-calc(25);
+  border-radius: vw-calc(20);
+  border: 1px solid $secondary;
+  padding: vw-calc(20);
 
   .bio {
     font-size: vw-calc(20);
     font-weight: 400;
     color: $text;
     margin-bottom: vw-calc(25);
+    height: vw-calc(150);
   }
 
   .county {
     font-size: vw-calc(20);
     font-weight: 400;
     color: $primary;
-    margin-bottom: vw-calc(25);
+    margin-bottom: vw-calc(5);
   }
 
   .lastUpdated {
-    font-size: vw-calc(10);
+    font-size: vw-calc(16);
     font-weight: 400;
     color: $stroke-color;
   }

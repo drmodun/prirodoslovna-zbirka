@@ -10,19 +10,17 @@ export interface TabsProps {
 }
 
 export const Tabs = ({ tabs, activeTab, onSelect }: TabsProps) => {
-  console.log("active tab is", activeTab, tabs);
-
 
   return (
     <div className={classes.container}>
       {tabs.map((tab, index) => (
-        <div
+        <button
           key={tab + index}
           onClick={() => onSelect(tab)}
           className={clsx(classes.tab, activeTab === tab && classes.active)}
         >
           {tab}
-        </div>
+        </button>
       ))}
     </div>
   );
