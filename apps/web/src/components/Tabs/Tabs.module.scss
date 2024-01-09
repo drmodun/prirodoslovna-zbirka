@@ -15,8 +15,8 @@
 }
 
 .tab {
-  width: vw-calc(250);
-  height: vw-calc(75);
+  width: vw-calc(150);
+  height: vw-calc(50);
   min-height: vw-calc(50);
   border-radius: vw-calc(10);
   border: 1px solid $blue;
@@ -41,10 +41,9 @@
     font-size: vw-mobile-calc(15);
     border-radius: vw-mobile-calc(15);
   }
-  
+
   &.active {
     background-color: $blue;
     color: $secondary;
   }
 }
-
