@@ -51,3 +51,28 @@ export interface UserQuery {
   organisation?: string;
   role?: number;
 }
+
+export const getUserQuery = (ApiPropertySwagger?: any) => {
+  const ApiProperty = ApiPropertySwagger || function () {};
+
+  class UserQueryDto {
+    @IsString()
+    @ApiProperty()
+    name: string;
+
+    @IsEnum(County)
+    @ApiProperty()
+    location: County;
+
+    @IsString()
+    @ApiProperty()
+    organisation: string;
+
+    @IsString()
+    @ApiProperty()
+    role: number;
+  }
+
+  return UserQueryDto;
+
+}

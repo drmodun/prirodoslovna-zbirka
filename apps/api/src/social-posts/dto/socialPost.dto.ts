@@ -6,4 +6,4 @@ export class CreateSocialPostDto extends _createSocialPostDto {}
 export class UpdateSocialPostDto extends PartialType(CreateSocialPostDto) {}
 
 export const _socialPostQuery = getSocialPostQuery(ApiProperty);
-export class SocialPostQuery extends _socialPostQuery {}
+export class SocialPostQuery extends PartialType(_socialPostQuery) {}

@@ -33,7 +33,10 @@ export class UsersService {
     return await this.prisma.user.findMany({
       where: {
         ...(filter?.name && {
-          name: { search: filter.name, mode: 'insensitive' },
+          firstName: {
+            search: filter.name.replace(/(\w)\s+(\w)/g, '$1 <-> $2'),
+            mode: 'insensitive',
+          },
         }),
         ...(filter?.location && { location: filter.location as any }),
         ...(filter?.organisation && {
@@ -58,12 +61,17 @@ export class UsersService {
     });
   }
 
-  async findOne(id: string) {
+  async findOne(id: string, approval?: boolean) {
     const user = await this.prisma.user.findUniqueOrThrow({
-      where: { id: id },
+      where: {
+        id: id,
+      },
       include: {
         _count: true,
         Posts: {
+          where: {
+            ...(approval && { isApproved: approval }),
+          },
           include: {
             _count: {
               select: {
@@ -80,6 +88,13 @@ export class UsersService {
         },
 
         Likes: {
+          where: {
+            ...(approval && {
+              Post: {
+                isApproved: approval,
+              },
+            }),
+          },
           include: {
             Post: {
               include: {
@@ -95,6 +110,13 @@ export class UsersService {
           },
         },
         FavouriteExponat: {
+          where: {
+            ...(approval && {
+              Exponat: {
+                isApproved: approval,
+              },
+            }),
+          },
           include: {
             Exponat: true,
           },
