@@ -2,7 +2,7 @@
 import Tabs from "components/Tabs";
 import classes from "./UserPageBody.module.scss";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { ExtendedUserResponse } from "@biosfera/types";
 import UserDescription from "@/views/UserDescription";
 
@@ -14,10 +14,6 @@ export interface UserPageBodyProps {
 
 export const UserPageBody = ({ user }: UserPageBodyProps) => {
   const [activeTab, setActiveTab] = useState<string>(tabs[0]);
-
-  useEffect(() => {
-    console.log("active tab is now", activeTab);
-  }, [activeTab]);
 
   const handleSelectTab = (tab: string) => {
     setActiveTab(tab);
@@ -37,7 +33,7 @@ export const UserPageBody = ({ user }: UserPageBodyProps) => {
             <UserDescription
               bio="after database update"
               county={user.location}
-              lastUpdated="test"
+              lastUpdated={user.updatedAt}
             />
           }
         </div>

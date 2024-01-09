@@ -4,4 +4,9 @@
 .container {
   position: relative;
   width: 100%;
+
+  .tabContent {
+    width: 100%;
+    margin-top: vw-calc(50);
+  }
 }

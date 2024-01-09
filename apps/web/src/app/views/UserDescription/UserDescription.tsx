@@ -5,7 +5,7 @@ import { dateShortener } from "@/utility/static/dateShortener";
 export interface UserDescriptionProps {
   bio: string;
   county: string;
-  lastUpdated: string;
+  lastUpdated: string | Date;
 }
 
 export const UserDescription = ({

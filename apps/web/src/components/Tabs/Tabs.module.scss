@@ -35,6 +35,11 @@
     color: $blue;
   }
 
+  &:active {
+    background-color: $stroke-color;
+    color: $blue;
+  }
+
   @media screen and (max-width: 768px) {
     width: vw-mobile-calc(100);
     height: vw-mobile-calc(60);
