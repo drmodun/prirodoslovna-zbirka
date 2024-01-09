@@ -26,7 +26,7 @@ import { SortingParams } from '../config/sorting';
 import { ExtendedUserResponse, ShortUserResponse } from '@biosfera/types';
 import { PostResponse } from '@biosfera/types';
 import { JwtAuthGuard } from 'src/auth/jwt-auth-guard';
-import { Role } from '@prisma/client';
+import { OptionalJwtAuthGuard } from 'src/auth/optional-jwt-auth-guard';
 
 @Controller('users')
 @ApiTags('users')
@@ -80,11 +80,13 @@ export class UsersController {
     return mapped;
   }
 
+  @UseGuards(OptionalJwtAuthGuard)
+  @ApiBearerAuth()
   @Get(':id')
-  async findOne(@Param('id') id: string) {
-    console.log('idhfidsf');
+  async findOne(@Param('id') id: string, @Req() req: any) {
+    const isAdmin = req.user?.role === 'super';
     try {
-      const item = await this.usersService.findOne(id);
+      const item = await this.usersService.findOne(id, !isAdmin);
 
       const posts: PostResponse[] = item.Posts.map((post) => {
         return {
@@ -92,6 +94,7 @@ export class UsersController {
           authorName: item.firstName + ' ' + item.lastName,
           id: post.id,
           images: post.images,
+          ...(isAdmin && { isApproved: post.isApproved }),
           likeScore: post._count.Likes,
           title: post.title,
           exponatId: post.Exponat.id,
@@ -109,6 +112,7 @@ export class UsersController {
           likeScore: like.Post._count.Likes,
           title: like.Post.title,
           exponatId: like.Post.Exponat.id,
+          ...(isAdmin && { isApproved: like.Post.isApproved }),
           exponatName: like.Post.Exponat.name,
         };
       });
@@ -130,35 +134,8 @@ export class UsersController {
 
       return mapped;
     } catch (e) {
-      console.log(e, 1);
       throw new NotFoundException();
     }
-  }
-
-  @UseGuards(JwtAuthGuard)
-  @ApiBearerAuth()
-  @Patch(':id')
-  async adminUpdate(
-    @Param('id') id: string,
-    @Body() updateUserDto: UpdateUserDto,
-    @Req() req: any,
-  ) {
-    if (req.user.role !== Role.ADMIN) {
-      throw new UnauthorizedException();
-    }
-
-    return (await this.usersService.update(id, updateUserDto)) !== null;
-  }
-
-  @UseGuards(JwtAuthGuard)
-  @ApiBearerAuth()
-  @Delete(':id')
-  async adminDelete(@Param('id') id: string, @Req() req: any) {
-    if (req.user.role !== Role.ADMIN) {
-      throw new UnauthorizedException();
-    }
-
-    return (await this.usersService.remove(id)) !== null;
   }
 
   @UseGuards(JwtAuthGuard)
@@ -176,4 +153,31 @@ export class UsersController {
   async remove(@Req() req: any) {
     return (await this.usersService.remove(req.user.id)) !== null;
   }
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
+  @Patch(':id')
+  async adminUpdate(
+    @Param('id') id: string,
+    @Body() updateUserDto: UpdateUserDto,
+    @Req() req: any,
+  ) {
+    if (req.user.role !== 'super') {
+      throw new UnauthorizedException();
+    }
+
+    return (await this.usersService.update(id, updateUserDto)) !== null;
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
+  @Delete(':id')
+  async adminDelete(@Param('id') id: string, @Req() req: any) {
+    if (req.user.role !== 'super') {
+      throw new UnauthorizedException();
+    }
+
+    return (await this.usersService.remove(id)) !== null;
+  }
 }
+
+//TODO: add approval double route for other connected apis and properties such as likes

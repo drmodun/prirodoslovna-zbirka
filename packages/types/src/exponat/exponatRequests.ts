@@ -50,6 +50,50 @@ export const getCreateExponatDto = (ApiPropertySwagger?: any) => {
     @IsUUID()
     @ApiProperty()
     cateogorizationId: string;
+
+    authorId?: string;
+  }
+  return CreateExponatDto;
+};
+
+export const getUpdateExponatDto = (ApiPropertySwagger?: any) => {
+  const ApiProperty = ApiPropertySwagger || function () {};
+
+  class CreateExponatDto {
+    @IsString()
+    @MinLength(5)
+    @ApiProperty()
+    name?: string;
+
+    @IsString()
+    @MinLength(5)
+    @ApiProperty()
+    alternateName?: string;
+
+    @IsString()
+    @MinLength(10)
+    @ApiProperty()
+    description?: string;
+
+    @IsString()
+    @ApiProperty()
+    mainImage?: string;
+
+    @IsString({ each: true })
+    @ApiProperty()
+    funFacts?: string[];
+
+    @IsEnum(ExponatKind)
+    @ApiProperty()
+    ExponatKind?: ExponatKindType;
+
+    @IsJSON()
+    @ApiProperty()
+    attributes?: Json;
+
+    @IsUUID()
+    @ApiProperty()
+    cateogorizationId?: string;
   }
   return CreateExponatDto;
 };
