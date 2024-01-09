@@ -55,6 +55,17 @@
     }
   }
 
+  .email {
+    font-size: vw-calc(25);
+    font-weight: 400;
+    color: $text;
+    margin-bottom: vw-calc(25);
+
+    @media screen and (max-width: 768px) {
+      font-size: 5vw;
+    }
+  }
+
   .follows {
     display: flex;
     flex-direction: row;

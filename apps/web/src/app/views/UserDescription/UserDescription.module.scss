@@ -1,0 +1,30 @@
+@import "styles/variables.scss";
+@import "styles/calc.scss";
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: vw-calc(25);
+
+  .bio {
+    font-size: vw-calc(20);
+    font-weight: 400;
+    color: $text;
+    margin-bottom: vw-calc(25);
+  }
+
+  .county {
+    font-size: vw-calc(20);
+    font-weight: 400;
+    color: $primary;
+    margin-bottom: vw-calc(25);
+  }
+
+  .lastUpdated {
+    font-size: vw-calc(10);
+    font-weight: 400;
+    color: $stroke-color;
+  }
+}
