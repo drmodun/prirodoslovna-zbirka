@@ -9,18 +9,24 @@
     width: 100%;
   }
   display: flex;
+
   flex-direction: column;
 
   .userBody {
     background-color: $background-color;
     padding: vw-calc(20);
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+
+    @media screen and (max-width: 768px) {
+      flex-direction: column;
+      align-items: center;
+    }
   }
 
   .userCard {
     position: relative;
-    width: 100%;
+    width: 70%;
     display: flex;
     align-items: center;
     justify-content: center;

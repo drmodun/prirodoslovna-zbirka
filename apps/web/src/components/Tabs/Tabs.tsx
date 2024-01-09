@@ -1,3 +1,4 @@
+"use client";
 import clsx from "clsx";
 import classes from "./Tabs.module.scss";
 
@@ -9,12 +10,15 @@ export interface TabsProps {
 }
 
 export const Tabs = ({ tabs, activeTab, onSelect }: TabsProps) => {
+  console.log("active tab is", activeTab, tabs);
+
+
   return (
     <div className={classes.container}>
       {tabs.map((tab, index) => (
         <div
           key={tab + index}
-          onClick={(tab) => onSelect(tab)}
+          onClick={() => onSelect(tab)}
           className={clsx(classes.tab, activeTab === tab && classes.active)}
         >
           {tab}

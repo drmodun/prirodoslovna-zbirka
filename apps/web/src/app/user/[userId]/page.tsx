@@ -14,7 +14,7 @@ const UserPage = async ({ params }: { params: any }) => {
             <UserCard user={userInfo} />
           </div>
         )}
-        <UserPageBody />
+        {userInfo && <UserPageBody user={userInfo} />}
       </div>
     </div>
   );
