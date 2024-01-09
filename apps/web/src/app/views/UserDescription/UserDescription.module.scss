@@ -17,6 +17,11 @@
     color: $text;
     margin-bottom: vw-calc(25);
     height: vw-calc(150);
+
+    @media screen and (max-width: 768px) {
+      height: vw-mobile-calc(70);
+      font-size: vw-mobile-calc(12);
+    }
   }
 
   .county {
@@ -24,11 +29,19 @@
     font-weight: 400;
     color: $primary;
     margin-bottom: vw-calc(5);
+
+    @media screen and (max-width: 768px) {
+      font-size: vw-mobile-calc(8);
+    }
   }
 
   .lastUpdated {
     font-size: vw-calc(16);
     font-weight: 400;
     color: $stroke-color;
+    
+    @media screen and (max-width: 768px) {
+      font-size: vw-mobile-calc(6);
+    }
   }
 }
