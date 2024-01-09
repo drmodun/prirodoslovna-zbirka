@@ -10,6 +10,7 @@ export interface ExtendedUserResponse {
   firstName: string;
   lastName: string;
   email: string;
+  bio: string;
   followerCount: number;
   followingCount: number;
   location: string;

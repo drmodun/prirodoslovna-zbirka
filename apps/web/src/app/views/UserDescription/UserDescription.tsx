@@ -23,3 +23,5 @@ export const UserDescription = ({
     </div>
   );
 };
+
+//hidration bugs occurs here for some reason

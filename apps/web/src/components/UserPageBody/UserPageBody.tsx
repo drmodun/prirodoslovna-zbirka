@@ -31,7 +31,7 @@ export const UserPageBody = ({ user }: UserPageBodyProps) => {
         <div className={classes.tabContent}>
           {
             <UserDescription
-              bio="after database update"
+              bio={user.bio || "Nema opisa korisnika"}
               county={user.location}
               lastUpdated={user.updatedAt}
             />

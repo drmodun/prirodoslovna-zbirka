@@ -126,6 +126,7 @@ export class UsersController {
         updatedAt: item.updatedAt,
         posts: posts,
         location: item.location,
+        bio: item.bio,
         likedPosts: likedPosts,
         followingCount: item._count.following,
         hasProfileImage: item.hasProfileImage,
