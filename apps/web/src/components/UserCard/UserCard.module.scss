@@ -11,12 +11,13 @@
   justify-content: space-around;
   flex-direction: column;
   align-items: center;
+  text-align: center;
   border: 1px solid $secondary;
 
   @media screen and (max-width: 768px) {
     width: 100%;
     min-width: 300px;
-    height: vw-mobile-calc(350);
+    height: vw-mobile-calc(300);
     padding: vw-mobile-calc(20);
   }
 
@@ -33,8 +34,8 @@
     @media screen and (max-width: 768px) {
       width: vw-calc(350);
       height: vw-calc(350);
-      min-width: 200px;
-      min-height: 200px;
+      min-width: 100px;
+      min-height: 100px;
     }
 
     img {
@@ -51,7 +52,7 @@
     margin-bottom: vw-calc(20);
 
     @media screen and (max-width: 768px) {
-      font-size: 10vw;
+      font-size: 8vw;
     }
   }
 
@@ -102,6 +103,7 @@
       display: flex;
       flex-direction: row;
       justify-content: space-between;
+
       &.posts {
         color: $green;
       }

@@ -2,6 +2,7 @@
 @import "styles/calc.scss";
 .container {
   width: 100%;
+  background-color: $background-color;
 
   .background {
     background-color: $green;
@@ -31,5 +32,12 @@
     align-items: center;
     justify-content: center;
     top: vw-calc(-250);
+    top: vw-calc(-250);
+
+    @media screen and (max-width: 768px) {
+      width: 70%;
+      border-radius: vw-mobile-calc(20);
+      top: vw-mobile-calc(-30);
+    }
   }
 }
