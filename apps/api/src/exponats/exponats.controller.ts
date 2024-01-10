@@ -129,6 +129,8 @@ export class ExponatsController {
         ...(isAdmin && { isApproved: post.isApproved }),
         id: post.id,
         images: post.images,
+        hasProfilePicture: post.author.hasProfileImage,
+        updatedAt: post.updatedAt,
         likeScore: post._count.Likes,
         title: post.title,
       } as PostResponse;

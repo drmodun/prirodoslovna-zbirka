@@ -91,12 +91,14 @@ export class UsersController {
 
       const posts: PostResponse[] = item.Posts.map((post) => {
         return {
+          updatedAt: post.updatedAt,
           authorId: item.id,
           authorName: item.firstName + ' ' + item.lastName,
           id: post.id,
           images: post.images,
           ...(isAdmin && { isApproved: post.isApproved }),
           likeScore: post._count.Likes,
+          hasProfilePicture: item.hasProfileImage,
           title: post.title,
           exponatId: post.Exponat.id,
           exponatName: post.Exponat.name,
@@ -111,6 +113,8 @@ export class UsersController {
           id: like.Post.id,
           images: like.Post.images,
           likeScore: like.Post._count.Likes,
+          updatedAt: like.Post.updatedAt,
+          hasProfilePicture: like.Post.author.hasProfileImage,
           title: like.Post.title,
           exponatId: like.Post.Exponat.id,
           ...(isAdmin && { isApproved: like.Post.isApproved }),
