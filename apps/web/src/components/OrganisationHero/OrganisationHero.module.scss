@@ -16,6 +16,7 @@
     object-fit: cover;
     position: relative;
     border-radius: vw-calc(20) vw-calc(20);
+    margin-bottom: vw-calc(100);
 
     @media screen and (max-width: 768px) {
       height: vw-mobile-calc(300);
@@ -31,7 +32,7 @@
 
   .points {
     position: absolute;
-    top: vw-calc(150);
+    top: vw-calc(200);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -58,24 +59,28 @@
     }
 
     .pointNumber {
-      font-size: vw-calc(30);
+      font-size: vw-calc(60);
+      position: relative;
+      margin-top: vw-calc(20);
       font-weight: 600;
       color: $points;
+      z-index: 3;
     }
   }
 
   .name {
     color: $primary;
-    font-size: vw-calc(30);
+    font-size: vw-calc(50);
     font-weight: 600;
     text-transform: uppercase;
     font-weight: 600;
+    margin-bottom: vw-calc(16);
   }
 
   .location {
     color: $secondary;
     font-size: vw-calc(20);
-    font-weight: 600;
+    font-weight: 300;
     margin-bottom: vw-calc(20);
   }
 }
