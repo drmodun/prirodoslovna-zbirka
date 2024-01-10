@@ -7,7 +7,10 @@ export interface PostResponse {
   likeScore: number;
   exponatId: string;
   exponatName: string;
+  updatedAt: Date;
+  hasProfilePicture: boolean;
   // add likes and stuff
+  //author profile picutre is supposed ti be findable by authorId
 }
 
 export interface PostApprovalResponse {

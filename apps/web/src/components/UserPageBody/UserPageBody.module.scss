@@ -8,6 +8,14 @@
   .tabContent {
     width: 100%;
     margin-top: vw-calc(50);
+
+    @media screen and (max-width: 768px) {
+      margin-top: vw-mobile-calc(20);
+
+      .cardRow {
+        justify-content: center;
+      }
+    }
   }
 
   .error {
@@ -19,5 +27,17 @@
     align-items: center;
     font-size: vw-calc(20);
     font-weight: 600;
+  }
+
+  .cardRow {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    gap: vw-calc(20) vw-calc(10);
+
+    @media screen and (max-width: 768px) {
+      gap: vw-mobile-calc(20) vw-mobile-calc(10);
+    }
   }
 }
