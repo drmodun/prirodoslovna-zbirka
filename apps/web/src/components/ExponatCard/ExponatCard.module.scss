@@ -5,13 +5,13 @@
   display: flex;
   flex-direction: column;
   width: vw-calc(200);
-  height: vw-calc(320);
+  height: vw-calc(340);
   border: 2px solid $stroke-color;
   background-color: $background-color;
 
   @media screen and (max-width: 768px) {
     width: vw-mobile-calc(150);
-    height: vw-mobile-calc(220);
+    height: vw-mobile-calc(235);
   }
 
   .image {
@@ -29,6 +29,18 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
+    }
+  }
+
+  .organisation {
+    color: $green;
+    font-size: vw-calc(11);
+    font-weight: 600;
+    padding: 0 vw-calc(20);
+
+    @media screen and (max-width: 768px) {
+      padding: 0 vw-mobile-calc(10);
+      font-size: vw-mobile-calc(6);
     }
   }
 
