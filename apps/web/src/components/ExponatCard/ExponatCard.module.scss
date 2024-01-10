@@ -1,0 +1,120 @@
+@import "styles/variables.scss";
+@import "styles/calc.scss";
+
+.container {
+  display: flex;
+  flex-direction: column;
+  width: vw-calc(200);
+  height: vw-calc(300);
+  border: 3px solid $secondary;
+  background-color: $background-color;
+
+  .image {
+    width: 100%;
+    height: vw-calc(127);
+    object-fit: cover;
+    position: relative;
+    margin-bottom: vw-calc(13);
+  }
+
+  .text {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    padding: 0 vw-calc(20);
+    margin-bottom: vw-calc(10);
+    gap: vw-calc(5);
+
+    .name {
+      font-size: vw-calc(17);
+      color: $primary;
+      text-align: left;
+    }
+
+    .alternateName {
+      font-size: vw-calc(11);
+      color: $secondary;
+      text-align: left;
+    }
+  }
+
+  .stats {
+    display: flex;
+    flex-direction: row;
+    padding: 0 vw-calc(20);
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: vw-calc(40);
+
+    .favourites {
+      width: vw-calc(50);
+      height: vw-calc(20);
+      border-radius: vw-calc(10);
+      align-items: center;
+      justify-content: center;
+      background-color: $secondary;
+
+      .favouriteDrop {
+        display: flex;
+        position: relative;
+        width: vw-calc(8);
+        height: vw-calc(9);
+      }
+    }
+
+    .kind {
+      width: vw-calc(50);
+      height: vw-calc(20);
+      border-radius: vw-calc(10);
+      align-items: center;
+      justify-content: center;
+
+      &.procariot {
+        background-color: $blue;
+      }
+
+      &.eucariot {
+        background-color: $green;
+      }
+
+      &.mineral {
+        background-color: $red;
+      }
+    }
+  }
+
+  .buttons {
+    padding: 0 vw-calc(20);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    .button {
+      width: vw-calc(120);
+      height: vw-calc(40);
+      border: 3px solid $secondary;
+      background-color: $stroke-color;
+      color: $secondary;
+      margin-right: vw-calc(10);
+    }
+
+    .drop {
+      display: flex;
+      position: relative;
+      width: vw-calc(36);
+      height: vw-calc(36);
+      border-radius: 50%;
+      background-color: linear-gradient(180deg, #80e8ff, #008dac, 100%);
+
+      .favouriteDrop {
+        display: flex;
+        position: relative;
+        width: vw-calc(12);
+        height: vw-calc(12);
+        filter: invert(99%) sepia(2%) saturate(186%) hue-rotate(258deg)
+          brightness(119%) contrast(100%);
+      }
+    }
+  }
+}
