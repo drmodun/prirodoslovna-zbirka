@@ -46,7 +46,7 @@ export const PostCard = ({ post }: PostCardProps) => (
             className={classes.exponatName}
             href={`/exponat/${post.exponatId}`}
           >
-            vidi više {post.exponatName}
+            eksponat: {post.exponatName}
           </Link>
         </div>
       </div>
