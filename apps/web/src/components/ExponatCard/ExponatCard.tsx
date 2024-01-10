@@ -29,30 +29,30 @@ export const ExponatCard = ({ exponat }: ExponatCardProps) => (
           <Image src={favouriteDrop} alt="broj favorita" layout="fill" />
         </div>
         {exponat.favouriteCount}
-        <div
-          className={clsx(
-            classes.kind,
-            classes[exponat.exponatKind.toLowerCase()]
-          )}
-        >
-          {stringCapitaliser(exponat.exponatKind)}
-        </div>
       </span>
-      <div className={classes.buttons}>
-        <Link href={`/exponat/${exponat.id}`} className={classes.button}>
-          Pogledaj eksponat
-        </Link>
-        <button
-          className={classes.drop}
-          title="dodaj u favorite (funkcionalnost dodana nakon user konteksta)"
-        >
-          <Image
-            className={clsx(classes.favouriteDrop)}
-            src={favouriteDrop}
-            alt="broj favorita"
-          />
-        </button>
+      <div
+        className={clsx(
+          classes.kind,
+          classes[exponat.exponatKind.toLowerCase()]
+        )}
+      >
+        {stringCapitaliser(exponat.exponatKind)}
       </div>
+    </div>
+    <div className={classes.buttons}>
+      <Link href={`/exponat/${exponat.id}`} className={classes.button}>
+        Pogledaj eksponat
+      </Link>
+      <button
+        className={classes.drop}
+        title="dodaj u favorite (funkcionalnost dodana nakon user konteksta)"
+      >
+        <Image
+          className={clsx(classes.favouriteDrop)}
+          src={favouriteDrop}
+          alt="broj favorita"
+        />
+      </button>
     </div>
   </div>
 );
