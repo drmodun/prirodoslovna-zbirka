@@ -7,6 +7,7 @@
   width: vw-calc(260);
   height: vw-calc(350);
   border: 2px solid $stroke-color;
+  position: relative;
   border-radius: vw-calc(20) vw-calc(20) 0 vw-calc(20);
 
   .upper {
@@ -19,11 +20,13 @@
       width: 100%;
       height: vw-calc(170);
       object-fit: cover;
+      border-radius: vw-calc(20) vw-calc(20) 0 0;
       z-index: 1;
 
       img {
         width: 100%;
         height: 100%;
+        border-radius: vw-calc(20) vw-calc(20) 0 0;
         object-fit: cover;
       }
     }
@@ -35,11 +38,12 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
+      display: flex;
       z-index: 5;
       width: vw-calc(32);
       height: vw-calc(32);
       border-radius: 50%;
-      background: linear-gradient(100deg, $green, $dark-green);
+      background: linear-gradient(520deg, $green, $dark-green);
       align-items: center;
       justify-content: center;
       border: none;
@@ -66,6 +70,10 @@
 
   .content {
     padding: vw-calc(16) vw-calc(25);
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    justify-content: space-around;
 
     .date {
       font-size: vw-calc(12);
@@ -77,19 +85,22 @@
       font-size: vw-calc(16);
       color: $secondary;
       font-weight: 700;
+      min-height: vw-calc(60);
     }
 
     .author {
       display: flex;
       flex-direction: row;
       align-items: center;
+      position: relative;
       gap: vw-calc(10);
       justify-content: space-around;
 
-      .pfp {
+      .profile {
         width: vw-calc(40);
         height: vw-calc(40);
         position: relative;
+        display: flex;
         border-radius: 50%;
 
         img {

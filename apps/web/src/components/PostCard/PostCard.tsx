@@ -2,7 +2,7 @@ import { PostResponse } from "@biosfera/types";
 import classes from "./PostCard.module.scss";
 import Image from "next/image";
 import { dateShortener } from "@/utility/static/dateShortener";
-import placeholder from "assets/images/placeholder.png";
+import placeholder from "assets/images/user.svg";
 import defaultPic from "assets/images/lion.svg";
 import likeLeaf from "assets/images/like-leaf.svg";
 import Link from "next/link";
@@ -13,6 +13,7 @@ export interface PostCardProps {
 
 //will a post have one or more pictures?
 //TODO: add functionality of like after backend implementation and user context
+//Also a like count somewhere is needed
 
 export const PostCard = ({ post }: PostCardProps) => (
   <div className={classes.container}>
@@ -29,8 +30,8 @@ export const PostCard = ({ post }: PostCardProps) => (
     <div className={classes.content}>
       <span className={classes.date}>{dateShortener(post.updatedAt)}</span>
       <span className={classes.title}>{post.title}</span>
-      <div className={classes.auhor}>
-        <div className={classes.pfp}>
+      <div className={classes.author}>
+        <div className={classes.profile}>
           <Image
             src={post.hasProfilePicture ? defaultPic : placeholder}
             alt={post.authorName}
@@ -41,7 +42,12 @@ export const PostCard = ({ post }: PostCardProps) => (
           <Link href={`/user/${post.authorId}`} className={classes.authorName}>
             {post.authorName}
           </Link>
-          <Link href={`/exponat/${post.exponatId}`}>vidi više {post.exponatName}</Link>
+          <Link
+            className={classes.exponatName}
+            href={`/exponat/${post.exponatId}`}
+          >
+            vidi više {post.exponatName}
+          </Link>
         </div>
       </div>
     </div>
