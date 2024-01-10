@@ -10,10 +10,12 @@ export interface ExponatCardProps {
   exponat: ExponatResponseShort;
 }
 
+//TODO: funcionality of like to be added after backend implementation and user context
+
 export const ExponatCard = ({ exponat }: ExponatCardProps) => {
   <div className={classes.container}>
     <div className={classes.image}>
-      <Image src={exponat.mainImage} alt={exponat.name} />
+      <Image src={exponat.mainImage} alt={exponat.name} layout="fill" />
     </div>
     <div className={classes.text}>
       <Link href={`/exponat/${exponat.id}`}>
@@ -23,7 +25,9 @@ export const ExponatCard = ({ exponat }: ExponatCardProps) => {
     </div>
     <div className={classes.stats}>
       <span className={classes.favourites}>
-        <Image src={favouriteDrop} alt="broj favorita" />
+        <div className={classes.favouriteDrop}>
+          <Image src={favouriteDrop} alt="broj favorita" layout="fill" />
+        </div>
         {exponat.favouriteCount}
         <div
           className={clsx(
@@ -35,7 +39,9 @@ export const ExponatCard = ({ exponat }: ExponatCardProps) => {
         </div>
       </span>
       <div className={classes.buttons}>
-        <Link href={`/exponat/${exponat.id}`} className={classes.button}></Link>
+        <Link href={`/exponat/${exponat.id}`} className={classes.button}>
+          Pogledaj eksponat
+        </Link>
         <button
           className={classes.drop}
           title="dodaj u favorite (funkcionalnost dodana nakon user konteksta)"
