@@ -31,6 +31,7 @@ export interface ExponatResponseShort {
   updatedAt: Date;
   postCount: number;
   favouriteCount: number;
+  exponatKind: string;
   //"Shorts" are designed for card format
 }
 

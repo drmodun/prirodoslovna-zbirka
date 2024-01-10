@@ -74,6 +74,7 @@ export class ExponatsController {
         organizationId: item.organisationId,
         organizationName: item.Organisation.name,
         isApproved: item.isApproved,
+        exponatKind: item.ExponatKind,
       } as ExponatResponseShort;
     });
 
