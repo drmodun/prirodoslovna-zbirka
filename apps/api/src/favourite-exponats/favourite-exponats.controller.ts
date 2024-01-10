@@ -21,6 +21,7 @@ export class FavouriteExponatsController {
 
     const mapped = exponats.map((connection) => {
       return {
+        exponatKind: connection.Exponat.ExponatKind,
         alternateName: connection.Exponat.alternateName,
         name: connection.Exponat.name,
         id: connection.Exponat.id,
