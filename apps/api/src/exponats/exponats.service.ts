@@ -163,6 +163,7 @@ export class ExponatsService {
               select: {
                 firstName: true,
                 lastName: true,
+                hasProfileImage: true,
               },
             },
           },

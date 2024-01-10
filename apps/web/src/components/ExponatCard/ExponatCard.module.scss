@@ -8,6 +8,7 @@
   height: vw-calc(340);
   border: 2px solid $stroke-color;
   background-color: $background-color;
+  border-radius: vw-calc(20) vw-calc(20) 0 vw-calc(20);
 
   @media screen and (max-width: 768px) {
     width: vw-mobile-calc(150);
