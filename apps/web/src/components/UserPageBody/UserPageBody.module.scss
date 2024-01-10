@@ -9,4 +9,15 @@
     width: 100%;
     margin-top: vw-calc(50);
   }
+
+  .error {
+    width: 100%;
+    height: vw-calc(50);
+    color: $text;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: vw-calc(20);
+    font-weight: 600;
+  }
 }

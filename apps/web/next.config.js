@@ -1,7 +1,10 @@
 /** @type {import('next').NextConfig} */
 
 const nextConfig = {
-    transpilePackages: ["@biosfera/types"]
-}
+  transpilePackages: ["@biosfera/types"],
+  images: {
+    domains: ["localhost", "dummyimage.com"],
+  },
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;

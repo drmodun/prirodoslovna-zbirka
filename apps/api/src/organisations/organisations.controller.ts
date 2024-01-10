@@ -126,6 +126,7 @@ export class OrganisationsController {
         description: exponat.description,
         id: exponat.id,
         mainImage: exponat.mainImage,
+        exponatKind: exponat.ExponatKind,
         isApproved: exponat.isApproved,
         name: exponat.name,
         ...(isAdmin && { isApproved: exponat.isApproved }),

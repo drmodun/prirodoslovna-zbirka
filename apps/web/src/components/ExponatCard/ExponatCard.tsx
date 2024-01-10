@@ -12,7 +12,7 @@ export interface ExponatCardProps {
 
 //TODO: funcionality of like to be added after backend implementation and user context
 
-export const ExponatCard = ({ exponat }: ExponatCardProps) => {
+export const ExponatCard = ({ exponat }: ExponatCardProps) => (
   <div className={classes.container}>
     <div className={classes.image}>
       <Image src={exponat.mainImage} alt={exponat.name} layout="fill" />
@@ -54,5 +54,5 @@ export const ExponatCard = ({ exponat }: ExponatCardProps) => {
         </button>
       </div>
     </div>
-  </div>;
-};
+  </div>
+);

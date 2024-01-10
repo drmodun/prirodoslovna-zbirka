@@ -106,6 +106,7 @@ export class ExponatsController {
       description: item.description,
       organizationId: item.organisationId,
       organizationName: item.Organisation.name,
+      exponatKind: item.ExponatKind,
     } as ExponatResponseShort;
 
     return mapped;

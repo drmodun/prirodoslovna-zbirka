@@ -5,6 +5,7 @@ import classes from "./UserPageBody.module.scss";
 import { useState } from "react";
 import { ExtendedUserResponse } from "@biosfera/types";
 import UserDescription from "@/views/UserDescription";
+import { ExponatCard } from "components/ExponatCard";
 
 const tabs = ["About", "Posts", "Likes", "Favourites", "Organisations"];
 
@@ -40,9 +41,17 @@ export const UserPageBody = ({ user }: UserPageBodyProps) => {
       )}
 
       {activeTab === "Favourites" && (
-        <div className={classes.tabContent}>{
-          
-        }</div>
+        <div className={classes.tabContent}>
+          {user.favouriteExponats.length > 0 ? (
+            user.favouriteExponats.map((exponat) => (
+              <ExponatCard exponat={exponat} key={exponat.id} />
+            ))
+          ) : (
+            <span className={classes.error}>
+              Korisnik nema omiljenih eksponata
+            </span>
+          )}
+        </div>
       )}
     </div>
   );
