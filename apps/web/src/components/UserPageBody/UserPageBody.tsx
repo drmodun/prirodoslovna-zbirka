@@ -57,11 +57,13 @@ export const UserPageBody = ({ user }: UserPageBodyProps) => {
 
       {activeTab === "Posts" && (
         <div className={classes.tabContent}>
-          {user.posts.length > 0 ? (
-            user.posts.map((post) => <PostCard post={post} key={post.id} />)
-          ) : (
-            <span className={classes.error}>Korisnik nema objava</span>
-          )}
+          <div className={classes.cardRow}>
+            {user.posts.length > 0 ? (
+              user.posts.map((post) => <PostCard post={post} key={post.id} />)
+            ) : (
+              <span className={classes.error}>Korisnik nema objava</span>
+            )}
+          </div>
         </div>
       )}
     </div>

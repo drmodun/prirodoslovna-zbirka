@@ -20,4 +20,12 @@
     font-size: vw-calc(20);
     font-weight: 600;
   }
+
+  .cardRow {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    gap: vw-calc(20) vw-calc(10);
+  }
 }

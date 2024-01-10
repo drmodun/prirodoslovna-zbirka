@@ -1,6 +1,8 @@
 @import "styles/variables.scss";
 @import "styles/calc.scss";
 
+//TODO: check weird image clipping border radius being wrog on the box and correct on the image
+
 .container {
   display: flex;
   flex-direction: column;
