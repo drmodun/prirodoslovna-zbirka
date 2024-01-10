@@ -21,6 +21,7 @@ export interface ExtendedUserResponse {
   updatedAt: Date;
   hasProfileImage: boolean;
   posts: PostResponse[];
+  favouriteExponats: ExponatResponseShort[];
   //organisations: the organisations the user is a member of
   //maybe add liked exponats or something
 }
