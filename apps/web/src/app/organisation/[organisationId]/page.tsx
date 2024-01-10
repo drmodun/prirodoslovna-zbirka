@@ -7,7 +7,6 @@ const OrganisationPage = async ({ params }: { params: any }) => {
   const organisationInfo: ExtendedOrganisationResponse =
     await serverGetOrganisation(params.organisationId);
 
-  console.log(organisationInfo);
   return (
     <div>
       <OrganisationHero organisation={organisationInfo} />
