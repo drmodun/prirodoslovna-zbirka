@@ -17,6 +17,12 @@ export const ExponatCard = ({ exponat }: ExponatCardProps) => (
     <div className={classes.image}>
       <Image src={exponat.mainImage} alt={exponat.name} layout="fill" />
     </div>
+    <Link
+      href={`/organisation/${exponat.organizationId}`}
+      className={classes.organisation}
+    >
+      by {exponat.organizationName}
+    </Link>
     <div className={classes.text}>
       <Link href={`/exponat/${exponat.id}`}>
         <span className={classes.name}>{exponat.name}</span>
