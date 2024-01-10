@@ -10,6 +10,10 @@
   justify-content: center;
   align-items: center;
 
+  @media screen and (max-width: 768px) {
+    padding: vw-mobile-calc(40) vw-mobile-calc(40);
+  }
+
   .image {
     width: 100%;
     height: vw-calc(300);
@@ -20,6 +24,12 @@
 
     @media screen and (max-width: 768px) {
       height: vw-mobile-calc(300);
+      border-radius: vw-mobile-calc(20) vw-mobile-calc(20);
+      margin-bottom: vw-mobile-calc(50);
+    }
+
+    @media screen and (max-width: 768px) {
+      height: vw-mobile-calc(200);
     }
 
     img {
@@ -27,6 +37,10 @@
       height: 100%;
       object-fit: cover;
       border-radius: vw-calc(20) vw-calc(20);
+
+      @media screen and (max-width: 768px) {
+        border-radius: vw-mobile-calc(20) vw-mobile-calc(20);
+      }
     }
   }
 
@@ -39,7 +53,12 @@
     width: vw-calc(180);
     height: vw-calc(225);
     text-align: center;
-    margin-bottom: vw-calc(20);
+
+    @media screen and (max-width: 768px) {
+      top: vw-mobile-calc(160);
+      width: vw-mobile-calc(100);
+      height: vw-mobile-calc(125);
+    }
 
     .drop {
       width: vw-calc(180);
@@ -47,8 +66,8 @@
       position: absolute;
 
       @media screen and (max-width: 768px) {
-        width: vw-mobile-calc(180);
-        height: vw-mobile-calc(225);
+        width: vw-mobile-calc(100);
+        height: vw-mobile-calc(125);
       }
 
       img {
@@ -65,6 +84,11 @@
       font-weight: 600;
       color: $points;
       z-index: 3;
+
+      @media screen and (max-width: 768px) {
+        font-size: vw-mobile-calc(30);
+        margin-top: vw-mobile-calc(10);
+      }
     }
   }
 
@@ -75,6 +99,11 @@
     text-transform: uppercase;
     font-weight: 600;
     margin-bottom: vw-calc(16);
+
+    @media screen and (max-width: 768px) {
+      font-size: vw-mobile-calc(30);
+      margin-bottom: vw-mobile-calc(10);
+    }
   }
 
   .location {
@@ -82,5 +111,10 @@
     font-size: vw-calc(20);
     font-weight: 300;
     margin-bottom: vw-calc(20);
+
+    @media screen and (max-width: 768px) {
+      font-size: vw-mobile-calc(15);
+      margin-bottom: vw-mobile-calc(10);
+    }
   }
 }
