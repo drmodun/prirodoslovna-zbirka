@@ -83,7 +83,7 @@ model User {
   location                 County
   OrganisationUser         OrganisationUser[]
   Likes                    Like[]
-  FavouriteExponat         FavouriteExponat?
+  FavouriteExponat         FavouriteExponat[]
   UserOrganisationFollower UserOrganisationFollower?
   followers                UserFollows[]             @relation("following")
   following                UserFollows[]             @relation("follower")

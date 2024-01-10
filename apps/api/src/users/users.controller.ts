@@ -17,6 +17,7 @@ import { RegisterUserDto, UpdateUserDto } from './dto/users.dto';
 import { ApiBearerAuth, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { PaginationParams } from 'src/config/pagination';
 import {
+  ExponatResponseShort,
   PaginationRequest,
   SortingEnum,
   SortingRequest,
@@ -116,6 +117,24 @@ export class UsersController {
           exponatName: like.Post.Exponat.name,
         };
       });
+
+      const favouriteExponats: ExponatResponseShort[] =
+        item.FavouriteExponat.map((exponat) => {
+          return {
+            alternateName: exponat.Exponat.alternateName,
+            description: exponat.Exponat.description,
+            id: exponat.Exponat.id,
+            mainImage: exponat.Exponat.mainImage,
+            name: exponat.Exponat.name,
+            organizationId: exponat.Exponat.organisationId,
+            organizationName: exponat.Exponat.Organisation.name,
+            postCount: exponat.Exponat._count.Posts,
+            updatedAt: exponat.Exponat.updatedAt,
+            favouriteCount: exponat.Exponat._count.FavouriteExponat,
+            exponatKind: exponat.Exponat.ExponatKind,
+          } as ExponatResponseShort;
+        });
+
       const mapped: ExtendedUserResponse = {
         email: item.email,
         firstName: item.firstName,
@@ -130,6 +149,7 @@ export class UsersController {
         likedPosts: likedPosts,
         followingCount: item._count.following,
         hasProfileImage: item.hasProfileImage,
+        favouriteExponats: favouriteExponats,
         likeCount: item.Posts.reduce((agg, curr) => agg + curr._count.Likes, 0),
       };
 

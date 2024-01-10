@@ -118,7 +118,22 @@ export class UsersService {
             }),
           },
           include: {
-            Exponat: true,
+            Exponat: {
+              include: {
+                _count: {
+                  select: {
+                    Posts: true,
+                    FavouriteExponat: true,
+                  },
+                },
+                Organisation: {
+                  select: {
+                    id: true,
+                    name: true,
+                  },
+                },
+              },
+            },
           },
         },
       },

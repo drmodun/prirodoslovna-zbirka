@@ -6,7 +6,7 @@ import { useState } from "react";
 import { ExtendedUserResponse } from "@biosfera/types";
 import UserDescription from "@/views/UserDescription";
 
-const tabs = ["About", "Posts", "Likes", "Organisations"];
+const tabs = ["About", "Posts", "Likes", "Favourites", "Organisations"];
 
 export interface UserPageBodyProps {
   user: ExtendedUserResponse;
@@ -27,7 +27,7 @@ export const UserPageBody = ({ user }: UserPageBodyProps) => {
         tabs={tabs}
         key={"tabRow"}
       />
-      {activeTab === tabs[0] && (
+      {activeTab === "About" && (
         <div className={classes.tabContent}>
           {
             <UserDescription
@@ -37,6 +37,12 @@ export const UserPageBody = ({ user }: UserPageBodyProps) => {
             />
           }
         </div>
+      )}
+
+      {activeTab === "Favourites" && (
+        <div className={classes.tabContent}>{
+          
+        }</div>
       )}
     </div>
   );
