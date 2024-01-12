@@ -3,11 +3,14 @@ export interface DomainButtonProps {
   onClick?: () => void;
   selected?: boolean;
   image: string;
-  color?: string; //TODO: maybe make a class type solution instead of text
+  color?: Domains; //TODO: maybe make a class type solution instead of text
 }
 
 import Image from "next/image";
 import classes from "./DomainButton.module.scss";
+import clsx from "clsx";
+import { ExponatKind } from "@biosfera/types";
+import { Domains } from "@/views/OrganisationBody/OrganisationBody";
 
 export const DomainButton = ({
   image,
@@ -18,11 +21,11 @@ export const DomainButton = ({
 }: DomainButtonProps) => {
   return (
     <button
-      className={classes.container}
-      style={{
-        backgroundColor: selected ? color : "transparent",
-        color: selected ? "white" : color,
-      }}
+      className={clsx(
+        classes.container,
+        selected && classes.selected,
+        color && classes[color]
+      )}
       onClick={onClick}
     >
       <div className={classes.domainImage}>
