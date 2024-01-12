@@ -1,13 +1,20 @@
 "use client";
 
-import { ExtendedOrganisationResponse } from "@biosfera/types";
+import { ExponatKind, ExtendedOrganisationResponse } from "@biosfera/types";
 import classes from "./OrganisationBody.module.scss";
 import { useState } from "react";
 import Tabs from "components/Tabs";
 import OrganisationHero from "components/OrganisationHero";
-
+import { DomainButton } from "components/DomainButton";
+import placeholder from "assets/images/lion.svg";
 export interface OrganisationBodyProps {
   organisation: ExtendedOrganisationResponse;
+}
+
+export enum Domains {
+  EUCARIOT = "eucariot",
+  PROKARIOT = "procariot",
+  MINERAL = "mineral",
 }
 
 const tabs = [
@@ -25,14 +32,27 @@ export const OrganisationBody = ({
   organisation: ExtendedOrganisationResponse;
 }) => {
   const [activeTab, setActiveTab] = useState("about");
-
-  <div className={classes.container}>
-    <OrganisationHero organisation={organisation} />
-    <Tabs tabs={tabs} activeTab={activeTab} onSelect={setActiveTab} />
-    <div className={classes.body}>
-      {activeTab === "Početna" && <div>početna</div>}
-      {activeTab === "Stablo" && <div>stablo</div>}
-    
+  return (
+    <div className={classes.container}>
+      <OrganisationHero organisation={organisation} />
+      <Tabs tabs={tabs} activeTab={activeTab} onSelect={setActiveTab} />
+      <div className={classes.body}>
+        {activeTab === "Početna" && <div>početna</div>}
+        {activeTab === "Stablo" && <div>stablo</div>}
+        {activeTab === "Eksponati" && (
+          <div>
+            <DomainButton
+              domain="Biljke"
+              image={placeholder}
+              color={Domains.MINERAL}
+            />
+          </div>
+        )}
+        {activeTab === "Objave" && <div>objave</div>}
+        {activeTab === "Članovi" && <div>članovi</div>}
+        {activeTab === "O organizaciji" && <div>o organizaciji</div>}
+      </div>
+      ;
     </div>
-  </div>;
+  );
 };
