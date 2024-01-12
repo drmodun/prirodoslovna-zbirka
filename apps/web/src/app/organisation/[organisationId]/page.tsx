@@ -8,8 +8,7 @@ const OrganisationPage = async ({ params }: { params: any }) => {
     await serverGetOrganisation(params.organisationId);
 
   return (
-    <div>
-      <OrganisationHero organisation={organisationInfo} />
+    <div className={classes.container}>
     </div>
   );
 };
