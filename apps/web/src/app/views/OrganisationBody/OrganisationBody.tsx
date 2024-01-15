@@ -31,26 +31,28 @@ export const OrganisationBody = ({
 }: {
   organisation: ExtendedOrganisationResponse;
 }) => {
-  const [activeTab, setActiveTab] = useState("about");
+  const [activeTab, setActiveTab] = useState("Početna");
   return (
     <div className={classes.container}>
       <OrganisationHero organisation={organisation} />
-      <Tabs tabs={tabs} activeTab={activeTab} onSelect={setActiveTab} />
       <div className={classes.body}>
-        {activeTab === "Početna" && <div>početna</div>}
-        {activeTab === "Stablo" && <div>stablo</div>}
-        {activeTab === "Eksponati" && (
-          <div>
-            <DomainButton
-              domain="Biljke"
-              image={placeholder}
-              color={Domains.MINERAL}
-            />
-          </div>
-        )}
-        {activeTab === "Objave" && <div>objave</div>}
-        {activeTab === "Članovi" && <div>članovi</div>}
-        {activeTab === "O organizaciji" && <div>o organizaciji</div>}
+        <Tabs tabs={tabs} activeTab={activeTab} onSelect={setActiveTab} />
+        <div className={classes.selectedBody}>
+          {activeTab === "Početna" && <div>početna</div>}
+          {activeTab === "Stablo" && <div>stablo</div>}
+          {activeTab === "Eksponati" && (
+            <div>
+              <DomainButton
+                domain="Biljke"
+                image={placeholder}
+                color={Domains.MINERAL}
+              />
+            </div>
+          )}
+          {activeTab === "Objave" && <div>objave</div>}
+          {activeTab === "Članovi" && <div>članovi</div>}
+          {activeTab === "O organizaciji" && <div>o organizaciji</div>}
+        </div>
       </div>
       ;
     </div>
