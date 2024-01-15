@@ -7,13 +7,14 @@ import Tabs from "components/Tabs";
 import OrganisationHero from "components/OrganisationHero";
 import { DomainButton } from "components/DomainButton";
 import placeholder from "assets/images/lion.svg";
+import OrganisationExponatsView from "../OrganisationExponatsView";
 export interface OrganisationBodyProps {
   organisation: ExtendedOrganisationResponse;
 }
 
 export enum Domains {
   EUCARIOT = "eucariot",
-  PROKARIOT = "procariot",
+  PROCARIOT = "procariot",
   MINERAL = "mineral",
 }
 
@@ -41,13 +42,7 @@ export const OrganisationBody = ({
           {activeTab === "Početna" && <div>početna</div>}
           {activeTab === "Stablo" && <div>stablo</div>}
           {activeTab === "Eksponati" && (
-            <div>
-              <DomainButton
-                domain="Biljke"
-                image={placeholder}
-                color={Domains.MINERAL}
-              />
-            </div>
+            <OrganisationExponatsView exponats={organisation.exponats} />
           )}
           {activeTab === "Objave" && <div>objave</div>}
           {activeTab === "Članovi" && <div>članovi</div>}
