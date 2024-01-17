@@ -2,7 +2,7 @@ import { MemberRole } from '@biosfera/types';
 import { Injectable } from '@nestjs/common';
 import { Role } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
-
+import { MemberRoleType } from './members.dto';
 @Injectable()
 export class MembersService {
   constructor(private readonly prisma: PrismaService) {}
@@ -46,6 +46,7 @@ export class MembersService {
       data: {
         userId,
         organisationId,
+        role: MemberRoleType.MEMBER,
       },
     });
 
@@ -66,7 +67,7 @@ export class MembersService {
   async editMemberRole(
     userId: string,
     organisationId: string,
-    role: MemberRole,
+    role: MemberRoleType, //TODO: check why enums are acting weird
   ) {
     const membership = await this.prisma.organisationUser.updateMany({
       where: {
@@ -82,11 +83,25 @@ export class MembersService {
   }
 
   async makeRequest(userId: string, organisationId: string) {
+    const memberCheck = await this.checkForMember(userId, organisationId);
+
+    if (memberCheck) return;
+
     const membership = await this.prisma.organisationUser.create({
       data: {
         userId,
         organisationId,
-        role: MemberRole.REQUESTED,
+      },
+    });
+
+    return membership;
+  }
+
+  async leaveOrganisation(userId: string, organisationId: string) {
+    const membership = await this.prisma.organisationUser.deleteMany({
+      where: {
+        userId,
+        organisationId,
       },
     });
 
