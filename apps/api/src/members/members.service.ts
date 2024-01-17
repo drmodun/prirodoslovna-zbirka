@@ -1,3 +1,4 @@
+import { MemberRole } from '@biosfera/types';
 import { Injectable } from '@nestjs/common';
 import { Role } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
@@ -22,7 +23,7 @@ export class MembersService {
       },
     });
 
-    return membership?.role == Role.ADMIN;
+    return membership?.role == MemberRole.ADMIN.toString();
   }
 
   async checkForMember(userId: string, organisationId: string) {
@@ -38,9 +39,8 @@ export class MembersService {
 
   async addMember(userId: string, organisationId: string) {
     const memberCheck = await this.checkForMember(userId, organisationId);
-    const rightsCheck = await this.hasAdminRights(userId, organisationId);
 
-    if (check || !rightsCheck) return;
+    if (memberCheck) return;
 
     const membership = await this.prisma.organisationUser.create({
       data: {
@@ -53,14 +53,40 @@ export class MembersService {
   }
 
   async removeMember(userId: string, organisationId: string) {
-    const rightsCheck = await this.hasAdminRights(userId, organisationId);
-
-    if (!rightsCheck) return;
-
     const membership = await this.prisma.organisationUser.deleteMany({
       where: {
         userId,
         organisationId,
+      },
+    });
+
+    return membership;
+  }
+
+  async editMemberRole(
+    userId: string,
+    organisationId: string,
+    role: MemberRole,
+  ) {
+    const membership = await this.prisma.organisationUser.updateMany({
+      where: {
+        userId,
+        organisationId,
+      },
+      data: {
+        role,
+      },
+    });
+
+    return membership;
+  }
+
+  async makeRequest(userId: string, organisationId: string) {
+    const membership = await this.prisma.organisationUser.create({
+      data: {
+        userId,
+        organisationId,
+        role: MemberRole.REQUESTED,
       },
     });
 
