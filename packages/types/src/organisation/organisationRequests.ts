@@ -35,6 +35,8 @@ export const getCreateOrganisationDto = (ApiPropertySwagger?: any) => {
     @IsEnum(County)
     @ApiProperty()
     location: County;
+
+    organisationUsers?: any;
   }
   return CreateOrganisationDto;
 };
