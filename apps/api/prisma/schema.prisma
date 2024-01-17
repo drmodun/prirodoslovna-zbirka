@@ -25,6 +25,7 @@ enum ExponatKind {
 }
 
 enum MemberRole {
+  OWNER
   ADMIN
   MEMBER
   REQUESTED
