@@ -26,7 +26,7 @@ export const DomainButton = ({
     <button
       className={clsx(
         classes.container,
-        selected && classes.selected,
+        selected && classes.active,
         domain && classes[domain]
       )}
       onClick={handleOnClick}
@@ -34,7 +34,7 @@ export const DomainButton = ({
       <div className={classes.domainImage}>
         <Image src={image} alt={domain} />
       </div>
-      <div className={classes.domainName}>{domain}</div>
+      <div className={classes.domainName}>{domain.toLocaleUpperCase()}</div>
     </button>
   );
 };
