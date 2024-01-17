@@ -27,6 +27,7 @@ enum ExponatKind {
 enum MemberRole {
   ADMIN
   MEMBER
+  REQUESTED
 }
 
 enum County {
@@ -154,7 +155,7 @@ model SocialPost {
 }
 
 model OrganisationUser {
-  role           MemberRole   @default(MEMBER)
+  role           MemberRole   @default(REQUESTED)
   createdAt      DateTime     @default(now())
   updatedAt      DateTime     @default(now()) @updatedAt
   organisation   Organisation @relation(fields: [organisationId], references: [id], onDelete: Cascade)
