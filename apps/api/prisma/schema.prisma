@@ -154,7 +154,7 @@ model SocialPost {
 }
 
 model OrganisationUser {
-  role           MemberRole
+  role           MemberRole   @default(MEMBER)
   createdAt      DateTime     @default(now())
   updatedAt      DateTime     @default(now()) @updatedAt
   organisation   Organisation @relation(fields: [organisationId], references: [id], onDelete: Cascade)
