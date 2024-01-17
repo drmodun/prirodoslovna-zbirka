@@ -7,6 +7,6 @@ export const serverGetOrganisation = async (id: string) => {
     });
     return response.json();
   } catch (error) {
-    console.log(error);
+    console.log(error);   
   }
 };

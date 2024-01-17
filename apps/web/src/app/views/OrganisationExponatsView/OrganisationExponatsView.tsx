@@ -62,6 +62,7 @@ export const OrganisationExponatsView = ({
           .map((exponat) => (
             <ExponatCard exponat={exponat} key={exponat.id} />
           ))}
+        <span className={classes.error}>Nema eksponata za odabranu domenu</span>
       </div>
     </div>
   );

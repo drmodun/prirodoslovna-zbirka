@@ -21,6 +21,7 @@
   }
 
   .cardRow {
+    min-height: vw-calc(400);
     width: 100%;
     display: flex;
     justify-content: center;
@@ -28,5 +29,17 @@
     flex-direction: row;
     flex-wrap: wrap;
     gap: vw-calc(25);
+  }
+
+  .error {
+    display: flex;
+    font-size: vw-calc(30);
+    align-items: center;
+    justify-content: center;
+    color: $secondary;
+
+    &:not(:first-child) {
+      display: none;
+    }
   }
 }
