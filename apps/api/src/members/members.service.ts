@@ -81,6 +81,10 @@ export class MembersService {
   }
 
   async removeMember(userId: string, organisationId: string) {
+    const memberCheck = await this.checkForMember(userId, organisationId);
+
+    if (!memberCheck) return new NotFoundException('Member not found');
+
     const membership = await this.prisma.organisationUser.deleteMany({
       where: {
         userId,
@@ -130,6 +134,10 @@ export class MembersService {
   }
 
   async leaveOrganisation(userId: string, organisationId: string) {
+    const memberCheck = await this.checkForMember(userId, organisationId);
+
+    if (!memberCheck) return new NotFoundException('You are not a member');
+
     const membership = await this.prisma.organisationUser.deleteMany({
       where: {
         userId,
