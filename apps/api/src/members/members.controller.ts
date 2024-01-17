@@ -2,9 +2,11 @@ import {
   BadRequestException,
   Body,
   Controller,
+  Delete,
   Param,
   Patch,
   Post,
+  Put,
   Req,
   UseGuards,
 } from '@nestjs/common';
@@ -28,6 +30,23 @@ export class MembersController {
 
     const membership = await this.membersService.makeRequest(
       userId,
+      organisationId,
+    );
+
+    return membership;
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
+  @Delete(':organisationId/leave')
+  async leaveOrganisation(
+    @Req() req,
+    @Param('organisationId') organisationId: string,
+  ) {
+    const authorId = req.user.id;
+
+    const membership = await this.membersService.leaveOrganisation(
+      authorId,
       organisationId,
     );
 
@@ -91,7 +110,7 @@ export class MembersController {
 
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
-  @Post(':organisationId/:userId/transfer')
+  @Put(':organisationId/:userId/transfer')
   async transferOwnership(
     @Req() req,
     @Param('organisationId') organisationId: string,
@@ -113,4 +132,54 @@ export class MembersController {
 
     return membership;
   }
+
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
+  @Post(':organisationId/:userId/add')
+  async addMember(
+    @Req() req,
+    @Param('organisationId') organisationId: string,
+    @Param('userId') userId: string,
+  ) {
+    const authorId = req.user.id;
+    const check = await this.membersService.hasAdminRights(
+      authorId,
+      organisationId,
+    );
+
+    if (!check) return new BadRequestException("You don't have admin rights");
+
+    const membership = await this.membersService.addMember(
+      userId,
+      organisationId,
+    );
+
+    return membership;
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
+  @Delete(':organisationId/:userId/remove')
+  async removeMember(
+    @Req() req,
+    @Param('organisationId') organisationId: string,
+    @Param('userId') userId: string,
+  ) {
+    const authorId = req.user.id;
+    const check = await this.membersService.hasAdminRights(
+      authorId,
+      organisationId,
+    );
+
+    if (!check) return new BadRequestException("You don't have admin rights");
+
+    const membership = await this.membersService.removeMember(
+      userId,
+      organisationId,
+    );
+
+    return membership;
+  }
+
+  
 }
