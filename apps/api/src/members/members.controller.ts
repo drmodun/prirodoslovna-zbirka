@@ -1,5 +1,4 @@
 import {
-  BadRequestException,
   Body,
   Controller,
   Delete,
@@ -8,6 +7,7 @@ import {
   Post,
   Put,
   Req,
+  UnauthorizedException,
   UseGuards,
 } from '@nestjs/common';
 import { MembersService } from './members.service';
@@ -63,7 +63,7 @@ export class MembersController {
     @Body() { role }: { role: MemberRoleType },
   ) {
     if (role === MemberRoleType.OWNER)
-      return new BadRequestException("You can't make a member an owner");
+      return new UnauthorizedException("You can't make a member an owner");
 
     const authorId = req.user.id;
     const check = await this.membersService.hasAdminRights(
@@ -71,7 +71,7 @@ export class MembersController {
       organisationId,
     );
 
-    if (!check) return new BadRequestException("You don't have admin rights");
+    if (!check) return new UnauthorizedException("You don't have admin rights");
 
     const membership = await this.membersService.editMemberRole(
       userId,
@@ -97,7 +97,7 @@ export class MembersController {
       organisationId,
     );
 
-    if (!check) return new BadRequestException("You don't have owner rights");
+    if (!check) return new UnauthorizedException("You don't have owner rights");
 
     const membership = await this.membersService.ownerEditMemberRole(
       userId,
@@ -122,7 +122,7 @@ export class MembersController {
       organisationId,
     );
 
-    if (!check) return new BadRequestException("You don't have owner rights");
+    if (!check) return new UnauthorizedException("You don't have owner rights");
 
     const membership = await this.membersService.transferOwnership(
       authorId,
@@ -147,7 +147,7 @@ export class MembersController {
       organisationId,
     );
 
-    if (!check) return new BadRequestException("You don't have admin rights");
+    if (!check) return new UnauthorizedException("You don't have admin rights");
 
     const membership = await this.membersService.addMember(
       userId,
@@ -171,7 +171,7 @@ export class MembersController {
       organisationId,
     );
 
-    if (!check) return new BadRequestException("You don't have admin rights");
+    if (!check) return new UnauthorizedException("You don't have admin rights");
 
     const membership = await this.membersService.removeMember(
       userId,
@@ -180,6 +180,4 @@ export class MembersController {
 
     return membership;
   }
-
-  
 }

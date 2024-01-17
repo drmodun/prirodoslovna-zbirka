@@ -8,6 +8,7 @@ import {
   SortingRequest,
   sortQueryBuilder,
 } from '@biosfera/types';
+import { MemberRoleType } from 'src/members/members.dto';
 
 @Injectable()
 export class UsersService {
@@ -68,6 +69,31 @@ export class UsersService {
       },
       include: {
         _count: true,
+        OrganisationUser: {
+          select: {
+            organisation: {
+              include: {
+                _count: {
+                  select: {
+                    Exponats: true,
+                    OrganisationUsers: true,
+                    UserOrganisationFollowers: true,
+                  },
+                },
+                Exponats: {
+                  select: {
+                    _count: {
+                      select: {
+                        FavouriteExponat: true,
+                      },
+                    },
+                  },
+                },
+              },
+            },
+            role: true,
+          },
+        },
         Posts: {
           where: {
             ...(approval && { isApproved: approval }),
@@ -109,7 +135,7 @@ export class UsersService {
             },
           },
         },
-        FavouriteExponat: {
+        FavouriteExponats: {
           where: {
             ...(approval && {
               Exponat: {
@@ -118,7 +144,21 @@ export class UsersService {
             }),
           },
           include: {
-            Exponat: true,
+            Exponat: {
+              include: {
+                _count: {
+                  select: {
+                    Posts: true,
+                    FavouriteExponat: true,
+                  },
+                },
+                Organisation: {
+                  select: {
+                    name: true,
+                  },
+                },
+              },
+            },
           },
         },
       },
@@ -139,6 +179,37 @@ export class UsersService {
     return await this.prisma.user.delete({
       where: {
         id: id,
+      },
+    });
+  }
+
+  async getJoinRequests(userId: string) {
+    return await this.prisma.organisationUser.findMany({
+      where: {
+        userId,
+        role: MemberRoleType.REQUESTED,
+      },
+      include: {
+        organisation: {
+          include: {
+            _count: {
+              select: {
+                Exponats: true,
+                OrganisationUsers: true,
+                UserOrganisationFollowers: true,
+              },
+            },
+            Exponats: {
+              select: {
+                _count: {
+                  select: {
+                    FavouriteExponat: true,
+                  },
+                },
+              },
+            },
+          },
+        },
       },
     });
   }
