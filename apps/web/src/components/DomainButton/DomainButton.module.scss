@@ -9,17 +9,23 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  outline: none;
+  border: none;
 
-  &.eucariot {
-    background-color: $green;
-  }
+  background-color: $secondary;
 
-  &.procariot {
-    background-color: #dfae00;
-  }
+  &.active {
+    &.eucariot {
+      background-color: $eucariot-color;
+    }
 
-  &.mineral {
-    background-color: $red;
+    &.procariot {
+      background-color: $procariot-color;
+    }
+
+    &.mineral {
+      background-color: $mineral-color;
+    }
   }
 
   .domainImage {
