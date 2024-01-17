@@ -17,6 +17,8 @@ import { RegisterUserDto, UpdateUserDto } from './dto/users.dto';
 import { ApiBearerAuth, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { PaginationParams } from 'src/config/pagination';
 import {
+  ExponatResponseShort,
+  OrganisationResponseShort,
   PaginationRequest,
   SortingEnum,
   SortingRequest,
@@ -80,6 +82,34 @@ export class UsersController {
     return mapped;
   }
 
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
+  @Get('requests')
+  async getMyRequests(@Req() req: any) {
+    const requests = await this.usersService.getJoinRequests(req.user.id);
+
+    const mapped: OrganisationResponseShort[] = requests.map((request) => {
+      return {
+        id: request.organisation.id,
+        name: request.organisation.name,
+        exponatCount: request.organisation._count.Exponats,
+        followerCount: request.organisation._count.UserOrganisationFollowers,
+        location: request.organisation.location,
+        mainImage: request.organisation.mainImage,
+        memberCount: request.organisation._count.OrganisationUsers,
+        points: request.organisation.Exponats.reduce(
+          (acc, curr) => acc + curr._count.FavouriteExponat,
+          0,
+        ),
+        updatedAt: request.organisation.updatedAt,
+        websiteUrl: request.organisation.websiteUrl,
+        role: request.role,
+      } as OrganisationResponseShort;
+    });
+
+    return mapped;
+  }
+
   @UseGuards(OptionalJwtAuthGuard)
   @ApiBearerAuth()
   @Get(':id')
@@ -116,6 +146,45 @@ export class UsersController {
           exponatName: like.Post.Exponat.name,
         };
       });
+
+      const favouriteExponats: ExponatResponseShort[] =
+        item.FavouriteExponats.map((exponat) => {
+          return {
+            id: exponat.Exponat.id,
+            name: exponat.Exponat.name,
+            mainImage: exponat.Exponat.mainImage,
+            updatedAt: exponat.Exponat.updatedAt,
+            favouriteCount: exponat.Exponat._count.FavouriteExponat,
+            postCount: exponat.Exponat._count.Posts,
+            alternateName: exponat.Exponat.alternateName,
+            description: exponat.Exponat.description,
+            organizationId: exponat.Exponat.organisationId,
+            organizationName: exponat.Exponat.Organisation.name,
+            isFavorite: true,
+          } as ExponatResponseShort;
+        });
+
+      const memberships: OrganisationResponseShort[] =
+        item.OrganisationUser.map((membership) => {
+          return {
+            id: membership.organisation.id,
+            name: membership.organisation.name,
+            exponatCount: membership.organisation._count.Exponats,
+            followerCount:
+              membership.organisation._count.UserOrganisationFollowers,
+            location: membership.organisation.location,
+            mainImage: membership.organisation.mainImage,
+            memberCount: membership.organisation._count.OrganisationUsers,
+            points: membership.organisation.Exponats.reduce(
+              (acc, curr) => acc + curr._count.FavouriteExponat,
+              0,
+            ),
+            updatedAt: membership.organisation.updatedAt,
+            websiteUrl: membership.organisation.websiteUrl,
+            role: membership.role,
+          } as OrganisationResponseShort;
+        });
+
       const mapped: ExtendedUserResponse = {
         email: item.email,
         firstName: item.firstName,
@@ -131,6 +200,8 @@ export class UsersController {
         followingCount: item._count.following,
         hasProfileImage: item.hasProfileImage,
         likeCount: item.Posts.reduce((agg, curr) => agg + curr._count.Likes, 0),
+        favouriteExponats,
+        memberships,
       };
 
       return mapped;
@@ -179,6 +250,39 @@ export class UsersController {
 
     return (await this.usersService.remove(id)) !== null;
   }
+
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
+  @Post(':id/requests')
+  async getRequests(@Param('id') id: string, @Req() req?: any) {
+    if (req.user.role !== 'super') {
+      throw new UnauthorizedException();
+    }
+
+    const requests = await this.usersService.getJoinRequests(id);
+
+    const mapped: OrganisationResponseShort[] = requests.map((request) => {
+      return {
+        id: request.organisation.id,
+        name: request.organisation.name,
+        exponatCount: request.organisation._count.Exponats,
+        followerCount: request.organisation._count.UserOrganisationFollowers,
+        location: request.organisation.location,
+        mainImage: request.organisation.mainImage,
+        memberCount: request.organisation._count.OrganisationUsers,
+        points: request.organisation.Exponats.reduce(
+          (acc, curr) => acc + curr._count.FavouriteExponat,
+          0,
+        ),
+        updatedAt: request.organisation.updatedAt,
+        websiteUrl: request.organisation.websiteUrl,
+        role: request.role,
+      } as OrganisationResponseShort;
+    });
+
+    return mapped;
+  }
 }
 
 //TODO: add approval double route for other connected apis and properties such as likes
+//TODO: make a seperate mappers folder later

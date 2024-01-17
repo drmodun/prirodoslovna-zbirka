@@ -10,6 +10,7 @@ import {
   UseGuards,
   Req,
   BadRequestException,
+  UnauthorizedException,
 } from '@nestjs/common';
 import { OrganisationsService } from './organisations.service';
 import {
@@ -223,7 +224,7 @@ export class OrganisationsController {
   @Get(':id/requests')
   async getRequests(@Param('id') id: string, @Req() req?: any) {
     const check = this.membersService.hasAdminRights(req.user.id, id);
-    if (!check) return new BadRequestException("You don't have admin rights");
+    if (!check) return new UnauthorizedException("You don't have admin rights");
     return await this.organisationsService.getJoinRequests(id);
   }
 
@@ -238,7 +239,7 @@ export class OrganisationsController {
     const check = this.membersService.hasAdminRights(req.user.id, id);
 
     if (!check)
-      return new BadRequestException(
+      return new UnauthorizedException(
         "You don't have admin rights for this organisation",
       );
 
@@ -252,7 +253,7 @@ export class OrganisationsController {
     const check = this.membersService.hasAdminRights(req.user.id, id);
 
     if (!check)
-      return new BadRequestException(
+      return new UnauthorizedException(
         "You don't have admin rights for this organisation",
       );
 

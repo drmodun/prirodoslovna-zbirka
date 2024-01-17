@@ -33,4 +33,5 @@ export interface OrganisationResponseShort {
   memberCount: number;
   points: number;
   isApproved?: boolean;
+  role?: string;
 }
