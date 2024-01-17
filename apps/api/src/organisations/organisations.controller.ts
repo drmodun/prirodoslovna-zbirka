@@ -18,6 +18,7 @@ import {
 import { PaginationParams } from 'src/config/pagination';
 import {
   PaginationRequest,
+  ShortUserResponse,
   SortingEnum,
   SortingRequest,
 } from '@biosfera/types';
@@ -31,15 +32,31 @@ import { ExponatResponseShort } from '@biosfera/types';
 import { ShortSocialPostResponse } from '@biosfera/types';
 import { ApiBearerAuth, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { County } from '@prisma/client';
+import { JwtAuthGuard } from 'src/auth/jwt-auth-guard';
 import { OptionalJwtAuthGuard } from 'src/auth/optional-jwt-auth-guard';
+
 @Controller('organisations')
 @ApiTags('organisations')
 export class OrganisationsController {
   constructor(private readonly organisationsService: OrganisationsService) {}
 
   //creates brand new organisation and returns the created organisation
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @Post()
-  async create(@Body() createOrganisationDto: CreateOrganisationDto) {
+  async create(
+    @Req() req,
+    @Body() createOrganisationDto: CreateOrganisationDto,
+  ) {
+    createOrganisationDto.organisationUsers = {
+      create: [
+        {
+          userId: req.user.id,
+          role: 'OWNER',
+        },
+      ],
+    };
+
     const item = await this.organisationsService.create(createOrganisationDto);
 
     const mapped = {
@@ -155,6 +172,19 @@ export class OrganisationsController {
       } as ShortSocialPostResponse;
     });
 
+    const users: ShortUserResponse[] = item.OrganisationUsers.map((member) => {
+      return {
+        id: member.user.id,
+        firstName: member.user.firstName,
+        lastName: member.user.lastName,
+        role: member.role,
+        email: member.user.email,
+        followerCount: member.user._count.followers,
+        avatar: member.user.hasProfileImage,
+        postCount: member.user._count.Posts,
+      } as ShortUserResponse;
+    });
+
     const mapped = {
       createdAt: item.createdAt,
       description: item.description,
@@ -177,6 +207,7 @@ export class OrganisationsController {
       websiteUrl: item.websiteUrl,
       isApproved: item.isApproved,
       posts: mappedPosts,
+      members: users,
     } as ExtendedOrganisationResponse;
 
     return mapped;

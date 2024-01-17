@@ -10,6 +10,7 @@ import {
   SortingRequest,
   sortQueryBuilder,
 } from '@biosfera/types';
+import { MemberRoleType } from 'src/members/members.dto';
 
 @Injectable()
 export class OrganisationsService {
@@ -102,7 +103,24 @@ export class OrganisationsService {
           },
         },
         UserOrganisationFollowers: true,
-        OrganisationUsers: true,
+        OrganisationUsers: {
+          where: {
+            role: { not: MemberRoleType.REQUESTED },
+          },
+          select: {
+            user: {
+              include: {
+                _count: {
+                  select: {
+                    Posts: true,
+                    followers: true,
+                  },
+                },
+              },
+            },
+            role: true,
+          },
+        },
       },
     });
 

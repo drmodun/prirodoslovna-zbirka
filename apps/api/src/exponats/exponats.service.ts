@@ -8,6 +8,7 @@ import {
   sortExponatQueryBuilderWithComplexFilters,
 } from '@biosfera/types';
 import { Role } from '@prisma/client';
+import { MemberRoleType } from 'src/members/members.dto';
 
 @Injectable()
 export class ExponatsService {
@@ -255,7 +256,10 @@ export class ExponatsService {
       if (checkForSuper.role !== Role.SUPER) return false;
       return true;
     }
-    if (adminOnly && connection.role !== Role.ADMIN) return false;
-    return true;
+
+    return !(
+      (adminOnly && connection.role !== MemberRoleType.ADMIN) ||
+      (adminOnly && connection.role !== MemberRoleType.OWNER)
+    );
   }
 }

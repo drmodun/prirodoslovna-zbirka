@@ -30,8 +30,8 @@ export interface ShortUserResponse {
   firstName: string;
   lastName: string;
   email: string;
-  avatar?: string;
-  role?: number;
+  avatar?: boolean;
+  role?: string;
   followerCount: number;
   postCount: number;
 }
