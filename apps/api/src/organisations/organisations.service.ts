@@ -159,4 +159,25 @@ export class OrganisationsService {
       },
     });
   }
+
+  async getJoinRequests(organisationId: string) {
+    const requests = await this.prisma.organisationUser.findMany({
+      where: {
+        organisationId,
+        role: MemberRoleType.REQUESTED,
+      },
+      include: {
+        user: {
+          select: {
+            firstName: true,
+            lastName: true,
+            email: true,
+            id: true,
+          },
+        },
+      },
+    });
+
+    return requests;
+  }
 }

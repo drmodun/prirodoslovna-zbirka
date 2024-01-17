@@ -9,6 +9,7 @@ import {
   Query,
   UseGuards,
   Req,
+  BadRequestException,
 } from '@nestjs/common';
 import { OrganisationsService } from './organisations.service';
 import {
@@ -34,11 +35,15 @@ import { ApiBearerAuth, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { County } from '@prisma/client';
 import { JwtAuthGuard } from 'src/auth/jwt-auth-guard';
 import { OptionalJwtAuthGuard } from 'src/auth/optional-jwt-auth-guard';
+import { MembersService } from 'src/members/members.service';
 
 @Controller('organisations')
 @ApiTags('organisations')
 export class OrganisationsController {
-  constructor(private readonly organisationsService: OrganisationsService) {}
+  constructor(
+    private readonly organisationsService: OrganisationsService,
+    private readonly membersService: MembersService,
+  ) {}
 
   //creates brand new organisation and returns the created organisation
   @UseGuards(JwtAuthGuard)
@@ -213,16 +218,44 @@ export class OrganisationsController {
     return mapped;
   }
 
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
+  @Get(':id/requests')
+  async getRequests(@Param('id') id: string, @Req() req?: any) {
+    const check = this.membersService.hasAdminRights(req.user.id, id);
+    if (!check) return new BadRequestException("You don't have admin rights");
+    return await this.organisationsService.getJoinRequests(id);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @Patch(':id')
   async update(
     @Param('id') id: string,
     @Body() updateOrganisationDto: UpdateOrganisationDto,
+    @Req() req?: any,
   ) {
+    const check = this.membersService.hasAdminRights(req.user.id, id);
+
+    if (!check)
+      return new BadRequestException(
+        "You don't have admin rights for this organisation",
+      );
+
     return await this.organisationsService.update(id, updateOrganisationDto);
   }
 
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @Delete(':id')
-  async remove(@Param('id') id: string) {
+  async remove(@Param('id') id: string, @Req() req?: any) {
+    const check = this.membersService.hasAdminRights(req.user.id, id);
+
+    if (!check)
+      return new BadRequestException(
+        "You don't have admin rights for this organisation",
+      );
+
     return await this.organisationsService.remove(id);
   }
 
