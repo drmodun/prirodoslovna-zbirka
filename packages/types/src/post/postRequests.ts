@@ -1,10 +1,35 @@
-export interface CreatePostRequest {
-  title: string;
-  images: string[];
-  //the id of the exponat will be in the url, and the author Id will be in the request headers
-}
+import { IsString, MaxLength, MinLength } from "class-validator";
 
-export interface UpdatePostRequest {
-  title?: string;
-  images?: string[];
-}
+export const getCreatePostRequest = (ApiPropertySwagger?: any) => {
+  const ApiProperty = ApiPropertySwagger || function () {};
+
+  class CreatePostRequest {
+    @ApiProperty()
+    @IsString()
+    @MinLength(3)
+    @MaxLength(100)
+    title: String;
+
+    @ApiProperty()
+    images: String[];
+  }
+
+  return CreatePostRequest;
+};
+
+export const getUpdatePostRequest = (ApiPropertySwagger?: any) => {
+  const ApiProperty = ApiPropertySwagger || function () {};
+
+  class UpdatePostRequest {
+    @ApiProperty()
+    @IsString()
+    @MinLength(3)
+    @MaxLength(100)
+    title: String;
+
+    @ApiProperty()
+    images: String[];
+  }
+
+  return UpdatePostRequest;
+};
