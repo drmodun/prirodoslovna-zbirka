@@ -17,6 +17,7 @@ import { FavouriteExponatsModule } from './favourite-exponats/favourite-exponats
 import { MembersModule } from './members/members.module';
 import { PostsModule } from './posts/posts.module';
 import { LikesModule } from './likes/likes.module';
+import { FollowsModule } from './follows/follows.module';
 
 @Module({
   imports: [
@@ -40,6 +41,7 @@ import { LikesModule } from './likes/likes.module';
     MembersModule,
     PostsModule,
     LikesModule,
+    FollowsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
