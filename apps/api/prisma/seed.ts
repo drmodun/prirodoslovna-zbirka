@@ -21,11 +21,6 @@ async function main() {
     return;
   }
 
-  if ((await prisma.exponat.count()) > 0) {
-    console.error('Cannot run seed with existing data');
-    return;
-  }
-
   const categorizations = [
     {
       id: 'd1c3a2e4-6b72-4ec0-b110-c33a34431fbc',
@@ -597,7 +592,7 @@ async function main() {
       id: '0b89cee9-e660-46d5-960d-ecc6ef72b6cf',
       firstName: 'Ursola',
       lastName: 'Bewley',
-      location: County.,
+      location: County.SPLITSKO_DALMATINSKA,
       email: 'ubewleya@odnoklassniki.ru',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
@@ -697,7 +692,7 @@ async function main() {
       id: '245218da-78aa-4021-85d0-756111f0065f',
       firstName: 'Gustave',
       lastName: 'Prando',
-      location: County.,
+      location: County.SPLITSKO_DALMATINSKA,
       email: 'gprandok@toplist.cz',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
@@ -787,7 +782,7 @@ async function main() {
       id: '89d4155a-d4a9-4229-a49f-7a261853b27e',
       firstName: 'Neils',
       lastName: 'Praten',
-      location: County.,
+      location: County.SPLITSKO_DALMATINSKA,
       email: 'npratent@buzzfeed.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
@@ -1167,7 +1162,7 @@ async function main() {
       id: '769c162d-d14c-4297-b182-ebe4ff7c086c',
       firstName: 'Glyn',
       lastName: 'Kingescot',
-      location: County.,
+      location: County.SPLITSKO_DALMATINSKA,
       email: 'gkingescot1v@godaddy.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
@@ -1247,7 +1242,7 @@ async function main() {
       id: 'fd427c07-f16c-4ec5-9a8a-d937f7eb5726',
       firstName: 'Emmery',
       lastName: 'Schuricke',
-      location: County.,
+      location: County.SPLITSKO_DALMATINSKA,
       email: 'eschuricke23@rediff.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
@@ -87478,18 +87473,18 @@ async function main() {
   }
 
   //TODO: Replace this temporary way of deleting duplicates
-  
-  await prisma.user.deleteMany()
-  await prisma.organisation.deleteMany()
-  await prisma.post.deleteMany()
-  await prisma.exponat.deleteMany()
-  await prisma.organisationUser.deleteMany()
-  await prisma.like.deleteMany()
-  await prisma.categorization.deleteMany()
-  await prisma.socialPost.deleteMany()
-  await prisma.userFollows.deleteMany()
-  await prisma.favouriteExponat.deleteMany()
-  await prisma.userFollows.deleteMany()
+
+  await prisma.user.deleteMany();
+  await prisma.organisation.deleteMany();
+  await prisma.post.deleteMany();
+  await prisma.exponat.deleteMany();
+  await prisma.organisationUser.deleteMany();
+  await prisma.like.deleteMany();
+  await prisma.categorization.deleteMany();
+  await prisma.socialPost.deleteMany();
+  await prisma.userFollows.deleteMany();
+  await prisma.favouriteExponat.deleteMany();
+  await prisma.userFollows.deleteMany();
 
   await prisma.user.createMany({
     data: users,

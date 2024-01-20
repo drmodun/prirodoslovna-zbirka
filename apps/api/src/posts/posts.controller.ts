@@ -186,6 +186,74 @@ export class PostsController {
 
     return this.postsService.toggleApproval(id);
   }
+
+  @UseGuards(OptionalJwtAuthGuard)
+  @ApiBearerAuth()
+  @Get('/:organisationId')
+  async findAllByOrganisation(
+    @Param('organisationId') organisationId: string,
+    @Req() req?: any,
+  ) {
+    const adminCheck = await this.membersService.hasAdminRights(
+      req.user.id,
+      organisationId,
+    );
+
+    const posts = await this.postsService.findAll({
+      organisationId,
+      isAdmin: adminCheck,
+    });
+
+    const mapped: PostResponse[] = posts.map((post) => {
+      return {
+        authorId: post.authorId,
+        authorName: post.author.firstName + ' ' + post.author.lastName,
+        exponatId: post.ExponatId,
+        exponatName: post.Exponat.name,
+        id: post.id,
+        images: post.images,
+        likeScore: post._count.Likes,
+        title: post.title,
+      } as PostResponse;
+    });
+
+    return mapped;
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
+  @Get(':organisationId/')
+  async findAllNotApproved(
+    @Param('organisationId') organisationId: string,
+    @Req() req: any,
+  ) {
+    const adminCheck = await this.membersService.hasAdminRights(
+      req.user.id,
+      organisationId,
+    );
+
+    if (!adminCheck && !(req.user.role === 'super'))
+      throw new UnauthorizedException(
+        "You cannor see unapproved posts because you don't have admin rights",
+      );
+
+    const posts = await this.postsService.findAllNotApproved(organisationId);
+
+    const mapped: PostResponse[] = posts.map((post) => {
+      return {
+        authorId: post.authorId,
+        authorName: post.author.firstName + ' ' + post.author.lastName,
+        exponatId: post.ExponatId,
+        exponatName: post.Exponat.name,
+        id: post.id,
+        images: post.images,
+        likeScore: post._count.Likes,
+        title: post.title,
+      } as PostResponse;
+    });
+
+    return mapped;
+  }
 }
 
 //TODO: make special functions for organisation admins to see posts without approval and stuff

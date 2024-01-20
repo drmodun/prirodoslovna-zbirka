@@ -55,45 +55,45 @@ export const getPostQuery = (ApiPropertySwagger?: any) => {
   class PostQuery {
     @IsOptional()
     @ApiProperty()
-    title: string;
+    title?: string;
 
     @IsOptional()
     @ApiProperty()
-    userId: string;
+    userId?: string;
 
     @IsOptional()
     @ApiProperty()
-    userName: string;
+    userName?: string;
 
     @IsOptional()
     @ApiProperty()
-    exponatId: string;
+    exponatId?: string;
 
     @IsOptional()
     @ApiProperty()
-    organisationId: string;
+    organisationId?: string;
 
     @IsOptional()
     @ApiProperty()
-    exponatName: string;
+    exponatName?: string;
 
     @IsOptional()
     @IsEnum(SortingEnum)
     @ApiProperty()
-    attribute: SortingEnum;
+    attribute?: SortingEnum;
 
     @IsOptional()
     @IsEnum(SortType)
     @ApiProperty()
-    direction: SortType;
+    direction?: SortType;
 
     @IsOptional()
     @ApiProperty()
-    page: number;
+    page?: number;
 
     @IsOptional()
     @ApiProperty()
-    size: number;
+    size?: number;
 
     isAdmin?: boolean;
   }
