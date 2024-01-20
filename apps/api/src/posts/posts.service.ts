@@ -1,26 +1,128 @@
 import { Injectable } from '@nestjs/common';
-import { CreatePostDto } from './dto/create-post.dto';
-import { UpdatePostDto } from './dto/update-post.dto';
+import { CreatePostRequest, PostQuery, UpdatePostRequest } from './posts.dto';
+import { PrismaService } from 'src/prisma/prisma.service';
+import { MembersService } from 'src/members/members.service';
+import { sortQueryBuilder } from '@biosfera/types';
 
 @Injectable()
 export class PostsService {
-  create(createPostDto: CreatePostDto) {
-    return 'This action adds a new post';
+  constructor(private readonly prisma: PrismaService) {}
+
+  async findAll(filter: PostQuery) {
+    const sort = sortQueryBuilder({
+      attribute: filter.attribute,
+      direction: filter.direction,
+    });
+
+    const posts = this.prisma.post.findMany({
+      where: {
+        ...(!filter.isAdmin && { isApproved: true }),
+        ...(filter?.title && {
+          name: {
+            search: filter.title.replace(/(\w)\s+(\w)/g, '$1 <-> $2'),
+            mode: 'insensitive',
+          },
+        }),
+        ...(filter?.userId && { authorId: filter.userId }),
+        ...(filter?.organisationId && {
+          organisationId: filter.organisationId,
+        }),
+        ...(filter?.exponatId && { exponatId: filter.exponatId }),
+        ...(filter?.userName && { author: { firstName: filter.userName } }),
+        ...(filter?.exponatName && {
+          Exponat: { name: filter.exponatName },
+        }),
+      },
+      ...(sort && { orderBy: sort }),
+      include: {
+        author: {
+          select: {
+            firstName: true,
+            lastName: true,
+          },
+        },
+        Exponat: {
+          select: {
+            name: true,
+          },
+        },
+        _count: {
+          select: {
+            Likes: true,
+          },
+        },
+      },
+      skip: (filter?.page - 1) * filter?.size,
+      take: filter?.size,
+    });
+
+    return posts;
   }
 
-  findAll() {
-    return `This action returns all posts`;
+  async create(createPostDto: CreatePostRequest) {
+    return await this.prisma.post.create({
+      data: createPostDto,
+    });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} post`;
+  async update(id: string, updatePostDto: UpdatePostRequest) {
+    return await this.prisma.post.update({
+      where: {
+        id,
+      },
+      data: updatePostDto,
+    });
   }
 
-  update(id: number, updatePostDto: UpdatePostDto) {
-    return `This action updates a #${id} post`;
+  async delete(id: string) {
+    return await this.prisma.post.delete({
+      where: {
+        id,
+      },
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} post`;
+  async findOne(id: string, approval?: boolean) {
+    return await this.prisma.post.findUnique({
+      where: {
+        id,
+        ...(approval && { isApproved: approval }),
+      },
+      include: {
+        author: {
+          select: {
+            firstName: true,
+            lastName: true,
+          },
+        },
+        Exponat: {
+          select: {
+            name: true,
+          },
+        },
+        _count: {
+          select: {
+            Likes: true,
+          },
+        },
+      },
+    });
+  }
+
+  async toggleApproval(id: string) {
+    const post = await this.prisma.post.findUnique({
+      where: {
+        id,
+      },
+    });
+
+    return await this.prisma.post.update({
+      where: {
+        id,
+      },
+      data: {
+        isApproved: !post.isApproved,
+      },
+    });
   }
 }

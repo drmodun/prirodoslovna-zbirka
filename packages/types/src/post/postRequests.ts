@@ -1,4 +1,11 @@
-import { IsString, MaxLength, MinLength } from "class-validator";
+import {
+  IsEnum,
+  IsOptional,
+  IsString,
+  MaxLength,
+  MinLength,
+} from "class-validator";
+import { SortType, SortingEnum } from "src/query";
 
 export const getCreatePostRequest = (ApiPropertySwagger?: any) => {
   const ApiProperty = ApiPropertySwagger || function () {};
@@ -8,10 +15,14 @@ export const getCreatePostRequest = (ApiPropertySwagger?: any) => {
     @IsString()
     @MinLength(3)
     @MaxLength(100)
-    title: String;
+    title: string;
 
     @ApiProperty()
-    images: String[];
+    images: string[];
+
+    authorId: string;
+
+    exponatId: string;
   }
 
   return CreatePostRequest;
@@ -25,11 +36,67 @@ export const getUpdatePostRequest = (ApiPropertySwagger?: any) => {
     @IsString()
     @MinLength(3)
     @MaxLength(100)
-    title: String;
+    title: string;
 
     @ApiProperty()
-    images: String[];
+    images: string[];
+
+    authorId: string;
+
+    exponatId: string;
   }
 
   return UpdatePostRequest;
+};
+
+export const getPostQuery = (ApiPropertySwagger?: any) => {
+  const ApiProperty = ApiPropertySwagger || function () {};
+
+  class PostQuery {
+    @IsOptional()
+    @ApiProperty()
+    title: string;
+
+    @IsOptional()
+    @ApiProperty()
+    userId: string;
+
+    @IsOptional()
+    @ApiProperty()
+    userName: string;
+
+    @IsOptional()
+    @ApiProperty()
+    exponatId: string;
+
+    @IsOptional()
+    @ApiProperty()
+    organisationId: string;
+
+    @IsOptional()
+    @ApiProperty()
+    exponatName: string;
+
+    @IsOptional()
+    @IsEnum(SortingEnum)
+    @ApiProperty()
+    attribute: SortingEnum;
+
+    @IsOptional()
+    @IsEnum(SortType)
+    @ApiProperty()
+    direction: SortType;
+
+    @IsOptional()
+    @ApiProperty()
+    page: number;
+
+    @IsOptional()
+    @ApiProperty()
+    size: number;
+
+    isAdmin?: boolean;
+  }
+
+  return PostQuery;
 };

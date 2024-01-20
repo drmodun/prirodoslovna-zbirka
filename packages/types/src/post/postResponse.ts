@@ -14,3 +14,4 @@ export interface PostApprovalResponse {
   id: string;
   approved: boolean;
 }
+
