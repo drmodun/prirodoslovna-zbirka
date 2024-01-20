@@ -5,7 +5,7 @@ import {
   MaxLength,
   MinLength,
 } from "class-validator";
-import { SortType, SortingEnum } from "src/query";
+import { SortType, SortingEnum } from "../query";
 
 export const getCreatePostRequest = (ApiPropertySwagger?: any) => {
   const ApiProperty = ApiPropertySwagger || function () {};

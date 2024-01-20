@@ -16,7 +16,7 @@ import { PostsService } from './posts.service';
 import { CreatePostDto, PostQuery, UpdatePostDto } from './posts.dto';
 import { MembersService } from 'src/members/members.service';
 import { JwtAuthGuard } from 'src/auth/jwt-auth-guard';
-import { ApiBearerAuth, ApiQuery } from '@nestjs/swagger';
+import { ApiBearerAuth } from '@nestjs/swagger';
 import { OrganisationsService } from 'src/organisations/organisations.service';
 import { ExponatsService } from 'src/exponats/exponats.service';
 import { OptionalJwtAuthGuard } from 'src/auth/optional-jwt-auth-guard';
@@ -28,7 +28,6 @@ import {
   SortingRequest,
 } from '@biosfera/types';
 import { SortingParams } from 'src/config/sorting';
-import { CategorizationQuery } from 'src/categorizations/dto/categorizations.dto';
 @ApiBearerAuth()
 @Controller('posts')
 export class PostsController {
@@ -73,12 +72,15 @@ export class PostsController {
     @SortingParams([SortingEnum.TITLE, SortingEnum.CREATED_AT])
     sorting?: SortingRequest,
     @Query() filter?: PostQuery,
+    @Req() req?: any,
   ) {
     filter.attribute = sorting.attribute;
     filter.direction = sorting.direction;
 
     filter.page = paginationParam.page;
     filter.size = paginationParam.size;
+
+    if (req.user.role === 'super') filter.isAdmin = true;
 
     const posts = await this.postsService.findAll(filter);
 
@@ -98,9 +100,13 @@ export class PostsController {
     return mapped;
   }
 
+  @UseGuards(OptionalJwtAuthGuard)
+  @ApiBearerAuth()
   @Get(':id')
-  async findOne(@Param('id') id: string) {
-    const post = await this.postsService.findOne(id);
+  async findOne(@Param('id') id: string, @Req() req?: any) {
+    const check = req?.user?.role === 'super';
+
+    const post = await this.postsService.findOne(id, check);
 
     return {
       authorId: post.authorId,
@@ -154,9 +160,32 @@ export class PostsController {
 
     if (!check && !admin && !(req.user.role === 'super'))
       throw new UnauthorizedException(
-        "You cannor delete this pos because it is not yours and you don't have admin rights",
+        "You cannor delete this post because it is not yours and you don't have admin rights",
       );
 
     return this.postsService.remove(id);
   }
+
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
+  @Patch(':id/approval')
+  async toggleApproval(@Param('id') id: string, @Req() req: any) {
+    const exponat = await this.exponatsService.findExponatByPostId(id);
+    const organisationId =
+      await this.organisationsService.findOrganisationByExponatId(exponat);
+    const check = await this.postsService.checkValidity(id, req.user.id);
+    const admin = await this.membersService.hasAdminRights(
+      req.user.id,
+      organisationId,
+    );
+
+    if (!check && !admin && !(req.user.role === 'super'))
+      throw new UnauthorizedException(
+        "You cannor approve or disapprove this post because it is not yours and you don't have admin rights",
+      );
+
+    return this.postsService.toggleApproval(id);
+  }
 }
+
+//TODO: make special functions for organisation admins to see posts without approval and stuff
