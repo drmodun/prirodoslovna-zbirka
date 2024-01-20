@@ -169,7 +169,7 @@ model OrganisationUser {
 
 model Like {
   createdAt DateTime @default(now())
-  userId    String   @unique
+  userId    String   
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   postId    String
   Post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
