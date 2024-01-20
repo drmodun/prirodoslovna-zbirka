@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { CreatePostRequest, PostQuery, UpdatePostRequest } from './posts.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { MembersService } from 'src/members/members.service';
@@ -74,7 +74,17 @@ export class PostsService {
     });
   }
 
-  async delete(id: string) {
+  async checkValidity(postId: string, userId: string) {
+    const post = await this.prisma.post.findUnique({
+      where: {
+        id: postId,
+      },
+    });
+
+    return post.authorId === userId;
+  }
+
+  async remove(id: string) {
     return await this.prisma.post.delete({
       where: {
         id,
