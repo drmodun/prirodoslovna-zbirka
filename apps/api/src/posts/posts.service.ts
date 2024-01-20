@@ -1,7 +1,6 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { CreatePostRequest, PostQuery, UpdatePostRequest } from './posts.dto';
+import { Injectable } from '@nestjs/common';
+import { CreatePostDto, PostQuery, UpdatePostDto } from './posts.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { MembersService } from 'src/members/members.service';
 import { sortQueryBuilder } from '@biosfera/types';
 
 @Injectable()
@@ -59,13 +58,13 @@ export class PostsService {
     return posts;
   }
 
-  async create(createPostDto: CreatePostRequest) {
+  async create(createPostDto: CreatePostDto) {
     return await this.prisma.post.create({
       data: createPostDto,
     });
   }
 
-  async update(id: string, updatePostDto: UpdatePostRequest) {
+  async update(id: string, updatePostDto: UpdatePostDto) {
     return await this.prisma.post.update({
       where: {
         id,
