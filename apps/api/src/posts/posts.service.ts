@@ -13,6 +13,15 @@ export class PostsService {
       direction: filter.direction,
     });
 
+    const exponatIds = await this.prisma.exponat.findMany({
+      where: {
+        organisationId: filter.organisationId,
+      },
+      select: {
+        id: true,
+      },
+    });
+
     const posts = this.prisma.post.findMany({
       where: {
         ...(!filter.isAdmin && { isApproved: true }),
@@ -24,9 +33,11 @@ export class PostsService {
         }),
         ...(filter?.userId && { authorId: filter.userId }),
         ...(filter?.organisationId && {
-          organisationId: filter.organisationId,
+          exponatId: {
+            in: exponatIds.map((exponat) => exponat.id),
+          },
         }),
-        ...(filter?.exponatId && { exponatId: filter.exponatId }),
+        ...(filter?.exponatId && { ExponatId: filter.exponatId }),
         ...(filter?.userName && { author: { firstName: filter.userName } }),
         ...(filter?.exponatName && {
           Exponat: { name: filter.exponatName },
@@ -133,5 +144,45 @@ export class PostsService {
         isApproved: !post.isApproved,
       },
     });
+  }
+
+  async findAllNotApproved(organisationId: string) {
+    const exponatIds = await this.prisma.exponat.findMany({
+      where: {
+        organisationId: organisationId,
+      },
+      select: {
+        id: true,
+      },
+    });
+
+    const posts = this.prisma.post.findMany({
+      where: {
+        isApproved: false,
+        ExponatId: {
+          in: exponatIds.map((exponat) => exponat.id),
+        },
+      },
+      include: {
+        author: {
+          select: {
+            firstName: true,
+            lastName: true,
+          },
+        },
+        Exponat: {
+          select: {
+            name: true,
+          },
+        },
+        _count: {
+          select: {
+            Likes: true,
+          },
+        },
+      },
+    });
+
+    return posts;
   }
 }
