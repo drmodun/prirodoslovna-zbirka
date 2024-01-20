@@ -262,4 +262,19 @@ export class ExponatsService {
       (adminOnly && connection.role !== MemberRoleType.OWNER)
     );
   }
+
+  async findExponatByPostId(postId: string) {
+    const post = await this.prisma.post.findFirst({
+      where: {
+        id: postId,
+      },
+      select: {
+        ExponatId: true,
+      },
+    });
+
+    if (!post) return null;
+
+    return post.ExponatId;
+  }
 }

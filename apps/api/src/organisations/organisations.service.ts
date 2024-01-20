@@ -180,4 +180,19 @@ export class OrganisationsService {
 
     return requests;
   }
+
+  async findOrganisationByExponatId(exponatId: string) {
+    const exponat = await this.prisma.exponat.findFirst({
+      where: {
+        id: exponatId,
+      },
+      select: {
+        organisationId: true,
+      },
+    });
+
+    if (!exponat) return null;
+
+    return exponat.organisationId;
+  }
 }
