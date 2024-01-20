@@ -12,9 +12,9 @@ import {
 } from '@nestjs/common';
 import { MembersService } from './members.service';
 import { JwtAuthGuard } from 'src/auth/jwt-auth-guard';
-import { ApiBearerAuth } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { MemberRoleType } from './members.dto';
-
+@ApiTags('members')
 @Controller('members')
 export class MembersController {
   constructor(private readonly membersService: MembersService) {} //TODO: Remove unused response objects, just send codes if needed

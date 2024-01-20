@@ -1,5 +1,12 @@
-import { County, ExponatKind, PrismaClient, Role } from '@prisma/client';
+import {
+  County,
+  ExponatKind,
+  OrganisationUser,
+  PrismaClient,
+  Role,
+} from '@prisma/client';
 import { env } from 'process';
+import { MemberRoleType } from 'src/members/members.dto';
 const prisma = new PrismaClient();
 
 async function main() {
@@ -82654,6 +82661,5010 @@ async function main() {
       authorId: users[57].id,
     },
   ];
+
+  const organisationUsers = [
+    {
+      organisationId: organisations[1].id,
+      userId: users[2].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[74].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[17].id,
+      userId: users[18].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[51].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[3].id,
+      userId: users[7].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[2].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[91].id,
+      role: "OWNER",
+    },
+    {
+      organisationId: organisations[10].id,
+      userId: users[11].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[16].id,
+      userId: users[37].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[8].id,
+      userId: users[92].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[17].id,
+      userId: users[90].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[18].id,
+      userId: users[75].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[83].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[98].id,
+      role: "OWNER",
+    },
+    {
+      organisationId: organisations[17].id,
+      userId: users[8].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[41].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[50].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[16].id,
+      userId: users[54].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[99].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[13].id,
+      userId: users[20].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[9].id,
+      userId: users[96].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[15].id,
+      userId: users[11].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[48].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[7].id,
+      userId: users[19].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[51].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[7].id,
+      userId: users[42].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[3].id,
+      userId: users[48].id,
+      role: "OWNER",
+    },
+    {
+      organisationId: organisations[15].id,
+      userId: users[46].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[83].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[15].id,
+      userId: users[80].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[1].id,
+      userId: users[97].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[17].id,
+      userId: users[91].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[8].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[13].id,
+      userId: users[79].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[68].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[7].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[13].id,
+      userId: users[42].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[7].id,
+      userId: users[1].id,
+      role: "OWNER",
+    },
+    {
+      organisationId: organisations[18].id,
+      userId: users[97].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[90].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[62].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[90].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[17].id,
+      userId: users[29].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[18].id,
+      userId: users[99].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[15].id,
+      userId: users[55].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[9].id,
+      userId: users[79].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[10].id,
+      userId: users[79].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[71].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[1].id,
+      userId: users[51].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[8].id,
+      userId: users[46].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[8].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[89].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[11].id,
+      userId: users[26].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[18].id,
+      userId: users[48].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[16].id,
+      userId: users[73].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[9].id,
+      userId: users[64].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[16].id,
+      userId: users[68].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[17].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[15].id,
+      userId: users[12].id,
+      role: "OWNER",
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[73].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[1].id,
+      userId: users[59].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[3].id,
+      userId: users[3].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[3].id,
+      userId: users[85].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[82].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[7].id,
+      userId: users[93].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[8].id,
+      userId: users[19].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[11].id,
+      userId: users[48].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[10].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[11].id,
+      userId: users[92].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[11].id,
+      userId: users[14].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[90].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[98].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[13].id,
+      userId: users[34].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[5].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[12].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[16].id,
+      userId: users[7].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[9].id,
+      userId: users[23].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[8].id,
+      userId: users[61].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[18].id,
+      userId: users[25].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[39].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[18].id,
+      userId: users[74].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[3].id,
+      userId: users[53].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[3].id,
+      userId: users[70].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[11].id,
+      userId: users[99].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[8].id,
+      userId: users[80].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[11].id,
+      userId: users[37].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[86].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[53].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[46].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[20].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[10].id,
+      userId: users[76].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[24].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[41].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[4].id,
+      userId: users[71].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[55].id,
+      role: "OWNER",
+    },
+    {
+      organisationId: organisations[17].id,
+      userId: users[18].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[7].id,
+      userId: users[23].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[1].id,
+      userId: users[81].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[25].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[10].id,
+      userId: users[88].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[9].id,
+      userId: users[33].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[96].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[34].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[11].id,
+      userId: users[40].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[35].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[4].id,
+      userId: users[86].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[17].id,
+      userId: users[62].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[11].id,
+      userId: users[76].id,
+      role: "OWNER",
+    },
+    {
+      organisationId: organisations[9].id,
+      userId: users[37].id,
+      role: "OWNER",
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[80].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[32].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[1].id,
+      role: "OWNER",
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[91].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[3].id,
+      userId: users[68].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[4].id,
+      userId: users[87].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[13].id,
+      userId: users[58].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[91].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[15].id,
+      userId: users[91].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[10].id,
+      userId: users[42].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[13].id,
+      userId: users[92].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[45].id,
+      role: "OWNER",
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[90].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[16].id,
+      userId: users[30].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[13].id,
+      userId: users[57].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[34].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[16].id,
+      userId: users[84].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[10].id,
+      userId: users[78].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[58].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[38].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[3].id,
+      userId: users[90].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[17].id,
+      userId: users[4].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[11].id,
+      userId: users[74].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[13].id,
+      userId: users[17].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[13].id,
+      userId: users[50].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[11].id,
+      userId: users[58].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[1].id,
+      userId: users[80].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[53].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[79].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[97].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[9].id,
+      userId: users[38].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[34].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[18].id,
+      userId: users[31].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[18].id,
+      userId: users[37].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[10].id,
+      userId: users[71].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[10].id,
+      userId: users[74].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[7].id,
+      userId: users[92].id,
+      role: "OWNER",
+    },
+    {
+      organisationId: organisations[7].id,
+      userId: users[2].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[4].id,
+      userId: users[1].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[11].id,
+      userId: users[98].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[80].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[99].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[78].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[9].id,
+      userId: users[94].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[18].id,
+      userId: users[31].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[90].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[18].id,
+      userId: users[36].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[50].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[89].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[30].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[1].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[16].id,
+      userId: users[60].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[4].id,
+      userId: users[27].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[67].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[38].id,
+      role: "OWNER",
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[97].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[7].id,
+      userId: users[73].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[7].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[16].id,
+      userId: users[17].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[16].id,
+      userId: users[78].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[15].id,
+      userId: users[83].id,
+      role: "OWNER",
+    },
+    {
+      organisationId: organisations[9].id,
+      userId: users[24].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[3].id,
+      userId: users[9].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[9].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[10].id,
+      userId: users[7].id,
+      role: "OWNER",
+    },
+    {
+      organisationId: organisations[11].id,
+      userId: users[43].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[11].id,
+      userId: users[56].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[16].id,
+      userId: users[97].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[15].id,
+      userId: users[14].id,
+      role: "OWNER",
+    },
+    {
+      organisationId: organisations[3].id,
+      userId: users[44].id,
+      role: "OWNER",
+    },
+    {
+      organisationId: organisations[15].id,
+      userId: users[79].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[7].id,
+      userId: users[40].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[46].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[83].id,
+      role: "OWNER",
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[83].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[16].id,
+      userId: users[99].id,
+      role: "OWNER",
+    },
+    {
+      organisationId: organisations[8].id,
+      userId: users[41].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[10].id,
+      userId: users[90].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[1].id,
+      userId: users[61].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[5].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[16].id,
+      userId: users[85].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[1].id,
+      userId: users[85].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[13].id,
+      userId: users[76].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[9].id,
+      userId: users[16].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[75].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[94].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[15].id,
+      userId: users[49].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[98].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[90].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[21].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[4].id,
+      userId: users[77].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[4].id,
+      userId: users[19].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[17].id,
+      userId: users[8].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[85].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[11].id,
+      userId: users[23].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[89].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[16].id,
+      userId: users[43].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[13].id,
+      userId: users[75].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[11].id,
+      userId: users[6].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[8].id,
+      userId: users[52].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[11].id,
+      userId: users[83].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[3].id,
+      userId: users[22].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[4].id,
+      userId: users[70].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[11].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[57].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[13].id,
+      userId: users[53].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[8].id,
+      userId: users[42].id,
+      role: "OWNER",
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[91].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[3].id,
+      userId: users[91].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[84].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[18].id,
+      userId: users[89].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[4].id,
+      userId: users[8].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[18].id,
+      userId: users[36].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[15].id,
+      userId: users[66].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[1].id,
+      userId: users[81].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[32].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[7].id,
+      userId: users[1].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[17].id,
+      userId: users[82].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[11].id,
+      userId: users[22].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[11].id,
+      userId: users[10].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[13].id,
+      userId: users[10].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[17].id,
+      userId: users[25].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[55].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[11].id,
+      userId: users[38].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[27].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[16].id,
+      userId: users[10].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[23].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[15].id,
+      userId: users[47].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[86].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[18].id,
+      userId: users[47].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[7].id,
+      userId: users[44].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[3].id,
+      userId: users[89].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[9].id,
+      userId: users[98].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[7].id,
+      userId: users[3].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[18].id,
+      userId: users[97].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[4].id,
+      userId: users[19].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[54].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[9].id,
+      userId: users[90].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[17].id,
+      userId: users[31].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[18].id,
+      userId: users[32].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[15].id,
+      userId: users[9].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[8].id,
+      userId: users[13].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[98].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[10].id,
+      userId: users[77].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[98].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[13].id,
+      userId: users[69].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[39].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[17].id,
+      userId: users[15].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[13].id,
+      userId: users[38].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[18].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[8].id,
+      userId: users[67].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[10].id,
+      userId: users[6].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[7].id,
+      userId: users[36].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[54].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[4].id,
+      userId: users[73].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[48].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[10].id,
+      userId: users[18].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[13].id,
+      userId: users[86].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[9].id,
+      userId: users[28].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[8].id,
+      userId: users[49].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[37].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[11].id,
+      userId: users[51].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[10].id,
+      userId: users[30].id,
+      role: "OWNER",
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[28].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[8].id,
+      userId: users[48].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[5].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[13].id,
+      userId: users[70].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[1].id,
+      userId: users[81].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[16].id,
+      userId: users[4].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[9].id,
+      userId: users[3].id,
+      role: "OWNER",
+    },
+    {
+      organisationId: organisations[4].id,
+      userId: users[64].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[16].id,
+      userId: users[15].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[82].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[80].id,
+      role: "OWNER",
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[95].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[52].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[7].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[9].id,
+      userId: users[20].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[77].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[8].id,
+      userId: users[34].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[9].id,
+      userId: users[73].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[25].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[16].id,
+      userId: users[23].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[18].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[17].id,
+      userId: users[8].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[11].id,
+      userId: users[37].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[1].id,
+      userId: users[22].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[17].id,
+      userId: users[59].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[73].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[35].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[10].id,
+      userId: users[49].id,
+      role: "OWNER",
+    },
+    {
+      organisationId: organisations[7].id,
+      userId: users[63].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[22].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[13].id,
+      userId: users[8].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[11].id,
+      userId: users[83].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[15].id,
+      userId: users[37].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[4].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[3].id,
+      userId: users[34].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[10].id,
+      userId: users[69].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[1].id,
+      userId: users[33].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[81].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[24].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[98].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[13].id,
+      userId: users[29].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[13].id,
+      userId: users[97].id,
+      role: "OWNER",
+    },
+    {
+      organisationId: organisations[4].id,
+      userId: users[27].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[15].id,
+      userId: users[12].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[16].id,
+      userId: users[57].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[10].id,
+      userId: users[77].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[55].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[15].id,
+      userId: users[12].id,
+      role: "OWNER",
+    },
+    {
+      organisationId: organisations[3].id,
+      userId: users[31].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[7].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[79].id,
+      role: "OWNER",
+    },
+    {
+      organisationId: organisations[18].id,
+      userId: users[11].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[99].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[18].id,
+      userId: users[62].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[10].id,
+      userId: users[59].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[65].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[8].id,
+      userId: users[5].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[13].id,
+      userId: users[93].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[16].id,
+      userId: users[22].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[7].id,
+      userId: users[56].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[10].id,
+      userId: users[46].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[54].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[8].id,
+      userId: users[2].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[13].id,
+      userId: users[60].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[32].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[13].id,
+      userId: users[98].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[3].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[59].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[3].id,
+      userId: users[3].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[8].id,
+      userId: users[66].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[8].id,
+      userId: users[77].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[77].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[75].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[41].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[9].id,
+      userId: users[36].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[86].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[4].id,
+      userId: users[14].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[11].id,
+      userId: users[44].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[58].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[15].id,
+      userId: users[21].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[1].id,
+      userId: users[22].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[1].id,
+      userId: users[92].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[18].id,
+      userId: users[44].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[14].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[8].id,
+      userId: users[77].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[97].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[28].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[48].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[45].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[8].id,
+      userId: users[12].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[11].id,
+      userId: users[48].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[7].id,
+      userId: users[6].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[13].id,
+      userId: users[35].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[76].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[15].id,
+      userId: users[63].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[18].id,
+      userId: users[41].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[16].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[29].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[19].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[4].id,
+      userId: users[44].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[7].id,
+      userId: users[6].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[18].id,
+      userId: users[25].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[53].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[1].id,
+      userId: users[59].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[17].id,
+      userId: users[52].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[10].id,
+      userId: users[77].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[9].id,
+      userId: users[98].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[10].id,
+      userId: users[4].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[1].id,
+      userId: users[30].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[1].id,
+      userId: users[41].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[18].id,
+      userId: users[90].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[55].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[71].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[18].id,
+      userId: users[74].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[16].id,
+      userId: users[69].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[1].id,
+      userId: users[97].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[26].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[4].id,
+      userId: users[79].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[52].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[9].id,
+      userId: users[52].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[3].id,
+      userId: users[66].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[11].id,
+      userId: users[74].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[70].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[10].id,
+      userId: users[23].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[15].id,
+      userId: users[78].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[43].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[17].id,
+      userId: users[88].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[70].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[15].id,
+      userId: users[37].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[11].id,
+      userId: users[28].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[14].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[30].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[7].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[18].id,
+      userId: users[31].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[13].id,
+      userId: users[24].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[7].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[83].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[10].id,
+      userId: users[10].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[99].id,
+      role: "OWNER",
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[53].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[4].id,
+      userId: users[88].id,
+      role: "OWNER",
+    },
+    {
+      organisationId: organisations[16].id,
+      userId: users[92].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[9].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[11].id,
+      userId: users[50].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[15].id,
+      userId: users[28].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[3].id,
+      userId: users[91].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[54].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[9].id,
+      userId: users[44].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[7].id,
+      userId: users[69].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[18].id,
+      userId: users[86].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[15].id,
+      userId: users[17].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[50].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[11].id,
+      userId: users[27].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[11].id,
+      userId: users[93].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[8].id,
+      userId: users[2].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[20].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[64].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[4].id,
+      userId: users[99].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[1].id,
+      userId: users[95].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[60].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[3].id,
+      userId: users[88].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[13].id,
+      userId: users[54].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[10].id,
+      userId: users[1].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[8].id,
+      userId: users[13].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[7].id,
+      userId: users[49].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[4].id,
+      userId: users[37].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[96].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[16].id,
+      userId: users[47].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[82].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[13].id,
+      userId: users[1].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[3].id,
+      userId: users[40].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[39].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[17].id,
+      userId: users[77].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[1].id,
+      userId: users[90].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[13].id,
+      userId: users[74].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[10].id,
+      userId: users[37].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[8].id,
+      userId: users[7].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[8].id,
+      userId: users[95].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[11].id,
+      userId: users[66].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[4].id,
+      userId: users[98].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[3].id,
+      userId: users[96].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[40].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[7].id,
+      userId: users[65].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[58].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[95].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[79].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[18].id,
+      userId: users[27].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[11].id,
+      userId: users[51].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[68].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[10].id,
+      userId: users[21].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[17].id,
+      userId: users[61].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[11].id,
+      userId: users[52].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[7].id,
+      userId: users[77].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[76].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[52].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[45].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[3].id,
+      userId: users[49].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[27].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[1].id,
+      userId: users[67].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[78].id,
+      role: "OWNER",
+    },
+    {
+      organisationId: organisations[1].id,
+      userId: users[78].id,
+      role: "OWNER",
+    },
+    {
+      organisationId: organisations[10].id,
+      userId: users[85].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[23].id,
+      role: "OWNER",
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[76].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[8].id,
+      userId: users[14].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[52].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[18].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[92].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[7].id,
+      userId: users[86].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[18].id,
+      userId: users[50].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[1].id,
+      userId: users[65].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[84].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[66].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[73].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[15].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[45].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[11].id,
+      userId: users[99].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[43].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[97].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[26].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[7].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[1].id,
+      userId: users[65].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[1].id,
+      userId: users[64].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[52].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[3].id,
+      userId: users[1].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[17].id,
+      userId: users[29].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[4].id,
+      userId: users[13].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[9].id,
+      userId: users[4].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[51].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[72].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[50].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[13].id,
+      userId: users[8].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[10].id,
+      userId: users[92].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[41].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[9].id,
+      userId: users[67].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[1].id,
+      userId: users[52].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[8].id,
+      userId: users[70].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[10].id,
+      userId: users[43].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[3].id,
+      userId: users[24].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[8].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[88].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[7].id,
+      userId: users[34].id,
+      role: "OWNER",
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[88].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[1].id,
+      userId: users[38].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[7].id,
+      userId: users[65].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[37].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[92].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[13].id,
+      userId: users[74].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[17].id,
+      userId: users[67].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[4].id,
+      userId: users[68].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[4].id,
+      userId: users[99].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[58].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[8].id,
+      userId: users[31].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[16].id,
+      userId: users[56].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[15].id,
+      userId: users[52].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[4].id,
+      userId: users[46].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[15].id,
+      userId: users[5].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[86].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[3].id,
+      userId: users[46].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[96].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[13].id,
+      userId: users[90].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[91].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[14].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[86].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[10].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[4].id,
+      userId: users[57].id,
+      role: "OWNER",
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[67].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[82].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[13].id,
+      userId: users[13].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[1].id,
+      userId: users[2].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[28].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[4].id,
+      userId: users[35].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[17].id,
+      userId: users[2].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[1].id,
+      userId: users[81].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[13].id,
+      userId: users[24].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[15].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[29].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[99].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[3].id,
+      userId: users[84].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[85].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[17].id,
+      userId: users[93].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[52].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[65].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[11].id,
+      userId: users[13].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[15].id,
+      userId: users[91].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[96].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[8].id,
+      userId: users[99].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[97].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[51].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[35].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[11].id,
+      userId: users[85].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[65].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[17].id,
+      userId: users[28].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[16].id,
+      userId: users[59].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[11].id,
+      userId: users[61].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[36].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[4].id,
+      userId: users[85].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[64].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[26].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[62].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[17].id,
+      userId: users[68].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[3].id,
+      userId: users[67].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[3].id,
+      userId: users[30].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[9].id,
+      userId: users[63].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[60].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[77].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[54].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[24].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[13].id,
+      userId: users[52].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[81].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[36].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[9].id,
+      userId: users[60].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[98].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[62].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[3].id,
+      userId: users[99].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[15].id,
+      userId: users[64].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[88].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[49].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[67].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[8].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[4].id,
+      userId: users[28].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[28].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[15].id,
+      userId: users[1].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[1].id,
+      userId: users[17].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[11].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[40].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[3].id,
+      userId: users[99].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[9].id,
+      userId: users[75].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[8].id,
+      userId: users[85].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[3].id,
+      userId: users[91].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[95].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[79].id,
+      role: "OWNER",
+    },
+    {
+      organisationId: organisations[13].id,
+      userId: users[5].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[67].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[11].id,
+      userId: users[75].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[13].id,
+      userId: users[63].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[9].id,
+      userId: users[1].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[63].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[42].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[46].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[16].id,
+      userId: users[65].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[48].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[51].id,
+      role: "OWNER",
+    },
+    {
+      organisationId: organisations[1].id,
+      userId: users[15].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[10].id,
+      userId: users[7].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[32].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[16].id,
+      userId: users[49].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[98].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[67].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[9].id,
+      userId: users[37].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[17].id,
+      userId: users[96].id,
+      role: "OWNER",
+    },
+    {
+      organisationId: organisations[15].id,
+      userId: users[68].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[10].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[18].id,
+      userId: users[87].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[39].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[82].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[7].id,
+      userId: users[43].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[17].id,
+      userId: users[65].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[33].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[3].id,
+      userId: users[40].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[94].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[65].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[1].id,
+      userId: users[99].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[96].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[65].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[13].id,
+      userId: users[21].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[14].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[38].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[18].id,
+      userId: users[90].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[18].id,
+      userId: users[39].id,
+      role: "OWNER",
+    },
+    {
+      organisationId: organisations[15].id,
+      userId: users[98].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[3].id,
+      userId: users[62].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[13].id,
+      userId: users[69].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[4].id,
+      userId: users[38].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[15].id,
+      userId: users[52].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[8].id,
+      userId: users[38].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[41].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[9].id,
+      userId: users[39].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[10].id,
+      userId: users[48].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[83].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[17].id,
+      userId: users[13].id,
+      role: "OWNER",
+    },
+    {
+      organisationId: organisations[15].id,
+      userId: users[39].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[18].id,
+      userId: users[95].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[15].id,
+      userId: users[82].id,
+      role: "OWNER",
+    },
+    {
+      organisationId: organisations[9].id,
+      userId: users[54].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[90].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[4].id,
+      userId: users[75].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[18].id,
+      userId: users[1].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[57].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[17].id,
+      userId: users[99].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[18].id,
+      userId: users[34].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[13].id,
+      userId: users[76].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[10].id,
+      userId: users[46].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[4].id,
+      userId: users[4].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[17].id,
+      userId: users[61].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[9].id,
+      userId: users[20].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[20].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[99].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[3].id,
+      userId: users[67].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[15].id,
+      userId: users[3].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[1].id,
+      userId: users[97].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[35].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[1].id,
+      userId: users[25].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[36].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[11].id,
+      userId: users[56].id,
+      role: "OWNER",
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[48].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[11].id,
+      userId: users[41].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[3].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[7].id,
+      userId: users[67].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[41].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[1].id,
+      userId: users[84].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[15].id,
+      userId: users[91].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[11].id,
+      userId: users[4].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[30].id,
+      role: "OWNER",
+    },
+    {
+      organisationId: organisations[16].id,
+      userId: users[26].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[9].id,
+      userId: users[66].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[13].id,
+      userId: users[93].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[62].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[16].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[8].id,
+      userId: users[78].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[30].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[18].id,
+      userId: users[99].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[92].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[3].id,
+      userId: users[10].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[8].id,
+      userId: users[83].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[11].id,
+      userId: users[99].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[74].id,
+      role: "OWNER",
+    },
+    {
+      organisationId: organisations[8].id,
+      userId: users[43].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[7].id,
+      userId: users[35].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[16].id,
+      userId: users[73].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[1].id,
+      userId: users[22].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[67].id,
+      role: "OWNER",
+    },
+    {
+      organisationId: organisations[13].id,
+      userId: users[16].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[17].id,
+      userId: users[15].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[10].id,
+      userId: users[60].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[76].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[67].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[17].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[3].id,
+      userId: users[52].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[49].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[16].id,
+      userId: users[56].id,
+      role: "OWNER",
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[2].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[58].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[1].id,
+      userId: users[3].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[77].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[7].id,
+      userId: users[48].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[39].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[7].id,
+      userId: users[33].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[7].id,
+      userId: users[64].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[7].id,
+      userId: users[35].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[45].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[15].id,
+      userId: users[44].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[94].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[62].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[87].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[95].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[64].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[16].id,
+      userId: users[40].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[11].id,
+      userId: users[3].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[68].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[28].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[15].id,
+      userId: users[88].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[13].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[8].id,
+      userId: users[50].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[8].id,
+      userId: users[24].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[13].id,
+      userId: users[56].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[10].id,
+      userId: users[45].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[75].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[4].id,
+      userId: users[32].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[85].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[16].id,
+      userId: users[40].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[17].id,
+      userId: users[12].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[17].id,
+      userId: users[18].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[7].id,
+      userId: users[95].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[29].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[59].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[15].id,
+      userId: users[80].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[33].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[12].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[16].id,
+      userId: users[85].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[13].id,
+      userId: users[64].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[7].id,
+      userId: users[8].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[31].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[93].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[43].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[92].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[10].id,
+      userId: users[65].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[13].id,
+      userId: users[76].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[17].id,
+      userId: users[88].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[52].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[10].id,
+      userId: users[71].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[94].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[17].id,
+      userId: users[95].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[51].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[99].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[3].id,
+      userId: users[30].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[3].id,
+      userId: users[52].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[16].id,
+      userId: users[34].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[10].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[80].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[16].id,
+      userId: users[32].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[9].id,
+      userId: users[19].id,
+      role: "OWNER",
+    },
+    {
+      organisationId: organisations[1].id,
+      userId: users[21].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[95].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[1].id,
+      userId: users[47].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[15].id,
+      userId: users[46].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[4].id,
+      userId: users[90].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[30].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[16].id,
+      userId: users[19].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[6].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[1].id,
+      userId: users[72].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[13].id,
+      userId: users[18].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[8].id,
+      userId: users[20].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[98].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[11].id,
+      userId: users[41].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[4].id,
+      userId: users[58].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[4].id,
+      userId: users[23].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[29].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[4].id,
+      userId: users[57].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[18].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[34].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[8].id,
+      userId: users[60].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[2].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[93].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[8].id,
+      userId: users[89].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[10].id,
+      userId: users[14].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[51].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[4].id,
+      userId: users[16].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[73].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[23].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[79].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[94].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[1].id,
+      userId: users[17].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[68].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[16].id,
+      userId: users[36].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[16].id,
+      userId: users[88].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[12].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[24].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[11].id,
+      userId: users[82].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[30].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[96].id,
+      role: "OWNER",
+    },
+    {
+      organisationId: organisations[17].id,
+      userId: users[43].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[1].id,
+      userId: users[76].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[99].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[11].id,
+      userId: users[24].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[15].id,
+      userId: users[56].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[10].id,
+      userId: users[4].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[17].id,
+      userId: users[84].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[79].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[23].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[3].id,
+      userId: users[47].id,
+      role: "OWNER",
+    },
+    {
+      organisationId: organisations[4].id,
+      userId: users[57].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[59].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[6].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[60].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[10].id,
+      userId: users[71].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[16].id,
+      userId: users[45].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[1].id,
+      userId: users[5].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[8].id,
+      userId: users[14].id,
+      role: "OWNER",
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[60].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[4].id,
+      userId: users[88].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[1].id,
+      userId: users[23].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[96].id,
+      role: "OWNER",
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[36].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[85].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[1].id,
+      userId: users[51].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[27].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[92].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[41].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[9].id,
+      userId: users[41].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[16].id,
+      userId: users[58].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[8].id,
+      userId: users[16].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[16].id,
+      userId: users[82].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[4].id,
+      userId: users[24].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[51].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[3].id,
+      userId: users[97].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[1].id,
+      userId: users[74].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[4].id,
+      userId: users[95].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[19].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[4].id,
+      userId: users[78].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[17].id,
+      userId: users[41].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[16].id,
+      userId: users[46].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[11].id,
+      userId: users[38].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[4].id,
+      userId: users[49].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[16].id,
+      userId: users[99].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[65].id,
+      role: "OWNER",
+    },
+    {
+      organisationId: organisations[11].id,
+      userId: users[61].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[8].id,
+      userId: users[25].id,
+      role: "OWNER",
+    },
+    {
+      organisationId: organisations[17].id,
+      userId: users[59].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[99].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[82].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[4].id,
+      userId: users[88].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[15].id,
+      userId: users[55].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[1].id,
+      userId: users[45].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[10].id,
+      userId: users[38].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[58].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[16].id,
+      userId: users[67].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[10].id,
+      userId: users[24].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[15].id,
+      userId: users[43].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[90].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[17].id,
+      userId: users[64].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[25].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[4].id,
+      userId: users[78].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[13].id,
+      userId: users[3].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[13].id,
+      userId: users[48].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[13].id,
+      userId: users[56].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[15].id,
+      userId: users[57].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[7].id,
+      userId: users[10].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[20].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[4].id,
+      userId: users[59].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[68].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[32].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[6].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[7].id,
+      userId: users[23].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[47].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[16].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[10].id,
+      userId: users[62].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[17].id,
+      userId: users[15].id,
+      role: "OWNER",
+    },
+    {
+      organisationId: organisations[16].id,
+      userId: users[13].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[26].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[13].id,
+      userId: users[13].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[9].id,
+      userId: users[34].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[17].id,
+      userId: users[18].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[32].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[18].id,
+      userId: users[86].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[7].id,
+      userId: users[34].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[4].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[8].id,
+      userId: users[81].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[56].id,
+      role: "OWNER",
+    },
+    {
+      organisationId: organisations[17].id,
+      userId: users[93].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[22].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[4].id,
+      userId: users[13].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[57].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[13].id,
+      userId: users[23].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[2].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[4].id,
+      userId: users[67].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[3].id,
+      userId: users[63].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[15].id,
+      userId: users[56].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[41].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[17].id,
+      userId: users[73].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[48].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[85].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[16].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[13].id,
+      userId: users[49].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[4].id,
+      userId: users[46].id,
+      role: "OWNER",
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[9].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[41].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[1].id,
+      userId: users[13].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[18].id,
+      userId: users[56].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[55].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[16].id,
+      userId: users[14].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[10].id,
+      userId: users[5].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[1].id,
+      userId: users[33].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[15].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[11].id,
+      userId: users[88].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[6].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[62].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[7].id,
+      userId: users[35].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[59].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[18].id,
+      userId: users[91].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[7].id,
+      userId: users[13].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[73].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[8].id,
+      userId: users[30].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[98].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[15].id,
+      userId: users[83].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[93].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[10].id,
+      userId: users[6].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[62].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[15].id,
+      userId: users[77].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[4].id,
+      userId: users[22].id,
+      role: "OWNER",
+    },
+    {
+      organisationId: organisations[13].id,
+      userId: users[99].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[1].id,
+      userId: users[73].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[1].id,
+      userId: users[17].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[13].id,
+      userId: users[41].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[3].id,
+      userId: users[50].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[10].id,
+      userId: users[56].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[9].id,
+      userId: users[99].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[16].id,
+      userId: users[34].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[24].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[11].id,
+      userId: users[42].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[15].id,
+      userId: users[15].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[74].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[78].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[10].id,
+      userId: users[13].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[10].id,
+      userId: users[71].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[3].id,
+      userId: users[52].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[16].id,
+      userId: users[5].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[15].id,
+      userId: users[8].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[31].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[17].id,
+      userId: users[95].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[9].id,
+      userId: users[55].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[99].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[15].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[4].id,
+      userId: users[11].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[56].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[40].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[50].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[18].id,
+      userId: users[27].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[3].id,
+      userId: users[55].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[3].id,
+      userId: users[80].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[51].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[40].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[4].id,
+      userId: users[50].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[7].id,
+      userId: users[30].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[38].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[57].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[4].id,
+      userId: users[2].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[99].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[30].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[48].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[11].id,
+      userId: users[64].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[17].id,
+      userId: users[9].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[7].id,
+      userId: users[91].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[98].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[15].id,
+      userId: users[82].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[8].id,
+      userId: users[17].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[15].id,
+      userId: users[19].id,
+      role: "ADMIN",
+    },
+    {
+      organisationId: organisations[16].id,
+      userId: users[53].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[8].id,
+      userId: users[23].id,
+      role: "OWNER",
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[85].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[3].id,
+      userId: users[29].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[22].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[16].id,
+      userId: users[38].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[16].id,
+      userId: users[58].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[10].id,
+      role: "REQUESTED",
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[99].id,
+      role: "MEMBER",
+    },
+    {
+      organisationId: organisations[17].id,
+      userId: users[84].id,
+      role: "OWNER",
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[37].id,
+      role: "MEMBER",
+    },
+  ];
+
   await prisma.user.createMany({
     data: users,
   });
