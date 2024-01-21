@@ -19,6 +19,7 @@ import { PostsModule } from './posts/posts.module';
 import { LikesModule } from './likes/likes.module';
 import { FollowsModule } from './follows/follows.module';
 import { BlobModule } from './blob/blob.module';
+import { EmailModule } from './email/email.module';
 
 @Module({
   imports: [
@@ -44,6 +45,7 @@ import { BlobModule } from './blob/blob.module';
     LikesModule,
     FollowsModule,
     BlobModule,
+    EmailModule,
   ],
   controllers: [AppController],
   providers: [AppService],
