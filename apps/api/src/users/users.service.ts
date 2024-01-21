@@ -10,18 +10,21 @@ import {
 } from '@biosfera/types';
 import { MemberRoleType } from 'src/members/members.dto';
 import { BlobService } from 'src/blob/blob.service';
+import { EmailService } from 'src/email/email.service';
 
 @Injectable()
 export class UsersService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly blob: BlobService,
+    private readonly email: EmailService,
   ) {}
 
   async create(createUserDto: RegisterUserDto) {
     const hashedPassword = await bcrypt.hash(createUserDto.password, 10);
 
     createUserDto.password = hashedPassword;
+
 
     return await this.prisma.user.create({
       data: createUserDto,
@@ -236,5 +239,21 @@ export class UsersService {
     });
 
     return addedLogo;
+  }
+
+  async sendVefificationEmail(userId: string) {
+    const user = await this.prisma.user.findUnique({
+      where: {
+        id: userId,
+      },
+    });
+
+    const subject = `${user.firstName}, verificirajte e-mail adresu`;
+    //TODO: make random link for user verification
+    const text = `${user.firstName} ${user.lastName}, molimo vas da verificirate vašu e-mail adresu (${user.email}) klikom na link ispod`;
+
+    const mail = await this.email.sendMail(user.email, subject, text);
+
+    return mail;
   }
 }

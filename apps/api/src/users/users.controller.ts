@@ -49,7 +49,9 @@ export class UsersController {
 
   @Post()
   async create(@Body() registerUserDto: RegisterUserDto) {
-    return (await this.usersService.create(registerUserDto)) !== null;
+    const user = await this.usersService.create(registerUserDto);
+
+    return user.id;
   }
 
   @Get()
@@ -329,6 +331,13 @@ export class UsersController {
     );
 
     return addedSponsorLogo;
+  }
+
+  @Post(':id/verify')
+  async verifyUser(@Param('id') id: string) {
+    const verifiedUser = await this.usersService.sendVefificationEmail(id);
+
+    return verifiedUser;
   }
 }
 
