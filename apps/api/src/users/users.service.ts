@@ -9,10 +9,14 @@ import {
   sortQueryBuilder,
 } from '@biosfera/types';
 import { MemberRoleType } from 'src/members/members.dto';
+import { BlobService } from 'src/blob/blob.service';
 
 @Injectable()
 export class UsersService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly blob: BlobService,
+  ) {}
 
   async create(createUserDto: RegisterUserDto) {
     const hashedPassword = await bcrypt.hash(createUserDto.password, 10);
@@ -212,5 +216,25 @@ export class UsersService {
         },
       },
     });
+  }
+
+  async uploadProfileImage(userId: string, file: Express.Multer.File) {
+    const imageUrl = await this.blob.upload(
+      'user',
+      userId,
+      file.buffer,
+      file.mimetype,
+    );
+
+    const addedLogo = await this.prisma.user.update({
+      where: {
+        id: userId,
+      },
+      data: {
+        hasProfileImage: true,
+      },
+    });
+
+    return addedLogo;
   }
 }

@@ -18,6 +18,7 @@ import { MembersModule } from './members/members.module';
 import { PostsModule } from './posts/posts.module';
 import { LikesModule } from './likes/likes.module';
 import { FollowsModule } from './follows/follows.module';
+import { BlobModule } from './blob/blob.module';
 
 @Module({
   imports: [
@@ -42,6 +43,7 @@ import { FollowsModule } from './follows/follows.module';
     PostsModule,
     LikesModule,
     FollowsModule,
+    BlobModule,
   ],
   controllers: [AppController],
   providers: [AppService],
