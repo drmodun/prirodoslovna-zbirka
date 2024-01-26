@@ -12,8 +12,8 @@ async function bootstrap() {
   app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
   app.enableCors();
   const config = new DocumentBuilder()
-    .setTitle('Medisaan')
-    .setDescription('The Median API description')
+    .setTitle('Biosfera API')
+    .setDescription('Api za aplikaciju biosfere')
     .setVersion('0.1')
     .addBearerAuth()
     .build();
