@@ -20,6 +20,7 @@ import {
 import { PaginationParams } from 'src/config/pagination';
 import {
   PaginationRequest,
+  PostResponse,
   ShortUserResponse,
   SortingEnum,
   SortingRequest,
@@ -120,7 +121,7 @@ export class OrganisationsController {
         ...(isAdmin && { isApproved: org.isApproved }),
         exponatCount: org.Exponats.length,
         points: org.Exponats.reduce(
-          (acc, curr) => acc + curr._count.FavouriteExponat,
+          (acc, curr) => acc + curr._count.FavouriteExponats,
           0,
         ),
         //possibly already make this in sql later
@@ -153,7 +154,7 @@ export class OrganisationsController {
         name: exponat.name,
         ...(isAdmin && { isApproved: exponat.isApproved }),
         updatedAt: exponat.updatedAt,
-        favouriteCount: exponat._count.FavouriteExponat,
+        favouriteCount: exponat._count.FavouriteExponats,
         organizationId: item.id,
         organizationName: item.name,
         isFavorite: false,
@@ -161,7 +162,7 @@ export class OrganisationsController {
       } as ExponatResponseShort;
     });
 
-    const mappedPosts = item.OrganisationPosts.map((post) => {
+    const mappedSocialPosts = item.OrganisationPosts.map((post) => {
       return {
         createdAt: post.createdAt,
         id: post.id,
@@ -191,6 +192,22 @@ export class OrganisationsController {
       } as ShortUserResponse;
     });
 
+    const mappedPosts: PostResponse[] = item.Exponats.flatMap(
+      (exponat) =>
+        exponat.Posts.map((post) => {
+          return {
+            authorId: post.authorId,
+            authorName: `${post.author.firstName} ${post.author.lastName}`,
+            exponatId: post.ExponatId,
+            exponatName: exponat.name,
+            images: post.images,
+            title: post.title,
+            id: post.id,
+            likeScore: post._count.Likes,
+          } as PostResponse;
+        }) as PostResponse[],
+    );
+
     const mapped = {
       createdAt: item.createdAt,
       description: item.description,
@@ -198,7 +215,7 @@ export class OrganisationsController {
       exponats: mappedExponats,
       followersAmount: item._count.UserOrganisationFollowers,
       points: item.Exponats.reduce(
-        (acc, curr) => acc + curr._count.FavouriteExponat,
+        (acc, curr) => acc + curr._count.FavouriteExponats,
         0,
       ),
       id: item.id,
@@ -212,8 +229,9 @@ export class OrganisationsController {
       updatedAt: item.updatedAt,
       websiteUrl: item.websiteUrl,
       isApproved: item.isApproved,
-      posts: mappedPosts,
+      socialPosts: mappedSocialPosts,
       members: users,
+      posts: mappedPosts,
     } as ExtendedOrganisationResponse;
 
     return mapped;

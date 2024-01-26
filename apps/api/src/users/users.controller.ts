@@ -98,7 +98,7 @@ export class UsersController {
         mainImage: request.organisation.mainImage,
         memberCount: request.organisation._count.OrganisationUsers,
         points: request.organisation.Exponats.reduce(
-          (acc, curr) => acc + curr._count.FavouriteExponat,
+          (acc, curr) => acc + curr._count.FavouriteExponats,
           0,
         ),
         updatedAt: request.organisation.updatedAt,
@@ -154,7 +154,7 @@ export class UsersController {
             name: exponat.Exponat.name,
             mainImage: exponat.Exponat.mainImage,
             updatedAt: exponat.Exponat.updatedAt,
-            favouriteCount: exponat.Exponat._count.FavouriteExponat,
+            favouriteCount: exponat.Exponat._count.FavouriteExponats,
             postCount: exponat.Exponat._count.Posts,
             alternateName: exponat.Exponat.alternateName,
             description: exponat.Exponat.description,
@@ -176,7 +176,7 @@ export class UsersController {
             mainImage: membership.organisation.mainImage,
             memberCount: membership.organisation._count.OrganisationUsers,
             points: membership.organisation.Exponats.reduce(
-              (acc, curr) => acc + curr._count.FavouriteExponat,
+              (acc, curr) => acc + curr._count.FavouriteExponats,
               0,
             ),
             updatedAt: membership.organisation.updatedAt,
@@ -271,7 +271,7 @@ export class UsersController {
         mainImage: request.organisation.mainImage,
         memberCount: request.organisation._count.OrganisationUsers,
         points: request.organisation.Exponats.reduce(
-          (acc, curr) => acc + curr._count.FavouriteExponat,
+          (acc, curr) => acc + curr._count.FavouriteExponats,
           0,
         ),
         updatedAt: request.organisation.updatedAt,

@@ -84,7 +84,7 @@ export class UsersService {
                   select: {
                     _count: {
                       select: {
-                        FavouriteExponat: true,
+                        FavouriteExponats: true,
                       },
                     },
                   },
@@ -149,7 +149,7 @@ export class UsersService {
                 _count: {
                   select: {
                     Posts: true,
-                    FavouriteExponat: true,
+                    FavouriteExponats: true,
                   },
                 },
                 Organisation: {
@@ -203,7 +203,7 @@ export class UsersService {
               select: {
                 _count: {
                   select: {
-                    FavouriteExponat: true,
+                    FavouriteExponats: true,
                   },
                 },
               },
