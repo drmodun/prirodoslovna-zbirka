@@ -66,6 +66,20 @@ export const UserPageBody = ({ user }: UserPageBodyProps) => {
           </div>
         </div>
       )}
+
+      {activeTab === "Likes" && (
+        <div className={classes.tabContent}>
+          {user.likedPosts.length > 0 ? (
+            user.likedPosts.map((post) => (
+              <PostCard post={post} key={post.id} />
+            ))
+          ) : (
+            <span className={classes.error}>
+              Korisnik nije lajkao nijednu objavu
+            </span>
+          )}
+        </div>
+      )}
     </div>
   );
 };
