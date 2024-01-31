@@ -13,10 +13,10 @@ export const PaginationParams = createParamDecorator(
     const size = parseInt(req.query.size as string);
 
     if (!page || !size) {
-      return { page: 0, size: 10 };
+      return { page: 1, size: 10 };
     }
     // check if page and size are valid
-    if (isNaN(page) || page < 0 || isNaN(size) || size < 0) {
+    if (isNaN(page) || page <= 0 || isNaN(size) || size < 0) {
       throw new BadRequestException('Invalid pagination params');
     }
     // do not allow to fetch large slices of the dataset

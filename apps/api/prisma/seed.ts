@@ -1493,7 +1493,7 @@ async function main() {
     {
       id: 'a764f83d-175e-484d-b1af-18f4e3538227',
       name: 'Woodpecker, red-headed',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Melanerpes erythrocephalus',
       description:
         'Supplement Chest Wall with Nonautologous Tissue Substitute, Open Approach',
@@ -1508,7 +1508,7 @@ async function main() {
     {
       id: 'f3d9fb81-9548-416f-b59e-c1d80924dee7',
       name: 'Kangaroo, black-faced',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Macropus fuliginosus',
       description:
         'Replacement of Left Lower Eyelid with Synthetic Substitute, Open Approach',
@@ -1525,7 +1525,7 @@ async function main() {
     {
       id: '63fe129b-5ccc-4011-a76d-468c761a8b5b',
       name: 'Indian porcupine',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Hystrix indica',
       description: 'Reposition Right Acromioclavicular Joint, Open Approach',
       //ip_address: '191.119.104.48',
@@ -1539,7 +1539,7 @@ async function main() {
     {
       id: 'bce1e07f-060d-40d2-a7c3-8a78737a5d3d',
       name: 'Armadillo, common long-nosed',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Dasypus novemcinctus',
       description: 'Destruction of Right Patella, Open Approach',
       //ip_address: '21.245.208.169',
@@ -1553,7 +1553,7 @@ async function main() {
     {
       id: '6edf0715-bf89-485d-9ea9-2d9cce63a635',
       name: 'Yellow-throated sandgrouse',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Pterocles gutturalis',
       description: 'Magnetic Resonance Imaging (MRI) of Right Breast',
       //ip_address: '138.120.211.164',
@@ -1567,7 +1567,7 @@ async function main() {
     {
       id: 'dd4b7479-f8c1-4291-819c-92cc4e79cb9f',
       name: 'Kangaroo, jungle',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Macropus agilis',
       description:
         'High Dose Rate (HDR) Brachytherapy of Chest using Cesium 137 (Cs-137)',
@@ -1582,7 +1582,7 @@ async function main() {
     {
       id: '35b12af6-ef51-4b55-9a24-3bf88e1d4c42',
       name: 'Cat, african wild',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Felis silvestris lybica',
       description:
         'Insertion of Infusion Device into Left Metacarpocarpal Joint, Percutaneous Endoscopic Approach',
@@ -1599,7 +1599,7 @@ async function main() {
     {
       id: '4220d5d5-50f7-476b-b348-9c77702c9a2a',
       name: 'Robin, white-throated',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Irania gutteralis',
       description:
         'Bypass Left Common Iliac Artery to Right Common Iliac Artery with Nonautologous Tissue Substitute, Percutaneous Endoscopic Approach',
@@ -1614,7 +1614,7 @@ async function main() {
     {
       id: '0751c6c3-ba29-4210-a7b7-9c5663b70ddc',
       name: 'Currasow (unidentified)',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Crax sp.',
       description:
         'Restriction of Right Femoral Artery, Percutaneous Endoscopic Approach',
@@ -1629,7 +1629,7 @@ async function main() {
     {
       id: 'c79df2f1-94ba-424e-b936-309dd48189cf',
       name: 'Brazilian otter',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Pteronura brasiliensis',
       description: 'Drainage of Right Middle Lobe Bronchus, Open Approach',
       //ip_address: '250.59.172.150',
@@ -1643,7 +1643,7 @@ async function main() {
     {
       id: '5b81a90a-f911-454c-b7d2-bec9e52e7f6c',
       name: 'Javan gold-spotted mongoose',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Herpestes javanicus',
       description:
         'Occlusion of Left Renal Vein with Intraluminal Device, Percutaneous Endoscopic Approach',
@@ -1658,7 +1658,7 @@ async function main() {
     {
       id: 'cae255e4-baa4-4daf-8432-30fa5347db0f',
       name: "Nutcracker, clark's",
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Nucifraga columbiana',
       description:
         'Reattachment of Left Shoulder Tendon, Percutaneous Endoscopic Approach',
@@ -1673,7 +1673,7 @@ async function main() {
     {
       id: 'e5055098-8d5a-4a88-947c-019e87fbaf3c',
       name: 'Lilac-breasted roller',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Coracias caudata',
       description: 'Drainage of Left Upper Leg Muscle, Open Approach',
       //ip_address: '159.69.196.173',
@@ -1687,7 +1687,7 @@ async function main() {
     {
       id: '8ff68416-576b-405a-bdb7-0023a82bca7f',
       name: 'Collared lizard',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Crotaphytus collaris',
       description:
         'Fusion of Left Carpal Joint with External Fixation Device, Percutaneous Approach',
@@ -1702,7 +1702,7 @@ async function main() {
     {
       id: '0b88ecb4-e78d-4a34-972f-c2af3f50db92',
       name: 'White-rumped vulture',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Gyps bengalensis',
       description:
         'High Dose Rate (HDR) Brachytherapy of Axillary Lymphatics using Palladium 103 (Pd-103)',
@@ -1717,7 +1717,7 @@ async function main() {
     {
       id: '4ce90027-ebde-4008-a291-8cc1a709fc31',
       name: 'Western pygmy possum',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Cercatetus concinnus',
       description:
         'Drainage of Right Sphenoid Sinus, Percutaneous Approach, Diagnostic',
@@ -1732,7 +1732,7 @@ async function main() {
     {
       id: '23d85f1f-d927-49dd-b30a-5f92b62c1097',
       name: 'Pigeon, feral rock',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Columba livia',
       description:
         'Replacement of Nasopharynx with Nonautologous Tissue Substitute, Via Natural or Artificial Opening',
@@ -1747,7 +1747,7 @@ async function main() {
     {
       id: 'bf880577-aaae-497f-9691-1374f5ed4945',
       name: 'Indian mynah',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Acridotheres tristis',
       description:
         'Revision of Autologous Tissue Substitute in Right Scapula, Percutaneous Endoscopic Approach',
@@ -1762,7 +1762,7 @@ async function main() {
     {
       id: '2711a4e2-d513-4a26-abaa-1303222737aa',
       name: 'Red-cheeked cordon bleu',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Uraeginthus bengalus',
       description:
         'Excision of Right Ulnar Artery, Percutaneous Endoscopic Approach, Diagnostic',
@@ -1777,7 +1777,7 @@ async function main() {
     {
       id: 'ebceb094-ddd3-45ff-aa0b-2e86e4cf38eb',
       name: 'Horned lark',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Eremophila alpestris',
       description: 'Immobilization of Right Thumb using Cast',
       //ip_address: '252.136.1.64',
@@ -1791,7 +1791,7 @@ async function main() {
     {
       id: '25585869-48c0-4083-9497-6b9540e90d27',
       name: 'Bohor reedbuck',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Redunca redunca',
       description:
         'Revision of Autologous Tissue Substitute in Kidney, Via Natural or Artificial Opening',
@@ -1808,7 +1808,7 @@ async function main() {
     {
       id: '2a082df9-d2ce-4b82-b4aa-e11e9d154761',
       name: 'Plover, three-banded',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Charadrius tricollaris',
       description: 'Reposition Right Acetabulum, Open Approach',
       //ip_address: '252.94.97.191',
@@ -1822,7 +1822,7 @@ async function main() {
     {
       id: '2a2f9b58-e0f8-44dc-80f9-e97c85f49adf',
       name: 'Red-tailed cockatoo',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Calyptorhynchus magnificus',
       description:
         'Insertion of Infusion Device into Coronary Vein, Percutaneous Endoscopic Approach',
@@ -1837,7 +1837,7 @@ async function main() {
     {
       id: 'f193edbe-95d3-4605-bf68-8f8d2e486523',
       name: 'Blue racer',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Coluber constrictor foxii',
       description:
         'Supplement Cul-de-sac with Synthetic Substitute, Via Natural or Artificial Opening',
@@ -1852,7 +1852,7 @@ async function main() {
     {
       id: 'cda4cead-182e-40ba-a3a5-a6b91d1045eb',
       name: 'Black and white colobus',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Colobus guerza',
       description:
         'Reposition Left Ulna with Hybrid External Fixation Device, Open Approach',
@@ -1867,7 +1867,7 @@ async function main() {
     {
       id: '61915acf-8bda-4d56-86cb-8be2355823eb',
       name: 'Dove, little brown',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Streptopelia senegalensis',
       description:
         'Bypass Right Common Iliac Vein to Lower Vein, Percutaneous Endoscopic Approach',
@@ -1882,7 +1882,7 @@ async function main() {
     {
       id: '47c0658a-2712-439d-a7cd-9ddfccf1f0d4',
       name: 'American crow',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Corvus brachyrhynchos',
       description:
         'Supplement of Left Eye with Autologous Tissue Substitute, Percutaneous Approach',
@@ -1897,7 +1897,7 @@ async function main() {
     {
       id: 'b818aee1-5e40-42c1-acca-dabfeccb4304',
       name: 'African snake (unidentified)',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'unavailable',
       description: 'Fluoroscopy of Pelvis using High Osmolar Contrast',
       //ip_address: '168.39.47.128',
@@ -1913,7 +1913,7 @@ async function main() {
     {
       id: '67fcfdd2-341f-4c6f-8031-0d3d1173fb83',
       name: 'Eastern cottontail rabbit',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Sylvilagus floridanus',
       description: 'Destruction of Left Sphenoid Sinus, Percutaneous Approach',
       //ip_address: '150.95.202.56',
@@ -1927,7 +1927,7 @@ async function main() {
     {
       id: '1649e281-3bef-4a32-b235-960b5bd89540',
       name: 'Bird, pied butcher',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Cracticus nigroagularis',
       description:
         'Drainage of Right Elbow Bursa and Ligament with Drainage Device, Percutaneous Approach',
@@ -1942,7 +1942,7 @@ async function main() {
     {
       id: 'e93142e7-ae07-4ae5-b276-b4cda9f93b00',
       name: 'Thrasher, curve-billed',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Toxostoma curvirostre',
       description: 'Alteration of Left Ankle Region, Open Approach',
       //ip_address: '229.29.67.34',
@@ -1956,7 +1956,7 @@ async function main() {
     {
       id: '6dde0e00-b5ff-4953-b47f-544ceb413447',
       name: 'Bat, madagascar fruit',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Pteropus rufus',
       description: 'Peripheral Nervous System, Change',
       //ip_address: '180.4.204.249',
@@ -1970,7 +1970,7 @@ async function main() {
     {
       id: 'c7a096d6-6ab3-4bc2-aab7-6aafe31bfd5b',
       name: 'Yellow-brown sungazer',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Cordylus giganteus',
       description:
         'Dilation of Right Middle Lobe Bronchus with Intraluminal Device, Percutaneous Endoscopic Approach',
@@ -1985,7 +1985,7 @@ async function main() {
     {
       id: '9e55fbca-3ee8-4988-99c0-bbbb8f4a81e1',
       name: 'Caracara (unidentified)',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'unavailable',
       description: 'Repair Left Knee Joint, Percutaneous Endoscopic Approach',
       //ip_address: '138.180.25.23',
@@ -1999,7 +1999,7 @@ async function main() {
     {
       id: '8bccf473-388f-481f-b54b-a873c94317dc',
       name: 'Pelican, brown',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Pelecanus occidentalis',
       description:
         'Insertion of Radioactive Element into Hepatobiliary Duct, Percutaneous Endoscopic Approach',
@@ -2014,7 +2014,7 @@ async function main() {
     {
       id: '0480ce48-8e71-4bb4-b8f2-ab5c2a3f6631',
       name: 'Chameleon (unidentified)',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Chamaelo sp.',
       description:
         'Repair Female Reproductive System in Products of Conception, Percutaneous Endoscopic Approach',
@@ -2029,7 +2029,7 @@ async function main() {
     {
       id: '5e970db9-fb82-45a0-a44d-7928d6a9b0a8',
       name: 'Goose, canada',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Branta canadensis',
       description:
         'Drainage of Glomus Jugulare, Percutaneous Approach, Diagnostic',
@@ -2044,7 +2044,7 @@ async function main() {
     {
       id: '344f7a2f-7d35-4d31-8885-1595778824ad',
       name: "Sifaka, verreaux's",
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Propithecus verreauxi',
       description:
         'Bypass Abdominal Aorta to Left Internal Iliac Artery with Nonautologous Tissue Substitute, Percutaneous Endoscopic Approach',
@@ -2061,7 +2061,7 @@ async function main() {
     {
       id: 'e375e48f-b978-41b5-8a8d-d0d81805af17',
       name: 'Jungle kangaroo',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Macropus agilis',
       description: 'Release Transverse Colon, Open Approach',
       //ip_address: '151.128.1.125',
@@ -2075,7 +2075,7 @@ async function main() {
     {
       id: 'f35a4c13-209b-42fc-80f8-fc14e292bd26',
       name: 'Topi',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Damaliscus lunatus',
       description:
         'Drainage of Abdominal Wall, Percutaneous Endoscopic Approach',
@@ -2090,7 +2090,7 @@ async function main() {
     {
       id: '60055c0b-969d-444a-8c83-74adad554bc5',
       name: 'Bird, red-billed tropic',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Phaethon aethereus',
       description:
         'Extirpation of Matter from Hypothalamus, Percutaneous Endoscopic Approach',
@@ -2105,7 +2105,7 @@ async function main() {
     {
       id: 'e8663d82-bbeb-487f-bd7e-ea41ed798f67',
       name: 'Squirrel, arctic ground',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Spermophilus parryii',
       description:
         'Supplement Right 1st Toe with Nonautologous Tissue Substitute, Percutaneous Endoscopic Approach',
@@ -2120,7 +2120,7 @@ async function main() {
     {
       id: 'd14849b1-32eb-4f2a-be1f-ccc9d5062238',
       name: 'Squirrel glider',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Petaurus norfolcensis',
       description:
         'Bypass Left Femoral Artery to Foot Artery with Nonautologous Tissue Substitute, Open Approach',
@@ -2135,7 +2135,7 @@ async function main() {
     {
       id: 'bd0331a9-9f9b-476b-ae84-48fd3962b57a',
       name: 'Sage grouse',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Centrocercus urophasianus',
       description:
         'Repair Right Internal Carotid Artery, Percutaneous Approach',
@@ -2150,7 +2150,7 @@ async function main() {
     {
       id: 'bfa43ab2-47a3-46f8-b503-7ce7285bb423',
       name: 'Wild water buffalo',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Bubalus arnee',
       description: 'Plain Radiography of Prostate using High Osmolar Contrast',
       //ip_address: '81.142.179.175',
@@ -2164,7 +2164,7 @@ async function main() {
     {
       id: 'dbf88101-2125-4303-a52b-67cc8b8df808',
       name: 'Hyena, striped',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Hyaena hyaena',
       description:
         'Drainage of Aortic Body with Drainage Device, Percutaneous Approach',
@@ -2179,7 +2179,7 @@ async function main() {
     {
       id: 'cdc3d9b0-05ca-431b-bf83-45c97cdc09a4',
       name: 'Shrew, mandras tree',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Anathana ellioti',
       description: 'Excision of Left Eye, Open Approach',
       //ip_address: '154.223.74.114',
@@ -2193,7 +2193,7 @@ async function main() {
     {
       id: 'e28e7d9b-edeb-43e4-8958-1c0dbcc6b2f5',
       name: 'African red-eyed bulbul',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Pycnonotus nigricans',
       description:
         'Drainage of Peroneal Nerve, Percutaneous Endoscopic Approach, Diagnostic',
@@ -2208,7 +2208,7 @@ async function main() {
     {
       id: '39e7d394-a2da-4043-a843-63f47951d49a',
       name: 'Eurasian hoopoe',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Upupa epops',
       description:
         'Drainage of Lumbar Vertebra with Drainage Device, Open Approach',
@@ -2223,7 +2223,7 @@ async function main() {
     {
       id: '6b82b7cf-b614-4f29-9fa9-8a3f5bb3abe6',
       name: 'Colobus, magistrate black',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Colobus guerza',
       description:
         'Drainage of Right Anterior Tibial Artery, Open Approach, Diagnostic',
@@ -2238,7 +2238,7 @@ async function main() {
     {
       id: '5597c308-cb75-4958-acb7-c543f6ea7bda',
       name: 'Heron, grey',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Ardea cinerea',
       description:
         'Dilation of Right Vas Deferens, Percutaneous Endoscopic Approach',
@@ -2253,7 +2253,7 @@ async function main() {
     {
       id: 'ff77affa-788c-4658-84af-4fbf00528194',
       name: 'Giant girdled lizard',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Cordylus giganteus',
       description:
         'Bypass Right Common Carotid Artery to Right Extracranial Artery with Synthetic Substitute, Open Approach',
@@ -2270,7 +2270,7 @@ async function main() {
     {
       id: 'a139716a-3189-48cb-884d-80c77958c6d1',
       name: 'Flying fox (unidentified)',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'unavailable',
       description:
         'Release Ampulla of Vater, Via Natural or Artificial Opening Endoscopic',
@@ -2285,7 +2285,7 @@ async function main() {
     {
       id: 'd19eb608-3d2b-4138-9f32-f653f23a34fd',
       name: 'Carpet python',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Morelia spilotes variegata',
       description:
         'Removal of Artificial Sphincter from Urethra, Via Natural or Artificial Opening Endoscopic',
@@ -2300,7 +2300,7 @@ async function main() {
     {
       id: 'c788df20-868c-4c07-93dd-370ed330f564',
       name: 'Wallaby, red-necked',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Macropus rufogriseus',
       description:
         'Introduction of Electrolytic and Water Balance Substance into Products of Conception, Via Natural or Artificial Opening',
@@ -2317,7 +2317,7 @@ async function main() {
     {
       id: '1938a333-feb8-43cf-ac0d-6862c031ada1',
       name: 'African ground squirrel (unidentified)',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Xerus sp.',
       description: 'Reposition Right Subclavian Artery, Open Approach',
       //ip_address: '77.96.79.51',
@@ -2331,7 +2331,7 @@ async function main() {
     {
       id: '32ef108b-bead-40b4-94a2-06b2a06b0e88',
       name: 'Jackal, black-backed',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Canis mesomelas',
       description:
         'Restriction of Left Peroneal Artery with Intraluminal Device, Percutaneous Endoscopic Approach',
@@ -2348,7 +2348,7 @@ async function main() {
     {
       id: 'eb40ca5e-1e03-4550-8c34-c7549d9f0a00',
       name: 'Tiger snake',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Notechis semmiannulatus',
       description:
         'Removal of Stimulator Lead from Stomach, Percutaneous Approach',
@@ -2363,7 +2363,7 @@ async function main() {
     {
       id: 'ee4ece0a-db44-4b09-97be-45a790827a81',
       name: 'American badger',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Taxidea taxus',
       description:
         'Bypass Left Lacrimal Duct to Nasal Cavity with Synthetic Substitute, Percutaneous Approach',
@@ -2378,7 +2378,7 @@ async function main() {
     {
       id: '4fc820bf-5c87-4051-bf78-9d5df1154bbd',
       name: 'Fox, cape',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Vulpes chama',
       description:
         'Excision of Left Temporal Artery, Percutaneous Endoscopic Approach, Diagnostic',
@@ -2393,7 +2393,7 @@ async function main() {
     {
       id: '6671408c-55df-4231-a789-52f5c68e0686',
       name: 'Western lowland gorilla',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Gorilla gorilla',
       description: 'Release Left Vertebral Artery, Percutaneous Approach',
       //ip_address: '58.247.68.168',
@@ -2407,7 +2407,7 @@ async function main() {
     {
       id: '41a284ac-7cbb-4803-9f4b-299cf35ddcab',
       name: 'Avocet, pied',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Recurvirostra avosetta',
       description:
         'Drainage of Left Radial Artery with Drainage Device, Open Approach',
@@ -2422,7 +2422,7 @@ async function main() {
     {
       id: '064d1e46-ca7b-4e55-903f-264619211b22',
       name: 'Common melba finch',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Pytilia melba',
       description:
         'Transfusion of Autologous Factor IX into Peripheral Vein, Percutaneous Approach',
@@ -2437,7 +2437,7 @@ async function main() {
     {
       id: 'ec75a2cf-c717-4007-b3c5-23d5bda95955',
       name: 'Squirrel, eurasian red',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Sciurus vulgaris',
       description: 'Release Left Orbit, Open Approach',
       //ip_address: '183.9.74.232',
@@ -2451,7 +2451,7 @@ async function main() {
     {
       id: '399094ca-a409-4bf0-880e-aa84cf34d5c4',
       name: 'Vicuna',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Vicugna vicugna',
       description: 'Restriction of Right Hand Artery, Open Approach',
       //ip_address: '206.87.76.122',
@@ -2465,7 +2465,7 @@ async function main() {
     {
       id: 'ceb6b44b-3d66-4a1d-8379-b8e5089e7c69',
       name: 'White-faced whistling duck',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Dendrocygna viduata',
       description: 'Extraction of Right Pleura, Open Approach, Diagnostic',
       //ip_address: '12.19.156.214',
@@ -2479,7 +2479,7 @@ async function main() {
     {
       id: 'be634537-1672-42cd-b146-252138252f54',
       name: 'Blue-tongued skink',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Tiliqua scincoides',
       description:
         'Removal of Drainage Device from Right Tympanic Membrane, Via Natural or Artificial Opening Endoscopic',
@@ -2494,7 +2494,7 @@ async function main() {
     {
       id: '8041b972-d984-4751-9bf2-feb781194c7b',
       name: 'Springbok',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Antidorcas marsupialis',
       description:
         'Occlusion of Right Vertebral Artery with Bioactive Intraluminal Device, Percutaneous Approach',
@@ -2509,7 +2509,7 @@ async function main() {
     {
       id: 'f04c73e2-1140-470c-8627-3213fa0e60b8',
       name: 'Rainbow lory',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Trichoglossus haematodus moluccanus',
       description: 'Excision of Right Hip Muscle, Percutaneous Approach',
       //ip_address: '83.74.53.62',
@@ -2523,7 +2523,7 @@ async function main() {
     {
       id: '489ecea9-2867-4cd4-8622-94294a8c48d6',
       name: 'Bustard, stanley',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Neotis denhami',
       description:
         'Excision of Right Abdomen Bursa and Ligament, Percutaneous Approach, Diagnostic',
@@ -2538,7 +2538,7 @@ async function main() {
     {
       id: 'ab8df509-d22a-4996-84d2-ebc88220a85c',
       name: 'Penguin, little blue',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Eudyptula minor',
       description:
         'Fluoroscopy of Right Brachiocephalic-Subclavian Artery using High Osmolar Contrast, Laser Intraoperative',
@@ -2553,7 +2553,7 @@ async function main() {
     {
       id: '6ee46052-0d9d-4761-afa5-a77ecf73582c',
       name: 'Red-necked phalarope',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Phalaropus lobatus',
       description:
         'Replacement of Left Greater Saphenous Vein with Nonautologous Tissue Substitute, Percutaneous Endoscopic Approach',
@@ -2568,7 +2568,7 @@ async function main() {
     {
       id: '1f91a622-fe6e-4c1f-8b96-427894db21fd',
       name: 'Black-throated cardinal',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Paroaria gularis',
       description:
         'Bypass Thoracic Aorta, Ascending/Arch to Pulmonary Trunk with Autologous Arterial Tissue, Percutaneous Endoscopic Approach',
@@ -2583,7 +2583,7 @@ async function main() {
     {
       id: '330b5e45-ed08-4782-85e8-09e250cd4caa',
       name: 'Roseate cockatoo',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Eolophus roseicapillus',
       description:
         'Removal of Infusion Device from Spinal Cord, Percutaneous Approach',
@@ -2598,7 +2598,7 @@ async function main() {
     {
       id: '571ccbdb-930f-40b8-9387-b5af57e1e5ad',
       name: 'Booby, blue-footed',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Sula nebouxii',
       description:
         'Occlusion of Bladder Neck with Intraluminal Device, Percutaneous Endoscopic Approach',
@@ -2613,7 +2613,7 @@ async function main() {
     {
       id: 'f01d9725-9ad2-48f2-92d8-2a464d4ff750',
       name: 'White-fronted capuchin',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Cebus albifrons',
       description: 'Drainage of Bilateral Ureters, Open Approach',
       //ip_address: '217.12.214.29',
@@ -2627,7 +2627,7 @@ async function main() {
     {
       id: '6920e930-a2f2-4ba9-b19f-85f960baa328',
       name: 'American bison',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Bison bison',
       description:
         'Inspection of Abdominal Wall, Percutaneous Endoscopic Approach',
@@ -2642,7 +2642,7 @@ async function main() {
     {
       id: 'be1aa02c-0583-4b10-99d7-4f879f2d41e4',
       name: 'Mountain lion',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Felis concolor',
       description: 'Fluoroscopy of Bilateral Upper Extremity Arteries',
       //ip_address: '247.119.165.186',
@@ -2656,7 +2656,7 @@ async function main() {
     {
       id: '552b443a-cbd0-4213-a792-661e5110a3ad',
       name: 'Baboon, yellow',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Papio cynocephalus',
       description:
         'Excision of Left Maxillary Sinus, Percutaneous Endoscopic Approach, Diagnostic',
@@ -2671,7 +2671,7 @@ async function main() {
     {
       id: 'b7f7a353-0fa4-4424-a965-df5986988b95',
       name: 'Madagascar fruit bat',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Pteropus rufus',
       description:
         'Removal of Intraluminal Device from Larynx, Via Natural or Artificial Opening Endoscopic',
@@ -2686,7 +2686,7 @@ async function main() {
     {
       id: 'e4186d45-f84d-4589-acaf-857fda94b0ab',
       name: 'Constrictor, eastern boa',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Acrantophis madagascariensis',
       description:
         'Removal of Nonautologous Tissue Substitute from Left Tibia, Percutaneous Endoscopic Approach',
@@ -2701,7 +2701,7 @@ async function main() {
     {
       id: '3494c277-a5ef-4605-9ada-9a19c15bbcf2',
       name: 'Hottentot teal',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Anas punctata',
       description:
         'Supplement Right Foot Artery with Synthetic Substitute, Open Approach',
@@ -2716,7 +2716,7 @@ async function main() {
     {
       id: '16836da7-f64b-41ee-b999-8dd603a73d2e',
       name: 'Blue duck',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Hymenolaimus malacorhynchus',
       description: 'Division of Right Upper Arm Skin, External Approach',
       //ip_address: '162.25.224.129',
@@ -2730,7 +2730,7 @@ async function main() {
     {
       id: '97a04b36-5541-46cb-85ec-3b6a8b181591',
       name: 'Superb starling',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Lamprotornis superbus',
       description:
         'Beam Radiation of Abdomen Skin using Electrons, Intraoperative',
@@ -2745,7 +2745,7 @@ async function main() {
     {
       id: '2bed76dc-051a-4092-94d2-1ee2e4da1980',
       name: 'Uinta ground squirrel',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Spermophilus armatus',
       description:
         'Insertion of Radioactive Element into Retroperitoneum, Percutaneous Approach',
@@ -2760,7 +2760,7 @@ async function main() {
     {
       id: 'e7ba9d61-45b5-425d-bed3-4348bbe5ade0',
       name: 'Hyena, spotted',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Crocuta crocuta',
       description:
         'Removal of Autologous Tissue Substitute from Left Tarsal Joint, Percutaneous Endoscopic Approach',
@@ -2775,7 +2775,7 @@ async function main() {
     {
       id: '2612e9bd-9945-4ce2-a224-7fce87e44e26',
       name: 'Dog, bush',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Speothos vanaticus',
       description:
         'Bypass Right Femoral Artery to Popliteal Artery with Nonautologous Tissue Substitute, Percutaneous Endoscopic Approach',
@@ -2792,7 +2792,7 @@ async function main() {
     {
       id: '0653f6fc-483f-4491-88c9-23622da37efe',
       name: 'Ground monitor (unidentified)',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Varanus sp.',
       description:
         'Excision of Right Seminal Vesicle, Open Approach, Diagnostic',
@@ -2807,7 +2807,7 @@ async function main() {
     {
       id: '1d1b7ac1-09c0-4445-9f06-432a4369d332',
       name: 'Turkey, common',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Meleagris gallopavo',
       description:
         'Excision of Right Lower Eyelid, Percutaneous Approach, Diagnostic',
@@ -2822,7 +2822,7 @@ async function main() {
     {
       id: '4d723d31-37a9-4d40-9e67-d059e5677498',
       name: 'Oriental short-clawed otter',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Aonyx cinerea',
       description:
         'Insertion of Intraluminal Device into Left Popliteal Artery, Percutaneous Endoscopic Approach',
@@ -2837,7 +2837,7 @@ async function main() {
     {
       id: '33b8828d-2892-4ddb-ba66-46ae5a6f9295',
       name: 'Giraffe',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Giraffe camelopardalis',
       description: 'Excision of Lower Jaw, External Approach',
       //ip_address: '118.54.59.16',
@@ -2851,7 +2851,7 @@ async function main() {
     {
       id: 'dea21cf7-452b-4187-9743-8735fd5082ca',
       name: 'White-winged black tern',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Chlidonias leucopterus',
       description:
         'Bypass Right Hepatic Duct to Small Intestine with Intraluminal Device, Percutaneous Endoscopic Approach',
@@ -2866,7 +2866,7 @@ async function main() {
     {
       id: '33aa72a7-50d7-4ae3-98cd-053a8b23c70a',
       name: 'Common brushtail possum',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Trichosurus vulpecula',
       description:
         'Bypass Left Popliteal Artery to Lower Extremity Vein with Synthetic Substitute, Percutaneous Endoscopic Approach',
@@ -2883,7 +2883,7 @@ async function main() {
     {
       id: '52b0637d-7fdc-449a-ba97-15b322ed4123',
       name: 'Duiker, gray',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Sylvicapra grimma',
       description:
         'Drainage of Right Tunica Vaginalis with Drainage Device, Open Approach',
@@ -2898,7 +2898,7 @@ async function main() {
     {
       id: 'e84f47b7-6150-47ae-a64c-524b241f3d71',
       name: 'Warthog',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Phacochoerus aethiopus',
       description:
         'Fusion of Occipital-cervical Joint with Synthetic Substitute, Posterior Approach, Anterior Column, Percutaneous Approach',
@@ -2915,7 +2915,7 @@ async function main() {
     {
       id: 'a20afd74-3906-44e2-b784-d7ad6bee510f',
       name: 'Penguin, galapagos',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Spheniscus mendiculus',
       description:
         'Destruction of Left Metacarpocarpal Joint, Percutaneous Approach',
@@ -2930,7 +2930,7 @@ async function main() {
     {
       id: '35163f06-b491-4a85-8dfc-801b0f9f1780',
       name: 'Gull, southern black-backed',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Larus dominicanus',
       description: 'Inspection of Left Lung, Percutaneous Endoscopic Approach',
       //ip_address: '73.113.66.26',
@@ -2944,7 +2944,7 @@ async function main() {
     {
       id: '6b71368c-142d-435e-a56d-1322b3669182',
       name: 'Asian false vampire bat',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Megaderma spasma',
       description:
         'Supplement Nasal Turbinate with Nonautologous Tissue Substitute, Open Approach',
@@ -2959,7 +2959,7 @@ async function main() {
     {
       id: 'e04fcf84-aded-404b-a690-e2ddf557d05b',
       name: 'Python (unidentified)',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'unavailable',
       description:
         'Fusion of Sacrococcygeal Joint with Internal Fixation Device, Percutaneous Approach',
@@ -2974,7 +2974,7 @@ async function main() {
     {
       id: '49f9a5f9-b0b4-46a7-a0ed-01b85306755d',
       name: 'Turkey, wild',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Meleagris gallopavo',
       description:
         'Removal of Autologous Tissue Substitute from Lower Jaw, Percutaneous Approach',
@@ -2989,7 +2989,7 @@ async function main() {
     {
       id: 'f58c8f4f-2574-4beb-98bd-12a17be68876',
       name: 'Burmese brown mountain tortoise',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Manouria emys',
       description:
         'Excision of Right Metatarsal-Tarsal Joint, Percutaneous Endoscopic Approach',
@@ -3004,7 +3004,7 @@ async function main() {
     {
       id: 'd4c78bb7-80f6-4ebc-9866-3670148a8f97',
       name: 'White-fronted bee-eater',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Merops bullockoides',
       description:
         'Replacement of Right Tarsal with Synthetic Substitute, Open Approach',
@@ -3021,7 +3021,7 @@ async function main() {
     {
       id: 'd1008242-398f-4881-a109-f4723667fe5e',
       name: 'American Virginia opossum',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Didelphis virginiana',
       description:
         'Extirpation of Matter from Left Tympanic Membrane, Via Natural or Artificial Opening',
@@ -3036,7 +3036,7 @@ async function main() {
     {
       id: '65102751-1880-423f-829c-858ffe1e2b6e',
       name: 'Zebra, plains',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Equus burchelli',
       description:
         'Magnetic Resonance Imaging (MRI) of Superior Mesenteric Artery using Other Contrast',
@@ -3051,7 +3051,7 @@ async function main() {
     {
       id: '5080190e-1c7f-40d3-9c18-749bcc69778d',
       name: 'Stilt, black-winged',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Himantopus himantopus',
       description:
         'Revision of Drainage Device in Gallbladder, Percutaneous Approach',
@@ -3066,7 +3066,7 @@ async function main() {
     {
       id: '5742edf8-da68-4075-bbe8-a4578bb9299b',
       name: 'Red brocket',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Mazama americana',
       description:
         'Occlusion of Left Vas Deferens with Intraluminal Device, Percutaneous Approach',
@@ -3081,7 +3081,7 @@ async function main() {
     {
       id: '9609ca60-09c6-4dc2-86bb-6107dcd8f1bc',
       name: 'Sandhill crane',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Grus canadensis',
       description:
         'Bypass Cecum to Rectum with Autologous Tissue Substitute, Via Natural or Artificial Opening Endoscopic',
@@ -3096,7 +3096,7 @@ async function main() {
     {
       id: '55332446-4b00-479d-833b-1907b0b47504',
       name: 'Shelduck, european',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Tadorna tadorna',
       description:
         'Insertion of Internal Fixation Device into Left Lacrimal Bone, Percutaneous Endoscopic Approach',
@@ -3111,7 +3111,7 @@ async function main() {
     {
       id: '10656f7d-5eb1-4e54-8562-5e2ccc5c35bd',
       name: 'Black-capped capuchin',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Cebus apella',
       description: 'Reposition Right Radial Artery, Percutaneous Approach',
       //ip_address: '171.147.158.80',
@@ -3125,7 +3125,7 @@ async function main() {
     {
       id: '6d3bb8af-c4a7-40d8-b771-81bd65af3ea5',
       name: 'Golden eagle',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Aquila chrysaetos',
       description:
         'Occlusion of Rectum with Intraluminal Device, Open Approach',
@@ -3142,7 +3142,7 @@ async function main() {
     {
       id: '8ee47ca3-0e66-4992-89e8-9e5e8948b446',
       name: 'Baleen whale',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Eubalaena australis',
       description:
         'Reflex Integrity Assessment of Neurological System - Whole Body',
@@ -3157,7 +3157,7 @@ async function main() {
     {
       id: 'e9fce50e-fd63-4276-b27b-af306cf1f15c',
       name: 'Aardwolf',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Proteles cristatus',
       description: 'Excision of Nasopharynx, Percutaneous Approach',
       //ip_address: '251.184.217.93',
@@ -3171,7 +3171,7 @@ async function main() {
     {
       id: '451ee428-5e7a-41cc-9b0c-cffb37fdabe2',
       name: 'Chipmunk, least',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Eutamias minimus',
       description:
         'Replacement of Right Maxilla with Synthetic Substitute, Open Approach',
@@ -3186,7 +3186,7 @@ async function main() {
     {
       id: '1fa2480e-0c38-470e-8bcc-716d36515769',
       name: 'Roseate cockatoo',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Eolophus roseicapillus',
       description:
         'Introduction of Other Gas into Upper GI, Percutaneous Approach',
@@ -3201,7 +3201,7 @@ async function main() {
     {
       id: '5d3a5f5c-f6f7-4faa-974d-c2d9224092d2',
       name: "Gazelle, thomson's",
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Gazella thompsonii',
       description:
         'Supplement Thoracolumbar Vertebral Disc with Synthetic Substitute, Percutaneous Approach',
@@ -3216,7 +3216,7 @@ async function main() {
     {
       id: '2465d19c-c450-4fae-a728-7269eceb0c29',
       name: 'Violet-eared waxbill',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Uraeginthus granatina',
       description:
         'Bypass Coronary Artery, Four or More Arteries from Coronary Artery with Synthetic Substitute, Percutaneous Endoscopic Approach',
@@ -3231,7 +3231,7 @@ async function main() {
     {
       id: 'daaebfe6-4786-4f91-8f8d-d3965dc9d845',
       name: 'Spoonbill, european',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Platalea leucordia',
       description:
         'Drainage of Right Shoulder Joint, Percutaneous Endoscopic Approach, Diagnostic',
@@ -3246,7 +3246,7 @@ async function main() {
     {
       id: '3b4024ee-be98-4198-8dcd-0f6e5ffdef40',
       name: 'Brush-tailed phascogale',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Phascogale tapoatafa',
       description:
         'Repair Skin in Products of Conception with Other Device, Percutaneous Approach',
@@ -3261,7 +3261,7 @@ async function main() {
     {
       id: '5fc9bd15-a25e-4bd4-9299-9254d0fa7eca',
       name: 'Opossum, american virginia',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Didelphis virginiana',
       description:
         'Removal of Intraluminal Device from Lymphatic, Percutaneous Approach',
@@ -3276,7 +3276,7 @@ async function main() {
     {
       id: 'd65fa0b7-3746-4706-8dd5-70e7c24ec7e8',
       name: 'Cat, european wild',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Felis silvestris lybica',
       description:
         'Supplement Right Hand with Autologous Tissue Substitute, Percutaneous Endoscopic Approach',
@@ -3291,7 +3291,7 @@ async function main() {
     {
       id: 'd2bc105b-f4b2-49ec-a68a-bafe0f2ca4f8',
       name: 'Crown of thorns starfish',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Acanthaster planci',
       description:
         'Dilation of Left Common Carotid Artery, Bifurcation, with Two Intraluminal Devices, Open Approach',
@@ -3306,7 +3306,7 @@ async function main() {
     {
       id: 'b3e8246a-dc7d-4c9b-b5bc-cd9a024bd56d',
       name: 'Whip-tailed wallaby',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Macropus parryi',
       description:
         'Removal of Drainage Device from Fallopian Tube, Percutaneous Approach',
@@ -3321,7 +3321,7 @@ async function main() {
     {
       id: 'b465d3f0-4bb6-4b85-b643-865fc942d724',
       name: 'Striped hyena',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Hyaena hyaena',
       description:
         'Supplement Left Fibula with Synthetic Substitute, Percutaneous Approach',
@@ -3336,7 +3336,7 @@ async function main() {
     {
       id: '94313640-4905-4bc1-ba19-c2d772d2b470',
       name: 'Whip-tailed wallaby',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Macropus parryi',
       description: 'Removal of Cast on Right Lower Extremity',
       //ip_address: '95.233.32.48',
@@ -3350,7 +3350,7 @@ async function main() {
     {
       id: '8808fa92-7123-47c5-b11d-b8abb70a21dc',
       name: 'Toucan, white-throated',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Ramphastos tucanus',
       description:
         'Transfer Right Foot Muscle with Skin and Subcutaneous Tissue, Open Approach',
@@ -3365,7 +3365,7 @@ async function main() {
     {
       id: '2d41b80c-c7ab-4098-86e8-c653e79c30b6',
       name: 'Chuckwalla',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Sauromalus obesus',
       description:
         'Drainage of Left Mandible, Percutaneous Endoscopic Approach',
@@ -3380,7 +3380,7 @@ async function main() {
     {
       id: '80ca43b3-42cf-46ac-af56-90cfd142c35f',
       name: 'White-fronted capuchin',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Cebus albifrons',
       description: 'Upper Veins, Dilation',
       //ip_address: '168.54.236.183',
@@ -3394,7 +3394,7 @@ async function main() {
     {
       id: '562df2c0-2a53-4330-9680-2db1fe257dd6',
       name: 'Flamingo, roseat',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Phoenicopterus ruber',
       description: 'Dilation of Right Axillary Artery, Percutaneous Approach',
       //ip_address: '86.114.73.77',
@@ -3408,7 +3408,7 @@ async function main() {
     {
       id: 'ba14d891-a8d5-4fcb-9395-5a9ea21ddaef',
       name: 'Barasingha deer',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Cervus duvauceli',
       description:
         'Computerized Tomography (CT Scan) of Bladder using Other Contrast',
@@ -3423,7 +3423,7 @@ async function main() {
     {
       id: '064fd0b0-a04b-4759-bffd-3d4abefd533c',
       name: 'Dove, laughing',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Streptopelia senegalensis',
       description:
         'Insertion of Intraluminal Device into Left Vertebral Artery, Open Approach',
@@ -3438,7 +3438,7 @@ async function main() {
     {
       id: '4ec79b6b-8546-42d7-a6c3-b4ba2492f1f8',
       name: 'Osprey',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Pandon haliaetus',
       description: 'Reattachment of Left Hand, Open Approach',
       //ip_address: '197.216.7.46',
@@ -3454,7 +3454,7 @@ async function main() {
     {
       id: 'da741487-1101-49b7-a0fe-f8e95fcb7c91',
       name: 'Darter, african',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Anhinga rufa',
       description:
         'Supplement Penis with Autologous Tissue Substitute, External Approach',
@@ -3469,7 +3469,7 @@ async function main() {
     {
       id: '4f78df48-8900-46be-b3b9-e6844e40ab07',
       name: 'Red-headed woodpecker',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Melanerpes erythrocephalus',
       description:
         'Restriction of Upper Esophagus, Percutaneous Endoscopic Approach',
@@ -3486,7 +3486,7 @@ async function main() {
     {
       id: '08163584-d418-4846-a355-acb96b7cca24',
       name: 'Squirrel, eastern fox',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Sciurus niger',
       description: 'Drainage of Left Zygomatic Bone, Open Approach, Diagnostic',
       //ip_address: '17.70.144.37',
@@ -3500,7 +3500,7 @@ async function main() {
     {
       id: 'ec66b154-8665-4830-827d-f268e6dde90e',
       name: 'Blackish oystercatcher',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Haematopus ater',
       description:
         'Removal of Other Device from Upper Jaw, Percutaneous Endoscopic Approach',
@@ -3515,7 +3515,7 @@ async function main() {
     {
       id: 'f1493dc6-a67e-4332-8e3f-7e4655a4c912',
       name: 'Bateleur eagle',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Terathopius ecaudatus',
       description: 'Reposition Right External Iliac Artery, Open Approach',
       //ip_address: '34.250.181.79',
@@ -3529,7 +3529,7 @@ async function main() {
     {
       id: 'd41a913a-e105-4c98-9f61-9f604f942b49',
       name: 'Giraffe',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Giraffe camelopardalis',
       description:
         'Excision of Left Axillary Artery, Percutaneous Endoscopic Approach, Diagnostic',
@@ -3544,7 +3544,7 @@ async function main() {
     {
       id: '647ba02d-3429-4974-95a3-240caf3f621c',
       name: "Thomson's gazelle",
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Gazella thompsonii',
       description:
         'Drainage of Intracranial Vein with Drainage Device, Percutaneous Approach',
@@ -3559,7 +3559,7 @@ async function main() {
     {
       id: '9f738200-f792-490d-b73c-ff731661ba2b',
       name: 'Brown capuchin',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Cebus apella',
       description: 'Reposition Right External Ear, External Approach',
       //ip_address: '69.20.92.87',
@@ -3573,7 +3573,7 @@ async function main() {
     {
       id: '93233621-f72e-4f53-b76c-0d9ae8e41d7d',
       name: 'Snake, green vine',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Oxybelis fulgidus',
       description:
         'Computerized Tomography (CT Scan) of Bilateral Common Carotid Arteries using High Osmolar Contrast',
@@ -3590,7 +3590,7 @@ async function main() {
     {
       id: '5f1fa3b8-ff01-4de4-890e-733c25a45369',
       name: 'Frilled lizard',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Chlamydosaurus kingii',
       description:
         'Repair Cervicothoracic Vertebral Joint, Percutaneous Endoscopic Approach',
@@ -3607,7 +3607,7 @@ async function main() {
     {
       id: '13ea2c23-3e17-4a9b-932e-561a9dcc928c',
       name: 'Possum, golden brush-tailed',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Trichosurus vulpecula',
       description: 'Resection of Upper Lip, Open Approach',
       //ip_address: '243.47.25.75',
@@ -3621,7 +3621,7 @@ async function main() {
     {
       id: 'bb59a90f-4651-4e51-a893-eccd433041d4',
       name: 'Parrot, hawk-headed',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Deroptyus accipitrinus',
       description:
         'Dilation of Right Ulnar Artery with Two Drug-eluting Intraluminal Devices, Percutaneous Approach',
@@ -3636,7 +3636,7 @@ async function main() {
     {
       id: '2fde938a-e60a-4c6f-95cb-5433abac52fd',
       name: 'Fox, silver-backed',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Vulpes chama',
       description:
         'Bypass Thoracic Aorta, Ascending/Arch to Left Pulmonary Artery, Percutaneous Endoscopic Approach',
@@ -3651,7 +3651,7 @@ async function main() {
     {
       id: 'a96b3215-a6c3-4901-bf39-7c070b8dd789',
       name: 'Corella, long-billed',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Cacatua tenuirostris',
       description: 'Brief Tone Stimuli Assessment using Audiometer',
       //ip_address: '34.85.210.40',
@@ -3665,7 +3665,7 @@ async function main() {
     {
       id: '37a154dd-ae39-4511-8109-1339ceb1a256',
       name: 'Wallaby, agile',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Macropus agilis',
       description:
         'Destruction of Right Kidney Pelvis, Via Natural or Artificial Opening',
@@ -3680,7 +3680,7 @@ async function main() {
     {
       id: '0e27c489-40cf-4df9-b7ed-5845638a9581',
       name: 'Royal tern',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Thalasseus maximus',
       description:
         'Drainage of Bilateral Epididymis, Open Approach, Diagnostic',
@@ -3695,7 +3695,7 @@ async function main() {
     {
       id: 'e3568c02-7b62-405b-aa79-19fabfe969bd',
       name: 'Otter, small-clawed',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Aonyx cinerea',
       description:
         'Insertion of Infusion Device into Right Thyroid Artery, Percutaneous Endoscopic Approach',
@@ -3710,7 +3710,7 @@ async function main() {
     {
       id: 'b1c2937b-1362-4a0a-b3e9-0a6fccc80a44',
       name: 'Black-winged stilt',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Himantopus himantopus',
       description:
         'Beam Radiation of Soft Palate using Electrons, Intraoperative',
@@ -3725,7 +3725,7 @@ async function main() {
     {
       id: '2f89c808-dbc3-4f13-8d02-2bb5e0ad9627',
       name: 'Large-eared bushbaby',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Galago crassicaudataus',
       description:
         'Excision of Right Sacroiliac Joint, Percutaneous Approach, Diagnostic',
@@ -3740,7 +3740,7 @@ async function main() {
     {
       id: 'b47c0fb3-28a0-45b8-8d09-5ab97b68d3c9',
       name: 'White-throated monitor',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Varanus albigularis',
       description:
         'Transfer Accessory Nerve to Oculomotor Nerve, Percutaneous Endoscopic Approach',
@@ -3757,7 +3757,7 @@ async function main() {
     {
       id: '0d59880d-2c4c-4d86-b3ee-43166fb0b756',
       name: 'Stork, yellow-billed',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Mycteria ibis',
       description:
         'Dilation of Right Internal Mammary Artery, Bifurcation, with Four or More Intraluminal Devices, Open Approach',
@@ -3772,7 +3772,7 @@ async function main() {
     {
       id: 'df1ba152-9954-4803-aea9-a3f5744e9531',
       name: "Gazelle, grant's",
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Gazella granti',
       description: 'Release Right Trunk Muscle, Open Approach',
       //ip_address: '126.164.174.94',
@@ -3786,7 +3786,7 @@ async function main() {
     {
       id: '0fc8378d-b1c1-47fc-afbf-9181843b7a8a',
       name: 'Raccoon dog',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Nyctereutes procyonoides',
       description: 'Ultrasonography of Left Wrist',
       //ip_address: '131.81.22.199',
@@ -3800,7 +3800,7 @@ async function main() {
     {
       id: 'be47b77c-dafd-4954-8298-47807e4f2bff',
       name: 'Wattled crane',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Bugeranus caruncalatus',
       description:
         'Computerized Tomography (CT Scan) of Right Elbow using Other Contrast',
@@ -3815,7 +3815,7 @@ async function main() {
     {
       id: '7fee4604-ae9f-4ac9-8c1c-97332a4e7049',
       name: 'Gila monster',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Heloderma horridum',
       description: 'Extirpation of Matter from Right Sclera, External Approach',
       //ip_address: '12.68.61.52',
@@ -3829,7 +3829,7 @@ async function main() {
     {
       id: '62f7e55d-8699-4e8e-917f-35b7228152e5',
       name: 'Pampa gray fox',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Pseudalopex gymnocercus',
       description:
         'High Dose Rate (HDR) Brachytherapy of Colon using Iridium 192 (Ir-192)',
@@ -3844,7 +3844,7 @@ async function main() {
     {
       id: '7d9dc923-1a32-4181-a738-0c92b5554673',
       name: 'Sloth, two-toed tree',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Choloepus hoffmani',
       description: 'Drainage of Ulnar Nerve, Open Approach',
       //ip_address: '169.182.136.81',
@@ -3858,7 +3858,7 @@ async function main() {
     {
       id: '4ebf5047-8d99-4649-9386-b2023dd333c4',
       name: 'Dove, laughing',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Streptopelia senegalensis',
       description: 'Muscle Performance Treatment of Genitourinary System',
       //ip_address: '248.112.108.53',
@@ -3872,7 +3872,7 @@ async function main() {
     {
       id: '1d361e6f-b88f-4154-99bb-71fdc1e9d3f3',
       name: 'Yellow-bellied marmot',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Marmota flaviventris',
       description:
         'Drainage of Head Lymphatic with Drainage Device, Percutaneous Endoscopic Approach',
@@ -3887,7 +3887,7 @@ async function main() {
     {
       id: '53b37cf8-14c7-4ed0-9477-4eca7b4a9158',
       name: "Dik, kirk's dik",
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Madoqua kirkii',
       description:
         'Insertion of Intramedullary Internal Fixation Device into Right Humeral Shaft, Open Approach',
@@ -3902,7 +3902,7 @@ async function main() {
     {
       id: 'f96ced1e-84e0-4f1a-a354-8c211bd49357',
       name: 'Lizard, collared',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Crotaphytus collaris',
       description:
         'Supplement Nasal Turbinate with Synthetic Substitute, Via Natural or Artificial Opening',
@@ -3917,7 +3917,7 @@ async function main() {
     {
       id: 'c1199af0-80bb-449d-8656-40e9391732cd',
       name: 'Malleefowl',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Leipoa ocellata',
       description: 'Compression of Left Hand using Pressure Dressing',
       //ip_address: '197.166.69.113',
@@ -3931,7 +3931,7 @@ async function main() {
     {
       id: 'd6e374d1-fe67-435f-bf3b-33662f8cac98',
       name: 'Capybara',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Hydrochoerus hydrochaeris',
       description: 'Reposition Epiglottis, Via Natural or Artificial Opening',
       //ip_address: '255.17.132.37',
@@ -3945,7 +3945,7 @@ async function main() {
     {
       id: '949f5a96-0700-4cac-81ab-988d44fe9d71',
       name: 'Wallaroo, common',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Macropus robustus',
       description: 'Destruction of Left Hepatic Duct, Percutaneous Approach',
       //ip_address: '47.28.196.247',
@@ -3959,7 +3959,7 @@ async function main() {
     {
       id: 'aa04f363-f481-4f15-b0b6-f19b1effe265',
       name: 'Gorilla, western lowland',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Gorilla gorilla',
       description:
         'Revision of Internal Fixation Device in Right Radius, Percutaneous Endoscopic Approach',
@@ -3976,7 +3976,7 @@ async function main() {
     {
       id: '14d0d35a-f62b-4089-a1e7-370785be11a5',
       name: 'Marten, american',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Martes americana',
       description:
         'Bypass Portal Vein to Lower Vein, Percutaneous Endoscopic Approach',
@@ -3993,7 +3993,7 @@ async function main() {
     {
       id: 'd5356ea6-fb18-47b3-9454-f785c1990d41',
       name: 'Swallow (unidentified)',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'unavailable',
       description:
         'Revision of Internal Fixation Device in Right Metacarpal, External Approach',
@@ -4008,7 +4008,7 @@ async function main() {
     {
       id: '1f668e70-3c2d-4709-875b-fd1b71bc391f',
       name: 'Monitor, water',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Varanus salvator',
       description:
         'Restriction of Heart with Extraluminal Device, Percutaneous Approach',
@@ -4023,7 +4023,7 @@ async function main() {
     {
       id: 'f467bb15-5c97-45af-9cb8-2fcd1cb9ae72',
       name: 'Heron, little',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Butorides striatus',
       description: 'Reposition Esophageal Vein, Open Approach',
       //ip_address: '246.139.94.216',
@@ -4039,7 +4039,7 @@ async function main() {
     {
       id: 'ea7c6f9d-6ba9-43d1-b2fd-70097cef1d66',
       name: 'Rainbow lory',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Trichoglossus haematodus moluccanus',
       description:
         'Restriction of Jejunum with Extraluminal Device, Open Approach',
@@ -4054,7 +4054,7 @@ async function main() {
     {
       id: '332024e7-2dc0-4675-8aa1-a0ae699c9da1',
       name: 'Genoveva',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Junonia genoveua',
       description:
         'Insertion of Pedicle-Based Spinal Stabilization Device into Cervical Vertebral Joint, Percutaneous Approach',
@@ -4069,7 +4069,7 @@ async function main() {
     {
       id: 'eaf38dc1-3876-4288-99f8-eedb75286cec',
       name: 'Red-breasted cockatoo',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Eolophus roseicapillus',
       description:
         'Insertion of Other Device into Respiratory Tract, Open Approach',
@@ -4084,7 +4084,7 @@ async function main() {
     {
       id: '41563a9d-ef31-449a-bd1f-58da1f0780e2',
       name: 'Goose, snow',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Anser caerulescens',
       description:
         'Occlusion of Right Vas Deferens with Extraluminal Device, Percutaneous Endoscopic Approach',
@@ -4099,7 +4099,7 @@ async function main() {
     {
       id: '9031fc30-b32a-4327-a08c-3ee61e9012a7',
       name: 'Red-tailed phascogale',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Phascogale calura',
       description: 'Excision of Upper Gingiva, External Approach, Diagnostic',
       //ip_address: '252.190.168.73',
@@ -4113,7 +4113,7 @@ async function main() {
     {
       id: 'baa5520a-909d-4c20-8329-9afe7ebcad99',
       name: 'Legaan, water',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Varanus salvator',
       description:
         'Bypass Hemiazygos Vein to Upper Vein with Nonautologous Tissue Substitute, Open Approach',
@@ -4128,7 +4128,7 @@ async function main() {
     {
       id: '601d694d-6c6b-4fcc-8ea3-f199f593bf9f',
       name: 'Buffalo, wild water',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Bubalus arnee',
       description:
         'Extirpation of Matter from Right Hip Muscle, Percutaneous Approach',
@@ -4143,7 +4143,7 @@ async function main() {
     {
       id: '4ec9c9b5-368f-4ec8-9743-606322924335',
       name: 'Pygmy possum',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Acrobates pygmaeus',
       description:
         'Bypass Innominate Artery to Left Lower Arm Artery, Open Approach',
@@ -4158,7 +4158,7 @@ async function main() {
     {
       id: 'bf6d6ae9-5fe7-4345-a9dd-a5ab93bb80d9',
       name: 'Deer, barasingha',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Cervus duvauceli',
       description:
         'Removal of Spacer from Right Finger Phalangeal Joint, Percutaneous Endoscopic Approach',
@@ -4173,7 +4173,7 @@ async function main() {
     {
       id: '0ed65078-ddf8-4e1a-8693-accd56ba6dc3',
       name: 'Lizard, goanna',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Varanus sp.',
       description:
         'Insertion of External Fixation Device into Left Lower Femur, Open Approach',
@@ -4188,7 +4188,7 @@ async function main() {
     {
       id: 'f090df2b-adb5-44b3-b2a0-b0f5beea7cc7',
       name: 'Bleeding heart monkey',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Theropithecus gelada',
       description:
         'Removal of Tissue Expander from Lower Extremity Subcutaneous Tissue and Fascia, Open Approach',
@@ -4203,7 +4203,7 @@ async function main() {
     {
       id: '3dbecd41-3115-4660-bfc4-effb2fb00c53',
       name: 'Uinta ground squirrel',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Spermophilus armatus',
       description:
         'Extirpation of Matter from Right Upper Femur, Percutaneous Approach',
@@ -4218,7 +4218,7 @@ async function main() {
     {
       id: '63d0b06a-f839-42ed-87d2-51614b0663b5',
       name: 'Ferret, black-footed',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Mustela nigripes',
       description:
         'Reposition Hyoid Bone with Internal Fixation Device, Open Approach',
@@ -4233,7 +4233,7 @@ async function main() {
     {
       id: '5f9336ac-448d-4eb3-9765-f58b15efe957',
       name: 'Japanese macaque',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Macaca fuscata',
       description:
         'Revision of Extraluminal Device in Great Vessel, Percutaneous Endoscopic Approach',
@@ -4248,7 +4248,7 @@ async function main() {
     {
       id: '1c9f2ddf-7287-4292-a4a6-ab08e917bfba',
       name: 'Striped skunk',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Mephitis mephitis',
       description: 'Excision of Right Clavicle, Open Approach',
       //ip_address: '222.205.87.9',
@@ -4262,7 +4262,7 @@ async function main() {
     {
       id: 'a72f74e3-d1df-4f84-9af1-6eef8401c839',
       name: 'Red-headed woodpecker',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Melanerpes erythrocephalus',
       description:
         'Replacement of Left Thyroid Artery with Autologous Tissue Substitute, Percutaneous Endoscopic Approach',
@@ -4277,7 +4277,7 @@ async function main() {
     {
       id: '3552fac7-0c5a-4a06-a39c-2c8e3061043a',
       name: 'Blackbuck',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Antilope cervicapra',
       description:
         'Bypass Left Cephalic Vein to Upper Vein with Autologous Venous Tissue, Percutaneous Endoscopic Approach',
@@ -4292,7 +4292,7 @@ async function main() {
     {
       id: '62c162f2-4d58-44a7-8c04-516d67fd6cf3',
       name: "Francolin, swainson's",
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Francolinus swainsonii',
       description:
         'Fusion of Right Wrist Joint with Internal Fixation Device, Percutaneous Approach',
@@ -4309,7 +4309,7 @@ async function main() {
     {
       id: '322644d5-2d2d-49a2-a08d-370c91c88e6f',
       name: 'Ground legaan',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Varanus sp.',
       description: 'Immobilization of Left Inguinal Region using Other Device',
       //ip_address: '49.78.88.70',
@@ -4323,7 +4323,7 @@ async function main() {
     {
       id: '189d8f92-7d5a-448a-97c6-ef4f874e4307',
       name: 'Black-backed jackal',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Canis mesomelas',
       description:
         'Supplement Right Carpal Joint with Synthetic Substitute, Open Approach',
@@ -4338,7 +4338,7 @@ async function main() {
     {
       id: 'ab7bc296-09b1-41b5-8067-092c93de291e',
       name: 'Guanaco',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Lama guanicoe',
       description:
         'Replacement of Left Upper Arm Subcutaneous Tissue and Fascia with Nonautologous Tissue Substitute, Percutaneous Approach',
@@ -4353,7 +4353,7 @@ async function main() {
     {
       id: '40eae7c7-deac-42f8-be33-b27563e995a0',
       name: 'Bird (unidentified)',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'unavailable',
       description:
         'Dilation of Coronary Artery, Four or More Arteries, Bifurcation, with Three Drug-eluting Intraluminal Devices, Percutaneous Approach',
@@ -4368,7 +4368,7 @@ async function main() {
     {
       id: '078e05f5-4ba3-48b0-8a96-32e2648b7fc1',
       name: 'Carmine bee-eater',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Merops nubicus',
       description:
         'Repair Right Upper Leg Tendon, Percutaneous Endoscopic Approach',
@@ -4383,7 +4383,7 @@ async function main() {
     {
       id: 'b7fe9508-feea-48c3-8663-3a0fa8d21a60',
       name: 'Warthog',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Phacochoerus aethiopus',
       description:
         'Removal of Monitoring Device from Diaphragm, Percutaneous Endoscopic Approach',
@@ -4398,7 +4398,7 @@ async function main() {
     {
       id: '2f38fe29-785e-4310-bca6-dd71db9a7f61',
       name: 'Pademelon, red-legged',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Thylogale stigmatica',
       description:
         'Removal of Internal Fixation Device from Left Radius, Percutaneous Approach',
@@ -4413,7 +4413,7 @@ async function main() {
     {
       id: 'f1a584c4-4336-40da-8b90-a37f9d9bd897',
       name: 'African bush squirrel',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Paraxerus cepapi',
       description: 'Release Rectum, Open Approach',
       //ip_address: '50.187.74.23',
@@ -4427,7 +4427,7 @@ async function main() {
     {
       id: '5ee00e27-6f2f-4c71-aa99-e9e392349316',
       name: 'Cougar',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Felis concolor',
       description:
         'Replacement of Right Elbow Joint with Nonautologous Tissue Substitute, Open Approach',
@@ -4444,7 +4444,7 @@ async function main() {
     {
       id: '267ae835-6a35-4bd1-9cca-6073654f6b9c',
       name: 'Mexican wolf',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Canis lupus baileyi',
       description:
         'Dilation of Abdominal Aorta with Two Intraluminal Devices, Percutaneous Approach',
@@ -4461,7 +4461,7 @@ async function main() {
     {
       id: '890da9b3-0602-45e1-9ef8-6d31f3fa483e',
       name: "Levaillant's barbet",
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Trachyphonus vaillantii',
       description: 'Division of Nasal Turbinate, Open Approach',
       //ip_address: '37.168.18.128',
@@ -4475,7 +4475,7 @@ async function main() {
     {
       id: 'df3fc2f2-d097-4577-b1f4-490f0074ede1',
       name: 'Lesser double-collared sunbird',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Nectarinia chalybea',
       description: 'Drainage of Intracranial Vein, Open Approach',
       //ip_address: '191.33.55.116',
@@ -4489,7 +4489,7 @@ async function main() {
     {
       id: 'cf894e6d-c318-43f3-ad62-8df3d528048e',
       name: 'Kingfisher, white-throated',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Halcyon smyrnesis',
       description:
         'Supplement Left Femoral Vein with Nonautologous Tissue Substitute, Open Approach',
@@ -4504,7 +4504,7 @@ async function main() {
     {
       id: '1d5a94cc-afb9-410f-a8ba-5215c75560cd',
       name: 'Jaeger, long-tailed',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Stercorarius longicausus',
       description:
         'Supplement Gastric Vein with Synthetic Substitute, Percutaneous Endoscopic Approach',
@@ -4519,7 +4519,7 @@ async function main() {
     {
       id: '0baaecd9-938b-46b4-8d4d-7b0220ea4d81',
       name: 'Tailless tenrec',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Tenrec ecaudatus',
       description:
         'Bypass Coronary Artery, Four or More Arteries from Left Internal Mammary, Open Approach',
@@ -4534,7 +4534,7 @@ async function main() {
     {
       id: 'a308059b-9072-4f55-b2b3-bb0ab69dbf97',
       name: 'Hummingbird (unidentified)',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'unavailable',
       description:
         'Revision of Drainage Device in Left Tarsal Joint, External Approach',
@@ -4549,7 +4549,7 @@ async function main() {
     {
       id: 'cebd09d1-8e72-4394-a388-4a0d7eb80dfc',
       name: 'Tarantula',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Lasiodora parahybana',
       description:
         'Replacement of Right Carpal Joint with Autologous Tissue Substitute, Open Approach',
@@ -4564,7 +4564,7 @@ async function main() {
     {
       id: 'e58fabea-5aa2-4f86-9ea6-13af37db34cd',
       name: 'Frog (unidentified)',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Rana sp.',
       description:
         'Imaging, Axial Skeleton, Except Skull and Facial Bones, Plain Radiography',
@@ -4579,7 +4579,7 @@ async function main() {
     {
       id: '735e31ca-7728-4bf0-9773-191912c59b4a',
       name: 'Elephant, asian',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Elephas maximus bengalensis',
       description:
         'Ear Protector Attentuation Assessment using Occupational Hearing Equipment',
@@ -4594,7 +4594,7 @@ async function main() {
     {
       id: 'c32667e0-8aa6-4b7c-b9cb-1fcc1c34e1dc',
       name: 'Skua, great',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Catharacta skua',
       description:
         'Dilation of Right Brachial Artery, Bifurcation, with Drug-eluting Intraluminal Device, Open Approach',
@@ -4609,7 +4609,7 @@ async function main() {
     {
       id: '20eda423-734f-426d-bba7-eec938329f3e',
       name: 'Killer whale',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Orcinus orca',
       description: 'Central Nervous System, Revision',
       //ip_address: '191.91.197.106',
@@ -4625,7 +4625,7 @@ async function main() {
     {
       id: '6ddcaa22-957a-4d8f-8c8e-854a3727e50a',
       name: 'Cape cobra',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Naja nivea',
       description:
         'Fluoroscopy of Left Common Carotid Artery using Other Contrast',
@@ -4640,7 +4640,7 @@ async function main() {
     {
       id: '5a484c56-c34e-4ca7-ae58-5d829dbc1093',
       name: 'Cockatoo, red-tailed',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Calyptorhynchus magnificus',
       description:
         'Removal of Infusion Device from Right Toe Phalangeal Joint, Percutaneous Approach',
@@ -4655,7 +4655,7 @@ async function main() {
     {
       id: '1b7cb6af-c80d-446d-b0e9-87c94b654d99',
       name: 'Hawk, ferruginous',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Buteo regalis',
       description: 'Division of Right Abdomen Tendon, Open Approach',
       //ip_address: '44.183.195.87',
@@ -4669,7 +4669,7 @@ async function main() {
     {
       id: '45a3b9b6-aa9c-4f62-bb72-f012a5cc1f89',
       name: 'Racer, blue',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Coluber constrictor foxii',
       description: 'Destruction of Duodenum, Percutaneous Approach',
       //ip_address: '222.14.194.35',
@@ -4683,7 +4683,7 @@ async function main() {
     {
       id: '4411e705-9673-4a37-95ed-f83e1ff54d02',
       name: 'Bateleur eagle',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Terathopius ecaudatus',
       description:
         'Occlusion of Upper Artery with Intraluminal Device, Open Approach',
@@ -4698,7 +4698,7 @@ async function main() {
     {
       id: '20b51af2-5761-411b-9c57-130c34c71c32',
       name: 'Macaw, red and blue',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Ara chloroptera',
       description: 'Release Cervicothoracic Vertebral Joint, External Approach',
       //ip_address: '64.142.251.115',
@@ -4712,7 +4712,7 @@ async function main() {
     {
       id: '1db6f4de-46ff-4fac-9e40-b811dae857d3',
       name: 'Macaw, blue and gold',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Ara ararauna',
       description: 'Hyperthermia of Hemibody',
       //ip_address: '245.255.125.83',
@@ -4726,7 +4726,7 @@ async function main() {
     {
       id: 'f3975a8d-f759-4890-bfed-b76e2bd93489',
       name: 'Galapagos mockingbird',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Nesomimus trifasciatus',
       description:
         'Restriction of Lower Esophagus with Intraluminal Device, Via Natural or Artificial Opening Endoscopic',
@@ -4741,7 +4741,7 @@ async function main() {
     {
       id: '849f29af-4bb7-4212-80ec-978ae9e888d5',
       name: 'Egyptian vulture',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Neophron percnopterus',
       description:
         'Restriction of Left Upper Lobe Bronchus with Intraluminal Device, Percutaneous Approach',
@@ -4758,7 +4758,7 @@ async function main() {
     {
       id: 'ffa479fc-bc97-47fd-9ce1-0dd968dd0bb9',
       name: 'Gray duiker',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Sylvicapra grimma',
       description: 'Reposition Sciatic Nerve, Percutaneous Endoscopic Approach',
       //ip_address: '188.79.236.241',
@@ -4772,7 +4772,7 @@ async function main() {
     {
       id: 'b92c0564-275d-48b4-a94b-23a717eb8327',
       name: 'Lynx, african',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Felis caracal',
       description:
         'Resection of Right Tympanic Membrane, Via Natural or Artificial Opening Endoscopic',
@@ -4787,7 +4787,7 @@ async function main() {
     {
       id: 'a5bcf252-f63f-498c-bc1f-a616c247048f',
       name: 'Red-winged blackbird',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Agelaius phoeniceus',
       description:
         'Extirpation of Matter from Right Ulnar Artery, Bifurcation, Percutaneous Endoscopic Approach',
@@ -4804,7 +4804,7 @@ async function main() {
     {
       id: '1ccced41-6ab2-4c89-9747-02ac94186e12',
       name: 'Phalarope, grey',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Phalaropus fulicarius',
       description:
         'Dilation of Innominate Artery with Two Drug-eluting Intraluminal Devices, Percutaneous Approach',
@@ -4819,7 +4819,7 @@ async function main() {
     {
       id: '68c18e4a-c8a1-4961-8326-efc1fad3f2b2',
       name: 'Stork, jabiru',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Ephippiorhynchus mycteria',
       description:
         'Computerized Tomography (CT Scan) of Right Patella using Low Osmolar Contrast',
@@ -4834,7 +4834,7 @@ async function main() {
     {
       id: '742679a9-24e4-4a0d-887c-f8735b6891ad',
       name: 'White-winged black tern',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Chlidonias leucopterus',
       description: 'Resection of Left Ureter, Percutaneous Endoscopic Approach',
       //ip_address: '75.44.9.230',
@@ -4848,7 +4848,7 @@ async function main() {
     {
       id: '1c37f567-6e54-43c0-857c-012da54cc240',
       name: 'Brocket, brown',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Mazama gouazoubira',
       description:
         'Drainage of Left Vas Deferens with Drainage Device, Open Approach',
@@ -4863,7 +4863,7 @@ async function main() {
     {
       id: '6bca8c72-271e-4d11-9fd8-ff14bd0f057a',
       name: 'Goat, mountain',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Oreamnos americanus',
       description:
         'High Dose Rate (HDR) Brachytherapy of Pancreas using Palladium 103 (Pd-103)',
@@ -4878,7 +4878,7 @@ async function main() {
     {
       id: '6cf4ad52-4e3f-429d-a53e-be3c6ac442b7',
       name: 'Musk ox',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Ovibos moschatus',
       description: 'Stereotactic Gamma Beam Radiosurgery of Left Breast',
       //ip_address: '225.178.170.228',
@@ -4892,7 +4892,7 @@ async function main() {
     {
       id: 'd95a4b8f-110e-4eda-9268-70f25ac7e963',
       name: "Nutcracker, clark's",
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Nucifraga columbiana',
       description:
         'Insertion of External Fixation Device into Left Fibula, Percutaneous Endoscopic Approach',
@@ -4907,7 +4907,7 @@ async function main() {
     {
       id: 'd2367e6d-5171-4fe3-bf7c-86c1910b5105',
       name: 'Stork, black-necked',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Ephippiorhynchus mycteria',
       description:
         'Bypass Thoracic Aorta, Descending to Right Pulmonary Artery with Zooplastic Tissue, Open Approach',
@@ -4922,7 +4922,7 @@ async function main() {
     {
       id: '0b9a4228-41f4-4650-a6c8-e3eba43c7417',
       name: 'African bush squirrel',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Paraxerus cepapi',
       description:
         'Aural Rehabilitation Treatment using Augmentative / Alternative Communication Equipment',
@@ -4937,7 +4937,7 @@ async function main() {
     {
       id: '95eee3e9-bcdd-4936-a6f5-b66a9976b7d5',
       name: 'Tarantula',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Lasiodora parahybana',
       description:
         'Supplement Right Pelvic Bone with Autologous Tissue Substitute, Percutaneous Approach',
@@ -4952,7 +4952,7 @@ async function main() {
     {
       id: 'c5e1e0fe-776a-44c7-954f-2147eb27c230',
       name: 'Dog, raccoon',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Nyctereutes procyonoides',
       description: 'Removal of Infusion Device from Face, External Approach',
       //ip_address: '21.165.186.233',
@@ -4966,7 +4966,7 @@ async function main() {
     {
       id: '97690af0-fd8e-4f88-b3bd-dfcd7159e91f',
       name: 'Stork, white',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Ciconia ciconia',
       description:
         'High Dose Rate (HDR) Brachytherapy of Bile Ducts using Californium 252 (Cf-252)',
@@ -4981,7 +4981,7 @@ async function main() {
     {
       id: '0d8485a6-8adb-4fb3-a203-6e9c986309fd',
       name: 'Spurfowl, yellow-necked',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Francolinus leucoscepus',
       description:
         'Range of Motion and Joint Mobility Treatment of Neurological System - Lower Back / Lower Extremity using Other Equipment',
@@ -4996,7 +4996,7 @@ async function main() {
     {
       id: 'e6fe5cda-359e-4f9f-9b2c-231aa718e6ca',
       name: 'Rhinoceros, square-lipped',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Ceratotherium simum',
       description:
         'Removal of Radioactive Element from Right Lower Extremity, Percutaneous Endoscopic Approach',
@@ -5011,7 +5011,7 @@ async function main() {
     {
       id: '7c1998d9-dd16-4f37-93a3-ceee202afb12',
       name: 'Ground legaan',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Varanus sp.',
       description:
         'Replacement of Colic Vein with Nonautologous Tissue Substitute, Open Approach',
@@ -5026,7 +5026,7 @@ async function main() {
     {
       id: '260b7060-e864-4987-89a8-863518a7b39f',
       name: 'Goldeneye, common',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Bucephala clangula',
       description: 'Repair Right Hip Muscle, Percutaneous Endoscopic Approach',
       //ip_address: '174.110.253.107',
@@ -5040,7 +5040,7 @@ async function main() {
     {
       id: '7fa4b012-dab0-4675-bd3f-9ce84a732d89',
       name: 'Eastern grey kangaroo',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Macropus giganteus',
       description: 'Release Right Orbit, Open Approach',
       //ip_address: '121.46.147.200',
@@ -5054,7 +5054,7 @@ async function main() {
     {
       id: 'c89e3d0b-acbb-4484-9410-8b6bdfa14ad0',
       name: 'Turkey, australian brush',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Alectura lathami',
       description:
         'Excision of Right Metatarsal-Phalangeal Joint, Percutaneous Approach, Diagnostic',
@@ -5069,7 +5069,7 @@ async function main() {
     {
       id: '2f68b0aa-1051-40c7-8553-eb9bfe1489f4',
       name: 'Stork, painted',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Mycteria leucocephala',
       description:
         'Release Superior Mesenteric Vein, Percutaneous Endoscopic Approach',
@@ -5084,7 +5084,7 @@ async function main() {
     {
       id: 'c63e9a32-5a98-4dbd-9c59-32a64a515656',
       name: 'Polar bear',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Ursus maritimus',
       description:
         'Repair Lymphatics and Hemic in Products of Conception with Other Device, Percutaneous Approach',
@@ -5099,7 +5099,7 @@ async function main() {
     {
       id: '6a93e263-002b-42b1-b049-4b0f5ef4b1c2',
       name: 'Jackal, silver-backed',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Canis mesomelas',
       description:
         'Bypass Upper Esophagus to Cutaneous with Synthetic Substitute, Open Approach',
@@ -5114,7 +5114,7 @@ async function main() {
     {
       id: 'f3bab7d7-d52f-42cb-b310-77a7da975f99',
       name: 'Black-throated butcher bird',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Cracticus nigroagularis',
       description:
         'Supplement Right Lower Extremity Bursa and Ligament with Autologous Tissue Substitute, Percutaneous Endoscopic Approach',
@@ -5129,7 +5129,7 @@ async function main() {
     {
       id: '17ca20f2-920a-462c-9790-2d98d2cce59e',
       name: 'Mongoose, yellow',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Cynictis penicillata',
       description:
         'Extirpation of Matter from Right Vertebral Artery, Bifurcation, Percutaneous Approach',
@@ -5144,7 +5144,7 @@ async function main() {
     {
       id: '2a3853d4-775f-423e-b1f5-5723361198c9',
       name: 'Wallaby, whip-tailed',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Macropus parryi',
       description:
         'Occlusion of Right Middle Lobe Bronchus, Percutaneous Approach',
@@ -5161,7 +5161,7 @@ async function main() {
     {
       id: 'a6eb06e5-70ff-4cee-aa94-f31c161a6aa7',
       name: 'Coqui francolin',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Francolinus coqui',
       description: 'Drainage of Left Lung, Via Natural or Artificial Opening',
       //ip_address: '19.174.167.139',
@@ -5177,7 +5177,7 @@ async function main() {
     {
       id: '1c31ba13-e481-495c-b637-6a68e7a4d241',
       name: 'Jackrabbit, white-tailed',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Lepus townsendii',
       description:
         'Bypass Gallbladder to Small Intestine, Percutaneous Endoscopic Approach',
@@ -5192,7 +5192,7 @@ async function main() {
     {
       id: 'ac2a488a-d2a0-4f66-9fa8-dcd8cd3d8bb4',
       name: 'Asian foreset tortoise',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Manouria emys',
       description: 'Drainage of Left Lower Leg Muscle, Open Approach',
       //ip_address: '245.152.140.0',
@@ -5206,7 +5206,7 @@ async function main() {
     {
       id: 'c8e146fe-12c4-4428-ba96-45646deee015',
       name: 'Dolphin, striped',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Stenella coeruleoalba',
       description:
         'Transplantation of Left Upper Lung Lobe, Zooplastic, Open Approach',
@@ -5221,7 +5221,7 @@ async function main() {
     {
       id: 'c4de91d8-f122-4a0a-92c2-ae8ca79c3271',
       name: 'Sparrow, rufous-collared',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Zonotrichia capensis',
       description:
         'Reposition Right Ulna with Ring External Fixation Device, Open Approach',
@@ -5236,7 +5236,7 @@ async function main() {
     {
       id: '5a3a4d2f-7ebe-471d-b046-2f5f499fb7b7',
       name: 'Green heron',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Butorides striatus',
       description:
         'Excision of Right Lower Femur, Percutaneous Endoscopic Approach, Diagnostic',
@@ -5251,7 +5251,7 @@ async function main() {
     {
       id: '2d96562e-81bc-49d5-93bf-1ffae94b8b51',
       name: 'Squirrel, eurasian red',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Sciurus vulgaris',
       description:
         'Replacement of Left Middle Ear with Nonautologous Tissue Substitute, Open Approach',
@@ -5266,7 +5266,7 @@ async function main() {
     {
       id: '7c5db1d5-4c55-4e6e-9442-ba6b8812089e',
       name: 'Steenbuck',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Raphicerus campestris',
       description: 'Removal of Infusion Device from Testis, External Approach',
       //ip_address: '46.98.53.36',
@@ -5280,7 +5280,7 @@ async function main() {
     {
       id: 'c3f62432-5766-49ee-bdcb-bccee4906b8b',
       name: 'Crane, black-crowned',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Balearica pavonina',
       description:
         'Destruction of Left Ankle Bursa and Ligament, Open Approach',
@@ -5295,7 +5295,7 @@ async function main() {
     {
       id: '40ee7d96-4f32-4dca-a13a-e7a6059dea53',
       name: 'Greater roadrunner',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Geococcyx californianus',
       description:
         'Excision of Left External Ear, External Approach, Diagnostic',
@@ -5310,7 +5310,7 @@ async function main() {
     {
       id: '5e6e5c7d-5391-4269-98f7-a6300034011e',
       name: 'Badger, honey',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Mellivora capensis',
       description:
         'Excision of Left Elbow Region, Percutaneous Endoscopic Approach, Diagnostic',
@@ -5327,7 +5327,7 @@ async function main() {
     {
       id: '200144cb-ff29-4402-9814-d32d0700e33b',
       name: 'Possum, western pygmy',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Cercatetus concinnus',
       description:
         'Insertion of Infusion Device into Right Foot, Percutaneous Approach',
@@ -5342,7 +5342,7 @@ async function main() {
     {
       id: 'f419773a-0784-4261-aa41-57cbe19ca3a5',
       name: 'Dingo',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Canis dingo',
       description:
         'Destruction of Endometrium, Via Natural or Artificial Opening Endoscopic',
@@ -5357,7 +5357,7 @@ async function main() {
     {
       id: '934cda74-653e-471a-8ebb-4b91ae213e75',
       name: 'Galapagos dove',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Zenaida galapagoensis',
       description:
         'Dilation of Esophagus with Intraluminal Device, Via Natural or Artificial Opening Endoscopic',
@@ -5372,7 +5372,7 @@ async function main() {
     {
       id: 'd06cd3f3-d2f4-467a-acf6-31638c61c94b',
       name: 'Woodchuck',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Marmota monax',
       description:
         'Drainage of Right Subclavian Vein, Percutaneous Approach, Diagnostic',
@@ -5387,7 +5387,7 @@ async function main() {
     {
       id: '12df2b7d-f0aa-4ee8-95e5-30d0f127a003',
       name: 'Elegant crested tinamou',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Eudromia elegans',
       description: 'Excision of Left Carpal Joint, Percutaneous Approach',
       //ip_address: '211.92.134.161',
@@ -5401,7 +5401,7 @@ async function main() {
     {
       id: 'bd1a4c14-6164-4ffe-9492-b3d6778ffbbb',
       name: 'Radiated tortoise',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Geochelone radiata',
       description:
         'Replacement of Right Pulmonary Vein with Synthetic Substitute, Percutaneous Endoscopic Approach',
@@ -5416,7 +5416,7 @@ async function main() {
     {
       id: '3891c874-394a-4214-9f11-84a98eb2fd1c',
       name: 'Antelope, four-horned',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Tetracerus quadricornis',
       description:
         'Dilation of Left Temporal Artery with Three Drug-eluting Intraluminal Devices, Open Approach',
@@ -5431,7 +5431,7 @@ async function main() {
     {
       id: 'a3f7cf37-5b2d-4a54-b8fc-96841c8f7630',
       name: 'Cape white-eye',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Zosterops pallidus',
       description:
         'Revision of Autologous Tissue Substitute in Left Toe Phalanx, External Approach',
@@ -5446,7 +5446,7 @@ async function main() {
     {
       id: '81e54656-6173-4981-99a9-be771de80161',
       name: 'Stork, marabou',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Leptoptilos crumeniferus',
       description: 'Inspection of Upper Jaw, Open Approach',
       //ip_address: '179.88.44.180',
@@ -5460,7 +5460,7 @@ async function main() {
     {
       id: '91543f06-b9a1-4a9f-bac6-817a0b6a68a4',
       name: 'Urial',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Ovis orientalis',
       description:
         'Alteration of Left Upper Arm with Nonautologous Tissue Substitute, Open Approach',
@@ -5475,7 +5475,7 @@ async function main() {
     {
       id: 'fb437028-e33c-416a-aba0-ee174a719731',
       name: 'Frog (unidentified)',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Rana sp.',
       description:
         'Restriction of Ascending Colon with Intraluminal Device, Percutaneous Approach',
@@ -5492,7 +5492,7 @@ async function main() {
     {
       id: '0855c735-d561-4226-b2fd-33db93b1c358',
       name: 'European red squirrel',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Sciurus vulgaris',
       description: 'Drainage of Right Metacarpophalangeal Joint, Open Approach',
       //ip_address: '241.7.90.162',
@@ -5506,7 +5506,7 @@ async function main() {
     {
       id: '25dfbd73-f196-4f0c-832d-e41d6a1d4e6f',
       name: 'Macaw, blue and yellow',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Ara ararauna',
       description:
         'Assistive, Adaptive, Supportive or Protective Devices Device Fitting using Assistive, Adaptive, Supportive or Protective Equipment',
@@ -5523,7 +5523,7 @@ async function main() {
     {
       id: '97307e7d-60fa-4c87-9542-52270af0d31c',
       name: 'Stick insect',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Leprocaulinus vipera',
       description:
         'Replacement of Right External Jugular Vein with Autologous Tissue Substitute, Percutaneous Endoscopic Approach',
@@ -5538,7 +5538,7 @@ async function main() {
     {
       id: 'c713566e-9fca-4e3d-a15a-6a509addd397',
       name: 'Barasingha deer',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Cervus duvauceli',
       description:
         'Extirpation of Matter from Left Peroneal Artery, Bifurcation, Percutaneous Endoscopic Approach',
@@ -5553,7 +5553,7 @@ async function main() {
     {
       id: '961476c2-9b8e-43a1-9937-07e50fbbcdd2',
       name: 'Hudsonian godwit',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Limosa haemastica',
       description:
         'Removal of Autologous Tissue Substitute from Lumbar Vertebra, Percutaneous Approach',
@@ -5568,7 +5568,7 @@ async function main() {
     {
       id: '55985772-59de-4b02-9a9b-78a47c0c009d',
       name: 'Jaguar',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Panthera onca',
       description: 'Drainage of Right Kidney Pelvis, Open Approach',
       //ip_address: '128.0.254.222',
@@ -5582,7 +5582,7 @@ async function main() {
     {
       id: 'c3c0bcb5-6d6b-42a2-ab8a-563494494964',
       name: 'Large cormorant',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Phalacrocorax carbo',
       description:
         'Removal of Synthetic Substitute from Sacrococcygeal Joint, Open Approach',
@@ -5597,7 +5597,7 @@ async function main() {
     {
       id: '7ab85c50-df47-49b5-a82b-4261dfe069a4',
       name: 'Duck, comb',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Sarkidornis melanotos',
       description:
         'Plain Radiography of Other Intra-Abdominal Arteries using High Osmolar Contrast',
@@ -5612,7 +5612,7 @@ async function main() {
     {
       id: '0f19a340-4703-45c8-a07c-b07c9de2f8e2',
       name: 'Toddy cat',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Paradoxurus hermaphroditus',
       description: 'Anatomical Regions, General, Bypass',
       //ip_address: '53.197.157.182',
@@ -5626,7 +5626,7 @@ async function main() {
     {
       id: '254c3f69-7a8d-44e9-9dae-d33f08d79ca6',
       name: 'Vulture, turkey',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Cathartes aura',
       description: 'Destruction of Uterus, Percutaneous Endoscopic Approach',
       //ip_address: '74.212.91.71',
@@ -5640,7 +5640,7 @@ async function main() {
     {
       id: 'a1802665-8221-456b-8e3e-870b5ff85411',
       name: 'Lion, southern sea',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Otaria flavescens',
       description: 'Release Left Ankle Joint, External Approach',
       //ip_address: '86.230.58.131',
@@ -5654,7 +5654,7 @@ async function main() {
     {
       id: '73c028ce-b53e-4cfe-ab90-1889578cceea',
       name: 'Grouse, sage',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Centrocercus urophasianus',
       description: 'Excision of Jejunum, Via Natural or Artificial Opening',
       //ip_address: '8.62.136.8',
@@ -5668,7 +5668,7 @@ async function main() {
     {
       id: 'faab55bb-3c69-4b92-8cd4-d1764dcb8ad6',
       name: 'Pronghorn',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Antilocapra americana',
       description:
         'Replacement of Upper Tooth, Multiple, with Autologous Tissue Substitute, External Approach',
@@ -5683,7 +5683,7 @@ async function main() {
     {
       id: 'cb958b92-44a9-4002-ad63-2202aacfcb06',
       name: 'Bettong, brush-tailed',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Bettongia penicillata',
       description:
         'Insertion of Infusion Device into Left Common Iliac Artery, Open Approach',
@@ -5698,7 +5698,7 @@ async function main() {
     {
       id: '4280bb50-92fc-4099-af2c-f5b6be8d41df',
       name: 'Dragonfly, russian',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Libellula quadrimaculata',
       description: 'Release Lesser Omentum, Open Approach',
       //ip_address: '169.201.18.99',
@@ -5712,7 +5712,7 @@ async function main() {
     {
       id: '980f05ed-6736-41ca-b965-613221cfb520',
       name: 'Python, carpet',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Morelia spilotes variegata',
       description:
         'Drainage of Sigmoid Colon with Drainage Device, Via Natural or Artificial Opening Endoscopic',
@@ -5727,7 +5727,7 @@ async function main() {
     {
       id: 'cd6a4e9a-ad3e-448c-bc6b-acb65c063b4b',
       name: 'Gazer, sun',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Cordylus giganteus',
       description:
         'Revision of Nonautologous Tissue Substitute in Bladder, Open Approach',
@@ -5742,7 +5742,7 @@ async function main() {
     {
       id: 'd44aa547-0093-4f1b-bb87-04483f3a9163',
       name: 'White-necked stork',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Ciconia episcopus',
       description:
         'Excision of Cecum, Via Natural or Artificial Opening, Diagnostic',
@@ -5757,7 +5757,7 @@ async function main() {
     {
       id: '339824e8-3145-4b3e-a0d5-49342cb9ae68',
       name: 'Spectacled caiman',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Caiman crocodilus',
       description: 'Beam Radiation of Mouth using Neutrons',
       //ip_address: '251.168.63.17',
@@ -5773,7 +5773,7 @@ async function main() {
     {
       id: 'b3b7b2c2-3fc5-4e46-8a00-92b78c994c90',
       name: 'Snowy owl',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Nyctea scandiaca',
       description: 'Repair Left Upper Extremity Lymphatic, Open Approach',
       //ip_address: '106.3.16.229',
@@ -5789,7 +5789,7 @@ async function main() {
     {
       id: 'c4a09843-d5f7-4674-a411-d1e56190e14d',
       name: 'Penguin, fairy',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Eudyptula minor',
       description:
         'Dilation of Left Thyroid Artery, Bifurcation, with Two Drug-eluting Intraluminal Devices, Percutaneous Endoscopic Approach',
@@ -5804,7 +5804,7 @@ async function main() {
     {
       id: 'f4bf2a51-9aae-4b35-825b-6f529a945de7',
       name: 'Blue-faced booby',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Sula dactylatra',
       description:
         'Revision of Infusion Device in Left Metatarsal-Phalangeal Joint, External Approach',
@@ -5819,7 +5819,7 @@ async function main() {
     {
       id: '782b0ade-49d0-462f-81fa-78ccf3c2d080',
       name: 'Gecko, ring-tailed',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Cyrtodactylus louisiadensis',
       description: 'Excision of Left Maxillary Sinus, Open Approach',
       //ip_address: '226.116.107.160',
@@ -5833,7 +5833,7 @@ async function main() {
     {
       id: '53b7967d-c9d1-411f-a88b-52495261ff58',
       name: 'Brush-tailed rat kangaroo',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Bettongia penicillata',
       description: 'Change Other Device in Left Ear, External Approach',
       //ip_address: '153.105.71.229',
@@ -5847,7 +5847,7 @@ async function main() {
     {
       id: 'a661e135-af78-40c1-bd48-f69cce34d51f',
       name: 'Little brown dove',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Streptopelia senegalensis',
       description:
         'Removal of Feeding Device from Upper Intestinal Tract, Via Natural or Artificial Opening',
@@ -5862,7 +5862,7 @@ async function main() {
     {
       id: '53958af4-19c4-4041-8917-619d052f9436',
       name: 'Raccoon, crab-eating',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Procyon cancrivorus',
       description: 'Immobilization of Right Thumb using Brace',
       //ip_address: '216.136.231.97',
@@ -5876,7 +5876,7 @@ async function main() {
     {
       id: '43b3c0f2-9235-47e7-93fb-448c37f80458',
       name: 'Komodo dragon',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Varanus komodensis',
       description: 'Repair Right Tarsal Joint, Percutaneous Approach',
       //ip_address: '8.127.191.189',
@@ -5890,7 +5890,7 @@ async function main() {
     {
       id: '87904a81-465f-4a7e-a98c-db303562c196',
       name: 'Knob-nosed goose',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Sarkidornis melanotos',
       description:
         'Reposition Right Tympanic Membrane, Percutaneous Endoscopic Approach',
@@ -5905,7 +5905,7 @@ async function main() {
     {
       id: '12980eb9-b531-4164-b6fe-09983c1fd16b',
       name: 'Cape wild cat',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Felis libyca',
       description:
         'Supplement Innominate Artery with Synthetic Substitute, Percutaneous Approach',
@@ -5922,7 +5922,7 @@ async function main() {
     {
       id: '4f0b3f4b-4572-4d2f-987c-ab2afa0af329',
       name: 'White stork',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Ciconia ciconia',
       description: 'Repair Lung Lingula, Percutaneous Endoscopic Approach',
       //ip_address: '59.157.214.30',
@@ -5936,7 +5936,7 @@ async function main() {
     {
       id: '159d8d3a-2725-463e-a8e0-337f281d389d',
       name: 'Topi',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Damaliscus lunatus',
       description: 'Release Right Palatine Bone, Open Approach',
       //ip_address: '103.36.248.5',
@@ -5950,7 +5950,7 @@ async function main() {
     {
       id: '25508bdc-29e9-4d7b-9ab8-9de5503ed2bd',
       name: 'Hyena, striped',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Hyaena hyaena',
       description:
         'Supplement Bilateral Epididymis with Autologous Tissue Substitute, Percutaneous Endoscopic Approach',
@@ -5965,7 +5965,7 @@ async function main() {
     {
       id: '4cee2e98-d83c-46c9-a381-93d321e872d2',
       name: 'African clawless otter',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Aonyx capensis',
       description: 'Drainage of Scalp Skin, External Approach, Diagnostic',
       //ip_address: '113.188.191.128',
@@ -5979,7 +5979,7 @@ async function main() {
     {
       id: 'd681552f-f522-458a-aebf-3e8de809fa02',
       name: 'Klipspringer',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Oreotragus oreotragus',
       description: 'Division of Lumbar Vertebra, Percutaneous Approach',
       //ip_address: '88.162.8.79',
@@ -5993,7 +5993,7 @@ async function main() {
     {
       id: '1d13e463-f5e9-4555-b272-89004c75b1cf',
       name: 'Brazilian tapir',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Tapirus terrestris',
       description:
         'Revision of Drainage Device in Trunk Subcutaneous Tissue and Fascia, Open Approach',
@@ -6010,7 +6010,7 @@ async function main() {
     {
       id: '971bce32-92d9-4162-9de2-7f552f360a80',
       name: 'Common zebra',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Equus burchelli',
       description: 'Hyperthermia of Abdomen',
       //ip_address: '239.96.241.37',
@@ -6024,7 +6024,7 @@ async function main() {
     {
       id: '54b89dd4-3c5f-4c0b-ac5f-de6c51f0be68',
       name: 'Phalarope, northern',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Phalaropus lobatus',
       description: 'Release Right External Jugular Vein, Open Approach',
       //ip_address: '29.217.8.8',
@@ -6038,7 +6038,7 @@ async function main() {
     {
       id: '07805654-da99-4375-9bd7-46c0475aa421',
       name: 'Andean goose',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Chloephaga melanoptera',
       description:
         'Excision of Mesenteric Lymphatic, Open Approach, Diagnostic',
@@ -6053,7 +6053,7 @@ async function main() {
     {
       id: 'a2aaf92b-164a-4e08-b175-bba93036c65e',
       name: 'Common ringtail',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Pseudocheirus peregrinus',
       description:
         'Destruction of Right Epididymis, Percutaneous Endoscopic Approach',
@@ -6068,7 +6068,7 @@ async function main() {
     {
       id: '237c7ed2-150f-49d1-891f-50ec47a220af',
       name: 'White-nosed coatimundi',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Nasua narica',
       description:
         'Drainage of Esophagogastric Junction with Drainage Device, Percutaneous Approach',
@@ -6083,7 +6083,7 @@ async function main() {
     {
       id: 'f8420633-ce4f-4b16-b923-4a9beacf9370',
       name: 'Cape raven',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Corvus albicollis',
       description:
         'Dilation of Right Colic Artery, Bifurcation, with Drug-eluting Intraluminal Device, Open Approach',
@@ -6098,7 +6098,7 @@ async function main() {
     {
       id: '052df2bc-c9b2-4d3f-96b6-bbeed3464449',
       name: 'African darter',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Anhinga rufa',
       description: 'Release Right Humeral Shaft, Open Approach',
       //ip_address: '111.232.81.152',
@@ -6112,7 +6112,7 @@ async function main() {
     {
       id: '1fdfe5bd-615d-4eaa-8760-ec5fd0fec74f',
       name: 'Platypus',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Ornithorhynchus anatinus',
       description:
         'Dilation of Innominate Artery, Bifurcation, with Four or More Intraluminal Devices, Percutaneous Approach',
@@ -6127,7 +6127,7 @@ async function main() {
     {
       id: '1b3382fc-e49c-419f-bb1d-71af21079496',
       name: 'Tsessebe',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Damaliscus lunatus',
       description:
         'Dilation of Left Renal Artery, Bifurcation, with Four or More Drug-eluting Intraluminal Devices, Percutaneous Approach',
@@ -6142,7 +6142,7 @@ async function main() {
     {
       id: '5e8a1cc9-f984-410a-93dd-cdc24a53e3ce',
       name: 'Brown pelican',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Pelecanus occidentalis',
       description:
         'Revision of Radioactive Element in Gastrointestinal Tract, Percutaneous Approach',
@@ -6157,7 +6157,7 @@ async function main() {
     {
       id: '8bd2c084-1961-406f-8cd0-63c4f1b2a229',
       name: 'Red deer',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Cervus elaphus',
       description:
         'Supplement Thoracic Vertebral Disc with Nonautologous Tissue Substitute, Open Approach',
@@ -6172,7 +6172,7 @@ async function main() {
     {
       id: '5936287a-c82d-46c5-b3c2-059823e691fe',
       name: 'Stork, european',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Ciconia ciconia',
       description:
         'Drainage of Left Retina with Drainage Device, Percutaneous Approach',
@@ -6187,7 +6187,7 @@ async function main() {
     {
       id: 'ef5f8c95-b0b4-4207-ab0c-4685e3290a62',
       name: 'Southern ground hornbill',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Bucorvus leadbeateri',
       description: 'Destruction of Left Lacrimal Gland, Open Approach',
       //ip_address: '205.130.243.149',
@@ -6201,7 +6201,7 @@ async function main() {
     {
       id: 'f3dd3439-ca85-44ce-ab5f-007df5537800',
       name: 'Magistrate black colobus',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Colobus guerza',
       description:
         'Drainage of Right Thorax Muscle, Percutaneous Endoscopic Approach, Diagnostic',
@@ -6216,7 +6216,7 @@ async function main() {
     {
       id: '9051d0f0-6ed8-46a6-96de-af34bf9dd564',
       name: 'Dove, mourning collared',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Streptopelia decipiens',
       description: 'Destruction of Left Anterior Tibial Artery, Open Approach',
       //ip_address: '136.241.161.78',
@@ -6230,7 +6230,7 @@ async function main() {
     {
       id: '385eed27-4ad1-40bc-bde6-1ccdd8ae6ebe',
       name: 'Black curlew',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Haematopus ater',
       description:
         'Introduction of Anti-inflammatory into Respiratory Tract, Via Natural or Artificial Opening',
@@ -6245,7 +6245,7 @@ async function main() {
     {
       id: '446292ad-6702-482e-b8b2-5cc66dfc40a1',
       name: 'Black-tailed prairie dog',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Cynomys ludovicianus',
       description:
         'Repair Coronary Artery, Three Arteries, Percutaneous Approach',
@@ -6262,7 +6262,7 @@ async function main() {
     {
       id: 'ad2591e4-47ea-4546-8431-04cf2ad39ac3',
       name: 'Beisa oryx',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Oryx gazella',
       description:
         'Dilation of Stomach with Intraluminal Device, Via Natural or Artificial Opening',
@@ -6277,7 +6277,7 @@ async function main() {
     {
       id: '4186fe8a-a2e5-4dd0-9188-fbeb5aeb2c8f',
       name: 'Swamp deer',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Cervus duvauceli',
       description: 'Dilation of Right Hepatic Duct, Open Approach',
       //ip_address: '187.127.46.188',
@@ -6291,7 +6291,7 @@ async function main() {
     {
       id: '424ad2d1-233f-4434-bb27-03ca462b9a9e',
       name: "Eagle, pallas's fish",
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Haliaeetus leucoryphus',
       description:
         'Removal of Infusion Device from Right Shoulder Joint, Open Approach',
@@ -6306,7 +6306,7 @@ async function main() {
     {
       id: '3287a405-b56e-469f-b81f-e3c8196aec1c',
       name: 'Bengal vulture',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Gyps bengalensis',
       description:
         'Supplement Right Foot Artery with Synthetic Substitute, Percutaneous Approach',
@@ -6321,7 +6321,7 @@ async function main() {
     {
       id: '681657eb-93b0-4833-b37d-64aa66c9a509',
       name: 'Eleven-banded armadillo (unidentified)',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Cabassous sp.',
       description: 'Release Left Temporomandibular Joint, External Approach',
       //ip_address: '89.170.8.141',
@@ -6335,7 +6335,7 @@ async function main() {
     {
       id: 'bc4229e5-7a73-4038-b128-70ab5580d860',
       name: 'Tarantula, salmon pink bird eater',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Lasiodora parahybana',
       description:
         'Low Dose Rate (LDR) Brachytherapy of Larynx using Californium 252 (Cf-252)',
@@ -6350,7 +6350,7 @@ async function main() {
     {
       id: 'f98112ed-60ae-4a56-86df-8823944977b9',
       name: 'Chital',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Axis axis',
       description:
         'Extirpation of Matter from Left Shoulder Joint, Percutaneous Approach',
@@ -6365,7 +6365,7 @@ async function main() {
     {
       id: '3983fce8-48e9-4244-a98d-15b8c35de428',
       name: 'Reedbuck, bohor',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Redunca redunca',
       description: 'Reposition Bilateral Testes, Percutaneous Approach',
       //ip_address: '192.218.227.37',
@@ -6379,7 +6379,7 @@ async function main() {
     {
       id: '77c09ccd-0d13-4051-8701-2697fa08a04c',
       name: 'Hottentot teal',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Anas punctata',
       description: 'Repair Superior Mesenteric Artery, Open Approach',
       //ip_address: '54.184.106.40',
@@ -6393,7 +6393,7 @@ async function main() {
     {
       id: '88022383-fa13-426a-971e-d6ca5e98eb0a',
       name: 'Lesser mouse lemur',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Microcebus murinus',
       description:
         'Reposition Left Metacarpophalangeal Joint, Percutaneous Endoscopic Approach',
@@ -6408,7 +6408,7 @@ async function main() {
     {
       id: 'bd7e07ee-3117-4db1-99f1-245d462d9c46',
       name: "Hornbill, leadbeateri's ground",
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Bucorvus leadbeateri',
       description:
         'Supplement Scrotum with Synthetic Substitute, Open Approach',
@@ -6423,7 +6423,7 @@ async function main() {
     {
       id: '5c8e0aee-80fd-41d6-bb62-4bc984b2c09a',
       name: 'Rhinoceros, black',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Diceros bicornis',
       description:
         'Destruction of Right Upper Extremity Lymphatic, Percutaneous Approach',
@@ -6438,7 +6438,7 @@ async function main() {
     {
       id: '53bf81f8-2983-4036-9c8a-f8da81e9679f',
       name: 'Cliffchat, mocking',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Thamnolaea cinnmomeiventris',
       description:
         'Revision of Intraluminal Device in Vas Deferens, External Approach',
@@ -6453,7 +6453,7 @@ async function main() {
     {
       id: 'cab034e6-406a-49bd-8eb4-9896b32258b3',
       name: 'Malleefowl',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Leipoa ocellata',
       description:
         'Drainage of Right Hip Bursa and Ligament with Drainage Device, Open Approach',
@@ -6468,7 +6468,7 @@ async function main() {
     {
       id: '6411d88b-e16e-46e1-acd5-bc07867e64cd',
       name: 'Crown of thorns starfish',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Acanthaster planci',
       description: 'Excision of Prostate, Percutaneous Approach, Diagnostic',
       //ip_address: '204.162.238.192',
@@ -6482,7 +6482,7 @@ async function main() {
     {
       id: 'a7c62114-5faa-4fa8-9347-505436808cb3',
       name: 'Mexican boa',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Boa constrictor mexicana',
       description:
         'Change Drainage Device in Cisterna Chyli, External Approach',
@@ -6497,7 +6497,7 @@ async function main() {
     {
       id: '34fb27c9-333e-45e5-9806-9f4787eea0e4',
       name: 'Ant (unidentified)',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'unavailable',
       description:
         'Extraction of Left Greater Saphenous Vein, Percutaneous Approach',
@@ -6512,7 +6512,7 @@ async function main() {
     {
       id: 'a7c02d5f-edb4-4aa3-ad20-2b20aeed4576',
       name: 'Baboon, chacma',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Papio ursinus',
       description: 'Destruction of Left Hip Tendon, Percutaneous Approach',
       //ip_address: '193.237.4.70',
@@ -6526,7 +6526,7 @@ async function main() {
     {
       id: '1f75cd1e-a305-48ec-903e-0de83583d2f9',
       name: 'Gull, kelp',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Larus dominicanus',
       description:
         'Drainage of Abdomen Subcutaneous Tissue and Fascia with Drainage Device, Open Approach',
@@ -6541,7 +6541,7 @@ async function main() {
     {
       id: '3dcea89a-d378-47fc-9f32-4654002e4a1e',
       name: 'Wombat, southern hairy-nosed',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Lasiorhinus latifrons',
       description:
         'Replacement of Right Wrist Joint with Nonautologous Tissue Substitute, Open Approach',
@@ -6556,7 +6556,7 @@ async function main() {
     {
       id: '79d576d0-9f62-44b6-ae1d-0b2e52d76d8a',
       name: 'Deer, savannah',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Mazama gouazoubira',
       description: 'Release Lingula Bronchus, Percutaneous Approach',
       //ip_address: '173.244.87.167',
@@ -6570,7 +6570,7 @@ async function main() {
     {
       id: '1416efdf-cdcb-4ebb-9be5-131bf02ad263',
       name: 'Rattlesnake, dusky',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Crotalus triseriatus',
       description: 'Reposition Left Fibula, Open Approach',
       //ip_address: '12.188.40.253',
@@ -6586,7 +6586,7 @@ async function main() {
     {
       id: 'b8c12ad0-c129-4781-916e-e98a0630b53c',
       name: 'Monkey, bleeding heart',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Theropithecus gelada',
       description: 'Release Left Elbow Joint, Percutaneous Endoscopic Approach',
       //ip_address: '251.179.87.102',
@@ -6600,7 +6600,7 @@ async function main() {
     {
       id: '95503245-af63-48f3-bc54-83f7ef013b83',
       name: 'Palm squirrel',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Funambulus pennati',
       description:
         'Insertion of Hearing Device into Right Inner Ear, Percutaneous Approach',
@@ -6615,7 +6615,7 @@ async function main() {
     {
       id: '7fca4e0d-cc5e-41fd-bd96-7b87deb104da',
       name: 'Raccoon dog',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Nyctereutes procyonoides',
       description: 'Dilation of Left Hypogastric Vein, Open Approach',
       //ip_address: '191.212.54.13',
@@ -6629,7 +6629,7 @@ async function main() {
     {
       id: 'a76c3aed-5742-462b-a68b-1442a3ed4dde',
       name: 'Lizard, frilled',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Chlamydosaurus kingii',
       description:
         'Supplement Right Lower Lobe Bronchus with Autologous Tissue Substitute, Percutaneous Endoscopic Approach',
@@ -6644,7 +6644,7 @@ async function main() {
     {
       id: 'a4a7a6aa-65d9-4917-9a5a-6d4705683daf',
       name: 'Spoonbill, white',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Platalea leucordia',
       description:
         'Resection of Right Foot Muscle, Percutaneous Endoscopic Approach',
@@ -6659,7 +6659,7 @@ async function main() {
     {
       id: '827ad1b5-0ab9-4c71-a266-b8819796d7ea',
       name: 'Macaque, pig-tailed',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Macaca nemestrina',
       description: 'Excision of Conduction Mechanism, Open Approach',
       //ip_address: '48.200.86.142',
@@ -6673,7 +6673,7 @@ async function main() {
     {
       id: 'e00665db-cc7c-464e-8ed1-d38408d55acf',
       name: 'Common wolf',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Canis lupus',
       description:
         'Bypass Right Ventricle to Aorta, Percutaneous Endoscopic Approach',
@@ -6688,7 +6688,7 @@ async function main() {
     {
       id: '3facdbfd-996d-4a98-b35a-0aae634edb84',
       name: 'Black-throated butcher bird',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Cracticus nigroagularis',
       description: 'Extracorporeal Therapies, Physiological Systems, Perfusion',
       //ip_address: '240.88.253.109',
@@ -6702,7 +6702,7 @@ async function main() {
     {
       id: '5713f28e-3bfb-4596-9bc0-55f0bd6c0e8a',
       name: 'Hedgehog, south african',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Erinaceus frontalis',
       description:
         'Bypass Gallbladder to Duodenum with Intraluminal Device, Open Approach',
@@ -6717,7 +6717,7 @@ async function main() {
     {
       id: '552f26b9-87b9-42ea-8934-941fda58fe15',
       name: 'Feral rock pigeon',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Columba livia',
       description:
         'Dilation of Splenic Artery with Three Intraluminal Devices, Open Approach',
@@ -6732,7 +6732,7 @@ async function main() {
     {
       id: '16726716-0a34-4888-9609-885a94fa94e7',
       name: 'Arctic hare',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Lepus arcticus',
       description:
         'Replacement of Back Subcutaneous Tissue and Fascia with Nonautologous Tissue Substitute, Open Approach',
@@ -6749,7 +6749,7 @@ async function main() {
     {
       id: '191f51ec-4ac4-4d07-86d9-05d624ad6fda',
       name: 'Black-tailed deer',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Odocoileus hemionus',
       description:
         'Dilation of Left Popliteal Artery with Four or More Drug-eluting Intraluminal Devices, Percutaneous Approach',
@@ -6766,7 +6766,7 @@ async function main() {
     {
       id: '8d5ac165-3f4b-4413-b698-85ce7b51ebb2',
       name: 'Cockatoo, long-billed',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Cacatua tenuirostris',
       description: 'Destruction of Cerebellum, Open Approach',
       //ip_address: '231.51.191.76',
@@ -6780,7 +6780,7 @@ async function main() {
     {
       id: '28d333ea-8b61-4b42-adfd-222d9ee569cc',
       name: 'Tern, arctic',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Sterna paradisaea',
       description:
         'Removal of Nonautologous Tissue Substitute from Right Pelvic Bone, Percutaneous Endoscopic Approach',
@@ -6795,7 +6795,7 @@ async function main() {
     {
       id: '1117c554-4d2e-4a28-870a-2b7e9a8dc338',
       name: 'Sociable weaver',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Philetairus socius',
       description:
         'Destruction of Right Metatarsal, Percutaneous Endoscopic Approach',
@@ -6810,7 +6810,7 @@ async function main() {
     {
       id: '7ec77598-31dc-4e81-8a1d-528584ebefe4',
       name: 'Oryx, fringe-eared',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Oryx gazella callotis',
       description: 'Excision of Right Hand, Percutaneous Approach, Diagnostic',
       //ip_address: '150.34.221.127',
@@ -6824,7 +6824,7 @@ async function main() {
     {
       id: '27a7f837-5199-4e73-9c73-14de0ec0994f',
       name: 'Saddle-billed stork',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Ephipplorhynchus senegalensis',
       description: 'Release Lower Artery, Percutaneous Endoscopic Approach',
       //ip_address: '81.37.192.22',
@@ -6838,7 +6838,7 @@ async function main() {
     {
       id: '2e74cbdd-b905-4923-be4e-fd12880029a3',
       name: 'Stone sheep',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Ovis dalli stonei',
       description:
         'Drainage of Face, Percutaneous Endoscopic Approach, Diagnostic',
@@ -6853,7 +6853,7 @@ async function main() {
     {
       id: '64872273-c7eb-4a6e-818a-1104885d739a',
       name: 'Jackrabbit, white-tailed',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Lepus townsendii',
       description: 'Repair Pericardium, Percutaneous Approach',
       //ip_address: '36.6.158.59',
@@ -6867,7 +6867,7 @@ async function main() {
     {
       id: 'b8018ad4-fa2e-4c71-aff3-ac4085002e50',
       name: 'Squirrel, thirteen-lined',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Spermophilus tridecemlineatus',
       description: 'Drainage of Bladder, Percutaneous Endoscopic Approach',
       //ip_address: '144.60.17.24',
@@ -6881,7 +6881,7 @@ async function main() {
     {
       id: '58ae13a0-d4c7-4d7d-820d-3e3b620d60ca',
       name: 'Dove, mourning collared',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Streptopelia decipiens',
       description: 'Anatomical Regions, General, Removal',
       //ip_address: '37.165.50.140',
@@ -6895,7 +6895,7 @@ async function main() {
     {
       id: '06dbd1f5-a160-447e-848f-e5a6ac605c0d',
       name: 'Armadillo, common long-nosed',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Dasypus novemcinctus',
       description: 'Plain Radiography of Right Kidney using Other Contrast',
       //ip_address: '107.232.34.97',
@@ -6909,7 +6909,7 @@ async function main() {
     {
       id: 'fe2620cb-0421-4495-a5de-33e9a99f2580',
       name: 'Baboon, olive',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Papio cynocephalus',
       description: 'Dilation of Ascending Colon, Open Approach',
       //ip_address: '220.90.83.2',
@@ -6923,7 +6923,7 @@ async function main() {
     {
       id: 'a5ed53d1-5615-4c45-90a2-9534f1f60265',
       name: 'Gazer, sun',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Cordylus giganteus',
       description:
         'Bypass Transverse Colon to Descending Colon, Via Natural or Artificial Opening Endoscopic',
@@ -6938,7 +6938,7 @@ async function main() {
     {
       id: '59f7824e-77dd-4774-afce-bc3a8db31a2a',
       name: 'Two-toed tree sloth',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Choloepus hoffmani',
       description:
         'Extirpation of Matter from Left Seminal Vesicle, Percutaneous Endoscopic Approach',
@@ -6953,7 +6953,7 @@ async function main() {
     {
       id: '9692011a-b08a-482d-a55c-15d0d9338658',
       name: 'Zorilla',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Ictonyx striatus',
       description:
         'Revision of Autologous Tissue Substitute in Left Metatarsal, Open Approach',
@@ -6968,7 +6968,7 @@ async function main() {
     {
       id: '5307b57a-5bef-45bd-ad95-9db2ec392ead',
       name: 'Porcupine, african',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Hystrix cristata',
       description:
         'Replacement of Left Toe Phalangeal Joint with Synthetic Substitute, Open Approach',
@@ -6983,7 +6983,7 @@ async function main() {
     {
       id: '3eb0a431-70a9-4578-bcff-3d9c93ee8193',
       name: 'Warthog',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Phacochoerus aethiopus',
       description:
         'Insertion of Infusion Device into Left Shoulder Joint, Percutaneous Approach',
@@ -6998,7 +6998,7 @@ async function main() {
     {
       id: '163d7ba7-f330-4289-bc65-03d7dc330b46',
       name: 'White-nosed coatimundi',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Nasua narica',
       description:
         'Restriction of Right External Iliac Vein with Extraluminal Device, Open Approach',
@@ -7013,7 +7013,7 @@ async function main() {
     {
       id: 'd8ecd5ab-3dbe-4eca-a905-a58f494a03e0',
       name: 'Legaan, water',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Varanus salvator',
       description:
         'Excision of Lower Jaw, Percutaneous Endoscopic Approach, Diagnostic',
@@ -7028,7 +7028,7 @@ async function main() {
     {
       id: '9686714c-8fdd-4d3f-b729-d8cca952942a',
       name: 'Antechinus, brown',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Antechinus flavipes',
       description:
         'Drainage of Lesser Omentum with Drainage Device, Percutaneous Approach',
@@ -7043,7 +7043,7 @@ async function main() {
     {
       id: '34b483ee-43c5-4172-9184-bf11eea70b9c',
       name: 'Vulture, black',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Aegypius tracheliotus',
       description:
         'Bypass Left Fallopian Tube to Left Fallopian Tube with Autologous Tissue Substitute, Open Approach',
@@ -7058,7 +7058,7 @@ async function main() {
     {
       id: '0a4d8f4a-acdc-40df-914f-53ba1eb0dae8',
       name: 'Eastern fox squirrel',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Sciurus niger',
       description:
         'Drainage of Left Hip Muscle, Percutaneous Approach, Diagnostic',
@@ -7073,7 +7073,7 @@ async function main() {
     {
       id: 'cfae62d9-859a-405b-aa43-e184381bf2e5',
       name: 'Wallaby, river',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Macropus agilis',
       description:
         'Excision of Head and Neck Sympathetic Nerve, Open Approach, Diagnostic',
@@ -7088,7 +7088,7 @@ async function main() {
     {
       id: '8bfffbd5-7d76-473a-a865-91c359a1cd6d',
       name: 'Common grenadier',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Uraeginthus granatina',
       description: 'Excision of Right Internal Mammary Artery, Open Approach',
       //ip_address: '159.68.112.39',
@@ -7102,7 +7102,7 @@ async function main() {
     {
       id: 'a24ffb28-30c3-498b-b2e5-56c912aaba7b',
       name: 'Goose, spur-winged',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Plectopterus gambensis',
       description:
         'Supplement Left Palatine Bone with Nonautologous Tissue Substitute, Open Approach',
@@ -7117,7 +7117,7 @@ async function main() {
     {
       id: '36d7af4a-a5a9-4b96-a75c-83848df4895a',
       name: 'California sea lion',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Zalophus californicus',
       description: 'Destruction of Cerebral Meninges, Percutaneous Approach',
       //ip_address: '32.72.212.237',
@@ -7131,7 +7131,7 @@ async function main() {
     {
       id: 'cfe2509a-eb89-4fa1-a688-2b06161a36c2',
       name: 'Sheathbill, snowy',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Chionis alba',
       description: 'Drainage of Facial Nerve, Percutaneous Endoscopic Approach',
       //ip_address: '251.95.91.246',
@@ -7145,7 +7145,7 @@ async function main() {
     {
       id: '38fa18ab-a83e-4f7b-94a5-50e045c63e29',
       name: 'Pademelon, red-legged',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Thylogale stigmatica',
       description:
         'Supplement Left Shoulder Region with Synthetic Substitute, Percutaneous Endoscopic Approach',
@@ -7160,7 +7160,7 @@ async function main() {
     {
       id: 'a21b7275-48ed-40bb-aa21-f575ad2b88d2',
       name: 'Brown pelican',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Pelecanus occidentalis',
       description:
         'Supplement Descending Colon with Nonautologous Tissue Substitute, Open Approach',
@@ -7175,7 +7175,7 @@ async function main() {
     {
       id: '1041c00e-3a1a-4831-b33e-aff3bdebe1dd',
       name: 'Flightless cormorant',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Nannopterum harrisi',
       description:
         'Bypass Left Internal Iliac Artery to Lower Extremity Artery, Open Approach',
@@ -7192,7 +7192,7 @@ async function main() {
     {
       id: '1c016487-b57d-4487-aa4b-3f39214f6818',
       name: 'Four-spotted skimmer',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Libellula quadrimaculata',
       description: 'Destruction of Left Adrenal Gland, Open Approach',
       //ip_address: '200.198.126.158',
@@ -7206,7 +7206,7 @@ async function main() {
     {
       id: '145ff341-3955-4246-8c8f-14f5becc6d75',
       name: 'Tammar wallaby',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Macropus eugenii',
       description:
         'Revision of Synthetic Substitute in Left Carpal, Percutaneous Approach',
@@ -7221,7 +7221,7 @@ async function main() {
     {
       id: '87286461-8e69-4ce4-b6c2-770f65ccec2f',
       name: 'Mourning collared dove',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Streptopelia decipiens',
       description:
         'Excision of Right Ulnar Artery, Percutaneous Approach, Diagnostic',
@@ -7236,7 +7236,7 @@ async function main() {
     {
       id: 'f9e905d1-2417-44b8-bcf0-83f3b93b5993',
       name: 'Ferret, black-footed',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Mustela nigripes',
       description:
         'Insertion of Infusion Device into Liver, Percutaneous Endoscopic Approach',
@@ -7251,7 +7251,7 @@ async function main() {
     {
       id: '8d81b7a3-8577-4a13-9a44-b7eb377aa254',
       name: 'Sportive lemur',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Lepilemur rufescens',
       description: 'Release Left Lung, Via Natural or Artificial Opening',
       //ip_address: '249.3.21.63',
@@ -7265,7 +7265,7 @@ async function main() {
     {
       id: '72235ad6-9f39-4520-9655-7b973775a297',
       name: 'White-throated robin',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Irania gutteralis',
       description:
         'Tomographic (Tomo) Nuclear Medicine Imaging of Bilateral Upper Extremities using Technetium 99m (Tc-99m)',
@@ -7280,7 +7280,7 @@ async function main() {
     {
       id: 'cc8c7633-1901-47a9-9d53-f1c39fa8be5e',
       name: 'Mongoose, banded',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Mungos mungo',
       description: 'Occlusion of Right Hand Vein, Percutaneous Approach',
       //ip_address: '77.137.247.157',
@@ -7294,7 +7294,7 @@ async function main() {
     {
       id: 'fda35539-0794-4a5b-a3d1-b083d262cc33',
       name: 'Caribou',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Rangifer tarandus',
       description:
         'Bypass Superior Mesenteric Vein to Lower Vein, Percutaneous Endoscopic Approach',
@@ -7309,7 +7309,7 @@ async function main() {
     {
       id: '8496615f-7414-4fbc-9665-1cff00d5cec2',
       name: 'Snow goose',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Anser caerulescens',
       description:
         'Bypass Innominate Artery to Left Lower Leg Artery with Autologous Arterial Tissue, Open Approach',
@@ -7324,7 +7324,7 @@ async function main() {
     {
       id: '0bef568a-f2e8-4271-98ca-c27863537446',
       name: 'Chacma baboon',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Papio ursinus',
       description:
         'Dilation of Celiac Artery, Bifurcation, with Three Intraluminal Devices, Percutaneous Endoscopic Approach',
@@ -7339,7 +7339,7 @@ async function main() {
     {
       id: 'c7583f0f-a0e2-4c4e-88db-f658b9c262f3',
       name: 'Flycatcher, tyrant',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Myiarchus tuberculifer',
       description:
         'Measurement of Biliary Flow, Percutaneous Endoscopic Approach',
@@ -7354,7 +7354,7 @@ async function main() {
     {
       id: '50e935c6-2db5-4e88-9274-4475bbb651a1',
       name: 'Northern fur seal',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Callorhinus ursinus',
       description:
         'Bypass Abdominal Aorta to Left Common Iliac Artery, Open Approach',
@@ -7369,7 +7369,7 @@ async function main() {
     {
       id: '20ca2d3c-11f3-4298-8f2e-0571f9a22f3a',
       name: 'Oystercatcher, blackish',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Haematopus ater',
       description:
         'Insertion of Tissue Expander into Right Upper Arm Subcutaneous Tissue and Fascia, Percutaneous Approach',
@@ -7384,7 +7384,7 @@ async function main() {
     {
       id: '1b35ff63-62be-409d-8233-409d72a8ad08',
       name: 'Wallaby, whip-tailed',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Macropus parryi',
       description:
         'Replacement of Lumbar Vertebra with Nonautologous Tissue Substitute, Open Approach',
@@ -7399,7 +7399,7 @@ async function main() {
     {
       id: '782d7a45-2d6b-4c3f-8bf5-5df2581fb216',
       name: 'Crested bunting',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Melophus lathami',
       description:
         'Insertion of Radioactive Element into Cervix, Open Approach',
@@ -7414,7 +7414,7 @@ async function main() {
     {
       id: 'ebe63ae5-aa21-4740-a894-ecc1d4d0f049',
       name: 'Common turkey',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Meleagris gallopavo',
       description: 'Repair of Lower Tooth, Single, External Approach',
       //ip_address: '208.124.132.197',
@@ -7428,7 +7428,7 @@ async function main() {
     {
       id: 'e742c870-e2f6-46b8-8f37-73d4f961212a',
       name: 'White spoonbill',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Platalea leucordia',
       description: 'Inspection of Trachea, External Approach',
       //ip_address: '187.119.94.127',
@@ -7442,7 +7442,7 @@ async function main() {
     {
       id: 'a984ee11-86f5-4fa1-a2fb-9a9162ad3a2d',
       name: 'Bushbaby, large-eared',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Galago crassicaudataus',
       description: 'Drainage of Right Upper Lung Lobe, Percutaneous Approach',
       //ip_address: '69.169.216.194',
