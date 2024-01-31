@@ -13,7 +13,7 @@ import {
 import { MembersService } from './members.service';
 import { JwtAuthGuard } from 'src/auth/jwt-auth-guard';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { MemberRoleType } from './members.dto';
+import { EditMembershipDto, MemberRoleType } from './members.dto';
 @ApiTags('members')
 @Controller('members')
 export class MembersController {
@@ -21,19 +21,14 @@ export class MembersController {
 
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
-  @Patch(':organisationId')
+  @Post(':organisationId')
   async makeRequest(
     @Req() req,
     @Param('organisationId') organisationId: string,
   ) {
     const userId = req.user.id;
 
-    const membership = await this.membersService.makeRequest(
-      userId,
-      organisationId,
-    );
-
-    return membership;
+    await this.membersService.makeRequest(userId, organisationId);
   }
 
   @UseGuards(JwtAuthGuard)
@@ -45,12 +40,7 @@ export class MembersController {
   ) {
     const authorId = req.user.id;
 
-    const membership = await this.membersService.leaveOrganisation(
-      authorId,
-      organisationId,
-    );
-
-    return membership;
+    await this.membersService.leaveOrganisation(authorId, organisationId);
   }
 
   @UseGuards(JwtAuthGuard)
@@ -60,9 +50,9 @@ export class MembersController {
     @Req() req,
     @Param('organisationId') organisationId: string,
     @Param('userId') userId: string,
-    @Body() { role }: { role: MemberRoleType },
+    @Body() editMembershipDto: EditMembershipDto,
   ) {
-    if (role === MemberRoleType.OWNER)
+    if (editMembershipDto.role === MemberRoleType.OWNER)
       return new UnauthorizedException("You can't make a member an owner");
 
     const authorId = req.user.id;
@@ -73,13 +63,11 @@ export class MembersController {
 
     if (!check) return new UnauthorizedException("You don't have admin rights");
 
-    const membership = await this.membersService.editMemberRole(
+    await this.membersService.editMemberRole(
       userId,
       organisationId,
-      role,
+      editMembershipDto.role,
     );
-
-    return membership;
   }
 
   @UseGuards(JwtAuthGuard)
@@ -89,7 +77,7 @@ export class MembersController {
     @Req() req,
     @Param('organisationId') organisationId: string,
     @Param('userId') userId: string,
-    @Body() { role }: { role: MemberRoleType },
+    @Body() editMembershipDto: EditMembershipDto,
   ) {
     const authorId = req.user.id;
     const check = await this.membersService.hasOwnerRights(
@@ -99,13 +87,11 @@ export class MembersController {
 
     if (!check) return new UnauthorizedException("You don't have owner rights");
 
-    const membership = await this.membersService.ownerEditMemberRole(
+    await this.membersService.ownerEditMemberRole(
       userId,
       organisationId,
-      role,
+      editMembershipDto.role,
     );
-
-    return membership;
   }
 
   @UseGuards(JwtAuthGuard)
@@ -124,13 +110,11 @@ export class MembersController {
 
     if (!check) return new UnauthorizedException("You don't have owner rights");
 
-    const membership = await this.membersService.transferOwnership(
+    await this.membersService.transferOwnership(
       authorId,
       organisationId,
       userId,
     );
-
-    return membership;
   }
 
   @UseGuards(JwtAuthGuard)
@@ -149,12 +133,7 @@ export class MembersController {
 
     if (!check) return new UnauthorizedException("You don't have admin rights");
 
-    const membership = await this.membersService.addMember(
-      userId,
-      organisationId,
-    );
-
-    return membership;
+    await this.membersService.addMember(userId, organisationId);
   }
 
   @UseGuards(JwtAuthGuard)
@@ -173,11 +152,6 @@ export class MembersController {
 
     if (!check) return new UnauthorizedException("You don't have admin rights");
 
-    const membership = await this.membersService.removeMember(
-      userId,
-      organisationId,
-    );
-
-    return membership;
+    await this.membersService.removeMember(userId, organisationId);
   }
 }
