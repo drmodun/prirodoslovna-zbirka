@@ -62,14 +62,14 @@ export class ExponatsService {
 
         ...(filter.minFavoriteCount && {
           _count: {
-            FavouriteExponat: {
+            FavouriteExponats: {
               gte: filter.minFavoriteCount,
             },
           },
         }),
         ...(filter.maxFavoriteCount && {
           _count: {
-            FavouriteExponat: {
+            FavouriteExponats: {
               lte: filter.maxFavoriteCount,
             },
           },
@@ -86,7 +86,7 @@ export class ExponatsService {
       include: {
         _count: {
           select: {
-            FavouriteExponat: true,
+            FavouriteExponats: true,
             Posts: true,
           },
         },
@@ -138,7 +138,7 @@ export class ExponatsService {
       include: {
         _count: {
           select: {
-            FavouriteExponat: true,
+            FavouriteExponats: true,
             Posts: true,
           },
         },

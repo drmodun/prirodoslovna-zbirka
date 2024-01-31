@@ -56,7 +56,7 @@ export class OrganisationsService {
           select: {
             _count: {
               select: {
-                FavouriteExponat: true,
+                FavouriteExponats: true,
               },
             },
           },
@@ -86,9 +86,26 @@ export class OrganisationsService {
             }),
           },
           include: {
+            Posts: {
+              include: {
+                _count: {
+                  select: {
+                    Likes: true,
+                  },
+                },
+                author: {
+                  select: {
+                    hasProfileImage: true,
+                    firstName: true,
+                    lastName: true,
+                    id: true,
+                  },
+                },
+              },
+            },
             _count: {
               select: {
-                FavouriteExponat: true,
+                FavouriteExponats: true,
                 Posts: true,
               },
             },

@@ -97,7 +97,7 @@ export class CategorizationsService {
             _count: {
               select: {
                 Posts: true,
-                FavouriteExponat: true,
+                FavouriteExponats: true,
               },
             },
             Organisation: {

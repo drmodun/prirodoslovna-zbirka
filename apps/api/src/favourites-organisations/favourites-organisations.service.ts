@@ -54,7 +54,7 @@ export class FavouriteOrganisationsService {
               select: {
                 _count: {
                   select: {
-                    FavouriteExponat: true,
+                    FavouriteExponats: true,
                   },
                 },
               },

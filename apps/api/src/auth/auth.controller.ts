@@ -4,11 +4,21 @@ import { AuthService } from './auth.service';
 import { JwtAuthGuard } from './jwt-auth-guard';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { LoginDto } from './dto/login.dto';
+import {
+  PostResponse,
+  ExponatResponseShort,
+  OrganisationResponseShort,
+  ExtendedUserResponse,
+} from '@biosfera/types';
+import { UsersService } from 'src/users/users.service';
 
 @Controller('auth')
 @ApiTags('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+  constructor(
+    private readonly authService: AuthService,
+    private readonly usersService: UsersService,
+  ) {}
 
   @Post('login')
   async login(@Body() login: LoginDto) {
@@ -27,5 +37,102 @@ export class AuthController {
   @Get('me')
   async whoami(@Req() { user }) {
     return user;
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
+  @Get('detailed')
+  async detailed(@Req() { user }) {
+    const isAdmin = user?.role === 'super';
+    const item = await this.usersService.findOne(user.id, false);
+
+    const posts: PostResponse[] = item.Posts.map((post) => {
+      return {
+        authorId: item.id,
+        authorName: item.firstName + ' ' + item.lastName,
+        id: post.id,
+        images: post.images,
+        ...(isAdmin && { isApproved: post.isApproved }),
+        likeScore: post._count.Likes,
+        title: post.title,
+        exponatId: post.Exponat.id,
+        exponatName: post.Exponat.name,
+      };
+    });
+
+    const likedPosts: PostResponse[] = item.Likes.map((like) => {
+      return {
+        authorId: like.Post.author.id,
+        authorName:
+          like.Post.author.firstName + ' ' + like.Post.author.lastName,
+        id: like.Post.id,
+        images: like.Post.images,
+        likeScore: like.Post._count.Likes,
+        title: like.Post.title,
+        exponatId: like.Post.Exponat.id,
+        ...(isAdmin && { isApproved: like.Post.isApproved }),
+        exponatName: like.Post.Exponat.name,
+      };
+    });
+
+    const favouriteExponats: ExponatResponseShort[] =
+      item.FavouriteExponats.map((exponat) => {
+        return {
+          id: exponat.Exponat.id,
+          name: exponat.Exponat.name,
+          mainImage: exponat.Exponat.mainImage,
+          updatedAt: exponat.Exponat.updatedAt,
+          favouriteCount: exponat.Exponat._count.FavouriteExponats,
+          postCount: exponat.Exponat._count.Posts,
+          alternateName: exponat.Exponat.alternateName,
+          description: exponat.Exponat.description,
+          organizationId: exponat.Exponat.organisationId,
+          organizationName: exponat.Exponat.Organisation.name,
+          isFavorite: true,
+        } as ExponatResponseShort;
+      });
+
+    const memberships: OrganisationResponseShort[] = item.OrganisationUser.map(
+      (membership) => {
+        return {
+          id: membership.organisation.id,
+          name: membership.organisation.name,
+          exponatCount: membership.organisation._count.Exponats,
+          followerCount:
+            membership.organisation._count.UserOrganisationFollowers,
+          location: membership.organisation.location,
+          mainImage: membership.organisation.mainImage,
+          memberCount: membership.organisation._count.OrganisationUsers,
+          points: membership.organisation.Exponats.reduce(
+            (acc, curr) => acc + curr._count.FavouriteExponats,
+            0,
+          ),
+          updatedAt: membership.organisation.updatedAt,
+          websiteUrl: membership.organisation.websiteUrl,
+          role: membership.role,
+        } as OrganisationResponseShort;
+      },
+    );
+
+    const mapped: ExtendedUserResponse = {
+      email: item.email,
+      firstName: item.firstName,
+      lastName: item.lastName,
+      followerCount: item._count.followers,
+      id: item.id,
+      createdAt: item.createdAt,
+      updatedAt: item.updatedAt,
+      posts: posts,
+      location: item.location,
+      bio: item.bio,
+      likedPosts: likedPosts,
+      followingCount: item._count.following,
+      hasProfileImage: item.hasProfileImage,
+      likeCount: item.Posts.reduce((agg, curr) => agg + curr._count.Likes, 0),
+      favouriteExponats,
+      memberships,
+    };
+
+    return mapped;
   }
 }

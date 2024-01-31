@@ -89,7 +89,7 @@ export class CategorizationsController {
       return {
         alternateName: exponat.alternateName,
         description: exponat.description,
-        favouriteCount: exponat._count.FavouriteExponat,
+        favouriteCount: exponat._count.FavouriteExponats,
         organizationId: exponat.organisationId,
         mainImage: exponat.mainImage,
         name: exponat.name,

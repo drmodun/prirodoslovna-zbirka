@@ -25,7 +25,7 @@ export class FavouriteExponatsController {
         name: connection.Exponat.name,
         id: connection.Exponat.id,
         description: connection.Exponat.description,
-        favouriteCount: connection.Exponat._count.FavouriteExponat,
+        favouriteCount: connection.Exponat._count.FavouriteExponats,
         organizationId: connection.Exponat.organisationId,
         mainImage: connection.Exponat.mainImage,
         postCount: connection.Exponat._count.Posts,
