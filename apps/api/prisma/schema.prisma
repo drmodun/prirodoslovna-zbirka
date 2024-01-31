@@ -25,8 +25,10 @@ enum ExponatKind {
 }
 
 enum MemberRole {
+  OWNER
   ADMIN
   MEMBER
+  REQUESTED
 }
 
 enum County {
@@ -68,25 +70,25 @@ model Categorization {
 }
 
 model User {
-  id                       String                    @id @default(uuid())
-  email                    String                    @unique
+  id                       String                     @id @default(uuid())
+  email                    String                     @unique
   firstName                String
-  bio                      String                    @default("Homo sapiens u biosferi")
+  bio                      String                     @default("Homo sapiens u biosferi")
   lastName                 String
   password                 String
-  hasProfileImage          Boolean                   @default(false)
-  activationCode           String                    @default(uuid()) //this creates unique code for user
-  role                     Role                      @default(USER)
-  createdAt                DateTime                  @default(now())
-  updatedAt                DateTime                  @default(now()) @updatedAt
+  hasProfileImage          Boolean                    @default(false)
+  activationCode           String                     @default(uuid()) //this creates unique code for user
+  role                     Role                       @default(USER)
+  createdAt                DateTime                   @default(now())
+  updatedAt                DateTime                   @default(now()) @updatedAt
   Posts                    Post[]
   location                 County
   OrganisationUser         OrganisationUser[]
   Likes                    Like[]
-  FavouriteExponat         FavouriteExponat?
-  UserOrganisationFollower UserOrganisationFollower?
-  followers                UserFollows[]             @relation("following")
-  following                UserFollows[]             @relation("follower")
+  FavouriteExponats        FavouriteExponat[]
+  UserOrganisationFollower UserOrganisationFollower[]
+  followers                UserFollows[]              @relation("following")
+  following                UserFollows[]              @relation("follower")
 }
 
 model Exponat {
@@ -105,7 +107,7 @@ model Exponat {
   updatedAt        DateTime           @default(now()) @updatedAt
   Organisation     Organisation?      @relation(fields: [organisationId], references: [id], onDelete: Cascade)
   organisationId   String?
-  FavouriteExponat FavouriteExponat[]
+  FavouriteExponats FavouriteExponat[]
   Posts            Post[]
 }
 
@@ -154,7 +156,7 @@ model SocialPost {
 }
 
 model OrganisationUser {
-  role           MemberRole
+  role           MemberRole   @default(REQUESTED)
   createdAt      DateTime     @default(now())
   updatedAt      DateTime     @default(now()) @updatedAt
   organisation   Organisation @relation(fields: [organisationId], references: [id], onDelete: Cascade)

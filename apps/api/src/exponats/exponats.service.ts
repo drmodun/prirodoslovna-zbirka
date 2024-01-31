@@ -8,6 +8,7 @@ import {
   sortExponatQueryBuilderWithComplexFilters,
 } from '@biosfera/types';
 import { Role } from '@prisma/client';
+import { MemberRoleType } from 'src/members/members.dto';
 
 @Injectable()
 export class ExponatsService {
@@ -61,14 +62,14 @@ export class ExponatsService {
 
         ...(filter.minFavoriteCount && {
           _count: {
-            FavouriteExponat: {
+            FavouriteExponats: {
               gte: filter.minFavoriteCount,
             },
           },
         }),
         ...(filter.maxFavoriteCount && {
           _count: {
-            FavouriteExponat: {
+            FavouriteExponats: {
               lte: filter.maxFavoriteCount,
             },
           },
@@ -85,7 +86,7 @@ export class ExponatsService {
       include: {
         _count: {
           select: {
-            FavouriteExponat: true,
+            FavouriteExponats: true,
             Posts: true,
           },
         },
@@ -137,7 +138,7 @@ export class ExponatsService {
       include: {
         _count: {
           select: {
-            FavouriteExponat: true,
+            FavouriteExponats: true,
             Posts: true,
           },
         },
@@ -255,7 +256,25 @@ export class ExponatsService {
       if (checkForSuper.role !== Role.SUPER) return false;
       return true;
     }
-    if (adminOnly && connection.role !== Role.ADMIN) return false;
-    return true;
+
+    return !(
+      (adminOnly && connection.role !== MemberRoleType.ADMIN) ||
+      (adminOnly && connection.role !== MemberRoleType.OWNER)
+    );
+  }
+
+  async findExponatByPostId(postId: string) {
+    const post = await this.prisma.post.findFirst({
+      where: {
+        id: postId,
+      },
+      select: {
+        ExponatId: true,
+      },
+    });
+
+    if (!post) return null;
+
+    return post.ExponatId;
   }
 }

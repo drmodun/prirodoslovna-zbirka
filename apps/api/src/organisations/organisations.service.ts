@@ -10,6 +10,7 @@ import {
   SortingRequest,
   sortQueryBuilder,
 } from '@biosfera/types';
+import { MemberRoleType } from 'src/members/members.dto';
 
 @Injectable()
 export class OrganisationsService {
@@ -55,7 +56,7 @@ export class OrganisationsService {
           select: {
             _count: {
               select: {
-                FavouriteExponat: true,
+                FavouriteExponats: true,
               },
             },
           },
@@ -85,9 +86,26 @@ export class OrganisationsService {
             }),
           },
           include: {
+            Posts: {
+              include: {
+                _count: {
+                  select: {
+                    Likes: true,
+                  },
+                },
+                author: {
+                  select: {
+                    hasProfileImage: true,
+                    firstName: true,
+                    lastName: true,
+                    id: true,
+                  },
+                },
+              },
+            },
             _count: {
               select: {
-                FavouriteExponat: true,
+                FavouriteExponats: true,
                 Posts: true,
               },
             },
@@ -102,7 +120,24 @@ export class OrganisationsService {
           },
         },
         UserOrganisationFollowers: true,
-        OrganisationUsers: true,
+        OrganisationUsers: {
+          where: {
+            role: { not: MemberRoleType.REQUESTED },
+          },
+          select: {
+            user: {
+              include: {
+                _count: {
+                  select: {
+                    Posts: true,
+                    followers: true,
+                  },
+                },
+              },
+            },
+            role: true,
+          },
+        },
       },
     });
 
@@ -140,5 +175,41 @@ export class OrganisationsService {
         isApproved: !current.isApproved,
       },
     });
+  }
+
+  async getJoinRequests(organisationId: string) {
+    const requests = await this.prisma.organisationUser.findMany({
+      where: {
+        organisationId,
+        role: MemberRoleType.REQUESTED,
+      },
+      include: {
+        user: {
+          select: {
+            firstName: true,
+            lastName: true,
+            email: true,
+            id: true,
+          },
+        },
+      },
+    });
+
+    return requests;
+  }
+
+  async findOrganisationByExponatId(exponatId: string) {
+    const exponat = await this.prisma.exponat.findFirst({
+      where: {
+        id: exponatId,
+      },
+      select: {
+        organisationId: true,
+      },
+    });
+
+    if (!exponat) return null;
+
+    return exponat.organisationId;
   }
 }

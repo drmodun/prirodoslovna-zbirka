@@ -58,7 +58,7 @@ export class FavouriteExponatsService {
             },
             _count: {
               select: {
-                FavouriteExponat: true,
+                FavouriteExponats: true,
                 Posts: true,
               },
             },

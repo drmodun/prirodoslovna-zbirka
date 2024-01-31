@@ -1,6 +1,8 @@
+import { ShortUserResponse } from "../user/userResponses";
 import { Role } from "../enums";
 import { ExponatResponseShort } from "../exponat/exponatResponses";
 import { ShortSocialPostResponse } from "../socialPost/socialPostResponses";
+import { PostResponse } from "../post/postResponse";
 export interface ExtendedOrganisationResponse {
   id: string;
   name: string;
@@ -14,9 +16,11 @@ export interface ExtendedOrganisationResponse {
   updatedAt: Date;
   followersAmount: number;
   membersAmount: number;
+  members: ShortUserResponse[];
   exponats: ExponatResponseShort[];
   points: number;
-  posts: ShortSocialPostResponse[];
+  posts: PostResponse[];
+  socialPosts?: ShortSocialPostResponse[];
 }
 
 export interface OrganisationResponseShort {
@@ -31,4 +35,5 @@ export interface OrganisationResponseShort {
   memberCount: number;
   points: number;
   isApproved?: boolean;
+  role?: string;
 }

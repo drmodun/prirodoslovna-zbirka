@@ -27,7 +27,7 @@ export class FavouriteOrgranisationsController {
         name: connection.organisation.name,
         updatedAt: connection.organisation.updatedAt,
         points: connection.organisation.Exponats.reduce(
-          (acc, curr) => acc + curr._count.FavouriteExponat,
+          (acc, curr) => acc + curr._count.FavouriteExponats,
           0,
         ),
         memberCount: connection.organisation._count.OrganisationUsers,

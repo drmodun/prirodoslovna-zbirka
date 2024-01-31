@@ -21,8 +21,8 @@ export interface ExtendedUserResponse {
   updatedAt: Date;
   hasProfileImage: boolean;
   posts: PostResponse[];
-  //organisations: the organisations the user is a member of
-  //maybe add liked exponats or something
+  favouriteExponats: ExponatResponseShort[];
+  memberships: OrganisationResponseShort[];
 }
 
 export interface ShortUserResponse {
@@ -30,8 +30,8 @@ export interface ShortUserResponse {
   firstName: string;
   lastName: string;
   email: string;
-  avatar?: string;
-  role?: number;
+  avatar?: boolean;
+  role?: string;
   followerCount: number;
   postCount: number;
 }

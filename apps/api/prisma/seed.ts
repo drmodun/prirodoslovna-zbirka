@@ -1,5 +1,13 @@
-import { County, ExponatKind, PrismaClient, Role } from '@prisma/client';
+import {
+  County,
+  ExponatKind,
+  MemberRole,
+  OrganisationUser,
+  PrismaClient,
+  Role,
+} from '@prisma/client';
 import { env } from 'process';
+import { MemberRoleType } from 'src/members/members.dto';
 const prisma = new PrismaClient();
 
 async function main() {
@@ -10,11 +18,6 @@ async function main() {
 
   if (!env?.DATABASE_URL) {
     console.error('Cannot run seed without DATABASE_URL');
-    return;
-  }
-
-  if ((await prisma.exponat.count()) > 0) {
-    console.error('Cannot run seed with existing data');
     return;
   }
 
@@ -486,1203 +489,1003 @@ async function main() {
 
   const users = [
     {
-      id: '533b47a8-d1f2-49e0-ac54-226bdf3aa741',
-      firstName: 'Anny',
-      lastName: 'Ruffles',
-      email: 'aruffles0@webeden.co.uk',
-      role: Role.USER,
-      location: County.OSIJECKO_BARANJSKA,
-      password: '$2a$04$C5M5rY1CiY9VSaoCtHfiouhbklGZu/VzMACWocXiiuj.9Sl5iPpIa',
-      //createdAt: '2023-04-22 19:16:49',
-      //updatedAt: '2022-12-28 11:44:50',
+      id: 'f5faa12e-7a89-413c-a616-b5db1343cadb',
+      firstName: 'Hillel',
+      lastName: 'Harling',
+      location: County.ZAGREBACKA,
+      email: 'hharling0@amazon.co.uk',
+      password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
+      role: Role.SUPER,
       hasProfileImage: false,
     },
     {
-      id: 'a1cb6a12-de3e-493d-9c84-4c2e1ef4c867',
-      firstName: 'Tymon',
-      lastName: 'Mayberry',
-      email: 'tmayberry1@hubpages.com',
-      role: Role.USER,
-      location: County.SISACKO_MOSLAVACKA,
-      password: '$2a$04$r.iLvb9FJ00ThJ9pYVmvHObbYLM3y/d6mIRp5wEJ8ott0RLDcFfNm',
-      //createdAt: '2023-10-10 03:04:55',
-      //updatedAt: '2023-11-05 22:06:42',
-      hasProfileImage: false,
-    },
-    {
-      id: '2695afdc-1133-41ac-8dc6-92e76ca42e64',
-      firstName: 'Elsey',
-      lastName: 'Mitchenson',
-      email: 'emitchenson2@booking.com',
-      role: Role.USER,
-      location: County.BJELOVARSKO_BILOGORSKA,
-      password: '$2a$04$CoKxHUDMFSjAO5v.N7FpQuxBPYg2fgh6OVRWcjB5yYtcVo79Q9OR2',
-      //createdAt: '2022-10-31 04:11:51',
-      //updatedAt: '2023-01-29 15:21:46',
-      hasProfileImage: false,
-    },
-    {
-      id: '16b8d1d2-602d-4e2f-9edf-4cc83c4192b2',
-      firstName: 'Kennedy',
-      lastName: 'Eefting',
-      email: 'keefting3@xing.com',
-      role: Role.USER,
-      location: County.LICKO_SENJSKA,
-      password: '$2a$04$ublpgOiandyB2UioDGCNM.LbIlgOFtXBVei3/orKizC3VG/0LZiN.',
-      //createdAt: '2022-11-14 00:05:17',
-      //updatedAt: '2023-08-11 06:45:33',
-      hasProfileImage: false,
-    },
-    {
-      id: 'f70f64d2-9c85-49cb-b89b-8c6d5fcb2972',
-      firstName: 'Moses',
-      lastName: 'Riddles',
-      email: 'mriddles4@ftc.gov',
-      role: Role.USER,
-      location: County.OTHER,
-      password: '$2a$04$ZWByIp1rGXokFU.bH/PLNuRK9wUc9bgPXJTsxLLbAlEjtMgmlKI66',
-      //createdAt: '2023-03-06 10:53:53',
-      //updatedAt: '2023-04-30 09:51:25',
-      hasProfileImage: false,
-    },
-    {
-      id: 'c81c8602-ee0d-449b-af74-02523d16c0df',
-      firstName: 'Jillane',
-      lastName: 'Eliaz',
-      email: 'jeliaz5@amazon.co.jp',
-      role: Role.USER,
-      location: County.OSIJECKO_BARANJSKA,
-      password: '$2a$04$lsaGDyZvaxv.MXhp/HWtx.qGncRuLwOCqByQOJ1ga5bILlyk8qRI2',
-      //createdAt: '2023-04-13 04:16:59',
-      //updatedAt: '2023-10-27 23:48:02',
-      hasProfileImage: false,
-    },
-    {
-      id: '53e1af3d-8841-4bea-89b6-d9dd4e53ebd9',
-      firstName: 'Aviva',
-      lastName: 'Petracci',
-      email: 'apetracci6@sitemeter.com',
-      role: Role.USER,
-      location: County.KRAPINSKO_ZAGORSKA,
-      password: '$2a$04$2bY16jEyF2z3/pukBUvab.ao6h/tFPx5EB57wearmkRJiXxpD9gIi',
-      //createdAt: '2022-12-13 15:43:02',
-      //updatedAt: '2023-02-23 15:27:12',
-      hasProfileImage: false,
-    },
-    {
-      id: '6eae3d03-16bb-4c96-8106-59a41d1b7c7b',
-      firstName: 'Cassey',
-      lastName: 'Tarbath',
-      email: 'ctarbath7@sitemeter.com',
-      role: Role.USER,
-      location: County.GRAD_ZAGREB,
-      password: '$2a$04$O/YKstwc/RhQ1jLcJSsb8.0.cVfggh931Sf6ZSdzZ.EIfyk0zyG4S',
-      //createdAt: '2023-03-01 05:03:08',
-      //updatedAt: '2023-06-12 01:01:45',
-      hasProfileImage: false,
-    },
-    {
-      id: '0ba091f9-2f0c-456f-aa7e-de35410c7503',
-      firstName: 'Vina',
-      lastName: 'Nutting',
-      email: 'vnutting8@mashable.com',
-      role: Role.USER,
-      location: County.BJELOVARSKO_BILOGORSKA,
-      password: '$2a$04$gY5QEQ1zaLpSpqMER3o5lud/jOhHjq0NblcdP7tXQFM5GzGUWuSHC',
-      //createdAt: '2023-11-29 15:32:41',
-      //updatedAt: '2022-12-18 20:31:03',
-      hasProfileImage: false,
-    },
-    {
-      id: 'dad8aa3f-952e-402e-9ff0-d0d004bc03bb',
-      firstName: 'Nonnah',
-      lastName: 'Ruckledge',
-      email: 'nruckledge9@about.me',
-      role: Role.USER,
-      location: County.PRIMORSKO_GORANSKA,
-      password: '$2a$04$uLmwQqMqujdL5PaRhlVl5O3orcM4q/Fn3oPciIfXQxX9yqB7nflgW',
-      //createdAt: '2023-03-25 09:16:11',
-      //updatedAt: '2022-12-25 07:28:49',
-      hasProfileImage: false,
-    },
-    {
-      id: '9811ddbf-253a-478f-9649-c83b0caa1959',
-      firstName: 'Johna',
-      lastName: 'Cutts',
-      email: 'jcuttsa@weibo.com',
-      role: Role.USER,
-      location: County.VIROVITICKO_PODRAVSKA,
-      password: '$2a$04$gdcM8RYaOP8A3AOEo7e7V.mGsZEPxjVHLPA/cypij1imfVbHZ5whq',
-      //createdAt: '2023-02-21 03:14:53',
-      //updatedAt: '2023-08-01 08:15:29',
-      hasProfileImage: false,
-    },
-    {
-      id: '49925338-4329-453a-b1bc-47f25ac0077a',
-      firstName: 'Willard',
-      lastName: 'Crossan',
-      email: 'wcrossanb@blinklist.com',
-      role: Role.USER,
-      location: County.LICKO_SENJSKA,
-      password: '$2a$04$fvoV8Wib7zZOOSIqSqR4xO7iW6Av07zuANWnfdkcL5CHUU5EuHs6y',
-      //createdAt: '2023-02-12 02:25:43',
-      //updatedAt: '2023-02-21 04:57:05',
-      hasProfileImage: false,
-    },
-    {
-      id: '160c3324-a079-4fce-9740-4f1d831e44ed',
-      firstName: 'Agneta',
-      lastName: 'Morforth',
-      email: 'amorforthc@paginegialle.it',
-      role: Role.USER,
-      location: County.OSIJECKO_BARANJSKA,
-      password: '$2a$04$sApdEc04vqkTN.FmMO0oiOVGmjwUDvAcPI4FhxeeSnt/Jgbnskpvi',
-      //createdAt: '2022-11-15 21:08:06',
-      //updatedAt: '2023-11-29 23:35:35',
-      hasProfileImage: false,
-    },
-    {
-      id: '8c6bf3b8-9ec3-4daf-971b-2853c03f8bc7',
-      firstName: 'Ardra',
-      lastName: 'Westpfel',
-      email: 'awestpfeld@fema.gov',
-      role: Role.USER,
-      location: County.DUBROVACKO_NERETVANSKA,
-      password: '$2a$04$3LgXpe8JDgOLgrvewslDAuYQFQTQsxD6FdsKBVhxlSn6ri5YBnGJS',
-      //createdAt: '2022-12-03 03:08:03',
-      //updatedAt: '2023-01-02 00:53:10',
-      hasProfileImage: false,
-    },
-    {
-      id: 'e61e9b05-4e52-4873-a22f-10ec0ce556c9',
-      firstName: 'Rasia',
-      lastName: 'Cardoso',
-      email: 'rcardosoe@reddit.com',
-      role: Role.USER,
-      location: County.SIBENSKO_KNINSKA,
-      password: '$2a$04$e9Gj5q9QAKrkBRjyGfNv0ObK0kDjhfPnbd8Ll.j.zyh.rmJw/W6ZO',
-      //createdAt: '2022-10-21 11:59:27',
-      //updatedAt: '2023-11-17 12:34:57',
-      hasProfileImage: false,
-    },
-    {
-      id: '3732324c-77a2-47f1-99b6-b84115881528',
-      firstName: 'Saul',
-      lastName: 'Cerie',
-      email: 'scerief@dedecms.com',
-      role: Role.USER,
-      location: County.GRAD_ZAGREB,
-      password: '$2a$04$PugH0H4PyO4IQQDKZLFolOUSleSwt9QLmX80Efpme5H3NOLTTyk5i',
-      //createdAt: '2023-09-18 22:39:02',
-      //updatedAt: '2023-07-17 15:57:40',
-      hasProfileImage: false,
-    },
-    {
-      id: '2d413895-0997-4332-8863-b4340b4701bc',
-      firstName: 'Fran',
-      lastName: 'Snoxall',
-      email: 'fsnoxallg@typepad.com',
-      role: Role.USER,
-      location: County.KRAPINSKO_ZAGORSKA,
-      password: '$2a$04$/46BixRkzDX9fj7MeWexhOA3ohmz9waXAX48ydyLiS8uL/KVJWlfu',
-      //createdAt: '2023-02-10 15:23:34',
-      //updatedAt: '2023-07-22 13:35:25',
-      hasProfileImage: false,
-    },
-    {
-      id: 'e2f1a68f-59ce-4c63-9486-cf256b723922',
-      firstName: 'Catha',
-      lastName: 'Maggiori',
-      email: 'cmaggiorih@hc360.com',
-      role: Role.USER,
-      location: County.SISACKO_MOSLAVACKA,
-      password: '$2a$04$v68WC4YRsYWLOqs.7ndcz.yI5naY9f5mfp5KAzAJ4m/g4EYeaktAm',
-      //createdAt: '2022-12-16 18:05:26',
-      //updatedAt: '2023-11-04 09:53:14',
-      hasProfileImage: false,
-    },
-    {
-      id: 'ae32746f-1acf-4f8f-a6ee-b8e6b7504f7f',
-      firstName: 'Ann',
-      lastName: 'Van Arsdall',
-      email: 'avanarsdalli@plala.or.jp',
-      role: Role.USER,
-      location: County.BJELOVARSKO_BILOGORSKA,
-      password: '$2a$04$nDHHjaoRUQCr2uFWli8xY.jFCelv0l58qtYYknbNuJF560DdGmpdC',
-      //createdAt: '2022-10-23 05:09:49',
-      //updatedAt: '2023-07-23 23:26:40',
-      hasProfileImage: false,
-    },
-    {
-      id: 'a2c94e19-4a2d-4dbd-a058-14c58498b33b',
-      firstName: 'Enoch',
-      lastName: 'Molian',
-      email: 'emolianj@bbc.co.uk',
-      role: Role.USER,
-      location: County.OTHER,
-      password: '$2a$04$3M.u3rZHbOu/NofJOjLXzOFMqSmjZoeffJ1l9oS0ml32474B86fdu',
-      //createdAt: '2023-03-02 08:29:43',
-      //updatedAt: '2023-05-06 16:50:51',
-      hasProfileImage: false,
-    },
-    {
-      id: '658d3e91-1222-4e90-a067-136ce0982d7e',
-      firstName: 'Bibbie',
-      lastName: 'Lugden',
-      email: 'blugdenk@tiny.cc',
-      role: Role.USER,
-      location: County.OTHER,
-      password: '$2a$04$K5SU3u5BYdMm6JzACaQTGemBLauhcRgbNFUecry0VjaO4oOSsHNuG',
-      //createdAt: '2022-12-11 03:52:07',
-      //updatedAt: '2023-05-18 08:28:05',
-      hasProfileImage: false,
-    },
-    {
-      id: '52687394-661c-4f49-b8cc-9dd2a3ec0654',
-      firstName: 'Lynnelle',
-      lastName: 'Cavilla',
-      email: 'lcavillal@tiny.cc',
-      role: Role.USER,
-      location: County.ISTARSKA,
-      password: '$2a$04$F4C9Pid8Q2jLdb0DJXIvhunOU52MPCHlQPtYUSFg.i9fAdHU1MEY2',
-      //createdAt: '2023-11-09 11:17:45',
-      //updatedAt: '2023-02-03 07:40:58',
-      hasProfileImage: false,
-    },
-    {
-      id: 'f5f7e020-5f41-47a5-b2f7-ea2bc2603a8d',
-      firstName: 'Maisey',
-      lastName: 'Jimmes',
-      email: 'mjimmesm@unblog.fr',
-      role: Role.USER,
-      location: County.KOPRIVNICKO_KRIZEVACKA,
-      password: '$2a$04$Vy6V6bF4pSJXsaBek73kKeo9SebSrOsm4YpWBpsr5eZlJoZmPo8Fq',
-      //createdAt: '2023-06-25 15:59:38',
-      //updatedAt: '2023-04-24 17:11:51',
-      hasProfileImage: false,
-    },
-    {
-      id: '74225406-0d0f-44b8-ab0b-d1fcc58ff72f',
-      firstName: 'Kaile',
-      lastName: 'Luetkemeyer',
-      email: 'kluetkemeyern@kickstarter.com',
-      role: Role.USER,
-      location: County.OSIJECKO_BARANJSKA,
-      password: '$2a$04$DvcJ0uL3bCAlw/9i..AqpewhQwPmpiQrAPm12q34my/fX99mem4WW',
-      //createdAt: '2023-08-19 23:32:55',
-      //updatedAt: '2023-04-19 05:33:58',
-      hasProfileImage: false,
-    },
-    {
-      id: '334c9b83-1d88-4aaf-8306-1ee49365972c',
-      firstName: 'Yolane',
-      lastName: 'Mellody',
-      email: 'ymellodyo@google.it',
-      role: Role.USER,
-      location: County.KOPRIVNICKO_KRIZEVACKA,
-      password: '$2a$04$xBuKeYlHOSbambY.1zdnT.fX2JaiIY8XQDQW4RqSYcHXTBlcvg9cy',
-      //createdAt: '2023-11-06 15:31:50',
-      //updatedAt: '2022-12-15 01:14:20',
-      hasProfileImage: false,
-    },
-    {
-      id: '8758acdc-a747-4ace-8797-5b52509be5d0',
-      firstName: 'Sigismond',
-      lastName: 'Teodoro',
-      email: 'steodorop@techcrunch.com',
-      role: Role.USER,
-      location: County.GRAD_ZAGREB,
-      password: '$2a$04$ni.7eIduNA/vGIj9vxm3neG8AwhQPg7sfB8NXdxOvqSgv6fv1HrAO',
-      //createdAt: '2023-08-20 07:11:39',
-      //updatedAt: '2023-01-05 20:23:59',
-      hasProfileImage: false,
-    },
-    {
-      id: 'dd3463d2-0a96-4c87-89cf-1a9ac7463cdc',
-      firstName: 'Sigismond',
-      lastName: 'Davioud',
-      email: 'sdavioudq@economist.com',
-      role: Role.USER,
-      location: County.BRODSKO_POSAVSKA,
-      password: '$2a$04$Xwfwz1z.ob5Vxb1./FNg4uQXcAhh.OdUF3Os0EPHglcJ6HPJIV56G',
-      //createdAt: '2022-12-05 19:22:38',
-      //updatedAt: '2023-07-24 20:02:17',
-      hasProfileImage: false,
-    },
-    {
-      id: '65908a7e-1a42-401e-9fd8-4fb4379e1174',
-      firstName: 'Alfie',
-      lastName: 'Brunesco',
-      email: 'abrunescor@joomla.org',
-      role: Role.USER,
+      id: '00f62f98-7fef-481e-b643-64520f026429',
+      firstName: 'Damaris',
+      lastName: 'Goldsby',
       location: County.ZADARSKA,
-      password: '$2a$04$2D643ASmDa8HD3CQOxTfTuHbJ1y3vy7rpq//d1IuPpvk04WrYwT.K',
-      //createdAt: '2023-03-07 14:48:29',
-      //updatedAt: '2023-11-19 03:04:32',
+      email: 'dgoldsby1@guardian.co.uk',
+      password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
+      role: Role.USER,
       hasProfileImage: false,
     },
     {
-      id: 'd44ef218-1ec5-4dcf-8585-0198cfd4e729',
-      firstName: 'Royall',
-      lastName: 'Kulver',
-      email: 'rkulvers@un.org',
-      role: Role.USER,
-      location: County.POZESKO_SLAVONSKA,
-      password: '$2a$04$2ptKEA0pC0H2b4CU8.IEAOqr.wZ8avwwXIjkbVJVmR7yQGy9cYcMS',
-      //createdAt: '2023-05-21 01:18:45',
-      //updatedAt: '2023-10-23 21:40:58',
+      id: '63fdd5d2-ffae-4462-b704-c8b2e4614c72',
+      firstName: 'Dusty',
+      lastName: 'Reder',
+      location: County.ZAGREBACKA,
+      email: 'dreder2@freewebs.com',
+      password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
+      role: Role.SUPER,
       hasProfileImage: false,
     },
     {
-      id: 'ad418e3e-d922-4e7b-9f72-a1205bf7add7',
-      firstName: 'Garfield',
-      lastName: 'Fissenden',
-      email: 'gfissendent@cloudflare.com',
-      role: Role.USER,
-      location: County.SIBENSKO_KNINSKA,
-      password: '$2a$04$ccW1OkEW6gUMeVr4IT02oOgAHYq4GkXl0jap3Hk/A1I44Gcfd0ov2',
-      //createdAt: '2023-05-08 16:21:51',
-      //updatedAt: '2022-12-13 22:13:41',
+      id: 'b6192e00-35ca-4f22-8443-22ea7400ad7d',
+      firstName: 'Shayne',
+      lastName: 'MacFarlane',
+      location: County.SPLITSKO_DALMATINSKA,
+      email: 'smacfarlane3@reference.com',
+      password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
+      role: Role.ADMIN,
       hasProfileImage: false,
     },
     {
-      id: '1dddb833-81c0-4adb-af39-0fd9e39ba006',
-      firstName: 'Krysta',
-      lastName: 'Bedwell',
-      email: 'kbedwellu@ucoz.ru',
-      role: Role.USER,
-      location: County.SISACKO_MOSLAVACKA,
-      password: '$2a$04$Ee8cNnr4DhCoH3DeTmWNEulFOa31I9aTMCO7nRxO/JCwqzXPXe/Tu',
-      //createdAt: '2023-12-02 09:13:52',
-      //updatedAt: '2023-02-28 21:48:38',
-      hasProfileImage: false,
-    },
-    {
-      id: 'dce54055-e69f-458a-b006-3c56f3491646',
-      firstName: 'Letisha',
-      lastName: 'Achurch',
-      email: 'lachurchv@simplemachines.org',
-      role: Role.USER,
-      location: County.KARLOVACKA,
-      password: '$2a$04$HE/wjhiqZeZ6w/fOVs0MU.FrgDkvlBdd88TbXmWjmb69riMy5D1xG',
-      //createdAt: '2023-07-30 03:54:46',
-      //updatedAt: '2023-07-31 13:39:42',
-      hasProfileImage: false,
-    },
-    {
-      id: '66decdb4-f9f8-4894-82ea-bd6e5e559de2',
-      firstName: 'Penrod',
-      lastName: 'Tizard',
-      email: 'ptizardw@wsj.com',
-      role: Role.USER,
-      location: County.OTHER,
-      password: '$2a$04$DjWHsOhussCPiPufLWLEEeiKM9hXRzw9GYF54USbSxTSRblmBtHye',
-      //createdAt: '2023-03-23 22:51:49',
-      //updatedAt: '2023-07-10 21:49:00',
-      hasProfileImage: false,
-    },
-    {
-      id: '3f6b6446-932c-4141-bad7-03b3fee0a01d',
-      firstName: 'Robina',
-      lastName: 'Charlesworth',
-      email: 'rcharlesworthx@state.gov',
-      role: Role.USER,
+      id: 'ecdbe489-78b5-4ee6-b42d-0e2beb70046c',
+      firstName: 'Ardisj',
+      lastName: 'Gerrelts',
       location: County.GRAD_ZAGREB,
-      password: '$2a$04$t7eVpmBPqFiQA4lZhhompeqzEl12L1D2a4l3krpT4Fqkl0ElSf6Sm',
-      //createdAt: '2023-08-17 10:48:41',
-      //updatedAt: '2023-01-12 00:56:54',
+      email: 'agerrelts4@irs.gov',
+      password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
+      role: Role.SUPER,
       hasProfileImage: false,
     },
     {
-      id: 'ccb5e9df-4295-4daa-8040-1e09f6802782',
-      firstName: 'Ash',
-      lastName: 'Hanhardt',
-      email: 'ahanhardty@arizona.edu',
+      id: '76db99c2-9ed4-476a-a3ac-a25dbe2643e9',
+      firstName: 'Lucienne',
+      lastName: 'Altamirano',
+      location: County.DUBROVACKO_NERETVANSKA,
+      email: 'laltamirano5@miibeian.gov.cn',
+      password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
+      role: Role.SUPER,
+      hasProfileImage: false,
+    },
+    {
+      id: 'fc06260c-eb67-4fe9-87e9-65ca91eb1170',
+      firstName: 'Essie',
+      lastName: 'Orwin',
+      location: County.MEDIMURSKA,
+      email: 'eorwin6@wisc.edu',
+      password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
+      hasProfileImage: false,
+    },
+    {
+      id: '6f8d4813-9bb7-463f-8e68-e60dd142b067',
+      firstName: 'Iago',
+      lastName: 'Flarity',
+      location: County.OSIJECKO_BARANJSKA,
+      email: 'iflarity7@wiley.com',
+      password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
+      role: Role.USER,
+      hasProfileImage: false,
+    },
+    {
+      id: '70a62068-4aaf-44e6-9baf-8b44777a7e49',
+      firstName: 'Salaidh',
+      lastName: 'Semarke',
       location: County.KARLOVACKA,
-      password: '$2a$04$2VK7GqiEiWwiDaqiqqkdV.GbvKttfqAF2qrQyGC026MSq2eqDAQ5m',
-      //createdAt: '2023-08-31 23:27:24',
-      //updatedAt: '2023-11-27 08:32:25',
+      email: 'ssemarke8@tinyurl.com',
+      password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
+      role: Role.SUPER,
       hasProfileImage: false,
     },
     {
-      id: '8411349b-8c46-45ae-9a73-d5b0109eb798',
-      firstName: 'Hasheem',
-      lastName: 'Hirthe',
-      email: 'hhirthez@marriott.com',
+      id: '063d6ac8-028a-4318-b1dd-9b531ff667e8',
+      firstName: 'Feodora',
+      lastName: 'Durrant',
+      location: County.SPLITSKO_DALMATINSKA,
+      email: 'fdurrant9@ibm.com',
+      password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      location: County.KOPRIVNICKO_KRIZEVACKA,
-      password: '$2a$04$TSHQUf3bNwDuWdF49E0lSOk1cTsN7WGnCqN8dB7HlOM/ccmPX/dYq',
-      //createdAt: '2022-11-22 08:46:19',
-      //updatedAt: '2023-06-15 01:48:29',
       hasProfileImage: false,
     },
     {
-      id: '646fd980-8646-4197-b7c0-58d652a2c3ac',
-      firstName: 'Davy',
-      lastName: 'Hazelby',
-      email: 'dhazelby10@xing.com',
+      id: '0b89cee9-e660-46d5-960d-ecc6ef72b6cf',
+      firstName: 'Ursola',
+      lastName: 'Bewley',
+      location: County.SPLITSKO_DALMATINSKA,
+      email: 'ubewleya@odnoklassniki.ru',
+      password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      location: County.ISTARSKA,
-      password: '$2a$04$EYtqn7lSLE9/6yXOtwhy9ub1TsDI9Wi7bHvKSGrhPSTyFz9Ho1gLS',
-      //createdAt: '2023-06-28 02:47:39',
-      //updatedAt: '2023-01-31 01:06:43',
       hasProfileImage: false,
     },
     {
-      id: '292c1dc3-8233-40db-adc7-dbc5b198a452',
-      firstName: 'Way',
-      lastName: 'Hillitt',
-      email: 'whillitt11@furl.net',
+      id: '76524cf0-96e4-429c-8eba-71672a97cc7c',
+      firstName: 'Ezequiel',
+      lastName: 'Serck',
+      location: County.OTHER,
+      email: 'eserckb@bloglines.com',
+      password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
+      hasProfileImage: false,
+    },
+    {
+      id: 'a675515b-2e79-4858-90de-5ee3b42a83bb',
+      firstName: 'Angelico',
+      lastName: 'Lafuente',
       location: County.VUKOVARSKO_SRIJEMSKA,
-      password: '$2a$04$1KOnIRIiILZ/766Z/2yT7ui1K7B4HJz7FJLmTpLhC0W1RsTIDf5wq',
-      //createdAt: '2023-03-29 15:00:22',
-      //updatedAt: '2023-05-31 19:55:42',
+      email: 'alafuentec@wufoo.com',
+      password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
+      role: Role.USER,
       hasProfileImage: false,
     },
     {
-      id: '37c9c076-9199-4c8c-a731-76346f49e08c',
-      firstName: 'Yasmeen',
-      lastName: 'Hennington',
-      email: 'yhennington12@spotify.com',
-      role: Role.USER,
-      location: County.OSIJECKO_BARANJSKA,
-      password: '$2a$04$1VOMDOip5A7E3h6Ga96YMu10xOK7lX/mWo2sawQJjkdSpfmgbVkpm',
-      //createdAt: '2023-10-15 10:26:48',
-      //updatedAt: '2023-11-17 16:54:52',
-      hasProfileImage: false,
-    },
-    {
-      id: 'eaef7b55-f92b-4287-a7ce-fc383ba815ce',
-      firstName: 'Ashlie',
-      lastName: 'Maeer',
-      email: 'amaeer13@artisteer.com',
-      role: Role.USER,
-      location: County.DUBROVACKO_NERETVANSKA,
-      password: '$2a$04$YoEZoDl9lpdwwsmSLyyodepf5V2e3hkqUKIROOLanlu8SPsX.AFpi',
-      //createdAt: '2022-11-14 23:50:06',
-      //updatedAt: '2023-01-05 09:57:19',
-      hasProfileImage: false,
-    },
-    {
-      id: '936587a2-15d8-4122-a44b-cf531fadfc2a',
-      firstName: 'Natale',
-      lastName: 'Simmers',
-      email: 'nsimmers14@homestead.com',
-      role: Role.USER,
-      location: County.KRAPINSKO_ZAGORSKA,
-      password: '$2a$04$AJdIxq/Ql93nUd15dDSvDO4Og8pkqalhAkaen8M9XJdMr.xixTJxy',
-      //createdAt: '2023-02-24 06:59:30',
-      //updatedAt: '2023-05-08 08:39:34',
-      hasProfileImage: false,
-    },
-    {
-      id: '74f22a47-df68-47a7-b42a-075076cccfd0',
-      firstName: 'Doralynne',
-      lastName: 'Pescud',
-      email: 'dpescud15@vinaora.com',
-      role: Role.USER,
-      location: County.ZAGREBACKA,
-      password: '$2a$04$0A4yJVRRS0MyEQhfYqGa..7oDfC7XCbSaASWUqRix3mSXntJsCym2',
-      //createdAt: '2023-04-15 02:38:30',
-      //updatedAt: '2023-03-02 13:07:58',
-      hasProfileImage: false,
-    },
-    {
-      id: '1c52c78e-c6c3-4b80-8337-9db0a38288a7',
-      firstName: 'Falito',
-      lastName: 'Tattam',
-      email: 'ftattam16@marriott.com',
-      role: Role.USER,
+      id: '8eb05380-48d6-4ad9-abeb-b7f9f3508b96',
+      firstName: 'Jennee',
+      lastName: 'Langdale',
       location: County.KARLOVACKA,
-      password: '$2a$04$BqUZBzel8xSMvzP2NOdIaeRtSWMM5u9HsS8yFhdorB9OkOsvVp7DO',
-      //createdAt: '2023-11-29 06:04:16',
-      //updatedAt: '2022-12-26 14:20:47',
+      email: 'jlangdaled@lycos.com',
+      password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
+      role: Role.SUPER,
       hasProfileImage: false,
     },
     {
-      id: '3d63e069-7ae7-4f24-b275-28ed36551c36',
-      firstName: 'Gerhardine',
-      lastName: 'Peert',
-      email: 'gpeert17@blogs.com',
-      role: Role.USER,
-      location: County.LICKO_SENJSKA,
-      password: '$2a$04$kugId9s66Zg5AF6LPz5ynODk1p61mkp9C8tlYkTPklIcVv/kySYTi',
-      //createdAt: '2023-02-15 21:24:50',
-      //updatedAt: '2023-02-28 05:40:00',
+      id: '85799b6b-32fc-4bd2-8c80-2e61276a7747',
+      firstName: 'Ossie',
+      lastName: 'Foxcroft',
+      location: County.MEDIMURSKA,
+      email: 'ofoxcrofte@jiathis.com',
+      password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
+      role: Role.ADMIN,
       hasProfileImage: false,
     },
     {
-      id: '990ee6ea-479e-460d-9096-2cf69cacf864',
-      firstName: 'Suzanne',
-      lastName: 'Guilfoyle',
-      email: 'sguilfoyle18@wisc.edu',
-      role: Role.USER,
-      location: County.PRIMORSKO_GORANSKA,
-      password: '$2a$04$SyLO9aXInOkQNdX7UntcIeas4BGnEpdra/isnZOccJjJEYWypOTVu',
-      //createdAt: '2022-12-24 09:20:22',
-      //updatedAt: '2023-02-22 00:16:01',
+      id: '7bd0bedf-babf-4c8d-bc57-85602d1d8d4f',
+      firstName: 'Philis',
+      lastName: 'Farrear',
+      location: County.SIBENSKO_KNINSKA,
+      email: 'pfarrearf@nba.com',
+      password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
+      role: Role.ADMIN,
       hasProfileImage: false,
     },
     {
-      id: 'fbe8521a-e09c-45da-8789-4eafa8c4ab26',
-      firstName: 'Shannon',
-      lastName: 'Densey',
-      email: 'sdensey19@fda.gov',
-      role: Role.USER,
-      location: County.KRAPINSKO_ZAGORSKA,
-      password: '$2a$04$F3jivkc3W5SgWmL0vtTOm.uzY27JS59eydncZuKRYLt9YPz4SEXj.',
-      //createdAt: '2023-03-24 10:31:29',
-      //updatedAt: '2023-11-28 16:11:20',
+      id: '919dd406-19d6-4c60-b9da-7f301a67579d',
+      firstName: 'Obadias',
+      lastName: 'Solloway',
+      location: County.BRODSKO_POSAVSKA,
+      email: 'osollowayg@google.it',
+      password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
+      role: Role.ADMIN,
       hasProfileImage: false,
     },
     {
-      id: 'f95e3c57-106f-46ed-a2e0-7c98076bb603',
-      firstName: 'Shellie',
-      lastName: 'Antunez',
-      email: 'santunez1a@google.com',
-      role: Role.USER,
-      location: County.ISTARSKA,
-      password: '$2a$04$wTfQuEEWSUk5eYNce6IiXuWj.7xGZgnL05qJXVz.AP3no7q4orXc2',
-      //createdAt: '2022-11-18 09:56:14',
-      //updatedAt: '2023-06-28 02:06:38',
-      hasProfileImage: false,
-    },
-    {
-      id: 'd1aa1ebe-3dd4-476e-a09f-47231da99785',
-      firstName: 'Farrah',
-      lastName: 'Squirrel',
-      email: 'fsquirrel1b@ameblo.jp',
-      role: Role.USER,
-      location: County.OSIJECKO_BARANJSKA,
-      password: '$2a$04$wjy/8fRt0Poicifmtt4mmOCGmp5dZCVVdqahcsPYZuX6ms5qvNl86',
-      //createdAt: '2023-01-23 04:05:42',
-      //updatedAt: '2023-03-11 02:29:15',
-      hasProfileImage: false,
-    },
-    {
-      id: '50fecfd8-de0b-4410-b31e-b200402c1449',
-      firstName: 'Madeleine',
-      lastName: 'Faber',
-      email: 'mfaber1c@bluehost.com',
-      role: Role.USER,
-      location: County.POZESKO_SLAVONSKA,
-      password: '$2a$04$Xf7UeHtRPFyta0VoKe1td.cBRJXWBkrgiCyVRPTcKFHc90IILRbQa',
-      //createdAt: '2023-08-09 21:41:08',
-      //updatedAt: '2023-06-09 05:13:20',
-      hasProfileImage: false,
-    },
-    {
-      id: '987b576d-a92a-45c0-b8fc-c929054c49fb',
-      firstName: 'Conn',
-      lastName: 'Olivella',
-      email: 'colivella1d@moonfruit.com',
-      role: Role.USER,
-      location: County.DUBROVACKO_NERETVANSKA,
-      password: '$2a$04$L0Bf669G4HzeynZPR/3cFePGvy7vKnaPyovvKYav6Gb7ZBq2RXbXC',
-      //createdAt: '2022-11-26 11:08:26',
-      //updatedAt: '2023-08-15 02:01:56',
-      hasProfileImage: false,
-    },
-    {
-      id: 'c6ba12a5-d61f-4fb6-8de1-597cc2ef849e',
-      firstName: 'Tressa',
-      lastName: 'Vogt',
-      email: 'tvogt1e@addthis.com',
-      role: Role.USER,
-      location: County.BJELOVARSKO_BILOGORSKA,
-      password: '$2a$04$jEP92W2k2wgraIt9Uk0u1eYTfPQ.MJftZivZe3EUDrD5qkVe9nUoS',
-      //createdAt: '2023-04-05 06:30:46',
-      //updatedAt: '2023-10-13 16:26:47',
-      hasProfileImage: false,
-    },
-    {
-      id: '25565870-816f-45b0-97e5-0faa447f3fb1',
-      firstName: 'Roth',
-      lastName: 'Coleridge',
-      email: 'rcoleridge1f@fda.gov',
-      role: Role.USER,
-      location: County.KARLOVACKA,
-      password: '$2a$04$BHfcP1fl.ReNuwwXEMiTC.jHiahNw5PEqRf0ygU2xhvP/c2PLELtq',
-      //createdAt: '2023-06-24 05:30:05',
-      //updatedAt: '2023-01-31 21:33:20',
-      hasProfileImage: false,
-    },
-    {
-      id: '0bc53127-dd2e-4c22-9c33-2f871534f609',
-      firstName: 'Dredi',
-      lastName: 'Cuseick',
-      email: 'dcuseick1g@printfriendly.com',
-      role: Role.USER,
-      location: County.BJELOVARSKO_BILOGORSKA,
-      password: '$2a$04$LSrVnpN67rl6gzl1E5QvgOcIVJiB7qhYOLQQhsccLCVqEomZe7SLO',
-      //createdAt: '2023-11-22 23:57:54',
-      //updatedAt: '2023-04-05 19:31:52',
-      hasProfileImage: false,
-    },
-    {
-      id: 'df6bf794-66e8-43d1-a469-96e9d11a5971',
-      firstName: 'Norry',
-      lastName: 'Ruffles',
-      email: 'nruffles1h@va.gov',
-      role: Role.USER,
-      location: County.ZAGREBACKA,
-      password: '$2a$04$aZCnqi1UjsN6VutxHX9Ed.cIAsvHduY6sATNkizM882.cbfzjjZg2',
-      //createdAt: '2023-06-27 17:46:34',
-      //updatedAt: '2023-10-05 12:27:41',
-      hasProfileImage: false,
-    },
-    {
-      id: '9a6e58ce-4c65-4b2b-a95a-56398607246d',
-      firstName: 'Nance',
-      lastName: 'Romayn',
-      email: 'nromayn1i@ftc.gov',
-      role: Role.USER,
+      id: 'c96f4c41-5ea1-4a2e-8149-6dafd93735b8',
+      firstName: 'Becki',
+      lastName: 'Comi',
       location: County.VARAZDINSKA,
-      password: '$2a$04$pBoNsVwMiUnl7ZULOlCU/.9e9A4a/Ea3MoALekyR50Gnj/ZzZPGrO',
-      //createdAt: '2022-10-21 17:20:12',
-      //updatedAt: '2023-06-25 17:48:59',
+      email: 'bcomih@amazonaws.com',
+      password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
+      role: Role.SUPER,
       hasProfileImage: false,
     },
     {
-      id: '03787eef-bd84-4b7d-a50f-dba4eaafcd65',
-      firstName: 'Cobby',
-      lastName: 'Frank',
-      email: 'cfrank1j@hao123.com',
-      role: Role.USER,
-      location: County.PRIMORSKO_GORANSKA,
-      password: '$2a$04$XB2W9SCpIMP0XyZjO1agd.M0QRjjOgfTMYjkkFlUz0wob0nsZDgzO',
-      //createdAt: '2023-09-02 01:30:01',
-      //updatedAt: '2023-07-24 04:37:56',
-      hasProfileImage: false,
-    },
-    {
-      id: '6c63ce1b-04a4-4b7d-806b-04d730a0612e',
-      firstName: 'Mar',
-      lastName: 'Bonnavant',
-      email: 'mbonnavant1k@hibu.com',
-      role: Role.USER,
-      location: County.KRAPINSKO_ZAGORSKA,
-      password: '$2a$04$UTHnFcLlCtKNx1IgNl6MbOzCCPFeIo45Ajfrk/e/8paHmCugv7Amm',
-      //createdAt: '2023-04-08 19:11:50',
-      //updatedAt: '2023-04-15 19:27:18',
-      hasProfileImage: false,
-    },
-    {
-      id: '3c745ab9-32fb-49b0-9aa4-dfe099d6061f',
-      firstName: 'Sandye',
-      lastName: 'Grummitt',
-      email: 'sgrummitt1l@free.fr',
-      role: Role.USER,
-      location: County.VUKOVARSKO_SRIJEMSKA,
-      password: '$2a$04$MhUQKwpq4ik9kxofZWIXaeufFYc3gq.MmHQUfYhuB12/JroQipPSe',
-      //createdAt: '2022-11-09 14:40:25',
-      //updatedAt: '2023-04-30 15:04:46',
-      hasProfileImage: false,
-    },
-    {
-      id: 'f0680dd5-b6d2-4ce8-a2ba-6ea0018e619b',
-      firstName: 'Myrtle',
-      lastName: 'Joust',
-      email: 'mjoust1m@ebay.co.uk',
-      role: Role.USER,
-      location: County.SPLITSKO_DALMATINSKA,
-      password: '$2a$04$LFlA92J/zBLjy1bXqHVGM.Pm8w440Kn/yEQrMxKNxQz8IHuYOfvre',
-      //createdAt: '2023-11-30 23:24:44',
-      //updatedAt: '2023-06-28 09:31:50',
-      hasProfileImage: false,
-    },
-    {
-      id: '6aef4f1a-ccfe-4d1d-902e-95b3f619ee41',
-      firstName: 'Massimiliano',
-      lastName: 'Bampkin',
-      email: 'mbampkin1n@networkadvertising.org',
-      role: Role.USER,
+      id: '243e704d-83e3-4fab-9796-4ba0b0190093',
+      firstName: 'Kerrill',
+      lastName: 'Feaks',
       location: County.POZESKO_SLAVONSKA,
-      password: '$2a$04$n9LE2c0.JWEZz180nYCIn.Ubt5LcMxNulJo2fyAqyHN4mcnkAYtpq',
-      //createdAt: '2023-07-13 05:25:16',
-      //updatedAt: '2023-09-23 23:40:21',
+      email: 'kfeaksi@webeden.co.uk',
+      password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
+      role: Role.ADMIN,
       hasProfileImage: false,
     },
     {
-      id: 'b22b0a8f-6f06-47ca-98b6-706e689051e6',
-      firstName: 'Teri',
-      lastName: 'Chantillon',
-      email: 'tchantillon1o@yahoo.com',
+      id: 'd5186429-a60d-4fec-bb12-1b3a61459f92',
+      firstName: 'Anthe',
+      lastName: 'Sullens',
+      location: County.ZADARSKA,
+      email: 'asullensj@bigcartel.com',
+      password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
+      hasProfileImage: false,
+    },
+    {
+      id: '245218da-78aa-4021-85d0-756111f0065f',
+      firstName: 'Gustave',
+      lastName: 'Prando',
+      location: County.SPLITSKO_DALMATINSKA,
+      email: 'gprandok@toplist.cz',
+      password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
+      role: Role.USER,
+      hasProfileImage: false,
+    },
+    {
+      id: '93d5087d-1a93-4751-b3d8-910831d45979',
+      firstName: 'Danielle',
+      lastName: 'Purchon',
       location: County.BRODSKO_POSAVSKA,
-      password: '$2a$04$pvkhvMdYy7T1s4T2fRtx5.6skHB7BFX97xF0T547BbHkOybpJM9xu',
-      //createdAt: '2023-03-09 13:44:40',
-      //updatedAt: '2023-06-01 08:52:58',
+      email: 'dpurchonl@unicef.org',
+      password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
+      role: Role.SUPER,
       hasProfileImage: false,
     },
     {
-      id: '3ea7ece8-b46d-4997-89ec-e4fa5d31cd37',
-      firstName: 'Marleen',
-      lastName: 'Pellitt',
-      email: 'mpellitt1p@com.com',
-      role: Role.USER,
-      location: County.VIROVITICKO_PODRAVSKA,
-      password: '$2a$04$U6PIqZziSAUH5uzG12hqu.z8ntZtdmqqwSxD1gPjpqGzZhCNxlY52',
-      //createdAt: '2023-01-26 22:00:55',
-      //updatedAt: '2023-01-16 21:31:18',
-      hasProfileImage: false,
-    },
-    {
-      id: 'a0239b78-3fd5-4983-b993-fee72a6e7a30',
-      firstName: 'Arlinda',
-      lastName: 'Calbrathe',
-      email: 'acalbrathe1q@mail.ru',
-      role: Role.USER,
-      location: County.GRAD_ZAGREB,
-      password: '$2a$04$Xps72H/MhH7oGtK3CK4LX.ukVAm9kLetxgeeIgK9oBKlDHUK9Dmmu',
-      //createdAt: '2023-09-07 06:50:10',
-      //updatedAt: '2023-03-05 20:25:20',
-      hasProfileImage: false,
-    },
-    {
-      id: 'a736527a-4abe-4da9-ac8d-6002c929db97',
-      firstName: 'Jenica',
-      lastName: 'Chape',
-      email: 'jchape1r@reuters.com',
-      role: Role.USER,
-      location: County.DUBROVACKO_NERETVANSKA,
-      password: '$2a$04$ZrVFC5MpO/F4BV6LqoCp1usYW8fY7CTJfAPnEiJBgWoJcb2aIr.HS',
-      //createdAt: '2023-05-15 19:50:32',
-      //updatedAt: '2023-02-04 05:10:28',
-      hasProfileImage: false,
-    },
-    {
-      id: 'e916d51f-b4a6-443c-b964-8cef4b246e6d',
-      firstName: 'Jo',
-      lastName: 'Elies',
-      email: 'jelies1s@instagram.com',
-      role: Role.USER,
-      location: County.SISACKO_MOSLAVACKA,
-      password: '$2a$04$IBJ22/sKQ24p4D.goLKFFudXQ9XjdNE16zmVUlmKUAUrNWzQp5UXS',
-      //createdAt: '2023-10-24 11:44:45',
-      //updatedAt: '2022-12-10 21:59:53',
-      hasProfileImage: false,
-    },
-    {
-      id: 'e6cea662-b114-4a4f-bbfc-544a23c5b5d6',
-      firstName: 'Avigdor',
-      lastName: 'Philo',
-      email: 'aphilo1t@blogger.com',
-      role: Role.USER,
-      location: County.ZAGREBACKA,
-      password: '$2a$04$azSK8VOG9xgAaPk2cz9mm.8n5vb79oS36A1RJdUFvvTfX/jr5C6Lu',
-      //createdAt: '2022-10-18 01:10:18',
-      //updatedAt: '2023-03-30 01:44:14',
-      hasProfileImage: false,
-    },
-    {
-      id: 'daa2fdc9-c171-4314-9cd8-0727f622185b',
-      firstName: 'Maryjo',
-      lastName: 'Choake',
-      email: 'mchoake1u@nbcnews.com',
-      role: Role.USER,
-      location: County.VUKOVARSKO_SRIJEMSKA,
-      password: '$2a$04$a1Pf.aZv/HNQJp.G06gH4OOvlOWe9vqw6fsKMXWKj147IhfJP1jn2',
-      //createdAt: '2023-07-20 19:39:03',
-      //updatedAt: '2023-06-25 17:23:14',
-      hasProfileImage: false,
-    },
-    {
-      id: '9cb5c629-6c0c-4f62-b258-539a03478bd9',
-      firstName: 'Moe',
-      lastName: 'Karlowicz',
-      email: 'mkarlowicz1v@oaic.gov.au',
-      role: Role.USER,
-      location: County.KRAPINSKO_ZAGORSKA,
-      password: '$2a$04$7lT4i9JBrkRLKTOk07Nb1uwp4Aksz2LTlGzfv.icVvEfNZhLH2vS.',
-      //createdAt: '2022-11-18 04:06:12',
-      //updatedAt: '2023-09-10 18:49:37',
-      hasProfileImage: false,
-    },
-    {
-      id: '3c33f9de-bb9c-4f6e-95fe-77d533689a29',
-      firstName: 'Shermy',
-      lastName: 'Brozek',
-      email: 'sbrozek1w@hugedomains.com',
-      role: Role.USER,
-      location: County.OSIJECKO_BARANJSKA,
-      password: '$2a$04$raBJFMiW00OkNq9oLXudreZziYMrElvo5c3R8ebBvr7W2nrkO92ty',
-      //createdAt: '2023-08-19 03:03:48',
-      //updatedAt: '2023-07-18 00:31:56',
-      hasProfileImage: false,
-    },
-    {
-      id: '5959da2a-af99-42bd-8bcb-7d76cb5f4a1b',
-      firstName: 'Sheryl',
-      lastName: 'Rolph',
-      email: 'srolph1x@youku.com',
-      role: Role.USER,
+      id: '4e0fa6ee-1dc4-4081-be50-e67298598d0e',
+      firstName: 'Rolando',
+      lastName: 'Pietron',
       location: County.LICKO_SENJSKA,
-      password: '$2a$04$fpTg7MvqffIDSrBJ6PNAk.OHaNHoMSJuClduh6ARg2lH6syeaOhZS',
-      //createdAt: '2023-05-14 22:50:59',
-      //updatedAt: '2023-09-25 09:09:32',
+      email: 'rpietronm@desdev.cn',
+      password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
+      role: Role.ADMIN,
       hasProfileImage: false,
     },
     {
-      id: '2807b4aa-5a16-49d0-af70-91ac56868e26',
-      firstName: 'Carmelia',
-      lastName: 'Bakesef',
-      email: 'cbakesef1y@last.fm',
+      id: '89479bef-ae7f-40ac-8cb1-c092f74f479f',
+      firstName: 'Johnathan',
+      lastName: 'Itzcovichch',
+      location: County.ZADARSKA,
+      email: 'jitzcovichchn@exblog.jp',
+      password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      location: County.LICKO_SENJSKA,
-      password: '$2a$04$M3.ijHzvS5ekYFAlat9jkeswplBlNrrPwiuw/BcjZUomq7db7/vrS',
-      //createdAt: '2023-08-16 07:31:05',
-      //updatedAt: '2023-10-16 17:44:41',
       hasProfileImage: false,
     },
     {
-      id: '9befcfa0-a9ae-4cd9-a94e-f9ab7909fb61',
+      id: 'd0e9d74d-a19e-44f8-ac06-dab34a83baec',
       firstName: 'Bjorn',
-      lastName: 'Froom',
-      email: 'bfroom1z@buzzfeed.com',
-      role: Role.USER,
-      location: County.VIROVITICKO_PODRAVSKA,
-      password: '$2a$04$vAtiTOmW/j0i5qXgOR0uaO0K5fvw/azQ5E6N.kGuOMI8zoE/v9.dC',
-      //createdAt: '2023-07-26 19:20:35',
-      //updatedAt: '2023-04-27 13:00:45',
-      hasProfileImage: false,
-    },
-    {
-      id: '9298cc0f-36bf-4d26-a992-e6f6b6eb2957',
-      firstName: 'Joletta',
-      lastName: 'Cuerdale',
-      email: 'jcuerdale20@upenn.edu',
-      role: Role.USER,
-      location: County.ZADARSKA,
-      password: '$2a$04$QB67IM79P8qVEtcvDerdyOIXu7w0We3uGtmTX7r0xhouB0SgvzaQO',
-      //createdAt: '2023-04-12 21:54:06',
-      //updatedAt: '2023-01-13 17:10:38',
-      hasProfileImage: false,
-    },
-    {
-      id: '401a20f6-acb1-40c4-ba8d-3028e0b4cc00',
-      firstName: 'Felice',
-      lastName: 'de Clerk',
-      email: 'fdeclerk21@ucoz.ru',
-      role: Role.USER,
-      location: County.VUKOVARSKO_SRIJEMSKA,
-      password: '$2a$04$sJNeXC.bdcVx1.nK96Ux0Oy28gQsgJk1i5HPZx40WnSpwKwSzVqo6',
-      //createdAt: '2023-08-24 03:52:18',
-      //updatedAt: '2023-05-31 01:17:53',
-      hasProfileImage: false,
-    },
-    {
-      id: '967dd832-cf8a-49cd-a919-986507908372',
-      firstName: 'Arabel',
-      lastName: 'Wark',
-      email: 'awark22@umn.edu',
-      role: Role.USER,
-      location: County.MEDIMURSKA,
-      password: '$2a$04$T9MQeg/kkhVQrKPE8qgFkeVoZNC.ASUj1iqYmHOdzU6PhO5aG4HbS',
-      //createdAt: '2023-03-02 06:29:25',
-      //updatedAt: '2023-02-13 17:50:57',
-      hasProfileImage: false,
-    },
-    {
-      id: '09f4993d-edfc-4b9f-8be7-95ac6ab43ffc',
-      firstName: 'Carolee',
-      lastName: 'Jako',
-      email: 'cjako23@topsy.com',
-      role: Role.USER,
-      location: County.VIROVITICKO_PODRAVSKA,
-      password: '$2a$04$o9zGFG4kJShQ0yjaSS0zbuKbKGb.27hfb7e.4WtYJp7OGQGPBzFLi',
-      //createdAt: '2023-11-10 11:45:09',
-      //updatedAt: '2022-12-09 21:11:08',
-      hasProfileImage: false,
-    },
-    {
-      id: '3f8008b3-71a4-45b0-9b39-bd03c32f8a45',
-      firstName: 'Nelly',
-      lastName: 'Fausset',
-      email: 'nfausset24@shutterfly.com',
-      role: Role.USER,
-      location: County.ZADARSKA,
-      password: '$2a$04$/eylPQuTkIihH8kPy5QTWOrbl5Cewz5gWlml09RSWkNOFusnUcGUa',
-      //createdAt: '2022-10-11 21:45:20',
-      //updatedAt: '2023-02-16 08:20:41',
-      hasProfileImage: false,
-    },
-    {
-      id: '5527c237-ac65-4d4b-b3bc-96e2dcaac3ff',
-      firstName: 'Nannie',
-      lastName: 'Marcinkowski',
-      email: 'nmarcinkowski25@hao123.com',
-      role: Role.USER,
-      location: County.BJELOVARSKO_BILOGORSKA,
-      password: '$2a$04$JV2keZXQtuI04hxEh/wijOQoohVOnkmvdmGF6XF.wpi.wNH3ZwDlC',
-      //createdAt: '2022-10-28 23:44:41',
-      //updatedAt: '2023-08-18 05:38:22',
-      hasProfileImage: false,
-    },
-    {
-      id: 'a67a315e-9829-452d-b185-82fb11b5b512',
-      firstName: 'Babette',
-      lastName: 'Mansford',
-      email: 'bmansford26@trellian.com',
-      role: Role.USER,
+      lastName: 'Dorie',
       location: County.SPLITSKO_DALMATINSKA,
-      password: '$2a$04$jGcjBJoMIM6nUoTTuuDQDe1K05gdN1VJJFqdtSpWmRfXWCeAY1tmu',
-      //createdAt: '2022-10-31 23:27:31',
-      //updatedAt: '2023-08-14 00:02:26',
+      email: 'bdorieo@cdbaby.com',
+      password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
+      role: Role.SUPER,
       hasProfileImage: false,
     },
     {
-      id: 'e6f82b1f-c948-47b5-8c54-49768b51b335',
-      firstName: 'Keeley',
-      lastName: 'Plumm',
-      email: 'kplumm27@hao123.com',
-      role: Role.USER,
-      location: County.SISACKO_MOSLAVACKA,
-      password: '$2a$04$z3qSVM4vvP8/X4gaMPJfxepp/JfSGfECB2d./NyEeQ2uWbRTsRS8u',
-      //createdAt: '2023-10-24 12:29:18',
-      //updatedAt: '2023-09-07 12:10:40',
-      hasProfileImage: false,
-    },
-    {
-      id: 'f368b83e-af8c-4bc6-91f7-c3a65cfffd1f',
-      firstName: 'Lesley',
-      lastName: 'Bowness',
-      email: 'lbowness28@github.io',
-      role: Role.USER,
-      location: County.DUBROVACKO_NERETVANSKA,
-      password: '$2a$04$UiFQByWmvheydWZ1RZ5x4.Ez5hV11L7tj2a9RU9HdQSDrPVaSzf5y',
-      //createdAt: '2023-01-16 17:03:31',
-      //updatedAt: '2023-07-15 02:40:16',
-      hasProfileImage: false,
-    },
-    {
-      id: 'ee912679-c94f-4857-871a-cb3d09f29460',
-      firstName: 'Aime',
-      lastName: 'Brandacci',
-      email: 'abrandacci29@boston.com',
-      role: Role.USER,
-      location: County.KRAPINSKO_ZAGORSKA,
-      password: '$2a$04$9i0xgrJzR0iq5wLug6GSIOG4RLMcIKrKto5ZLNxkRejGjd5sjgX0S',
-      //createdAt: '2023-04-01 07:33:20',
-      //updatedAt: '2022-12-20 01:11:12',
-      hasProfileImage: false,
-    },
-    {
-      id: '4bf70b0e-0eba-4a1b-ab1d-2cea88ef7cfc',
-      firstName: 'Alwyn',
-      lastName: 'Bugge',
-      email: 'abugge2a@cbsnews.com',
-      role: Role.USER,
+      id: '1e2addb8-8c9a-414e-b0b2-bbb74ffe2a29',
+      firstName: 'Janel',
+      lastName: 'Baford',
       location: County.OTHER,
-      password: '$2a$04$wkCNkc2B06LJgXzWX23UUuHMGD9ZTv7l5SOoVdMop8eo0dIoK0IIi',
-      //createdAt: '2023-10-21 06:48:22',
-      //updatedAt: '2023-08-30 06:31:05',
+      email: 'jbafordp@prlog.org',
+      password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
+      role: Role.SUPER,
       hasProfileImage: false,
     },
     {
-      id: 'fa9896d7-f9f4-46ce-89b0-1e4c4a918603',
-      firstName: 'Sal',
-      lastName: 'Mannie',
-      email: 'smannie2b@dailymotion.com',
-      role: Role.USER,
-      location: County.KOPRIVNICKO_KRIZEVACKA,
-      password: '$2a$04$NcBFR5WWuj5apIj9dxB0aeCI/daIqfUGvyqabMu8EnqsSfCSA0o8S',
-      //createdAt: '2023-02-23 09:23:12',
-      //updatedAt: '2023-03-12 11:12:24',
-      hasProfileImage: false,
-    },
-    {
-      id: 'df8b08ed-0243-4091-9870-de6ed54b0fce',
-      firstName: 'Mikey',
-      lastName: 'Tie',
-      email: 'mtie2c@google.com.hk',
-      role: Role.USER,
-      location: County.SISACKO_MOSLAVACKA,
-      password: '$2a$04$DS0fk4jP8D9VpM8imb3g1.JtdBH2wO8S8E4qShvrm9jhriR3iYwAm',
-      //createdAt: '2022-11-20 07:41:56',
-      //updatedAt: '2022-12-17 16:53:00',
-      hasProfileImage: false,
-    },
-    {
-      id: '6940e136-37de-4033-b113-1003528e2ded',
-      firstName: 'Sheri',
-      lastName: 'Powlesland',
-      email: 'spowlesland2d@wsj.com',
-      role: Role.USER,
-      location: County.SISACKO_MOSLAVACKA,
-      password: '$2a$04$QABJYm4OatdwtUS5dgcMueIzsaJewwyeCwZjr5mjolH4B5yGeP0pW',
-      //createdAt: '2023-02-21 22:30:19',
-      //updatedAt: '2023-05-20 08:03:55',
-      hasProfileImage: false,
-    },
-    {
-      id: '53b5c222-c464-4895-9ba4-fe5ac76d41bf',
-      firstName: 'Roze',
-      lastName: 'Balas',
-      email: 'rbalas2e@arizona.edu',
-      role: Role.USER,
-      location: County.SIBENSKO_KNINSKA,
-      password: '$2a$04$CLQSR38xwE5tV1A2KjctUO6dXWjVrONcFeIFaPyfF1xyFPezhTzuK',
-      //createdAt: '2023-06-20 07:21:40',
-      //updatedAt: '2023-10-23 02:34:50',
-      hasProfileImage: false,
-    },
-    {
-      id: 'b551e0bc-03b0-4450-8235-4014ef444a37',
-      firstName: 'Willie',
-      lastName: 'Notton',
-      email: 'wnotton2f@fema.gov',
-      role: Role.USER,
+      id: '6c36415f-26c4-47ee-afe4-07d418505560',
+      firstName: 'Junette',
+      lastName: 'Ballinghall',
       location: County.KARLOVACKA,
-      password: '$2a$04$N6HIiRSYsL.hLtx7Tc4fSeANAqtDP6QOnJAIPeWC6SyO8iO196QVu',
-      //createdAt: '2023-05-05 02:42:47',
-      //updatedAt: '2023-05-17 23:00:12',
+      email: 'jballinghallq@senate.gov',
+      password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
+      role: Role.SUPER,
       hasProfileImage: false,
     },
     {
-      id: '6579e0ec-1d50-49d5-a419-fa7dc1f714c1',
-      firstName: 'Hetty',
-      lastName: 'Okey',
-      email: 'hokey2g@ask.com',
+      id: '1f86a477-e41b-44af-b13b-aad69391fd2d',
+      firstName: 'Elinor',
+      lastName: 'Heers',
+      location: County.KOPRIVNICKO_KRIZEVACKA,
+      email: 'eheersr@4shared.com',
+      password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      location: County.OSIJECKO_BARANJSKA,
-      password: '$2a$04$8W53LUGP1cN8r0j8GZrFmOsfe/fgIXK5pgIlTQhBxgbmI1KEHrxbu',
-      //createdAt: '2023-10-30 14:27:20',
-      //updatedAt: '2023-01-02 17:26:22',
       hasProfileImage: false,
     },
     {
-      id: '30fe4130-8940-469e-8274-247cc7fe43bb',
-      firstName: 'Sanson',
-      lastName: 'Sandels',
-      email: 'ssandels2h@zdnet.com',
-      role: Role.USER,
+      id: 'c908fd43-1fd8-4ee3-9849-50689048c5a2',
+      firstName: 'Rowen',
+      lastName: 'Rebbeck',
+      location: County.VIROVITICKO_PODRAVSKA,
+      email: 'rrebbecks@addtoany.com',
+      password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
+      role: Role.SUPER,
+      hasProfileImage: false,
+    },
+    {
+      id: '89d4155a-d4a9-4229-a49f-7a261853b27e',
+      firstName: 'Neils',
+      lastName: 'Praten',
+      location: County.SPLITSKO_DALMATINSKA,
+      email: 'npratent@buzzfeed.com',
+      password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
+      role: Role.SUPER,
+      hasProfileImage: false,
+    },
+    {
+      id: 'f97a88bc-9fd5-45f0-8886-1c9ea7f00d10',
+      firstName: 'Allison',
+      lastName: 'Cadwaladr',
+      location: County.BJELOVARSKO_BILOGORSKA,
+      email: 'acadwaladru@boston.com',
+      password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
+      role: Role.ADMIN,
+      hasProfileImage: false,
+    },
+    {
+      id: 'ebe89ed3-e0c2-4b62-bb5b-f54b3f200509',
+      firstName: 'Myles',
+      lastName: 'Springtorp',
+      location: County.OTHER,
+      email: 'mspringtorpv@ucoz.ru',
+      password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
+      role: Role.ADMIN,
+      hasProfileImage: false,
+    },
+    {
+      id: '8e5ef160-e043-48e1-8ee9-f2bdfd4c0333',
+      firstName: 'Janenna',
+      lastName: 'McDonald',
+      location: County.BJELOVARSKO_BILOGORSKA,
+      email: 'jmcdonaldw@cnet.com',
+      password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
+      role: Role.SUPER,
+      hasProfileImage: false,
+    },
+    {
+      id: '669b766e-ba2b-43e5-bcb3-cb0e1502875c',
+      firstName: 'Nikoletta',
+      lastName: 'Petroselli',
+      location: County.BRODSKO_POSAVSKA,
+      email: 'npetrosellix@buzzfeed.com',
+      password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
+      role: Role.SUPER,
+      hasProfileImage: false,
+    },
+    {
+      id: '8dc565ce-ec3f-48c4-be9e-3a5cbd71f1c2',
+      firstName: 'Teresina',
+      lastName: 'Davidovic',
+      location: County.OTHER,
+      email: 'tdavidovicy@altervista.org',
+      password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
+      role: Role.ADMIN,
+      hasProfileImage: false,
+    },
+    {
+      id: '07d22e10-5482-405c-b8ce-9e610cec94f2',
+      firstName: 'Nicky',
+      lastName: 'Formoy',
       location: County.POZESKO_SLAVONSKA,
-      password: '$2a$04$Iflg85bGcASMsKgK3MEoiunKordasjFRtopKkJrudzc0besBHJY4O',
-      //createdAt: '2023-09-28 00:27:19',
-      //updatedAt: '2023-07-16 08:49:27',
+      email: 'nformoyz@sakura.ne.jp',
+      password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
+      role: Role.ADMIN,
       hasProfileImage: false,
     },
     {
-      id: '23d6a7f6-6d83-4d8c-a8fb-bfd3e4e21b25',
-      firstName: 'Jacinda',
-      lastName: 'Flanaghan',
-      email: 'jflanaghan2i@who.int',
-      role: Role.USER,
-      location: County.SISACKO_MOSLAVACKA,
-      password: '$2a$04$T2SwjPoW6uJpx3KI4zx8XeRUS1csPGb049dy3r0tMZk6j03VFPgmu',
-      //createdAt: '2022-10-23 20:43:28',
-      //updatedAt: '2023-02-19 20:03:53',
+      id: 'ad00ee7e-d339-41b5-872f-89d5c5b9b134',
+      firstName: 'Adrienne',
+      lastName: 'Cornewell',
+      location: County.KRAPINSKO_ZAGORSKA,
+      email: 'acornewell10@dailymail.co.uk',
+      password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
+      role: Role.SUPER,
       hasProfileImage: false,
     },
     {
-      id: '9c119dd8-d127-422c-a431-c8165007265b',
-      firstName: 'Lloyd',
-      lastName: 'Crowhurst',
-      email: 'lcrowhurst2j@psu.edu',
-      role: Role.USER,
+      id: '9ce7d15f-3fb9-4be6-ae0d-617e78189370',
+      firstName: 'Cindelyn',
+      lastName: 'Vaggers',
+      location: County.SPLITSKO_DALMATINSKA,
+      email: 'cvaggers11@harvard.edu',
+      password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
+      role: Role.ADMIN,
+      hasProfileImage: false,
+    },
+    {
+      id: 'a8f6b188-f40c-4e2f-aaa7-547618f58f05',
+      firstName: 'Webster',
+      lastName: 'Ferrierio',
+      location: County.DUBROVACKO_NERETVANSKA,
+      email: 'wferrierio12@forbes.com',
+      password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
+      role: Role.ADMIN,
+      hasProfileImage: false,
+    },
+    {
+      id: '640f65a6-fba2-4c0b-bac5-26bca281d447',
+      firstName: 'Lay',
+      lastName: 'Brambley',
       location: County.SIBENSKO_KNINSKA,
-      password: '$2a$04$SKLTsDjC4ADKcxo9esUJEOQ4kLjp8t7lBKr4dU6KaGXq6cCfMrWoO',
-      //createdAt: '2023-05-01 23:11:35',
-      //updatedAt: '2023-01-20 02:57:40',
+      email: 'lbrambley13@dmoz.org',
+      password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
+      role: Role.SUPER,
       hasProfileImage: false,
     },
     {
-      id: '54dce15b-a0d8-45c3-a8a1-785868e9ec81',
-      firstName: 'Reese',
-      lastName: 'Snare',
-      email: 'rsnare2k@blogspot.com',
+      id: '45b33188-db4a-4c84-abda-5fedfa8b4349',
+      firstName: 'Amandi',
+      lastName: 'Dornan',
+      location: County.SISACKO_MOSLAVACKA,
+      email: 'adornan14@sphinn.com',
+      password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      location: County.BRODSKO_POSAVSKA,
-      password: '$2a$04$cgGZ51CgJ255V9ZLIcjabOVC7YAmcHR6QlN6/FuoNROJtSv9ziMla',
-      //createdAt: '2023-01-02 09:30:22',
-      //updatedAt: '2023-01-30 07:11:48',
       hasProfileImage: false,
     },
     {
-      id: '601cf8a5-c836-4887-9547-57f1e7a722a9',
-      firstName: 'Buckie',
-      lastName: 'Message',
-      email: 'bmessage2l@answers.com',
+      id: '6a922c37-b8dd-44c1-b846-1155c9d34dda',
+      firstName: 'Filbert',
+      lastName: 'Lyles',
+      location: County.ZAGREBACKA,
+      email: 'flyles15@google.co.uk',
+      password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      location: County.MEDIMURSKA,
-      password: '$2a$04$kxlYnGz.tz8lPF4CVc.xVOKQfqHhN9kMyT/Q6nYhPqueyyvRWYG46',
-      //createdAt: '2022-11-19 16:10:17',
-      //updatedAt: '2023-06-06 09:04:25',
       hasProfileImage: false,
     },
     {
-      id: '790290b6-250f-49c0-af7f-ce928cc59a93',
-      firstName: 'Jamison',
-      lastName: 'Semple',
-      email: 'jsemple2m@fastcompany.com',
+      id: 'ad5b3d07-b5ff-4e9b-9c23-53fb80d54f45',
+      firstName: 'Monika',
+      lastName: 'Eccott',
+      location: County.VIROVITICKO_PODRAVSKA,
+      email: 'meccott16@springer.com',
+      password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      location: County.BRODSKO_POSAVSKA,
-      password: '$2a$04$WwKCI0wAXDZECIskFA/rcunWkLKLUBb67Fszozm09cvTjVU/1HXIS',
-      //createdAt: '2023-04-05 23:55:29',
-      //updatedAt: '2023-05-12 10:00:07',
       hasProfileImage: false,
     },
     {
-      id: '033d82ce-0678-43d6-a946-1caeedc50855',
-      firstName: 'Roxana',
-      lastName: 'Sicely',
-      email: 'rsicely2n@unblog.fr',
-      role: Role.USER,
-      location: County.MEDIMURSKA,
-      password: '$2a$04$uUdgbdqUj9zyPIUJv6AGFubfRXAeJaBnxCY9SjN/9bv/bZv8mI8v.',
-      //createdAt: '2023-11-02 14:05:29',
-      //updatedAt: '2023-10-22 21:38:00',
+      id: 'ca375174-0270-45ad-abe7-18b5b8610299',
+      firstName: 'Ailis',
+      lastName: 'Callcott',
+      location: County.PRIMORSKO_GORANSKA,
+      email: 'acallcott17@ft.com',
+      password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
+      role: Role.SUPER,
       hasProfileImage: false,
     },
     {
-      id: '8642ed11-0e04-41fc-81f5-85f4dd0fbabf',
-      firstName: 'Vladamir',
-      lastName: 'Didsbury',
-      email: 'vdidsbury2o@tripod.com',
-      role: Role.USER,
-      location: County.BJELOVARSKO_BILOGORSKA,
-      password: '$2a$04$qMqLrNIxLLhQoIt6SlBkWeYRiSKYYXbA/pRcUO6fPU/hW314ZeFZO',
-      //createdAt: '2023-07-13 11:27:03',
-      //updatedAt: '2023-11-08 13:45:50',
+      id: '21e75866-2b34-44d6-baa7-ea8f9b9ece6a',
+      firstName: 'Brade',
+      lastName: 'Wales',
+      location: County.DUBROVACKO_NERETVANSKA,
+      email: 'bwales18@goo.ne.jp',
+      password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
+      role: Role.SUPER,
       hasProfileImage: false,
     },
     {
-      id: '3235885a-d361-4ec8-bb85-06ef7fb9a44a',
-      firstName: 'Alexine',
-      lastName: 'Witts',
-      email: 'awitts2p@paypal.com',
-      role: Role.USER,
-      location: County.BJELOVARSKO_BILOGORSKA,
-      password: '$2a$04$IskHlASv4b1rbYeOWtycke23gnfw5rr5GyFHAfeCU9rz7IwXZ/x.S',
-      //createdAt: '2023-01-03 15:06:14',
-      //updatedAt: '2023-07-18 05:11:40',
+      id: 'b3c4b486-06c0-4e3d-a764-79f819f58794',
+      firstName: 'Colline',
+      lastName: 'Yann',
+      location: County.PRIMORSKO_GORANSKA,
+      email: 'cyann19@dion.ne.jp',
+      password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
+      role: Role.ADMIN,
       hasProfileImage: false,
     },
     {
-      id: '0d1b390d-6286-494e-939e-267f85a1782e',
-      firstName: 'Robinia',
-      lastName: 'Belch',
-      email: 'rbelch2q@arizona.edu',
-      role: Role.USER,
+      id: 'f88187fb-407e-4479-9c9c-d5fc39d13065',
+      firstName: 'Shirlee',
+      lastName: 'Ivakhnov',
+      location: County.OTHER,
+      email: 'sivakhnov1a@mayoclinic.com',
+      password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
+      role: Role.SUPER,
+      hasProfileImage: false,
+    },
+    {
+      id: 'f2aca2c2-66d0-4b25-ad80-ec467ec8d7de',
+      firstName: 'Drud',
+      lastName: 'Kislingbury',
       location: County.LICKO_SENJSKA,
-      password: '$2a$04$UKicO/sq0qvndi0H865g/elatdmZJMmmmxaqy5pX3ENZBy/rgEVlq',
-      //createdAt: '2023-09-15 13:41:48',
-      //updatedAt: '2023-05-03 10:08:15',
+      email: 'dkislingbury1b@nifty.com',
+      password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
+      role: Role.SUPER,
       hasProfileImage: false,
     },
     {
-      id: '4a338c40-802e-4dd9-8bb8-77d41577e291',
-      firstName: 'Caryl',
-      lastName: 'Summerbell',
-      email: 'csummerbell2r@intel.com',
+      id: '1bd7104f-3663-40fa-985d-ade323afbe9d',
+      firstName: 'Clemmy',
+      lastName: 'Muat',
+      location: County.VARAZDINSKA,
+      email: 'cmuat1c@intel.com',
+      password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
+      role: Role.ADMIN,
+      hasProfileImage: false,
+    },
+    {
+      id: '79616a5d-edd1-45e6-a552-fae441fa0cb2',
+      firstName: 'Brendis',
+      lastName: 'Ivkovic',
+      location: County.MEDIMURSKA,
+      email: 'bivkovic1d@uol.com.br',
+      password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
+      role: Role.ADMIN,
+      hasProfileImage: false,
+    },
+    {
+      id: 'ebd77404-47ef-4731-8005-c96f21b88aba',
+      firstName: 'Basilius',
+      lastName: 'Scrange',
+      location: County.SPLITSKO_DALMATINSKA,
+      email: 'bscrange1e@twitpic.com',
+      password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
+      hasProfileImage: false,
+    },
+    {
+      id: 'da1eb5b2-c919-4ca8-8f26-dff5abbe9224',
+      firstName: 'Tana',
+      lastName: 'Kneafsey',
+      location: County.OSIJECKO_BARANJSKA,
+      email: 'tkneafsey1f@g.co',
+      password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
+      role: Role.SUPER,
+      hasProfileImage: false,
+    },
+    {
+      id: '15e2040f-607c-4d8c-a325-64b45b6abae1',
+      firstName: 'Rhett',
+      lastName: 'Cubuzzi',
+      location: County.VARAZDINSKA,
+      email: 'rcubuzzi1g@nhs.uk',
+      password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
+      role: Role.ADMIN,
+      hasProfileImage: false,
+    },
+    {
+      id: 'bc300dfc-dca0-4785-a2fa-d0b201992835',
+      firstName: 'Correy',
+      lastName: 'Mendus',
+      location: County.MEDIMURSKA,
+      email: 'cmendus1h@feedburner.com',
+      password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
+      role: Role.USER,
+      hasProfileImage: false,
+    },
+    {
+      id: 'f7e409e1-c85f-48d3-acdd-c3d448ab7fdb',
+      firstName: 'Algernon',
+      lastName: 'Gibling',
+      location: County.BJELOVARSKO_BILOGORSKA,
+      email: 'agibling1i@constantcontact.com',
+      password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
+      role: Role.SUPER,
+      hasProfileImage: false,
+    },
+    {
+      id: '3f0dc0e4-29ed-44ed-91e2-2ad21cb616c1',
+      firstName: 'Liza',
+      lastName: 'Leyburn',
+      location: County.ISTARSKA,
+      email: 'lleyburn1j@weebly.com',
+      password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
+      role: Role.SUPER,
+      hasProfileImage: false,
+    },
+    {
+      id: '6dfcf742-db4a-4414-a55e-7e4ac52ae8da',
+      firstName: 'Sacha',
+      lastName: 'Gregon',
+      location: County.SIBENSKO_KNINSKA,
+      email: 'sgregon1k@vistaprint.com',
+      password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
+      role: Role.SUPER,
+      hasProfileImage: false,
+    },
+    {
+      id: '8b2062ea-2313-4ed7-aba2-178225cb7df0',
+      firstName: 'Kaylil',
+      lastName: 'Wrettum',
+      location: County.OTHER,
+      email: 'kwrettum1l@blogspot.com',
+      password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
+      role: Role.USER,
+      hasProfileImage: false,
+    },
+    {
+      id: 'f7fc186e-1d8e-4e0b-a56f-b8775b33b676',
+      firstName: 'Diane',
+      lastName: 'Paddeley',
       location: County.POZESKO_SLAVONSKA,
-      password: '$2a$04$TUo9RV1lnq8jORIyygsiCOhHDbFtNe0wun02f0907BSlHYiYFePeq',
-      //createdAt: '2023-08-11 11:29:14',
-      //updatedAt: '2023-12-07 16:35:04',
+      email: 'dpaddeley1m@discovery.com',
+      password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
+      role: Role.SUPER,
+      hasProfileImage: false,
+    },
+    {
+      id: '5788494b-efa7-48ba-ac54-fc9d9533abb9',
+      firstName: 'Caterina',
+      lastName: 'Bendix',
+      location: County.PRIMORSKO_GORANSKA,
+      email: 'cbendix1n@prnewswire.com',
+      password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
+      role: Role.USER,
+      hasProfileImage: false,
+    },
+    {
+      id: '2ef544e4-3339-4560-95a3-2f70504cf36a',
+      firstName: 'Abby',
+      lastName: 'Stoite',
+      location: County.DUBROVACKO_NERETVANSKA,
+      email: 'astoite1o@who.int',
+      password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
+      role: Role.ADMIN,
+      hasProfileImage: false,
+    },
+    {
+      id: '4758235b-6860-4499-8140-c06cb762137a',
+      firstName: 'Aleece',
+      lastName: 'Klimowski',
+      location: County.POZESKO_SLAVONSKA,
+      email: 'aklimowski1p@flickr.com',
+      password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
+      role: Role.ADMIN,
+      hasProfileImage: false,
+    },
+    {
+      id: '33f86d23-7819-4f97-9afb-1837eef32eef',
+      firstName: 'Ogdan',
+      lastName: 'Mullin',
+      location: County.ZAGREBACKA,
+      email: 'omullin1q@cnet.com',
+      password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
+      role: Role.USER,
+      hasProfileImage: false,
+    },
+    {
+      id: 'da1bdb4a-cb7f-49bf-a33c-1eec5cb02ec9',
+      firstName: 'Norby',
+      lastName: 'Pye',
+      location: County.POZESKO_SLAVONSKA,
+      email: 'npye1r@friendfeed.com',
+      password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
+      role: Role.USER,
+      hasProfileImage: false,
+    },
+    {
+      id: '00902297-9d54-41fa-a150-ac9323e2e9a6',
+      firstName: 'Drusy',
+      lastName: 'Eborall',
+      location: County.SIBENSKO_KNINSKA,
+      email: 'deborall1s@com.com',
+      password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
+      role: Role.ADMIN,
+      hasProfileImage: false,
+    },
+    {
+      id: 'bf1c52cb-0c9b-481f-ad95-6c66c92eae13',
+      firstName: 'Taite',
+      lastName: 'Dunks',
+      location: County.LICKO_SENJSKA,
+      email: 'tdunks1t@yale.edu',
+      password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
+      role: Role.USER,
+      hasProfileImage: false,
+    },
+    {
+      id: '02b52d4a-c8a3-423b-9e32-e1e0d2084606',
+      firstName: 'Dianna',
+      lastName: 'Feckey',
+      location: County.PRIMORSKO_GORANSKA,
+      email: 'dfeckey1u@paypal.com',
+      password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
+      role: Role.USER,
+      hasProfileImage: false,
+    },
+    {
+      id: '769c162d-d14c-4297-b182-ebe4ff7c086c',
+      firstName: 'Glyn',
+      lastName: 'Kingescot',
+      location: County.SPLITSKO_DALMATINSKA,
+      email: 'gkingescot1v@godaddy.com',
+      password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
+      role: Role.ADMIN,
+      hasProfileImage: false,
+    },
+    {
+      id: '08244958-b7fb-40e1-89e1-00771dafdfe7',
+      firstName: 'Asher',
+      lastName: 'Whartonby',
+      location: County.SPLITSKO_DALMATINSKA,
+      email: 'awhartonby1w@imgur.com',
+      password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
+      role: Role.ADMIN,
+      hasProfileImage: false,
+    },
+    {
+      id: 'b6824ec9-9edb-4694-86fe-873ebae5050f',
+      firstName: 'Cheston',
+      lastName: 'Dunckley',
+      location: County.ISTARSKA,
+      email: 'cdunckley1x@seattletimes.com',
+      password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
+      role: Role.ADMIN,
+      hasProfileImage: false,
+    },
+    {
+      id: '72d0a17f-318d-4cdc-a002-4eba5796e5a4',
+      firstName: 'Raul',
+      lastName: 'Notley',
+      location: County.VUKOVARSKO_SRIJEMSKA,
+      email: 'rnotley1y@intel.com',
+      password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
+      role: Role.USER,
+      hasProfileImage: false,
+    },
+    {
+      id: '504e2d61-acb2-460d-8927-392dad9db844',
+      firstName: 'Philomena',
+      lastName: 'Dorow',
+      location: County.VARAZDINSKA,
+      email: 'pdorow1z@reverbnation.com',
+      password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
+      role: Role.SUPER,
+      hasProfileImage: false,
+    },
+    {
+      id: '03a1c72b-1e96-4aba-bf37-e1fac578db63',
+      firstName: 'Kaine',
+      lastName: 'Gagg',
+      location: County.OTHER,
+      email: 'kgagg20@blogspot.com',
+      password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
+      role: Role.USER,
+      hasProfileImage: false,
+    },
+    {
+      id: '6d9e916e-f291-4716-a371-369d4b60ef91',
+      firstName: 'Gabi',
+      lastName: 'Musgrave',
+      location: County.POZESKO_SLAVONSKA,
+      email: 'gmusgrave21@craigslist.org',
+      password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
+      role: Role.ADMIN,
+      hasProfileImage: false,
+    },
+    {
+      id: 'd63b7889-063e-470f-819e-38111cc4bb39',
+      firstName: 'Tybie',
+      lastName: 'Wicks',
+      location: County.ZAGREBACKA,
+      email: 'twicks22@salon.com',
+      password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
+      role: Role.USER,
+      hasProfileImage: false,
+    },
+    {
+      id: 'fd427c07-f16c-4ec5-9a8a-d937f7eb5726',
+      firstName: 'Emmery',
+      lastName: 'Schuricke',
+      location: County.SPLITSKO_DALMATINSKA,
+      email: 'eschuricke23@rediff.com',
+      password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
+      role: Role.USER,
+      hasProfileImage: false,
+    },
+    {
+      id: '341c1546-003e-47ca-8ac6-d2b99ff2335c',
+      firstName: 'Timotheus',
+      lastName: 'Ormrod',
+      location: County.OSIJECKO_BARANJSKA,
+      email: 'tormrod24@gov.uk',
+      password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
+      role: Role.ADMIN,
+      hasProfileImage: false,
+    },
+    {
+      id: '6b56eb3f-25a0-46c4-b5e9-4348c09c313c',
+      firstName: 'Devonna',
+      lastName: 'Persehouse',
+      location: County.GRAD_ZAGREB,
+      email: 'dpersehouse25@sourceforge.net',
+      password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
+      role: Role.USER,
+      hasProfileImage: false,
+    },
+    {
+      id: '6c53fbb5-176c-4df5-a7fe-88b694a0f69c',
+      firstName: 'Rance',
+      lastName: 'Platt',
+      location: County.BJELOVARSKO_BILOGORSKA,
+      email: 'rplatt26@webnode.com',
+      password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
+      role: Role.SUPER,
+      hasProfileImage: false,
+    },
+    {
+      id: '9096b9c4-2673-45d0-a305-b33ef56cb010',
+      firstName: 'Salim',
+      lastName: 'Albert',
+      location: County.LICKO_SENJSKA,
+      email: 'salbert27@alexa.com',
+      password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
+      role: Role.USER,
+      hasProfileImage: false,
+    },
+    {
+      id: '8026c7c4-b3a2-4639-aa5f-e1eb3fbd700a',
+      firstName: 'Babita',
+      lastName: 'Mayes',
+      location: County.VIROVITICKO_PODRAVSKA,
+      email: 'bmayes28@google.com.au',
+      password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
+      role: Role.SUPER,
+      hasProfileImage: false,
+    },
+    {
+      id: '5be1555b-a5c1-4722-8649-97301c434f1d',
+      firstName: 'Benjamin',
+      lastName: 'Lissandrini',
+      location: County.ZADARSKA,
+      email: 'blissandrini29@discuz.net',
+      password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
+      role: Role.ADMIN,
+      hasProfileImage: false,
+    },
+    {
+      id: '67d8adac-e497-4a15-a026-f8e6c7265aad',
+      firstName: 'Milt',
+      lastName: 'Wimp',
+      location: County.KRAPINSKO_ZAGORSKA,
+      email: 'mwimp2a@businesswire.com',
+      password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
+      role: Role.USER,
+      hasProfileImage: false,
+    },
+    {
+      id: 'c9b1d74e-e328-4f36-bdc6-36c713ee8b2c',
+      firstName: 'Guenna',
+      lastName: 'Le Moucheux',
+      location: County.OSIJECKO_BARANJSKA,
+      email: 'glemoucheux2b@deliciousdays.com',
+      password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
+      role: Role.USER,
+      hasProfileImage: false,
+    },
+    {
+      id: 'b75e0fd2-1712-4b4d-8519-1f6503447d0f',
+      firstName: 'Florida',
+      lastName: 'Snipe',
+      location: County.OTHER,
+      email: 'fsnipe2c@spotify.com',
+      password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
+      role: Role.USER,
+      hasProfileImage: false,
+    },
+    {
+      id: 'f130545e-9ea1-466d-a82e-bbb08b52703b',
+      firstName: 'Constancia',
+      lastName: 'Rathjen',
+      location: County.VARAZDINSKA,
+      email: 'crathjen2d@digg.com',
+      password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
+      role: Role.ADMIN,
+      hasProfileImage: false,
+    },
+    {
+      id: 'd7d1a0d1-ab71-48d1-899e-07ce45af6fd2',
+      firstName: 'Rolfe',
+      lastName: 'Astbery',
+      location: County.VARAZDINSKA,
+      email: 'rastbery2e@goo.gl',
+      password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
+      role: Role.SUPER,
+      hasProfileImage: false,
+    },
+    {
+      id: '74092a61-0919-42aa-b9fe-c67d6c031d58',
+      firstName: 'Jilli',
+      lastName: 'Shoulder',
+      location: County.SPLITSKO_DALMATINSKA,
+      email: 'jshoulder2f@ezinearticles.com',
+      password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
+      role: Role.SUPER,
+      hasProfileImage: false,
+    },
+    {
+      id: '2888ea91-ec4f-4d89-8441-da8308582d3a',
+      firstName: 'Cosetta',
+      lastName: 'Pigny',
+      location: County.ZAGREBACKA,
+      email: 'cpigny2g@deviantart.com',
+      password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
+      role: Role.ADMIN,
+      hasProfileImage: false,
+    },
+    {
+      id: '3df39bb8-f822-4bfb-8eb2-a0fa5233b7ba',
+      firstName: 'Aurelie',
+      lastName: "O'Cosgra",
+      location: County.DUBROVACKO_NERETVANSKA,
+      email: 'aocosgra2h@fda.gov',
+      password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
+      role: Role.USER,
+      hasProfileImage: false,
+    },
+    {
+      id: '99522a47-cda5-4aa4-b18d-c659febc1181',
+      firstName: 'Bellina',
+      lastName: 'Habbert',
+      location: County.BRODSKO_POSAVSKA,
+      email: 'bhabbert2i@ucla.edu',
+      password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
+      role: Role.USER,
+      hasProfileImage: false,
+    },
+    {
+      id: '2a1b56a1-459c-4c51-b105-f39340b9e556',
+      firstName: 'Louisette',
+      lastName: 'Billo',
+      location: County.VARAZDINSKA,
+      email: 'lbillo2j@alexa.com',
+      password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
+      role: Role.USER,
+      hasProfileImage: false,
+    },
+    {
+      id: 'a0384c5a-c702-400c-902b-b0972ae8624b',
+      firstName: 'Giffer',
+      lastName: 'Cullinan',
+      location: County.ISTARSKA,
+      email: 'gcullinan2k@youku.com',
+      password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
+      role: Role.ADMIN,
+      hasProfileImage: false,
+    },
+    {
+      id: 'e884c200-1758-41e6-a729-a7e28e247c23',
+      firstName: 'Heath',
+      lastName: 'Branchet',
+      location: County.VARAZDINSKA,
+      email: 'hbranchet2l@youtube.com',
+      password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
+      role: Role.SUPER,
+      hasProfileImage: false,
+    },
+    {
+      id: 'c180f642-49ad-4932-9845-11c19091f9dc',
+      firstName: 'Gabie',
+      lastName: 'Aiton',
+      location: County.VUKOVARSKO_SRIJEMSKA,
+      email: 'gaiton2m@yellowpages.com',
+      password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
+      role: Role.USER,
+      hasProfileImage: false,
+    },
+    {
+      id: 'f41e37fb-5d96-4cd7-acac-f268402a91b8',
+      firstName: 'Herby',
+      lastName: 'Escolme',
+      location: County.PRIMORSKO_GORANSKA,
+      email: 'hescolme2n@printfriendly.com',
+      password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
+      role: Role.ADMIN,
+      hasProfileImage: false,
+    },
+    {
+      id: 'f73ef367-1c92-4d2a-a847-240a18f39e5a',
+      firstName: 'Diego',
+      lastName: 'Lacroux',
+      location: County.VARAZDINSKA,
+      email: 'dlacroux2o@foxnews.com',
+      password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
+      role: Role.USER,
+      hasProfileImage: false,
+    },
+    {
+      id: '23d5d4e4-8779-46fd-b241-f5758b890211',
+      firstName: 'Jobina',
+      lastName: 'Whereat',
+      location: County.PRIMORSKO_GORANSKA,
+      email: 'jwhereat2p@liveinternet.ru',
+      password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
+      role: Role.ADMIN,
+      hasProfileImage: false,
+    },
+    {
+      id: '3efcc0e8-adbd-48a1-a868-460dc565a0d5',
+      firstName: 'Meredithe',
+      lastName: 'Henner',
+      location: County.MEDIMURSKA,
+      email: 'mhenner2q@nhs.uk',
+      password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
+      role: Role.USER,
+      hasProfileImage: false,
+    },
+    {
+      id: '1dbc91fe-d53d-472e-8703-d454f78d8af0',
+      firstName: 'Peg',
+      lastName: 'McNish',
+      location: County.VARAZDINSKA,
+      email: 'pmcnish2r@addthis.com',
+      password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
+      role: Role.ADMIN,
       hasProfileImage: false,
     },
   ];
@@ -1690,7 +1493,7 @@ async function main() {
     {
       id: 'a764f83d-175e-484d-b1af-18f4e3538227',
       name: 'Woodpecker, red-headed',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Melanerpes erythrocephalus',
       description:
         'Supplement Chest Wall with Nonautologous Tissue Substitute, Open Approach',
@@ -1705,7 +1508,7 @@ async function main() {
     {
       id: 'f3d9fb81-9548-416f-b59e-c1d80924dee7',
       name: 'Kangaroo, black-faced',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Macropus fuliginosus',
       description:
         'Replacement of Left Lower Eyelid with Synthetic Substitute, Open Approach',
@@ -1722,7 +1525,7 @@ async function main() {
     {
       id: '63fe129b-5ccc-4011-a76d-468c761a8b5b',
       name: 'Indian porcupine',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Hystrix indica',
       description: 'Reposition Right Acromioclavicular Joint, Open Approach',
       //ip_address: '191.119.104.48',
@@ -1736,7 +1539,7 @@ async function main() {
     {
       id: 'bce1e07f-060d-40d2-a7c3-8a78737a5d3d',
       name: 'Armadillo, common long-nosed',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Dasypus novemcinctus',
       description: 'Destruction of Right Patella, Open Approach',
       //ip_address: '21.245.208.169',
@@ -1750,7 +1553,7 @@ async function main() {
     {
       id: '6edf0715-bf89-485d-9ea9-2d9cce63a635',
       name: 'Yellow-throated sandgrouse',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Pterocles gutturalis',
       description: 'Magnetic Resonance Imaging (MRI) of Right Breast',
       //ip_address: '138.120.211.164',
@@ -1764,7 +1567,7 @@ async function main() {
     {
       id: 'dd4b7479-f8c1-4291-819c-92cc4e79cb9f',
       name: 'Kangaroo, jungle',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Macropus agilis',
       description:
         'High Dose Rate (HDR) Brachytherapy of Chest using Cesium 137 (Cs-137)',
@@ -1779,7 +1582,7 @@ async function main() {
     {
       id: '35b12af6-ef51-4b55-9a24-3bf88e1d4c42',
       name: 'Cat, african wild',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Felis silvestris lybica',
       description:
         'Insertion of Infusion Device into Left Metacarpocarpal Joint, Percutaneous Endoscopic Approach',
@@ -1796,7 +1599,7 @@ async function main() {
     {
       id: '4220d5d5-50f7-476b-b348-9c77702c9a2a',
       name: 'Robin, white-throated',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Irania gutteralis',
       description:
         'Bypass Left Common Iliac Artery to Right Common Iliac Artery with Nonautologous Tissue Substitute, Percutaneous Endoscopic Approach',
@@ -1811,7 +1614,7 @@ async function main() {
     {
       id: '0751c6c3-ba29-4210-a7b7-9c5663b70ddc',
       name: 'Currasow (unidentified)',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Crax sp.',
       description:
         'Restriction of Right Femoral Artery, Percutaneous Endoscopic Approach',
@@ -1826,7 +1629,7 @@ async function main() {
     {
       id: 'c79df2f1-94ba-424e-b936-309dd48189cf',
       name: 'Brazilian otter',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Pteronura brasiliensis',
       description: 'Drainage of Right Middle Lobe Bronchus, Open Approach',
       //ip_address: '250.59.172.150',
@@ -1840,7 +1643,7 @@ async function main() {
     {
       id: '5b81a90a-f911-454c-b7d2-bec9e52e7f6c',
       name: 'Javan gold-spotted mongoose',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Herpestes javanicus',
       description:
         'Occlusion of Left Renal Vein with Intraluminal Device, Percutaneous Endoscopic Approach',
@@ -1855,7 +1658,7 @@ async function main() {
     {
       id: 'cae255e4-baa4-4daf-8432-30fa5347db0f',
       name: "Nutcracker, clark's",
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Nucifraga columbiana',
       description:
         'Reattachment of Left Shoulder Tendon, Percutaneous Endoscopic Approach',
@@ -1870,7 +1673,7 @@ async function main() {
     {
       id: 'e5055098-8d5a-4a88-947c-019e87fbaf3c',
       name: 'Lilac-breasted roller',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Coracias caudata',
       description: 'Drainage of Left Upper Leg Muscle, Open Approach',
       //ip_address: '159.69.196.173',
@@ -1884,7 +1687,7 @@ async function main() {
     {
       id: '8ff68416-576b-405a-bdb7-0023a82bca7f',
       name: 'Collared lizard',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Crotaphytus collaris',
       description:
         'Fusion of Left Carpal Joint with External Fixation Device, Percutaneous Approach',
@@ -1899,7 +1702,7 @@ async function main() {
     {
       id: '0b88ecb4-e78d-4a34-972f-c2af3f50db92',
       name: 'White-rumped vulture',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Gyps bengalensis',
       description:
         'High Dose Rate (HDR) Brachytherapy of Axillary Lymphatics using Palladium 103 (Pd-103)',
@@ -1914,7 +1717,7 @@ async function main() {
     {
       id: '4ce90027-ebde-4008-a291-8cc1a709fc31',
       name: 'Western pygmy possum',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Cercatetus concinnus',
       description:
         'Drainage of Right Sphenoid Sinus, Percutaneous Approach, Diagnostic',
@@ -1929,7 +1732,7 @@ async function main() {
     {
       id: '23d85f1f-d927-49dd-b30a-5f92b62c1097',
       name: 'Pigeon, feral rock',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Columba livia',
       description:
         'Replacement of Nasopharynx with Nonautologous Tissue Substitute, Via Natural or Artificial Opening',
@@ -1944,7 +1747,7 @@ async function main() {
     {
       id: 'bf880577-aaae-497f-9691-1374f5ed4945',
       name: 'Indian mynah',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Acridotheres tristis',
       description:
         'Revision of Autologous Tissue Substitute in Right Scapula, Percutaneous Endoscopic Approach',
@@ -1959,7 +1762,7 @@ async function main() {
     {
       id: '2711a4e2-d513-4a26-abaa-1303222737aa',
       name: 'Red-cheeked cordon bleu',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Uraeginthus bengalus',
       description:
         'Excision of Right Ulnar Artery, Percutaneous Endoscopic Approach, Diagnostic',
@@ -1974,7 +1777,7 @@ async function main() {
     {
       id: 'ebceb094-ddd3-45ff-aa0b-2e86e4cf38eb',
       name: 'Horned lark',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Eremophila alpestris',
       description: 'Immobilization of Right Thumb using Cast',
       //ip_address: '252.136.1.64',
@@ -1988,7 +1791,7 @@ async function main() {
     {
       id: '25585869-48c0-4083-9497-6b9540e90d27',
       name: 'Bohor reedbuck',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Redunca redunca',
       description:
         'Revision of Autologous Tissue Substitute in Kidney, Via Natural or Artificial Opening',
@@ -2005,7 +1808,7 @@ async function main() {
     {
       id: '2a082df9-d2ce-4b82-b4aa-e11e9d154761',
       name: 'Plover, three-banded',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Charadrius tricollaris',
       description: 'Reposition Right Acetabulum, Open Approach',
       //ip_address: '252.94.97.191',
@@ -2019,7 +1822,7 @@ async function main() {
     {
       id: '2a2f9b58-e0f8-44dc-80f9-e97c85f49adf',
       name: 'Red-tailed cockatoo',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Calyptorhynchus magnificus',
       description:
         'Insertion of Infusion Device into Coronary Vein, Percutaneous Endoscopic Approach',
@@ -2034,7 +1837,7 @@ async function main() {
     {
       id: 'f193edbe-95d3-4605-bf68-8f8d2e486523',
       name: 'Blue racer',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Coluber constrictor foxii',
       description:
         'Supplement Cul-de-sac with Synthetic Substitute, Via Natural or Artificial Opening',
@@ -2049,7 +1852,7 @@ async function main() {
     {
       id: 'cda4cead-182e-40ba-a3a5-a6b91d1045eb',
       name: 'Black and white colobus',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Colobus guerza',
       description:
         'Reposition Left Ulna with Hybrid External Fixation Device, Open Approach',
@@ -2064,7 +1867,7 @@ async function main() {
     {
       id: '61915acf-8bda-4d56-86cb-8be2355823eb',
       name: 'Dove, little brown',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Streptopelia senegalensis',
       description:
         'Bypass Right Common Iliac Vein to Lower Vein, Percutaneous Endoscopic Approach',
@@ -2079,7 +1882,7 @@ async function main() {
     {
       id: '47c0658a-2712-439d-a7cd-9ddfccf1f0d4',
       name: 'American crow',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Corvus brachyrhynchos',
       description:
         'Supplement of Left Eye with Autologous Tissue Substitute, Percutaneous Approach',
@@ -2094,7 +1897,7 @@ async function main() {
     {
       id: 'b818aee1-5e40-42c1-acca-dabfeccb4304',
       name: 'African snake (unidentified)',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'unavailable',
       description: 'Fluoroscopy of Pelvis using High Osmolar Contrast',
       //ip_address: '168.39.47.128',
@@ -2110,7 +1913,7 @@ async function main() {
     {
       id: '67fcfdd2-341f-4c6f-8031-0d3d1173fb83',
       name: 'Eastern cottontail rabbit',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Sylvilagus floridanus',
       description: 'Destruction of Left Sphenoid Sinus, Percutaneous Approach',
       //ip_address: '150.95.202.56',
@@ -2124,7 +1927,7 @@ async function main() {
     {
       id: '1649e281-3bef-4a32-b235-960b5bd89540',
       name: 'Bird, pied butcher',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Cracticus nigroagularis',
       description:
         'Drainage of Right Elbow Bursa and Ligament with Drainage Device, Percutaneous Approach',
@@ -2139,7 +1942,7 @@ async function main() {
     {
       id: 'e93142e7-ae07-4ae5-b276-b4cda9f93b00',
       name: 'Thrasher, curve-billed',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Toxostoma curvirostre',
       description: 'Alteration of Left Ankle Region, Open Approach',
       //ip_address: '229.29.67.34',
@@ -2153,7 +1956,7 @@ async function main() {
     {
       id: '6dde0e00-b5ff-4953-b47f-544ceb413447',
       name: 'Bat, madagascar fruit',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Pteropus rufus',
       description: 'Peripheral Nervous System, Change',
       //ip_address: '180.4.204.249',
@@ -2167,7 +1970,7 @@ async function main() {
     {
       id: 'c7a096d6-6ab3-4bc2-aab7-6aafe31bfd5b',
       name: 'Yellow-brown sungazer',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Cordylus giganteus',
       description:
         'Dilation of Right Middle Lobe Bronchus with Intraluminal Device, Percutaneous Endoscopic Approach',
@@ -2182,7 +1985,7 @@ async function main() {
     {
       id: '9e55fbca-3ee8-4988-99c0-bbbb8f4a81e1',
       name: 'Caracara (unidentified)',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'unavailable',
       description: 'Repair Left Knee Joint, Percutaneous Endoscopic Approach',
       //ip_address: '138.180.25.23',
@@ -2196,7 +1999,7 @@ async function main() {
     {
       id: '8bccf473-388f-481f-b54b-a873c94317dc',
       name: 'Pelican, brown',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Pelecanus occidentalis',
       description:
         'Insertion of Radioactive Element into Hepatobiliary Duct, Percutaneous Endoscopic Approach',
@@ -2211,7 +2014,7 @@ async function main() {
     {
       id: '0480ce48-8e71-4bb4-b8f2-ab5c2a3f6631',
       name: 'Chameleon (unidentified)',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Chamaelo sp.',
       description:
         'Repair Female Reproductive System in Products of Conception, Percutaneous Endoscopic Approach',
@@ -2226,7 +2029,7 @@ async function main() {
     {
       id: '5e970db9-fb82-45a0-a44d-7928d6a9b0a8',
       name: 'Goose, canada',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Branta canadensis',
       description:
         'Drainage of Glomus Jugulare, Percutaneous Approach, Diagnostic',
@@ -2241,7 +2044,7 @@ async function main() {
     {
       id: '344f7a2f-7d35-4d31-8885-1595778824ad',
       name: "Sifaka, verreaux's",
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Propithecus verreauxi',
       description:
         'Bypass Abdominal Aorta to Left Internal Iliac Artery with Nonautologous Tissue Substitute, Percutaneous Endoscopic Approach',
@@ -2258,7 +2061,7 @@ async function main() {
     {
       id: 'e375e48f-b978-41b5-8a8d-d0d81805af17',
       name: 'Jungle kangaroo',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Macropus agilis',
       description: 'Release Transverse Colon, Open Approach',
       //ip_address: '151.128.1.125',
@@ -2272,7 +2075,7 @@ async function main() {
     {
       id: 'f35a4c13-209b-42fc-80f8-fc14e292bd26',
       name: 'Topi',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Damaliscus lunatus',
       description:
         'Drainage of Abdominal Wall, Percutaneous Endoscopic Approach',
@@ -2287,7 +2090,7 @@ async function main() {
     {
       id: '60055c0b-969d-444a-8c83-74adad554bc5',
       name: 'Bird, red-billed tropic',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Phaethon aethereus',
       description:
         'Extirpation of Matter from Hypothalamus, Percutaneous Endoscopic Approach',
@@ -2302,7 +2105,7 @@ async function main() {
     {
       id: 'e8663d82-bbeb-487f-bd7e-ea41ed798f67',
       name: 'Squirrel, arctic ground',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Spermophilus parryii',
       description:
         'Supplement Right 1st Toe with Nonautologous Tissue Substitute, Percutaneous Endoscopic Approach',
@@ -2317,7 +2120,7 @@ async function main() {
     {
       id: 'd14849b1-32eb-4f2a-be1f-ccc9d5062238',
       name: 'Squirrel glider',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Petaurus norfolcensis',
       description:
         'Bypass Left Femoral Artery to Foot Artery with Nonautologous Tissue Substitute, Open Approach',
@@ -2332,7 +2135,7 @@ async function main() {
     {
       id: 'bd0331a9-9f9b-476b-ae84-48fd3962b57a',
       name: 'Sage grouse',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Centrocercus urophasianus',
       description:
         'Repair Right Internal Carotid Artery, Percutaneous Approach',
@@ -2347,7 +2150,7 @@ async function main() {
     {
       id: 'bfa43ab2-47a3-46f8-b503-7ce7285bb423',
       name: 'Wild water buffalo',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Bubalus arnee',
       description: 'Plain Radiography of Prostate using High Osmolar Contrast',
       //ip_address: '81.142.179.175',
@@ -2361,7 +2164,7 @@ async function main() {
     {
       id: 'dbf88101-2125-4303-a52b-67cc8b8df808',
       name: 'Hyena, striped',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Hyaena hyaena',
       description:
         'Drainage of Aortic Body with Drainage Device, Percutaneous Approach',
@@ -2376,7 +2179,7 @@ async function main() {
     {
       id: 'cdc3d9b0-05ca-431b-bf83-45c97cdc09a4',
       name: 'Shrew, mandras tree',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Anathana ellioti',
       description: 'Excision of Left Eye, Open Approach',
       //ip_address: '154.223.74.114',
@@ -2390,7 +2193,7 @@ async function main() {
     {
       id: 'e28e7d9b-edeb-43e4-8958-1c0dbcc6b2f5',
       name: 'African red-eyed bulbul',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Pycnonotus nigricans',
       description:
         'Drainage of Peroneal Nerve, Percutaneous Endoscopic Approach, Diagnostic',
@@ -2405,7 +2208,7 @@ async function main() {
     {
       id: '39e7d394-a2da-4043-a843-63f47951d49a',
       name: 'Eurasian hoopoe',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Upupa epops',
       description:
         'Drainage of Lumbar Vertebra with Drainage Device, Open Approach',
@@ -2420,7 +2223,7 @@ async function main() {
     {
       id: '6b82b7cf-b614-4f29-9fa9-8a3f5bb3abe6',
       name: 'Colobus, magistrate black',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Colobus guerza',
       description:
         'Drainage of Right Anterior Tibial Artery, Open Approach, Diagnostic',
@@ -2435,7 +2238,7 @@ async function main() {
     {
       id: '5597c308-cb75-4958-acb7-c543f6ea7bda',
       name: 'Heron, grey',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Ardea cinerea',
       description:
         'Dilation of Right Vas Deferens, Percutaneous Endoscopic Approach',
@@ -2450,7 +2253,7 @@ async function main() {
     {
       id: 'ff77affa-788c-4658-84af-4fbf00528194',
       name: 'Giant girdled lizard',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Cordylus giganteus',
       description:
         'Bypass Right Common Carotid Artery to Right Extracranial Artery with Synthetic Substitute, Open Approach',
@@ -2467,7 +2270,7 @@ async function main() {
     {
       id: 'a139716a-3189-48cb-884d-80c77958c6d1',
       name: 'Flying fox (unidentified)',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'unavailable',
       description:
         'Release Ampulla of Vater, Via Natural or Artificial Opening Endoscopic',
@@ -2482,7 +2285,7 @@ async function main() {
     {
       id: 'd19eb608-3d2b-4138-9f32-f653f23a34fd',
       name: 'Carpet python',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Morelia spilotes variegata',
       description:
         'Removal of Artificial Sphincter from Urethra, Via Natural or Artificial Opening Endoscopic',
@@ -2497,7 +2300,7 @@ async function main() {
     {
       id: 'c788df20-868c-4c07-93dd-370ed330f564',
       name: 'Wallaby, red-necked',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Macropus rufogriseus',
       description:
         'Introduction of Electrolytic and Water Balance Substance into Products of Conception, Via Natural or Artificial Opening',
@@ -2514,7 +2317,7 @@ async function main() {
     {
       id: '1938a333-feb8-43cf-ac0d-6862c031ada1',
       name: 'African ground squirrel (unidentified)',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Xerus sp.',
       description: 'Reposition Right Subclavian Artery, Open Approach',
       //ip_address: '77.96.79.51',
@@ -2528,7 +2331,7 @@ async function main() {
     {
       id: '32ef108b-bead-40b4-94a2-06b2a06b0e88',
       name: 'Jackal, black-backed',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Canis mesomelas',
       description:
         'Restriction of Left Peroneal Artery with Intraluminal Device, Percutaneous Endoscopic Approach',
@@ -2545,7 +2348,7 @@ async function main() {
     {
       id: 'eb40ca5e-1e03-4550-8c34-c7549d9f0a00',
       name: 'Tiger snake',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Notechis semmiannulatus',
       description:
         'Removal of Stimulator Lead from Stomach, Percutaneous Approach',
@@ -2560,7 +2363,7 @@ async function main() {
     {
       id: 'ee4ece0a-db44-4b09-97be-45a790827a81',
       name: 'American badger',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Taxidea taxus',
       description:
         'Bypass Left Lacrimal Duct to Nasal Cavity with Synthetic Substitute, Percutaneous Approach',
@@ -2575,7 +2378,7 @@ async function main() {
     {
       id: '4fc820bf-5c87-4051-bf78-9d5df1154bbd',
       name: 'Fox, cape',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Vulpes chama',
       description:
         'Excision of Left Temporal Artery, Percutaneous Endoscopic Approach, Diagnostic',
@@ -2590,7 +2393,7 @@ async function main() {
     {
       id: '6671408c-55df-4231-a789-52f5c68e0686',
       name: 'Western lowland gorilla',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Gorilla gorilla',
       description: 'Release Left Vertebral Artery, Percutaneous Approach',
       //ip_address: '58.247.68.168',
@@ -2604,7 +2407,7 @@ async function main() {
     {
       id: '41a284ac-7cbb-4803-9f4b-299cf35ddcab',
       name: 'Avocet, pied',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Recurvirostra avosetta',
       description:
         'Drainage of Left Radial Artery with Drainage Device, Open Approach',
@@ -2619,7 +2422,7 @@ async function main() {
     {
       id: '064d1e46-ca7b-4e55-903f-264619211b22',
       name: 'Common melba finch',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Pytilia melba',
       description:
         'Transfusion of Autologous Factor IX into Peripheral Vein, Percutaneous Approach',
@@ -2634,7 +2437,7 @@ async function main() {
     {
       id: 'ec75a2cf-c717-4007-b3c5-23d5bda95955',
       name: 'Squirrel, eurasian red',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Sciurus vulgaris',
       description: 'Release Left Orbit, Open Approach',
       //ip_address: '183.9.74.232',
@@ -2648,7 +2451,7 @@ async function main() {
     {
       id: '399094ca-a409-4bf0-880e-aa84cf34d5c4',
       name: 'Vicuna',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Vicugna vicugna',
       description: 'Restriction of Right Hand Artery, Open Approach',
       //ip_address: '206.87.76.122',
@@ -2662,7 +2465,7 @@ async function main() {
     {
       id: 'ceb6b44b-3d66-4a1d-8379-b8e5089e7c69',
       name: 'White-faced whistling duck',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Dendrocygna viduata',
       description: 'Extraction of Right Pleura, Open Approach, Diagnostic',
       //ip_address: '12.19.156.214',
@@ -2676,7 +2479,7 @@ async function main() {
     {
       id: 'be634537-1672-42cd-b146-252138252f54',
       name: 'Blue-tongued skink',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Tiliqua scincoides',
       description:
         'Removal of Drainage Device from Right Tympanic Membrane, Via Natural or Artificial Opening Endoscopic',
@@ -2691,7 +2494,7 @@ async function main() {
     {
       id: '8041b972-d984-4751-9bf2-feb781194c7b',
       name: 'Springbok',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Antidorcas marsupialis',
       description:
         'Occlusion of Right Vertebral Artery with Bioactive Intraluminal Device, Percutaneous Approach',
@@ -2706,7 +2509,7 @@ async function main() {
     {
       id: 'f04c73e2-1140-470c-8627-3213fa0e60b8',
       name: 'Rainbow lory',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Trichoglossus haematodus moluccanus',
       description: 'Excision of Right Hip Muscle, Percutaneous Approach',
       //ip_address: '83.74.53.62',
@@ -2720,7 +2523,7 @@ async function main() {
     {
       id: '489ecea9-2867-4cd4-8622-94294a8c48d6',
       name: 'Bustard, stanley',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Neotis denhami',
       description:
         'Excision of Right Abdomen Bursa and Ligament, Percutaneous Approach, Diagnostic',
@@ -2735,7 +2538,7 @@ async function main() {
     {
       id: 'ab8df509-d22a-4996-84d2-ebc88220a85c',
       name: 'Penguin, little blue',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Eudyptula minor',
       description:
         'Fluoroscopy of Right Brachiocephalic-Subclavian Artery using High Osmolar Contrast, Laser Intraoperative',
@@ -2750,7 +2553,7 @@ async function main() {
     {
       id: '6ee46052-0d9d-4761-afa5-a77ecf73582c',
       name: 'Red-necked phalarope',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Phalaropus lobatus',
       description:
         'Replacement of Left Greater Saphenous Vein with Nonautologous Tissue Substitute, Percutaneous Endoscopic Approach',
@@ -2765,7 +2568,7 @@ async function main() {
     {
       id: '1f91a622-fe6e-4c1f-8b96-427894db21fd',
       name: 'Black-throated cardinal',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Paroaria gularis',
       description:
         'Bypass Thoracic Aorta, Ascending/Arch to Pulmonary Trunk with Autologous Arterial Tissue, Percutaneous Endoscopic Approach',
@@ -2780,7 +2583,7 @@ async function main() {
     {
       id: '330b5e45-ed08-4782-85e8-09e250cd4caa',
       name: 'Roseate cockatoo',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Eolophus roseicapillus',
       description:
         'Removal of Infusion Device from Spinal Cord, Percutaneous Approach',
@@ -2795,7 +2598,7 @@ async function main() {
     {
       id: '571ccbdb-930f-40b8-9387-b5af57e1e5ad',
       name: 'Booby, blue-footed',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Sula nebouxii',
       description:
         'Occlusion of Bladder Neck with Intraluminal Device, Percutaneous Endoscopic Approach',
@@ -2810,7 +2613,7 @@ async function main() {
     {
       id: 'f01d9725-9ad2-48f2-92d8-2a464d4ff750',
       name: 'White-fronted capuchin',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Cebus albifrons',
       description: 'Drainage of Bilateral Ureters, Open Approach',
       //ip_address: '217.12.214.29',
@@ -2824,7 +2627,7 @@ async function main() {
     {
       id: '6920e930-a2f2-4ba9-b19f-85f960baa328',
       name: 'American bison',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Bison bison',
       description:
         'Inspection of Abdominal Wall, Percutaneous Endoscopic Approach',
@@ -2839,7 +2642,7 @@ async function main() {
     {
       id: 'be1aa02c-0583-4b10-99d7-4f879f2d41e4',
       name: 'Mountain lion',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Felis concolor',
       description: 'Fluoroscopy of Bilateral Upper Extremity Arteries',
       //ip_address: '247.119.165.186',
@@ -2853,7 +2656,7 @@ async function main() {
     {
       id: '552b443a-cbd0-4213-a792-661e5110a3ad',
       name: 'Baboon, yellow',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Papio cynocephalus',
       description:
         'Excision of Left Maxillary Sinus, Percutaneous Endoscopic Approach, Diagnostic',
@@ -2868,7 +2671,7 @@ async function main() {
     {
       id: 'b7f7a353-0fa4-4424-a965-df5986988b95',
       name: 'Madagascar fruit bat',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Pteropus rufus',
       description:
         'Removal of Intraluminal Device from Larynx, Via Natural or Artificial Opening Endoscopic',
@@ -2883,7 +2686,7 @@ async function main() {
     {
       id: 'e4186d45-f84d-4589-acaf-857fda94b0ab',
       name: 'Constrictor, eastern boa',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Acrantophis madagascariensis',
       description:
         'Removal of Nonautologous Tissue Substitute from Left Tibia, Percutaneous Endoscopic Approach',
@@ -2898,7 +2701,7 @@ async function main() {
     {
       id: '3494c277-a5ef-4605-9ada-9a19c15bbcf2',
       name: 'Hottentot teal',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Anas punctata',
       description:
         'Supplement Right Foot Artery with Synthetic Substitute, Open Approach',
@@ -2913,7 +2716,7 @@ async function main() {
     {
       id: '16836da7-f64b-41ee-b999-8dd603a73d2e',
       name: 'Blue duck',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Hymenolaimus malacorhynchus',
       description: 'Division of Right Upper Arm Skin, External Approach',
       //ip_address: '162.25.224.129',
@@ -2927,7 +2730,7 @@ async function main() {
     {
       id: '97a04b36-5541-46cb-85ec-3b6a8b181591',
       name: 'Superb starling',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Lamprotornis superbus',
       description:
         'Beam Radiation of Abdomen Skin using Electrons, Intraoperative',
@@ -2942,7 +2745,7 @@ async function main() {
     {
       id: '2bed76dc-051a-4092-94d2-1ee2e4da1980',
       name: 'Uinta ground squirrel',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Spermophilus armatus',
       description:
         'Insertion of Radioactive Element into Retroperitoneum, Percutaneous Approach',
@@ -2957,7 +2760,7 @@ async function main() {
     {
       id: 'e7ba9d61-45b5-425d-bed3-4348bbe5ade0',
       name: 'Hyena, spotted',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Crocuta crocuta',
       description:
         'Removal of Autologous Tissue Substitute from Left Tarsal Joint, Percutaneous Endoscopic Approach',
@@ -2972,7 +2775,7 @@ async function main() {
     {
       id: '2612e9bd-9945-4ce2-a224-7fce87e44e26',
       name: 'Dog, bush',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Speothos vanaticus',
       description:
         'Bypass Right Femoral Artery to Popliteal Artery with Nonautologous Tissue Substitute, Percutaneous Endoscopic Approach',
@@ -2989,7 +2792,7 @@ async function main() {
     {
       id: '0653f6fc-483f-4491-88c9-23622da37efe',
       name: 'Ground monitor (unidentified)',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Varanus sp.',
       description:
         'Excision of Right Seminal Vesicle, Open Approach, Diagnostic',
@@ -3004,7 +2807,7 @@ async function main() {
     {
       id: '1d1b7ac1-09c0-4445-9f06-432a4369d332',
       name: 'Turkey, common',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Meleagris gallopavo',
       description:
         'Excision of Right Lower Eyelid, Percutaneous Approach, Diagnostic',
@@ -3019,7 +2822,7 @@ async function main() {
     {
       id: '4d723d31-37a9-4d40-9e67-d059e5677498',
       name: 'Oriental short-clawed otter',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Aonyx cinerea',
       description:
         'Insertion of Intraluminal Device into Left Popliteal Artery, Percutaneous Endoscopic Approach',
@@ -3034,7 +2837,7 @@ async function main() {
     {
       id: '33b8828d-2892-4ddb-ba66-46ae5a6f9295',
       name: 'Giraffe',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Giraffe camelopardalis',
       description: 'Excision of Lower Jaw, External Approach',
       //ip_address: '118.54.59.16',
@@ -3048,7 +2851,7 @@ async function main() {
     {
       id: 'dea21cf7-452b-4187-9743-8735fd5082ca',
       name: 'White-winged black tern',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Chlidonias leucopterus',
       description:
         'Bypass Right Hepatic Duct to Small Intestine with Intraluminal Device, Percutaneous Endoscopic Approach',
@@ -3063,7 +2866,7 @@ async function main() {
     {
       id: '33aa72a7-50d7-4ae3-98cd-053a8b23c70a',
       name: 'Common brushtail possum',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Trichosurus vulpecula',
       description:
         'Bypass Left Popliteal Artery to Lower Extremity Vein with Synthetic Substitute, Percutaneous Endoscopic Approach',
@@ -3080,7 +2883,7 @@ async function main() {
     {
       id: '52b0637d-7fdc-449a-ba97-15b322ed4123',
       name: 'Duiker, gray',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Sylvicapra grimma',
       description:
         'Drainage of Right Tunica Vaginalis with Drainage Device, Open Approach',
@@ -3095,7 +2898,7 @@ async function main() {
     {
       id: 'e84f47b7-6150-47ae-a64c-524b241f3d71',
       name: 'Warthog',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Phacochoerus aethiopus',
       description:
         'Fusion of Occipital-cervical Joint with Synthetic Substitute, Posterior Approach, Anterior Column, Percutaneous Approach',
@@ -3112,7 +2915,7 @@ async function main() {
     {
       id: 'a20afd74-3906-44e2-b784-d7ad6bee510f',
       name: 'Penguin, galapagos',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Spheniscus mendiculus',
       description:
         'Destruction of Left Metacarpocarpal Joint, Percutaneous Approach',
@@ -3127,7 +2930,7 @@ async function main() {
     {
       id: '35163f06-b491-4a85-8dfc-801b0f9f1780',
       name: 'Gull, southern black-backed',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Larus dominicanus',
       description: 'Inspection of Left Lung, Percutaneous Endoscopic Approach',
       //ip_address: '73.113.66.26',
@@ -3141,7 +2944,7 @@ async function main() {
     {
       id: '6b71368c-142d-435e-a56d-1322b3669182',
       name: 'Asian false vampire bat',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Megaderma spasma',
       description:
         'Supplement Nasal Turbinate with Nonautologous Tissue Substitute, Open Approach',
@@ -3156,7 +2959,7 @@ async function main() {
     {
       id: 'e04fcf84-aded-404b-a690-e2ddf557d05b',
       name: 'Python (unidentified)',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'unavailable',
       description:
         'Fusion of Sacrococcygeal Joint with Internal Fixation Device, Percutaneous Approach',
@@ -3171,7 +2974,7 @@ async function main() {
     {
       id: '49f9a5f9-b0b4-46a7-a0ed-01b85306755d',
       name: 'Turkey, wild',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Meleagris gallopavo',
       description:
         'Removal of Autologous Tissue Substitute from Lower Jaw, Percutaneous Approach',
@@ -3186,7 +2989,7 @@ async function main() {
     {
       id: 'f58c8f4f-2574-4beb-98bd-12a17be68876',
       name: 'Burmese brown mountain tortoise',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Manouria emys',
       description:
         'Excision of Right Metatarsal-Tarsal Joint, Percutaneous Endoscopic Approach',
@@ -3201,7 +3004,7 @@ async function main() {
     {
       id: 'd4c78bb7-80f6-4ebc-9866-3670148a8f97',
       name: 'White-fronted bee-eater',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Merops bullockoides',
       description:
         'Replacement of Right Tarsal with Synthetic Substitute, Open Approach',
@@ -3218,7 +3021,7 @@ async function main() {
     {
       id: 'd1008242-398f-4881-a109-f4723667fe5e',
       name: 'American Virginia opossum',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Didelphis virginiana',
       description:
         'Extirpation of Matter from Left Tympanic Membrane, Via Natural or Artificial Opening',
@@ -3233,7 +3036,7 @@ async function main() {
     {
       id: '65102751-1880-423f-829c-858ffe1e2b6e',
       name: 'Zebra, plains',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Equus burchelli',
       description:
         'Magnetic Resonance Imaging (MRI) of Superior Mesenteric Artery using Other Contrast',
@@ -3248,7 +3051,7 @@ async function main() {
     {
       id: '5080190e-1c7f-40d3-9c18-749bcc69778d',
       name: 'Stilt, black-winged',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Himantopus himantopus',
       description:
         'Revision of Drainage Device in Gallbladder, Percutaneous Approach',
@@ -3263,7 +3066,7 @@ async function main() {
     {
       id: '5742edf8-da68-4075-bbe8-a4578bb9299b',
       name: 'Red brocket',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Mazama americana',
       description:
         'Occlusion of Left Vas Deferens with Intraluminal Device, Percutaneous Approach',
@@ -3278,7 +3081,7 @@ async function main() {
     {
       id: '9609ca60-09c6-4dc2-86bb-6107dcd8f1bc',
       name: 'Sandhill crane',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Grus canadensis',
       description:
         'Bypass Cecum to Rectum with Autologous Tissue Substitute, Via Natural or Artificial Opening Endoscopic',
@@ -3293,7 +3096,7 @@ async function main() {
     {
       id: '55332446-4b00-479d-833b-1907b0b47504',
       name: 'Shelduck, european',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Tadorna tadorna',
       description:
         'Insertion of Internal Fixation Device into Left Lacrimal Bone, Percutaneous Endoscopic Approach',
@@ -3308,7 +3111,7 @@ async function main() {
     {
       id: '10656f7d-5eb1-4e54-8562-5e2ccc5c35bd',
       name: 'Black-capped capuchin',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Cebus apella',
       description: 'Reposition Right Radial Artery, Percutaneous Approach',
       //ip_address: '171.147.158.80',
@@ -3322,7 +3125,7 @@ async function main() {
     {
       id: '6d3bb8af-c4a7-40d8-b771-81bd65af3ea5',
       name: 'Golden eagle',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Aquila chrysaetos',
       description:
         'Occlusion of Rectum with Intraluminal Device, Open Approach',
@@ -3339,7 +3142,7 @@ async function main() {
     {
       id: '8ee47ca3-0e66-4992-89e8-9e5e8948b446',
       name: 'Baleen whale',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Eubalaena australis',
       description:
         'Reflex Integrity Assessment of Neurological System - Whole Body',
@@ -3354,7 +3157,7 @@ async function main() {
     {
       id: 'e9fce50e-fd63-4276-b27b-af306cf1f15c',
       name: 'Aardwolf',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Proteles cristatus',
       description: 'Excision of Nasopharynx, Percutaneous Approach',
       //ip_address: '251.184.217.93',
@@ -3368,7 +3171,7 @@ async function main() {
     {
       id: '451ee428-5e7a-41cc-9b0c-cffb37fdabe2',
       name: 'Chipmunk, least',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Eutamias minimus',
       description:
         'Replacement of Right Maxilla with Synthetic Substitute, Open Approach',
@@ -3383,7 +3186,7 @@ async function main() {
     {
       id: '1fa2480e-0c38-470e-8bcc-716d36515769',
       name: 'Roseate cockatoo',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Eolophus roseicapillus',
       description:
         'Introduction of Other Gas into Upper GI, Percutaneous Approach',
@@ -3398,7 +3201,7 @@ async function main() {
     {
       id: '5d3a5f5c-f6f7-4faa-974d-c2d9224092d2',
       name: "Gazelle, thomson's",
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Gazella thompsonii',
       description:
         'Supplement Thoracolumbar Vertebral Disc with Synthetic Substitute, Percutaneous Approach',
@@ -3413,7 +3216,7 @@ async function main() {
     {
       id: '2465d19c-c450-4fae-a728-7269eceb0c29',
       name: 'Violet-eared waxbill',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Uraeginthus granatina',
       description:
         'Bypass Coronary Artery, Four or More Arteries from Coronary Artery with Synthetic Substitute, Percutaneous Endoscopic Approach',
@@ -3428,7 +3231,7 @@ async function main() {
     {
       id: 'daaebfe6-4786-4f91-8f8d-d3965dc9d845',
       name: 'Spoonbill, european',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Platalea leucordia',
       description:
         'Drainage of Right Shoulder Joint, Percutaneous Endoscopic Approach, Diagnostic',
@@ -3443,7 +3246,7 @@ async function main() {
     {
       id: '3b4024ee-be98-4198-8dcd-0f6e5ffdef40',
       name: 'Brush-tailed phascogale',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Phascogale tapoatafa',
       description:
         'Repair Skin in Products of Conception with Other Device, Percutaneous Approach',
@@ -3458,7 +3261,7 @@ async function main() {
     {
       id: '5fc9bd15-a25e-4bd4-9299-9254d0fa7eca',
       name: 'Opossum, american virginia',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Didelphis virginiana',
       description:
         'Removal of Intraluminal Device from Lymphatic, Percutaneous Approach',
@@ -3473,7 +3276,7 @@ async function main() {
     {
       id: 'd65fa0b7-3746-4706-8dd5-70e7c24ec7e8',
       name: 'Cat, european wild',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Felis silvestris lybica',
       description:
         'Supplement Right Hand with Autologous Tissue Substitute, Percutaneous Endoscopic Approach',
@@ -3488,7 +3291,7 @@ async function main() {
     {
       id: 'd2bc105b-f4b2-49ec-a68a-bafe0f2ca4f8',
       name: 'Crown of thorns starfish',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Acanthaster planci',
       description:
         'Dilation of Left Common Carotid Artery, Bifurcation, with Two Intraluminal Devices, Open Approach',
@@ -3503,7 +3306,7 @@ async function main() {
     {
       id: 'b3e8246a-dc7d-4c9b-b5bc-cd9a024bd56d',
       name: 'Whip-tailed wallaby',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Macropus parryi',
       description:
         'Removal of Drainage Device from Fallopian Tube, Percutaneous Approach',
@@ -3518,7 +3321,7 @@ async function main() {
     {
       id: 'b465d3f0-4bb6-4b85-b643-865fc942d724',
       name: 'Striped hyena',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Hyaena hyaena',
       description:
         'Supplement Left Fibula with Synthetic Substitute, Percutaneous Approach',
@@ -3533,7 +3336,7 @@ async function main() {
     {
       id: '94313640-4905-4bc1-ba19-c2d772d2b470',
       name: 'Whip-tailed wallaby',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Macropus parryi',
       description: 'Removal of Cast on Right Lower Extremity',
       //ip_address: '95.233.32.48',
@@ -3547,7 +3350,7 @@ async function main() {
     {
       id: '8808fa92-7123-47c5-b11d-b8abb70a21dc',
       name: 'Toucan, white-throated',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Ramphastos tucanus',
       description:
         'Transfer Right Foot Muscle with Skin and Subcutaneous Tissue, Open Approach',
@@ -3562,7 +3365,7 @@ async function main() {
     {
       id: '2d41b80c-c7ab-4098-86e8-c653e79c30b6',
       name: 'Chuckwalla',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Sauromalus obesus',
       description:
         'Drainage of Left Mandible, Percutaneous Endoscopic Approach',
@@ -3577,7 +3380,7 @@ async function main() {
     {
       id: '80ca43b3-42cf-46ac-af56-90cfd142c35f',
       name: 'White-fronted capuchin',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Cebus albifrons',
       description: 'Upper Veins, Dilation',
       //ip_address: '168.54.236.183',
@@ -3591,7 +3394,7 @@ async function main() {
     {
       id: '562df2c0-2a53-4330-9680-2db1fe257dd6',
       name: 'Flamingo, roseat',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Phoenicopterus ruber',
       description: 'Dilation of Right Axillary Artery, Percutaneous Approach',
       //ip_address: '86.114.73.77',
@@ -3605,7 +3408,7 @@ async function main() {
     {
       id: 'ba14d891-a8d5-4fcb-9395-5a9ea21ddaef',
       name: 'Barasingha deer',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Cervus duvauceli',
       description:
         'Computerized Tomography (CT Scan) of Bladder using Other Contrast',
@@ -3620,7 +3423,7 @@ async function main() {
     {
       id: '064fd0b0-a04b-4759-bffd-3d4abefd533c',
       name: 'Dove, laughing',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Streptopelia senegalensis',
       description:
         'Insertion of Intraluminal Device into Left Vertebral Artery, Open Approach',
@@ -3635,7 +3438,7 @@ async function main() {
     {
       id: '4ec79b6b-8546-42d7-a6c3-b4ba2492f1f8',
       name: 'Osprey',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Pandon haliaetus',
       description: 'Reattachment of Left Hand, Open Approach',
       //ip_address: '197.216.7.46',
@@ -3651,7 +3454,7 @@ async function main() {
     {
       id: 'da741487-1101-49b7-a0fe-f8e95fcb7c91',
       name: 'Darter, african',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Anhinga rufa',
       description:
         'Supplement Penis with Autologous Tissue Substitute, External Approach',
@@ -3666,7 +3469,7 @@ async function main() {
     {
       id: '4f78df48-8900-46be-b3b9-e6844e40ab07',
       name: 'Red-headed woodpecker',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Melanerpes erythrocephalus',
       description:
         'Restriction of Upper Esophagus, Percutaneous Endoscopic Approach',
@@ -3683,7 +3486,7 @@ async function main() {
     {
       id: '08163584-d418-4846-a355-acb96b7cca24',
       name: 'Squirrel, eastern fox',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Sciurus niger',
       description: 'Drainage of Left Zygomatic Bone, Open Approach, Diagnostic',
       //ip_address: '17.70.144.37',
@@ -3691,13 +3494,13 @@ async function main() {
       mainImage: 'http://dummyimage.com/306x521.png/5fa2dd/ffffff',
       categorizationId: categorizations[17].id,
       organisationId: organisations[10].id,
-      funFacts: ['Type 1 diab w prolif diab rtnop w trctn dtch macula, l eye'],
+      funFacts: ['Type 1 diab w prulif diab rtnop w trctn dtch macula, l eye'],
       attributes: '{"kind" : "test"}',
     },
     {
       id: 'ec66b154-8665-4830-827d-f268e6dde90e',
       name: 'Blackish oystercatcher',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Haematopus ater',
       description:
         'Removal of Other Device from Upper Jaw, Percutaneous Endoscopic Approach',
@@ -3712,7 +3515,7 @@ async function main() {
     {
       id: 'f1493dc6-a67e-4332-8e3f-7e4655a4c912',
       name: 'Bateleur eagle',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Terathopius ecaudatus',
       description: 'Reposition Right External Iliac Artery, Open Approach',
       //ip_address: '34.250.181.79',
@@ -3726,7 +3529,7 @@ async function main() {
     {
       id: 'd41a913a-e105-4c98-9f61-9f604f942b49',
       name: 'Giraffe',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Giraffe camelopardalis',
       description:
         'Excision of Left Axillary Artery, Percutaneous Endoscopic Approach, Diagnostic',
@@ -3741,7 +3544,7 @@ async function main() {
     {
       id: '647ba02d-3429-4974-95a3-240caf3f621c',
       name: "Thomson's gazelle",
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Gazella thompsonii',
       description:
         'Drainage of Intracranial Vein with Drainage Device, Percutaneous Approach',
@@ -3756,7 +3559,7 @@ async function main() {
     {
       id: '9f738200-f792-490d-b73c-ff731661ba2b',
       name: 'Brown capuchin',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Cebus apella',
       description: 'Reposition Right External Ear, External Approach',
       //ip_address: '69.20.92.87',
@@ -3770,7 +3573,7 @@ async function main() {
     {
       id: '93233621-f72e-4f53-b76c-0d9ae8e41d7d',
       name: 'Snake, green vine',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Oxybelis fulgidus',
       description:
         'Computerized Tomography (CT Scan) of Bilateral Common Carotid Arteries using High Osmolar Contrast',
@@ -3787,7 +3590,7 @@ async function main() {
     {
       id: '5f1fa3b8-ff01-4de4-890e-733c25a45369',
       name: 'Frilled lizard',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Chlamydosaurus kingii',
       description:
         'Repair Cervicothoracic Vertebral Joint, Percutaneous Endoscopic Approach',
@@ -3804,7 +3607,7 @@ async function main() {
     {
       id: '13ea2c23-3e17-4a9b-932e-561a9dcc928c',
       name: 'Possum, golden brush-tailed',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Trichosurus vulpecula',
       description: 'Resection of Upper Lip, Open Approach',
       //ip_address: '243.47.25.75',
@@ -3818,7 +3621,7 @@ async function main() {
     {
       id: 'bb59a90f-4651-4e51-a893-eccd433041d4',
       name: 'Parrot, hawk-headed',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Deroptyus accipitrinus',
       description:
         'Dilation of Right Ulnar Artery with Two Drug-eluting Intraluminal Devices, Percutaneous Approach',
@@ -3833,7 +3636,7 @@ async function main() {
     {
       id: '2fde938a-e60a-4c6f-95cb-5433abac52fd',
       name: 'Fox, silver-backed',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Vulpes chama',
       description:
         'Bypass Thoracic Aorta, Ascending/Arch to Left Pulmonary Artery, Percutaneous Endoscopic Approach',
@@ -3848,7 +3651,7 @@ async function main() {
     {
       id: 'a96b3215-a6c3-4901-bf39-7c070b8dd789',
       name: 'Corella, long-billed',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Cacatua tenuirostris',
       description: 'Brief Tone Stimuli Assessment using Audiometer',
       //ip_address: '34.85.210.40',
@@ -3862,7 +3665,7 @@ async function main() {
     {
       id: '37a154dd-ae39-4511-8109-1339ceb1a256',
       name: 'Wallaby, agile',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Macropus agilis',
       description:
         'Destruction of Right Kidney Pelvis, Via Natural or Artificial Opening',
@@ -3877,7 +3680,7 @@ async function main() {
     {
       id: '0e27c489-40cf-4df9-b7ed-5845638a9581',
       name: 'Royal tern',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Thalasseus maximus',
       description:
         'Drainage of Bilateral Epididymis, Open Approach, Diagnostic',
@@ -3892,7 +3695,7 @@ async function main() {
     {
       id: 'e3568c02-7b62-405b-aa79-19fabfe969bd',
       name: 'Otter, small-clawed',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Aonyx cinerea',
       description:
         'Insertion of Infusion Device into Right Thyroid Artery, Percutaneous Endoscopic Approach',
@@ -3907,7 +3710,7 @@ async function main() {
     {
       id: 'b1c2937b-1362-4a0a-b3e9-0a6fccc80a44',
       name: 'Black-winged stilt',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Himantopus himantopus',
       description:
         'Beam Radiation of Soft Palate using Electrons, Intraoperative',
@@ -3922,7 +3725,7 @@ async function main() {
     {
       id: '2f89c808-dbc3-4f13-8d02-2bb5e0ad9627',
       name: 'Large-eared bushbaby',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Galago crassicaudataus',
       description:
         'Excision of Right Sacroiliac Joint, Percutaneous Approach, Diagnostic',
@@ -3937,7 +3740,7 @@ async function main() {
     {
       id: 'b47c0fb3-28a0-45b8-8d09-5ab97b68d3c9',
       name: 'White-throated monitor',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Varanus albigularis',
       description:
         'Transfer Accessory Nerve to Oculomotor Nerve, Percutaneous Endoscopic Approach',
@@ -3954,7 +3757,7 @@ async function main() {
     {
       id: '0d59880d-2c4c-4d86-b3ee-43166fb0b756',
       name: 'Stork, yellow-billed',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Mycteria ibis',
       description:
         'Dilation of Right Internal Mammary Artery, Bifurcation, with Four or More Intraluminal Devices, Open Approach',
@@ -3969,7 +3772,7 @@ async function main() {
     {
       id: 'df1ba152-9954-4803-aea9-a3f5744e9531',
       name: "Gazelle, grant's",
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Gazella granti',
       description: 'Release Right Trunk Muscle, Open Approach',
       //ip_address: '126.164.174.94',
@@ -3983,7 +3786,7 @@ async function main() {
     {
       id: '0fc8378d-b1c1-47fc-afbf-9181843b7a8a',
       name: 'Raccoon dog',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Nyctereutes procyonoides',
       description: 'Ultrasonography of Left Wrist',
       //ip_address: '131.81.22.199',
@@ -3997,7 +3800,7 @@ async function main() {
     {
       id: 'be47b77c-dafd-4954-8298-47807e4f2bff',
       name: 'Wattled crane',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Bugeranus caruncalatus',
       description:
         'Computerized Tomography (CT Scan) of Right Elbow using Other Contrast',
@@ -4012,7 +3815,7 @@ async function main() {
     {
       id: '7fee4604-ae9f-4ac9-8c1c-97332a4e7049',
       name: 'Gila monster',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Heloderma horridum',
       description: 'Extirpation of Matter from Right Sclera, External Approach',
       //ip_address: '12.68.61.52',
@@ -4026,7 +3829,7 @@ async function main() {
     {
       id: '62f7e55d-8699-4e8e-917f-35b7228152e5',
       name: 'Pampa gray fox',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Pseudalopex gymnocercus',
       description:
         'High Dose Rate (HDR) Brachytherapy of Colon using Iridium 192 (Ir-192)',
@@ -4041,7 +3844,7 @@ async function main() {
     {
       id: '7d9dc923-1a32-4181-a738-0c92b5554673',
       name: 'Sloth, two-toed tree',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Choloepus hoffmani',
       description: 'Drainage of Ulnar Nerve, Open Approach',
       //ip_address: '169.182.136.81',
@@ -4055,7 +3858,7 @@ async function main() {
     {
       id: '4ebf5047-8d99-4649-9386-b2023dd333c4',
       name: 'Dove, laughing',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Streptopelia senegalensis',
       description: 'Muscle Performance Treatment of Genitourinary System',
       //ip_address: '248.112.108.53',
@@ -4069,7 +3872,7 @@ async function main() {
     {
       id: '1d361e6f-b88f-4154-99bb-71fdc1e9d3f3',
       name: 'Yellow-bellied marmot',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Marmota flaviventris',
       description:
         'Drainage of Head Lymphatic with Drainage Device, Percutaneous Endoscopic Approach',
@@ -4084,7 +3887,7 @@ async function main() {
     {
       id: '53b37cf8-14c7-4ed0-9477-4eca7b4a9158',
       name: "Dik, kirk's dik",
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Madoqua kirkii',
       description:
         'Insertion of Intramedullary Internal Fixation Device into Right Humeral Shaft, Open Approach',
@@ -4099,7 +3902,7 @@ async function main() {
     {
       id: 'f96ced1e-84e0-4f1a-a354-8c211bd49357',
       name: 'Lizard, collared',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Crotaphytus collaris',
       description:
         'Supplement Nasal Turbinate with Synthetic Substitute, Via Natural or Artificial Opening',
@@ -4114,7 +3917,7 @@ async function main() {
     {
       id: 'c1199af0-80bb-449d-8656-40e9391732cd',
       name: 'Malleefowl',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Leipoa ocellata',
       description: 'Compression of Left Hand using Pressure Dressing',
       //ip_address: '197.166.69.113',
@@ -4128,7 +3931,7 @@ async function main() {
     {
       id: 'd6e374d1-fe67-435f-bf3b-33662f8cac98',
       name: 'Capybara',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Hydrochoerus hydrochaeris',
       description: 'Reposition Epiglottis, Via Natural or Artificial Opening',
       //ip_address: '255.17.132.37',
@@ -4142,7 +3945,7 @@ async function main() {
     {
       id: '949f5a96-0700-4cac-81ab-988d44fe9d71',
       name: 'Wallaroo, common',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Macropus robustus',
       description: 'Destruction of Left Hepatic Duct, Percutaneous Approach',
       //ip_address: '47.28.196.247',
@@ -4156,7 +3959,7 @@ async function main() {
     {
       id: 'aa04f363-f481-4f15-b0b6-f19b1effe265',
       name: 'Gorilla, western lowland',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Gorilla gorilla',
       description:
         'Revision of Internal Fixation Device in Right Radius, Percutaneous Endoscopic Approach',
@@ -4173,7 +3976,7 @@ async function main() {
     {
       id: '14d0d35a-f62b-4089-a1e7-370785be11a5',
       name: 'Marten, american',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Martes americana',
       description:
         'Bypass Portal Vein to Lower Vein, Percutaneous Endoscopic Approach',
@@ -4190,7 +3993,7 @@ async function main() {
     {
       id: 'd5356ea6-fb18-47b3-9454-f785c1990d41',
       name: 'Swallow (unidentified)',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'unavailable',
       description:
         'Revision of Internal Fixation Device in Right Metacarpal, External Approach',
@@ -4205,7 +4008,7 @@ async function main() {
     {
       id: '1f668e70-3c2d-4709-875b-fd1b71bc391f',
       name: 'Monitor, water',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Varanus salvator',
       description:
         'Restriction of Heart with Extraluminal Device, Percutaneous Approach',
@@ -4220,7 +4023,7 @@ async function main() {
     {
       id: 'f467bb15-5c97-45af-9cb8-2fcd1cb9ae72',
       name: 'Heron, little',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Butorides striatus',
       description: 'Reposition Esophageal Vein, Open Approach',
       //ip_address: '246.139.94.216',
@@ -4236,7 +4039,7 @@ async function main() {
     {
       id: 'ea7c6f9d-6ba9-43d1-b2fd-70097cef1d66',
       name: 'Rainbow lory',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Trichoglossus haematodus moluccanus',
       description:
         'Restriction of Jejunum with Extraluminal Device, Open Approach',
@@ -4251,7 +4054,7 @@ async function main() {
     {
       id: '332024e7-2dc0-4675-8aa1-a0ae699c9da1',
       name: 'Genoveva',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Junonia genoveua',
       description:
         'Insertion of Pedicle-Based Spinal Stabilization Device into Cervical Vertebral Joint, Percutaneous Approach',
@@ -4266,7 +4069,7 @@ async function main() {
     {
       id: 'eaf38dc1-3876-4288-99f8-eedb75286cec',
       name: 'Red-breasted cockatoo',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Eolophus roseicapillus',
       description:
         'Insertion of Other Device into Respiratory Tract, Open Approach',
@@ -4281,7 +4084,7 @@ async function main() {
     {
       id: '41563a9d-ef31-449a-bd1f-58da1f0780e2',
       name: 'Goose, snow',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Anser caerulescens',
       description:
         'Occlusion of Right Vas Deferens with Extraluminal Device, Percutaneous Endoscopic Approach',
@@ -4296,7 +4099,7 @@ async function main() {
     {
       id: '9031fc30-b32a-4327-a08c-3ee61e9012a7',
       name: 'Red-tailed phascogale',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Phascogale calura',
       description: 'Excision of Upper Gingiva, External Approach, Diagnostic',
       //ip_address: '252.190.168.73',
@@ -4310,7 +4113,7 @@ async function main() {
     {
       id: 'baa5520a-909d-4c20-8329-9afe7ebcad99',
       name: 'Legaan, water',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Varanus salvator',
       description:
         'Bypass Hemiazygos Vein to Upper Vein with Nonautologous Tissue Substitute, Open Approach',
@@ -4325,7 +4128,7 @@ async function main() {
     {
       id: '601d694d-6c6b-4fcc-8ea3-f199f593bf9f',
       name: 'Buffalo, wild water',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Bubalus arnee',
       description:
         'Extirpation of Matter from Right Hip Muscle, Percutaneous Approach',
@@ -4340,7 +4143,7 @@ async function main() {
     {
       id: '4ec9c9b5-368f-4ec8-9743-606322924335',
       name: 'Pygmy possum',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Acrobates pygmaeus',
       description:
         'Bypass Innominate Artery to Left Lower Arm Artery, Open Approach',
@@ -4355,7 +4158,7 @@ async function main() {
     {
       id: 'bf6d6ae9-5fe7-4345-a9dd-a5ab93bb80d9',
       name: 'Deer, barasingha',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Cervus duvauceli',
       description:
         'Removal of Spacer from Right Finger Phalangeal Joint, Percutaneous Endoscopic Approach',
@@ -4370,7 +4173,7 @@ async function main() {
     {
       id: '0ed65078-ddf8-4e1a-8693-accd56ba6dc3',
       name: 'Lizard, goanna',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Varanus sp.',
       description:
         'Insertion of External Fixation Device into Left Lower Femur, Open Approach',
@@ -4385,7 +4188,7 @@ async function main() {
     {
       id: 'f090df2b-adb5-44b3-b2a0-b0f5beea7cc7',
       name: 'Bleeding heart monkey',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Theropithecus gelada',
       description:
         'Removal of Tissue Expander from Lower Extremity Subcutaneous Tissue and Fascia, Open Approach',
@@ -4400,7 +4203,7 @@ async function main() {
     {
       id: '3dbecd41-3115-4660-bfc4-effb2fb00c53',
       name: 'Uinta ground squirrel',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Spermophilus armatus',
       description:
         'Extirpation of Matter from Right Upper Femur, Percutaneous Approach',
@@ -4415,7 +4218,7 @@ async function main() {
     {
       id: '63d0b06a-f839-42ed-87d2-51614b0663b5',
       name: 'Ferret, black-footed',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Mustela nigripes',
       description:
         'Reposition Hyoid Bone with Internal Fixation Device, Open Approach',
@@ -4430,7 +4233,7 @@ async function main() {
     {
       id: '5f9336ac-448d-4eb3-9765-f58b15efe957',
       name: 'Japanese macaque',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Macaca fuscata',
       description:
         'Revision of Extraluminal Device in Great Vessel, Percutaneous Endoscopic Approach',
@@ -4445,7 +4248,7 @@ async function main() {
     {
       id: '1c9f2ddf-7287-4292-a4a6-ab08e917bfba',
       name: 'Striped skunk',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Mephitis mephitis',
       description: 'Excision of Right Clavicle, Open Approach',
       //ip_address: '222.205.87.9',
@@ -4459,7 +4262,7 @@ async function main() {
     {
       id: 'a72f74e3-d1df-4f84-9af1-6eef8401c839',
       name: 'Red-headed woodpecker',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Melanerpes erythrocephalus',
       description:
         'Replacement of Left Thyroid Artery with Autologous Tissue Substitute, Percutaneous Endoscopic Approach',
@@ -4474,7 +4277,7 @@ async function main() {
     {
       id: '3552fac7-0c5a-4a06-a39c-2c8e3061043a',
       name: 'Blackbuck',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Antilope cervicapra',
       description:
         'Bypass Left Cephalic Vein to Upper Vein with Autologous Venous Tissue, Percutaneous Endoscopic Approach',
@@ -4489,7 +4292,7 @@ async function main() {
     {
       id: '62c162f2-4d58-44a7-8c04-516d67fd6cf3',
       name: "Francolin, swainson's",
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Francolinus swainsonii',
       description:
         'Fusion of Right Wrist Joint with Internal Fixation Device, Percutaneous Approach',
@@ -4506,7 +4309,7 @@ async function main() {
     {
       id: '322644d5-2d2d-49a2-a08d-370c91c88e6f',
       name: 'Ground legaan',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Varanus sp.',
       description: 'Immobilization of Left Inguinal Region using Other Device',
       //ip_address: '49.78.88.70',
@@ -4520,7 +4323,7 @@ async function main() {
     {
       id: '189d8f92-7d5a-448a-97c6-ef4f874e4307',
       name: 'Black-backed jackal',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Canis mesomelas',
       description:
         'Supplement Right Carpal Joint with Synthetic Substitute, Open Approach',
@@ -4535,7 +4338,7 @@ async function main() {
     {
       id: 'ab7bc296-09b1-41b5-8067-092c93de291e',
       name: 'Guanaco',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Lama guanicoe',
       description:
         'Replacement of Left Upper Arm Subcutaneous Tissue and Fascia with Nonautologous Tissue Substitute, Percutaneous Approach',
@@ -4550,7 +4353,7 @@ async function main() {
     {
       id: '40eae7c7-deac-42f8-be33-b27563e995a0',
       name: 'Bird (unidentified)',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'unavailable',
       description:
         'Dilation of Coronary Artery, Four or More Arteries, Bifurcation, with Three Drug-eluting Intraluminal Devices, Percutaneous Approach',
@@ -4565,7 +4368,7 @@ async function main() {
     {
       id: '078e05f5-4ba3-48b0-8a96-32e2648b7fc1',
       name: 'Carmine bee-eater',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Merops nubicus',
       description:
         'Repair Right Upper Leg Tendon, Percutaneous Endoscopic Approach',
@@ -4580,7 +4383,7 @@ async function main() {
     {
       id: 'b7fe9508-feea-48c3-8663-3a0fa8d21a60',
       name: 'Warthog',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Phacochoerus aethiopus',
       description:
         'Removal of Monitoring Device from Diaphragm, Percutaneous Endoscopic Approach',
@@ -4595,7 +4398,7 @@ async function main() {
     {
       id: '2f38fe29-785e-4310-bca6-dd71db9a7f61',
       name: 'Pademelon, red-legged',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Thylogale stigmatica',
       description:
         'Removal of Internal Fixation Device from Left Radius, Percutaneous Approach',
@@ -4610,7 +4413,7 @@ async function main() {
     {
       id: 'f1a584c4-4336-40da-8b90-a37f9d9bd897',
       name: 'African bush squirrel',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Paraxerus cepapi',
       description: 'Release Rectum, Open Approach',
       //ip_address: '50.187.74.23',
@@ -4624,7 +4427,7 @@ async function main() {
     {
       id: '5ee00e27-6f2f-4c71-aa99-e9e392349316',
       name: 'Cougar',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Felis concolor',
       description:
         'Replacement of Right Elbow Joint with Nonautologous Tissue Substitute, Open Approach',
@@ -4641,7 +4444,7 @@ async function main() {
     {
       id: '267ae835-6a35-4bd1-9cca-6073654f6b9c',
       name: 'Mexican wolf',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Canis lupus baileyi',
       description:
         'Dilation of Abdominal Aorta with Two Intraluminal Devices, Percutaneous Approach',
@@ -4658,7 +4461,7 @@ async function main() {
     {
       id: '890da9b3-0602-45e1-9ef8-6d31f3fa483e',
       name: "Levaillant's barbet",
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Trachyphonus vaillantii',
       description: 'Division of Nasal Turbinate, Open Approach',
       //ip_address: '37.168.18.128',
@@ -4672,7 +4475,7 @@ async function main() {
     {
       id: 'df3fc2f2-d097-4577-b1f4-490f0074ede1',
       name: 'Lesser double-collared sunbird',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Nectarinia chalybea',
       description: 'Drainage of Intracranial Vein, Open Approach',
       //ip_address: '191.33.55.116',
@@ -4686,7 +4489,7 @@ async function main() {
     {
       id: 'cf894e6d-c318-43f3-ad62-8df3d528048e',
       name: 'Kingfisher, white-throated',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Halcyon smyrnesis',
       description:
         'Supplement Left Femoral Vein with Nonautologous Tissue Substitute, Open Approach',
@@ -4701,7 +4504,7 @@ async function main() {
     {
       id: '1d5a94cc-afb9-410f-a8ba-5215c75560cd',
       name: 'Jaeger, long-tailed',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Stercorarius longicausus',
       description:
         'Supplement Gastric Vein with Synthetic Substitute, Percutaneous Endoscopic Approach',
@@ -4716,7 +4519,7 @@ async function main() {
     {
       id: '0baaecd9-938b-46b4-8d4d-7b0220ea4d81',
       name: 'Tailless tenrec',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Tenrec ecaudatus',
       description:
         'Bypass Coronary Artery, Four or More Arteries from Left Internal Mammary, Open Approach',
@@ -4731,7 +4534,7 @@ async function main() {
     {
       id: 'a308059b-9072-4f55-b2b3-bb0ab69dbf97',
       name: 'Hummingbird (unidentified)',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'unavailable',
       description:
         'Revision of Drainage Device in Left Tarsal Joint, External Approach',
@@ -4746,7 +4549,7 @@ async function main() {
     {
       id: 'cebd09d1-8e72-4394-a388-4a0d7eb80dfc',
       name: 'Tarantula',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Lasiodora parahybana',
       description:
         'Replacement of Right Carpal Joint with Autologous Tissue Substitute, Open Approach',
@@ -4761,7 +4564,7 @@ async function main() {
     {
       id: 'e58fabea-5aa2-4f86-9ea6-13af37db34cd',
       name: 'Frog (unidentified)',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Rana sp.',
       description:
         'Imaging, Axial Skeleton, Except Skull and Facial Bones, Plain Radiography',
@@ -4776,7 +4579,7 @@ async function main() {
     {
       id: '735e31ca-7728-4bf0-9773-191912c59b4a',
       name: 'Elephant, asian',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Elephas maximus bengalensis',
       description:
         'Ear Protector Attentuation Assessment using Occupational Hearing Equipment',
@@ -4791,7 +4594,7 @@ async function main() {
     {
       id: 'c32667e0-8aa6-4b7c-b9cb-1fcc1c34e1dc',
       name: 'Skua, great',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Catharacta skua',
       description:
         'Dilation of Right Brachial Artery, Bifurcation, with Drug-eluting Intraluminal Device, Open Approach',
@@ -4806,7 +4609,7 @@ async function main() {
     {
       id: '20eda423-734f-426d-bba7-eec938329f3e',
       name: 'Killer whale',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Orcinus orca',
       description: 'Central Nervous System, Revision',
       //ip_address: '191.91.197.106',
@@ -4822,7 +4625,7 @@ async function main() {
     {
       id: '6ddcaa22-957a-4d8f-8c8e-854a3727e50a',
       name: 'Cape cobra',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Naja nivea',
       description:
         'Fluoroscopy of Left Common Carotid Artery using Other Contrast',
@@ -4837,7 +4640,7 @@ async function main() {
     {
       id: '5a484c56-c34e-4ca7-ae58-5d829dbc1093',
       name: 'Cockatoo, red-tailed',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Calyptorhynchus magnificus',
       description:
         'Removal of Infusion Device from Right Toe Phalangeal Joint, Percutaneous Approach',
@@ -4852,7 +4655,7 @@ async function main() {
     {
       id: '1b7cb6af-c80d-446d-b0e9-87c94b654d99',
       name: 'Hawk, ferruginous',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Buteo regalis',
       description: 'Division of Right Abdomen Tendon, Open Approach',
       //ip_address: '44.183.195.87',
@@ -4866,7 +4669,7 @@ async function main() {
     {
       id: '45a3b9b6-aa9c-4f62-bb72-f012a5cc1f89',
       name: 'Racer, blue',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Coluber constrictor foxii',
       description: 'Destruction of Duodenum, Percutaneous Approach',
       //ip_address: '222.14.194.35',
@@ -4880,7 +4683,7 @@ async function main() {
     {
       id: '4411e705-9673-4a37-95ed-f83e1ff54d02',
       name: 'Bateleur eagle',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Terathopius ecaudatus',
       description:
         'Occlusion of Upper Artery with Intraluminal Device, Open Approach',
@@ -4895,7 +4698,7 @@ async function main() {
     {
       id: '20b51af2-5761-411b-9c57-130c34c71c32',
       name: 'Macaw, red and blue',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Ara chloroptera',
       description: 'Release Cervicothoracic Vertebral Joint, External Approach',
       //ip_address: '64.142.251.115',
@@ -4909,7 +4712,7 @@ async function main() {
     {
       id: '1db6f4de-46ff-4fac-9e40-b811dae857d3',
       name: 'Macaw, blue and gold',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Ara ararauna',
       description: 'Hyperthermia of Hemibody',
       //ip_address: '245.255.125.83',
@@ -4923,7 +4726,7 @@ async function main() {
     {
       id: 'f3975a8d-f759-4890-bfed-b76e2bd93489',
       name: 'Galapagos mockingbird',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Nesomimus trifasciatus',
       description:
         'Restriction of Lower Esophagus with Intraluminal Device, Via Natural or Artificial Opening Endoscopic',
@@ -4938,7 +4741,7 @@ async function main() {
     {
       id: '849f29af-4bb7-4212-80ec-978ae9e888d5',
       name: 'Egyptian vulture',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Neophron percnopterus',
       description:
         'Restriction of Left Upper Lobe Bronchus with Intraluminal Device, Percutaneous Approach',
@@ -4955,7 +4758,7 @@ async function main() {
     {
       id: 'ffa479fc-bc97-47fd-9ce1-0dd968dd0bb9',
       name: 'Gray duiker',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Sylvicapra grimma',
       description: 'Reposition Sciatic Nerve, Percutaneous Endoscopic Approach',
       //ip_address: '188.79.236.241',
@@ -4969,7 +4772,7 @@ async function main() {
     {
       id: 'b92c0564-275d-48b4-a94b-23a717eb8327',
       name: 'Lynx, african',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Felis caracal',
       description:
         'Resection of Right Tympanic Membrane, Via Natural or Artificial Opening Endoscopic',
@@ -4984,7 +4787,7 @@ async function main() {
     {
       id: 'a5bcf252-f63f-498c-bc1f-a616c247048f',
       name: 'Red-winged blackbird',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Agelaius phoeniceus',
       description:
         'Extirpation of Matter from Right Ulnar Artery, Bifurcation, Percutaneous Endoscopic Approach',
@@ -5001,7 +4804,7 @@ async function main() {
     {
       id: '1ccced41-6ab2-4c89-9747-02ac94186e12',
       name: 'Phalarope, grey',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Phalaropus fulicarius',
       description:
         'Dilation of Innominate Artery with Two Drug-eluting Intraluminal Devices, Percutaneous Approach',
@@ -5016,7 +4819,7 @@ async function main() {
     {
       id: '68c18e4a-c8a1-4961-8326-efc1fad3f2b2',
       name: 'Stork, jabiru',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Ephippiorhynchus mycteria',
       description:
         'Computerized Tomography (CT Scan) of Right Patella using Low Osmolar Contrast',
@@ -5031,7 +4834,7 @@ async function main() {
     {
       id: '742679a9-24e4-4a0d-887c-f8735b6891ad',
       name: 'White-winged black tern',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Chlidonias leucopterus',
       description: 'Resection of Left Ureter, Percutaneous Endoscopic Approach',
       //ip_address: '75.44.9.230',
@@ -5045,7 +4848,7 @@ async function main() {
     {
       id: '1c37f567-6e54-43c0-857c-012da54cc240',
       name: 'Brocket, brown',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Mazama gouazoubira',
       description:
         'Drainage of Left Vas Deferens with Drainage Device, Open Approach',
@@ -5060,7 +4863,7 @@ async function main() {
     {
       id: '6bca8c72-271e-4d11-9fd8-ff14bd0f057a',
       name: 'Goat, mountain',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Oreamnos americanus',
       description:
         'High Dose Rate (HDR) Brachytherapy of Pancreas using Palladium 103 (Pd-103)',
@@ -5075,7 +4878,7 @@ async function main() {
     {
       id: '6cf4ad52-4e3f-429d-a53e-be3c6ac442b7',
       name: 'Musk ox',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Ovibos moschatus',
       description: 'Stereotactic Gamma Beam Radiosurgery of Left Breast',
       //ip_address: '225.178.170.228',
@@ -5089,7 +4892,7 @@ async function main() {
     {
       id: 'd95a4b8f-110e-4eda-9268-70f25ac7e963',
       name: "Nutcracker, clark's",
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Nucifraga columbiana',
       description:
         'Insertion of External Fixation Device into Left Fibula, Percutaneous Endoscopic Approach',
@@ -5104,7 +4907,7 @@ async function main() {
     {
       id: 'd2367e6d-5171-4fe3-bf7c-86c1910b5105',
       name: 'Stork, black-necked',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Ephippiorhynchus mycteria',
       description:
         'Bypass Thoracic Aorta, Descending to Right Pulmonary Artery with Zooplastic Tissue, Open Approach',
@@ -5119,7 +4922,7 @@ async function main() {
     {
       id: '0b9a4228-41f4-4650-a6c8-e3eba43c7417',
       name: 'African bush squirrel',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Paraxerus cepapi',
       description:
         'Aural Rehabilitation Treatment using Augmentative / Alternative Communication Equipment',
@@ -5134,7 +4937,7 @@ async function main() {
     {
       id: '95eee3e9-bcdd-4936-a6f5-b66a9976b7d5',
       name: 'Tarantula',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Lasiodora parahybana',
       description:
         'Supplement Right Pelvic Bone with Autologous Tissue Substitute, Percutaneous Approach',
@@ -5149,7 +4952,7 @@ async function main() {
     {
       id: 'c5e1e0fe-776a-44c7-954f-2147eb27c230',
       name: 'Dog, raccoon',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Nyctereutes procyonoides',
       description: 'Removal of Infusion Device from Face, External Approach',
       //ip_address: '21.165.186.233',
@@ -5163,7 +4966,7 @@ async function main() {
     {
       id: '97690af0-fd8e-4f88-b3bd-dfcd7159e91f',
       name: 'Stork, white',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Ciconia ciconia',
       description:
         'High Dose Rate (HDR) Brachytherapy of Bile Ducts using Californium 252 (Cf-252)',
@@ -5178,7 +4981,7 @@ async function main() {
     {
       id: '0d8485a6-8adb-4fb3-a203-6e9c986309fd',
       name: 'Spurfowl, yellow-necked',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Francolinus leucoscepus',
       description:
         'Range of Motion and Joint Mobility Treatment of Neurological System - Lower Back / Lower Extremity using Other Equipment',
@@ -5193,7 +4996,7 @@ async function main() {
     {
       id: 'e6fe5cda-359e-4f9f-9b2c-231aa718e6ca',
       name: 'Rhinoceros, square-lipped',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Ceratotherium simum',
       description:
         'Removal of Radioactive Element from Right Lower Extremity, Percutaneous Endoscopic Approach',
@@ -5208,7 +5011,7 @@ async function main() {
     {
       id: '7c1998d9-dd16-4f37-93a3-ceee202afb12',
       name: 'Ground legaan',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Varanus sp.',
       description:
         'Replacement of Colic Vein with Nonautologous Tissue Substitute, Open Approach',
@@ -5223,7 +5026,7 @@ async function main() {
     {
       id: '260b7060-e864-4987-89a8-863518a7b39f',
       name: 'Goldeneye, common',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Bucephala clangula',
       description: 'Repair Right Hip Muscle, Percutaneous Endoscopic Approach',
       //ip_address: '174.110.253.107',
@@ -5237,7 +5040,7 @@ async function main() {
     {
       id: '7fa4b012-dab0-4675-bd3f-9ce84a732d89',
       name: 'Eastern grey kangaroo',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Macropus giganteus',
       description: 'Release Right Orbit, Open Approach',
       //ip_address: '121.46.147.200',
@@ -5251,7 +5054,7 @@ async function main() {
     {
       id: 'c89e3d0b-acbb-4484-9410-8b6bdfa14ad0',
       name: 'Turkey, australian brush',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Alectura lathami',
       description:
         'Excision of Right Metatarsal-Phalangeal Joint, Percutaneous Approach, Diagnostic',
@@ -5266,7 +5069,7 @@ async function main() {
     {
       id: '2f68b0aa-1051-40c7-8553-eb9bfe1489f4',
       name: 'Stork, painted',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Mycteria leucocephala',
       description:
         'Release Superior Mesenteric Vein, Percutaneous Endoscopic Approach',
@@ -5281,7 +5084,7 @@ async function main() {
     {
       id: 'c63e9a32-5a98-4dbd-9c59-32a64a515656',
       name: 'Polar bear',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Ursus maritimus',
       description:
         'Repair Lymphatics and Hemic in Products of Conception with Other Device, Percutaneous Approach',
@@ -5296,7 +5099,7 @@ async function main() {
     {
       id: '6a93e263-002b-42b1-b049-4b0f5ef4b1c2',
       name: 'Jackal, silver-backed',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Canis mesomelas',
       description:
         'Bypass Upper Esophagus to Cutaneous with Synthetic Substitute, Open Approach',
@@ -5311,7 +5114,7 @@ async function main() {
     {
       id: 'f3bab7d7-d52f-42cb-b310-77a7da975f99',
       name: 'Black-throated butcher bird',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Cracticus nigroagularis',
       description:
         'Supplement Right Lower Extremity Bursa and Ligament with Autologous Tissue Substitute, Percutaneous Endoscopic Approach',
@@ -5326,7 +5129,7 @@ async function main() {
     {
       id: '17ca20f2-920a-462c-9790-2d98d2cce59e',
       name: 'Mongoose, yellow',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Cynictis penicillata',
       description:
         'Extirpation of Matter from Right Vertebral Artery, Bifurcation, Percutaneous Approach',
@@ -5341,7 +5144,7 @@ async function main() {
     {
       id: '2a3853d4-775f-423e-b1f5-5723361198c9',
       name: 'Wallaby, whip-tailed',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Macropus parryi',
       description:
         'Occlusion of Right Middle Lobe Bronchus, Percutaneous Approach',
@@ -5358,7 +5161,7 @@ async function main() {
     {
       id: 'a6eb06e5-70ff-4cee-aa94-f31c161a6aa7',
       name: 'Coqui francolin',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Francolinus coqui',
       description: 'Drainage of Left Lung, Via Natural or Artificial Opening',
       //ip_address: '19.174.167.139',
@@ -5374,7 +5177,7 @@ async function main() {
     {
       id: '1c31ba13-e481-495c-b637-6a68e7a4d241',
       name: 'Jackrabbit, white-tailed',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Lepus townsendii',
       description:
         'Bypass Gallbladder to Small Intestine, Percutaneous Endoscopic Approach',
@@ -5389,7 +5192,7 @@ async function main() {
     {
       id: 'ac2a488a-d2a0-4f66-9fa8-dcd8cd3d8bb4',
       name: 'Asian foreset tortoise',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Manouria emys',
       description: 'Drainage of Left Lower Leg Muscle, Open Approach',
       //ip_address: '245.152.140.0',
@@ -5403,7 +5206,7 @@ async function main() {
     {
       id: 'c8e146fe-12c4-4428-ba96-45646deee015',
       name: 'Dolphin, striped',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Stenella coeruleoalba',
       description:
         'Transplantation of Left Upper Lung Lobe, Zooplastic, Open Approach',
@@ -5418,7 +5221,7 @@ async function main() {
     {
       id: 'c4de91d8-f122-4a0a-92c2-ae8ca79c3271',
       name: 'Sparrow, rufous-collared',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Zonotrichia capensis',
       description:
         'Reposition Right Ulna with Ring External Fixation Device, Open Approach',
@@ -5433,7 +5236,7 @@ async function main() {
     {
       id: '5a3a4d2f-7ebe-471d-b046-2f5f499fb7b7',
       name: 'Green heron',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Butorides striatus',
       description:
         'Excision of Right Lower Femur, Percutaneous Endoscopic Approach, Diagnostic',
@@ -5448,7 +5251,7 @@ async function main() {
     {
       id: '2d96562e-81bc-49d5-93bf-1ffae94b8b51',
       name: 'Squirrel, eurasian red',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Sciurus vulgaris',
       description:
         'Replacement of Left Middle Ear with Nonautologous Tissue Substitute, Open Approach',
@@ -5463,7 +5266,7 @@ async function main() {
     {
       id: '7c5db1d5-4c55-4e6e-9442-ba6b8812089e',
       name: 'Steenbuck',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Raphicerus campestris',
       description: 'Removal of Infusion Device from Testis, External Approach',
       //ip_address: '46.98.53.36',
@@ -5477,7 +5280,7 @@ async function main() {
     {
       id: 'c3f62432-5766-49ee-bdcb-bccee4906b8b',
       name: 'Crane, black-crowned',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Balearica pavonina',
       description:
         'Destruction of Left Ankle Bursa and Ligament, Open Approach',
@@ -5492,7 +5295,7 @@ async function main() {
     {
       id: '40ee7d96-4f32-4dca-a13a-e7a6059dea53',
       name: 'Greater roadrunner',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Geococcyx californianus',
       description:
         'Excision of Left External Ear, External Approach, Diagnostic',
@@ -5507,7 +5310,7 @@ async function main() {
     {
       id: '5e6e5c7d-5391-4269-98f7-a6300034011e',
       name: 'Badger, honey',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Mellivora capensis',
       description:
         'Excision of Left Elbow Region, Percutaneous Endoscopic Approach, Diagnostic',
@@ -5524,7 +5327,7 @@ async function main() {
     {
       id: '200144cb-ff29-4402-9814-d32d0700e33b',
       name: 'Possum, western pygmy',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Cercatetus concinnus',
       description:
         'Insertion of Infusion Device into Right Foot, Percutaneous Approach',
@@ -5539,7 +5342,7 @@ async function main() {
     {
       id: 'f419773a-0784-4261-aa41-57cbe19ca3a5',
       name: 'Dingo',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Canis dingo',
       description:
         'Destruction of Endometrium, Via Natural or Artificial Opening Endoscopic',
@@ -5554,7 +5357,7 @@ async function main() {
     {
       id: '934cda74-653e-471a-8ebb-4b91ae213e75',
       name: 'Galapagos dove',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Zenaida galapagoensis',
       description:
         'Dilation of Esophagus with Intraluminal Device, Via Natural or Artificial Opening Endoscopic',
@@ -5569,7 +5372,7 @@ async function main() {
     {
       id: 'd06cd3f3-d2f4-467a-acf6-31638c61c94b',
       name: 'Woodchuck',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Marmota monax',
       description:
         'Drainage of Right Subclavian Vein, Percutaneous Approach, Diagnostic',
@@ -5584,7 +5387,7 @@ async function main() {
     {
       id: '12df2b7d-f0aa-4ee8-95e5-30d0f127a003',
       name: 'Elegant crested tinamou',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Eudromia elegans',
       description: 'Excision of Left Carpal Joint, Percutaneous Approach',
       //ip_address: '211.92.134.161',
@@ -5598,7 +5401,7 @@ async function main() {
     {
       id: 'bd1a4c14-6164-4ffe-9492-b3d6778ffbbb',
       name: 'Radiated tortoise',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Geochelone radiata',
       description:
         'Replacement of Right Pulmonary Vein with Synthetic Substitute, Percutaneous Endoscopic Approach',
@@ -5613,7 +5416,7 @@ async function main() {
     {
       id: '3891c874-394a-4214-9f11-84a98eb2fd1c',
       name: 'Antelope, four-horned',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Tetracerus quadricornis',
       description:
         'Dilation of Left Temporal Artery with Three Drug-eluting Intraluminal Devices, Open Approach',
@@ -5628,7 +5431,7 @@ async function main() {
     {
       id: 'a3f7cf37-5b2d-4a54-b8fc-96841c8f7630',
       name: 'Cape white-eye',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Zosterops pallidus',
       description:
         'Revision of Autologous Tissue Substitute in Left Toe Phalanx, External Approach',
@@ -5643,7 +5446,7 @@ async function main() {
     {
       id: '81e54656-6173-4981-99a9-be771de80161',
       name: 'Stork, marabou',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Leptoptilos crumeniferus',
       description: 'Inspection of Upper Jaw, Open Approach',
       //ip_address: '179.88.44.180',
@@ -5657,7 +5460,7 @@ async function main() {
     {
       id: '91543f06-b9a1-4a9f-bac6-817a0b6a68a4',
       name: 'Urial',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Ovis orientalis',
       description:
         'Alteration of Left Upper Arm with Nonautologous Tissue Substitute, Open Approach',
@@ -5672,7 +5475,7 @@ async function main() {
     {
       id: 'fb437028-e33c-416a-aba0-ee174a719731',
       name: 'Frog (unidentified)',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Rana sp.',
       description:
         'Restriction of Ascending Colon with Intraluminal Device, Percutaneous Approach',
@@ -5689,7 +5492,7 @@ async function main() {
     {
       id: '0855c735-d561-4226-b2fd-33db93b1c358',
       name: 'European red squirrel',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Sciurus vulgaris',
       description: 'Drainage of Right Metacarpophalangeal Joint, Open Approach',
       //ip_address: '241.7.90.162',
@@ -5703,7 +5506,7 @@ async function main() {
     {
       id: '25dfbd73-f196-4f0c-832d-e41d6a1d4e6f',
       name: 'Macaw, blue and yellow',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Ara ararauna',
       description:
         'Assistive, Adaptive, Supportive or Protective Devices Device Fitting using Assistive, Adaptive, Supportive or Protective Equipment',
@@ -5720,7 +5523,7 @@ async function main() {
     {
       id: '97307e7d-60fa-4c87-9542-52270af0d31c',
       name: 'Stick insect',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Leprocaulinus vipera',
       description:
         'Replacement of Right External Jugular Vein with Autologous Tissue Substitute, Percutaneous Endoscopic Approach',
@@ -5735,7 +5538,7 @@ async function main() {
     {
       id: 'c713566e-9fca-4e3d-a15a-6a509addd397',
       name: 'Barasingha deer',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Cervus duvauceli',
       description:
         'Extirpation of Matter from Left Peroneal Artery, Bifurcation, Percutaneous Endoscopic Approach',
@@ -5750,7 +5553,7 @@ async function main() {
     {
       id: '961476c2-9b8e-43a1-9937-07e50fbbcdd2',
       name: 'Hudsonian godwit',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Limosa haemastica',
       description:
         'Removal of Autologous Tissue Substitute from Lumbar Vertebra, Percutaneous Approach',
@@ -5765,7 +5568,7 @@ async function main() {
     {
       id: '55985772-59de-4b02-9a9b-78a47c0c009d',
       name: 'Jaguar',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Panthera onca',
       description: 'Drainage of Right Kidney Pelvis, Open Approach',
       //ip_address: '128.0.254.222',
@@ -5779,7 +5582,7 @@ async function main() {
     {
       id: 'c3c0bcb5-6d6b-42a2-ab8a-563494494964',
       name: 'Large cormorant',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Phalacrocorax carbo',
       description:
         'Removal of Synthetic Substitute from Sacrococcygeal Joint, Open Approach',
@@ -5794,7 +5597,7 @@ async function main() {
     {
       id: '7ab85c50-df47-49b5-a82b-4261dfe069a4',
       name: 'Duck, comb',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Sarkidornis melanotos',
       description:
         'Plain Radiography of Other Intra-Abdominal Arteries using High Osmolar Contrast',
@@ -5809,7 +5612,7 @@ async function main() {
     {
       id: '0f19a340-4703-45c8-a07c-b07c9de2f8e2',
       name: 'Toddy cat',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Paradoxurus hermaphroditus',
       description: 'Anatomical Regions, General, Bypass',
       //ip_address: '53.197.157.182',
@@ -5823,7 +5626,7 @@ async function main() {
     {
       id: '254c3f69-7a8d-44e9-9dae-d33f08d79ca6',
       name: 'Vulture, turkey',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Cathartes aura',
       description: 'Destruction of Uterus, Percutaneous Endoscopic Approach',
       //ip_address: '74.212.91.71',
@@ -5837,7 +5640,7 @@ async function main() {
     {
       id: 'a1802665-8221-456b-8e3e-870b5ff85411',
       name: 'Lion, southern sea',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Otaria flavescens',
       description: 'Release Left Ankle Joint, External Approach',
       //ip_address: '86.230.58.131',
@@ -5851,7 +5654,7 @@ async function main() {
     {
       id: '73c028ce-b53e-4cfe-ab90-1889578cceea',
       name: 'Grouse, sage',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Centrocercus urophasianus',
       description: 'Excision of Jejunum, Via Natural or Artificial Opening',
       //ip_address: '8.62.136.8',
@@ -5865,7 +5668,7 @@ async function main() {
     {
       id: 'faab55bb-3c69-4b92-8cd4-d1764dcb8ad6',
       name: 'Pronghorn',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Antilocapra americana',
       description:
         'Replacement of Upper Tooth, Multiple, with Autologous Tissue Substitute, External Approach',
@@ -5880,7 +5683,7 @@ async function main() {
     {
       id: 'cb958b92-44a9-4002-ad63-2202aacfcb06',
       name: 'Bettong, brush-tailed',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Bettongia penicillata',
       description:
         'Insertion of Infusion Device into Left Common Iliac Artery, Open Approach',
@@ -5895,7 +5698,7 @@ async function main() {
     {
       id: '4280bb50-92fc-4099-af2c-f5b6be8d41df',
       name: 'Dragonfly, russian',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Libellula quadrimaculata',
       description: 'Release Lesser Omentum, Open Approach',
       //ip_address: '169.201.18.99',
@@ -5909,7 +5712,7 @@ async function main() {
     {
       id: '980f05ed-6736-41ca-b965-613221cfb520',
       name: 'Python, carpet',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Morelia spilotes variegata',
       description:
         'Drainage of Sigmoid Colon with Drainage Device, Via Natural or Artificial Opening Endoscopic',
@@ -5924,7 +5727,7 @@ async function main() {
     {
       id: 'cd6a4e9a-ad3e-448c-bc6b-acb65c063b4b',
       name: 'Gazer, sun',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Cordylus giganteus',
       description:
         'Revision of Nonautologous Tissue Substitute in Bladder, Open Approach',
@@ -5939,7 +5742,7 @@ async function main() {
     {
       id: 'd44aa547-0093-4f1b-bb87-04483f3a9163',
       name: 'White-necked stork',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Ciconia episcopus',
       description:
         'Excision of Cecum, Via Natural or Artificial Opening, Diagnostic',
@@ -5954,7 +5757,7 @@ async function main() {
     {
       id: '339824e8-3145-4b3e-a0d5-49342cb9ae68',
       name: 'Spectacled caiman',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Caiman crocodilus',
       description: 'Beam Radiation of Mouth using Neutrons',
       //ip_address: '251.168.63.17',
@@ -5970,7 +5773,7 @@ async function main() {
     {
       id: 'b3b7b2c2-3fc5-4e46-8a00-92b78c994c90',
       name: 'Snowy owl',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Nyctea scandiaca',
       description: 'Repair Left Upper Extremity Lymphatic, Open Approach',
       //ip_address: '106.3.16.229',
@@ -5986,7 +5789,7 @@ async function main() {
     {
       id: 'c4a09843-d5f7-4674-a411-d1e56190e14d',
       name: 'Penguin, fairy',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Eudyptula minor',
       description:
         'Dilation of Left Thyroid Artery, Bifurcation, with Two Drug-eluting Intraluminal Devices, Percutaneous Endoscopic Approach',
@@ -6001,7 +5804,7 @@ async function main() {
     {
       id: 'f4bf2a51-9aae-4b35-825b-6f529a945de7',
       name: 'Blue-faced booby',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Sula dactylatra',
       description:
         'Revision of Infusion Device in Left Metatarsal-Phalangeal Joint, External Approach',
@@ -6016,7 +5819,7 @@ async function main() {
     {
       id: '782b0ade-49d0-462f-81fa-78ccf3c2d080',
       name: 'Gecko, ring-tailed',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Cyrtodactylus louisiadensis',
       description: 'Excision of Left Maxillary Sinus, Open Approach',
       //ip_address: '226.116.107.160',
@@ -6030,7 +5833,7 @@ async function main() {
     {
       id: '53b7967d-c9d1-411f-a88b-52495261ff58',
       name: 'Brush-tailed rat kangaroo',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Bettongia penicillata',
       description: 'Change Other Device in Left Ear, External Approach',
       //ip_address: '153.105.71.229',
@@ -6044,7 +5847,7 @@ async function main() {
     {
       id: 'a661e135-af78-40c1-bd48-f69cce34d51f',
       name: 'Little brown dove',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Streptopelia senegalensis',
       description:
         'Removal of Feeding Device from Upper Intestinal Tract, Via Natural or Artificial Opening',
@@ -6059,7 +5862,7 @@ async function main() {
     {
       id: '53958af4-19c4-4041-8917-619d052f9436',
       name: 'Raccoon, crab-eating',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Procyon cancrivorus',
       description: 'Immobilization of Right Thumb using Brace',
       //ip_address: '216.136.231.97',
@@ -6073,7 +5876,7 @@ async function main() {
     {
       id: '43b3c0f2-9235-47e7-93fb-448c37f80458',
       name: 'Komodo dragon',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Varanus komodensis',
       description: 'Repair Right Tarsal Joint, Percutaneous Approach',
       //ip_address: '8.127.191.189',
@@ -6087,7 +5890,7 @@ async function main() {
     {
       id: '87904a81-465f-4a7e-a98c-db303562c196',
       name: 'Knob-nosed goose',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Sarkidornis melanotos',
       description:
         'Reposition Right Tympanic Membrane, Percutaneous Endoscopic Approach',
@@ -6102,7 +5905,7 @@ async function main() {
     {
       id: '12980eb9-b531-4164-b6fe-09983c1fd16b',
       name: 'Cape wild cat',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Felis libyca',
       description:
         'Supplement Innominate Artery with Synthetic Substitute, Percutaneous Approach',
@@ -6119,7 +5922,7 @@ async function main() {
     {
       id: '4f0b3f4b-4572-4d2f-987c-ab2afa0af329',
       name: 'White stork',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Ciconia ciconia',
       description: 'Repair Lung Lingula, Percutaneous Endoscopic Approach',
       //ip_address: '59.157.214.30',
@@ -6133,7 +5936,7 @@ async function main() {
     {
       id: '159d8d3a-2725-463e-a8e0-337f281d389d',
       name: 'Topi',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Damaliscus lunatus',
       description: 'Release Right Palatine Bone, Open Approach',
       //ip_address: '103.36.248.5',
@@ -6147,7 +5950,7 @@ async function main() {
     {
       id: '25508bdc-29e9-4d7b-9ab8-9de5503ed2bd',
       name: 'Hyena, striped',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Hyaena hyaena',
       description:
         'Supplement Bilateral Epididymis with Autologous Tissue Substitute, Percutaneous Endoscopic Approach',
@@ -6162,7 +5965,7 @@ async function main() {
     {
       id: '4cee2e98-d83c-46c9-a381-93d321e872d2',
       name: 'African clawless otter',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Aonyx capensis',
       description: 'Drainage of Scalp Skin, External Approach, Diagnostic',
       //ip_address: '113.188.191.128',
@@ -6176,7 +5979,7 @@ async function main() {
     {
       id: 'd681552f-f522-458a-aebf-3e8de809fa02',
       name: 'Klipspringer',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Oreotragus oreotragus',
       description: 'Division of Lumbar Vertebra, Percutaneous Approach',
       //ip_address: '88.162.8.79',
@@ -6190,7 +5993,7 @@ async function main() {
     {
       id: '1d13e463-f5e9-4555-b272-89004c75b1cf',
       name: 'Brazilian tapir',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Tapirus terrestris',
       description:
         'Revision of Drainage Device in Trunk Subcutaneous Tissue and Fascia, Open Approach',
@@ -6207,7 +6010,7 @@ async function main() {
     {
       id: '971bce32-92d9-4162-9de2-7f552f360a80',
       name: 'Common zebra',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Equus burchelli',
       description: 'Hyperthermia of Abdomen',
       //ip_address: '239.96.241.37',
@@ -6221,7 +6024,7 @@ async function main() {
     {
       id: '54b89dd4-3c5f-4c0b-ac5f-de6c51f0be68',
       name: 'Phalarope, northern',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Phalaropus lobatus',
       description: 'Release Right External Jugular Vein, Open Approach',
       //ip_address: '29.217.8.8',
@@ -6235,7 +6038,7 @@ async function main() {
     {
       id: '07805654-da99-4375-9bd7-46c0475aa421',
       name: 'Andean goose',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Chloephaga melanoptera',
       description:
         'Excision of Mesenteric Lymphatic, Open Approach, Diagnostic',
@@ -6250,7 +6053,7 @@ async function main() {
     {
       id: 'a2aaf92b-164a-4e08-b175-bba93036c65e',
       name: 'Common ringtail',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Pseudocheirus peregrinus',
       description:
         'Destruction of Right Epididymis, Percutaneous Endoscopic Approach',
@@ -6265,7 +6068,7 @@ async function main() {
     {
       id: '237c7ed2-150f-49d1-891f-50ec47a220af',
       name: 'White-nosed coatimundi',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Nasua narica',
       description:
         'Drainage of Esophagogastric Junction with Drainage Device, Percutaneous Approach',
@@ -6280,7 +6083,7 @@ async function main() {
     {
       id: 'f8420633-ce4f-4b16-b923-4a9beacf9370',
       name: 'Cape raven',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Corvus albicollis',
       description:
         'Dilation of Right Colic Artery, Bifurcation, with Drug-eluting Intraluminal Device, Open Approach',
@@ -6295,7 +6098,7 @@ async function main() {
     {
       id: '052df2bc-c9b2-4d3f-96b6-bbeed3464449',
       name: 'African darter',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Anhinga rufa',
       description: 'Release Right Humeral Shaft, Open Approach',
       //ip_address: '111.232.81.152',
@@ -6309,7 +6112,7 @@ async function main() {
     {
       id: '1fdfe5bd-615d-4eaa-8760-ec5fd0fec74f',
       name: 'Platypus',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Ornithorhynchus anatinus',
       description:
         'Dilation of Innominate Artery, Bifurcation, with Four or More Intraluminal Devices, Percutaneous Approach',
@@ -6324,7 +6127,7 @@ async function main() {
     {
       id: '1b3382fc-e49c-419f-bb1d-71af21079496',
       name: 'Tsessebe',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Damaliscus lunatus',
       description:
         'Dilation of Left Renal Artery, Bifurcation, with Four or More Drug-eluting Intraluminal Devices, Percutaneous Approach',
@@ -6339,7 +6142,7 @@ async function main() {
     {
       id: '5e8a1cc9-f984-410a-93dd-cdc24a53e3ce',
       name: 'Brown pelican',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Pelecanus occidentalis',
       description:
         'Revision of Radioactive Element in Gastrointestinal Tract, Percutaneous Approach',
@@ -6354,7 +6157,7 @@ async function main() {
     {
       id: '8bd2c084-1961-406f-8cd0-63c4f1b2a229',
       name: 'Red deer',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Cervus elaphus',
       description:
         'Supplement Thoracic Vertebral Disc with Nonautologous Tissue Substitute, Open Approach',
@@ -6369,7 +6172,7 @@ async function main() {
     {
       id: '5936287a-c82d-46c5-b3c2-059823e691fe',
       name: 'Stork, european',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Ciconia ciconia',
       description:
         'Drainage of Left Retina with Drainage Device, Percutaneous Approach',
@@ -6384,7 +6187,7 @@ async function main() {
     {
       id: 'ef5f8c95-b0b4-4207-ab0c-4685e3290a62',
       name: 'Southern ground hornbill',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Bucorvus leadbeateri',
       description: 'Destruction of Left Lacrimal Gland, Open Approach',
       //ip_address: '205.130.243.149',
@@ -6398,7 +6201,7 @@ async function main() {
     {
       id: 'f3dd3439-ca85-44ce-ab5f-007df5537800',
       name: 'Magistrate black colobus',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Colobus guerza',
       description:
         'Drainage of Right Thorax Muscle, Percutaneous Endoscopic Approach, Diagnostic',
@@ -6413,7 +6216,7 @@ async function main() {
     {
       id: '9051d0f0-6ed8-46a6-96de-af34bf9dd564',
       name: 'Dove, mourning collared',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Streptopelia decipiens',
       description: 'Destruction of Left Anterior Tibial Artery, Open Approach',
       //ip_address: '136.241.161.78',
@@ -6427,7 +6230,7 @@ async function main() {
     {
       id: '385eed27-4ad1-40bc-bde6-1ccdd8ae6ebe',
       name: 'Black curlew',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Haematopus ater',
       description:
         'Introduction of Anti-inflammatory into Respiratory Tract, Via Natural or Artificial Opening',
@@ -6442,7 +6245,7 @@ async function main() {
     {
       id: '446292ad-6702-482e-b8b2-5cc66dfc40a1',
       name: 'Black-tailed prairie dog',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Cynomys ludovicianus',
       description:
         'Repair Coronary Artery, Three Arteries, Percutaneous Approach',
@@ -6459,7 +6262,7 @@ async function main() {
     {
       id: 'ad2591e4-47ea-4546-8431-04cf2ad39ac3',
       name: 'Beisa oryx',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Oryx gazella',
       description:
         'Dilation of Stomach with Intraluminal Device, Via Natural or Artificial Opening',
@@ -6474,7 +6277,7 @@ async function main() {
     {
       id: '4186fe8a-a2e5-4dd0-9188-fbeb5aeb2c8f',
       name: 'Swamp deer',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Cervus duvauceli',
       description: 'Dilation of Right Hepatic Duct, Open Approach',
       //ip_address: '187.127.46.188',
@@ -6488,7 +6291,7 @@ async function main() {
     {
       id: '424ad2d1-233f-4434-bb27-03ca462b9a9e',
       name: "Eagle, pallas's fish",
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Haliaeetus leucoryphus',
       description:
         'Removal of Infusion Device from Right Shoulder Joint, Open Approach',
@@ -6503,7 +6306,7 @@ async function main() {
     {
       id: '3287a405-b56e-469f-b81f-e3c8196aec1c',
       name: 'Bengal vulture',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Gyps bengalensis',
       description:
         'Supplement Right Foot Artery with Synthetic Substitute, Percutaneous Approach',
@@ -6518,7 +6321,7 @@ async function main() {
     {
       id: '681657eb-93b0-4833-b37d-64aa66c9a509',
       name: 'Eleven-banded armadillo (unidentified)',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Cabassous sp.',
       description: 'Release Left Temporomandibular Joint, External Approach',
       //ip_address: '89.170.8.141',
@@ -6532,7 +6335,7 @@ async function main() {
     {
       id: 'bc4229e5-7a73-4038-b128-70ab5580d860',
       name: 'Tarantula, salmon pink bird eater',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Lasiodora parahybana',
       description:
         'Low Dose Rate (LDR) Brachytherapy of Larynx using Californium 252 (Cf-252)',
@@ -6547,7 +6350,7 @@ async function main() {
     {
       id: 'f98112ed-60ae-4a56-86df-8823944977b9',
       name: 'Chital',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Axis axis',
       description:
         'Extirpation of Matter from Left Shoulder Joint, Percutaneous Approach',
@@ -6562,7 +6365,7 @@ async function main() {
     {
       id: '3983fce8-48e9-4244-a98d-15b8c35de428',
       name: 'Reedbuck, bohor',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Redunca redunca',
       description: 'Reposition Bilateral Testes, Percutaneous Approach',
       //ip_address: '192.218.227.37',
@@ -6576,7 +6379,7 @@ async function main() {
     {
       id: '77c09ccd-0d13-4051-8701-2697fa08a04c',
       name: 'Hottentot teal',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Anas punctata',
       description: 'Repair Superior Mesenteric Artery, Open Approach',
       //ip_address: '54.184.106.40',
@@ -6590,7 +6393,7 @@ async function main() {
     {
       id: '88022383-fa13-426a-971e-d6ca5e98eb0a',
       name: 'Lesser mouse lemur',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Microcebus murinus',
       description:
         'Reposition Left Metacarpophalangeal Joint, Percutaneous Endoscopic Approach',
@@ -6605,7 +6408,7 @@ async function main() {
     {
       id: 'bd7e07ee-3117-4db1-99f1-245d462d9c46',
       name: "Hornbill, leadbeateri's ground",
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Bucorvus leadbeateri',
       description:
         'Supplement Scrotum with Synthetic Substitute, Open Approach',
@@ -6620,7 +6423,7 @@ async function main() {
     {
       id: '5c8e0aee-80fd-41d6-bb62-4bc984b2c09a',
       name: 'Rhinoceros, black',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Diceros bicornis',
       description:
         'Destruction of Right Upper Extremity Lymphatic, Percutaneous Approach',
@@ -6635,7 +6438,7 @@ async function main() {
     {
       id: '53bf81f8-2983-4036-9c8a-f8da81e9679f',
       name: 'Cliffchat, mocking',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Thamnolaea cinnmomeiventris',
       description:
         'Revision of Intraluminal Device in Vas Deferens, External Approach',
@@ -6650,7 +6453,7 @@ async function main() {
     {
       id: 'cab034e6-406a-49bd-8eb4-9896b32258b3',
       name: 'Malleefowl',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Leipoa ocellata',
       description:
         'Drainage of Right Hip Bursa and Ligament with Drainage Device, Open Approach',
@@ -6665,7 +6468,7 @@ async function main() {
     {
       id: '6411d88b-e16e-46e1-acd5-bc07867e64cd',
       name: 'Crown of thorns starfish',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Acanthaster planci',
       description: 'Excision of Prostate, Percutaneous Approach, Diagnostic',
       //ip_address: '204.162.238.192',
@@ -6679,7 +6482,7 @@ async function main() {
     {
       id: 'a7c62114-5faa-4fa8-9347-505436808cb3',
       name: 'Mexican boa',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Boa constrictor mexicana',
       description:
         'Change Drainage Device in Cisterna Chyli, External Approach',
@@ -6694,7 +6497,7 @@ async function main() {
     {
       id: '34fb27c9-333e-45e5-9806-9f4787eea0e4',
       name: 'Ant (unidentified)',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'unavailable',
       description:
         'Extraction of Left Greater Saphenous Vein, Percutaneous Approach',
@@ -6709,7 +6512,7 @@ async function main() {
     {
       id: 'a7c02d5f-edb4-4aa3-ad20-2b20aeed4576',
       name: 'Baboon, chacma',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Papio ursinus',
       description: 'Destruction of Left Hip Tendon, Percutaneous Approach',
       //ip_address: '193.237.4.70',
@@ -6723,7 +6526,7 @@ async function main() {
     {
       id: '1f75cd1e-a305-48ec-903e-0de83583d2f9',
       name: 'Gull, kelp',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Larus dominicanus',
       description:
         'Drainage of Abdomen Subcutaneous Tissue and Fascia with Drainage Device, Open Approach',
@@ -6738,7 +6541,7 @@ async function main() {
     {
       id: '3dcea89a-d378-47fc-9f32-4654002e4a1e',
       name: 'Wombat, southern hairy-nosed',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Lasiorhinus latifrons',
       description:
         'Replacement of Right Wrist Joint with Nonautologous Tissue Substitute, Open Approach',
@@ -6753,7 +6556,7 @@ async function main() {
     {
       id: '79d576d0-9f62-44b6-ae1d-0b2e52d76d8a',
       name: 'Deer, savannah',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Mazama gouazoubira',
       description: 'Release Lingula Bronchus, Percutaneous Approach',
       //ip_address: '173.244.87.167',
@@ -6767,7 +6570,7 @@ async function main() {
     {
       id: '1416efdf-cdcb-4ebb-9be5-131bf02ad263',
       name: 'Rattlesnake, dusky',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Crotalus triseriatus',
       description: 'Reposition Left Fibula, Open Approach',
       //ip_address: '12.188.40.253',
@@ -6783,7 +6586,7 @@ async function main() {
     {
       id: 'b8c12ad0-c129-4781-916e-e98a0630b53c',
       name: 'Monkey, bleeding heart',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Theropithecus gelada',
       description: 'Release Left Elbow Joint, Percutaneous Endoscopic Approach',
       //ip_address: '251.179.87.102',
@@ -6797,7 +6600,7 @@ async function main() {
     {
       id: '95503245-af63-48f3-bc54-83f7ef013b83',
       name: 'Palm squirrel',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Funambulus pennati',
       description:
         'Insertion of Hearing Device into Right Inner Ear, Percutaneous Approach',
@@ -6812,7 +6615,7 @@ async function main() {
     {
       id: '7fca4e0d-cc5e-41fd-bd96-7b87deb104da',
       name: 'Raccoon dog',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Nyctereutes procyonoides',
       description: 'Dilation of Left Hypogastric Vein, Open Approach',
       //ip_address: '191.212.54.13',
@@ -6826,7 +6629,7 @@ async function main() {
     {
       id: 'a76c3aed-5742-462b-a68b-1442a3ed4dde',
       name: 'Lizard, frilled',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Chlamydosaurus kingii',
       description:
         'Supplement Right Lower Lobe Bronchus with Autologous Tissue Substitute, Percutaneous Endoscopic Approach',
@@ -6841,7 +6644,7 @@ async function main() {
     {
       id: 'a4a7a6aa-65d9-4917-9a5a-6d4705683daf',
       name: 'Spoonbill, white',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Platalea leucordia',
       description:
         'Resection of Right Foot Muscle, Percutaneous Endoscopic Approach',
@@ -6856,7 +6659,7 @@ async function main() {
     {
       id: '827ad1b5-0ab9-4c71-a266-b8819796d7ea',
       name: 'Macaque, pig-tailed',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Macaca nemestrina',
       description: 'Excision of Conduction Mechanism, Open Approach',
       //ip_address: '48.200.86.142',
@@ -6870,7 +6673,7 @@ async function main() {
     {
       id: 'e00665db-cc7c-464e-8ed1-d38408d55acf',
       name: 'Common wolf',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Canis lupus',
       description:
         'Bypass Right Ventricle to Aorta, Percutaneous Endoscopic Approach',
@@ -6885,7 +6688,7 @@ async function main() {
     {
       id: '3facdbfd-996d-4a98-b35a-0aae634edb84',
       name: 'Black-throated butcher bird',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Cracticus nigroagularis',
       description: 'Extracorporeal Therapies, Physiological Systems, Perfusion',
       //ip_address: '240.88.253.109',
@@ -6899,7 +6702,7 @@ async function main() {
     {
       id: '5713f28e-3bfb-4596-9bc0-55f0bd6c0e8a',
       name: 'Hedgehog, south african',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Erinaceus frontalis',
       description:
         'Bypass Gallbladder to Duodenum with Intraluminal Device, Open Approach',
@@ -6914,7 +6717,7 @@ async function main() {
     {
       id: '552f26b9-87b9-42ea-8934-941fda58fe15',
       name: 'Feral rock pigeon',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Columba livia',
       description:
         'Dilation of Splenic Artery with Three Intraluminal Devices, Open Approach',
@@ -6929,7 +6732,7 @@ async function main() {
     {
       id: '16726716-0a34-4888-9609-885a94fa94e7',
       name: 'Arctic hare',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Lepus arcticus',
       description:
         'Replacement of Back Subcutaneous Tissue and Fascia with Nonautologous Tissue Substitute, Open Approach',
@@ -6946,7 +6749,7 @@ async function main() {
     {
       id: '191f51ec-4ac4-4d07-86d9-05d624ad6fda',
       name: 'Black-tailed deer',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Odocoileus hemionus',
       description:
         'Dilation of Left Popliteal Artery with Four or More Drug-eluting Intraluminal Devices, Percutaneous Approach',
@@ -6963,7 +6766,7 @@ async function main() {
     {
       id: '8d5ac165-3f4b-4413-b698-85ce7b51ebb2',
       name: 'Cockatoo, long-billed',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Cacatua tenuirostris',
       description: 'Destruction of Cerebellum, Open Approach',
       //ip_address: '231.51.191.76',
@@ -6977,7 +6780,7 @@ async function main() {
     {
       id: '28d333ea-8b61-4b42-adfd-222d9ee569cc',
       name: 'Tern, arctic',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Sterna paradisaea',
       description:
         'Removal of Nonautologous Tissue Substitute from Right Pelvic Bone, Percutaneous Endoscopic Approach',
@@ -6992,7 +6795,7 @@ async function main() {
     {
       id: '1117c554-4d2e-4a28-870a-2b7e9a8dc338',
       name: 'Sociable weaver',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Philetairus socius',
       description:
         'Destruction of Right Metatarsal, Percutaneous Endoscopic Approach',
@@ -7007,7 +6810,7 @@ async function main() {
     {
       id: '7ec77598-31dc-4e81-8a1d-528584ebefe4',
       name: 'Oryx, fringe-eared',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Oryx gazella callotis',
       description: 'Excision of Right Hand, Percutaneous Approach, Diagnostic',
       //ip_address: '150.34.221.127',
@@ -7021,7 +6824,7 @@ async function main() {
     {
       id: '27a7f837-5199-4e73-9c73-14de0ec0994f',
       name: 'Saddle-billed stork',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Ephipplorhynchus senegalensis',
       description: 'Release Lower Artery, Percutaneous Endoscopic Approach',
       //ip_address: '81.37.192.22',
@@ -7035,7 +6838,7 @@ async function main() {
     {
       id: '2e74cbdd-b905-4923-be4e-fd12880029a3',
       name: 'Stone sheep',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Ovis dalli stonei',
       description:
         'Drainage of Face, Percutaneous Endoscopic Approach, Diagnostic',
@@ -7050,7 +6853,7 @@ async function main() {
     {
       id: '64872273-c7eb-4a6e-818a-1104885d739a',
       name: 'Jackrabbit, white-tailed',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Lepus townsendii',
       description: 'Repair Pericardium, Percutaneous Approach',
       //ip_address: '36.6.158.59',
@@ -7064,7 +6867,7 @@ async function main() {
     {
       id: 'b8018ad4-fa2e-4c71-aff3-ac4085002e50',
       name: 'Squirrel, thirteen-lined',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Spermophilus tridecemlineatus',
       description: 'Drainage of Bladder, Percutaneous Endoscopic Approach',
       //ip_address: '144.60.17.24',
@@ -7078,7 +6881,7 @@ async function main() {
     {
       id: '58ae13a0-d4c7-4d7d-820d-3e3b620d60ca',
       name: 'Dove, mourning collared',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Streptopelia decipiens',
       description: 'Anatomical Regions, General, Removal',
       //ip_address: '37.165.50.140',
@@ -7092,7 +6895,7 @@ async function main() {
     {
       id: '06dbd1f5-a160-447e-848f-e5a6ac605c0d',
       name: 'Armadillo, common long-nosed',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Dasypus novemcinctus',
       description: 'Plain Radiography of Right Kidney using Other Contrast',
       //ip_address: '107.232.34.97',
@@ -7106,7 +6909,7 @@ async function main() {
     {
       id: 'fe2620cb-0421-4495-a5de-33e9a99f2580',
       name: 'Baboon, olive',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Papio cynocephalus',
       description: 'Dilation of Ascending Colon, Open Approach',
       //ip_address: '220.90.83.2',
@@ -7120,7 +6923,7 @@ async function main() {
     {
       id: 'a5ed53d1-5615-4c45-90a2-9534f1f60265',
       name: 'Gazer, sun',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Cordylus giganteus',
       description:
         'Bypass Transverse Colon to Descending Colon, Via Natural or Artificial Opening Endoscopic',
@@ -7135,7 +6938,7 @@ async function main() {
     {
       id: '59f7824e-77dd-4774-afce-bc3a8db31a2a',
       name: 'Two-toed tree sloth',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Choloepus hoffmani',
       description:
         'Extirpation of Matter from Left Seminal Vesicle, Percutaneous Endoscopic Approach',
@@ -7150,7 +6953,7 @@ async function main() {
     {
       id: '9692011a-b08a-482d-a55c-15d0d9338658',
       name: 'Zorilla',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Ictonyx striatus',
       description:
         'Revision of Autologous Tissue Substitute in Left Metatarsal, Open Approach',
@@ -7165,7 +6968,7 @@ async function main() {
     {
       id: '5307b57a-5bef-45bd-ad95-9db2ec392ead',
       name: 'Porcupine, african',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Hystrix cristata',
       description:
         'Replacement of Left Toe Phalangeal Joint with Synthetic Substitute, Open Approach',
@@ -7180,7 +6983,7 @@ async function main() {
     {
       id: '3eb0a431-70a9-4578-bcff-3d9c93ee8193',
       name: 'Warthog',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Phacochoerus aethiopus',
       description:
         'Insertion of Infusion Device into Left Shoulder Joint, Percutaneous Approach',
@@ -7195,7 +6998,7 @@ async function main() {
     {
       id: '163d7ba7-f330-4289-bc65-03d7dc330b46',
       name: 'White-nosed coatimundi',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Nasua narica',
       description:
         'Restriction of Right External Iliac Vein with Extraluminal Device, Open Approach',
@@ -7210,7 +7013,7 @@ async function main() {
     {
       id: 'd8ecd5ab-3dbe-4eca-a905-a58f494a03e0',
       name: 'Legaan, water',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Varanus salvator',
       description:
         'Excision of Lower Jaw, Percutaneous Endoscopic Approach, Diagnostic',
@@ -7225,7 +7028,7 @@ async function main() {
     {
       id: '9686714c-8fdd-4d3f-b729-d8cca952942a',
       name: 'Antechinus, brown',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Antechinus flavipes',
       description:
         'Drainage of Lesser Omentum with Drainage Device, Percutaneous Approach',
@@ -7240,7 +7043,7 @@ async function main() {
     {
       id: '34b483ee-43c5-4172-9184-bf11eea70b9c',
       name: 'Vulture, black',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Aegypius tracheliotus',
       description:
         'Bypass Left Fallopian Tube to Left Fallopian Tube with Autologous Tissue Substitute, Open Approach',
@@ -7255,7 +7058,7 @@ async function main() {
     {
       id: '0a4d8f4a-acdc-40df-914f-53ba1eb0dae8',
       name: 'Eastern fox squirrel',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Sciurus niger',
       description:
         'Drainage of Left Hip Muscle, Percutaneous Approach, Diagnostic',
@@ -7270,7 +7073,7 @@ async function main() {
     {
       id: 'cfae62d9-859a-405b-aa43-e184381bf2e5',
       name: 'Wallaby, river',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Macropus agilis',
       description:
         'Excision of Head and Neck Sympathetic Nerve, Open Approach, Diagnostic',
@@ -7285,7 +7088,7 @@ async function main() {
     {
       id: '8bfffbd5-7d76-473a-a865-91c359a1cd6d',
       name: 'Common grenadier',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Uraeginthus granatina',
       description: 'Excision of Right Internal Mammary Artery, Open Approach',
       //ip_address: '159.68.112.39',
@@ -7299,7 +7102,7 @@ async function main() {
     {
       id: 'a24ffb28-30c3-498b-b2e5-56c912aaba7b',
       name: 'Goose, spur-winged',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Plectopterus gambensis',
       description:
         'Supplement Left Palatine Bone with Nonautologous Tissue Substitute, Open Approach',
@@ -7314,7 +7117,7 @@ async function main() {
     {
       id: '36d7af4a-a5a9-4b96-a75c-83848df4895a',
       name: 'California sea lion',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Zalophus californicus',
       description: 'Destruction of Cerebral Meninges, Percutaneous Approach',
       //ip_address: '32.72.212.237',
@@ -7328,7 +7131,7 @@ async function main() {
     {
       id: 'cfe2509a-eb89-4fa1-a688-2b06161a36c2',
       name: 'Sheathbill, snowy',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Chionis alba',
       description: 'Drainage of Facial Nerve, Percutaneous Endoscopic Approach',
       //ip_address: '251.95.91.246',
@@ -7342,7 +7145,7 @@ async function main() {
     {
       id: '38fa18ab-a83e-4f7b-94a5-50e045c63e29',
       name: 'Pademelon, red-legged',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Thylogale stigmatica',
       description:
         'Supplement Left Shoulder Region with Synthetic Substitute, Percutaneous Endoscopic Approach',
@@ -7357,7 +7160,7 @@ async function main() {
     {
       id: 'a21b7275-48ed-40bb-aa21-f575ad2b88d2',
       name: 'Brown pelican',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Pelecanus occidentalis',
       description:
         'Supplement Descending Colon with Nonautologous Tissue Substitute, Open Approach',
@@ -7372,7 +7175,7 @@ async function main() {
     {
       id: '1041c00e-3a1a-4831-b33e-aff3bdebe1dd',
       name: 'Flightless cormorant',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Nannopterum harrisi',
       description:
         'Bypass Left Internal Iliac Artery to Lower Extremity Artery, Open Approach',
@@ -7389,7 +7192,7 @@ async function main() {
     {
       id: '1c016487-b57d-4487-aa4b-3f39214f6818',
       name: 'Four-spotted skimmer',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Libellula quadrimaculata',
       description: 'Destruction of Left Adrenal Gland, Open Approach',
       //ip_address: '200.198.126.158',
@@ -7403,7 +7206,7 @@ async function main() {
     {
       id: '145ff341-3955-4246-8c8f-14f5becc6d75',
       name: 'Tammar wallaby',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Macropus eugenii',
       description:
         'Revision of Synthetic Substitute in Left Carpal, Percutaneous Approach',
@@ -7418,7 +7221,7 @@ async function main() {
     {
       id: '87286461-8e69-4ce4-b6c2-770f65ccec2f',
       name: 'Mourning collared dove',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Streptopelia decipiens',
       description:
         'Excision of Right Ulnar Artery, Percutaneous Approach, Diagnostic',
@@ -7433,7 +7236,7 @@ async function main() {
     {
       id: 'f9e905d1-2417-44b8-bcf0-83f3b93b5993',
       name: 'Ferret, black-footed',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Mustela nigripes',
       description:
         'Insertion of Infusion Device into Liver, Percutaneous Endoscopic Approach',
@@ -7448,7 +7251,7 @@ async function main() {
     {
       id: '8d81b7a3-8577-4a13-9a44-b7eb377aa254',
       name: 'Sportive lemur',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Lepilemur rufescens',
       description: 'Release Left Lung, Via Natural or Artificial Opening',
       //ip_address: '249.3.21.63',
@@ -7462,7 +7265,7 @@ async function main() {
     {
       id: '72235ad6-9f39-4520-9655-7b973775a297',
       name: 'White-throated robin',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Irania gutteralis',
       description:
         'Tomographic (Tomo) Nuclear Medicine Imaging of Bilateral Upper Extremities using Technetium 99m (Tc-99m)',
@@ -7477,7 +7280,7 @@ async function main() {
     {
       id: 'cc8c7633-1901-47a9-9d53-f1c39fa8be5e',
       name: 'Mongoose, banded',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Mungos mungo',
       description: 'Occlusion of Right Hand Vein, Percutaneous Approach',
       //ip_address: '77.137.247.157',
@@ -7491,7 +7294,7 @@ async function main() {
     {
       id: 'fda35539-0794-4a5b-a3d1-b083d262cc33',
       name: 'Caribou',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Rangifer tarandus',
       description:
         'Bypass Superior Mesenteric Vein to Lower Vein, Percutaneous Endoscopic Approach',
@@ -7506,7 +7309,7 @@ async function main() {
     {
       id: '8496615f-7414-4fbc-9665-1cff00d5cec2',
       name: 'Snow goose',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Anser caerulescens',
       description:
         'Bypass Innominate Artery to Left Lower Leg Artery with Autologous Arterial Tissue, Open Approach',
@@ -7521,7 +7324,7 @@ async function main() {
     {
       id: '0bef568a-f2e8-4271-98ca-c27863537446',
       name: 'Chacma baboon',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Papio ursinus',
       description:
         'Dilation of Celiac Artery, Bifurcation, with Three Intraluminal Devices, Percutaneous Endoscopic Approach',
@@ -7536,7 +7339,7 @@ async function main() {
     {
       id: 'c7583f0f-a0e2-4c4e-88db-f658b9c262f3',
       name: 'Flycatcher, tyrant',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Myiarchus tuberculifer',
       description:
         'Measurement of Biliary Flow, Percutaneous Endoscopic Approach',
@@ -7551,7 +7354,7 @@ async function main() {
     {
       id: '50e935c6-2db5-4e88-9274-4475bbb651a1',
       name: 'Northern fur seal',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Callorhinus ursinus',
       description:
         'Bypass Abdominal Aorta to Left Common Iliac Artery, Open Approach',
@@ -7566,7 +7369,7 @@ async function main() {
     {
       id: '20ca2d3c-11f3-4298-8f2e-0571f9a22f3a',
       name: 'Oystercatcher, blackish',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Haematopus ater',
       description:
         'Insertion of Tissue Expander into Right Upper Arm Subcutaneous Tissue and Fascia, Percutaneous Approach',
@@ -7581,7 +7384,7 @@ async function main() {
     {
       id: '1b35ff63-62be-409d-8233-409d72a8ad08',
       name: 'Wallaby, whip-tailed',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Macropus parryi',
       description:
         'Replacement of Lumbar Vertebra with Nonautologous Tissue Substitute, Open Approach',
@@ -7596,7 +7399,7 @@ async function main() {
     {
       id: '782d7a45-2d6b-4c3f-8bf5-5df2581fb216',
       name: 'Crested bunting',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Melophus lathami',
       description:
         'Insertion of Radioactive Element into Cervix, Open Approach',
@@ -7611,7 +7414,7 @@ async function main() {
     {
       id: 'ebe63ae5-aa21-4740-a894-ecc1d4d0f049',
       name: 'Common turkey',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Meleagris gallopavo',
       description: 'Repair of Lower Tooth, Single, External Approach',
       //ip_address: '208.124.132.197',
@@ -7625,7 +7428,7 @@ async function main() {
     {
       id: 'e742c870-e2f6-46b8-8f37-73d4f961212a',
       name: 'White spoonbill',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Platalea leucordia',
       description: 'Inspection of Trachea, External Approach',
       //ip_address: '187.119.94.127',
@@ -7639,7 +7442,7 @@ async function main() {
     {
       id: 'a984ee11-86f5-4fa1-a2fb-9a9162ad3a2d',
       name: 'Bushbaby, large-eared',
-      ExponatKind: ExponatKind.PROCARIOT,
+      isApproved: true, ExponatKind: ExponatKind.PROCARIOT,
       alternateName: 'Galago crassicaudataus',
       description: 'Drainage of Right Upper Lung Lobe, Percutaneous Approach',
       //ip_address: '69.169.216.194',
@@ -82654,6 +82457,5035 @@ async function main() {
       authorId: users[57].id,
     },
   ];
+
+  let organisationUsers = [
+    {
+      organisationId: organisations[1].id,
+      userId: users[2].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[74].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[17].id,
+      userId: users[18].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[51].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[3].id,
+      userId: users[7].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[2].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[91].id,
+      role: MemberRole.OWNER,
+    },
+    {
+      organisationId: organisations[10].id,
+      userId: users[11].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[16].id,
+      userId: users[37].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[8].id,
+      userId: users[92].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[17].id,
+      userId: users[90].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[18].id,
+      userId: users[75].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[83].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[98].id,
+      role: MemberRole.OWNER,
+    },
+    {
+      organisationId: organisations[17].id,
+      userId: users[8].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[41].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[50].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[16].id,
+      userId: users[54].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[99].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[13].id,
+      userId: users[20].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[9].id,
+      userId: users[96].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[15].id,
+      userId: users[11].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[48].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[7].id,
+      userId: users[19].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[51].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[7].id,
+      userId: users[42].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[3].id,
+      userId: users[48].id,
+      role: MemberRole.OWNER,
+    },
+    {
+      organisationId: organisations[15].id,
+      userId: users[46].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[83].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[15].id,
+      userId: users[80].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[1].id,
+      userId: users[97].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[17].id,
+      userId: users[91].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[8].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[13].id,
+      userId: users[79].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[68].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[7].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[13].id,
+      userId: users[42].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[7].id,
+      userId: users[1].id,
+      role: MemberRole.OWNER,
+    },
+    {
+      organisationId: organisations[18].id,
+      userId: users[97].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[90].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[62].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[90].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[17].id,
+      userId: users[29].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[18].id,
+      userId: users[99].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[15].id,
+      userId: users[55].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[9].id,
+      userId: users[79].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[10].id,
+      userId: users[79].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[71].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[1].id,
+      userId: users[51].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[8].id,
+      userId: users[46].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[8].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[89].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[11].id,
+      userId: users[26].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[18].id,
+      userId: users[48].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[16].id,
+      userId: users[73].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[9].id,
+      userId: users[64].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[16].id,
+      userId: users[68].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[17].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[15].id,
+      userId: users[12].id,
+      role: MemberRole.OWNER,
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[73].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[1].id,
+      userId: users[59].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[3].id,
+      userId: users[3].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[3].id,
+      userId: users[85].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[82].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[7].id,
+      userId: users[93].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[8].id,
+      userId: users[19].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[11].id,
+      userId: users[48].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[10].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[11].id,
+      userId: users[92].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[11].id,
+      userId: users[14].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[90].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[98].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[13].id,
+      userId: users[34].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[5].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[12].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[16].id,
+      userId: users[7].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[9].id,
+      userId: users[23].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[8].id,
+      userId: users[61].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[18].id,
+      userId: users[25].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[39].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[18].id,
+      userId: users[74].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[3].id,
+      userId: users[53].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[3].id,
+      userId: users[70].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[11].id,
+      userId: users[99].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[8].id,
+      userId: users[80].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[11].id,
+      userId: users[37].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[86].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[53].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[46].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[20].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[10].id,
+      userId: users[76].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[24].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[41].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[4].id,
+      userId: users[71].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[55].id,
+      role: MemberRole.OWNER,
+    },
+    {
+      organisationId: organisations[17].id,
+      userId: users[18].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[7].id,
+      userId: users[23].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[1].id,
+      userId: users[81].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[25].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[10].id,
+      userId: users[88].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[9].id,
+      userId: users[33].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[96].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[34].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[11].id,
+      userId: users[40].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[35].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[4].id,
+      userId: users[86].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[17].id,
+      userId: users[62].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[11].id,
+      userId: users[76].id,
+      role: MemberRole.OWNER,
+    },
+    {
+      organisationId: organisations[9].id,
+      userId: users[37].id,
+      role: MemberRole.OWNER,
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[80].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[32].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[1].id,
+      role: MemberRole.OWNER,
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[91].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[3].id,
+      userId: users[68].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[4].id,
+      userId: users[87].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[13].id,
+      userId: users[58].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[91].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[15].id,
+      userId: users[91].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[10].id,
+      userId: users[42].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[13].id,
+      userId: users[92].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[45].id,
+      role: MemberRole.OWNER,
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[90].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[16].id,
+      userId: users[30].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[13].id,
+      userId: users[57].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[34].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[16].id,
+      userId: users[84].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[10].id,
+      userId: users[78].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[58].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[38].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[3].id,
+      userId: users[90].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[17].id,
+      userId: users[4].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[11].id,
+      userId: users[74].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[13].id,
+      userId: users[17].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[13].id,
+      userId: users[50].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[11].id,
+      userId: users[58].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[1].id,
+      userId: users[80].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[53].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[79].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[97].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[9].id,
+      userId: users[38].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[34].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[18].id,
+      userId: users[31].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[18].id,
+      userId: users[37].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[10].id,
+      userId: users[71].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[10].id,
+      userId: users[74].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[7].id,
+      userId: users[92].id,
+      role: MemberRole.OWNER,
+    },
+    {
+      organisationId: organisations[7].id,
+      userId: users[2].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[4].id,
+      userId: users[1].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[11].id,
+      userId: users[98].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[80].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[99].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[78].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[9].id,
+      userId: users[94].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[18].id,
+      userId: users[31].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[90].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[18].id,
+      userId: users[36].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[50].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[89].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[30].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[1].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[16].id,
+      userId: users[60].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[4].id,
+      userId: users[27].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[67].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[38].id,
+      role: MemberRole.OWNER,
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[97].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[7].id,
+      userId: users[73].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[7].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[16].id,
+      userId: users[17].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[16].id,
+      userId: users[78].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[15].id,
+      userId: users[83].id,
+      role: MemberRole.OWNER,
+    },
+    {
+      organisationId: organisations[9].id,
+      userId: users[24].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[3].id,
+      userId: users[9].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[9].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[10].id,
+      userId: users[7].id,
+      role: MemberRole.OWNER,
+    },
+    {
+      organisationId: organisations[11].id,
+      userId: users[43].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[11].id,
+      userId: users[56].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[16].id,
+      userId: users[97].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[15].id,
+      userId: users[14].id,
+      role: MemberRole.OWNER,
+    },
+    {
+      organisationId: organisations[3].id,
+      userId: users[44].id,
+      role: MemberRole.OWNER,
+    },
+    {
+      organisationId: organisations[15].id,
+      userId: users[79].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[7].id,
+      userId: users[40].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[46].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[83].id,
+      role: MemberRole.OWNER,
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[83].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[16].id,
+      userId: users[99].id,
+      role: MemberRole.OWNER,
+    },
+    {
+      organisationId: organisations[8].id,
+      userId: users[41].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[10].id,
+      userId: users[90].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[1].id,
+      userId: users[61].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[5].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[16].id,
+      userId: users[85].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[1].id,
+      userId: users[85].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[13].id,
+      userId: users[76].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[9].id,
+      userId: users[16].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[75].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[94].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[15].id,
+      userId: users[49].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[98].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[90].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[21].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[4].id,
+      userId: users[77].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[4].id,
+      userId: users[19].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[17].id,
+      userId: users[8].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[85].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[11].id,
+      userId: users[23].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[89].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[16].id,
+      userId: users[43].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[13].id,
+      userId: users[75].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[11].id,
+      userId: users[6].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[8].id,
+      userId: users[52].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[11].id,
+      userId: users[83].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[3].id,
+      userId: users[22].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[4].id,
+      userId: users[70].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[11].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[57].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[13].id,
+      userId: users[53].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[8].id,
+      userId: users[42].id,
+      role: MemberRole.OWNER,
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[91].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[3].id,
+      userId: users[91].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[84].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[18].id,
+      userId: users[89].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[4].id,
+      userId: users[8].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[18].id,
+      userId: users[36].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[15].id,
+      userId: users[66].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[1].id,
+      userId: users[81].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[32].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[7].id,
+      userId: users[1].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[17].id,
+      userId: users[82].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[11].id,
+      userId: users[22].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[11].id,
+      userId: users[10].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[13].id,
+      userId: users[10].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[17].id,
+      userId: users[25].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[55].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[11].id,
+      userId: users[38].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[27].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[16].id,
+      userId: users[10].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[23].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[15].id,
+      userId: users[47].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[86].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[18].id,
+      userId: users[47].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[7].id,
+      userId: users[44].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[3].id,
+      userId: users[89].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[9].id,
+      userId: users[98].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[7].id,
+      userId: users[3].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[18].id,
+      userId: users[97].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[4].id,
+      userId: users[19].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[54].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[9].id,
+      userId: users[90].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[17].id,
+      userId: users[31].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[18].id,
+      userId: users[32].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[15].id,
+      userId: users[9].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[8].id,
+      userId: users[13].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[98].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[10].id,
+      userId: users[77].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[98].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[13].id,
+      userId: users[69].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[39].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[17].id,
+      userId: users[15].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[13].id,
+      userId: users[38].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[18].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[8].id,
+      userId: users[67].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[10].id,
+      userId: users[6].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[7].id,
+      userId: users[36].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[54].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[4].id,
+      userId: users[73].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[48].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[10].id,
+      userId: users[18].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[13].id,
+      userId: users[86].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[9].id,
+      userId: users[28].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[8].id,
+      userId: users[49].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[37].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[11].id,
+      userId: users[51].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[10].id,
+      userId: users[30].id,
+      role: MemberRole.OWNER,
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[28].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[8].id,
+      userId: users[48].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[5].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[13].id,
+      userId: users[70].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[1].id,
+      userId: users[81].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[16].id,
+      userId: users[4].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[9].id,
+      userId: users[3].id,
+      role: MemberRole.OWNER,
+    },
+    {
+      organisationId: organisations[4].id,
+      userId: users[64].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[16].id,
+      userId: users[15].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[82].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[80].id,
+      role: MemberRole.OWNER,
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[95].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[52].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[7].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[9].id,
+      userId: users[20].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[77].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[8].id,
+      userId: users[34].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[9].id,
+      userId: users[73].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[25].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[16].id,
+      userId: users[23].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[18].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[17].id,
+      userId: users[8].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[11].id,
+      userId: users[37].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[1].id,
+      userId: users[22].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[17].id,
+      userId: users[59].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[73].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[35].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[10].id,
+      userId: users[49].id,
+      role: MemberRole.OWNER,
+    },
+    {
+      organisationId: organisations[7].id,
+      userId: users[63].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[22].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[13].id,
+      userId: users[8].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[11].id,
+      userId: users[83].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[15].id,
+      userId: users[37].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[4].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[3].id,
+      userId: users[34].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[10].id,
+      userId: users[69].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[1].id,
+      userId: users[33].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[81].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[24].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[98].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[13].id,
+      userId: users[29].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[13].id,
+      userId: users[97].id,
+      role: MemberRole.OWNER,
+    },
+    {
+      organisationId: organisations[4].id,
+      userId: users[27].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[15].id,
+      userId: users[12].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[16].id,
+      userId: users[57].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[10].id,
+      userId: users[77].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[55].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[15].id,
+      userId: users[12].id,
+      role: MemberRole.OWNER,
+    },
+    {
+      organisationId: organisations[3].id,
+      userId: users[31].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[7].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[79].id,
+      role: MemberRole.OWNER,
+    },
+    {
+      organisationId: organisations[18].id,
+      userId: users[11].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[99].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[18].id,
+      userId: users[62].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[10].id,
+      userId: users[59].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[65].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[8].id,
+      userId: users[5].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[13].id,
+      userId: users[93].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[16].id,
+      userId: users[22].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[7].id,
+      userId: users[56].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[10].id,
+      userId: users[46].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[54].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[8].id,
+      userId: users[2].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[13].id,
+      userId: users[60].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[32].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[13].id,
+      userId: users[98].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[3].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[59].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[3].id,
+      userId: users[3].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[8].id,
+      userId: users[66].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[8].id,
+      userId: users[77].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[77].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[75].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[41].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[9].id,
+      userId: users[36].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[86].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[4].id,
+      userId: users[14].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[11].id,
+      userId: users[44].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[58].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[15].id,
+      userId: users[21].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[1].id,
+      userId: users[22].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[1].id,
+      userId: users[92].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[18].id,
+      userId: users[44].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[14].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[8].id,
+      userId: users[77].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[97].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[28].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[48].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[45].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[8].id,
+      userId: users[12].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[11].id,
+      userId: users[48].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[7].id,
+      userId: users[6].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[13].id,
+      userId: users[35].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[76].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[15].id,
+      userId: users[63].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[18].id,
+      userId: users[41].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[16].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[29].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[19].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[4].id,
+      userId: users[44].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[7].id,
+      userId: users[6].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[18].id,
+      userId: users[25].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[53].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[1].id,
+      userId: users[59].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[17].id,
+      userId: users[52].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[10].id,
+      userId: users[77].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[9].id,
+      userId: users[98].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[10].id,
+      userId: users[4].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[1].id,
+      userId: users[30].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[1].id,
+      userId: users[41].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[18].id,
+      userId: users[90].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[55].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[71].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[18].id,
+      userId: users[74].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[16].id,
+      userId: users[69].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[1].id,
+      userId: users[97].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[26].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[4].id,
+      userId: users[79].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[52].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[9].id,
+      userId: users[52].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[3].id,
+      userId: users[66].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[11].id,
+      userId: users[74].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[70].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[10].id,
+      userId: users[23].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[15].id,
+      userId: users[78].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[43].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[17].id,
+      userId: users[88].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[70].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[15].id,
+      userId: users[37].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[11].id,
+      userId: users[28].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[14].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[30].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[7].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[18].id,
+      userId: users[31].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[13].id,
+      userId: users[24].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[7].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[83].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[10].id,
+      userId: users[10].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[99].id,
+      role: MemberRole.OWNER,
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[53].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[4].id,
+      userId: users[88].id,
+      role: MemberRole.OWNER,
+    },
+    {
+      organisationId: organisations[16].id,
+      userId: users[92].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[9].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[11].id,
+      userId: users[50].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[15].id,
+      userId: users[28].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[3].id,
+      userId: users[91].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[54].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[9].id,
+      userId: users[44].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[7].id,
+      userId: users[69].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[18].id,
+      userId: users[86].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[15].id,
+      userId: users[17].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[50].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[11].id,
+      userId: users[27].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[11].id,
+      userId: users[93].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[8].id,
+      userId: users[2].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[20].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[64].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[4].id,
+      userId: users[99].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[1].id,
+      userId: users[95].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[60].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[3].id,
+      userId: users[88].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[13].id,
+      userId: users[54].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[10].id,
+      userId: users[1].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[8].id,
+      userId: users[13].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[7].id,
+      userId: users[49].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[4].id,
+      userId: users[37].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[96].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[16].id,
+      userId: users[47].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[82].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[13].id,
+      userId: users[1].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[3].id,
+      userId: users[40].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[39].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[17].id,
+      userId: users[77].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[1].id,
+      userId: users[90].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[13].id,
+      userId: users[74].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[10].id,
+      userId: users[37].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[8].id,
+      userId: users[7].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[8].id,
+      userId: users[95].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[11].id,
+      userId: users[66].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[4].id,
+      userId: users[98].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[3].id,
+      userId: users[96].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[40].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[7].id,
+      userId: users[65].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[58].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[95].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[79].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[18].id,
+      userId: users[27].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[11].id,
+      userId: users[51].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[68].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[10].id,
+      userId: users[21].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[17].id,
+      userId: users[61].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[11].id,
+      userId: users[52].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[7].id,
+      userId: users[77].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[76].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[52].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[45].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[3].id,
+      userId: users[49].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[27].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[1].id,
+      userId: users[67].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[78].id,
+      role: MemberRole.OWNER,
+    },
+    {
+      organisationId: organisations[1].id,
+      userId: users[78].id,
+      role: MemberRole.OWNER,
+    },
+    {
+      organisationId: organisations[10].id,
+      userId: users[85].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[23].id,
+      role: MemberRole.OWNER,
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[76].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[8].id,
+      userId: users[14].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[52].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[18].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[92].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[7].id,
+      userId: users[86].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[18].id,
+      userId: users[50].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[1].id,
+      userId: users[65].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[84].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[66].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[73].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[15].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[45].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[11].id,
+      userId: users[99].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[43].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[97].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[26].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[7].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[1].id,
+      userId: users[65].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[1].id,
+      userId: users[64].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[52].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[3].id,
+      userId: users[1].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[17].id,
+      userId: users[29].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[4].id,
+      userId: users[13].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[9].id,
+      userId: users[4].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[51].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[72].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[50].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[13].id,
+      userId: users[8].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[10].id,
+      userId: users[92].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[41].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[9].id,
+      userId: users[67].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[1].id,
+      userId: users[52].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[8].id,
+      userId: users[70].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[10].id,
+      userId: users[43].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[3].id,
+      userId: users[24].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[8].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[88].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[7].id,
+      userId: users[34].id,
+      role: MemberRole.OWNER,
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[88].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[1].id,
+      userId: users[38].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[7].id,
+      userId: users[65].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[37].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[92].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[13].id,
+      userId: users[74].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[17].id,
+      userId: users[67].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[4].id,
+      userId: users[68].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[4].id,
+      userId: users[99].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[58].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[8].id,
+      userId: users[31].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[16].id,
+      userId: users[56].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[15].id,
+      userId: users[52].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[4].id,
+      userId: users[46].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[15].id,
+      userId: users[5].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[86].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[3].id,
+      userId: users[46].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[96].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[13].id,
+      userId: users[90].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[91].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[14].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[86].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[10].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[4].id,
+      userId: users[57].id,
+      role: MemberRole.OWNER,
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[67].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[82].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[13].id,
+      userId: users[13].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[1].id,
+      userId: users[2].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[28].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[4].id,
+      userId: users[35].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[17].id,
+      userId: users[2].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[1].id,
+      userId: users[81].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[13].id,
+      userId: users[24].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[15].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[29].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[99].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[3].id,
+      userId: users[84].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[85].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[17].id,
+      userId: users[93].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[52].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[65].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[11].id,
+      userId: users[13].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[15].id,
+      userId: users[91].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[96].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[8].id,
+      userId: users[99].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[97].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[51].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[35].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[11].id,
+      userId: users[85].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[65].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[17].id,
+      userId: users[28].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[16].id,
+      userId: users[59].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[11].id,
+      userId: users[61].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[36].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[4].id,
+      userId: users[85].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[64].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[26].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[62].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[17].id,
+      userId: users[68].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[3].id,
+      userId: users[67].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[3].id,
+      userId: users[30].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[9].id,
+      userId: users[63].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[60].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[77].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[54].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[24].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[13].id,
+      userId: users[52].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[81].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[36].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[9].id,
+      userId: users[60].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[98].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[62].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[3].id,
+      userId: users[99].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[15].id,
+      userId: users[64].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[88].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[49].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[67].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[8].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[4].id,
+      userId: users[28].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[28].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[15].id,
+      userId: users[1].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[1].id,
+      userId: users[17].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[11].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[40].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[3].id,
+      userId: users[99].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[9].id,
+      userId: users[75].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[8].id,
+      userId: users[85].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[3].id,
+      userId: users[91].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[95].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[79].id,
+      role: MemberRole.OWNER,
+    },
+    {
+      organisationId: organisations[13].id,
+      userId: users[5].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[67].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[11].id,
+      userId: users[75].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[13].id,
+      userId: users[63].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[9].id,
+      userId: users[1].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[63].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[42].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[46].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[16].id,
+      userId: users[65].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[48].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[51].id,
+      role: MemberRole.OWNER,
+    },
+    {
+      organisationId: organisations[1].id,
+      userId: users[15].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[10].id,
+      userId: users[7].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[32].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[16].id,
+      userId: users[49].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[98].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[67].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[9].id,
+      userId: users[37].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[17].id,
+      userId: users[96].id,
+      role: MemberRole.OWNER,
+    },
+    {
+      organisationId: organisations[15].id,
+      userId: users[68].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[10].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[18].id,
+      userId: users[87].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[39].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[82].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[7].id,
+      userId: users[43].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[17].id,
+      userId: users[65].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[33].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[3].id,
+      userId: users[40].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[94].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[65].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[1].id,
+      userId: users[99].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[96].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[65].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[13].id,
+      userId: users[21].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[14].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[38].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[18].id,
+      userId: users[90].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[18].id,
+      userId: users[39].id,
+      role: MemberRole.OWNER,
+    },
+    {
+      organisationId: organisations[15].id,
+      userId: users[98].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[3].id,
+      userId: users[62].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[13].id,
+      userId: users[69].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[4].id,
+      userId: users[38].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[15].id,
+      userId: users[52].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[8].id,
+      userId: users[38].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[41].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[9].id,
+      userId: users[39].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[10].id,
+      userId: users[48].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[83].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[17].id,
+      userId: users[13].id,
+      role: MemberRole.OWNER,
+    },
+    {
+      organisationId: organisations[15].id,
+      userId: users[39].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[18].id,
+      userId: users[95].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[15].id,
+      userId: users[82].id,
+      role: MemberRole.OWNER,
+    },
+    {
+      organisationId: organisations[9].id,
+      userId: users[54].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[90].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[4].id,
+      userId: users[75].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[18].id,
+      userId: users[1].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[57].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[17].id,
+      userId: users[99].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[18].id,
+      userId: users[34].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[13].id,
+      userId: users[76].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[10].id,
+      userId: users[46].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[4].id,
+      userId: users[4].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[17].id,
+      userId: users[61].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[9].id,
+      userId: users[20].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[20].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[99].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[3].id,
+      userId: users[67].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[15].id,
+      userId: users[3].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[1].id,
+      userId: users[97].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[35].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[1].id,
+      userId: users[25].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[36].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[11].id,
+      userId: users[56].id,
+      role: MemberRole.OWNER,
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[48].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[11].id,
+      userId: users[41].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[3].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[7].id,
+      userId: users[67].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[41].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[1].id,
+      userId: users[84].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[15].id,
+      userId: users[91].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[11].id,
+      userId: users[4].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[30].id,
+      role: MemberRole.OWNER,
+    },
+    {
+      organisationId: organisations[16].id,
+      userId: users[26].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[9].id,
+      userId: users[66].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[13].id,
+      userId: users[93].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[62].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[16].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[8].id,
+      userId: users[78].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[30].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[18].id,
+      userId: users[99].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[92].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[3].id,
+      userId: users[10].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[8].id,
+      userId: users[83].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[11].id,
+      userId: users[99].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[74].id,
+      role: MemberRole.OWNER,
+    },
+    {
+      organisationId: organisations[8].id,
+      userId: users[43].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[7].id,
+      userId: users[35].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[16].id,
+      userId: users[73].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[1].id,
+      userId: users[22].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[67].id,
+      role: MemberRole.OWNER,
+    },
+    {
+      organisationId: organisations[13].id,
+      userId: users[16].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[17].id,
+      userId: users[15].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[10].id,
+      userId: users[60].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[76].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[67].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[17].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[3].id,
+      userId: users[52].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[49].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[16].id,
+      userId: users[56].id,
+      role: MemberRole.OWNER,
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[2].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[58].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[1].id,
+      userId: users[3].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[77].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[7].id,
+      userId: users[48].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[39].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[7].id,
+      userId: users[33].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[7].id,
+      userId: users[64].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[7].id,
+      userId: users[35].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[45].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[15].id,
+      userId: users[44].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[94].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[62].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[87].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[95].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[64].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[16].id,
+      userId: users[40].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[11].id,
+      userId: users[3].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[68].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[28].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[15].id,
+      userId: users[88].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[13].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[8].id,
+      userId: users[50].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[8].id,
+      userId: users[24].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[13].id,
+      userId: users[56].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[10].id,
+      userId: users[45].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[75].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[4].id,
+      userId: users[32].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[85].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[16].id,
+      userId: users[40].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[17].id,
+      userId: users[12].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[17].id,
+      userId: users[18].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[7].id,
+      userId: users[95].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[29].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[59].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[15].id,
+      userId: users[80].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[33].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[12].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[16].id,
+      userId: users[85].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[13].id,
+      userId: users[64].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[7].id,
+      userId: users[8].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[31].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[93].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[43].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[92].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[10].id,
+      userId: users[65].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[13].id,
+      userId: users[76].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[17].id,
+      userId: users[88].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[52].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[10].id,
+      userId: users[71].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[94].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[17].id,
+      userId: users[95].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[51].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[99].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[3].id,
+      userId: users[30].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[3].id,
+      userId: users[52].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[16].id,
+      userId: users[34].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[10].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[80].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[16].id,
+      userId: users[32].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[9].id,
+      userId: users[19].id,
+      role: MemberRole.OWNER,
+    },
+    {
+      organisationId: organisations[1].id,
+      userId: users[21].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[95].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[1].id,
+      userId: users[47].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[15].id,
+      userId: users[46].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[4].id,
+      userId: users[90].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[30].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[16].id,
+      userId: users[19].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[6].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[1].id,
+      userId: users[72].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[13].id,
+      userId: users[18].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[8].id,
+      userId: users[20].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[98].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[11].id,
+      userId: users[41].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[4].id,
+      userId: users[58].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[4].id,
+      userId: users[23].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[29].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[4].id,
+      userId: users[57].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[18].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[34].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[8].id,
+      userId: users[60].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[2].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[93].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[8].id,
+      userId: users[89].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[10].id,
+      userId: users[14].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[51].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[4].id,
+      userId: users[16].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[73].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[23].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[79].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[94].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[1].id,
+      userId: users[17].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[68].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[16].id,
+      userId: users[36].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[16].id,
+      userId: users[88].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[12].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[24].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[11].id,
+      userId: users[82].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[30].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[96].id,
+      role: MemberRole.OWNER,
+    },
+    {
+      organisationId: organisations[17].id,
+      userId: users[43].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[1].id,
+      userId: users[76].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[99].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[11].id,
+      userId: users[24].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[15].id,
+      userId: users[56].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[10].id,
+      userId: users[4].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[17].id,
+      userId: users[84].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[79].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[23].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[3].id,
+      userId: users[47].id,
+      role: MemberRole.OWNER,
+    },
+    {
+      organisationId: organisations[4].id,
+      userId: users[57].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[59].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[6].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[60].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[10].id,
+      userId: users[71].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[16].id,
+      userId: users[45].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[1].id,
+      userId: users[5].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[8].id,
+      userId: users[14].id,
+      role: MemberRole.OWNER,
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[60].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[4].id,
+      userId: users[88].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[1].id,
+      userId: users[23].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[96].id,
+      role: MemberRole.OWNER,
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[36].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[85].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[1].id,
+      userId: users[51].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[27].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[92].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[41].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[9].id,
+      userId: users[41].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[16].id,
+      userId: users[58].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[8].id,
+      userId: users[16].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[16].id,
+      userId: users[82].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[4].id,
+      userId: users[24].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[51].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[3].id,
+      userId: users[97].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[1].id,
+      userId: users[74].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[4].id,
+      userId: users[95].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[19].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[4].id,
+      userId: users[78].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[17].id,
+      userId: users[41].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[16].id,
+      userId: users[46].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[11].id,
+      userId: users[38].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[4].id,
+      userId: users[49].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[16].id,
+      userId: users[99].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[65].id,
+      role: MemberRole.OWNER,
+    },
+    {
+      organisationId: organisations[11].id,
+      userId: users[61].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[8].id,
+      userId: users[25].id,
+      role: MemberRole.OWNER,
+    },
+    {
+      organisationId: organisations[17].id,
+      userId: users[59].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[99].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[82].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[4].id,
+      userId: users[88].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[15].id,
+      userId: users[55].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[1].id,
+      userId: users[45].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[10].id,
+      userId: users[38].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[58].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[16].id,
+      userId: users[67].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[10].id,
+      userId: users[24].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[15].id,
+      userId: users[43].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[90].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[17].id,
+      userId: users[64].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[25].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[4].id,
+      userId: users[78].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[13].id,
+      userId: users[3].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[13].id,
+      userId: users[48].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[15].id,
+      userId: users[57].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[7].id,
+      userId: users[10].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[20].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[4].id,
+      userId: users[59].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[68].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[32].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[6].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[7].id,
+      userId: users[23].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[47].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[16].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[10].id,
+      userId: users[62].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[17].id,
+      userId: users[15].id,
+      role: MemberRole.OWNER,
+    },
+    {
+      organisationId: organisations[16].id,
+      userId: users[13].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[26].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[13].id,
+      userId: users[13].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[9].id,
+      userId: users[34].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[17].id,
+      userId: users[18].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[32].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[18].id,
+      userId: users[86].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[7].id,
+      userId: users[34].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[4].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[8].id,
+      userId: users[81].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[56].id,
+      role: MemberRole.OWNER,
+    },
+    {
+      organisationId: organisations[17].id,
+      userId: users[93].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[22].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[4].id,
+      userId: users[13].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[57].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[13].id,
+      userId: users[23].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[2].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[4].id,
+      userId: users[67].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[3].id,
+      userId: users[63].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[15].id,
+      userId: users[56].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[41].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[17].id,
+      userId: users[73].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[48].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[85].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[16].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[13].id,
+      userId: users[49].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[4].id,
+      userId: users[46].id,
+      role: MemberRole.OWNER,
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[9].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[41].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[1].id,
+      userId: users[13].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[18].id,
+      userId: users[56].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[55].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[16].id,
+      userId: users[14].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[10].id,
+      userId: users[5].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[1].id,
+      userId: users[33].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[15].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[11].id,
+      userId: users[88].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[6].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[62].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[7].id,
+      userId: users[35].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[59].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[18].id,
+      userId: users[91].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[7].id,
+      userId: users[13].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[73].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[8].id,
+      userId: users[30].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[98].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[15].id,
+      userId: users[83].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[93].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[10].id,
+      userId: users[6].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[62].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[15].id,
+      userId: users[77].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[4].id,
+      userId: users[22].id,
+      role: MemberRole.OWNER,
+    },
+    {
+      organisationId: organisations[13].id,
+      userId: users[99].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[1].id,
+      userId: users[73].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[1].id,
+      userId: users[17].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[13].id,
+      userId: users[41].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[3].id,
+      userId: users[50].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[10].id,
+      userId: users[56].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[9].id,
+      userId: users[99].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[16].id,
+      userId: users[34].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[24].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[11].id,
+      userId: users[42].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[15].id,
+      userId: users[15].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[74].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[78].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[10].id,
+      userId: users[13].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[10].id,
+      userId: users[71].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[3].id,
+      userId: users[52].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[16].id,
+      userId: users[5].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[15].id,
+      userId: users[8].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[31].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[17].id,
+      userId: users[95].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[9].id,
+      userId: users[55].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[99].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[6].id,
+      userId: users[15].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[4].id,
+      userId: users[11].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[56].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[40].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[14].id,
+      userId: users[50].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[18].id,
+      userId: users[27].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[3].id,
+      userId: users[55].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[3].id,
+      userId: users[80].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[51].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[40].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[4].id,
+      userId: users[50].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[7].id,
+      userId: users[30].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[38].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[57].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[4].id,
+      userId: users[2].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[99].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[30].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[48].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[11].id,
+      userId: users[64].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[17].id,
+      userId: users[9].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[7].id,
+      userId: users[91].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[5].id,
+      userId: users[98].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[15].id,
+      userId: users[82].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[8].id,
+      userId: users[17].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[15].id,
+      userId: users[19].id,
+      role: MemberRole.ADMIN,
+    },
+    {
+      organisationId: organisations[16].id,
+      userId: users[53].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[8].id,
+      userId: users[23].id,
+      role: MemberRole.OWNER,
+    },
+    {
+      organisationId: organisations[2].id,
+      userId: users[85].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[3].id,
+      userId: users[29].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[22].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[16].id,
+      userId: users[38].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[16].id,
+      userId: users[58].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[10].id,
+      role: MemberRole.REQUESTED,
+    },
+    {
+      organisationId: organisations[12].id,
+      userId: users[99].id,
+      role: MemberRole.MEMBER,
+    },
+    {
+      organisationId: organisations[17].id,
+      userId: users[84].id,
+      role: MemberRole.OWNER,
+    },
+    {
+      organisationId: organisations[19].id,
+      userId: users[37].id,
+      role: MemberRole.MEMBER,
+    },
+  ];
+
+  const temp = [...organisationUsers];
+  for (let i = 0; i < temp.length; i++) {
+    let num1 = temp[i].userId;
+    let num2 = temp[i].organisationId;
+
+    let matching = temp.filter(
+      (x) => x.userId === num1 && x.organisationId === num2,
+    );
+
+    if (matching.length > 1) {
+      organisationUsers = organisationUsers.filter(
+        (x) => !(x.userId === num1 && x.organisationId === num2),
+      );
+    }
+  }
+
+  //TODO: Replace this temporary way of deleting duplicates
+
+  await prisma.user.deleteMany();
+  await prisma.organisation.deleteMany();
+  await prisma.post.deleteMany();
+  await prisma.exponat.deleteMany();
+  await prisma.organisationUser.deleteMany();
+  await prisma.like.deleteMany();
+  await prisma.categorization.deleteMany();
+  await prisma.socialPost.deleteMany();
+  await prisma.userFollows.deleteMany();
+  await prisma.favouriteExponat.deleteMany();
+  await prisma.userFollows.deleteMany();
+
   await prisma.user.createMany({
     data: users,
   });
@@ -82672,6 +87504,10 @@ async function main() {
 
   await prisma.post.createMany({
     data: posts,
+  });
+
+  await prisma.organisationUser.createMany({
+    data: organisationUsers,
   });
 }
 

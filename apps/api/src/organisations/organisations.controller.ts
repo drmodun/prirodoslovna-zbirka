@@ -9,6 +9,8 @@ import {
   Query,
   UseGuards,
   Req,
+  BadRequestException,
+  UnauthorizedException,
 } from '@nestjs/common';
 import { OrganisationsService } from './organisations.service';
 import {
@@ -18,6 +20,8 @@ import {
 import { PaginationParams } from 'src/config/pagination';
 import {
   PaginationRequest,
+  PostResponse,
+  ShortUserResponse,
   SortingEnum,
   SortingRequest,
 } from '@biosfera/types';
@@ -31,15 +35,35 @@ import { ExponatResponseShort } from '@biosfera/types';
 import { ShortSocialPostResponse } from '@biosfera/types';
 import { ApiBearerAuth, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { County } from '@prisma/client';
+import { JwtAuthGuard } from 'src/auth/jwt-auth-guard';
 import { OptionalJwtAuthGuard } from 'src/auth/optional-jwt-auth-guard';
+import { MembersService } from 'src/members/members.service';
+
 @Controller('organisations')
 @ApiTags('organisations')
 export class OrganisationsController {
-  constructor(private readonly organisationsService: OrganisationsService) {}
+  constructor(
+    private readonly organisationsService: OrganisationsService,
+    private readonly membersService: MembersService,
+  ) {}
 
   //creates brand new organisation and returns the created organisation
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @Post()
-  async create(@Body() createOrganisationDto: CreateOrganisationDto) {
+  async create(
+    @Req() req,
+    @Body() createOrganisationDto: CreateOrganisationDto,
+  ) {
+    createOrganisationDto.organisationUsers = {
+      create: [
+        {
+          userId: req.user.id,
+          role: 'OWNER',
+        },
+      ],
+    };
+
     const item = await this.organisationsService.create(createOrganisationDto);
 
     const mapped = {
@@ -97,7 +121,7 @@ export class OrganisationsController {
         ...(isAdmin && { isApproved: org.isApproved }),
         exponatCount: org.Exponats.length,
         points: org.Exponats.reduce(
-          (acc, curr) => acc + curr._count.FavouriteExponat,
+          (acc, curr) => acc + curr._count.FavouriteExponats,
           0,
         ),
         //possibly already make this in sql later
@@ -130,7 +154,7 @@ export class OrganisationsController {
         name: exponat.name,
         ...(isAdmin && { isApproved: exponat.isApproved }),
         updatedAt: exponat.updatedAt,
-        favouriteCount: exponat._count.FavouriteExponat,
+        favouriteCount: exponat._count.FavouriteExponats,
         organizationId: item.id,
         organizationName: item.name,
         isFavorite: false,
@@ -138,7 +162,7 @@ export class OrganisationsController {
       } as ExponatResponseShort;
     });
 
-    const mappedPosts = item.OrganisationPosts.map((post) => {
+    const mappedSocialPosts = item.OrganisationPosts.map((post) => {
       return {
         createdAt: post.createdAt,
         id: post.id,
@@ -155,6 +179,35 @@ export class OrganisationsController {
       } as ShortSocialPostResponse;
     });
 
+    const users: ShortUserResponse[] = item.OrganisationUsers.map((member) => {
+      return {
+        id: member.user.id,
+        firstName: member.user.firstName,
+        lastName: member.user.lastName,
+        role: member.role,
+        email: member.user.email,
+        followerCount: member.user._count.followers,
+        avatar: member.user.hasProfileImage,
+        postCount: member.user._count.Posts,
+      } as ShortUserResponse;
+    });
+
+    const mappedPosts: PostResponse[] = item.Exponats.flatMap(
+      (exponat) =>
+        exponat.Posts.map((post) => {
+          return {
+            authorId: post.authorId,
+            authorName: `${post.author.firstName} ${post.author.lastName}`,
+            exponatId: post.ExponatId,
+            exponatName: exponat.name,
+            images: post.images,
+            title: post.title,
+            id: post.id,
+            likeScore: post._count.Likes,
+          } as PostResponse;
+        }) as PostResponse[],
+    );
+
     const mapped = {
       createdAt: item.createdAt,
       description: item.description,
@@ -162,7 +215,7 @@ export class OrganisationsController {
       exponats: mappedExponats,
       followersAmount: item._count.UserOrganisationFollowers,
       points: item.Exponats.reduce(
-        (acc, curr) => acc + curr._count.FavouriteExponat,
+        (acc, curr) => acc + curr._count.FavouriteExponats,
         0,
       ),
       id: item.id,
@@ -176,22 +229,52 @@ export class OrganisationsController {
       updatedAt: item.updatedAt,
       websiteUrl: item.websiteUrl,
       isApproved: item.isApproved,
+      socialPosts: mappedSocialPosts,
+      members: users,
       posts: mappedPosts,
     } as ExtendedOrganisationResponse;
 
     return mapped;
   }
 
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
+  @Get(':id/requests')
+  async getRequests(@Param('id') id: string, @Req() req?: any) {
+    const check = this.membersService.hasAdminRights(req.user.id, id);
+    if (!check) return new UnauthorizedException("You don't have admin rights");
+    return await this.organisationsService.getJoinRequests(id);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @Patch(':id')
   async update(
     @Param('id') id: string,
     @Body() updateOrganisationDto: UpdateOrganisationDto,
+    @Req() req?: any,
   ) {
+    const check = this.membersService.hasAdminRights(req.user.id, id);
+
+    if (!check)
+      return new UnauthorizedException(
+        "You don't have admin rights for this organisation",
+      );
+
     return await this.organisationsService.update(id, updateOrganisationDto);
   }
 
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @Delete(':id')
-  async remove(@Param('id') id: string) {
+  async remove(@Param('id') id: string, @Req() req?: any) {
+    const check = this.membersService.hasAdminRights(req.user.id, id);
+
+    if (!check)
+      return new UnauthorizedException(
+        "You don't have admin rights for this organisation",
+      );
+
     return await this.organisationsService.remove(id);
   }
 
