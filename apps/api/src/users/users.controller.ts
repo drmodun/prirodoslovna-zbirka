@@ -11,10 +11,21 @@ import {
   Req,
   UnauthorizedException,
   NotFoundException,
+  FileTypeValidator,
+  MaxFileSizeValidator,
+  ParseFilePipe,
+  UploadedFile,
+  UseInterceptors,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { RegisterUserDto, UpdateUserDto } from './dto/users.dto';
-import { ApiBearerAuth, ApiQuery, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiBody,
+  ApiConsumes,
+  ApiQuery,
+  ApiTags,
+} from '@nestjs/swagger';
 import { PaginationParams } from 'src/config/pagination';
 import {
   ExponatResponseShort,
@@ -29,6 +40,7 @@ import { ExtendedUserResponse, ShortUserResponse } from '@biosfera/types';
 import { PostResponse } from '@biosfera/types';
 import { JwtAuthGuard } from 'src/auth/jwt-auth-guard';
 import { OptionalJwtAuthGuard } from 'src/auth/optional-jwt-auth-guard';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('users')
 @ApiTags('users')
@@ -37,7 +49,9 @@ export class UsersController {
 
   @Post()
   async create(@Body() registerUserDto: RegisterUserDto) {
-    return (await this.usersService.create(registerUserDto)) !== null;
+    const user = await this.usersService.create(registerUserDto);
+
+    return user.id;
   }
 
   @Get()
@@ -253,7 +267,7 @@ export class UsersController {
 
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
-  @Post(':id/requests')
+  @Get(':id/requests')
   async getRequests(@Param('id') id: string, @Req() req?: any) {
     if (req.user.role !== 'super') {
       throw new UnauthorizedException();
@@ -281,6 +295,49 @@ export class UsersController {
     });
 
     return mapped;
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
+  @Post(':id/pfp')
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        file: {
+          type: 'string',
+          format: 'binary',
+        },
+      },
+    },
+  })
+  @UseInterceptors(FileInterceptor('file'))
+  async addLogo(
+    @Req() req: any,
+    @UploadedFile(
+      new ParseFilePipe({
+        validators: [
+          new FileTypeValidator({ fileType: 'image/*' }),
+          new MaxFileSizeValidator({ maxSize: 1024 * 1024 * 10 }),
+        ],
+      }),
+    )
+    file: Express.Multer.File,
+  ) {
+    const addedSponsorLogo = await this.usersService.uploadProfileImage(
+      req.user.id,
+      file,
+    );
+
+    return addedSponsorLogo;
+  }
+
+  @Post(':id/verify')
+  async verifyUser(@Param('id') id: string) {
+    const verifiedUser = await this.usersService.sendVefificationEmail(id);
+
+    return verifiedUser;
   }
 }
 
