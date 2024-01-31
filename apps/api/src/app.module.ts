@@ -16,6 +16,8 @@ import { CategorizationsModule } from './categorizations/categorizations.module'
 import { FavouriteExponatsModule } from './favourite-exponats/favourite-exponats.module';
 import { MembersModule } from './members/members.module';
 import { PostsModule } from './posts/posts.module';
+import { LikesModule } from './likes/likes.module';
+import { FollowsModule } from './follows/follows.module';
 
 @Module({
   imports: [
@@ -38,6 +40,8 @@ import { PostsModule } from './posts/posts.module';
     FavouriteExponatsModule,
     MembersModule,
     PostsModule,
+    LikesModule,
+    FollowsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

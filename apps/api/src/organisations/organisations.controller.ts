@@ -9,7 +9,6 @@ import {
   Query,
   UseGuards,
   Req,
-  BadRequestException,
   UnauthorizedException,
 } from '@nestjs/common';
 import { OrganisationsService } from './organisations.service';
