@@ -16,7 +16,7 @@ import { PostsService } from './posts.service';
 import { CreatePostDto, PostQuery, UpdatePostDto } from './posts.dto';
 import { MembersService } from 'src/members/members.service';
 import { JwtAuthGuard } from 'src/auth/jwt-auth-guard';
-import { ApiBearerAuth } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { OrganisationsService } from 'src/organisations/organisations.service';
 import { ExponatsService } from 'src/exponats/exponats.service';
 import { OptionalJwtAuthGuard } from 'src/auth/optional-jwt-auth-guard';
@@ -28,7 +28,7 @@ import {
   SortingRequest,
 } from '@biosfera/types';
 import { SortingParams } from 'src/config/sorting';
-@ApiBearerAuth()
+@ApiTags('posts')
 @Controller('posts')
 export class PostsController {
   constructor(
@@ -74,13 +74,13 @@ export class PostsController {
     @Query() filter?: PostQuery,
     @Req() req?: any,
   ) {
-    filter.attribute = sorting.attribute;
-    filter.direction = sorting.direction;
+    filter.attribute = sorting?.attribute;
+    filter.direction = sorting?.direction;
 
-    filter.page = paginationParam.page;
-    filter.size = paginationParam.size;
+    filter.page = paginationParam?.page;
+    filter.size = paginationParam?.size;
 
-    if (req.user.role === 'super') filter.isAdmin = true;
+    if (req.user?.role === 'super') filter.isAdmin = true;
 
     const posts = await this.postsService.findAll(filter);
 
@@ -139,7 +139,7 @@ export class PostsController {
 
     if (!check && !admin && !(req.user.role === 'super'))
       throw new UnauthorizedException(
-        "You cannor delete this pos because it is not yours and you don't have admin rights",
+        "You cannor update this post because it is not yours and you don't have admin rights",
       );
 
     return this.postsService.update(id, updatePostDto);

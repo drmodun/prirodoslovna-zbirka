@@ -107,7 +107,7 @@ model Exponat {
   updatedAt        DateTime           @default(now()) @updatedAt
   Organisation     Organisation?      @relation(fields: [organisationId], references: [id], onDelete: Cascade)
   organisationId   String?
-  FavouriteExponat FavouriteExponat[]
+  FavouriteExponats FavouriteExponat[]
   Posts            Post[]
 }
 

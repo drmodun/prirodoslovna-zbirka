@@ -98,24 +98,33 @@ export class MembersService {
   async editMemberRole(
     userId: string,
     organisationId: string,
-    role: MemberRoleType, //TODO: check why enums are acting weird
+    newRole: MemberRoleType, //TODO: check why enums are acting weird
   ) {
     const memberCheck = await this.checkForMember(userId, organisationId);
 
     if (!memberCheck) return new NotFoundException('Member not found');
 
-    const membership = await this.prisma.organisationUser.updateMany({
+    await this.prisma.organisationUser.updateMany({
       where: {
         userId,
         organisationId,
-        role: MemberRoleType.MEMBER || MemberRoleType.REQUESTED,
+        OR: [
+          {
+            role: MemberRoleType.REQUESTED,
+          },
+          {
+            role: MemberRoleType.MEMBER,
+          },
+        ],
       },
       data: {
-        role,
+        role: newRole,
       },
     });
 
-    return membership;
+    const emberCheck = await this.checkForMember(userId, organisationId);
+
+    console.log(emberCheck);
   }
 
   async makeRequest(userId: string, organisationId: string) {

@@ -106,7 +106,7 @@ export const sortExponatQueryBuilderWithComplexFilters = (
   switch (request.attribute) {
     case SortingEnum.FAVOURITES:
       return {
-        FavouriteExponat: {
+        FavouriteExponats: {
           _count: request.direction,
         },
       };
