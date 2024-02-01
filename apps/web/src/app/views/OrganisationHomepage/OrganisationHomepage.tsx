@@ -1,6 +1,5 @@
 import { ExtendedOrganisationResponse } from "@biosfera/types";
 import classes from "./OrganisationHomepage.module.scss";
-import Image from "next/image";
 import SocialPostCard from "components/SocialPostCard";
 import clsx from "clsx";
 
@@ -14,8 +13,8 @@ export const OrganisationHomepage = ({
   return (
     <div className={classes.container}>
       <div className={classes.topRow}>
-        {organisation.posts.length > 0 && (
-          <SocialPostCard post={organisation.posts[0]} />
+        {organisation.socialPosts && (
+          <SocialPostCard post={organisation.socialPosts[0]} />
         )}
         <div className={classes.actions}>
           <span className={classes.title}>Akcije</span>
@@ -36,7 +35,9 @@ export const OrganisationHomepage = ({
           <div className={classes.stats}>
             <div className={classes.bigStat}>
               <span className={classes.title}>Objava</span>
-              <span className={classes.stat}>{organisation.posts.length}</span>
+              <span className={classes.stat}>
+                {organisation.socialPosts ? organisation.socialPosts.length : 0}
+              </span>
             </div>
             <div className={classes.bigStat}>
               <span className={classes.title}>Eksponata</span>
@@ -49,7 +50,7 @@ export const OrganisationHomepage = ({
       </div>
       <div className={classes.title}>Objave organizacije</div>
       <div className={classes.otherPosts}>
-        {organisation.posts?.slice(1).map((post, index) => (
+        {organisation.socialPosts?.slice(1).map((post, index) => (
           <div className={classes.postCard} key={index}>
             <div className={classes.postCardTitle}>{post.title}</div>
             <div className={classes.postCardContent}>{post.images}</div>
