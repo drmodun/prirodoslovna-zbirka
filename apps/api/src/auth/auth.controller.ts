@@ -57,6 +57,8 @@ export class AuthController {
         title: post.title,
         exponatId: post.Exponat.id,
         exponatName: post.Exponat.name,
+        updatedAt: post.updatedAt,
+        hasProfilePicture: item.hasProfileImage,
       };
     });
 
@@ -72,6 +74,8 @@ export class AuthController {
         exponatId: like.Post.Exponat.id,
         ...(isAdmin && { isApproved: like.Post.isApproved }),
         exponatName: like.Post.Exponat.name,
+        updatedAt: like.Post.updatedAt,
+        hasProfilePicture: item.hasProfileImage,
       };
     });
 
@@ -89,6 +93,7 @@ export class AuthController {
           organizationId: exponat.Exponat.organisationId,
           organizationName: exponat.Exponat.Organisation.name,
           isFavorite: true,
+          exponatKind: exponat.Exponat.ExponatKind,
         } as ExponatResponseShort;
       });
 
