@@ -4,16 +4,16 @@ import Image from "next/image";
 import desc from "assets/images/desc.svg";
 import list from "assets/images/list.svg";
 import table from "assets/images/table.svg";
-import likeLeafGreen from "assets/images/likeleaf-green.svg";
+import likeLeafGreen from "assets/images/like-leaf-green.svg";
 import { stringCapitaliser } from "@/utility/static/stringCapitaliser";
 export interface ExponatModalProps {
   exponat: ExponatExtendedResponse;
 }
 
-export const ExponatModal = ({ exponat }: ExponatModalProps) => {
+export const ExponatModal = ({ exponat }: ExponatModalProps) => (
   <div className={classes.container}>
     <div className={classes.mainImage}>
-      <Image src={exponat.mainImage} alt={exponat.title} />
+      <Image src={exponat.mainImage} alt={exponat.title} layout="fill"/>
     </div>
     <div className={classes.title}>
       <span className={classes.latinName}>{exponat.alternateName}</span>
@@ -31,7 +31,7 @@ export const ExponatModal = ({ exponat }: ExponatModalProps) => {
     <div className={classes.section}>
       <div className={classes.title}>
         <div className={classes.image}>
-          <Image src={desc} alt={exponat.title} />
+          <Image src={desc} alt={exponat.title} layout="fill"/>
         </div>
         <span className={classes.titleText}>Kratki opis</span>
       </div>
@@ -40,14 +40,14 @@ export const ExponatModal = ({ exponat }: ExponatModalProps) => {
     <div className={classes.section}>
       <div className={classes.title}>
         <div className={classes.image}>
-          <Image src={list} alt={exponat.title} />
+          <Image src={list} alt={exponat.title} layout="fill"/>
         </div>
         <span className={classes.titleText}>Fun Facts</span>
         <div className={classes.funFacts}>
           {exponat.funFacts.map((fact, index) => (
             <div className={classes.funFact} key={index}>
-              <div className={classes.listElementImage}>
-                <Image src={likeLeafGreen} alt={fact} />
+              <div className={classes.image}>
+                <Image src={likeLeafGreen} alt={fact} layout="fill"/>
               </div>
               <span className={classes.text}>{fact}</span>
             </div>
@@ -73,5 +73,5 @@ export const ExponatModal = ({ exponat }: ExponatModalProps) => {
         ))}
       </div>
     </div>
-  </div>;
-};
+  </div>
+);
