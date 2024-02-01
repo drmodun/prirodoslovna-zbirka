@@ -1,4 +1,4 @@
-import { serverGetOrganisation } from "@/api/serverGetOrganisation";
+import { serverGetOrganisation } from "@/api/serverOrganisation";
 import { ExtendedOrganisationResponse } from "@biosfera/types";
 import classes from "./page.module.scss";
 import { OrganisationBody } from "@/views/OrganisationBody/OrganisationBody";

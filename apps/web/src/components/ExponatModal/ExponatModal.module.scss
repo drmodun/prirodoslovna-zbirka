@@ -5,13 +5,17 @@
   display: flex;
   width: vw-calc(600);
   height: vw-calc(1200);
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   position: relative;
   padding: 0 vw-calc(40) vw-calc(40) vw-calc(40);
+  border-radius: vw-calc(25);
+  box-shadow: 0 0 vw-calc(8) rgba(0, 0, 0, 0.15);
 
   .mainImage {
     width: vw-calc(200);
     height: vw-calc(200);
-    top: vw-calc(-100);
     border-radius: vw-calc(45) vw-calc(0) vw-calc(45) vw-calc(45);
     position: relative;
 
@@ -100,6 +104,7 @@
     flex-direction: column;
     align-items: flex-start;
     margin-bottom: vw-calc(20);
+    width: 100%;
 
     .title {
       display: flex;

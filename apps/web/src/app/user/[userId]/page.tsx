@@ -1,5 +1,5 @@
 import classes from "./page.module.scss";
-import { serverGetUser } from "@/api/serverGetUser";
+import { serverGetUser } from "@/api/serverUser";
 import UserCard from "components/UserCard";
 import { ExtendedUserResponse } from "@biosfera/types";
 import { UserPageBody } from "components/UserPageBody/UserPageBody";
