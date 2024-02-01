@@ -45,12 +45,24 @@
         height: vw-calc(40);
         position: relative;
         margin-right: vw-calc(10);
+
+        @media screen and (max-width: 768px) {
+          width: vw-mobile-calc(20);
+          height: vw-mobile-calc(20);
+          margin-right: vw-mobile-calc(5);
+        }
       }
 
       .logoTitle {
         font-size: vw-calc(30);
         font-weight: 700;
         color: #fff;
+        display: flex;
+        align-items: center;
+
+        @media screen and (max-width: 768px) {
+          font-size: vw-mobile-calc(10);
+        }
       }
     }
 
@@ -69,6 +81,10 @@
           text-decoration: underline;
           color: $stroke-color;
           cursor: pointer;
+        }
+
+        @media screen and (max-width: 768px) {
+          font-size: vw-mobile-calc(5);
         }
       }
     }
