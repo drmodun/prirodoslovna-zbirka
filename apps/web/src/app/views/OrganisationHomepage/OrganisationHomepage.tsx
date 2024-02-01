@@ -14,21 +14,9 @@ export const OrganisationHomepage = ({
   return (
     <div className={classes.container}>
       <div className={classes.topRow}>
-        <SocialPostCard
-          post={{
-            id: "1",
-            title: "Naslov",
-            text: "Tekst",
-            createdAt: new Date(),
-            updatedAt: new Date(),
-            images: ["http://dummyimage.com/893x174.png/dddddd/000000"],
-            organisationId: "1",
-            organisationMainImage:
-              "http://dummyimage.com/893x174.png/dddddd/000000",
-            organisationName: "Organizacija",
-          }}
-        />
-
+        {organisation.posts.length > 0 && (
+          <SocialPostCard post={organisation.posts[0]} />
+        )}
         <div className={classes.actions}>
           <span className={classes.title}>Akcije</span>
           <div className={classes.actionsRow}>
@@ -61,7 +49,7 @@ export const OrganisationHomepage = ({
       </div>
       <div className={classes.title}>Objave organizacije</div>
       <div className={classes.otherPosts}>
-        {organisation.posts.map((post, index) => (
+        {organisation.posts?.slice(1).map((post, index) => (
           <div className={classes.postCard} key={index}>
             <div className={classes.postCardTitle}>{post.title}</div>
             <div className={classes.postCardContent}>{post.images}</div>
