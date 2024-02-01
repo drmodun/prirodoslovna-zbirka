@@ -10,11 +10,13 @@
   align-items: center;
   background-color: #fff;
   height: vw-calc(75);
-
+  position: fixed;
+  z-index: 5;
   @media screen and (max-width: 768px) {
     padding: 0 vw-mobile-calc(20);
     height: vw-mobile-calc(50);
   }
+  box-shadow: 0 0 vw-calc(8) rgba(0, 0, 0, 0.15);
 
   .main {
     display: flex;
