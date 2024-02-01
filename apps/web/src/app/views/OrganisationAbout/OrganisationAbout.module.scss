@@ -60,7 +60,7 @@
       font-weight: 600;
       color: $background-color;
       font-style: italic;
-      background-color: $blue;
+      background-color: $dark-blue;
       width: vw-calc(200);
       height: vw-calc(50);
       display: flex;
@@ -70,8 +70,9 @@
       transition: all 0.2s ease-in-out;
 
       &:hover {
-        background-color: $dark-blue;
-        color: $secondary;
+        width: vw-calc(250);
+        background-color: $blue;
+        height: vw-calc(60);
       }
 
       &:active {

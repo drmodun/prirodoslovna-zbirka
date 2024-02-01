@@ -13,6 +13,13 @@
   border: none;
 
   background-color: $secondary;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    width: vw-calc(250);
+    height: vw-calc(100);
+    cursor: pointer;
+  }
 
   &.active {
     &.eucariot {
