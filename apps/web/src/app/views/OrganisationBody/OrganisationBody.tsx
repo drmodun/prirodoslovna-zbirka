@@ -8,6 +8,7 @@ import OrganisationHero from "components/OrganisationHero";
 import { DomainButton } from "components/DomainButton";
 import placeholder from "assets/images/lion.svg";
 import OrganisationExponatsView from "../OrganisationExponatsView";
+import OrganisationHomepage from "../OrganisationHomepage";
 export interface OrganisationBodyProps {
   organisation: ExtendedOrganisationResponse;
 }
@@ -39,7 +40,9 @@ export const OrganisationBody = ({
       <div className={classes.body}>
         <Tabs tabs={tabs} activeTab={activeTab} onSelect={setActiveTab} />
         <div className={classes.selectedBody}>
-          {activeTab === "Početna" && <div>početna</div>}
+          {activeTab === "Početna" && (
+            <OrganisationHomepage organisation={organisation} />
+          )}
           {activeTab === "Stablo" && <div>stablo</div>}
           {activeTab === "Eksponati" && (
             <OrganisationExponatsView exponats={organisation.exponats} />
