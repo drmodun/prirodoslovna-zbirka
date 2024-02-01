@@ -9,6 +9,7 @@ import { DomainButton } from "components/DomainButton";
 import placeholder from "assets/images/lion.svg";
 import OrganisationExponatsView from "../OrganisationExponatsView";
 import OrganisationHomepage from "../OrganisationHomepage";
+import OrganisationAbout from "../OrganisationAbout";
 export interface OrganisationBodyProps {
   organisation: ExtendedOrganisationResponse;
 }
@@ -49,7 +50,9 @@ export const OrganisationBody = ({
           )}
           {activeTab === "Objave" && <div>objave</div>}
           {activeTab === "Članovi" && <div>članovi</div>}
-          {activeTab === "O organizaciji" && <div>o organizaciji</div>}
+          {activeTab === "O organizaciji" && (
+            <OrganisationAbout organisation={organisation} />
+          )}
         </div>
       </div>
       ;
