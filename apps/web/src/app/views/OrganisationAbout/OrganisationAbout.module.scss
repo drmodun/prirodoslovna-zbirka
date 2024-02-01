@@ -1,0 +1,116 @@
+@import "styles/variables.scss";
+@import "styles/calc.scss";
+
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+
+  .info {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+
+    .section {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      margin-bottom: vw-calc(50);
+
+      .title {
+        font-size: vw-calc(30);
+        font-weight: 700;
+        color: $title;
+        margin-bottom: vw-calc(20);
+      }
+
+      .text {
+        font-size: vw-calc(14);
+        font-weight: 400;
+        color: $text;
+        margin-bottom: vw-calc(20);
+        min-height: vw-calc(100);
+      }
+    }
+
+    .email {
+      display: flex;
+      flex-direction: row;
+      margin-bottom: vw-calc(20);
+
+      .image {
+        position: relative;
+        margin-right: vw-calc(20);
+        img {
+          width: vw-calc(20);
+          height: vw-calc(20);
+          object-fit: cover;
+        }
+      }
+
+      .emailText {
+        font-size: vw-calc(14);
+        font-weight: 400;
+        color: $text;
+      }
+    }
+
+    .link {
+      font-size: vw-calc(24);
+      font-weight: 600;
+      color: $background-color;
+      font-style: italic;
+      background-color: $blue;
+      width: vw-calc(200);
+      height: vw-calc(50);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: vw-calc(20);
+      transition: all 0.2s ease-in-out;
+
+      &:hover {
+        background-color: $dark-blue;
+        color: $secondary;
+      }
+
+      &:active {
+        color: $text;
+      }
+
+      &:visited {
+        color: $secondary;
+      }
+    }
+  }
+
+  .images {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    margin-bottom: vw-calc(50);
+
+    .image {
+      width: vw-calc(300);
+      height: vw-calc(300);
+      object-fit: cover;
+      border-radius: vw-calc(20);
+      position: relative;
+
+      @media screen and (max-width: 768px) {
+        width: vw-mobile-calc(300);
+        height: vw-mobile-calc(300);
+        border-radius: vw-mobile-calc(20);
+      }
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: vw-calc(20);
+      }
+    }
+  }
+}
