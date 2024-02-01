@@ -1,0 +1,122 @@
+@import "styles/variables";
+@import "styles/calc";
+
+.container {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+
+  .topRow {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: vw-calc(20);
+    height: vw-calc(250);
+
+    @media screen and (max-width: 768px) {
+      flex-direction: column;
+      align-items: flex-start;
+      margin-bottom: vw-mobile-calc(20);
+    }
+
+    .actions {
+      background-color: $secondary-background-color;
+      padding: vw-calc(20);
+      width: vw-calc(250);
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: space-around;
+      border-radius: vw-calc(10);
+
+      .title {
+        color: $primary;
+        font-size: vw-calc(20);
+        font-weight: 700;
+      }
+
+      .actionsRow {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        width: 100%;
+        align-items: center;
+        margin-top: vw-calc(20);
+
+        .button {
+          width: vw-calc(100);
+          height: vw-calc(30);
+          border-radius: vw-calc(10);
+          display: flex;
+          outline: none;
+          border: none;
+          align-items: center;
+          justify-content: center;
+          font-size: vw-calc(12);
+          font-weight: 600;
+          cursor: pointer;
+          transition: all 0.2s ease-in-out;
+          background-color: $green;
+
+          &.blue {
+            background-color: $blue;
+          }
+
+          &:hover {
+            transform: scale(1.05);
+          }
+        }
+
+        .actionStat {
+          display: flex;
+          font-size: vw-calc(12);
+          font-weight: 600;
+          color: $secondary;
+        }
+      }
+    }
+
+    .stats {
+      margin-top: vw-calc(40);
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+
+      .bigStat {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: space-around;
+
+        .title {
+          font-size: vw-calc(10);
+          font-weight: 700;
+          color: $secondary;
+        }
+
+        .stat {
+          font-size: vw-calc(20);
+          font-weight: 700;
+          color: $primary;
+        }
+      }
+    }
+  }
+
+  .title {
+    font-size: vw-calc(30);
+    font-weight: 700;
+    color: $primary;
+    margin-bottom: vw-calc(20);
+  }
+
+  .otherPosts {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: vw-calc(20);
+    margin-bottom: vw-calc(20);
+  }
+}
