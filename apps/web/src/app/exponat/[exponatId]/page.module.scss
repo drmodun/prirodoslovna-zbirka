@@ -5,4 +5,35 @@
   display: flex;
   width: 100%;
   margin-top: vw-calc(200);
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: flex-start;
+  padding: vw-calc(40);
+
+  .modal {
+    width: vw-calc(600);
+    margin-right: vw-calc(40);
+  }
+
+  .posts {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+
+    .title {
+      font-size: vw-calc(30);
+      font-weight: 700;
+      color: $primary;
+      margin-bottom: vw-calc(20);
+    }
+
+    .postsRow {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: vw-calc(20);
+    }
+  }
 }
