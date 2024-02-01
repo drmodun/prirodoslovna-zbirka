@@ -1,0 +1,45 @@
+@import "styles/variables.scss";
+@import "styles/calc.scss";
+
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  .searchBar {
+    width: vw-calc(600);
+    margin-bottom: vw-calc(50);
+  }
+
+  .domainRow {
+    display: flex;
+    flex-direction: row;
+    column-gap: vw-calc(30);
+    margin-bottom: vw-calc(105);
+  }
+
+  .cardRow {
+    min-height: vw-calc(400);
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: vw-calc(25);
+  }
+
+  .error {
+    display: flex;
+    font-size: vw-calc(30);
+    align-items: center;
+    justify-content: center;
+    color: $secondary;
+
+    &:not(:first-child) {
+      display: none;
+    }
+  }
+}

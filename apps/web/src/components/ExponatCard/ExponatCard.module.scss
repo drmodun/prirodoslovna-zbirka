@@ -61,6 +61,8 @@
     .name {
       font-size: vw-calc(17);
       color: $primary;
+      display: flex;
+      height: vw-calc(40);
 
       @media screen and (max-width: 768px) {
         font-size: vw-mobile-calc(8);
@@ -71,6 +73,7 @@
       font-size: vw-calc(11);
       color: $secondary;
       text-align: left;
+      margin-bottom: vw-calc(5);
 
       @media screen and (max-width: 768px) {
         font-size: vw-mobile-calc(6);

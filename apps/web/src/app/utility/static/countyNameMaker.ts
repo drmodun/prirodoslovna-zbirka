@@ -1,6 +1,7 @@
 export const makeCountyName = (county: string) => {
   if (county === "OTHER") return "Ostalo";
   if (county === "GRAD_ZAGREB") return "Grad Zagreb";
+  if (!county) return "Nepoznato";
   const addHiphen = county.replace("_", "-").toLowerCase();
   const capitalize = addHiphen.charAt(0).toUpperCase() + addHiphen.slice(1);
   let final = capitalize + " županija";
