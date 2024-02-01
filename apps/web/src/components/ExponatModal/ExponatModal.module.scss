@@ -94,7 +94,7 @@
         background-color: $secondary;
         color: $actions-backround;
         height: vw-calc(50);
-        width: 60%;
+        width: 120%;
       }
     }
   }
@@ -144,6 +144,7 @@
       display: flex;
       flex-direction: column;
       align-items: flex-start;
+      margin-left: vw-calc(30);
 
       .funFact {
         display: flex;
