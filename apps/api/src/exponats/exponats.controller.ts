@@ -74,6 +74,7 @@ export class ExponatsController {
         organizationId: item.organisationId,
         organizationName: item.Organisation.name,
         isApproved: item.isApproved,
+        exponatKind: item.ExponatKind,
       } as ExponatResponseShort;
     });
 
@@ -105,6 +106,7 @@ export class ExponatsController {
       description: item.description,
       organizationId: item.organisationId,
       organizationName: item.Organisation.name,
+      exponatKind: item.ExponatKind,
     } as ExponatResponseShort;
 
     return mapped;
@@ -127,6 +129,8 @@ export class ExponatsController {
         ...(isAdmin && { isApproved: post.isApproved }),
         id: post.id,
         images: post.images,
+        hasProfilePicture: post.author.hasProfileImage,
+        updatedAt: post.updatedAt,
         likeScore: post._count.Likes,
         title: post.title,
       } as PostResponse;
