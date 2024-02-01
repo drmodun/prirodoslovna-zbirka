@@ -29,6 +29,7 @@ import {
 import { PaginationParams } from 'src/config/pagination';
 import {
   ExponatResponseShort,
+  OrganisationResponseShort,
   PaginationRequest,
   SortingEnum,
   SortingRequest,
@@ -178,6 +179,7 @@ export class UsersController {
             organizationId: exponat.Exponat.organisationId,
             organizationName: exponat.Exponat.Organisation.name,
             isFavorite: true,
+            exponatKind: exponat.Exponat.ExponatKind,
           } as ExponatResponseShort;
         });
 
@@ -218,7 +220,6 @@ export class UsersController {
         hasProfileImage: item.hasProfileImage,
         favouriteExponats: favouriteExponats,
         likeCount: item.Posts.reduce((agg, curr) => agg + curr._count.Likes, 0),
-        favouriteExponats,
         memberships,
       };
 
