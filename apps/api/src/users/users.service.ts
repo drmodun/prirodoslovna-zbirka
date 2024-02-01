@@ -161,6 +161,7 @@ export class UsersService {
                 },
                 Organisation: {
                   select: {
+                    id: true,
                     name: true,
                   },
                 },

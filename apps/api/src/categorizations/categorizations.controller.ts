@@ -92,6 +92,7 @@ export class CategorizationsController {
         favouriteCount: exponat._count.FavouriteExponats,
         organizationId: exponat.organisationId,
         mainImage: exponat.mainImage,
+        exponatKind: exponat.ExponatKind,
         name: exponat.name,
         updatedAt: exponat.updatedAt,
         id: exponat.id,

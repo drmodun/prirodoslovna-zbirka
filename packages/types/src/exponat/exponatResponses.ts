@@ -26,11 +26,12 @@ export interface ExponatResponseShort {
   mainImage: string;
   alternateName: string;
   isApproved?: boolean;
+  updatedAt: Date;
   organizationId: string;
   organizationName: string;
-  updatedAt: Date;
-  postCount: number;
+  // postCount: number; not sure if this is needed
   favouriteCount: number;
+  exponatKind: string;
   //"Shorts" are designed for card format
 }
 
