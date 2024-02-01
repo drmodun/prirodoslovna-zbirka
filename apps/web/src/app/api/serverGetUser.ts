@@ -1,4 +1,3 @@
-import { ExtendedUserResponse } from "@biosfera/types";
 import { baseURL } from "./shared";
 
 export const serverGetUser = async (id: string) => {
