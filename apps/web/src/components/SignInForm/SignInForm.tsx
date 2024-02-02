@@ -11,7 +11,7 @@ import BaseButton from "components/BaseButton";
 import classes from "./SignInForm.module.scss";
 import Link from "next/link";
 import { ButtonColor } from "@/shared/enums";
-import { QueryClient, QueryClientProvider } from "react-query";
+import { QueryClient, QueryClientProvider, useQueryClient } from "react-query";
 
 export const SignInForm = () => {
   const schema = z.object({
@@ -24,9 +24,12 @@ export const SignInForm = () => {
   });
 
   const login = useLogin();
+  const queryClient = useQueryClient();
 
   const onSubmit = async (data: any) => {
     await login.mutateAsync(data);
+    await queryClient.invalidateQueries("me");
+    window.location.reload();
   };
 
   return (
