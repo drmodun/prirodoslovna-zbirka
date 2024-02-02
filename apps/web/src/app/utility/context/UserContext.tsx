@@ -16,6 +16,7 @@ import {
   PostResponse,
 } from "@biosfera/types";
 import { useQueryClient } from "react-query";
+import { QueryClientWrapper } from "../wrappers/queryWrapper";
 
 interface UserContextProps {
   user?: ExtendedUserResponse;
@@ -58,6 +59,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
     []
   );
   const [posts, setPosts] = useState<PostResponse[]>([]);
+  
 
   const { data: user, isLoading } = useGetMe();
 
@@ -121,6 +123,13 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
       setFavouriteExponats(user.favouriteExponats);
       setMemberships(user.memberships);
       setPosts(user.posts);
+    }
+    console.log(user);
+    if (!user) {
+      setLikedPosts([]);
+      setFavouriteExponats([]);
+      setMemberships([]);
+      setPosts([]);
     }
   }, [user]);
 
