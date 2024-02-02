@@ -5,6 +5,9 @@ import { useForm } from "react-hook-form";
 import { any, z } from "zod";
 import classes from "./ExponatForm.module.scss";
 import Textarea from "components/Textarea";
+import ListInput from "components/ListInput";
+import AttributeInput from "components/AttributeInput";
+import SelectInput from "components/SelectInput";
 export interface ExponatModalSectionsProps {
   organisationId: string;
   organisationExponats: ExponatResponseShort[];
@@ -18,7 +21,7 @@ export const ExponatForm = ({
     name: z.string().min(2).max(100),
     description: z.string().min(2).max(100),
     funFacts: z.array(z.string().min(2).max(100)),
-    exponatId: z.enum([
+    exponatKind: z.enum([
       ExponatKind.EUCARIOT.toString(),
       ExponatKind.PROCARIOT.toString(),
       ExponatKind.MINERAL.toString(),
@@ -39,7 +42,24 @@ export const ExponatForm = ({
     <form onSubmit={form.handleSubmit(onSubmit)} className={classes.form}>
       <Input form={form} attribute="name" question="Name" />;
       <Textarea form={form} attribute="description" question="Description" />;
-
+      <ListInput form={form} attribute="funFacts" question="Fun Facts" />;
+      <AttributeInput
+        form={form}
+        attribute="attributes"
+        question="Attributes"
+      />
+      ;
+      <SelectInput
+        form={form}
+        name="exponatKind"
+        label="Vrsta exponata"
+        options={[
+            { value: ExponatKind.EUCARIOT.toString(), label: "Eukariot" }, 
+            { value: ExponatKind.PROCARIOT.toString(), label: "Procariot" }, 
+            { value: ExponatKind.MINERAL.toString(), label: "Mineral" }
+        ]}
+      />
+      ;
     </form>
   );
 };
