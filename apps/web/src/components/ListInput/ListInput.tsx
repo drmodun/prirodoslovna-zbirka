@@ -19,8 +19,8 @@ export const ListInput = ({ question, attribute, form }: ListInputProps) => {
   const [elements, setElements] = useState<string[]>([]);
   const [newValue, setNewValue] = useState<string>("");
 
-  const handleOnChange = (value: string) => {
-    setElements((prev) => [...prev, value]);
+  const handleOnChange = () => {
+    setElements((prev) => [...prev, newValue]);
     setNewValue("");
   };
 
