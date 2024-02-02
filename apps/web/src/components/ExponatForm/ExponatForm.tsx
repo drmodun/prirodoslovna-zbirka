@@ -1,3 +1,4 @@
+"use client"
 import { ExponatKind, ExponatResponseShort } from "@biosfera/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Input from "components/Input";
@@ -10,12 +11,10 @@ import AttributeInput from "components/AttributeInput";
 import SelectInput from "components/SelectInput";
 export interface ExponatModalSectionsProps {
   organisationId: string;
-  organisationExponats: ExponatResponseShort[];
 }
 
 export const ExponatForm = ({
   organisationId,
-  organisationExponats,
 }: ExponatModalSectionsProps) => {
   const schema = z.object({
     name: z.string().min(2).max(100),

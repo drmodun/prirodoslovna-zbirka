@@ -2,7 +2,7 @@
 @import "styles/calc.scss";
 
 .container {
-  width: vw-calc(600);
+  width: vw-calc(400);
   display: flex;
   flex-direction: column;
 
@@ -15,14 +15,14 @@
 
   .existing {
     display: flex;
-    flex: column;
+    flex-direction: column;
     width: 100%;
 
     .element {
       display: flex;
-      height: vw-calc(40);
+      min-height: vw-calc(40);
       align-items: center;
-      justify-content: space-between;
+      width: 100%;
       margin-bottom: vw-calc(10);
 
       .delete {
@@ -33,7 +33,7 @@
         height: vw-calc(40);
         border-radius: vw-calc(10);
         background-color: $red;
-        color: $white;
+        color: $background-color;
         font-size: vw-calc(12);
         border-radius: vw-calc(10);
         border: none;
@@ -56,11 +56,15 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        width: vw-calc(100);
+        max-width: 100%;
         height: vw-calc(40);
+        text-align: start;
         color: $primary;
         font-size: vw-calc(12);
         margin-left: vw-calc(10);
+        word-wrap: break-word;
+        flex-wrap: wrap;
+        word-break: break-all;
       }
 
       &:last-child {
@@ -80,11 +84,11 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      width: vw-calc(40);
-      height: vw-calc(40);
+      width: vw-calc(60);
+      height: vw-calc(60);
       border-radius: vw-calc(10);
       background-color: $eucariot-color;
-      color: $white;
+      color: $background-color;
       font-size: vw-calc(12);
       border-radius: vw-calc(10);
       border: none;
@@ -94,12 +98,13 @@
         background-color 0.3s ease-in-out,
         width 0.3s ease-in-out,
         height 0.3s ease-in-out;
+      margin-right: vw-calc(10);
 
       &:hover {
         background-color: $green;
         cursor: pointer;
-        width: vw-calc(50);
-        height: vw-calc(50);
+        width: vw-calc(75);
+        height: vw-calc(75);
       }
     }
   }
