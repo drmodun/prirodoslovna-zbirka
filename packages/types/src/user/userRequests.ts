@@ -74,5 +74,4 @@ export const getUserQuery = (ApiPropertySwagger?: any) => {
   }
 
   return UserQueryDto;
-
-}
+};

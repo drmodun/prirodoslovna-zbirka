@@ -14,14 +14,14 @@ import { ButtonColor } from "@/shared/enums";
 import { QueryClient, QueryClientProvider, useQueryClient } from "react-query";
 
 export const SignInForm = () => {
-  const schema = z.object({
-    email: z.string().email(),
-    password: z.string().min(6).max(100),
-  });
+    const schema = z.object({
+      email: z.string().email(),
+      password: z.string().min(6).max(100),
+    });
 
-  const form = useForm({
-    resolver: zodResolver(schema),
-  });
+    const form = useForm({
+      resolver: zodResolver(schema),
+    });
 
   const login = useLogin();
   const queryClient = useQueryClient();
