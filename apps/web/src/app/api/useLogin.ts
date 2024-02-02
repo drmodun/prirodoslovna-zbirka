@@ -14,6 +14,7 @@ export const useLogin = () => {
     },
     onSuccess: ({ access_token }, _variables, context) => {
       localStorage.setItem("access_token", access_token);
+      localStorage.setItem("loggedTime", new Date().toISOString());
       toast.success("Logged in successfully!", { id: context?.toastId });
     },
     onError: (error: string, _variables, context) => {
