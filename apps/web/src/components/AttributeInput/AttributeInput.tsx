@@ -1,12 +1,13 @@
 "use client";
 import { FieldValues, UseFormReturn } from "react-hook-form";
-import classes from "./ListInput.module.scss";
+import classes from "./AttributeInput.module.scss";
 import dash from "assets/images/dash.svg";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import SingleInput from "components/SingleInput";
 import leaf from "assets/images/like-leaf-green.svg";
 import plus from "assets/images/plus.svg";
+import { Json } from "@biosfera/types/src/jsonObjects";
 
 export interface ListInputProps {
   question: string;
@@ -16,39 +17,64 @@ export interface ListInputProps {
 
 export const ListInput = ({ question, attribute, form }: ListInputProps) => {
   const { setValue } = form;
-  const [elements, setElements] = useState<string[]>([]);
+  const [object, setObject] = useState<Json>({});
+  const [newAttribute, setNewAttribute] = useState<string>("");
   const [newValue, setNewValue] = useState<string>("");
 
   const handleOnChange = () => {
-    setElements((prev) => [...prev, newValue]);
+    setObject((prev) => {
+      return {
+        ...prev,
+        [newAttribute]: newValue,
+      };
+    });
     setNewValue("");
+    setNewAttribute("");
   };
 
-  const handleDelete = (index: number) => {
-    setElements((prev) => prev.filter((_, i) => i !== index));
+  const handleDelete = (key: string) => {
+    setObject((prev) => {
+      delete prev[key];
+      return prev;
+    });
   };
 
   useEffect(() => {
-    setValue(attribute, elements);
-  }, [elements]);
+    setValue(attribute, object);
+  }, [object]);
 
   return (
     <div className={classes.container}>
       <span className={classes.question}>{question}</span>
       <div className={classes.existing}>
-        {elements.map((element, index) => (
+        {Object.keys(object).map((key, index) => (
           <div className={classes.element} key={index}>
             <button
               className={classes.delete}
               title="remove"
-              onClick={() => handleDelete(index)}
+              onClick={() => handleDelete(key)}
             >
               <Image src={dash} alt="delete" layout="fill" />
             </button>
-            <span className={classes.text}>{element}</span>
+            <span className={classes.text}>
+              <span className={classes.key}>{key}:</span>
+              <span className={classes.value}>{object[key].toString()}</span>
+            </span>
           </div>
         ))}
         <div className={classes.add}>
+          <div className={classes.input}>
+            <SingleInput
+              onChange={setNewAttribute}
+              question="Upišite ime atributa"
+              value={newAttribute}
+            />
+            <SingleInput
+              onChange={setNewValue}
+              question="Upišite vrijednost atributa"
+              value={newValue}
+            />
+          </div>
           <button
             className={classes.button}
             title="add"
@@ -56,12 +82,6 @@ export const ListInput = ({ question, attribute, form }: ListInputProps) => {
           >
             <Image src={plus} alt="add" layout="fill" />
           </button>
-          <SingleInput
-            onChange={setNewValue}
-            question="Upišite činjenicu"
-            value={newValue}
-            image={leaf}
-          />
         </div>
       </div>
     </div>

@@ -2,7 +2,7 @@
 @import "styles/calc.scss";
 
 .container {
-  width: vw-calc(600);
+  width: vw-calc(750);
   display: flex;
   flex-direction: column;
 
@@ -55,12 +55,22 @@
       .text {
         display: flex;
         align-items: center;
-        justify-content: center;
-        width: vw-calc(100);
+        justify-content: space-between;
+        width: vw-calc(300);
         height: vw-calc(40);
         color: $primary;
         font-size: vw-calc(12);
         margin-left: vw-calc(10);
+
+        .key {
+          font-weight: bold;
+          text-align: start;
+          margin-right: vw-calc(10);
+        }
+
+        .value {
+          text-align: end;
+        }
       }
 
       &:last-child {
@@ -71,16 +81,16 @@
 
   .add {
     display: flex;
-    flex-direction: row;
     align-items: center;
     justify-content: space-between;
+    flex-direction: column;
     width: 100%;
 
     .button {
       display: flex;
       align-items: center;
       justify-content: center;
-      width: vw-calc(40);
+      width: 100%;
       height: vw-calc(40);
       border-radius: vw-calc(10);
       background-color: $eucariot-color;
@@ -101,6 +111,15 @@
         width: vw-calc(50);
         height: vw-calc(50);
       }
+    }
+
+    .input {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: vw-calc(40);
+      margin-top: vw-calc(10);
     }
   }
 }
