@@ -9,13 +9,17 @@ import leaf from "assets/images/like-leaf-green.svg";
 import plus from "assets/images/plus.svg";
 import { Json } from "@biosfera/types/src/jsonObjects";
 
-export interface ListInputProps {
+export interface AttributeInputProps {
   question: string;
   attribute: string;
   form: UseFormReturn<FieldValues>;
 }
 
-export const ListInput = ({ question, attribute, form }: ListInputProps) => {
+export const AttributeInput = ({
+  question,
+  attribute,
+  form,
+}: AttributeInputProps) => {
   const { setValue } = form;
   const [object, setObject] = useState<Json>({});
   const [newAttribute, setNewAttribute] = useState<string>("");
