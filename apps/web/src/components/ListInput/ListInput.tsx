@@ -21,6 +21,7 @@ export const ListInput = ({ question, attribute, form }: ListInputProps) => {
 
   const handleOnChange = () => {
     setElements((prev) => [...prev, newValue]);
+    console.log(elements);
     setNewValue("");
   };
 
@@ -52,7 +53,7 @@ export const ListInput = ({ question, attribute, form }: ListInputProps) => {
           <button
             className={classes.button}
             title="add"
-            onClick={() => handleOnChange}
+            onClick={() => handleOnChange()}
           >
             <Image src={plus} alt="add" layout="fill" />
           </button>

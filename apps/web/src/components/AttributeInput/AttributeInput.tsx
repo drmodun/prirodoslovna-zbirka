@@ -38,8 +38,9 @@ export const AttributeInput = ({
 
   const handleDelete = (key: string) => {
     setObject((prev) => {
-      delete prev[key];
-      return prev;
+      const newObject = { ...prev };
+      delete newObject[key];
+      return newObject;
     });
   };
 
@@ -82,7 +83,7 @@ export const AttributeInput = ({
           <button
             className={classes.button}
             title="add"
-            onClick={() => handleOnChange}
+            onClick={() => handleOnChange()}
           >
             <Image src={plus} alt="add" layout="fill" />
           </button>
