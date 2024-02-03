@@ -2,7 +2,7 @@
 @import "styles/calc.scss";
 
 .container {
-  width: vw-calc(600);
+  width: vw-calc(400);
   display: flex;
   flex-direction: column;
 
@@ -10,6 +10,7 @@
     display: flex;
     font-size: vw-calc(16);
     font-weight: 500;
+    color: $primary;
     margin-bottom: vw-calc(10);
   }
 
@@ -114,7 +115,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: vw-calc(40);
+      gap: vw-calc(20);
       margin-bottom: vw-calc(20);
     }
   }

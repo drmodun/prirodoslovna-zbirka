@@ -20,6 +20,7 @@ export const ListInput = ({ question, attribute, form }: ListInputProps) => {
   const [newValue, setNewValue] = useState<string>("");
 
   const handleOnChange = () => {
+    if (newValue === "") return;
     setElements((prev) => [...prev, newValue]);
     console.log(elements);
     setNewValue("");

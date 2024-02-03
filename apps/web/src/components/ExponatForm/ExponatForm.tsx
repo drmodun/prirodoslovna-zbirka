@@ -38,15 +38,14 @@ export const ExponatForm = ({ organisationId }: ExponatModalSectionsProps) => {
 
   return (
     <form onSubmit={form.handleSubmit(onSubmit)} className={classes.form}>
-      <Input form={form} attribute="name" question="Name" />;
-      <Textarea form={form} attribute="description" question="Description" />;
-      <ListInput form={form} attribute="funFacts" question="Fun Facts" />;
+      <Input form={form} attribute="name" question="Name" />
+      <Textarea form={form} attribute="description" question="Description" />
+      <ListInput form={form} attribute="funFacts" question="Fun Facts" />
       <AttributeInput
         form={form}
         attribute="attributes"
         question="Attributes"
       />
-      ;
       <SelectInput
         form={form}
         name="exponatKind"
@@ -57,7 +56,6 @@ export const ExponatForm = ({ organisationId }: ExponatModalSectionsProps) => {
           { value: ExponatKind.MINERAL.toString(), label: "Mineral" },
         ]}
       />
-      ;
       <BaseButton text="Pošalji" />
       {form.formState.errors.root && (
         <span className={classes.error}>

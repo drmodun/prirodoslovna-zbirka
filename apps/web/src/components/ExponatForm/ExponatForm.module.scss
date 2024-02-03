@@ -1,9 +1,9 @@
 @import "styles/variables.scss";
 @import "styles/calc.scss";
 
-.container {
+.form {
   display: flex;
   flex-direction: column;
-  width: vw-calc(750);
   gap: vw-calc(25);
+  row-gap: vw-calc(25);
 }
