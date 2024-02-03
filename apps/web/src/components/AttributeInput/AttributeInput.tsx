@@ -74,12 +74,12 @@ export const AttributeInput = ({
           <div className={classes.input}>
             <SingleInput
               onChange={setNewAttribute}
-              question="Upišite ime atributa"
+              question="Atribut"
               value={newAttribute}
             />
             <SingleInput
               onChange={setNewValue}
-              question="Upišite vrijednost atributa"
+              question="Vrijednost"
               value={newValue}
             />
           </div>

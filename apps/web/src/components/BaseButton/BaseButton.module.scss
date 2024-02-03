@@ -5,6 +5,9 @@
   border: none;
   border-radius: vw-calc(30) vw-calc(30) vw-calc(8) vw-calc(30);
   box-shadow: 0 0 vw-calc(8) rgba(0, 0, 0, 0.15);
+  transition:
+    box-shadow 0.3s ease-in-out,
+    background-color 0.3s ease-in-out;
 
   &:hover {
     box-shadow: 0 0 vw-calc(8) rgba(0, 0, 0, 0.25);
@@ -17,6 +20,7 @@
   justify-content: center;
   align-items: center;
   display: flex;
+  width: 100%;
   min-width: vw-calc(200);
   padding: vw-calc(15) vw-calc(30);
   font-size: vw-calc(16);
@@ -36,6 +40,7 @@
 
     &:hover {
       background-color: darken($green, 5%);
+      cursor: pointer;
     }
 
     &:active {
