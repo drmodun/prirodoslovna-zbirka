@@ -118,4 +118,14 @@
       margin-bottom: vw-calc(20);
     }
   }
+
+  .error {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: vw-calc(40);
+    color: $red;
+    font-size: vw-calc(12);
+  }
 }

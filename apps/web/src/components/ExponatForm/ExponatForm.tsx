@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { ExponatKind, ExponatResponseShort } from "@biosfera/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Input from "components/Input";
@@ -9,13 +9,12 @@ import Textarea from "components/Textarea";
 import ListInput from "components/ListInput";
 import AttributeInput from "components/AttributeInput";
 import SelectInput from "components/SelectInput";
+import BaseButton from "components/BaseButton";
 export interface ExponatModalSectionsProps {
   organisationId: string;
 }
 
-export const ExponatForm = ({
-  organisationId,
-}: ExponatModalSectionsProps) => {
+export const ExponatForm = ({ organisationId }: ExponatModalSectionsProps) => {
   const schema = z.object({
     name: z.string().min(2).max(100),
     description: z.string().min(2).max(100),
@@ -53,12 +52,18 @@ export const ExponatForm = ({
         name="exponatKind"
         label="Vrsta exponata"
         options={[
-            { value: ExponatKind.EUCARIOT.toString(), label: "Eukariot" }, 
-            { value: ExponatKind.PROCARIOT.toString(), label: "Procariot" }, 
-            { value: ExponatKind.MINERAL.toString(), label: "Mineral" }
+          { value: ExponatKind.EUCARIOT.toString(), label: "Eukariot" },
+          { value: ExponatKind.PROCARIOT.toString(), label: "Procariot" },
+          { value: ExponatKind.MINERAL.toString(), label: "Mineral" },
         ]}
       />
       ;
+      <BaseButton text="Pošalji" />
+      {form.formState.errors.root && (
+        <span className={classes.error}>
+          {form.formState.errors.root?.message}
+        </span>
+      )}
     </form>
   );
 };

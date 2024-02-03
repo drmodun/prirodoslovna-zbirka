@@ -26,6 +26,8 @@ export const AttributeInput = ({
   const [newValue, setNewValue] = useState<string>("");
 
   const handleOnChange = () => {
+    if (newAttribute === "" || newValue === "") return;
+
     setObject((prev) => {
       return {
         ...prev,
@@ -56,6 +58,7 @@ export const AttributeInput = ({
           <div className={classes.element} key={index}>
             <button
               className={classes.delete}
+              type="button"
               title="remove"
               onClick={() => handleDelete(key)}
             >
@@ -83,6 +86,7 @@ export const AttributeInput = ({
           <button
             className={classes.button}
             title="add"
+            type="button"
             onClick={() => handleOnChange()}
           >
             <Image src={plus} alt="add" layout="fill" />
