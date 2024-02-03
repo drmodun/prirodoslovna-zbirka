@@ -5,5 +5,13 @@
   display: flex;
   flex-direction: column;
   gap: vw-calc(25);
-  row-gap: vw-calc(25);
+  row-gap: vw-calc(20);
+}
+
+.error {
+  color: $red;
+  font-size: vw-calc(16);
+  font-weight: 500;
+  margin-left: vw-calc(20);
+  height: vw-calc(20);
 }
