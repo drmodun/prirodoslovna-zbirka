@@ -16,9 +16,21 @@ export interface ExponatModalSectionsProps {
 
 export const ExponatForm = ({ organisationId }: ExponatModalSectionsProps) => {
   const schema = z.object({
-    name: z.string().min(2).max(100),
-    description: z.string().min(2).max(100),
-    funFacts: z.array(z.string().min(2).max(100)),
+    name: z
+      .string()
+      .min(2, " Ime mora imati više od 2 slova")
+      .max(100, "Ime mora imati manje od 100 slova"),
+    description: z
+      .string()
+      .min(2, "Opis mora imati više od 2 slova")
+      .max(100, "Opis mora imati manje od 100 slova"),
+
+    funFacts: z.array(
+      z
+        .string()
+        .min(2, "Fun fact mora imati više od 2 slova")
+        .max(100, "Fun fact mora imati manje od 100 slova")
+    ),
     exponatKind: z.enum([
       ExponatKind.EUCARIOT.toString(),
       ExponatKind.PROCARIOT.toString(),
@@ -38,8 +50,15 @@ export const ExponatForm = ({ organisationId }: ExponatModalSectionsProps) => {
 
   return (
     <form onSubmit={form.handleSubmit(onSubmit)} className={classes.form}>
+      <p className={classes.error}>
+        {form.formState.errors.name?.message?.toString() || ""}
+      </p>
       <Input form={form} attribute="name" question="Name" />
+      <p className={classes.error}>
+        {form.formState.errors.description?.message?.toString() || ""}
+      </p>
       <Textarea form={form} attribute="description" question="Description" />
+
       <ListInput form={form} attribute="funFacts" question="Fun Facts" />
       <AttributeInput
         form={form}
@@ -57,11 +76,6 @@ export const ExponatForm = ({ organisationId }: ExponatModalSectionsProps) => {
         ]}
       />
       <BaseButton text="Pošalji" />
-      {form.formState.errors.root && (
-        <span className={classes.error}>
-          {form.formState.errors.root?.message}
-        </span>
-      )}
     </form>
   );
 };
