@@ -41,6 +41,7 @@ export const ListInput = ({ question, attribute, form }: ListInputProps) => {
           <div className={classes.element} key={index}>
             <button
               className={classes.delete}
+              type="button"
               title="remove"
               onClick={() => handleDelete(index)}
             >
@@ -52,6 +53,7 @@ export const ListInput = ({ question, attribute, form }: ListInputProps) => {
         <div className={classes.add}>
           <button
             className={classes.button}
+            type="button"
             title="add"
             onClick={() => handleOnChange()}
           >
