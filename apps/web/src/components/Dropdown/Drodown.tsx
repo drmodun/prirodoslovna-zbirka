@@ -86,17 +86,17 @@ export const Dropdown: React.FC<DropdownProps> = ({
         />
       </div>
       <div className={visible ? classes.menu : classes.hidden}>
-        {<li key="" onClick={handleReset}></li>}
+        {<li key="empty" onClick={handleReset}></li>}
         {options
           .filter((option) =>
             option.label
               .toLowerCase()
               .includes(searchTerm.toString().toLowerCase())
           )
-          .splice(0, 10)
-          .map((option) => (
+          .toSpliced(10)
+          .map((option, index) => (
             <li
-              key={option.value}
+              key={index}
               onClick={() => handleSelect(option.value, option.label)}
             >
               {option.label}

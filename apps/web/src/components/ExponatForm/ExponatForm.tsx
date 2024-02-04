@@ -17,6 +17,8 @@ import BaseButton from "components/BaseButton";
 import Dropdown from "components/Dropdown";
 import { useGetSpecies } from "@/api/useGetSpecies";
 import { useState } from "react";
+import { useCreateCategorization } from "@/api/useCreateCategorization";
+import { useCheckForCategorization } from "@/api/useCheckForCategorization";
 export interface ExponatModalSectionsProps {
   organisationId: string;
 }
@@ -54,6 +56,9 @@ export const ExponatForm = ({ organisationId }: ExponatModalSectionsProps) => {
   });
 
   const { data, error, isLoading } = useGetSpecies(selectedSpecies);
+  
+
+  const speciesCheck = (species: string) => {};
 
   const onSubmit = (data: any) => {
     console.log(data);
