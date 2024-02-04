@@ -28,8 +28,7 @@ async function main() {
       domain: 'Felis wiedi or Leopardus weidi',
       phylum: 'Meleagris gallopavo',
       class: 'Naja nivea',
-      order: 'Myotis lucifugus',
-      family: 'Notechis semmiannulatus',
+      order: 'Myotis lucifugus', family: "Test Family", species: 'Notechis semmiannulatus',
     },
     {
       id: '553cc4f9-2d44-470c-946d-6ec65eb4fb15',
@@ -38,8 +37,7 @@ async function main() {
       domain: 'Meles meles',
       phylum: 'Pan troglodytes',
       class: 'Corvus albicollis',
-      order: 'Alcelaphus buselaphus cokii',
-      family: 'Vicugna vicugna',
+      order: 'Alcelaphus buselaphus cokii', family: "Test Family", species: 'Vicugna vicugna',
     },
     {
       id: 'c0d1a80e-43b6-4d12-bcb7-672d6939f9ac',
@@ -48,8 +46,7 @@ async function main() {
       domain: 'Megaderma spasma',
       phylum: 'Heloderma horridum',
       class: 'Ornithorhynchus anatinus',
-      order: 'Mellivora capensis',
-      family: 'Anastomus oscitans',
+      order: 'Mellivora capensis', family: "Test Family", species: 'Anastomus oscitans',
     },
     {
       id: 'd7ab18bf-f174-4cbb-a607-42c15ac921ef',
@@ -58,8 +55,7 @@ async function main() {
       domain: 'Cercatetus concinnus',
       phylum: 'Columba livia',
       class: 'Ciconia ciconia',
-      order: 'Ovis ammon',
-      family: 'Macaca nemestrina',
+      order: 'Ovis ammon', family: "Test Family", species: 'Macaca nemestrina',
     },
     {
       id: 'ffd95961-2439-445a-9a4f-fc152cfbca58',
@@ -68,8 +64,7 @@ async function main() {
       domain: 'Lamprotornis chalybaeus',
       phylum: 'Chlidonias leucopterus',
       class: 'Ovis ammon',
-      order: 'Sterna paradisaea',
-      family: 'Leptoptilus dubius',
+      order: 'Sterna paradisaea', family: "Test Family", species: 'Leptoptilus dubius',
     },
     {
       id: 'c6506fb3-64d0-4108-9252-baba28e9ac2b',
@@ -78,8 +73,7 @@ async function main() {
       domain: 'Acinynox jubatus',
       phylum: 'Anhinga rufa',
       class: 'Anas platyrhynchos',
-      order: 'Columba livia',
-      family: 'Columba livia',
+      order: 'Columba livia', family: "Test Family", species: 'Columba livia',
     },
     {
       id: '2718d946-9946-4d11-9d2f-bb7d298d0b13',
@@ -88,8 +82,7 @@ async function main() {
       domain: 'Antidorcas marsupialis',
       phylum: 'Phalacrocorax niger',
       class: 'Melophus lathami',
-      order: 'Gabianus pacificus',
-      family: 'Estrilda erythronotos',
+      order: 'Gabianus pacificus', family: "Test Family", species: 'Estrilda erythronotos',
     },
     {
       id: '0de28f9b-d7cb-4efd-95ca-d4c52eb437fe',
@@ -98,8 +91,7 @@ async function main() {
       domain: 'Trachyphonus vaillantii',
       phylum: 'Martes pennanti',
       class: 'unavailable',
-      order: 'Ciconia ciconia',
-      family: 'Canis aureus',
+      order: 'Ciconia ciconia', family: "Test Family", species: 'Canis aureus',
     },
     {
       id: 'b0f7ba91-0c44-4ccd-93b8-ede6d77c0007',
@@ -108,8 +100,7 @@ async function main() {
       domain: 'Dipodomys deserti',
       phylum: 'Tauraco porphyrelophus',
       class: 'Falco peregrinus',
-      order: 'Anser caerulescens',
-      family: 'Vulpes chama',
+      order: 'Anser caerulescens', family: "Test Family", species: 'Vulpes chama',
     },
     {
       id: '0b5eb609-37d5-4492-b3ac-f1b889476ff6',
@@ -118,8 +109,7 @@ async function main() {
       domain: 'Gabianus pacificus',
       phylum: 'Bucorvus leadbeateri',
       class: 'Streptopelia senegalensis',
-      order: 'Tockus flavirostris',
-      family: 'Marmota caligata',
+      order: 'Tockus flavirostris', family: "Test Family", species: 'Marmota caligata',
     },
     {
       id: 'c5208c81-7106-47bb-ac0f-c4648081bbcb',
@@ -128,8 +118,7 @@ async function main() {
       domain: 'Manouria emys',
       phylum: 'Theropithecus gelada',
       class: 'Bubo virginianus',
-      order: 'Martes americana',
-      family: 'Charadrius tricollaris',
+      order: 'Martes americana', family: "Test Family", species: 'Charadrius tricollaris',
     },
     {
       id: '96a2ee6e-9bc2-42bf-8e12-acd4689002ae',
@@ -138,8 +127,7 @@ async function main() {
       domain: 'Geochelone elephantopus',
       phylum: 'Columba livia',
       class: 'Anastomus oscitans',
-      order: 'Microcebus murinus',
-      family: 'Spermophilus tridecemlineatus',
+      order: 'Microcebus murinus', family: "Test Family", species: 'Spermophilus tridecemlineatus',
     },
     {
       id: '42b4147f-9713-46d0-89b4-583dbd291acb',
@@ -148,8 +136,7 @@ async function main() {
       domain: 'Uraeginthus bengalus',
       phylum: 'Lycaon pictus',
       class: 'Cebus apella',
-      order: 'Uraeginthus granatina',
-      family: 'Pteropus rufus',
+      order: 'Uraeginthus granatina', family: "Test Family", species: 'Pteropus rufus',
     },
     {
       id: 'd7313364-6618-42ef-a646-eae8352639a2',
@@ -158,8 +145,7 @@ async function main() {
       domain: 'Funambulus pennati',
       phylum: 'Agelaius phoeniceus',
       class: 'Propithecus verreauxi',
-      order: 'Potamochoerus porcus',
-      family: 'Neophron percnopterus',
+      order: 'Potamochoerus porcus', family: "Test Family", species: 'Neophron percnopterus',
     },
     {
       id: 'b6e89f0d-cbd4-466c-b977-92d14f166ab0',
@@ -168,8 +154,7 @@ async function main() {
       domain: 'Phalaropus fulicarius',
       phylum: 'unavailable',
       class: 'Phalacrocorax carbo',
-      order: 'Pycnonotus nigricans',
-      family: 'Francolinus swainsonii',
+      order: 'Pycnonotus nigricans', family: "Test Family", species: 'Francolinus swainsonii',
     },
     {
       id: '6ed4557d-ae9c-491b-bf76-47fc84ecd9c2',
@@ -178,8 +163,7 @@ async function main() {
       domain: 'Chloephaga melanoptera',
       phylum: 'Thamnolaea cinnmomeiventris',
       class: 'Nesomimus trifasciatus',
-      order: 'Procyon cancrivorus',
-      family: 'Merops bullockoides',
+      order: 'Procyon cancrivorus', family: "Test Family", species: 'Merops bullockoides',
     },
     {
       id: 'f8f12697-6599-47b8-9863-d463d231434e',
@@ -188,8 +172,7 @@ async function main() {
       domain: 'Cathartes aura',
       phylum: 'Pelecanus conspicillatus',
       class: 'Ciconia episcopus',
-      order: 'Lamprotornis sp.',
-      family: 'Cordylus giganteus',
+      order: 'Lamprotornis sp.', family: "Test Family", species: 'Cordylus giganteus',
     },
     {
       id: '70fd097d-64ea-4077-bb18-5799b9d38735',
@@ -198,8 +181,7 @@ async function main() {
       domain: 'Ara ararauna',
       phylum: 'Gopherus agassizii',
       class: 'Gazella granti',
-      order: 'Pituophis melanaleucus',
-      family: 'Leptoptilos crumeniferus',
+      order: 'Pituophis melanaleucus', family: "Test Family", species: 'Leptoptilos crumeniferus',
     },
     {
       id: 'f4b18d45-8a6a-4caf-9a1a-c4e3e075bb3c',
@@ -208,8 +190,7 @@ async function main() {
       domain: 'Gerbillus sp.',
       phylum: 'Bubalornis niger',
       class: 'Panthera leo persica',
-      order: 'Paroaria gularis',
-      family: 'Centrocercus urophasianus',
+      order: 'Paroaria gularis', family: "Test Family", species: 'Centrocercus urophasianus',
     },
     {
       id: '034fd827-b176-4466-9ff6-3bb67fc85580',
@@ -218,8 +199,7 @@ async function main() {
       domain: 'Alligator mississippiensis',
       phylum: 'Gymnorhina tibicen',
       class: 'Sciurus vulgaris',
-      order: 'Gyps bengalensis',
-      family: 'Centrocercus urophasianus',
+      order: 'Gyps bengalensis', family: "Test Family", species: 'Centrocercus irophasianus',
     },
   ];
 

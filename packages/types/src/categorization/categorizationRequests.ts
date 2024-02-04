@@ -32,6 +32,10 @@ export const getCreateCategorizationDto = (ApiPropertySwagger?: any) => {
     @IsString()
     @ApiProperty()
     class: string;
+
+    @IsString()
+    @ApiProperty()
+    species: string;
   }
 
   return CreateCategorizationDto;

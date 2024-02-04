@@ -150,6 +150,8 @@ export class ExponatsController {
         kingdom: item.Categorization.kingdom,
         order: item.Categorization.order,
         phylum: item.Categorization.phylum,
+        species: item.Categorization.species,
+        id: item.Categorization.id,
       },
       createdAt: item.createdAt,
       description: item.description,

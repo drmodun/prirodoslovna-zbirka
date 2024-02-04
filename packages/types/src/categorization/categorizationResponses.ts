@@ -2,8 +2,9 @@ import { ExponatResponseShort } from "../exponat/exponatResponses";
 
 export interface CategorizationResponseShort {
   id: string;
+  species: string;
   family: string;
-  numberOfExponats: number;
+  numberOfExponats?: number;
 }
 //TODO: possibly add normal names as alternative to latin ones
 export interface CategorizationExtendedResponse {
@@ -16,6 +17,7 @@ export interface CategorizationExtendedResponse {
   phylum: string;
   numberOfExponats: number;
   kingom: string;
+  species: string;
   exponats: ExponatResponseShort[];
 }
 
