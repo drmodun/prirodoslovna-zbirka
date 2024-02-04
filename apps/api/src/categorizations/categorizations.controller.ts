@@ -132,4 +132,17 @@ export class CategorizationsController {
   async remove(@Param('id') id: string) {
     return await this.categorizationsService.remove(id);
   }
+
+  @Get('/name/:name')
+  async findByName(@Param('name') name: string) {
+    const item = await this.categorizationsService.findByName(name);
+
+    const mapped = {
+      family: item.family,
+      id: item.id,
+      species: item.species,
+    } as CategorizationResponseShort;
+
+    return mapped;
+  }
 }

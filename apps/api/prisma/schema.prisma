@@ -65,6 +65,7 @@ model Categorization {
   class   String
   order   String
   family  String
+  species String    @unique
   Exponat Exponat[]
   //possibly change this to make the categorization applicable to other organisations which will use this exponat
 }
@@ -92,23 +93,23 @@ model User {
 }
 
 model Exponat {
-  id               String             @id @default(uuid())
-  name             String
-  alternateName    String
-  ExponatKind      ExponatKind
-  description      String
-  isApproved       Boolean            @default(false)
-  funFacts         String[]
-  attributes       Json
-  mainImage        String
-  categorizationId String?
-  Categorization   Categorization?    @relation(fields: [categorizationId], references: [id], onDelete: Cascade)
-  createdAt        DateTime           @default(now())
-  updatedAt        DateTime           @default(now()) @updatedAt
-  Organisation     Organisation?      @relation(fields: [organisationId], references: [id], onDelete: Cascade)
-  organisationId   String?
+  id                String             @id @default(uuid())
+  name              String
+  alternateName     String
+  ExponatKind       ExponatKind
+  description       String
+  isApproved        Boolean            @default(false)
+  funFacts          String[]
+  attributes        Json
+  mainImage         String
+  categorizationId  String?
+  Categorization    Categorization?    @relation(fields: [categorizationId], references: [id], onDelete: Cascade)
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @default(now()) @updatedAt
+  Organisation      Organisation?      @relation(fields: [organisationId], references: [id], onDelete: Cascade)
+  organisationId    String?
   FavouriteExponats FavouriteExponat[]
-  Posts            Post[]
+  Posts             Post[]
 }
 
 model Organisation {
@@ -169,7 +170,7 @@ model OrganisationUser {
 
 model Like {
   createdAt DateTime @default(now())
-  userId    String   
+  userId    String
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   postId    String
   Post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)

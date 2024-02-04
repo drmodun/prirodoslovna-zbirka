@@ -6,6 +6,5 @@ import { PrismaService } from 'src/prisma/prisma.service';
 @Module({
   controllers: [CategorizationsController],
   providers: [CategorizationsService, PrismaService],
-  exports: [CategorizationsService],
 })
 export class CategorizationsModule {}

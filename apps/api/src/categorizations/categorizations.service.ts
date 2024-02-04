@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import {
   CreateCategorizationDto,
   UpdateCategorizationDto,
@@ -19,6 +19,23 @@ export class CategorizationsService {
     return await this.prisma.categorization.create({
       data: createCategorizationDto,
     });
+  }
+
+  async findByName(name: string) {
+    const item = await this.prisma.categorization.findFirst({
+      where: {
+        species: {
+          search: name.replace(/(\w)\s+(\w)/g, '$1 <-> $2'),
+          mode: 'insensitive',
+        },
+      },
+    });
+
+    if (!item) {
+      throw new NotFoundException();
+    }
+
+    return item;
   }
 
   async findAll(
