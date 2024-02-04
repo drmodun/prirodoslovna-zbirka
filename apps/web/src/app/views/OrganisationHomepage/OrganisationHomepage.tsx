@@ -13,7 +13,7 @@ export const OrganisationHomepage = ({
   return (
     <div className={classes.container}>
       <div className={classes.topRow}>
-        {organisation.socialPosts && (
+        {organisation.socialPosts?.length && (
           <SocialPostCard post={organisation.socialPosts[0]} />
         )}
         <div className={classes.actions}>

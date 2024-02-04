@@ -16,7 +16,7 @@
     align-items: center;
     background-color: transparent;
     border-radius: vw-calc(20);
-    padding: vw-calc(10 20);
+    padding: 0 vw-calc(20);
     border: 1px solid;
     border-color: $secondary;
 
@@ -29,6 +29,7 @@
     > input {
       width: 100%;
       color: $primary;
+      height: 100%;
       text-align: start;
       font-style: normal;
       font-weight: 600;
@@ -102,7 +103,7 @@
         background-color: $stroke-color;
         font-size: vw-calc(16);
       }
-      
+
       &:first-child {
         border-radius: vw-calc(20) vw-calc(20) 0px 0px;
       }
