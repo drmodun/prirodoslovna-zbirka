@@ -18,3 +18,16 @@ export interface CategorizationExtendedResponse {
   kingom: string;
   exponats: ExponatResponseShort[];
 }
+
+export interface SpeciesResponse {
+  kingdom: string;
+  phylum: string;
+  class: string;
+  order: string;
+  family: string;
+  genus: string;
+  species: string;
+  scientificName: string;
+  canonicalName: string;
+  rank: string;
+}
