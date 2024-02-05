@@ -16,7 +16,7 @@ import { SelectInput } from "components/SelectInput/SelectInput";
 import { useRegister } from "@/api/useRegister";
 import { makeCountyName } from "@/utility/static/countyNameMaker";
 
-export const ReegisterForm = () => {
+export const RegisterForm = () => {
   const schema = z
     .object({
       firstName: z.string().min(2).max(100),

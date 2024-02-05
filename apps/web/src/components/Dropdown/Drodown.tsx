@@ -68,16 +68,23 @@ export const Dropdown: React.FC<DropdownProps> = ({
     setVisible(false);
   };
 
+  const slowHide = () => {
+    setTimeout(() => {
+      setVisible(false);
+    }, 100);
+  };
+
   useEffect(() => {
     setVisible(false);
   }, [cancel]);
 
   return (
-    <div className={classes.dropdown}>
-      <div
-        className={clsx(classes.top, visible && classes.active)}
-        onClick={toggleVisible}
-      >
+    <div
+      className={classes.dropdown}
+      onFocus={toggleVisible}
+      onBlur={slowHide}
+    >
+      <div className={clsx(classes.top, visible && classes.active)}>
         <input
           type="text"
           placeholder={placeholder}
