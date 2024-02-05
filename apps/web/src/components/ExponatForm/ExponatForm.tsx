@@ -32,11 +32,11 @@ export const ExponatForm = ({ organisationId }: ExponatModalSectionsProps) => {
     .object({
       name: z
         .string()
-        .min(2, " Ime mora imati više od 2 slova")
+        .min(5, " Ime mora imati više od 5 slova")
         .max(100, "Ime mora imati manje od 100 slova"),
       description: z
         .string()
-        .min(2, "Opis mora imati više od 2 slova")
+        .min(10, "Opis mora imati više od 10 slova")
         .max(2000, "Opis mora imati manje od 2000 slova"),
       alternateName: z
         .string()

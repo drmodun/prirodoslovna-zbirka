@@ -37,12 +37,12 @@ export interface ExponatResponseShort {
 
 export interface CategorizationResponse {
   id: string;
-  genus: string;
-  family: string;
-  order: string;
-  class: string;
-  phylum: string;
-  kingdom: string;
   domain: string;
+  kingdom: string;
+  phylum: string;
+  class: string;
+  order: string;
+  family: string;
+  genus: string;
   species: string;
 }

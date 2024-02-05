@@ -16,11 +16,13 @@ const ExponatPage = async ({ params }: { params: any }) => {
       </div>
       <div className={classes.posts}>
         <span className={classes.title}>Objave</span>
-        <div className={classes.postsRow}>
-          {exponatInfo.posts.map((post, index) => (
-            <PostCard post={post} key={index} />
-          ))}
-        </div>
+        {exponatInfo.posts.length > 0 && (
+          <div className={classes.postsRow}>
+            {exponatInfo.posts.map((post, index) => (
+              <PostCard post={post} key={index} />
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

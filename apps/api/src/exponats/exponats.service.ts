@@ -20,6 +20,11 @@ export class ExponatsService {
       createExponatDto.authorId,
     );
 
+    const adminCheck = await this.checkForValidity(
+      userId,
+      createExponatDto.authorId,
+      true,
+    );
 
     if (!check) throw new UnauthorizedException();
 
@@ -42,7 +47,7 @@ export class ExponatsService {
             id: createExponatDto.authorId,
           },
         },
-        isApproved: false,
+        isApproved: adminCheck,
       },
       include: {
         Organisation: {
@@ -274,8 +279,7 @@ export class ExponatsService {
           id: userId,
         },
       });
-      if (checkForSuper.role !== Role.SUPER) return false;
-      return true;
+      return checkForSuper.role !== Role.SUPER;
     }
 
     return !(
