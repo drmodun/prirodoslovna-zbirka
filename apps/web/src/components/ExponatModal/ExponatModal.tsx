@@ -19,11 +19,11 @@ export const ExponatModal = ({ exponat }: ExponatModalProps) => {
       <div className={classes.mainImage}>
         <Image src={exponat.mainImage} alt={exponat.title} layout="fill" />
       </div>
-      <CategorizationCard categorization={exponat.categorization} />
       <div className={classes.title}>
         <span className={classes.latinName}>{exponat.alternateName}</span>
         <span className={classes.name}>{exponat.title}</span>
       </div>
+      <CategorizationCard categorization={exponat.categorization} />
       <div className={classes.categorization}></div>
       <div className={classes.actions}>
         <div className={classes.button}>
