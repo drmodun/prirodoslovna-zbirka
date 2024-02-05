@@ -5,6 +5,7 @@ import {
   IsJSON,
   IsUUID,
   IsNumber,
+  isString,
 } from "class-validator";
 import { ExponatKind } from "../enums";
 import { Json } from "../jsonObjects";
@@ -39,7 +40,6 @@ export const getCreateExponatDto = (ApiPropertySwagger?: any) => {
     @ApiProperty()
     funFacts: string[];
 
-    @IsEnum(ExponatKind)
     @ApiProperty()
     ExponatKind: ExponatKindType;
 
@@ -47,9 +47,9 @@ export const getCreateExponatDto = (ApiPropertySwagger?: any) => {
     @ApiProperty()
     attributes: Json;
 
-    @IsUUID()
+    @IsString()
     @ApiProperty()
-    cateogorizationId: string;
+    categorizationId: string;
 
     authorId?: string;
   }

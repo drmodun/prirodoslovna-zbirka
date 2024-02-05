@@ -3,7 +3,7 @@ import { api } from "./shared";
 import { useMutation } from "react-query";
 
 const createCategorization = (categorization: CreateCategorizationRequest) =>
-  api.post("/categorization", categorization);
+  api.post("/categorizations", categorization);
 
 export const useCreateCategorization = () => {
   return useMutation(createCategorization, {

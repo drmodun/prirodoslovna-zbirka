@@ -23,7 +23,26 @@ export class ExponatsService {
     if (!check) throw new UnauthorizedException();
 
     return await this.prisma.exponat.create({
-      data: createExponatDto,
+      data: {
+        alternateName: createExponatDto.alternateName,
+        attributes: createExponatDto.attributes,
+        description: createExponatDto.description,
+        name: createExponatDto.name,
+        mainImage: createExponatDto.mainImage,
+        Categorization: {
+          connect: {
+            id: createExponatDto.categorizationId,
+          },
+        },
+        funFacts: createExponatDto.funFacts,
+        ExponatKind: createExponatDto.ExponatKind,
+        Organisation: {
+          connect: {
+            id: createExponatDto.authorId,
+          },
+        },
+        isApproved: false,
+      },
       include: {
         Organisation: {
           select: {

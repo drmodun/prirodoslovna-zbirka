@@ -7,8 +7,11 @@ const _createExponatDto = getCreateExponatDto();
 
 export class CreateExponatDto extends _createExponatDto {}
 
-const createExponat = (exponat: CreateExponatDto) => {
-  return api.post("/exponat", exponat);
+const createExponat = (params: {
+  exponat: CreateExponatDto;
+  organisationId: string;
+}) => {
+  return api.post(`/exponats/${params.organisationId}`, params.exponat);
 };
 
 export const useCreateExponat = () => {

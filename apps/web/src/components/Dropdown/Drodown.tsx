@@ -17,6 +17,7 @@ interface DropdownProps {
   form: UseFormReturn<FieldValues>;
   closer?: Function;
   initSelected?: string | number;
+  initPlaceholder?: string;
 }
 
 export const Dropdown: React.FC<DropdownProps> = ({
@@ -27,6 +28,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
   form,
   attribute,
   initSelected,
+  initPlaceholder,
 }: DropdownProps) => {
   const { setValue } = form;
 
@@ -34,7 +36,9 @@ export const Dropdown: React.FC<DropdownProps> = ({
   const [selected, setSelected] = useState<string | number>("");
   const [visible, setVisible] = useState<boolean>(false);
   const [placeholder, setPlaceholder] = useState<string>(
-    options.find((option) => option.value == initSelected)?.label || "Search"
+    options.find((option) => option.value == initSelected)?.label ||
+      initPlaceholder ||
+      "Search"
   );
 
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -63,7 +67,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
   const handleReset = () => {
     setSelected("");
     setSearchTerm("");
-    setPlaceholder("Search");
+    setPlaceholder(initPlaceholder || "Search");
     onSelect && onSelect("");
     setVisible(false);
   };
@@ -77,13 +81,9 @@ export const Dropdown: React.FC<DropdownProps> = ({
   useEffect(() => {
     setVisible(false);
   }, [cancel]);
-
+  
   return (
-    <div
-      className={classes.dropdown}
-      onFocus={toggleVisible}
-      onBlur={slowHide}
-    >
+    <div className={classes.dropdown} onFocus={toggleVisible} onBlur={slowHide}>
       <div className={clsx(classes.top, visible && classes.active)}>
         <input
           type="text"
