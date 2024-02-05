@@ -40,6 +40,7 @@ export const getCreateExponatDto = (ApiPropertySwagger?: any) => {
     @ApiProperty()
     funFacts: string[];
 
+    @IsString()
     @ApiProperty()
     ExponatKind: ExponatKindType;
 
@@ -83,7 +84,7 @@ export const getUpdateExponatDto = (ApiPropertySwagger?: any) => {
     @ApiProperty()
     funFacts?: string[];
 
-    @IsEnum(ExponatKind)
+    @IsString()
     @ApiProperty()
     ExponatKind?: ExponatKindType;
 

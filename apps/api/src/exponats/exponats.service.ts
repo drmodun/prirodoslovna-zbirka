@@ -7,7 +7,7 @@ import {
   SortingRequest,
   sortExponatQueryBuilderWithComplexFilters,
 } from '@biosfera/types';
-import { Role } from '@prisma/client';
+import { ExponatKind, Role } from '@prisma/client';
 import { MemberRoleType } from 'src/members/members.dto';
 
 @Injectable()
@@ -19,6 +19,7 @@ export class ExponatsService {
       userId,
       createExponatDto.authorId,
     );
+
 
     if (!check) throw new UnauthorizedException();
 
@@ -35,7 +36,7 @@ export class ExponatsService {
           },
         },
         funFacts: createExponatDto.funFacts,
-        ExponatKind: createExponatDto.ExponatKind,
+        ExponatKind: createExponatDto.ExponatKind as ExponatKind,
         Organisation: {
           connect: {
             id: createExponatDto.authorId,
