@@ -1,6 +1,10 @@
 @import "styles/variables.scss";
 @import "styles/calc.scss";
 
+.container {
+  width: 100%;
+}
+
 .content {
   width: 100%;
   display: flex;
