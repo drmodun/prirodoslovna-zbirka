@@ -24,7 +24,6 @@ export const ExponatModal = ({ exponat }: ExponatModalProps) => {
         <span className={classes.name}>{exponat.title}</span>
       </div>
       <CategorizationCard categorization={exponat.categorization} />
-      <div className={classes.categorization}></div>
       <div className={classes.actions}>
         <div className={classes.button}>
           <span className={classes.text}>Dodaj u favorite</span>
