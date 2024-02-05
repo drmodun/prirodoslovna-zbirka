@@ -3,7 +3,7 @@
 const nextConfig = {
   transpilePackages: ["@biosfera/types"],
   images: {
-    domains: ["localhost", "dummyimage.com"],
+    domains: ["localhost", "dummyimage.com", "via.placeholder.com"],
   },
 };
 

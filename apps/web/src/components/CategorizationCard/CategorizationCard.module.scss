@@ -2,18 +2,30 @@
 @import "styles/variables.scss";
 
 .container {
-  width: 100%;
+  width: vw-calc(520);
+  max-width: vw-calc(520);
   height: vw-calc(40);
   display: flex;
+  align-self: flex-start;
+  padding: vw-calc(10);
   flex-direction: row;
   box-shadow: 0 0 vw-calc(8) rgba(0, 0, 0, 0.15);
   border-radius: vw-calc(10);
-  border: linear-gradient(#039300, 10%);
-  background-color: $background-color;
+  background: linear-gradient(270deg, #fff, #f0f9f0 10%);
   column-gap: vw-calc(12);
+  overflow-x: hidden;
+  transition:
+    width 0.3s ease-in-out,
+    height 0.3s ease-in-out,
+    box-shadow 0.3s ease-in-out;
+
+  &:hover {
+    box-shadow: 0 0 vw-calc(8) rgba(0, 0, 0, 0.25);
+    max-width: max-content;
+    width: vw-calc(1000px);
+  }
 
   .categorization {
-    width: vw-calc(100);
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -24,12 +36,16 @@
     font-size: vw-calc(12);
     color: $grey-text;
     font-weight: 600;
+    margin-right: vw-calc(12);
   }
 
   .image {
     width: vw-calc(5);
     height: vw-calc(8);
     position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     img {
       width: 100%;
