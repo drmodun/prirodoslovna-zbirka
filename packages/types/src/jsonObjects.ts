@@ -3,3 +3,8 @@ export interface Json {
 }
 export interface JsonArray
   extends Array<string | number | boolean | Date | Json | JsonArray> {}
+
+
+export interface Indexable {
+  [x: string]: any;
+}

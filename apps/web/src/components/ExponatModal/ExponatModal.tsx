@@ -7,6 +7,7 @@ import table from "assets/images/table.svg";
 import likeLeafGreen from "assets/images/like-leaf-green.svg";
 import { stringCapitaliser } from "@/utility/static/stringCapitaliser";
 import ExponatModalSections from "components/ExponatModalSections";
+import CategorizationCard from "components/CategorizationCard";
 export interface ExponatModalProps {
   exponat: ExponatExtendedResponse;
 }
@@ -18,6 +19,7 @@ export const ExponatModal = ({ exponat }: ExponatModalProps) => {
       <div className={classes.mainImage}>
         <Image src={exponat.mainImage} alt={exponat.title} layout="fill" />
       </div>
+      <CategorizationCard categorization={exponat.categorization} />
       <div className={classes.title}>
         <span className={classes.latinName}>{exponat.alternateName}</span>
         <span className={classes.name}>{exponat.title}</span>
