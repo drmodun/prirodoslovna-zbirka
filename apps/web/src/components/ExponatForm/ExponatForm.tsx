@@ -20,6 +20,8 @@ import { useState } from "react";
 import { useCreateCategorization } from "@/api/useCreateCategorization";
 import { useCheckForCategorization } from "@/api/useCheckForCategorization";
 import { useReadOrCreateCategorization } from "@/api/useReadOrCreateCategorization";
+import { useCreateExponat } from "@/api/useCreateExponat";
+import { Domains } from "@/views/OrganisationBody/OrganisationBody";
 export interface ExponatModalSectionsProps {
   organisationId: string;
 }
@@ -34,18 +36,14 @@ export const ExponatForm = ({ organisationId }: ExponatModalSectionsProps) => {
       description: z
         .string()
         .min(2, "Opis mora imati više od 2 slova")
-        .max(100, "Opis mora imati manje od 100 slova"),
+        .max(2000, "Opis mora imati manje od 2000 slova"),
       alternateName: z
         .string()
         .min(2, "Nomenklatura mora imati više od 2 slova"),
       funFacts: z
         .array(z.string().min(2, "Mora imati više od 2 slova"))
         .min(1, "Mora postojati barem jedan fun fact"),
-      exponatKind: z.enum([
-        ExponatKind.EUCARIOT.toString(),
-        ExponatKind.PROCARIOT.toString(),
-        ExponatKind.MINERAL.toString(),
-      ]),
+      exponatKind: z.enum(["EUCARIOT", "PROCARIOT", "MINERAL"]),
       attributes: z.any(),
       mainImage: z.any(),
     })
@@ -66,28 +64,44 @@ export const ExponatForm = ({ organisationId }: ExponatModalSectionsProps) => {
 
   const { data, error, isLoading } = useGetSpecies(selectedSpecies);
   const { mutateAsync } = useReadOrCreateCategorization();
+  const { mutateAsync: createExponat } = useCreateExponat();
 
   const onSubmit = async (formData: any) => {
     console.log(formData);
 
-    const selectedSpecies = data?.find(
+    const species = data?.find(
       (x: SpeciesResponse) => x.species === formData.alternateName
-    )?.species;
+    );
 
-    if (!selectedSpecies) {
+    if (!species) {
       alert("Nomenklatura nije validna");
       return;
     }
 
-    const exponatId = await mutateAsync(selectedSpecies);
+    species.domain = formData.exponatKind;
+
+    const exponatId = await mutateAsync(species);
 
     const request = {
       ...formData,
-      organisationId: organisationId,
+      ExponatKind: formData.exponatKind,
+      mainImage: "https://via.placeholder.com/150",
+      attributes: JSON.stringify(formData.attributes),
       categorizationId: exponatId,
     };
 
-    console.log(request);
+    const params = {
+      organisationId,
+      exponat: request,
+    };
+
+    const action = await createExponat(params);
+    if (!action) {
+      alert("Greška prilikom kreiranja eksponata");
+      return;
+    } else {
+      alert("Eksponat uspješno kreiran");
+    }
   };
 
   return (
@@ -99,6 +113,7 @@ export const ExponatForm = ({ organisationId }: ExponatModalSectionsProps) => {
       <Dropdown
         form={form}
         attribute="alternateName"
+        initPlaceholder="Znanstvena vrsta eksponata"
         options={
           data
             ?.filter(
@@ -136,9 +151,9 @@ export const ExponatForm = ({ organisationId }: ExponatModalSectionsProps) => {
         name="exponatKind"
         label="Vrsta exponata"
         options={[
-          { value: ExponatKind.EUCARIOT.toString(), label: "Eukariot" },
-          { value: ExponatKind.PROCARIOT.toString(), label: "Procariot" },
-          { value: ExponatKind.MINERAL.toString(), label: "Mineral" },
+          { value: "EUCARIOT", label: "Eukariot" },
+          { value: "PROCARIOT", label: "Procariot" },
+          { value: "MINERAL", label: "Mineral" },
         ]}
       />
       <BaseButton text="Pošalji" />

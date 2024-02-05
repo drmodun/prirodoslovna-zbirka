@@ -4,26 +4,31 @@ import {
 } from "@biosfera/types";
 import { api } from "./shared";
 import { useMutation } from "react-query";
+import toast from "react-hot-toast";
 
 const readOrCreateCategorization = async (
   categorization: CreateCategorizationRequest
 ) => {
-  const exists = await api.get<CategorizationResponse>(
-    `/categorization/name/${categorization.species}`
-  );
+  console.log(categorization);
+  try {
+    const exists = await api.get<never, CategorizationResponse>(
+      `/categorizations/name/${categorization.species}`
+    );
 
-  if (exists) return exists.data.id;
-
-  if (!exists) {
-    const response = await api.post("/categorization", categorization);
-    return response.data.id;
+    if (exists) return exists.id;
+  } catch (error) {
+    const response = await api.post<
+      CreateCategorizationRequest,
+      CategorizationResponse
+    >("/categorizations", categorization);
+    return response.id;
   }
 };
 
 export const useReadOrCreateCategorization = () => {
   return useMutation(readOrCreateCategorization, {
     onError: (error: string) => {
-      throw new Error("Error creating categorization");
+      toast.error(error);
     },
   });
 };
