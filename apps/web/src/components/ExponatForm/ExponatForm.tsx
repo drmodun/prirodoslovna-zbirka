@@ -20,8 +20,9 @@ import { useState } from "react";
 import { useCreateCategorization } from "@/api/useCreateCategorization";
 import { useCheckForCategorization } from "@/api/useCheckForCategorization";
 import { useReadOrCreateCategorization } from "@/api/useReadOrCreateCategorization";
-import { useCreateExponat } from "@/api/useCreateExponat";
+import { CreateExponatDto, useCreateExponat } from "@/api/useCreateExponat";
 import { Domains } from "@/views/OrganisationBody/OrganisationBody";
+import { Json } from "@biosfera/types/src/jsonObjects";
 export interface ExponatModalSectionsProps {
   organisationId: string;
 }
@@ -80,14 +81,23 @@ export const ExponatForm = ({ organisationId }: ExponatModalSectionsProps) => {
 
     species.domain = formData.exponatKind;
 
-    const exponatId = await mutateAsync(species);
+    const speciesId = await mutateAsync(species);
 
-    const request = {
-      ...formData,
+    if (!speciesId) {
+      alert("Greška prilikom kreiranja kategorizacije");
+      return;
+    }
+
+    const request: CreateExponatDto = {
+      alternateName: formData.alternateName,
+      description: formData.description,
+      funFacts: formData.funFacts,
+      name: formData.name,
+      authorId: organisationId,
       ExponatKind: formData.exponatKind,
       mainImage: "https://via.placeholder.com/150",
-      attributes: JSON.stringify(formData.attributes),
-      categorizationId: exponatId,
+      attributes: JSON.stringify(formData.attributes) as any,
+      categorizationId: speciesId,
     };
 
     const params = {
