@@ -106,6 +106,7 @@ export interface CreateCategorizationRequest {
   phylum: string;
   kingdom: string;
   domain: string;
+  species: string;
 }
 
 export interface ExponatQuery {

@@ -19,36 +19,45 @@ import { useGetSpecies } from "@/api/useGetSpecies";
 import { useState } from "react";
 import { useCreateCategorization } from "@/api/useCreateCategorization";
 import { useCheckForCategorization } from "@/api/useCheckForCategorization";
+import { useReadOrCreateCategorization } from "@/api/useReadOrCreateCategorization";
 export interface ExponatModalSectionsProps {
   organisationId: string;
 }
 
 export const ExponatForm = ({ organisationId }: ExponatModalSectionsProps) => {
-  const schema = z.object({
-    name: z
-      .string()
-      .min(2, " Ime mora imati više od 2 slova")
-      .max(100, "Ime mora imati manje od 100 slova"),
-    description: z
-      .string()
-      .min(2, "Opis mora imati više od 2 slova")
-      .max(100, "Opis mora imati manje od 100 slova"),
-    alternateName: z.string().min(2, "Nomenklatura mora imati više od 2 slova"),
-    funFacts: z.array(
-      z
+  const schema = z
+    .object({
+      name: z
         .string()
-        .min(2, "Fun fact mora imati više od 2 slova")
-        .max(100, "Fun fact mora imati manje od 100 slova")
-    ),
-    exponatKind: z.enum([
-      ExponatKind.EUCARIOT.toString(),
-      ExponatKind.PROCARIOT.toString(),
-      ExponatKind.MINERAL.toString(),
-    ]),
-    attributes: z.any(),
-    mainImage: z.any(),
-  });
-
+        .min(2, " Ime mora imati više od 2 slova")
+        .max(100, "Ime mora imati manje od 100 slova"),
+      description: z
+        .string()
+        .min(2, "Opis mora imati više od 2 slova")
+        .max(100, "Opis mora imati manje od 100 slova"),
+      alternateName: z
+        .string()
+        .min(2, "Nomenklatura mora imati više od 2 slova"),
+      funFacts: z
+        .array(z.string().min(2, "Mora imati više od 2 slova"))
+        .min(1, "Mora postojati barem jedan fun fact"),
+      exponatKind: z.enum([
+        ExponatKind.EUCARIOT.toString(),
+        ExponatKind.PROCARIOT.toString(),
+        ExponatKind.MINERAL.toString(),
+      ]),
+      attributes: z.any(),
+      mainImage: z.any(),
+    })
+    .refine(
+      (data) => {
+        return Object.keys(data.attributes).length > 0;
+      },
+      {
+        message: "Mora postojati barem jedan atribut",
+        path: ["attributes"],
+      }
+    );
   const [selectedSpecies, setSelectedSpecies] = useState<string>("" as string);
 
   const form = useForm({
@@ -56,12 +65,29 @@ export const ExponatForm = ({ organisationId }: ExponatModalSectionsProps) => {
   });
 
   const { data, error, isLoading } = useGetSpecies(selectedSpecies);
-  
+  const { mutateAsync } = useReadOrCreateCategorization();
 
-  const speciesCheck = (species: string) => {};
+  const onSubmit = async (formData: any) => {
+    console.log(formData);
 
-  const onSubmit = (data: any) => {
-    console.log(data);
+    const selectedSpecies = data?.find(
+      (x: SpeciesResponse) => x.species === formData.alternateName
+    )?.species;
+
+    if (!selectedSpecies) {
+      alert("Nomenklatura nije validna");
+      return;
+    }
+
+    const exponatId = await mutateAsync(selectedSpecies);
+
+    const request = {
+      ...formData,
+      organisationId: organisationId,
+      categorizationId: exponatId,
+    };
+
+    console.log(request);
   };
 
   return (
@@ -85,17 +111,26 @@ export const ExponatForm = ({ organisationId }: ExponatModalSectionsProps) => {
             })) || []
         }
         onSelect={setSelectedSpecies}
-      />
+      />{" "}
+      <p className={classes.error}>
+        {form.formState.errors.alternateName?.message?.toString() || ""}
+      </p>
       <Textarea form={form} attribute="description" question="Description" />
       <p className={classes.error}>
         {form.formState.errors.description?.message?.toString() || ""}
       </p>
       <ListInput form={form} attribute="funFacts" question="Fun Facts" />
+      <p className={classes.error}>
+        {form.formState.errors.funFacts?.message?.toString() || ""}
+      </p>
       <AttributeInput
         form={form}
         attribute="attributes"
         question="Attributes"
-      />
+      />{" "}
+      <p className={classes.error}>
+        {form.formState.errors.attributes?.message?.toString() || ""}
+      </p>
       <SelectInput
         form={form}
         name="exponatKind"
@@ -107,11 +142,6 @@ export const ExponatForm = ({ organisationId }: ExponatModalSectionsProps) => {
         ]}
       />
       <BaseButton text="Pošalji" />
-      {Object.keys(form.formState.errors).length > 0 && (
-        <p className={classes.error}>
-          {form.formState.errors.alternateName?.message?.toString() || ""}
-        </p>
-      )}
     </form>
   );
 };

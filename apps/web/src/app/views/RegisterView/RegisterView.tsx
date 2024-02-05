@@ -2,7 +2,7 @@ import Image from "next/image";
 import classes from "./RegisterView.module.scss";
 import logoWithBackground from "assets/images/logoWithBackground.svg";
 import { QueryClientWrapper } from "@/utility/wrappers/queryWrapper";
-import ReegisterForm from "components/RegisterForm";
+import RegisterForm from "components/RegisterForm";
 import { RegistrationImage } from "../RegistrationImage/RegistrationImage";
 export const RegisterView = () => {
   return (
@@ -21,7 +21,7 @@ export const RegisterView = () => {
           resursima.
         </div>
         <QueryClientWrapper>
-          <ReegisterForm />
+          <RegisterForm />
         </QueryClientWrapper>
       </div>
       <RegistrationImage />
