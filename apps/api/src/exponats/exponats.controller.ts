@@ -90,6 +90,7 @@ export class ExponatsController {
     @Req() req: any,
   ) {
     createOrganisationDto.authorId = organisationId;
+    
     const item = await this.exponatsService.create(
       createOrganisationDto,
       req.user.id,
@@ -120,23 +121,21 @@ export class ExponatsController {
       req.user && (await this.exponatsService.checkUserRole(req?.user?.id, id));
     const item = await this.exponatsService.findOne(id, !isAdmin);
 
-    const posts: PostResponse[] = !item.Posts
-      ? []
-      : item.Posts?.map((post) => {
-          return {
-            authorId: post.authorId,
-            authorName: post.author.firstName + ' ' + post.author.lastName,
-            exponatId: item.id,
-            exponatName: item.name,
-            ...(isAdmin && { isApproved: post.isApproved }),
-            id: post.id,
-            images: post.images,
-            hasProfilePicture: post.author.hasProfileImage,
-            updatedAt: post.updatedAt,
-            likeScore: post._count.Likes,
-            title: post.title,
-          } as PostResponse;
-        });
+    const posts: PostResponse[] = item.Posts.map((post) => {
+      return {
+        authorId: post.authorId,
+        authorName: post.author.firstName + ' ' + post.author.lastName,
+        exponatId: item.id,
+        exponatName: item.name,
+        ...(isAdmin && { isApproved: post.isApproved }),
+        id: post.id,
+        images: post.images,
+        hasProfilePicture: post.author.hasProfileImage,
+        updatedAt: post.updatedAt,
+        likeScore: post._count.Likes,
+        title: post.title,
+      } as PostResponse;
+    });
 
     const mapped = {
       alternateName: item.alternateName,

@@ -155,7 +155,7 @@ export class ExponatsService {
   }
 
   async findOne(id: string, approval?: boolean) {
-    return await this.prisma.exponat.findUnique({
+    return await this.prisma.exponat.findUniqueOrThrow({
       where: {
         id,
         ...(approval && { isApproved: approval }),

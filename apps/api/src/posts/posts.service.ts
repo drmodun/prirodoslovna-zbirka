@@ -103,7 +103,7 @@ export class PostsService {
   }
 
   async findOne(id: string, approval?: boolean) {
-    return await this.prisma.post.findUnique({
+    return await this.prisma.post.findFirstOrThrow({
       where: {
         id,
         ...(approval && { isApproved: approval }),

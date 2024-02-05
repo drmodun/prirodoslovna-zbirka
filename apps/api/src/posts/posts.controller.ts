@@ -104,9 +104,9 @@ export class PostsController {
   @ApiBearerAuth()
   @Get(':id')
   async findOne(@Param('id') id: string, @Req() req?: any) {
-    const check = req?.user?.role === 'super';
+    const check = await this.membersService.hasAdminRights(req.user.id, id);
 
-    const post = await this.postsService.findOne(id, check);
+    const post = await this.postsService.findOne(id, !check);
 
     return {
       authorId: post.authorId,
