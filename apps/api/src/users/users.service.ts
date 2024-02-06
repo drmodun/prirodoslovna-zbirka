@@ -25,7 +25,6 @@ export class UsersService {
 
     createUserDto.password = hashedPassword;
 
-
     return await this.prisma.user.create({
       data: createUserDto,
     });
@@ -223,12 +222,7 @@ export class UsersService {
   }
 
   async uploadProfileImage(userId: string, file: Express.Multer.File) {
-    const imageUrl = await this.blob.upload(
-      'user',
-      userId,
-      file.buffer,
-      file.mimetype,
-    );
+    await this.blob.upload('user', userId, file.buffer, file.mimetype);
 
     const addedLogo = await this.prisma.user.update({
       where: {
