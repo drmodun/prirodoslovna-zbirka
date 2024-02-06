@@ -10,10 +10,11 @@
   object-fit: cover;
   display: flex;
   z-index: 2;
+  background: linear-gradient(520deg, $secondary, $stroke-color);
+
   width: vw-calc(32);
   height: vw-calc(32);
   border-radius: 50%;
-  background: linear-gradient(520deg, $green, #90ee90);
   align-items: center;
   justify-content: center;
   border: none;
@@ -46,7 +47,7 @@
   }
 
   &.liked {
-    background: linear-gradient(520deg, $secondary, $stroke-color);
+    background: linear-gradient(520deg, $green, #90ee90);
   }
 
   @media screen and (max-width: 768px) {
