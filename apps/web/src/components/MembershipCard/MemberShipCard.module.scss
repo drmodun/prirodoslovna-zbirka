@@ -1,0 +1,123 @@
+@import "styles/variables.scss";
+@import "styles/calc.scss";
+
+.container {
+  display: flex;
+  width: 100%;
+  min-width: vw-calc(360);
+  box-shadow: 0px vw-calc(10) vw-calc(20) rgba(0, 0, 0, 0.1);
+  flex-direction: row;
+  min-height: vw-calc(80);
+  padding: vw-calc(10) vw-calc(15);
+
+  .entity {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: vw-calc(10);
+  }
+
+  .imageContainer {
+    width: vw-calc(50);
+    height: vw-calc(50);
+    border-radius: 50%;
+    margin-right: vw-calc(10);
+    position: relative;
+
+    img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+    }
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: vw-calc(15);
+
+    .name {
+      font-size: vw-calc(16);
+      font-weight: 700;
+      color: $primary;
+    }
+
+    .description {
+      font-size: vw-calc(14);
+      font-weight: 400;
+      color: $secondary;
+      max-width: vw-calc(100);
+      text-overflow: ellipsis;
+    }
+  }
+
+  .last {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+    gap: vw-calc(15);
+
+    .role {
+      font-size: vw-calc(14);
+      font-weight: 700;
+      color: $green;
+      text-transform: uppercase;
+
+      &.admin {
+        color: $secondary;
+      }
+
+      &.member {
+        color: $green;
+      }
+
+      &.pending {
+        color: $primary;
+      }
+
+      &.owner {
+        color: $red;
+      }
+    }
+
+    .status {
+      font-size: vw-calc(14);
+      font-weight: 700;
+      color: $primary;
+    }
+  }
+
+  .followButton {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: vw-calc(100);
+    height: vw-calc(30);
+    border-radius: vw-calc(5);
+    background-color: $blue;
+    color: $white;
+    outline: none;
+    border: none;
+    font-size: vw-calc(14);
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+
+    &:hover {
+      background-color: $dark-blue;
+    }
+
+    &.following {
+      background-color: $secondary;
+      color: $white;
+    }
+
+    &.following:hover {
+      background-color: $red;
+    }
+  }
+}
