@@ -7,8 +7,11 @@
   min-width: vw-calc(360);
   box-shadow: 0px vw-calc(10) vw-calc(20) rgba(0, 0, 0, 0.1);
   flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
   min-height: vw-calc(80);
   padding: vw-calc(10) vw-calc(15);
+  border-radius: vw-calc(10);
 
   .entity {
     display: flex;
@@ -99,9 +102,10 @@
     height: vw-calc(30);
     border-radius: vw-calc(5);
     background-color: $blue;
-    color: $white;
+    color: $background-color;
     outline: none;
     border: none;
+    text-align: center;
     font-size: vw-calc(14);
     font-weight: 700;
     cursor: pointer;
@@ -113,7 +117,8 @@
 
     &.following {
       background-color: $secondary;
-      color: $white;
+      color: $background-color;
+      width: vw-calc(220);
     }
 
     &.following:hover {

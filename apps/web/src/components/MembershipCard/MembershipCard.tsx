@@ -6,7 +6,7 @@ import { Role } from "@biosfera/types";
 
 export interface MemberShipCardProps {
   name: string;
-  description: string;
+  description: string; //TODO: potentially change this to description
   image: string;
   type: "organisation" | "user";
   following: boolean;
@@ -43,7 +43,7 @@ export const MembershipCard = ({
         <div
           className={clsx(classes.followButton, following && classes.following)}
         >
-          {following ? "Prati" : "Prestani pratiti"}
+          {!following ? "Prati" : "Prestani pratiti"}
         </div>
       </div>
     </div>
