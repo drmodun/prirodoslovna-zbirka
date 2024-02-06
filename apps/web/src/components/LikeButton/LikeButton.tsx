@@ -6,22 +6,28 @@ import { useGetMe } from "@/api/useGetMe";
 import useUser from "@/utility/context/UserContext";
 import clsx from "clsx";
 import { useToggleLike } from "@/api/useToggleLike";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { PostResponse } from "@biosfera/types";
 
 export interface LikeButtonProps {
-  postId: string;
+  post: PostResponse;
 }
 
-export const LikeButton = ({ postId }: LikeButtonProps) => {
-  const { likedPosts } = useUser();
+export const LikeButton = ({ post }: LikeButtonProps) => {
+  const { likedPosts, updateLikes, loading } = useUser();
   const { mutateAsync } = useToggleLike();
 
   const [isLiked, setIsLiked] = useState(
-    likedPosts.find((x) => x.id === postId) != null
+    likedPosts.find((x) => x.id === post.id) != null
   );
 
+  useEffect(() => {
+    setIsLiked(likedPosts.find((x) => x.id === post.id) != null);
+  }, [likedPosts, loading]);
+
   const toggleLike = async () => {
-    await mutateAsync(postId);
+    await mutateAsync(post.id);
+    updateLikes(post);
     setIsLiked((prev) => !prev);
   };
 

@@ -21,7 +21,7 @@ export const PostCard = ({ post }: PostCardProps) => (
   <div className={classes.container}>
     <div className={classes.upper}>
       <UserWrapper>
-        <LikeButton postId={post.id} />
+        <LikeButton post={post} />
       </UserWrapper>
       <div className={classes.image}>
         <Image src={post.images[0]} alt={post.title} layout="fill" />

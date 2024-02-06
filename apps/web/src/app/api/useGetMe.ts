@@ -2,16 +2,12 @@ import { useQuery } from "react-query";
 import { api } from "./shared";
 import { ExtendedUserResponse } from "@biosfera/types";
 
-const getMe = () => {
+const getMe = async () => {
   const token = localStorage.getItem("access_token");
   if (!token) {
     return Promise.reject("No token");
   }
-  const response = api.get<never, ExtendedUserResponse>("/auth/detailed", {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
+  const response = await api.get<never, ExtendedUserResponse>("/auth/detailed");
   return response;
 };
 export const useGetMe = () => {
