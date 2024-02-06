@@ -1,0 +1,35 @@
+@import "styles/variables";
+@import "styles/calc";
+
+.container {
+  width: vw-calc(400);
+  height: vw-calc(250);
+  flex-direction: row;
+  flex-wrap: wrap;
+
+  @media (max-width: 768px) {
+    display: none;
+  }
+
+  .pencil {
+    width: 100%;
+    height: 100%;
+    top: vw-calc(-200);
+    position: relative;
+    left: vw-calc(50);
+  }
+
+  .picture {
+    width: 50%;
+    height: vw-calc(200);
+    position: relative;
+  }
+
+  .leaf {
+    width: 50%;
+    top: vw-calc(-570);
+    left: vw-calc(100);
+    height: vw-calc(200);
+    position: relative;
+  }
+}
