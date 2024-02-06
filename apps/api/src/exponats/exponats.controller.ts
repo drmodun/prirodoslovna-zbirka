@@ -90,7 +90,7 @@ export class ExponatsController {
     @Req() req: any,
   ) {
     createOrganisationDto.authorId = organisationId;
-    
+
     const item = await this.exponatsService.create(
       createOrganisationDto,
       req.user.id,

@@ -5,6 +5,6 @@ import { PrismaService } from 'src/prisma/prisma.service';
 
 @Module({
   controllers: [LikesController],
-  providers: [LikesService, PrismaService]
+  providers: [LikesService, PrismaService],
 })
 export class LikesModule {}
