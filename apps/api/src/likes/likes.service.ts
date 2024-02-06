@@ -39,7 +39,7 @@ export class LikesService {
   }
 
   async toggleLike(userId: string, postId: string) {
-    const isLiked = this.isLiked(userId, postId);
+    const isLiked = await this.isLiked(userId, postId);
     return isLiked
       ? await this.delete(userId, postId)
       : await this.create(userId, postId);

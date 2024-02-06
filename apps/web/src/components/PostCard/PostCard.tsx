@@ -6,6 +6,8 @@ import placeholder from "assets/images/user.svg";
 import defaultPic from "assets/images/lion.svg";
 import likeLeaf from "assets/images/like-leaf.svg";
 import Link from "next/link";
+import { UserWrapper } from "@/utility/wrappers/userWrapper";
+import LikeButton from "components/LikeButton";
 
 export interface PostCardProps {
   post: PostResponse;
@@ -18,11 +20,9 @@ export interface PostCardProps {
 export const PostCard = ({ post }: PostCardProps) => (
   <div className={classes.container}>
     <div className={classes.upper}>
-      <div className={classes.leaf}>
-        <div className={classes.likeLeaf}>
-          <Image src={likeLeaf} alt="list za like" layout="fill" />
-        </div>
-      </div>
+      <UserWrapper>
+        <LikeButton postId={post.id} />
+      </UserWrapper>
       <div className={classes.image}>
         <Image src={post.images[0]} alt={post.title} layout="fill" />
       </div>
