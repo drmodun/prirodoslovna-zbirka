@@ -180,7 +180,7 @@ model Like {
 
 model FavouriteExponat {
   createdAt DateTime @default(now())
-  userId    String   @unique
+  userId    String   
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   ExponatId String
   Exponat   Exponat  @relation(fields: [ExponatId], references: [id], onDelete: Cascade)
@@ -190,7 +190,7 @@ model FavouriteExponat {
 
 model UserOrganisationFollower {
   createdAt      DateTime     @default(now())
-  userId         String       @unique
+  userId         String       
   user           User         @relation(fields: [userId], references: [id], onDelete: Cascade)
   organisationId String
   organisation   Organisation @relation(fields: [organisationId], references: [id], onDelete: Cascade)

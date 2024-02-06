@@ -1,0 +1,74 @@
+@import "styles/variables.scss";
+@import "styles/calc.scss";
+
+.drop {
+  display: flex;
+  position: relative;
+  width: vw-calc(32);
+  height: vw-calc(32);
+  border-radius: 50%;
+  background: linear-gradient(100deg, $secondary, $stroke-color);
+  align-items: center;
+  justify-content: center;
+  border: none;
+  outline: none;
+  transition:
+    width 0.3s ease-in-out,
+    height 0.3s ease-in-out,
+    opacity 0.3s ease-in-out,
+    left 0.3s ease-in-out;
+
+  &.favourite {
+    background: linear-gradient(100deg, #80e8ff, #008dac);
+  }
+
+  &:hover {
+    opacity: 0.8;
+
+    .favouriteDrop {
+      width: vw-calc(20);
+      height: vw-calc(20);
+
+      @media screen and (max-width: 768px) {
+        width: vw-mobile-calc(14);
+        height: vw-mobile-calc(14);
+      }
+    }
+    opacity: 0.8;
+
+    @media screen and (max-width: 768px) {
+      width: vw-mobile-calc(24);
+      height: vw-mobile-calc(24);
+    }
+
+    cursor: pointer;
+  }
+
+  @media screen and (max-width: 768px) {
+    width: vw-mobile-calc(30);
+    height: vw-mobile-calc(30);
+  }
+
+  .favouriteDrop {
+    display: flex;
+    position: relative;
+    width: vw-calc(16);
+    height: vw-calc(16);
+    filter: brightness(0) invert(1);
+    transition:
+      width 0.3s ease-in-out,
+      height 0.3s ease-in-out;
+
+    @media screen and (max-width: 768px) {
+      width: vw-mobile-calc(12);
+      height: vw-mobile-calc(12);
+    }
+
+    img {
+      stroke: #f8f8f8;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+}

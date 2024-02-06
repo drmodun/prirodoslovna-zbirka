@@ -30,8 +30,10 @@ export class FavouriteOrganisationsService {
   async delete(userId: string, organisationId: string) {
     const deletion = await this.prisma.userOrganisationFollower.delete({
       where: {
-        userId,
-        organisationId,
+        organisationId_userId: {
+          userId,
+          organisationId,
+        },
       },
     });
 

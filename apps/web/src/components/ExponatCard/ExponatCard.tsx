@@ -5,6 +5,8 @@ import favouriteDrop from "assets/images/favourite-drop.svg";
 import Link from "next/link";
 import clsx from "clsx";
 import { stringCapitaliser } from "@/utility/static/stringCapitaliser";
+import { FavouriteButton } from "components/FavouriteButton/FavouriteButton";
+import { UserWrapper } from "@/utility/wrappers/userWrapper";
 
 export interface ExponatCardProps {
   exponat: ExponatResponseShort;
@@ -49,16 +51,9 @@ export const ExponatCard = ({ exponat }: ExponatCardProps) => (
       <Link href={`/exponat/${exponat.id}`} className={classes.button}>
         Pogledaj eksponat
       </Link>
-      <button
-        className={classes.drop}
-        title="dodaj u favorite (funkcionalnost dodana nakon user konteksta)"
-      >
-        <Image
-          className={clsx(classes.favouriteDrop)}
-          src={favouriteDrop}
-          alt="broj favorita"
-        />
-      </button>
+      <UserWrapper>
+        <FavouriteButton exponat={exponat} />
+      </UserWrapper>
     </div>
   </div>
 );
