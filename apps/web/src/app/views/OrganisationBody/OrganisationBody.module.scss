@@ -11,6 +11,13 @@
     padding: 0 vw-calc(120);
   }
 
+  .membersColumn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: vw-calc(20);
+  }
+
   .selectedBody {
     margin-top: vw-calc(90);
   }

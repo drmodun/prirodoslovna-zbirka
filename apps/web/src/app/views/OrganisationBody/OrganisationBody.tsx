@@ -10,6 +10,8 @@ import placeholder from "assets/images/lion.svg";
 import OrganisationExponatsView from "../OrganisationExponatsView";
 import OrganisationHomepage from "../OrganisationHomepage";
 import OrganisationAbout from "../OrganisationAbout";
+import MembershipCard from "components/MembershipCard";
+import { memberWeight } from "components/MembershipCard/MembershipCard";
 export interface OrganisationBodyProps {
   organisation: ExtendedOrganisationResponse;
 }
@@ -49,7 +51,28 @@ export const OrganisationBody = ({
             <OrganisationExponatsView exponats={organisation.exponats} />
           )}
           {activeTab === "Objave" && <div>objave</div>}
-          {activeTab === "Članovi" && <div>članovi</div>}
+          {activeTab === "Članovi" && organisation.members.length > 0 ? (
+            <div className={classes.membersColumn}>
+              {organisation.members
+                .toSorted(
+                  (b, a) => memberWeight[a.role!] - memberWeight[b.role!]
+                )
+                .map((member) => (
+                  <MembershipCard
+                    description={member.email}
+                    following
+                    id={member.id}
+                    name={member.firstName + " " + member.lastName}
+                    image={member.avatar || placeholder}
+                    role={member.role as string}
+                    type="user"
+                    key={member.id}
+                  />
+                ))}
+            </div>
+          ) : (
+            <span className={classes.error}>Organizacija nema članova</span>
+          )}
           {activeTab === "O organizaciji" && (
             <OrganisationAbout organisation={organisation} />
           )}
