@@ -7,6 +7,7 @@ import { ExtendedUserResponse } from "@biosfera/types";
 import UserDescription from "@/views/UserDescription";
 import { ExponatCard } from "components/ExponatCard";
 import { PostCard } from "components/PostCard";
+import MembershipCard from "components/MembershipCard";
 
 const tabs = ["About", "Posts", "Likes", "Favourites", "Organisations"];
 
@@ -77,6 +78,31 @@ export const UserPageBody = ({ user }: UserPageBodyProps) => {
             ) : (
               <span className={classes.error}>
                 Korisnik nije lajkao nijednu objavu
+              </span>
+            )}
+          </div>
+        </div>
+      )}
+
+      {activeTab === "Organisations" && (
+        <div className={classes.tabContent}>
+          <div className={classes.cardRow}>
+            {user.memberships.length > 0 ? (
+              user.memberships.map((organisation) => (
+                <MembershipCard
+                  description={organisation.location}
+                  following={false}
+                  id={organisation.id}
+                  image={organisation.mainImage}
+                  name={organisation.name}
+                  role={organisation.role as string}
+                  type="organisation"
+                  key={organisation.id}    
+                />
+              ))
+            ) : (
+              <span className={classes.error}>
+                Korisnik nije član nijedne organizacije
               </span>
             )}
           </div>
