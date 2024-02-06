@@ -1,3 +1,6 @@
+@import "styles/variables.scss";
+@import "styles/calc.scss";
+
 .leaf {
   position: absolute;
   top: vw-calc(10);
@@ -6,7 +9,7 @@
   height: 100%;
   object-fit: cover;
   display: flex;
-  z-index: 5;
+  z-index: 2;
   width: vw-calc(32);
   height: vw-calc(32);
   border-radius: 50%;
@@ -15,6 +18,36 @@
   justify-content: center;
   border: none;
   outline: none;
+  transition:
+    width 0.3s ease-in-out,
+    height 0.3s ease-in-out,
+    opacity 0.3s ease-in-out;
+
+  &:hover {
+    width: vw-calc(48);
+    height: vw-calc(48);
+    opacity: 0.8;
+    cursor: pointer;
+
+    .likeLeaf {
+      width: vw-calc(20);
+      height: vw-calc(20);
+
+      @media screen and (max-width: 768px) {
+        width: vw-mobile-calc(14);
+        height: vw-mobile-calc(14);
+      }
+    }
+
+    @media screen and (max-width: 768px) {
+      width: vw-mobile-calc(24);
+      height: vw-mobile-calc(24);
+    }
+  }
+
+  &.liked {
+    background: linear-gradient(520deg, $secondary, $stroke-color);
+  }
 
   @media screen and (max-width: 768px) {
     width: vw-mobile-calc(16);
@@ -27,6 +60,9 @@
     position: relative;
     width: vw-calc(16);
     height: vw-calc(16);
+    transition:
+      width 0.3s ease-in-out,
+      height 0.3s ease-in-out;
 
     @media screen and (max-width: 768px) {
       width: vw-mobile-calc(10);

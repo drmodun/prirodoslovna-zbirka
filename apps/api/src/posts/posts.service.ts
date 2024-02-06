@@ -26,7 +26,7 @@ export class PostsService {
       where: {
         ...(!filter.isAdmin && { isApproved: true }),
         ...(filter?.title && {
-          name: {
+          title: {
             search: filter.title.replace(/(\w)\s+(\w)/g, '$1 <-> $2'),
             mode: 'insensitive',
           },
