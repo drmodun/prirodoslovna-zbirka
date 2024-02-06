@@ -30,8 +30,10 @@ export class FavouriteExponatsService {
   async delete(userId: string, exponatId: string) {
     const deletion = await this.prisma.favouriteExponat.delete({
       where: {
-        userId,
-        ExponatId: exponatId,
+        ExponatId_userId: {
+          userId,
+          ExponatId: exponatId,
+        },
       },
     });
 
