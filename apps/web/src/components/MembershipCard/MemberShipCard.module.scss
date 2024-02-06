@@ -90,6 +90,10 @@
       &.owner {
         color: $red;
       }
+
+      &.requested {
+        color: $procariot-color;
+      }
     }
 
     .status {

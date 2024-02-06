@@ -9,6 +9,7 @@ export const memberWeight = {
   ADMIN: 2,
   OWNER: 3,
   MEMBER: 1,
+  REQUESTED: 0,
 } as Indexable
 export interface MemberShipCardProps {
   name: string;
@@ -44,7 +45,8 @@ export const MembershipCard = ({
       </div>
       <div className={classes.last}>
         <div className={clsx(classes.role, classes[role.toLowerCase()])}>
-          {role === "ADMIN" ? "Admin" : role === "OWNER" ? "Vlasnik" : "Član"}
+          {role === "ADMIN" ? "Admin" : role === "OWNER" ? "Vlasnik" 
+          : role === "MEMBER" ? "Član" : "Zahtjev"}
         </div>
         <div
           className={clsx(classes.followButton, following && classes.following)}

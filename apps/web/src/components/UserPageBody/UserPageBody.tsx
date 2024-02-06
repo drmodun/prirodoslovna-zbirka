@@ -8,6 +8,7 @@ import UserDescription from "@/views/UserDescription";
 import { ExponatCard } from "components/ExponatCard";
 import { PostCard } from "components/PostCard";
 import MembershipCard from "components/MembershipCard";
+import { memberWeight } from "components/MembershipCard/MembershipCard";
 
 const tabs = ["About", "Posts", "Likes", "Favourites", "Organisations"];
 
@@ -88,18 +89,22 @@ export const UserPageBody = ({ user }: UserPageBodyProps) => {
         <div className={classes.tabContent}>
           <div className={classes.cardRow}>
             {user.memberships.length > 0 ? (
-              user.memberships.map((organisation) => (
-                <MembershipCard
-                  description={organisation.location}
-                  following={false}
-                  id={organisation.id}
-                  image={organisation.mainImage}
-                  name={organisation.name}
-                  role={organisation.role as string}
-                  type="organisation"
-                  key={organisation.id}    
-                />
-              ))
+              user.memberships
+                .toSorted(
+                  (b, a) => memberWeight[a.role!] - memberWeight[b.role!]
+                )
+                .map((organisation) => (
+                  <MembershipCard
+                    description={organisation.location}
+                    following={false}
+                    id={organisation.id}
+                    image={organisation.mainImage}
+                    name={organisation.name}
+                    role={organisation.role as string}
+                    type="organisation"
+                    key={organisation.id}
+                  />
+                ))
             ) : (
               <span className={classes.error}>
                 Korisnik nije član nijedne organizacije
