@@ -45,6 +45,12 @@
       font-size: vw-calc(16);
       font-weight: 700;
       color: $primary;
+      transition: color 0.3s ease-in-out;
+
+      &:hover {
+        color: $secondary;
+        cursor: pointer;
+      }
     }
 
     .description {
