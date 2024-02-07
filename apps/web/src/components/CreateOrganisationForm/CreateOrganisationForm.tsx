@@ -15,41 +15,40 @@ import { County } from "@biosfera/types";
 import { SelectInput } from "components/SelectInput/SelectInput";
 import { useCreateOrganisation } from "@/api/useCreateOrganisation";
 import { makeCountyName } from "@/utility/static/countyNameMaker";
- 
+
 export const CreateOrganisationForm = () => {
-  const schema = z
-    .object({
-      organisationName: z.string().min(2).max(100),
-      description: z.string().min(2).max(200),
-      location: z.enum([
-        "SPLITSKO_DALMATINSKA",
-        "DUBROVACKO_NERETVANSKA",
-        "SIBENSKO_KNINSKA",
-        "ZADARSKA",
-        "ZAGREBACKA",
-        "KARLOVACKA",
-        "VARAZDINSKA",
-        "KOPRIVNICKO_KRIZEVACKA",
-        "KRAPINSKO_ZAGORSKA",
-        "MEDIMURSKA",
-        "OSIJECKO_BARANJSKA",
-        "POZESKO_SLAVONSKA",
-        "PRIMORSKO_GORANSKA",
-        "SISACKO_MOSLAVACKA",
-        "VUKOVARSKO_SRIJEMSKA",
-        "GRAD_ZAGREB",
-        "BJELOVARSKO_BILOGORSKA",
-        "BRODSKO_POSAVSKA",
-        "ISTARSKA",
-        "LICKO_SENJSKA",
-        "VIROVITICKO_PODRAVSKA",
-        "OTHER",
-      ]),
-      email: z.string().email(),
-      websiteUrl: z.string(),
-      coverImage: z.string(),
-      iconImages: z.string(),
-    })
+  const schema = z.object({
+    name: z.string().min(2).max(100),
+    description: z.string().min(2).max(200),
+    location: z.enum([
+      "SPLITSKO_DALMATINSKA",
+      "DUBROVACKO_NERETVANSKA",
+      "SIBENSKO_KNINSKA",
+      "ZADARSKA",
+      "ZAGREBACKA",
+      "KARLOVACKA",
+      "VARAZDINSKA",
+      "KOPRIVNICKO_KRIZEVACKA",
+      "KRAPINSKO_ZAGORSKA",
+      "MEDIMURSKA",
+      "OSIJECKO_BARANJSKA",
+      "POZESKO_SLAVONSKA",
+      "PRIMORSKO_GORANSKA",
+      "SISACKO_MOSLAVACKA",
+      "VUKOVARSKO_SRIJEMSKA",
+      "GRAD_ZAGREB",
+      "BJELOVARSKO_BILOGORSKA",
+      "BRODSKO_POSAVSKA",
+      "ISTARSKA",
+      "LICKO_SENJSKA",
+      "VIROVITICKO_PODRAVSKA",
+      "OTHER",
+    ]),
+    email: z.string().email(),
+    websiteUrl: z.string(),
+    otherImages: z.string(),
+    mainImage: z.string(),
+  });
 
   const form = useForm({
     resolver: zodResolver(schema),
@@ -66,7 +65,7 @@ export const CreateOrganisationForm = () => {
     <form onSubmit={form.handleSubmit(onSubmit)} className={classes.form}>
       <Input
         form={form}
-        attribute="organisationName"
+        attribute="name"
         question="Organisation Name"
         image={email}
       />
@@ -77,7 +76,7 @@ export const CreateOrganisationForm = () => {
         question="Description"
         image={description}
       />
-      
+
       <Input
         form={form}
         attribute="websiteUrl"
@@ -97,14 +96,10 @@ export const CreateOrganisationForm = () => {
         form={form}
       />
 
-      <Input
-        form={form}
-        attribute="email"
-        question="Email"
-        image={email} />
+      <Input form={form} attribute="email" question="Email" image={email} />
 
       <Input
-        attribute="coverImage"
+        attribute="mainImage"
         question="Cover Image"
         image={organitionCover}
         form={form}
@@ -112,11 +107,11 @@ export const CreateOrganisationForm = () => {
 
       <Input
         form={form}
-        attribute="iconImages"
+        attribute="otherImages"
         question="Icon Images"
         image={organitionIcon}
       />
-      
+
       <div className={classes.buttons}>
         <BaseButton text="Kreiraj" />
       </div>
