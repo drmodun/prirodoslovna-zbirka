@@ -1,45 +1,40 @@
 "use client";
-import Image from "next/image";
-import classes from "./FavouriteButton.module.scss";
-import favouriteDrop from "assets/images/favourite-drop.svg";
-import { useGetMe } from "@/api/useGetMe";
+import classes from "./UserFollowButton.module.scss";
 import useUser from "@/utility/context/UserContext";
 import clsx from "clsx";
-import { useToggleFavourite } from "@/api/useToggleFavourite";
 import { useEffect, useState } from "react";
-import { ExponatResponseShort } from "@biosfera/types";
+import { ShortUserResponse } from "@biosfera/types";
+import { useToggleFollow } from "@/api/useToggleFollowUser";
 
-export interface FavouriteButtonProps {
-  exponat: ExponatResponseShort;
+export interface FollowButtonProps {
+  user: ShortUserResponse;
 }
 
-export const FavouriteButton = ({ exponat }: FavouriteButtonProps) => {
-  const { favouriteExponats, updateFavourites, loading } = useUser();
-  const { mutateAsync } = useToggleFavourite();
+export const FollowButton = ({ user }: FollowButtonProps) => {
+  const { following, updateFollowing, loading } = useUser();
+  const { mutateAsync } = useToggleFollow();
 
-  const [isFavourite, setIsFavourite] = useState(
-    favouriteExponats.find((x) => x.id === exponat.id) != null
+  const [isFollow, setIsFollow] = useState(
+    following.find((x) => x.id === user.id) != null
   );
 
   useEffect(() => {
-    setIsFavourite(favouriteExponats.find((x) => x.id === exponat.id) != null);
-  }, [favouriteExponats, loading]);
+    setIsFollow(following?.find((x) => x.id === user.id) != null);
+  }, [following, loading]);
 
-  const toggleFavourite = async () => {
-    await mutateAsync(exponat.id);
-    updateFavourites(exponat);
-    setIsFavourite((prev) => !prev);
+  const toggleFollow = async () => {
+    await mutateAsync(user.id);
+    updateFollowing(user);
+    setIsFollow((prev) => !prev);
   };
 
   return (
     <button
-      className={clsx(classes.drop, isFavourite && classes.favourite)}
+      className={clsx(classes.button, isFollow && classes.following)}
       title="like"
-      onClick={toggleFavourite}
+      onClick={toggleFollow}
     >
-      <div className={classes.favouriteDrop}>
-        <Image src={favouriteDrop} alt="kapljica za favorite" layout="fill" />
-      </div>
+      {!isFollow ? "Prati" : "Prestani pratiti"}
     </button>
   );
 };

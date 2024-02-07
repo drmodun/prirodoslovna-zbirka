@@ -31,18 +31,16 @@ interface UserContextProps {
   updateFavourites: (exponat: ExponatResponseShort) => void;
   updateMemberships: (organisation: OrganisationResponseShort) => void;
   updatePosts: (post: PostResponse) => void;
-  updateFollowers?: (user: ShortUserResponse) => void;
-  updateFollowing?: (user: ShortUserResponse) => void;
-  updateFollowedOrganisation?: (
-    organisation: OrganisationResponseShort
-  ) => void;
+  updateFollowers: (user: ShortUserResponse) => void;
+  updateFollowing: (user: ShortUserResponse) => void;
+  updateFollowedOrganisation: (organisation: OrganisationResponseShort) => void;
   likedPosts: PostResponse[];
   memberships: OrganisationResponseShort[];
   favouriteExponats: ExponatResponseShort[];
   posts: PostResponse[];
-  followers?: ShortUserResponse[];
-  following?: ShortUserResponse[];
-  followedOrganisations?: OrganisationResponseShort[];
+  followers: ShortUserResponse[];
+  following: ShortUserResponse[];
+  followedOrganisations: OrganisationResponseShort[];
   loading: boolean;
 }
 
@@ -86,10 +84,15 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
 
   const { data: user, isLoading } = useGetMe();
 
-  const { data: followersGet } = useGetFollowers(user?.id);
-  const { data: followingGet } = useGetFollowing(user?.id);
+  const { data: followersGet, isLoading: followLoading } = useGetFollowers(
+    user?.id
+  );
+  const { data: followingGet, isLoading: followingLoading } = useGetFollowing(
+    user?.id
+  );
 
-  const { data: followedOrganisationGet } = useGetFollowedOrganisations();
+  const { data: followedOrganisationGet, isLoading: orgLoading } =
+    useGetFollowedOrganisations();
 
   useEffect(() => {
     if (followersGet) {
@@ -234,7 +237,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
         updateFollowing,
         updateFollowedOrganisation,
 
-        loading: isLoading,
+        loading: isLoading || followLoading || followingLoading || orgLoading,
       }}
     >
       {children}

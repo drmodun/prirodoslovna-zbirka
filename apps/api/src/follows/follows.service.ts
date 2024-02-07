@@ -39,7 +39,7 @@ export class FollowsService {
   }
 
   async toggleFollow(followerId: string, followeeId: string) {
-    const isFollowing = this.isFollowing(followerId, followeeId);
+    const isFollowing = await this.isFollowing(followerId, followeeId);
     return isFollowing
       ? await this.delete(followerId, followeeId)
       : await this.create(followerId, followeeId);
