@@ -36,7 +36,7 @@ export const getCreateOrganisationDto = (ApiPropertySwagger?: any) => {
     @ApiProperty()
     location: County;
 
-    organisationUsers?: any;
+    OrganisationUsers?: any;
   }
   return CreateOrganisationDto;
 };

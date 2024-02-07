@@ -46,7 +46,6 @@ export const CreateOrganisationForm = () => {
     ]),
     email: z.string().email(),
     websiteUrl: z.string(),
-    otherImages: z.string(),
     mainImage: z.string(),
   });
 
@@ -58,6 +57,7 @@ export const CreateOrganisationForm = () => {
 
   const onSubmit = async (data: any) => {
     console.log(data);
+    data.otherImages = [];
     await create.mutateAsync(data);
   };
 
@@ -103,13 +103,6 @@ export const CreateOrganisationForm = () => {
         question="Cover Image"
         image={organitionCover}
         form={form}
-      />
-
-      <Input
-        form={form}
-        attribute="otherImages"
-        question="Icon Images"
-        image={organitionIcon}
       />
 
       <div className={classes.buttons}>
