@@ -45,15 +45,17 @@ export const UserPageBody = ({ user }: UserPageBodyProps) => {
 
       {activeTab === "Favourites" && (
         <div className={classes.tabContent}>
-          {user.favouriteExponats.length > 0 ? (
-            user.favouriteExponats.map((exponat) => (
-              <ExponatCard exponat={exponat} key={exponat.id} />
-            ))
-          ) : (
-            <span className={classes.error}>
-              Korisnik nema omiljenih eksponata
-            </span>
-          )}
+          <div className={classes.cardRow}>
+            {user.favouriteExponats.length > 0 ? (
+              user.favouriteExponats.map((exponat) => (
+                <ExponatCard exponat={exponat} key={exponat.id} />
+              ))
+            ) : (
+              <span className={classes.error}>
+                Korisnik nema omiljenih eksponata
+              </span>
+            )}
+          </div>
         </div>
       )}
 
@@ -96,7 +98,7 @@ export const UserPageBody = ({ user }: UserPageBodyProps) => {
                 .map((organisation) => (
                   <MembershipCard
                     description={organisation.location}
-                    following={false}
+                    object={organisation}
                     id={organisation.id}
                     image={organisation.mainImage}
                     name={organisation.name}

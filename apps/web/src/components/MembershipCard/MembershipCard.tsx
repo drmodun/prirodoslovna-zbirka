@@ -2,23 +2,30 @@ import Image from "next/image";
 import classes from "./MembershipCard.module.scss";
 import clsx from "clsx";
 import Link from "next/link";
-import { MemberRole, Role } from "@biosfera/types";
+import {
+  MemberRole,
+  OrganisationResponseShort,
+  Role,
+  ShortUserResponse,
+} from "@biosfera/types";
 import { Indexable } from "@biosfera/types/src/jsonObjects";
+import { UserWrapper } from "@/utility/wrappers/userWrapper";
+import MembershipFollowButton from "../MembershipFollowButton";
 
 export const memberWeight = {
   ADMIN: 2,
   OWNER: 3,
   MEMBER: 1,
   REQUESTED: 0,
-} as Indexable
+} as Indexable;
 export interface MemberShipCardProps {
   name: string;
   description: string; //TODO: potentially change this to description
   image: string;
   type: "organisation" | "user";
-  following: boolean;
   id: string;
   role: string;
+  object: OrganisationResponseShort | ShortUserResponse;
 }
 
 export const MembershipCard = ({
@@ -28,7 +35,7 @@ export const MembershipCard = ({
   role,
   id,
   type,
-  following,
+  object: oq,
 }: MemberShipCardProps) => {
   return (
     <div className={classes.container}>
@@ -45,14 +52,17 @@ export const MembershipCard = ({
       </div>
       <div className={classes.last}>
         <div className={clsx(classes.role, classes[role.toLowerCase()])}>
-          {role === "ADMIN" ? "Admin" : role === "OWNER" ? "Vlasnik" 
-          : role === "MEMBER" ? "Član" : "Zahtjev"}
+          {role === "ADMIN"
+            ? "Admin"
+            : role === "OWNER"
+            ? "Vlasnik"
+            : role === "MEMBER"
+            ? "Član"
+            : "Zahtjev"}
         </div>
-        <div
-          className={clsx(classes.followButton, following && classes.following)}
-        >
-          {!following ? "Prati" : "Prestani pratiti"}
-        </div>
+        <UserWrapper>
+          <MembershipFollowButton object={oq} type={type} />
+        </UserWrapper>
       </div>
     </div>
   );
