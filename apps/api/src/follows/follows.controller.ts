@@ -16,7 +16,6 @@ export class FollowsController {
     await this.followsService.toggleFollow(req.user?.id, userId);
   }
 
-  @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   @Get(':userId/followers')
   async getFollowers(@Param('userId') userId: string) {
@@ -37,9 +36,8 @@ export class FollowsController {
     return mapped;
   }
 
-  @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
-  @Get(':userId/followers')
+  @Get(':userId/following')
   async getFollowing(@Param('userId') userId: string) {
     const following = await this.followsService.getFollowing(userId);
 
