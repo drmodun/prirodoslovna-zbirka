@@ -7,10 +7,8 @@ const _createOrganisationDto = getCreateOrganisationDto();
 
 export class CreateOrganisationDto extends _createOrganisationDto {}
 
-const createOrganisation = (params: {
-  organisation: CreateOrganisationDto;
-}) => {
-  return api.post(`/organisations`, params.organisation);
+const createOrganisation = (data: CreateOrganisationDto) => {
+  return api.post(`/organisations`, data);
 };
 
 export const useCreateOrganisation = () => {
