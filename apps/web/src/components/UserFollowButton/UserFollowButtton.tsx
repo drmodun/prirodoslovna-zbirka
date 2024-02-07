@@ -32,7 +32,7 @@ export const FollowButton = ({ user }: FollowButtonProps) => {
     following && (
       <button
         className={clsx(classes.button, isFollow && classes.following)}
-        title="like"
+        title="follow user"
         onClick={toggleFollow}
       >
         {!isFollow ? "Prati" : "Prestani pratiti"}

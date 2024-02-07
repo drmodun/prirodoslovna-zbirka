@@ -1,0 +1,35 @@
+@import "styles/variables.scss";
+@import "styles/calc.scss";
+
+.button {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: vw-calc(100);
+  height: vw-calc(30);
+  border-radius: vw-calc(5);
+  background-color: $blue;
+  color: $background-color;
+  outline: none;
+  border: none;
+  text-align: center;
+  font-size: vw-calc(14);
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+
+  &:hover {
+    background-color: $dark-blue;
+  }
+
+  &.following {
+    background-color: $secondary;
+    color: $background-color;
+    width: vw-calc(220);
+  }
+
+  &.following:hover {
+    background-color: $red;
+  }
+}

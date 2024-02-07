@@ -60,7 +60,7 @@ export const OrganisationBody = ({
                 .map((member) => (
                   <MembershipCard
                     description={member.email}
-                    following
+                    object={member}
                     id={member.id}
                     name={member.firstName + " " + member.lastName}
                     image={member.avatar || placeholder}
