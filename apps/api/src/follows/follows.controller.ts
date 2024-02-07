@@ -49,7 +49,7 @@ export class FollowsController {
         location: user.followee.location,
         followerCount: user.followee._count.followers,
         postCount: user.followee._count.Posts,
-        id: user.followerId,
+        id: user.followeeId,
       } as ShortUserResponse;
     });
 

@@ -29,12 +29,14 @@ export const FollowButton = ({ user }: FollowButtonProps) => {
   };
 
   return (
-    <button
-      className={clsx(classes.button, isFollow && classes.following)}
-      title="like"
-      onClick={toggleFollow}
-    >
-      {!isFollow ? "Prati" : "Prestani pratiti"}
-    </button>
+    following && (
+      <button
+        className={clsx(classes.button, isFollow && classes.following)}
+        title="like"
+        onClick={toggleFollow}
+      >
+        {!isFollow ? "Prati" : "Prestani pratiti"}
+      </button>
+    )
   );
 };
