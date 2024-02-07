@@ -5,6 +5,8 @@ import clsx from "clsx";
 import { ExtendedUserResponse } from "@biosfera/types";
 import placeholder from "assets/images/lion.svg";
 import userRandom from "assets/images/user.svg";
+import { UserWrapper } from "@/utility/wrappers/userWrapper";
+import UserFollowButton from "components/UserFollowButton";
 export interface UserCardProps {
   user: ExtendedUserResponse;
 }
@@ -49,5 +51,13 @@ export const UserCard = ({ user }: UserCardProps) => (
         {user.followingCount} following
       </Link>
     </div>
+    <UserWrapper>
+      <UserFollowButton
+        user={{
+          ...user,
+          postCount: user.posts.length,
+        }}
+      />
+    </UserWrapper>
   </div>
 );
