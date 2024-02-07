@@ -4,8 +4,8 @@ import { JwtAuthGuard } from 'src/auth/jwt-auth-guard';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { OrganisationResponseShort, ShortUserResponse } from '@biosfera/types';
 
-@ApiTags('favourite-orgranisations')
-@Controller('favourite-orgranisations')
+@ApiTags('favourite-organisations')
+@Controller('favourite-organisations')
 export class FavouriteOrgranisationsController {
   constructor(
     private readonly favouriteOrgranisationsService: FavouriteOrganisationsService,
