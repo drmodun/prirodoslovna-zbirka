@@ -5,6 +5,7 @@ import { useGetMe } from "@/api/useGetMe";
 import React, {
   Dispatch,
   createContext,
+  use,
   useContext,
   useEffect,
   useState,
@@ -14,9 +15,13 @@ import {
   ExtendedUserResponse,
   OrganisationResponseShort,
   PostResponse,
+  ShortUserResponse,
 } from "@biosfera/types";
 import { useQueryClient } from "react-query";
 import { QueryClientWrapper } from "../wrappers/queryWrapper";
+import { useGetFollowers } from "@/api/useGetFollowers";
+import { useGetFollowing } from "@/api/useGetFollowing";
+import { useGetFollowedOrganisations } from "@/api/useGetFollowedOrganisations";
 
 interface UserContextProps {
   user?: ExtendedUserResponse;
@@ -26,10 +31,18 @@ interface UserContextProps {
   updateFavourites: (exponat: ExponatResponseShort) => void;
   updateMemberships: (organisation: OrganisationResponseShort) => void;
   updatePosts: (post: PostResponse) => void;
+  updateFollowers?: (user: ShortUserResponse) => void;
+  updateFollowing?: (user: ShortUserResponse) => void;
+  updateFollowedOrganisation?: (
+    organisation: OrganisationResponseShort
+  ) => void;
   likedPosts: PostResponse[];
   memberships: OrganisationResponseShort[];
   favouriteExponats: ExponatResponseShort[];
   posts: PostResponse[];
+  followers?: ShortUserResponse[];
+  following?: ShortUserResponse[];
+  followedOrganisations?: OrganisationResponseShort[];
   loading: boolean;
 }
 
@@ -43,7 +56,13 @@ const defaultUserContext: UserContextProps = {
   updatePosts: () => {},
   likedPosts: [],
   memberships: [],
+  updateFollowedOrganisation: () => {},
+  updateFollowers: () => {},
+  updateFollowing: () => {},
   favouriteExponats: [],
+  followedOrganisations: [],
+  followers: [],
+  following: [],
   posts: [],
   loading: false,
 };
@@ -52,6 +71,11 @@ export const UserContext = createContext<UserContextProps>(defaultUserContext);
 
 export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   const [likedPosts, setLikedPosts] = useState<PostResponse[]>([]);
+  const [followers, setFollowers] = useState<ShortUserResponse[]>([]);
+  const [following, setFollowing] = useState<ShortUserResponse[]>([]);
+  const [followedOrganisations, setFollowedOrganisations] = useState<
+    OrganisationResponseShort[]
+  >([]);
   const [favouriteExponats, setFavouriteExponats] = useState<
     ExponatResponseShort[]
   >([]);
@@ -59,9 +83,25 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
     []
   );
   const [posts, setPosts] = useState<PostResponse[]>([]);
-  
 
   const { data: user, isLoading } = useGetMe();
+
+  const { data: followersGet } = useGetFollowers(user?.id);
+  const { data: followingGet } = useGetFollowing(user?.id);
+
+  const { data: followedOrganisationGet } = useGetFollowedOrganisations();
+
+  useEffect(() => {
+    if (followersGet) {
+      setFollowers(followersGet);
+    }
+    if (followingGet) {
+      setFollowing(followingGet);
+    }
+    if (followedOrganisationGet) {
+      setFollowedOrganisations(followedOrganisationGet);
+    }
+  }, [followersGet, followingGet, followedOrganisationGet]);
 
   const { invalidateQueries } = useQueryClient();
 
@@ -85,6 +125,42 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
       return;
     }
     setFavouriteExponats((prev) => [...prev, exponat]);
+  };
+
+  const updateFollowers = (user: ShortUserResponse) => {
+    if (!followers) return;
+    const possibleUser = followers.find((u) => u.id === user.id);
+    if (possibleUser) {
+      setFollowers((prev) => prev.filter((u) => u.id !== user.id));
+      return;
+    }
+    setFollowers((prev) => [...prev, user]);
+  };
+
+  const updateFollowing = (user: ShortUserResponse) => {
+    if (!following) return;
+    const possibleUser = following.find((u) => u.id === user.id);
+    if (possibleUser) {
+      setFollowing((prev) => prev.filter((u) => u.id !== user.id));
+      return;
+    }
+    setFollowing((prev) => [...prev, user]);
+  };
+
+  const updateFollowedOrganisation = (
+    organisation: OrganisationResponseShort
+  ) => {
+    if (!followedOrganisations) return;
+    const possibleOrganisation = followedOrganisations.find(
+      (org) => org.id === organisation.id
+    );
+    if (possibleOrganisation) {
+      setFollowedOrganisations((prev) =>
+        prev.filter((org) => org.id !== organisation.id)
+      );
+      return;
+    }
+    setFollowedOrganisations((prev) => [...prev, organisation]);
   };
 
   const updateMemberships = (organisation: OrganisationResponseShort) => {
@@ -151,6 +227,13 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
         memberships,
         favouriteExponats,
         posts,
+        followers,
+        following,
+        followedOrganisations,
+        updateFollowers,
+        updateFollowing,
+        updateFollowedOrganisation,
+
         loading: isLoading,
       }}
     >
