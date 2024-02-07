@@ -54,7 +54,7 @@ export class OrganisationsController {
     @Req() req,
     @Body() createOrganisationDto: CreateOrganisationDto,
   ) {
-    createOrganisationDto.organisationUsers = {
+    createOrganisationDto.OrganisationUsers = {
       create: [
         {
           userId: req.user.id,
