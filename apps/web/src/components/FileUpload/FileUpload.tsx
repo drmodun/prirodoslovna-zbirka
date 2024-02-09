@@ -7,9 +7,17 @@ import Image from "next/image";
 import upload from "assets/images/upload.svg";
 import dash from "assets/images/dash.svg";
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import alertImage from "assets/images/alert.svg";
+import clsx from "clsx";
+export interface FileUploadProps {
+  name: string;
+  maxFiles?: number;
+}
 
 const maxSize = 1048576;
-const FileUpload = () => {
+
+const FileUpload = ({ name, maxFiles = 1 }: FileUploadProps) => {
   const {
     isDragActive,
     getRootProps,
@@ -33,6 +41,10 @@ const FileUpload = () => {
   const [files, setFiles] = useState(acceptedFiles);
 
   useEffect(() => {
+    if (files.length + acceptedFiles.length > maxFiles) {
+      toast.error("Previše datoteka");
+      return;
+    }
     setFiles((prev) => [...prev, ...acceptedFiles]);
   }, [acceptedFiles]);
 
@@ -45,12 +57,27 @@ const FileUpload = () => {
 
   return (
     <div className={classes.container}>
-      <div {...getRootProps()} className={classes.main}>
-        <input {...getInputProps()} className={classes.main} />
+      <span className={classes.title}>{name}</span>
+      <div
+        {...getRootProps()}
+        className={clsx(
+          classes.main,
+          files.length >= maxFiles && classes.disabled
+        )}
+      >
+        <input
+          {...getInputProps()}
+          disabled={files.length >= maxFiles}
+          className={classes.main}
+        />
         <div className={classes.image}>
-          <Image layout="fill" src={upload} alt="plus" />
+          <Image
+            layout="fill"
+            src={files.length >= maxFiles ? alertImage : upload}
+            alt="plus"
+          />
         </div>
-        {!isDragActive && (
+        {!isDragActive && files.length < maxFiles && (
           <span className={classes.text}>
             Ovdje prenesite datoteke ili kliknite da bi ih dodali
           </span>
@@ -63,6 +90,14 @@ const FileUpload = () => {
         )}
         {isFileTooLarge && (
           <span className={classes.error}>Datoteka je prevelika</span>
+        )}
+        {files.length > maxFiles && (
+          <span className={classes.error}>Previše datoteka</span>
+        )}
+        {files.length === maxFiles && (
+          <span className={classes.text}>
+            Maskimalni broj datoteka je stavljen, prvo obrišite jednu postojeću
+          </span>
         )}
       </div>
       {files.length > 0 && (

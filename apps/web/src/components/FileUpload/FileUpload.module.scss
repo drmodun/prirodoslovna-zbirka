@@ -8,6 +8,11 @@
   align-items: flex-start;
   gap: vw-calc(10);
 
+  .title {
+    font-size: vw-calc(16);
+    font-weight: 500;
+  }
+
   .main {
     display: flex;
     flex-direction: column;
@@ -22,6 +27,13 @@
     border-radius: vw-calc(10);
     border: 2px dashed $secondary;
     transition: all 0.3s ease-in-out;
+
+    &.disabled {
+      border: 2px dashed $secondary;
+      background-color: $background-color;
+      color: $button-text-color;
+      cursor: not-allowed;
+    }
 
     .text {
       font-size: vw-calc(16);
@@ -97,7 +109,19 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        background-color: $red;
+        outline: none;
+        border: none;
+        border-radius: vw-calc(5);
         cursor: pointer;
+        transition:
+          background-color 0.3s ease-in-out,
+          transform 0.3s ease-in-out;
+
+        &:hover {
+          background-color: $dark-red;
+          transform: scale(1.1);
+        }
 
         img {
           width: 100%;

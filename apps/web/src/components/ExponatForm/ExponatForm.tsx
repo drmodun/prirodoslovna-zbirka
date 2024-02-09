@@ -151,7 +151,7 @@ export const ExponatForm = ({ organisationId }: ExponatModalSectionsProps) => {
         question="Fun Facts"
         error={form.formState.errors.funFacts?.message?.toString()}
       />
-      <FileUpload />
+      <FileUpload name={"Glavna slika eksponata"} />
       <AttributeInput
         form={form}
         attribute="attributes"
