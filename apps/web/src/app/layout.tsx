@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import Header from "./views/Header";
 import Footer from "./views/Footer";
 import { BodyWrapper } from "./utility/wrappers/bodyWrapper";
+import { Toaster } from "react-hot-toast";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,7 +22,10 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <Header />
-        <BodyWrapper>{children}</BodyWrapper>
+        <BodyWrapper>
+          <Toaster />
+          {children}
+        </BodyWrapper>
         <Footer />
       </body>
     </html>
