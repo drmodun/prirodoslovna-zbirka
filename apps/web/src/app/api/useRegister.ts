@@ -17,8 +17,7 @@ export const useRegister = () => {
       return { toastId: toast.loading("Register in...") };
     },
     onSuccess: ({}, _variables, context) => {
-      alert("Registered successfully!");
-      toast.success("Logged in successfully!", { id: context?.toastId });
+      toast.success("Uspješno registrirani", { id: context?.toastId });
       setTimeout(() => {
         window.location.href = "/login";
       }, 1000);
