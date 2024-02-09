@@ -1,5 +1,6 @@
 "use client";
 import {
+  Directories,
   ExponatKind,
   ExponatResponseShort,
   SpeciesResponse,
@@ -20,6 +21,8 @@ import { useState } from "react";
 import { useReadOrCreateCategorization } from "@/api/useReadOrCreateCategorization";
 import { CreateExponatDto, useCreateExponat } from "@/api/useCreateExponat";
 import FileUpload from "components/FileUpload";
+import { useUploadFile } from "@/api/useUploadFile";
+import toast from "react-hot-toast";
 export interface ExponatModalSectionsProps {
   organisationId: string;
 }
@@ -55,6 +58,9 @@ export const ExponatForm = ({ organisationId }: ExponatModalSectionsProps) => {
       }
     );
   const [selectedSpecies, setSelectedSpecies] = useState<string>("" as string);
+  const [exponatMainImage, setExponatMainImage] = useState<File[]>(
+    [] as File[]
+  );
 
   const form = useForm({
     resolver: zodResolver(schema),
@@ -63,9 +69,15 @@ export const ExponatForm = ({ organisationId }: ExponatModalSectionsProps) => {
   const { data, error, isLoading } = useGetSpecies(selectedSpecies);
   const { mutateAsync } = useReadOrCreateCategorization();
   const { mutateAsync: createExponat } = useCreateExponat();
+  const { mutateAsync: uploadImage } = useUploadFile();
 
   const onSubmit = async (formData: any) => {
     console.log(formData);
+
+    if (exponatMainImage.length === 0) {
+      toast.error("Mora postojati glavna slika eksponata");
+      return;
+    }
 
     const species = data?.find(
       (x: SpeciesResponse) => x.species === formData.alternateName
@@ -81,7 +93,17 @@ export const ExponatForm = ({ organisationId }: ExponatModalSectionsProps) => {
     const speciesId = await mutateAsync(species);
 
     if (!speciesId) {
-      alert("Greška prilikom kreiranja kategorizacije");
+      toast.error("Greška prilikom kreiranja kategorizacije");
+      return;
+    }
+
+    const image = await uploadImage({
+      file: exponatMainImage[0],
+      directory: Directories.EXPONAT,
+    });
+
+    if (!image) {
+      toast.error("Greška prilikom uploada slike");
       return;
     }
 
@@ -92,7 +114,7 @@ export const ExponatForm = ({ organisationId }: ExponatModalSectionsProps) => {
       name: formData.name,
       authorId: organisationId,
       ExponatKind: formData.exponatKind,
-      mainImage: "https://via.placeholder.com/150",
+      mainImage: image,
       attributes: JSON.stringify(formData.attributes) as any,
       categorizationId: speciesId,
     };
@@ -151,7 +173,10 @@ export const ExponatForm = ({ organisationId }: ExponatModalSectionsProps) => {
         question="Fun Facts"
         error={form.formState.errors.funFacts?.message?.toString()}
       />
-      <FileUpload name={"Glavna slika eksponata"} />
+      <FileUpload
+        name={"Glavna slika eksponata"}
+        onChange={setExponatMainImage}
+      />
       <AttributeInput
         form={form}
         attribute="attributes"

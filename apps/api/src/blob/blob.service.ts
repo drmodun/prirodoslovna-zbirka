@@ -1,4 +1,8 @@
-import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
+import {
+  DeleteObjectCommand,
+  PutObjectCommand,
+  S3Client,
+} from '@aws-sdk/client-s3';
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
 
 @Injectable()
@@ -35,6 +39,20 @@ export class BlobService {
       const imageUrl = `${this.url}/${key}`;
 
       return imageUrl;
+    } catch (error) {
+      console.log(error);
+      throw new InternalServerErrorException(error.message);
+    }
+  }
+
+  async delete(key: string) {
+    const command = new DeleteObjectCommand({
+      Bucket: this.bucket,
+      Key: key,
+    });
+
+    try {
+      await this.client.send(command);
     } catch (error) {
       console.log(error);
       throw new InternalServerErrorException(error.message);

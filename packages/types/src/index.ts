@@ -14,3 +14,4 @@ export * from "./auth";
 export * from "./socialPost";
 export * from "./categorization/categorizationRequests";
 export * from "./categorization/categorizationResponses";
+export * from "./directories";

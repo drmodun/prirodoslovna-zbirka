@@ -6,18 +6,19 @@ import { useDropzone } from "react-dropzone";
 import Image from "next/image";
 import upload from "assets/images/upload.svg";
 import dash from "assets/images/dash.svg";
-import { useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import alertImage from "assets/images/alert.svg";
 import clsx from "clsx";
 export interface FileUploadProps {
   name: string;
   maxFiles?: number;
+  onChange?: Dispatch<SetStateAction<File[]>>;
 }
 
 const maxSize = 1048576;
 
-const FileUpload = ({ name, maxFiles = 1 }: FileUploadProps) => {
+const FileUpload = ({ name, maxFiles = 1, onChange }: FileUploadProps) => {
   const {
     isDragActive,
     getRootProps,
@@ -46,10 +47,12 @@ const FileUpload = ({ name, maxFiles = 1 }: FileUploadProps) => {
       return;
     }
     setFiles((prev) => [...prev, ...acceptedFiles]);
+    onChange && onChange((prev: File[]) => [...prev, ...acceptedFiles]);
   }, [acceptedFiles]);
 
   const removeFile = (file: File) => {
     setFiles((prev) => prev.filter((f) => f !== file));
+    onChange && onChange((prev: File[]) => prev.filter((f) => f !== file));
   };
 
   const isFileTooLarge =
