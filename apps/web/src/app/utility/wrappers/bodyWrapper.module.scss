@@ -1,0 +1,7 @@
+@import "styles/variables.scss";
+@import "styles/calc.scss";
+
+.container {
+  margin-top: vw-calc(75);
+  display: flex;
+}
