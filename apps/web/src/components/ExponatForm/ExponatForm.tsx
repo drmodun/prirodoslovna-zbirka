@@ -17,12 +17,9 @@ import BaseButton from "components/BaseButton";
 import Dropdown from "components/Dropdown";
 import { useGetSpecies } from "@/api/useGetSpecies";
 import { useState } from "react";
-import { useCreateCategorization } from "@/api/useCreateCategorization";
-import { useCheckForCategorization } from "@/api/useCheckForCategorization";
 import { useReadOrCreateCategorization } from "@/api/useReadOrCreateCategorization";
 import { CreateExponatDto, useCreateExponat } from "@/api/useCreateExponat";
-import { Domains } from "@/views/OrganisationBody/OrganisationBody";
-import { Json } from "@biosfera/types/src/jsonObjects";
+import FileUpload from "components/FileUpload";
 export interface ExponatModalSectionsProps {
   organisationId: string;
 }
@@ -154,7 +151,7 @@ export const ExponatForm = ({ organisationId }: ExponatModalSectionsProps) => {
         question="Fun Facts"
         error={form.formState.errors.funFacts?.message?.toString()}
       />
-
+      <FileUpload />
       <AttributeInput
         form={form}
         attribute="attributes"

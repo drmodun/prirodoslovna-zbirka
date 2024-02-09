@@ -1,0 +1,109 @@
+@import "styles/variables.scss";
+@import "styles/calc.scss";
+
+.container {
+  display: flex;
+  color: $primary;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: vw-calc(10);
+
+  .main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    justify-content: center;
+    width: vw-calc(400);
+    height: vw-calc(300);
+    gap: vw-calc(20);
+    padding: vw-calc(40);
+    background-color: $upload-background;
+    border-radius: vw-calc(10);
+    border: 2px dashed $secondary;
+    transition: all 0.3s ease-in-out;
+
+    .text {
+      font-size: vw-calc(16);
+      font-weight: 700;
+      color: $primary;
+      text-align: center;
+    }
+
+    &:hover {
+      cursor: pointer;
+      border: 2px dashed $primary;
+      transform: translateY(vw-calc(-5));
+      box-shadow: 0 0 vw-calc(8) rgba(0, 0, 0, 0.15);
+    }
+
+    .image {
+      width: vw-calc(48);
+      height: vw-calc(48);
+      position: relative;
+
+      img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+
+  .fileList {
+    display: flex;
+    flex-direction: column;
+    gap: vw-calc(10);
+    width: vw-calc(400);
+    max-height: vw-calc(200);
+    overflow-y: auto;
+    padding: vw-calc(10);
+    border: 1px solid $secondary;
+    border-radius: vw-calc(10);
+    background-color: $background-color;
+
+    .file {
+      display: flex;
+      flex-direction: row;
+      width: 100%;
+      align-items: center;
+      justify-content: space-between;
+
+      .fileName {
+        font-size: vw-calc(12);
+        color: $primary;
+        font-weight: 600;
+        max-width: vw-calc(300);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .end {
+        display: flex;
+        align-items: center;
+        gap: vw-calc(10);
+      }
+
+      .fileSize {
+        font-size: vw-calc(12);
+        color: $grey-text;
+        font-weight: 600;
+      }
+
+      .remove {
+        width: vw-calc(20);
+        height: vw-calc(20);
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+
+        img {
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
+  }
+}
