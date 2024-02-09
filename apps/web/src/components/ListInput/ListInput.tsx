@@ -7,14 +7,21 @@ import { useEffect, useState } from "react";
 import SingleInput from "components/SingleInput";
 import leaf from "assets/images/like-leaf-green.svg";
 import plus from "assets/images/plus.svg";
+import ErrorText from "components/Error";
 
 export interface ListInputProps {
   question: string;
   attribute: string;
   form: UseFormReturn<FieldValues>;
+  error?: string;
 }
 
-export const ListInput = ({ question, attribute, form }: ListInputProps) => {
+export const ListInput = ({
+  question,
+  attribute,
+  form,
+  error,
+}: ListInputProps) => {
   const { setValue } = form;
   const [elements, setElements] = useState<string[]>([]);
   const [newValue, setNewValue] = useState<string>("");
@@ -68,6 +75,7 @@ export const ListInput = ({ question, attribute, form }: ListInputProps) => {
           />
         </div>
       </div>
+      <ErrorText message={error} />
     </div>
   );
 };

@@ -1,6 +1,12 @@
 @import "styles/variables.scss";
 @import "~styles/calc.scss";
 
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
 .container {
   width: vw-calc(400);
   position: relative;

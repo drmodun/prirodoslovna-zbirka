@@ -1,6 +1,7 @@
 import { InputResult } from "@/shared/enums";
 import { FieldValues, UseFormReturn } from "react-hook-form";
 import classes from "./SelectInput.module.scss";
+import ErrorText from "components/Error";
 
 //TODO: Maybe make this a custom dropdown
 export interface Option {
@@ -14,7 +15,7 @@ export interface SelectProps {
   options: Option[];
   form: UseFormReturn<FieldValues>;
   isDisabled?: boolean;
-  status?: InputResult;
+  error?: string;
 }
 
 export const SelectInput = ({
@@ -23,32 +24,26 @@ export const SelectInput = ({
   options,
   form,
   isDisabled,
-  status = InputResult.DEFAULT,
+  error,
 }: SelectProps) => {
   const { register } = form;
   return (
-    <div className={classes.container}>
-      <select
-        {...register(name)}
-        className={classes.select}
-        disabled={isDisabled}
-        placeholder={label}
-      >
-        {options.map((option) => (
-          <option key={option.value} value={option.value}>
-            {option.label}
-          </option>
-        ))}
-      </select>
-      {status !== InputResult.DEFAULT && (
-        <div className={classes[status]}>
-          <span>
-            {status === InputResult.ERROR
-              ? "Opcija nije odabrana"
-              : "Opcija odabrana"}
-          </span>
-        </div>
-      )}
+    <div className={classes.main}>
+      <div className={classes.container}>
+        <select
+          {...register(name)}
+          className={classes.select}
+          disabled={isDisabled}
+          placeholder={label}
+        >
+          {options.map((option) => (
+            <option key={option.value} value={option.value}>
+              {option.label}
+            </option>
+          ))}
+        </select>
+      </div>
+      <ErrorText message={error} />
     </div>
   );
 };

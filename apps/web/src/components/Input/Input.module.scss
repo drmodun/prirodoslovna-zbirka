@@ -1,6 +1,12 @@
 @import "styles/variables.scss";
 @import "styles/calc.scss";
 
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
 .container {
   width: vw-calc(400);
   height: vw-calc(60);
@@ -21,7 +27,7 @@
     padding: vw-mobile-calc(0) vw-mobile-calc(20);
   }
 
-  &.error {
+  &.errorInput {
     border-color: $red;
   }
 

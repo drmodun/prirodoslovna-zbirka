@@ -1,0 +1,13 @@
+@import "styles/variables.scss";
+@import "styles/calc.scss";
+
+.error {
+  color: $red;
+  position: relative;
+  min-height: vw-calc(20);
+  bottom: vw-calc(-10);
+  font-size: vw-calc(14);
+  max-width: vw-calc(380);
+
+  margin-left: vw-calc(20);
+}

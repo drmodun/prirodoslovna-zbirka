@@ -116,10 +116,12 @@ export const ExponatForm = ({ organisationId }: ExponatModalSectionsProps) => {
 
   return (
     <form onSubmit={form.handleSubmit(onSubmit)} className={classes.form}>
-      <Input form={form} attribute="name" question="Ime" />
-      <p className={classes.error}>
-        {form.formState.errors.name?.message?.toString() || ""}
-      </p>
+      <Input
+        form={form}
+        attribute="name"
+        question="Ime"
+        error={form.formState.errors.name?.message?.toString()}
+      />
       <Dropdown
         form={form}
         attribute="alternateName"
@@ -136,26 +138,30 @@ export const ExponatForm = ({ organisationId }: ExponatModalSectionsProps) => {
             })) || []
         }
         onSelect={setSelectedSpecies}
-      />{" "}
+      />
       <p className={classes.error}>
         {form.formState.errors.alternateName?.message?.toString() || ""}
       </p>
-      <Textarea form={form} attribute="description" question="Description" />
-      <p className={classes.error}>
-        {form.formState.errors.description?.message?.toString() || ""}
-      </p>
-      <ListInput form={form} attribute="funFacts" question="Fun Facts" />
-      <p className={classes.error}>
-        {form.formState.errors.funFacts?.message?.toString() || ""}
-      </p>
+      <Textarea
+        form={form}
+        attribute="description"
+        question="Description"
+        error={form.formState.errors.description?.message?.toString()}
+      />
+      <ListInput
+        form={form}
+        attribute="funFacts"
+        question="Fun Facts"
+        error={form.formState.errors.funFacts?.message?.toString()}
+      />
+
       <AttributeInput
         form={form}
         attribute="attributes"
         question="Attributes"
-      />{" "}
-      <p className={classes.error}>
-        {form.formState.errors.attributes?.message?.toString() || ""}
-      </p>
+        error={form.formState.errors.attributes?.message?.toString()}
+      />
+
       <SelectInput
         form={form}
         name="exponatKind"
@@ -165,6 +171,7 @@ export const ExponatForm = ({ organisationId }: ExponatModalSectionsProps) => {
           { value: "PROCARIOT", label: "Procariot" },
           { value: "MINERAL", label: "Mineral" },
         ]}
+        error={form.formState.errors.exponatKind?.message?.toString()}
       />
       <BaseButton text="Pošalji" />
     </form>

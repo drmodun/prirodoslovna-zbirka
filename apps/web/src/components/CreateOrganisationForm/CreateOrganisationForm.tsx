@@ -18,8 +18,14 @@ import { makeCountyName } from "@/utility/static/countyNameMaker";
 
 export const CreateOrganisationForm = () => {
   const schema = z.object({
-    name: z.string().min(2).max(100),
-    description: z.string().min(2).max(200),
+    name: z
+      .string()
+      .min(2, "Ime more imati najmanje 2 slova")
+      .max(100, "Ime more imati najvise 100 slova"),
+    description: z
+      .string()
+      .min(2, "Deskripcija mora imati najmanje 2 slova")
+      .max(200, "Deskripcija mora imati najviše 100 slova"),
     location: z.enum([
       "SPLITSKO_DALMATINSKA",
       "DUBROVACKO_NERETVANSKA",
@@ -44,8 +50,8 @@ export const CreateOrganisationForm = () => {
       "VIROVITICKO_PODRAVSKA",
       "OTHER",
     ]),
-    email: z.string().email(),
-    websiteUrl: z.string(),
+    email: z.string().email("Mail mora biti pravilan"),
+    websiteUrl: z.string().url("Stranica mora biti pravilna"),
     mainImage: z.string(),
   });
 
@@ -68,6 +74,7 @@ export const CreateOrganisationForm = () => {
         attribute="name"
         question="Organisation Name"
         image={email}
+        error={form.formState.errors.name?.message?.toString()}
       />
 
       <Input
@@ -75,6 +82,7 @@ export const CreateOrganisationForm = () => {
         attribute="description"
         question="Description"
         image={description}
+        error={form.formState.errors.description?.message?.toString()}
       />
 
       <Input
@@ -82,6 +90,7 @@ export const CreateOrganisationForm = () => {
         attribute="websiteUrl"
         question="Official Website url"
         image={url}
+        error={form.formState.errors.websiteUrl?.message?.toString()}
       />
 
       <SelectInput
@@ -94,15 +103,23 @@ export const CreateOrganisationForm = () => {
             value: county,
           }))}
         form={form}
+        error={form.formState.errors.location?.message?.toString()}
       />
 
-      <Input form={form} attribute="email" question="Email" image={email} />
+      <Input
+        form={form}
+        attribute="email"
+        question="Email"
+        image={email}
+        error={form.formState.errors.email?.message?.toString()}
+      />
 
       <Input
         attribute="mainImage"
         question="Cover Image"
         image={organitionCover}
         form={form}
+        error={form.formState.errors.mainImage?.message?.toString()}
       />
 
       <div className={classes.buttons}>

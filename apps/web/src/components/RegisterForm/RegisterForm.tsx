@@ -19,8 +19,14 @@ import { makeCountyName } from "@/utility/static/countyNameMaker";
 export const RegisterForm = () => {
   const schema = z
     .object({
-      firstName: z.string().min(2).max(100),
-      lastName: z.string().min(2).max(100),
+      firstName: z
+        .string()
+        .min(2, "Ime mora imati najmanje 2 slova")
+        .max(100, "Ime mora imati najviše 100 slova"),
+      lastName: z
+        .string()
+        .min(2, "Prezime mora imati najmanje 2 slova")
+        .max(100, "Prezime mora imati najviše 100 slova"),
       location: z.enum([
         "SPLITSKO_DALMATINSKA",
         "DUBROVACKO_NERETVANSKA",
@@ -45,12 +51,17 @@ export const RegisterForm = () => {
         "VIROVITICKO_PODRAVSKA",
         "OTHER",
       ]),
-      email: z.string().email(),
-      password: z.string().min(6).max(100),
-      passwordConfirmation: z.string().min(6).max(100),
+      email: z.string().email("Mail mora biti pravilan"),
+      password: z
+        .string()
+        .regex(
+          /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*]).{8,}$/,
+          "Lozinka mora imati najmanje 8 znakova, jedno veliko slovo, jedno malo slovo, jedan broj i jedan specijalni znak"
+        ),
+      passwordConfirmation: z.string(),
     })
     .refine((data) => data.password === data.passwordConfirmation, {
-      message: "Passwords don't match",
+      message: "Lozinke se ne podudaraju",
       path: ["passwordConfirmation"],
     });
 
@@ -72,12 +83,14 @@ export const RegisterForm = () => {
         attribute="firstName"
         question="First Name"
         image={email}
+        error={form.formState.errors.firstName?.message?.toString()}
       />
       <Input
         form={form}
         attribute="lastName"
         question="Last Name"
         image={email}
+        error={form.formState.errors.lastName?.message?.toString()}
       />
       <SelectInput
         label="Location"
@@ -89,8 +102,15 @@ export const RegisterForm = () => {
             value: county,
           }))}
         form={form}
+        error={form.formState.errors.location?.message?.toString()}
       />
-      <Input form={form} attribute="email" question="Email" image={email} />
+      <Input
+        form={form}
+        attribute="email"
+        question="Email"
+        image={email}
+        error={form.formState.errors.email?.message?.toString()}
+      />
       <Input
         form={form}
         attribute="password"
@@ -98,6 +118,7 @@ export const RegisterForm = () => {
         isPassword
         image={password}
         isDisabled={register.isLoading}
+        error={form.formState.errors.password?.message?.toString()}
       />
       <Input
         form={form}
@@ -106,6 +127,7 @@ export const RegisterForm = () => {
         isPassword
         image={password}
         isDisabled={register.isLoading}
+        error={form.formState.errors.passwordConfirmation?.message?.toString()}
       />
       <div className={classes.buttons}>
         <BaseButton text="Register" />
