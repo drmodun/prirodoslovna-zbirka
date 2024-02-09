@@ -99,7 +99,7 @@ const FileUpload = ({ name, maxFiles = 1, onChange }: FileUploadProps) => {
         )}
         {files.length === maxFiles && (
           <span className={classes.text}>
-            Maskimalni broj datoteka je stavljen, prvo obrišite jednu postojeću
+            Maskimalni broj datoteka je stavljen
           </span>
         )}
       </div>
