@@ -11,6 +11,11 @@ export const api = axios.create({
   },
 });
 
+export const fileApi = axios.create({
+  baseURL: baseURL,
+  timeout: 5000,
+});
+
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem("access_token");
   if (token) {
