@@ -11,6 +11,7 @@
   @media screen and (max-width: 768px) {
     justify-content: space-around;
     align-items: center;
+    column-gap: vw-mobile-calc(5);
   }
 }
 
