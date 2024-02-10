@@ -9,6 +9,10 @@
     display: flex;
     flex-direction: column;
     padding: 0 vw-calc(120);
+
+    @media (max-width: 768px) {
+      padding: 0 vw-mobile-calc(20);
+    }
   }
 
   .membersColumn {
@@ -16,9 +20,14 @@
     flex-direction: column;
     align-items: center;
     gap: vw-calc(20);
+
+    @media (max-width: 768px) {
+      gap: vw-mobile-calc(10);
+    }
   }
 
   .selectedBody {
+    width: 100%;
     margin-top: vw-calc(90);
   }
 }
