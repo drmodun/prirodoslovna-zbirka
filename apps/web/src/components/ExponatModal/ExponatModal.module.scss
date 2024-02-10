@@ -12,6 +12,11 @@
   border-radius: vw-calc(25);
   box-shadow: 0 0 vw-calc(8) rgba(0, 0, 0, 0.15);
 
+  @media (max-width: 768px) {
+    width: 100%;
+    padding: vw-mobile-calc(20);
+  }
+
   .mainImage {
     width: vw-calc(444);
     height: vw-calc(250);
@@ -19,6 +24,15 @@
     position: relative;
     top: vw-calc(-100);
     margin-bottom: vw-calc(-80);
+
+    @media (max-width: 768px) {
+      width: vw-mobile-calc(175);
+      height: vw-mobile-calc(100);
+      border-radius: vw-mobile-calc(20) vw-mobile-calc(0) vw-mobile-calc(20)
+        vw-mobile-calc(20);
+      top: vw-mobile-calc(-50);
+      margin-bottom: vw-mobile-calc(-40);
+    }
 
     img {
       width: 100%;
@@ -43,6 +57,10 @@
       font-weight: bold;
       text-shadow: 0 0 vw-calc(8) rgba(0, 0, 0, 0.25);
       text-align: center;
+
+      @media (max-width: 768px) {
+        font-size: vw-mobile-calc(16);
+      }
     }
 
     .name {
@@ -52,6 +70,10 @@
       font-style: italic;
       text-align: center;
       margin-bottom: vw-calc(20);
+
+      @media (max-width: 768px) {
+        font-size: vw-mobile-calc(10);
+      }
     }
   }
 
@@ -59,6 +81,11 @@
     width: 100%;
     height: vw-calc(30);
     margin-bottom: vw-calc(20);
+
+    @media (max-width: 768px) {
+      height: vw-mobile-calc(15);
+      margin-bottom: vw-mobile-calc(10);
+    }
   }
 
   .actions {
@@ -68,6 +95,10 @@
     justify-content: space-between;
     align-items: center;
     gap: vw-calc(20);
+
+    @media (max-width: 768px) {
+      gap: vw-mobile-calc(10);
+    }
 
     .button {
       height: vw-calc(45);
@@ -91,12 +122,24 @@
         height 0.2s ease-in-out,
         width 0.2s ease-in-out;
 
+      @media (max-width: 768px) {
+        height: vw-mobile-calc(20);
+        font-size: vw-mobile-calc(10);
+        margin-bottom: vw-mobile-calc(20);
+        border-radius: vw-mobile-calc(5);
+      }
+
       &:hover {
         cursor: pointer;
         background-color: $secondary;
         color: $actions-backround;
         height: vw-calc(50);
         width: 120%;
+
+        @media (max-width: 768px) {
+          height: vw-mobile-calc(25);
+          width: 120%;
+        }
       }
     }
   }

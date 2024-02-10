@@ -3,4 +3,8 @@
 
 .container {
   margin-top: vw-calc(75);
+
+  @media (max-width: 768px) {
+    margin-top: vw-mobile-calc(50);
+  }
 }

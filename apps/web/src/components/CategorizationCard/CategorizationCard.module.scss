@@ -18,11 +18,26 @@
     max-width 0.3s ease-in-out,
     width 0.3s ease-in-out,
     height 0.3s ease-in-out,
-    box-shadow 0.3s ease-in-out;
+    box-shadow 0.3s ease-in-out,
+    transform 0.3s ease-in-out;
+
+  @media (max-width: 768px) {
+    padding: vw-mobile-calc(5);
+    margin-bottom: vw-mobile-calc(10);
+    height: vw-mobile-calc(40);
+    column-gap: vw-mobile-calc(6);
+    border-radius: vw-mobile-calc(5);
+  }
 
   &:hover {
     box-shadow: 0 0 vw-calc(8) rgba(0, 0, 0, 0.25);
     width: vw-calc(720);
+
+    @media (max-width: 768px) {
+      position: relative;
+      width: vw-mobile-calc(330);
+      transform: translateX(vw-mobile-calc(-50));
+    }
   }
 
   .categorization {
@@ -42,11 +57,20 @@
       color 0.3s ease-in-out,
       font-size 0.3s ease-in-out;
 
+    @media (max-width: 768px) {
+      font-size: vw-mobile-calc(6);
+      margin-right: vw-mobile-calc(4);
+    }
+
     &:hover {
       color: $primary;
       font-size: vw-calc(14);
       cursor: pointer;
       text-decoration: underline;
+
+      @media (max-width: 768px) {
+        font-size: vw-mobile-calc(8);
+      }
     }
   }
 
@@ -57,6 +81,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
+
+    @media (max-width: 768px) {
+      width: vw-mobile-calc(3);
+      height: vw-mobile-calc(5);
+    }
 
     img {
       width: 100%;
