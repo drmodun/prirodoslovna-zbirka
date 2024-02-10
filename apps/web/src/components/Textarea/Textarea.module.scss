@@ -16,9 +16,9 @@
 
   @media (max-width: 768px) {
     width: 100%;
-    height: vw-mobile-calc(40);
+    height: vw-mobile-calc(100);
     border-radius: vw-mobile-calc(20);
-    padding: vw-mobile-calc(0) vw-mobile-calc(20);
+    padding: vw-mobile-calc(10) vw-mobile-calc(20);
   }
 
   &.errorInput {
@@ -92,7 +92,7 @@
     font-size: vw-calc(16);
 
     @media (max-width: 768px) {
-      font-size: vw-mobile-calc(16);
+      font-size: vw-mobile-calc(12);
     }
   }
 }

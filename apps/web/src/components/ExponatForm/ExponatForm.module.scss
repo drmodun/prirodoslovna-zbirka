@@ -13,6 +13,16 @@
   font-weight: 500;
   margin-left: vw-calc(20);
   margin-top: vw-calc(-10);
-  height: vw-calc(20);
+  min-height: vw-calc(20);
   margin-bottom: vw-calc(-10);
+
+  @media (max-width: 768px) {
+    font-size: vw-mobile-calc(14);
+    text-overflow: ellipsis;
+    margin-left: 0;
+    margin-bottom: 0;
+    max-width: vw-mobile-calc(380);
+    min-height: vw-mobile-calc(10);
+    max-height: none;
+  }
 }

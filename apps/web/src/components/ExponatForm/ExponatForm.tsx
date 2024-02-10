@@ -141,6 +141,17 @@ export const ExponatForm = ({ organisationId }: ExponatModalSectionsProps) => {
         question="Ime"
         error={form.formState.errors.name?.message?.toString()}
       />
+      <SelectInput
+        form={form}
+        name="exponatKind"
+        label="Vrsta exponata"
+        options={[
+          { value: "EUCARIOT", label: "Eukariot" },
+          { value: "PROCARIOT", label: "Procariot" },
+          { value: "MINERAL", label: "Mineral" },
+        ]}
+        error={form.formState.errors.exponatKind?.message?.toString()}
+      />
       <Dropdown
         form={form}
         attribute="alternateName"
@@ -184,17 +195,6 @@ export const ExponatForm = ({ organisationId }: ExponatModalSectionsProps) => {
         error={form.formState.errors.attributes?.message?.toString()}
       />
 
-      <SelectInput
-        form={form}
-        name="exponatKind"
-        label="Vrsta exponata"
-        options={[
-          { value: "EUCARIOT", label: "Eukariot" },
-          { value: "PROCARIOT", label: "Procariot" },
-          { value: "MINERAL", label: "Mineral" },
-        ]}
-        error={form.formState.errors.exponatKind?.message?.toString()}
-      />
       <BaseButton text="Pošalji" />
     </form>
   );
