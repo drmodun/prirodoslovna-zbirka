@@ -10,4 +10,14 @@
   max-width: vw-calc(380);
 
   margin-left: vw-calc(20);
+
+  @media (max-width: 768px) {
+    font-size: vw-mobile-calc(14);
+    margin-top: vw-mobile-calc(5);
+    text-overflow: ellipsis;
+    margin-left: 0;
+    bottom: 0;
+    max-width: 100%;
+    min-height: vw-mobile-calc(10);
+  }
 }

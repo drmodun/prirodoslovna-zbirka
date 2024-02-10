@@ -6,12 +6,21 @@
   display: flex;
   flex-direction: column;
 
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+
   .question {
     display: flex;
     font-size: vw-calc(16);
     font-weight: 500;
     color: $primary;
     margin-bottom: vw-calc(10);
+
+    @media (max-width: 768px) {
+      margin-bottom: vw-mobile-calc(5);
+      font-size: vw-mobile-calc(14);
+    }
   }
 
   .existing {
@@ -24,6 +33,12 @@
       height: vw-calc(40);
       align-items: start;
       margin-bottom: vw-calc(10);
+      align-items: center;
+
+      @media (max-width: 768px) {
+        margin-bottom: vw-mobile-calc(5);
+        height: vw-mobile-calc(20);
+      }
 
       .delete {
         display: flex;
@@ -44,11 +59,23 @@
           width 0.3s ease-in-out,
           height 0.3s ease-in-out;
 
+        @media (max-width: 768px) {
+          width: vw-mobile-calc(20);
+          height: vw-mobile-calc(20);
+          border-radius: vw-mobile-calc(5);
+          font-size: vw-mobile-calc(10);
+        }
+
         &:hover {
           background-color: $dark-red;
           cursor: pointer;
           width: vw-calc(50);
           height: vw-calc(50);
+
+          @media (max-width: 768px) {
+            width: vw-mobile-calc(30);
+            height: vw-mobile-calc(30);
+          }
         }
       }
 
@@ -62,12 +89,22 @@
         font-size: vw-calc(12);
         margin-left: vw-calc(10);
 
+        @media (max-width: 768px) {
+          width: 100%;
+          font-size: vw-mobile-calc(10);
+          margin-left: vw-mobile-calc(5);
+        }
+
         .key {
           font-weight: bold;
           text-align: start;
           word-break: break-all;
           word-wrap: normal;
           margin-right: vw-calc(10);
+
+          @media (max-width: 768px) {
+            margin-right: vw-mobile-calc(5);
+          }
         }
 
         .value {
@@ -104,6 +141,12 @@
       outline: none;
       transition: background-color 0.3s ease-in-out;
 
+      @media (max-width: 768px) {
+        height: vw-mobile-calc(30);
+        font-size: vw-mobile-calc(10);
+        border-radius: vw-mobile-calc(10);
+      }
+
       &:hover {
         background-color: $green;
         cursor: pointer;
@@ -117,6 +160,11 @@
       justify-content: space-between;
       gap: vw-calc(20);
       margin-bottom: vw-calc(20);
+
+      @media (max-width: 768px) {
+        gap: vw-mobile-calc(5);
+        margin-bottom: vw-mobile-calc(10);
+      }
     }
   }
 
@@ -128,5 +176,10 @@
     height: vw-calc(40);
     color: $red;
     font-size: vw-calc(12);
+
+    @media (max-width: 768px) {
+      height: vw-mobile-calc(30);
+      font-size: vw-mobile-calc(10);
+    }
   }
 }

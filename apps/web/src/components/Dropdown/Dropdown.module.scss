@@ -8,6 +8,10 @@
   justify-content: flex-start;
   width: 100%;
 
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+
   .top {
     width: 100%;
     display: flex;
@@ -21,9 +25,9 @@
     border-color: $secondary;
 
     @media (max-width: 768px) {
-      height: vw-mobile-calc(20);
+      height: vw-mobile-calc(40);
       padding: vw-mobile-calc(5 10);
-      border-radius: vw-mobile-calc(5);
+      border-radius: vw-mobile-calc(20);
     }
 
     > input {
@@ -74,7 +78,7 @@
 
     @media (max-width: 768px) {
       width: vw-mobile-calc(200);
-      margin-top: vw-mobile-calc(25);
+      margin-top: vw-mobile-calc(35);
       border-radius: vw-mobile-calc(20);
     }
 
