@@ -224,7 +224,6 @@ export class OrganisationsController {
       mainImage: item.mainImage,
       membersAmount: item._count.OrganisationUsers,
       name: item.name,
-      otherImages: item.otherImages,
       ...(isAdmin && { isApproved: item.isApproved }),
       updatedAt: item.updatedAt,
       websiteUrl: item.websiteUrl,
