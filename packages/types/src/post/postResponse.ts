@@ -18,3 +18,7 @@ export interface PostApprovalResponse {
   approved: boolean;
 }
 
+export interface PostResponseExtended{  
+   
+}
+

@@ -11,7 +11,6 @@ export interface ExtendedOrganisationResponse {
   location: string;
   websiteUrl: string;
   mainImage: string;
-  otherImages: string[];
   createdAt: Date;
   updatedAt: Date;
   followersAmount: number;

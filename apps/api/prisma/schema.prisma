@@ -76,6 +76,7 @@ model User {
   firstName                String
   bio                      String                     @default("Homo sapiens u biosferi")
   lastName                 String
+  username                 String
   password                 String
   hasProfileImage          Boolean                    @default(false)
   activationCode           String                     @default(uuid()) //this creates unique code for user
@@ -120,7 +121,6 @@ model Organisation {
   email                     String                     @unique
   isApproved                Boolean                    @default(false)
   mainImage                 String
-  otherImages               String[]
   createdAt                 DateTime                   @default(now())
   updatedAt                 DateTime                   @default(now()) @updatedAt
   location                  County
@@ -131,9 +131,11 @@ model Organisation {
 }
 
 model Post {
-  id         String   @id @default(uuid())
-  title      String
-  images     String[]
+  id             String @id @default(uuid())
+  title          String
+  image          String
+  text           String
+  thumbnailImage String
   createdAt  DateTime @default(now())
   updatedAt  DateTime @default(now()) @updatedAt
   authorId   String
@@ -148,7 +150,7 @@ model SocialPost {
   id           String       @id @default(uuid())
   title        String
   text         String
-  images       String[]
+  image        String
   createdAt    DateTime     @default(now())
   updatedAt    DateTime     @default(now()) @updatedAt
   authorId     String       @unique
@@ -180,7 +182,7 @@ model Like {
 
 model FavouriteExponat {
   createdAt DateTime @default(now())
-  userId    String   
+  userId    String
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   ExponatId String
   Exponat   Exponat  @relation(fields: [ExponatId], references: [id], onDelete: Cascade)
@@ -190,7 +192,7 @@ model FavouriteExponat {
 
 model UserOrganisationFollower {
   createdAt      DateTime     @default(now())
-  userId         String       
+  userId         String
   user           User         @relation(fields: [userId], references: [id], onDelete: Cascade)
   organisationId String
   organisation   Organisation @relation(fields: [organisationId], references: [id], onDelete: Cascade)
