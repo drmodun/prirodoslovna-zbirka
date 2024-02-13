@@ -11,10 +11,13 @@ import organitionIcon from "assets/images/organitionIcon.svg";
 import description from "assets/images/description.svg";
 import BaseButton from "components/BaseButton";
 import classes from "./CreateOrganisationForm.module.scss";
-import { County } from "@biosfera/types";
+import { County, Directories } from "@biosfera/types";
 import { SelectInput } from "components/SelectInput/SelectInput";
 import { useCreateOrganisation } from "@/api/useCreateOrganisation";
 import { makeCountyName } from "@/utility/static/countyNameMaker";
+import FileUpload from "components/FileUpload";
+import { useState } from "react";
+import { useUploadFile } from "@/api/useUploadFile";
 
 export const CreateOrganisationForm = () => {
   const schema = z.object({
@@ -52,8 +55,11 @@ export const CreateOrganisationForm = () => {
     ]),
     email: z.string().email("Mail mora biti pravilan"),
     websiteUrl: z.string().url("Stranica mora biti pravilna"),
-    mainImage: z.string(),
   });
+
+  const [image, setImage] = useState<File[]>([]);
+
+  const { mutateAsync } = useUploadFile();
 
   const form = useForm({
     resolver: zodResolver(schema),
@@ -63,7 +69,10 @@ export const CreateOrganisationForm = () => {
 
   const onSubmit = async (data: any) => {
     console.log(data);
-    data.otherImages = [];
+    data.mainImage = await mutateAsync({
+      file: image[0],
+      directory: Directories.ORGANISATION,
+    });
     await create.mutateAsync(data);
   };
 
@@ -114,12 +123,9 @@ export const CreateOrganisationForm = () => {
         error={form.formState.errors.email?.message?.toString()}
       />
 
-      <Input
-        attribute="mainImage"
-        question="Cover Image"
-        image={organitionCover}
-        form={form}
-        error={form.formState.errors.mainImage?.message?.toString()}
+      <FileUpload
+        name="Ovjde stavite glasvnu sliku za vašu organizaciju"
+        onChange={setImage}
       />
 
       <div className={classes.buttons}>
