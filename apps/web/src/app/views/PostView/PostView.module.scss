@@ -1,0 +1,131 @@
+@import "styles/variables.scss";
+@import "styles/calc.scss";
+
+.container {
+  padding: 0 vw-calc(200);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: vw-calc(25);
+
+  .mainImage {
+    width: 100%;
+    height: vw-calc(400);
+    object-fit: cover;
+    border-radius: vw-calc(20);
+    position: relative;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: vw-calc(20);
+    }
+
+    @media (max-width: 768px) {
+      height: vw-mobile-calc(200);
+    }
+  }
+
+  .info {
+    display: flex;
+    flex-direction: row;
+    gap: vw-callc(16);
+
+    .authorImage {
+      width: vw-calc(60);
+      height: vw-calc(60);
+      border-radius: 50%;
+      position: relative;
+
+      img {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+      }
+
+      @media (max-width: 768px) {
+        width: vw-mobile-calc(40);
+        height: vw-mobile-calc(40);
+      }
+    }
+
+    .authorName {
+      font-size: vw-calc(16);
+      font-weight: 600;
+      color: $primary;
+
+      @media (max-width: 768px) {
+        font-size: vw-mobile-calc(12);
+      }
+    }
+
+    .updated {
+      font-size: vw-calc(12);
+      font-weight: 400;
+      color: $secondary;
+
+      @media (max-width: 768px) {
+        font-size: vw-mobile-calc(10);
+      }
+    }
+  }
+
+  .title {
+    font-size: vw-calc(64);
+    font-weight: 600;
+    color: $primary;
+
+    @media (max-width: 768px) {
+      font-size: vw-mobile-calc(32);
+    }
+  }
+
+  .buttons {
+    display: flex;
+    flex-direction: row;
+    gap: vw-calc(20);
+
+    @media (max-width: 768px) {
+      gap: vw-mobile-calc(10);
+    }
+
+    .button {
+      height: vw-calc(40);
+      font-size: vw-calc(16);
+      outline: none;
+      border: 1px solid $secondary;
+      border-radius: vw-calc(20);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease-in-out;
+
+      @media (max-width: 768px) {
+        height: vw-mobile-calc(30);
+        font-size: vw-mobile-calc(12);
+      }
+
+      background-color: $background-color;
+
+      &:hover {
+        cursor: pointer;
+        background-color: $secondary;
+        color: $background-color;
+      }
+
+      &:active {
+        background-color: $stroke-color;
+        color: $background-color;
+      }
+    }
+  }
+
+  .text {
+    display: flex;
+    width: vw-calc(700);
+    flex-wrap: wrap;
+    text-overflow: ellipsis;
+    word-break: break-all;
+  }
+}
