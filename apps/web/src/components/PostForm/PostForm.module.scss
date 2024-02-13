@@ -1,0 +1,28 @@
+@import "styles/variables.scss";
+@import "styles/calc.scss";
+
+.container {
+  padding: vw-calc(20) vw-calc(200);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: vw-calc(25);
+
+  .title {
+    font-size: vw-calc(40);
+    font-weight: 700;
+    color: $primary;
+    margin-bottom: vw-calc(20);
+
+    @media (max-width: 768px) {
+      font-size: vw-mobile-calc(30);
+    }
+  }
+
+  .form{
+    display: flex;
+    flex-direction: column;
+    gap: vw-calc(20);
+    width: 100%;
+  }
+}
