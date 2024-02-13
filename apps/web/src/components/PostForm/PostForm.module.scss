@@ -8,6 +8,11 @@
   flex-direction: column;
   gap: vw-calc(25);
 
+  @media (max-width: 768px) {
+    padding: vw-mobile-calc(20) vw-mobile-calc(20);
+    gap: vw-mobile-calc(20);
+  }
+
   .title {
     font-size: vw-calc(40);
     font-weight: 700;
@@ -19,10 +24,24 @@
     }
   }
 
-  .form{
+  .form {
     display: flex;
     flex-direction: column;
     gap: vw-calc(20);
     width: 100%;
+
+    .fileUploads {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      margin-bottom: vw-calc(20);
+
+      @media (max-width: 768px) {
+        flex-direction: column;
+        gap: vw-mobile-calc(20);
+        margin-bottom: vw-mobile-calc(20);
+      }
+    }
   }
 }

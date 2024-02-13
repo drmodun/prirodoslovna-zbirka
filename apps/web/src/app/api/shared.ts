@@ -32,11 +32,11 @@ api.interceptors.response.use(
   (response) => response.data,
 
   (error: ErrorResponse) => {
-    if (error.response.status === 401) {
+    if (error.status === 401) {
       toast.error(
         error.response.data.message || error.message || "Forbbiden access"
       );
     }
-    return Promise.reject(error.response.data.message || error.message);
+    return Promise.reject(error.response?.data?.message || error.message);
   }
 );

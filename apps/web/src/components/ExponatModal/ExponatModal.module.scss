@@ -42,6 +42,26 @@
     }
   }
 
+  .orgName {
+    font-size: vw-calc(16);
+    font-weight: 700;
+    width: 100%;
+    color: $secondary;
+    text-align: flex-start;
+    margin-bottom: vw-calc(20);
+    transition: color 0.2s ease-in-out;
+
+    @media (max-width: 768px) {
+      font-size: vw-mobile-calc(20);
+    }
+
+    &:hover {
+      cursor: pointer;
+      color: $primary;
+      text-decoration: underline;
+    }
+  }
+
   .title {
     display: flex;
     flex-direction: column;

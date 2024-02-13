@@ -18,9 +18,11 @@ export const getCreatePostRequest = (ApiPropertySwagger?: any) => {
     title: string;
 
     @ApiProperty()
+    @IsString()
     image: string;
 
     @ApiProperty()
+    @IsString()
     thumbnailImage: string;
 
     @ApiProperty()
@@ -30,7 +32,7 @@ export const getCreatePostRequest = (ApiPropertySwagger?: any) => {
 
     authorId: string;
 
-    exponatId: string;
+    ExponatId: string;
   }
 
   return CreatePostRequest;
@@ -59,7 +61,7 @@ export const getUpdatePostRequest = (ApiPropertySwagger?: any) => {
 
     authorId: string;
 
-    exponatId: string;
+    ExponatId: string;
   }
 
   return UpdatePostRequest;

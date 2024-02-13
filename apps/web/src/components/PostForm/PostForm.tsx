@@ -11,6 +11,7 @@ import Textarea from "components/Textarea";
 import FileUpload from "components/FileUpload";
 import { Directories } from "@biosfera/types";
 import { useCreatePost } from "@/api/useCreatePost";
+import BaseButton from "components/BaseButton";
 
 export interface PostFormProps {
   exponatId: string;
@@ -18,8 +19,11 @@ export interface PostFormProps {
 
 export const PostForm = ({ exponatId }: PostFormProps) => {
   const schema = z.object({
-    title: z.string(),
-    text: z.string(),
+    title: z.string().min(5, "Naslov mora imati najmanje 5 znakova"),
+    text: z
+      .string()
+      .min(10, "Tekst mora imati najmanje 10 znakova")
+      .max(20000, "Tekst mora imati najviše 20000 znakova"),
   });
 
   const { mutateAsync: uploadFile } = useUploadFile();
@@ -44,7 +48,7 @@ export const PostForm = ({ exponatId }: PostFormProps) => {
     });
 
     data.image = imageResponse;
-    data.thumbnail = thumbnailResponse;
+    data.thumbnailImage = thumbnailResponse;
 
     await createPost({ post: data, exponatId: exponatId });
 
@@ -55,7 +59,7 @@ export const PostForm = ({ exponatId }: PostFormProps) => {
   return (
     <div className={classes.container}>
       <span className={classes.title}>Napravite novu objavu</span>
-      <form action={onSumbit} className={classes.form}>
+      <form onSubmit={form.handleSubmit(onSumbit)} className={classes.form}>
         <Input
           form={form}
           attribute="title"
@@ -65,11 +69,15 @@ export const PostForm = ({ exponatId }: PostFormProps) => {
         <Textarea
           form={form}
           attribute="text"
+          minRows={15}
           question="Unesite tekst objave, markdown je podržan"
           error={form.formState.errors.text?.message?.toString()}
         />
-        <FileUpload onChange={setThumbnail} name="Naslovna slika" />
-        <FileUpload onChange={setImage} name="Glavna slika" />
+        <div className={classes.fileUploads}>
+          <FileUpload onChange={setThumbnail} name="Naslovna slika" />
+          <FileUpload onChange={setImage} name="Glavna slika" />
+        </div>
+        <BaseButton text="Napravi objavu" />
       </form>
     </div>
   );

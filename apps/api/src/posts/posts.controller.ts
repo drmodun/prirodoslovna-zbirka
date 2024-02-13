@@ -60,7 +60,7 @@ export class PostsController {
     if (!check) throw new UnauthorizedException('User is not a member');
 
     createPostDto.authorId = req.user.id;
-    createPostDto.exponatId = exponatId;
+    createPostDto.ExponatId = exponatId;
 
     return this.postsService.create(createPostDto);
   }
@@ -145,7 +145,7 @@ export class PostsController {
 
     if (!check && !admin && !(req.user.role === 'super'))
       throw new UnauthorizedException(
-        "You cannor update this post because it is not yours and you don't have admin rights",
+        "You cannot update this post because it is not yours and you don't have admin rights",
       );
 
     return this.postsService.update(id, updatePostDto);
@@ -166,7 +166,7 @@ export class PostsController {
 
     if (!check && !admin && !(req.user.role === 'super'))
       throw new UnauthorizedException(
-        "You cannor delete this post because it is not yours and you don't have admin rights",
+        "You cannot delete this post because it is not yours and you don't have admin rights",
       );
 
     return this.postsService.remove(id);
@@ -187,7 +187,7 @@ export class PostsController {
 
     if (!check && !admin && !(req.user.role === 'super'))
       throw new UnauthorizedException(
-        "You cannor approve or disapprove this post because it is not yours and you don't have admin rights",
+        "You cannot approve or disapprove this post because it is not yours and you don't have admin rights",
       );
 
     return this.postsService.toggleApproval(id);
