@@ -8,7 +8,7 @@ export interface PostResponse {
   exponatName: string;
   updatedAt: Date;
   thumbnail: string;
-  hasProfilePicture: boolean;
+  hasProfilePicture?: boolean;
   // add likes and stuff
   //author profile picutre is supposed ti be findable by authorId
 }
@@ -24,6 +24,7 @@ export interface PostResponseExtended {
   image: string;
   authorId: string;
   authorName: string;
+  thumbnail: string;
   likeScore: number;
   exponatId: string;
   exponatName: string;
