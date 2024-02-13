@@ -122,6 +122,7 @@ export class PostsController {
       content: post.text,
       image: post.image,
       updatedAt: post.updatedAt,
+      thumbnail: post.thumbnailImage,
     } as PostResponseExtended;
   }
 

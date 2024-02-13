@@ -7,10 +7,10 @@ import useUser from "@/utility/context/UserContext";
 import clsx from "clsx";
 import { useToggleLike } from "@/api/useToggleLike";
 import { useEffect, useState } from "react";
-import { PostResponse } from "@biosfera/types";
+import { PostResponse, PostResponseExtended } from "@biosfera/types";
 
 export interface LikeButtonProps {
-  post: PostResponse;
+  post: PostResponse | PostResponseExtended;
 }
 
 export const LikeButton = ({ post }: LikeButtonProps) => {
