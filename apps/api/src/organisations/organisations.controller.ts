@@ -188,6 +188,7 @@ export class OrganisationsController {
         email: member.user.email,
         followerCount: member.user._count.followers,
         avatar: member.user.hasProfileImage,
+        username: member.user.username,
         postCount: member.user._count.Posts,
       } as ShortUserResponse;
     });
