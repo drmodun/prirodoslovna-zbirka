@@ -53,6 +53,7 @@ export class SocialPostsService {
         text: createSocialPostDto.text,
         title: createSocialPostDto.title,
         authorId: organisationId,
+        image: createSocialPostDto.image,
         isApproved: true, //TODO: Discuess default approval status for social posts
       },
       include: {

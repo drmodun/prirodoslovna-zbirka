@@ -129,7 +129,7 @@ export class ExponatsController {
         exponatName: item.name,
         ...(isAdmin && { isApproved: post.isApproved }),
         id: post.id,
-        images: post.images,
+        thumbnail: post.thumbnailImage,
         hasProfilePicture: post.author.hasProfileImage,
         updatedAt: post.updatedAt,
         likeScore: post._count.Likes,

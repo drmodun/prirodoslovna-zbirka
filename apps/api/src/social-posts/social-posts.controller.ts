@@ -50,12 +50,12 @@ export class SocialPostsController {
     const mapped: ShortSocialPostResponse = {
       createdAt: socialPost.createdAt,
       id: socialPost.id,
-      images: socialPost.images,
       organisationId: organizationId,
       text: socialPost.text,
       organisationMainImage: socialPost.organisation.mainImage,
       organisationName: socialPost.organisation.name,
       title: socialPost.title,
+      image: socialPost.image,
       updatedAt: socialPost.updatedAt,
     };
 
@@ -79,7 +79,7 @@ export class SocialPostsController {
       return {
         createdAt: post.createdAt,
         id: post.id,
-        images: post.images,
+        image: post.image,
         organisationId: post.authorId,
         text: post.text,
         organisationMainImage: post.organisation.mainImage,
@@ -107,7 +107,7 @@ export class SocialPostsController {
     const mapped: ShortSocialPostResponse = {
       createdAt: post.createdAt,
       id: post.id,
-      images: post.images,
+      image: post.image,
       organisationId: post.authorId,
       text: post.text,
       organisationMainImage: post.organisation.mainImage,

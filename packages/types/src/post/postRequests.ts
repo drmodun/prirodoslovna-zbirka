@@ -18,7 +18,15 @@ export const getCreatePostRequest = (ApiPropertySwagger?: any) => {
     title: string;
 
     @ApiProperty()
-    images: string[];
+    image: string;
+
+    @ApiProperty()
+    thumbnailImage: string;
+
+    @ApiProperty()
+    @IsString()
+    @MinLength(3)
+    text: string;
 
     authorId: string;
 
@@ -39,7 +47,15 @@ export const getUpdatePostRequest = (ApiPropertySwagger?: any) => {
     title: string;
 
     @ApiProperty()
-    images: string[];
+    image: string;
+
+    @ApiProperty()
+    @IsString()
+    @MinLength(3)
+    text: string;
+
+    @ApiProperty()
+    thumbnailImage: string;
 
     authorId: string;
 

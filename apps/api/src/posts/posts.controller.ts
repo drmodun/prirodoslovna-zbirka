@@ -24,6 +24,7 @@ import { PaginationParams } from 'src/config/pagination';
 import {
   PaginationRequest,
   PostResponse,
+  PostResponseExtended,
   SortingEnum,
   SortingRequest,
 } from '@biosfera/types';
@@ -91,7 +92,7 @@ export class PostsController {
         exponatId: post.ExponatId,
         exponatName: post.Exponat.name,
         id: post.id,
-        images: post.images,
+        thumbnail: post.thumbnailImage,
         likeScore: post._count.Likes,
         title: post.title,
       } as PostResponse;
@@ -115,10 +116,12 @@ export class PostsController {
       exponatId: post.ExponatId,
       exponatName: post.Exponat.name,
       id: post.id,
-      images: post.images,
       likeScore: post._count.Likes,
       title: post.title,
-    } as PostResponse;
+      content: post.text,
+      image: post.image,
+      updatedAt: post.updatedAt,
+    } as PostResponseExtended;
   }
 
   @UseGuards(JwtAuthGuard)
@@ -212,7 +215,7 @@ export class PostsController {
         exponatId: post.ExponatId,
         exponatName: post.Exponat.name,
         id: post.id,
-        images: post.images,
+        thumbnail: post.thumbnailImage,
         likeScore: post._count.Likes,
         title: post.title,
       } as PostResponse;
@@ -235,7 +238,7 @@ export class PostsController {
 
     if (!adminCheck && !(req.user.role === 'super'))
       throw new UnauthorizedException(
-        "You cannor see unapproved posts because you don't have admin rights",
+        "You cannot see unapproved posts because you don't have admin rights",
       );
 
     const posts = await this.postsService.findAllNotApproved(organisationId);
@@ -247,9 +250,11 @@ export class PostsController {
         exponatId: post.ExponatId,
         exponatName: post.Exponat.name,
         id: post.id,
-        images: post.images,
+        thumbnail: post.thumbnailImage,
         likeScore: post._count.Likes,
         title: post.title,
+        hasProfilePicture: post.author.hasProfileImage,
+        updatedAt: post.updatedAt,
       } as PostResponse;
     });
 

@@ -22,6 +22,10 @@ export const getRegisterUserDto = (ApiPropertySwagger?: any) => {
     @ApiProperty()
     lastName: string;
 
+    @IsString()
+    @ApiProperty()
+    username: string;
+
     @IsEnum(County)
     @ApiProperty()
     location: County;
@@ -63,6 +67,10 @@ export const getUserQuery = (ApiPropertySwagger?: any) => {
     @IsEnum(County)
     @ApiProperty()
     location: County;
+    
+    @IsString()
+    @ApiProperty()
+    username: string;
 
     @IsString()
     @ApiProperty()
