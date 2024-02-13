@@ -8,6 +8,7 @@ import likeLeafGreen from "assets/images/like-leaf-green.svg";
 import { stringCapitaliser } from "@/utility/static/stringCapitaliser";
 import ExponatModalSections from "components/ExponatModalSections";
 import CategorizationCard from "components/CategorizationCard";
+import Link from "next/link";
 export interface ExponatModalProps {
   exponat: ExponatExtendedResponse;
 }
@@ -32,6 +33,12 @@ export const ExponatModal = ({ exponat }: ExponatModalProps) => {
           <span className={classes.text}>Generiraj QR kod</span>
         </div>
       </div>
+      <Link
+        href={`/organisation/${exponat.organizationId}`}
+        className={classes.orgName}
+      >
+        Organizacija eksponata: {stringCapitaliser(exponat.organizationName)}
+      </Link>
       <ExponatModalSections exponat={exponat} />
     </div>
   );
