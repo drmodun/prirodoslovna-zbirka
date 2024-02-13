@@ -168,6 +168,7 @@ export class PostsService {
           select: {
             firstName: true,
             lastName: true,
+            hasProfileImage: true,
           },
         },
         Exponat: {

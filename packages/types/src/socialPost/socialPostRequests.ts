@@ -22,9 +22,9 @@ export const getCreateSocialPostDto = (ApiPropertySwagger?: any) => {
     @ApiProperty()
     text: string;
 
-    @IsString({ each: true })
+    @IsString()
     @ApiProperty()
-    images: string[];
+    image: string;
   }
   return CreateSocialPostDto;
 };

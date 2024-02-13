@@ -166,7 +166,7 @@ export class OrganisationsController {
       return {
         createdAt: post.createdAt,
         id: post.id,
-        images: post.images,
+        image: post.image,
         text: post.text,
         updatedAt: post.updatedAt,
         organisationId: item.id,
@@ -200,9 +200,10 @@ export class OrganisationsController {
             authorName: `${post.author.firstName} ${post.author.lastName}`,
             exponatId: post.ExponatId,
             exponatName: exponat.name,
-            images: post.images,
+            thumbnail: post.thumbnailImage,
             title: post.title,
             id: post.id,
+            updatedAt: post.updatedAt,
             likeScore: post._count.Likes,
           } as PostResponse;
         }) as PostResponse[],

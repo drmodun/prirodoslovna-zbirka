@@ -51,7 +51,7 @@ export class AuthController {
         authorId: item.id,
         authorName: item.firstName + ' ' + item.lastName,
         id: post.id,
-        images: post.images,
+        thumbnail: post.thumbnailImage,
         ...(isAdmin && { isApproved: post.isApproved }),
         likeScore: post._count.Likes,
         title: post.title,
@@ -68,7 +68,8 @@ export class AuthController {
         authorName:
           like.Post.author.firstName + ' ' + like.Post.author.lastName,
         id: like.Post.id,
-        images: like.Post.images,
+        thumbnail: like.Post.thumbnailImage,
+        image: like.Post.image,
         likeScore: like.Post._count.Likes,
         title: like.Post.title,
         exponatId: like.Post.Exponat.id,

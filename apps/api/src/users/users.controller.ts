@@ -138,7 +138,7 @@ export class UsersController {
           authorId: item.id,
           authorName: item.firstName + ' ' + item.lastName,
           id: post.id,
-          images: post.images,
+          thumbnail: post.thumbnailImage,
           ...(isAdmin && { isApproved: post.isApproved }),
           likeScore: post._count.Likes,
           hasProfilePicture: item.hasProfileImage,
@@ -154,7 +154,7 @@ export class UsersController {
           authorName:
             like.Post.author.firstName + ' ' + like.Post.author.lastName,
           id: like.Post.id,
-          images: like.Post.images,
+          thumbnail: like.Post.thumbnailImage,
           likeScore: like.Post._count.Likes,
           updatedAt: like.Post.updatedAt,
           hasProfilePicture: like.Post.author.hasProfileImage,

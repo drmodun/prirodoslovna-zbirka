@@ -2,7 +2,7 @@ export interface ShortSocialPostResponse {
   id: string;
   title: string;
   text: string;
-  images: string[];
+  image: string;
   organisationId: string;
   organisationName: string;
   organisationMainImage: string;
