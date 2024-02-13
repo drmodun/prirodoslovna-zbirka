@@ -89,6 +89,7 @@ export class UsersController {
         location: user.location,
         followerCount: user._count.followers,
         postCount: user._count.Posts,
+        username: user.username,
         id: user.id,
       };
     });
@@ -151,8 +152,7 @@ export class UsersController {
       const likedPosts: PostResponse[] = item.Likes.map((like) => {
         return {
           authorId: like.Post.author.id,
-          authorName:
-            like.Post.author.firstName + ' ' + like.Post.author.lastName,
+          authorName: like.Post.author.username,
           id: like.Post.id,
           thumbnail: like.Post.thumbnailImage,
           likeScore: like.Post._count.Likes,
@@ -208,6 +208,7 @@ export class UsersController {
         email: item.email,
         firstName: item.firstName,
         lastName: item.lastName,
+        username: item.username,
         followerCount: item._count.followers,
         id: item.id,
         createdAt: item.createdAt,

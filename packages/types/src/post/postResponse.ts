@@ -29,4 +29,5 @@ export interface PostResponseExtended {
   exponatName: string;
   updatedAt: Date;
   content: string;
+  authorFullName: string;
 }

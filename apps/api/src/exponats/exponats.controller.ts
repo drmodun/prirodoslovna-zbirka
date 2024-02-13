@@ -124,7 +124,7 @@ export class ExponatsController {
     const posts: PostResponse[] = item.Posts.map((post) => {
       return {
         authorId: post.authorId,
-        authorName: post.author.firstName + ' ' + post.author.lastName,
+        authorName: post.author.username,
         exponatId: item.id,
         exponatName: item.name,
         ...(isAdmin && { isApproved: post.isApproved }),

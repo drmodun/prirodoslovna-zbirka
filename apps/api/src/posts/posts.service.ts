@@ -49,6 +49,7 @@ export class PostsService {
           select: {
             firstName: true,
             lastName: true,
+            username: true,
           },
         },
         Exponat: {
@@ -113,6 +114,7 @@ export class PostsService {
           select: {
             firstName: true,
             lastName: true,
+            username: true,
           },
         },
         Exponat: {
@@ -168,6 +170,7 @@ export class PostsService {
           select: {
             firstName: true,
             lastName: true,
+            username: true,
             hasProfileImage: true,
           },
         },

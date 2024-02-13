@@ -29,12 +29,5 @@ export const OrganisationAbout = ({ organisation }: OrganisationAboutProps) => (
         </Link>
       </div>
     </div>
-    <div className={classes.images}>
-      {organisation.otherImages.map((image, index) => (
-        <div className={classes.image} key={index}>
-          {<Image src={image} alt="image" layout="fill" />}
-        </div>
-      ))}
-    </div>
   </div>
 );

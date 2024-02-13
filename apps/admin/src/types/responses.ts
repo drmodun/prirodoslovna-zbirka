@@ -53,7 +53,7 @@ export const adminTableMappings: AdminTableMappings = {
     //    dto: [CreateOrganisationDto, UpdateOrganisationDto, OrganisationQuery],
   },
   users: {
-    fields: ['firstName', 'lastName', 'email', 'location'],
+    fields: ['firstName', 'lastName', "username",  'email', 'location'],
     links: [
       {
         label: 'firstName',

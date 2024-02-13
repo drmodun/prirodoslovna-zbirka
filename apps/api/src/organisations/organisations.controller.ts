@@ -197,7 +197,7 @@ export class OrganisationsController {
         exponat.Posts.map((post) => {
           return {
             authorId: post.authorId,
-            authorName: `${post.author.firstName} ${post.author.lastName}`,
+            authorName: post.author.username,
             exponatId: post.ExponatId,
             exponatName: exponat.name,
             thumbnail: post.thumbnailImage,

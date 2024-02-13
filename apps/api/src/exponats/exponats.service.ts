@@ -187,8 +187,7 @@ export class ExponatsService {
             },
             author: {
               select: {
-                firstName: true,
-                lastName: true,
+                username: true,
                 hasProfileImage: true,
               },
             },
