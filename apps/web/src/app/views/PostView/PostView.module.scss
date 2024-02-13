@@ -2,7 +2,7 @@
 @import "styles/calc.scss";
 
 .container {
-  padding: 0 vw-calc(200);
+  padding: vw-calc(20) vw-calc(200);
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -30,13 +30,15 @@
   .info {
     display: flex;
     flex-direction: row;
-    gap: vw-callc(16);
+    align-items: center;
+    width: 100%;
 
     .authorImage {
       width: vw-calc(60);
       height: vw-calc(60);
       border-radius: 50%;
       position: relative;
+      margin-right: vw-calc(20);
 
       img {
         width: 100%;
@@ -54,6 +56,7 @@
       font-size: vw-calc(16);
       font-weight: 600;
       color: $primary;
+      margin-right: vw-calc(10);
 
       @media (max-width: 768px) {
         font-size: vw-mobile-calc(12);
@@ -100,6 +103,9 @@
       align-items: center;
       justify-content: center;
       transition: all 0.3s ease-in-out;
+      min-width: vw-calc(100);
+      padding: 0 vw-calc(20);
+      color: $secondary;
 
       @media (max-width: 768px) {
         height: vw-mobile-calc(30);
@@ -125,6 +131,7 @@
     display: flex;
     width: vw-calc(700);
     flex-wrap: wrap;
+    color: $primary;
     text-overflow: ellipsis;
     word-break: break-all;
   }

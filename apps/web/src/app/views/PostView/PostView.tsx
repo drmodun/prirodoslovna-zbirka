@@ -2,6 +2,7 @@ import { PostResponseExtended } from "@biosfera/types";
 import classes from "./PostView.module.scss";
 import Image from "next/image";
 import placeholder from "assets/images/lion.svg";
+import { dateShortener } from "@/utility/static/dateShortener";
 
 export interface PostViewProps {
   post: PostResponseExtended;
@@ -17,7 +18,7 @@ export const PostView = ({ post }: PostViewProps) => (
         <Image src={placeholder} alt={post.authorName} layout="fill" />
       </div>
       <span className={classes.authorName}>{post.authorFullName}</span>
-      <span className={classes.updated}>{post.updatedAt.toLocaleString()}</span>
+      <span className={classes.updated}>{dateShortener(post.updatedAt)}</span>
     </div>
     <div className={classes.title}>
       <span>{post.title}</span>
