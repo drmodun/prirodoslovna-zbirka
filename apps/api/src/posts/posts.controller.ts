@@ -88,7 +88,7 @@ export class PostsController {
     const mapped: PostResponse[] = posts.map((post) => {
       return {
         authorId: post.authorId,
-        authorName: post.author.firstName + ' ' + post.author.lastName,
+        authorName: post.author.username,
         exponatId: post.ExponatId,
         exponatName: post.Exponat.name,
         id: post.id,
@@ -112,12 +112,13 @@ export class PostsController {
 
     return {
       authorId: post.authorId,
-      authorName: post.author.firstName + ' ' + post.author.lastName,
+      authorName: post.author.username,
       exponatId: post.ExponatId,
       exponatName: post.Exponat.name,
       id: post.id,
       likeScore: post._count.Likes,
       title: post.title,
+      authorFullName: post.author.firstName + ' ' + post.author.lastName,
       content: post.text,
       image: post.image,
       updatedAt: post.updatedAt,
@@ -211,7 +212,7 @@ export class PostsController {
     const mapped: PostResponse[] = posts.map((post) => {
       return {
         authorId: post.authorId,
-        authorName: post.author.firstName + ' ' + post.author.lastName,
+        authorName: post.author.username,
         exponatId: post.ExponatId,
         exponatName: post.Exponat.name,
         id: post.id,
@@ -246,7 +247,7 @@ export class PostsController {
     const mapped: PostResponse[] = posts.map((post) => {
       return {
         authorId: post.authorId,
-        authorName: post.author.firstName + ' ' + post.author.lastName,
+        authorName: post.author.username,
         exponatId: post.ExponatId,
         exponatName: post.Exponat.name,
         id: post.id,

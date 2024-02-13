@@ -53,7 +53,7 @@ export const OrganisationHomepage = ({
         {organisation.socialPosts?.slice(1).map((post, index) => (
           <div className={classes.postCard} key={index}>
             <div className={classes.postCardTitle}>{post.title}</div>
-            <div className={classes.postCardContent}>{post.images}</div>
+            <div className={classes.postCardContent}>{post.image}</div>
           </div>
         ))}
       </div>

@@ -12,9 +12,9 @@ export interface ExtendedUserResponse {
   email: string;
   bio: string;
   followerCount: number;
+  username: string;
   followingCount: number;
   location: string;
-  //TODO: Update this thing
   likedPosts: PostResponse[];
   likeCount: number;
   createdAt: Date;
@@ -34,4 +34,5 @@ export interface ShortUserResponse {
   role?: string;
   followerCount: number;
   postCount: number;
+  username: string;
 }

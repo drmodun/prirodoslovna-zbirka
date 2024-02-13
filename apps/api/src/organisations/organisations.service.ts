@@ -96,8 +96,7 @@ export class OrganisationsService {
                 author: {
                   select: {
                     hasProfileImage: true,
-                    firstName: true,
-                    lastName: true,
+                    username: true,
                     id: true,
                   },
                 },

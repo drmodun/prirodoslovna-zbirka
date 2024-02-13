@@ -51,6 +51,7 @@ export const RegisterForm = () => {
         "VIROVITICKO_PODRAVSKA",
         "OTHER",
       ]),
+      username: z.string(),
       email: z.string().email("Mail mora biti pravilan"),
       password: z
         .string()
@@ -91,6 +92,13 @@ export const RegisterForm = () => {
         question="Last Name"
         image={email}
         error={form.formState.errors.lastName?.message?.toString()}
+      />
+      <Input
+        form={form}
+        attribute="username"
+        question="Username"
+        image={email}
+        error={form.formState.errors.username?.message?.toString()}
       />
       <SelectInput
         label="Location"

@@ -49,7 +49,7 @@ export class AuthController {
     const posts: PostResponse[] = item.Posts.map((post) => {
       return {
         authorId: item.id,
-        authorName: item.firstName + ' ' + item.lastName,
+        authorName: item.username,
         id: post.id,
         thumbnail: post.thumbnailImage,
         ...(isAdmin && { isApproved: post.isApproved }),
@@ -65,8 +65,7 @@ export class AuthController {
     const likedPosts: PostResponse[] = item.Likes.map((like) => {
       return {
         authorId: like.Post.author.id,
-        authorName:
-          like.Post.author.firstName + ' ' + like.Post.author.lastName,
+        authorName: like.Post.author.username,
         id: like.Post.id,
         thumbnail: like.Post.thumbnailImage,
         image: like.Post.image,
@@ -129,6 +128,7 @@ export class AuthController {
       createdAt: item.createdAt,
       updatedAt: item.updatedAt,
       posts: posts,
+      username: item.username,
       location: item.location,
       bio: item.bio,
       likedPosts: likedPosts,

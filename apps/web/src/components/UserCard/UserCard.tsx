@@ -16,11 +16,11 @@ export const UserCard = ({ user }: UserCardProps) => (
     <div className={classes.picture}>
       <Image
         src={user.hasProfileImage ? user : placeholder}
-        alt={user.firstName}
+        alt={user.username}
       />
     </div>
     <span className={classes.name}>{`${user.firstName} ${user.lastName}`}</span>
-    <span className={classes.email}>{user.email}</span>
+    <span className={classes.email}>{user.username}</span>
     <div className={classes.info}>
       <div className={clsx(classes.attribute, classes.posts)}>
         <span>Posts:</span>

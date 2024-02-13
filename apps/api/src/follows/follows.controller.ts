@@ -27,6 +27,7 @@ export class FollowsController {
         firstName: user.follower.firstName,
         lastName: user.follower.lastName,
         location: user.follower.location,
+        username: user.follower.username,
         followerCount: user.follower._count.followers,
         postCount: user.follower._count.Posts,
         id: user.followerId,
@@ -44,6 +45,7 @@ export class FollowsController {
     const mapped: ShortUserResponse[] = following.map((user) => {
       return {
         email: user.followee.email,
+        username: user.followee.username,
         firstName: user.followee.firstName,
         lastName: user.followee.lastName,
         location: user.followee.location,
