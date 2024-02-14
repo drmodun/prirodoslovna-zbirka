@@ -72,7 +72,10 @@ export class PostsService {
 
   async create(createPostDto: CreatePostDto) {
     return await this.prisma.post.create({
-      data: createPostDto,
+      data: {
+        ...createPostDto,
+        isApproved: true, //TODO: changed to false on prod
+      },
     });
   }
 
