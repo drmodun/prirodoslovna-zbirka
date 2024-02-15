@@ -33,6 +33,20 @@
       }
     }
 
+    .section {
+      display: flex;
+      align-items: center;
+      gap: vw-calc(10);
+    }
+
+    .section {
+      display: flex;
+      align-items: center;
+      gap: vw-calc(10);
+      color: $text;
+      font-size: vw-calc(16);
+    }
+
     .direction {
       width: vw-calc(60);
       height: 100%;
@@ -44,7 +58,7 @@
 
       &:hover {
         cursor: pointer;
-        transform: scale(1.1);
+        transform: scale(1.2);
       }
 
       &.descending {
@@ -61,9 +75,8 @@
     width: 100%;
     display: flex;
     flex-wrap: wrap;
-    gap: vw-calc(20);
-    justify-content: space-between;
-    align-items: flex-start;
+    align-items: center;
+    gap: vw-calc(30) vw-calc(40);
   }
 
   .loading {
