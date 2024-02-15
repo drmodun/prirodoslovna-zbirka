@@ -42,7 +42,7 @@ export const SignInForm = () => {
   const { mutateAsync } = useSendPasswordResetEmail();
 
   const sendResetEmail = async () => {
-    await mutateAsync(resetEmail);
+    await mutateAsync(resetEmail.replace("@", "%40"));
     setOpen(false);
   };
 

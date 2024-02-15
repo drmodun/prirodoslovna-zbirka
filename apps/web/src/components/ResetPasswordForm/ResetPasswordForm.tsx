@@ -11,18 +11,20 @@ export interface ResetPaswordFormProps {
 }
 
 export const ResetPaswordForm: React.FC<ResetPaswordFormProps> = ({ code }) => {
-  const schema = z.object({
-    password: z
-      .string()
-      .regex(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*]).{8,}$/,
-        "Lozinka mora imati najmanje 8 znakova, jedno veliko slovo, jedno malo slovo, jedan broj i jedan specijalni znak"
-      ),
-    confirmPassword: z.string().refine((data: string) => data === code, {
+  const schema = z
+    .object({
+      password: z
+        .string()
+        .regex(
+          /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*]).{8,}$/,
+          "Lozinka mora imati najmanje 8 znakova, jedno veliko slovo, jedno malo slovo, jedan broj i jedan specijalni znak"
+        ),
+      confirmPassword: z.string(),
+    })
+    .refine((data) => data.password === data.confirmPassword, {
       message: "Lozinke se ne poklapaju",
-    }),
-  });
-
+      path: ["confirmPassword"],
+    });
   const form = useForm({
     resolver: zodResolver(schema),
   });
