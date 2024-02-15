@@ -10,10 +10,20 @@
   justify-content: center;
   flex-direction: column;
 
+  @media screen and (max-width: 768px) {
+    width: vw-mobile-calc(100);
+    height: vw-mobile-calc(100);
+  }
+
   .drop {
     position: relative;
     width: vw-calc(200);
     height: vw-calc(200);
+
+    @media screen and (max-width: 768px) {
+      width: vw-mobile-calc(100);
+      height: vw-mobile-calc(100);
+    }
   }
 
   .user {
@@ -22,5 +32,11 @@
     width: vw-calc(65);
     height: vw-calc(65);
     z-index: 2;
+
+    @media screen and (max-width: 768px) {
+      top: vw-mobile-calc(-60);
+      width: vw-mobile-calc(35);
+      height: vw-mobile-calc(35);
+    }
   }
 }

@@ -28,7 +28,7 @@
 
     @media (max-width: 768px) {
       width: vw-mobile-calc(320);
-      height: vw-mobile-calc(300);
+      min-height: vw-mobile-calc(300);
       padding: vw-mobile-calc(20);
       border-radius: vw-mobile-calc(8);
     }
@@ -63,7 +63,9 @@
       gap: vw-calc(25);
 
       @media (max-width: 768px) {
-        gap: vw-mobile-calc(15);
+        width: 100%;
+        gap: vw-mobile-calc(20);
+        margin-bottom: vw-mobile-calc(20);
       }
     }
 
