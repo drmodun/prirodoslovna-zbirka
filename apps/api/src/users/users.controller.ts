@@ -309,7 +309,8 @@ export class UsersController {
   }
 
   @Post('/forgot-password/:email')
-  async forgotPassword(@Param('activationCode') email: string) {
+  async forgotPassword(@Param('email') email: string) {
+    console.log(email);
     const forgotPassword = await this.usersService.sendPasswordResetEmail(
       email,
     );

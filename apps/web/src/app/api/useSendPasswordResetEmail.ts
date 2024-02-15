@@ -3,12 +3,13 @@ import { api } from "./shared";
 import toast from "react-hot-toast";
 
 const sendResetPasswordEmail = (email: string) =>
-  api.post(`/forgot-password/${email}`);
+  api.post(`/users/forgot-password/${email}`);
 
 export const useSendPasswordResetEmail = () => {
   return useMutation(sendResetPasswordEmail, {
     onError: (error: string) => {
       toast.error("Greška pri slanju emaila za resetiranje lozinke");
+      console.error(error);
     },
     onSuccess: () => {
       toast.success("Email za resetiranje lozinke je poslan");

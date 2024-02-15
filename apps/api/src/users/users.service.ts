@@ -246,7 +246,7 @@ export class UsersService {
 
     const subject = `${user.firstName}, verificirajte e-mail adresu`;
     //TODO: make random link for user verification
-    const text = `${user.firstName} ${user.lastName}, molimo vas da verificirate vašu e-mail adresu (${user.email}) klikom na link ${baseUrl}/activate/${user.activationCode}`;
+    const text = `${user.firstName} ${user.lastName}, molimo vas da verificirate vašu e-mail adresu (${user.email}) klikom na link ${baseUrl}/activateUser/${user.activationCode}`;
 
     const mail = await this.email.sendMail(user.email, subject, text);
 
@@ -272,7 +272,7 @@ export class UsersService {
     });
     const baseUrl = process.env.WEB_URL || 'http://localhost:3000';
     const subject = `Resetiranje lozinke na biosfera.trema`;
-    const text = `Poštovani, molimo vas da resetirate lozinku klikom na link: ${baseUrl}/reset/${user.activationCode}`;
+    const text = `Poštovani, molimo vas da resetirate lozinku klikom na link: ${baseUrl}/resetPassword/${user.activationCode}`;
     const mail = await this.email.sendMail(email, subject, text);
     return mail;
   }
