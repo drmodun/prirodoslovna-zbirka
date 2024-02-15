@@ -49,11 +49,18 @@ export const CardCollection: React.FC<CardCollectionProps> = ({
   const list = useRef<HTMLDivElement>(null);
 
   const handleScroll = async () => {
-    const { scrollTop, clientHeight, scrollHeight } = list.current!;
-    if (scrollTop + clientHeight >= scrollHeight - 10) {
+    const { scrollTop, clientHeight, scrollHeight } = document.documentElement;
+    if (
+      scrollTop + clientHeight >= scrollHeight - 10 &&
+      !isLoading &&
+      amount < items.length
+    ) {
+      console.log(amount, items.length);
       setIsLoading(true);
       setTimeout(() => {
-        setAmount((prev) => prev + 20);
+        setAmount(
+          (prev) => prev + Math.min(pageSize || 20, items.length - prev)
+        );
         setIsLoading(false);
       }, 200);
     }
@@ -69,6 +76,7 @@ export const CardCollection: React.FC<CardCollectionProps> = ({
   }, []);
 
   useEffect(() => {
+    console.log(items.slice(0, Math.min(amount, items.length)));
     setAmount(pageSize || 20);
   }, [sortByValue, pageSize]);
 
@@ -103,11 +111,13 @@ export const CardCollection: React.FC<CardCollectionProps> = ({
       </div>
       <div className={classes.cardContainer} ref={list}>
         {items
-          .toSorted((a, b) =>
-            isAscending
-              ? a[sortByValue] - b[sortByValue]
-              : b[sortByValue] - a[sortByValue]
-          )
+          .toSorted((a, b) => {
+            const first = isAscending ? a : b;
+            const second = isAscending ? b : a;
+            return isNaN(a[sortByValue]) && isNaN(b[sortByValue])
+              ? first[sortByValue].localeCompare(second[sortByValue])
+              : first[sortByValue] - second[sortByValue];
+          })
           .slice(0, Math.min(amount, items.length))
           .map((item, index) => {
             switch (type) {

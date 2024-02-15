@@ -6,13 +6,13 @@
   display: flex;
   flex-direction: column;
   gap: vw-calc(20);
-  height: vw-calc(60);
 
   .sortSelect {
     width: 100%;
     display: flex;
     justify-content: space-between;
     margin-bottom: vw-calc(20);
+    height: vw-calc(60);
 
     .select {
       border-radius: vw-calc(30);
