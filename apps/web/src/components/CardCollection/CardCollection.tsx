@@ -108,7 +108,7 @@ export const CardCollection: React.FC<CardCollectionProps> = ({
               ? a[sortByValue] - b[sortByValue]
               : b[sortByValue] - a[sortByValue]
           )
-          .slice(0, amount)
+          .slice(0, Math.min(amount, items.length))
           .map((item, index) => {
             switch (type) {
               case "exponat":
