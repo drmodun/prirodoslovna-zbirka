@@ -9,7 +9,7 @@ import { ExponatCard } from "components/ExponatCard";
 import classes from "./CardCollection.module.scss";
 import MembershipCard from "components/MembershipCard";
 import { PostCard } from "components/PostCard";
-import placeholder from "assets/images/placeholder.png";
+import placeholder from "assets/images/lion.svg";
 import SelectInput from "components/SelectInput";
 import { use, useEffect, useRef, useState } from "react";
 import dArrow from "assets/images/d-arrow.svg";
