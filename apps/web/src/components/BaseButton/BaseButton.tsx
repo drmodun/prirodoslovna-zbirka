@@ -8,15 +8,18 @@ export interface BaseButtonPros {
   text: string;
   onClick?: () => void;
   initColor?: ButtonColor;
+  isNotSubmit?: boolean;
 }
 
 export const BaseButton = ({
   text,
   onClick,
   initColor = ButtonColor.GREEN,
+  isNotSubmit,
 }: BaseButtonPros) => {
   return (
     <button
+      type={isNotSubmit ? "button" : "submit"}
       className={clsx(classes.button, classes[initColor])}
       onClick={onClick}
     >

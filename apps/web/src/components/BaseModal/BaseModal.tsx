@@ -9,6 +9,7 @@ interface ModalProps {
   text: string;
   open: boolean;
   deMount?: Function;
+  children?: React.ReactNode;
   actionText?: string;
   actionLink?: string;
 }
@@ -17,6 +18,7 @@ export const Modal: React.FC<ModalProps> = ({
   title,
   text,
   deMount,
+  children,
   open,
   actionLink,
   actionText,
@@ -48,15 +50,25 @@ export const Modal: React.FC<ModalProps> = ({
   return mounted && open
     ? createPortal(
         <div id="#portal" className={classes.popup} onClick={unMount}>
-          <div className={classes.popupInner}>
+          <div
+            className={classes.popupInner}
+            onClick={(e) => e.stopPropagation()}
+          >
             <h1>{title}</h1>
             <p>{text}</p>
+            <div className={classes.children}>{children}</div>
             {actionLink ? (
               <Link className={classes.link} href={actionLink}>
                 {actionText || "U redu"}
               </Link>
             ) : (
-              <button onClick={unMount}>{actionText || "U redu"}</button>
+              <button
+                type="button"
+                className={classes.modalButton}
+                onClick={unMount}
+              >
+                {actionText || "U redu"}
+              </button>
             )}
           </div>
         </div>,

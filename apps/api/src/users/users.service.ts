@@ -11,6 +11,7 @@ import {
 import { MemberRoleType } from 'src/members/members.dto';
 import { BlobService } from 'src/blob/blob.service';
 import { EmailService } from 'src/email/email.service';
+import { User } from '@prisma/client';
 
 @Injectable()
 export class UsersService {
@@ -25,11 +26,13 @@ export class UsersService {
 
     createUserDto.password = hashedPassword;
 
-    await this.sendVefificationEmail(createUserDto.email);
-
-    return await this.prisma.user.create({
+    const user = await this.prisma.user.create({
       data: createUserDto,
     });
+
+    await this.sendVefificationEmail(user);
+
+    return user;
   }
 
   async findAll(
@@ -238,13 +241,7 @@ export class UsersService {
     return addedLogo;
   }
 
-  async sendVefificationEmail(userId: string) {
-    const user = await this.prisma.user.findUniqueOrThrow({
-      where: {
-        id: userId,
-      },
-    });
-
+  async sendVefificationEmail(user: User) {
     const baseUrl = process.env.WEB_URL || 'http://localhost:3000';
 
     const subject = `${user.firstName}, verificirajte e-mail adresu`;
