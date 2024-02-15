@@ -1,5 +1,5 @@
 @import "styles/variables.scss";
-@import "styles/vw-calc.scss";
+@import "styles/calc.scss";
 
 .popup {
   width: 100vw;
@@ -56,7 +56,8 @@
       }
     }
 
-    button {
+    button,
+    .link {
       width: 75%;
       height: vw-calc(50);
       border-radius: vw-calc(8);
@@ -64,6 +65,9 @@
       color: $background-color;
       font-size: vw-calc(20);
       font-weight: 600;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       border: none;
       cursor: pointer;
 

@@ -15,6 +15,7 @@ import { County } from "@biosfera/types";
 import { SelectInput } from "components/SelectInput/SelectInput";
 import { useRegister } from "@/api/useRegister";
 import { makeCountyName } from "@/utility/static/countyNameMaker";
+import Modal from "components/BaseModal";
 
 export const RegisterForm = () => {
   const schema = z
@@ -70,80 +71,89 @@ export const RegisterForm = () => {
     resolver: zodResolver(schema),
   });
 
-  const register = useRegister();
+  const { mutateAsync, isSuccess, isLoading } = useRegister();
 
   const onSubmit = async (data: any) => {
     console.log(data);
-    await register.mutateAsync(data);
+    await mutateAsync(data);
   };
 
   return (
-    <form onSubmit={form.handleSubmit(onSubmit)} className={classes.form}>
-      <Input
-        form={form}
-        attribute="firstName"
-        question="First Name"
-        image={email}
-        error={form.formState.errors.firstName?.message?.toString()}
+    <>
+      <Modal
+        title="Success"
+        text="Uspješno napravljen korisnik, molimo potvrdie email pa se prijavite"
+        actionText="Otiđi na prijavu"
+        actionLink="/login"
+        open={isSuccess}
       />
-      <Input
-        form={form}
-        attribute="lastName"
-        question="Last Name"
-        image={email}
-        error={form.formState.errors.lastName?.message?.toString()}
-      />
-      <Input
-        form={form}
-        attribute="username"
-        question="Username"
-        image={email}
-        error={form.formState.errors.username?.message?.toString()}
-      />
-      <SelectInput
-        label="Location"
-        name="location"
-        options={Object.values(County)
-          .filter((county) => county.length > 2)
-          .map((county) => ({
-            label: makeCountyName(county),
-            value: county,
-          }))}
-        form={form}
-        error={form.formState.errors.location?.message?.toString()}
-      />
-      <Input
-        form={form}
-        attribute="email"
-        question="Email"
-        image={email}
-        error={form.formState.errors.email?.message?.toString()}
-      />
-      <Input
-        form={form}
-        attribute="password"
-        question="Password"
-        isPassword
-        image={password}
-        isDisabled={register.isLoading}
-        error={form.formState.errors.password?.message?.toString()}
-      />
-      <Input
-        form={form}
-        attribute="passwordConfirmation"
-        question="Password Confirmation"
-        isPassword
-        image={password}
-        isDisabled={register.isLoading}
-        error={form.formState.errors.passwordConfirmation?.message?.toString()}
-      />
-      <div className={classes.buttons}>
-        <BaseButton text="Register" />
-        <Link href="/login">
-          <BaseButton text="Sign in" initColor={ButtonColor.BLUE} />
-        </Link>
-      </div>
-    </form>
+      <form onSubmit={form.handleSubmit(onSubmit)} className={classes.form}>
+        <Input
+          form={form}
+          attribute="firstName"
+          question="First Name"
+          image={email}
+          error={form.formState.errors.firstName?.message?.toString()}
+        />
+        <Input
+          form={form}
+          attribute="lastName"
+          question="Last Name"
+          image={email}
+          error={form.formState.errors.lastName?.message?.toString()}
+        />
+        <Input
+          form={form}
+          attribute="username"
+          question="Username"
+          image={email}
+          error={form.formState.errors.username?.message?.toString()}
+        />
+        <SelectInput
+          label="Location"
+          name="location"
+          options={Object.values(County)
+            .filter((county) => county.length > 2)
+            .map((county) => ({
+              label: makeCountyName(county),
+              value: county,
+            }))}
+          form={form}
+          error={form.formState.errors.location?.message?.toString()}
+        />
+        <Input
+          form={form}
+          attribute="email"
+          question="Email"
+          image={email}
+          error={form.formState.errors.email?.message?.toString()}
+        />
+        <Input
+          form={form}
+          attribute="password"
+          question="Password"
+          isPassword
+          image={password}
+          isDisabled={isLoading}
+          error={form.formState.errors.password?.message?.toString()}
+        />
+        <Input
+          form={form}
+          attribute="passwordConfirmation"
+          question="Password Confirmation"
+          isPassword
+          image={password}
+          isDisabled={isLoading}
+          error={form.formState.errors.passwordConfirmation?.message?.toString()}
+        />
+        <div className={classes.buttons}>
+          <BaseButton text="Register" />
+          <Link href="/login">
+            <BaseButton text="Sign in" initColor={ButtonColor.BLUE} />
+          </Link>
+        </div>
+      </form>
+    </>
   );
 };
 
