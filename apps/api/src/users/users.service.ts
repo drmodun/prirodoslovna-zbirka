@@ -237,18 +237,57 @@ export class UsersService {
   }
 
   async sendVefificationEmail(userId: string) {
-    const user = await this.prisma.user.findUnique({
+    const user = await this.prisma.user.findUniqueOrThrow({
       where: {
         id: userId,
       },
     });
 
+    const baseUrl = process.env.WEB_URL || 'http://localhost:3000';
+
     const subject = `${user.firstName}, verificirajte e-mail adresu`;
     //TODO: make random link for user verification
-    const text = `${user.firstName} ${user.lastName}, molimo vas da verificirate vašu e-mail adresu (${user.email}) klikom na link ispod`;
+    const text = `${user.firstName} ${user.lastName}, molimo vas da verificirate vašu e-mail adresu (${user.email}) klikom na link ${baseUrl}/activate/${user.activationCode}`;
 
     const mail = await this.email.sendMail(user.email, subject, text);
 
     return mail;
+  }
+
+  async verifyUser(userActivationCode: string) {
+    return await this.prisma.user.update({
+      where: {
+        activationCode: userActivationCode,
+      },
+      data: {
+        isActivated: true,
+      },
+    });
+  }
+
+  async sendPasswordResetEmail(email: string) {
+    const user = await this.prisma.user.findUniqueOrThrow({
+      where: {
+        email,
+      },
+    });
+    const baseUrl = process.env.WEB_URL || 'http://localhost:3000';
+    const subject = `Resetiranje lozinke na biosfera.trema`;
+    const text = `Poštovani, molimo vas da resetirate lozinku klikom na link: ${baseUrl}/reset/${user.activationCode}`;
+    const mail = await this.email.sendMail(email, subject, text);
+    return mail;
+  }
+
+  async resetPassword(userActivationCode: string, newPassword: string) {
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+    return await this.prisma.user.update({
+      where: {
+        activationCode: userActivationCode,
+      },
+      data: {
+        password: hashedPassword,
+      },
+    });
   }
 }

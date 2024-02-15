@@ -303,6 +303,28 @@ export class UsersController {
     return mapped;
   }
 
+  @Post('/verify/:activationCode')
+  async verifyUser(@Param('activationCode') id: string) {
+    await this.usersService.verifyUser(id);
+  }
+
+  @Get('/forgot-password/:activationCode')
+  async forgotPassword(@Param('activationCode') activationCode: string) {
+    const forgotPassword = await this.usersService.sendPasswordResetEmail(
+      activationCode,
+    );
+
+    return forgotPassword;
+  }
+
+  @Post('/reset-password/:activationCode')
+  async resetPassword(
+    @Param('activationCode') activationCode: string,
+    @Body() { newPassword }: { newPassword: string },
+  ) {
+    await this.usersService.resetPassword(activationCode, newPassword);
+  }
+
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   @Post(':id/pfp')
@@ -331,19 +353,12 @@ export class UsersController {
     )
     file: Express.Multer.File,
   ) {
-    const addedSponsorLogo = await this.usersService.uploadProfileImage(
+    const addedUserProfilePicture = await this.usersService.uploadProfileImage(
       req.user.id,
       file,
     );
 
-    return addedSponsorLogo;
-  }
-
-  @Post(':id/verify')
-  async verifyUser(@Param('id') id: string) {
-    const verifiedUser = await this.usersService.sendVefificationEmail(id);
-
-    return verifiedUser;
+    return addedUserProfilePicture;
   }
 }
 
