@@ -18,9 +18,6 @@ export const useRegister = () => {
     },
     onSuccess: ({}, _variables, context) => {
       toast.success("Uspješno registrirani", { id: context?.toastId });
-      setTimeout(() => {
-        window.location.href = "/login";
-      }, 1000);
     },
     onError: (error: string, _variables, context) => {
       toast.error(error, { id: context?.toastId });

@@ -6,6 +6,9 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const BodyWrapper = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className={clsx(classes.container, inter.className)}>{children}</div>
+    <div className={clsx(classes.container, inter.className)}>
+      <div id="portal"></div>
+      {children}
+    </div>
   );
 };
