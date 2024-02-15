@@ -79,13 +79,14 @@ model User {
   username                 String
   password                 String
   hasProfileImage          Boolean                    @default(false)
-  activationCode           String                     @default(uuid()) //this creates unique code for user
+  activationCode           String                     @default(uuid()) @unique
   role                     Role                       @default(USER)
   createdAt                DateTime                   @default(now())
   updatedAt                DateTime                   @default(now()) @updatedAt
   Posts                    Post[]
   location                 County
   OrganisationUser         OrganisationUser[]
+  isActivated              Boolean                    @default(false)
   Likes                    Like[]
   FavouriteExponats        FavouriteExponat[]
   UserOrganisationFollower UserOrganisationFollower[]
@@ -99,7 +100,7 @@ model Exponat {
   alternateName     String
   ExponatKind       ExponatKind
   description       String
-  isApproved        Boolean            @default(false)
+  isApproved        Boolean            @default(true)
   funFacts          String[]
   attributes        Json
   mainImage         String
@@ -131,19 +132,19 @@ model Organisation {
 }
 
 model Post {
-  id             String @id @default(uuid())
+  id             String   @id @default(uuid())
   title          String
   image          String
   text           String
   thumbnailImage String
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @default(now()) @updatedAt
-  authorId   String
-  author     User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
-  isApproved Boolean  @default(false)
-  Likes      Like[]
-  ExponatId  String?
-  Exponat    Exponat? @relation(fields: [ExponatId], references: [id], onDelete: Cascade)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @default(now()) @updatedAt
+  authorId       String
+  author         User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  isApproved     Boolean  @default(true)
+  Likes          Like[]
+  ExponatId      String?
+  Exponat        Exponat? @relation(fields: [ExponatId], references: [id], onDelete: Cascade)
 }
 
 model SocialPost {
