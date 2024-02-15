@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 import classes from "./MembershipCard.module.scss";
 import clsx from "clsx";
 import Link from "next/link";
@@ -21,7 +21,7 @@ export const memberWeight = {
 export interface MemberShipCardProps {
   name: string;
   description: string; //TODO: potentially change this to description
-  image: string;
+  image: string | StaticImageData;
   type: "organisation" | "user";
   id: string;
   role: string;
