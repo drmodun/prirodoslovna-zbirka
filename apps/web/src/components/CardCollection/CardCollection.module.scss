@@ -2,5 +2,76 @@
 @import "styles/calc.scss";
 
 .container {
-    width: 
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: vw-calc(20);
+  height: vw-calc(60);
+
+  .sortSelect {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: vw-calc(20);
+
+    .select {
+      border-radius: vw-calc(30);
+      width: vw-calc(400);
+      height: 100%;
+      height: vw-calc(60);
+      padding: vw-calc(15) vw-calc(20);
+      border: 1px solid $secondary;
+      background-color: transparent;
+      font-size: vw-calc(16);
+      color: $text;
+
+      @media (max-width: 768px) {
+        width: 95%;
+        height: vw-mobile-calc(40);
+        padding: vw-mobile-calc(0) vw-mobile-calc(20);
+        font-size: vw-mobile-calc(16);
+      }
+    }
+
+    .direction {
+      width: vw-calc(60);
+      height: 100%;
+      position: relative;
+      outline: none;
+      border: none;
+      background-color: transparent;
+      transition: transform 0.3s ease-in-out;
+
+      &:hover {
+        cursor: pointer;
+        transform: scale(1.1);
+      }
+
+      &.descending {
+        transform: rotate(180deg);
+      }
+
+      @media (max-width: 768px) {
+        width: vw-mobile-calc(40);
+      }
+    }
+  }
+
+  .cardContainer {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: vw-calc(20);
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  .loading {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: vw-calc(60);
+    color: $text;
+  }
 }

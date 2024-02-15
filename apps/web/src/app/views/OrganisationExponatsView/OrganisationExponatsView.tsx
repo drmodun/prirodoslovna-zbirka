@@ -10,6 +10,7 @@ import { useState } from "react";
 import search from "assets/images/search.svg";
 import { ExponatCard } from "components/ExponatCard";
 import SingleInput from "components/SingleInput";
+import CardCollection from "components/CardCollection";
 
 export interface OrganisationExponatsViewProps {
   exponats: ExponatResponseShort[];
@@ -53,6 +54,11 @@ export const OrganisationExponatsView = ({
           selected={domain === Domains.MINERAL}
         />
       </div>
+      <CardCollection
+        items={exponats}
+        type="exponat"
+        sortBy={[{ label: "Najnovije", value: "newest" }, { label: "Najstarije", value: "oldest" }]}
+      />
       <div className={classes.cardRow}>
         {exponats
           .filter((exponat) => exponat.exponatKind.toLowerCase() === domain)
