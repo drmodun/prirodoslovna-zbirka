@@ -17,6 +17,7 @@ import Image from "next/image";
 import { set } from "react-hook-form";
 import clsx from "clsx";
 import { Indexable } from "@biosfera/types/src/jsonObjects";
+import BaseButton from "components/BaseButton";
 
 export interface SortOption {
   label: string;
@@ -94,7 +95,7 @@ export const CardCollection: React.FC<CardCollectionProps> = ({
             ))}
           </select>
         </div>
-        <div className={classes.section}>
+        <div className={classes.section} ref={list}>
           <span className={classes.sectionLabel}>
             {!isDescending ? "Rastuće" : "Opadajuće"}
           </span>
@@ -110,11 +111,7 @@ export const CardCollection: React.FC<CardCollectionProps> = ({
           </button>
         </div>
       </div>
-      <div
-        className={classes.cardContainer}
-        ref={list}
-        onScrollCapture={handleScroll}
-      >
+      <div className={classes.cardContainer}>
         {items
           .toSorted((a, b) => {
             const first = isDescending ? b : a;
@@ -164,6 +161,17 @@ export const CardCollection: React.FC<CardCollectionProps> = ({
             }
           })}
       </div>
+      {amount === items.length && (
+        <BaseButton
+          text="Nazad na vrh"
+          onClick={() =>
+            list.current?.scrollIntoView({
+              behavior: "smooth",
+              block: "start",
+            })
+          }
+        />
+      )}
     </div>
   );
 };
