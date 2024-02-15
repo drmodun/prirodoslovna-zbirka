@@ -20,7 +20,10 @@ export const useRegister = () => {
       toast.success("Uspješno registrirani", { id: context?.toastId });
     },
     onError: (error: string, _variables, context) => {
-      toast.error(error, { id: context?.toastId });
+      toast.error(
+        "Došlo je do greške pri stvaranju računa, moguće je da je taj mail već korišten",
+        { id: context?.toastId }
+      );
     },
   });
 };

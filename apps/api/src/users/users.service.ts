@@ -25,6 +25,8 @@ export class UsersService {
 
     createUserDto.password = hashedPassword;
 
+    await this.sendVefificationEmail(createUserDto.email);
+
     return await this.prisma.user.create({
       data: createUserDto,
     });
