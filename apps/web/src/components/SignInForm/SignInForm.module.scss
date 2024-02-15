@@ -15,4 +15,31 @@
     justify-content: space-around;
     gap: vw-calc(25);
   }
+
+  .forgotPassword {
+    font-size: vw-calc(14);
+    color: $primary;
+    text-decoration: none;
+    margin-top: vw-calc(10);
+    transition: color 0.3s ease-in-out;
+
+    @media (max-width: 768px) {
+      font-size: vw-mobile-calc(12);
+      margin-top: vw-mobile-calc(10);
+    }
+
+    &:hover {
+      text-decoration: underline;
+      cursor: pointer;
+      color: $secondary;
+    }
+  }
+}
+.modalInput {
+  width: 100%;
+  display: flex;
+  gap: vw-calc(20);
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }

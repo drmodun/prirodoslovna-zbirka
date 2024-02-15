@@ -16,8 +16,8 @@
 
   .popupInner {
     width: vw-calc(750);
-    height: vw-calc(400);
-    padding: vw-calc(50);
+    min-height: vw-calc(400);
+    padding: vw-calc(20);
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -56,20 +56,32 @@
       }
     }
 
-    button,
+    .children {
+      width: 75%;
+      display: flex;
+      flex-direction: column;
+      gap: vw-calc(25);
+
+      @media (max-width: 768px) {
+        gap: vw-mobile-calc(15);
+      }
+    }
+
+    .modalButton,
     .link {
       width: 75%;
       height: vw-calc(50);
       border-radius: vw-calc(8);
-      background-color: $primary;
-      color: $background-color;
+      background-color: $background-color;
+      color: $secondary;
       font-size: vw-calc(20);
       font-weight: 600;
       display: flex;
       justify-content: center;
       align-items: center;
-      border: none;
+      border: 1px solid $secondary;
       cursor: pointer;
+      transition: all 0.3s ease-in-out;
 
       @media (max-width: 768px) {
         width: 100%;
@@ -78,7 +90,9 @@
       }
 
       &:hover {
-        background-color: $secondary;
+        color: $primary;
+        border: 1px solid $primary;
+        background-color: $secondary-background-color;
       }
     }
   }
