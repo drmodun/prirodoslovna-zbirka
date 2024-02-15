@@ -55,21 +55,22 @@ export const OrganisationExponatsView = ({
         />
       </div>
       <CardCollection
-        items={exponats}
-        type="exponat"
-        sortBy={[{ label: "Najnovije", value: "newest" }, { label: "Najstarije", value: "oldest" }]}
-      />
-      <div className={classes.cardRow}>
-        {exponats
+        pageSize={10}
+        items={exponats
           .filter((exponat) => exponat.exponatKind.toLowerCase() === domain)
           .filter((exponat) =>
             exponat.name.toLowerCase().includes(searchValue.toLowerCase())
           )
-          .map((exponat) => (
-            <ExponatCard exponat={exponat} key={exponat.id} />
-          ))}
-        <span className={classes.error}>Nema eksponata za odabranu domenu</span>
-      </div>
+          .map((exponat) => exponat)}
+        type="exponat"
+        sortBy={[
+          { label: "Abecedno", value: "name" },
+          { label: "Abecedno (znanstveno ime)", value: "alternateName" },
+          { label: "Datum Objave", value: "updatedAt" },
+          { label: "Broj Favorita", value: "favouriteCount" },
+          { label: "Broj objava", value: "postCount" },
+        ]}
+      />
     </div>
   );
 };
