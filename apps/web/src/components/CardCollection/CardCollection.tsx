@@ -43,77 +43,82 @@ export const CardCollection: React.FC<CardCollectionProps> = ({
   pageSize,
 }) => {
   const [sortByValue, setSortByValue] = useState<string>("");
-  const [isAscending, setIsAscending] = useState<boolean>(true);
+  const [isDescending, setIsDescending] = useState<boolean>(false);
   const [amount, setAmount] = useState<number>(pageSize || 20);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
   const list = useRef<HTMLDivElement>(null);
 
   const handleScroll = async () => {
-    const { scrollTop, clientHeight, scrollHeight } = document.documentElement;
-    if (
-      scrollTop + clientHeight >= scrollHeight - 10 &&
-      !isLoading &&
-      amount < items.length
-    ) {
-      console.log(amount, items.length);
-      setIsLoading(true);
-      setTimeout(() => {
-        setAmount(
-          (prev) => prev + Math.min(pageSize || 20, items.length - prev)
-        );
-        setIsLoading(false);
-      }, 200);
+    if (amount < items.length) {
+      setAmount((prev) => prev + Math.min(pageSize || 20, items.length - prev));
     }
   };
-
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  });
 
   useEffect(() => {
     setSortByValue(sortBy[0].value);
   }, []);
 
   useEffect(() => {
-    console.log(items.slice(0, Math.min(amount, items.length)));
     setAmount(pageSize || 20);
   }, [sortByValue, pageSize]);
 
   const handleChangeDirection = () => {
-    setIsAscending((prev) => !prev);
+    setIsDescending((prev) => !prev);
   };
+
+  useEffect(() => {
+    const handleScrolling = () => {
+      const { scrollTop, clientHeight, scrollHeight } =
+        document.documentElement;
+      if (scrollTop + clientHeight >= scrollHeight - 20) {
+        handleScroll();
+      }
+    };
+    window.addEventListener("scroll", handleScrolling);
+    return () => window.removeEventListener("scroll", handleScrolling);
+  });
 
   return (
     <div className={classes.container}>
       <div className={classes.sortSelect}>
-        <select
-          title="sortBy"
-          className={classes.select}
-          onChange={(e) => setSortByValue(e.target.value)}
-        >
-          {sortBy.map((option) => (
-            <option key={option.value} value={option.value}>
-              {option.label}
-            </option>
-          ))}
-        </select>
-        <button
-          title="direkcija sortiranja"
-          className={clsx(
-            classes.direction,
-            !isAscending && classes.descending
-          )}
-          onChange={handleChangeDirection}
-        >
-          <Image alt="strelica" src={dArrow} />
-        </button>
+        <div className={classes.section}>
+          <span className={classes.sectionLabel}>Sortiraj po:</span>
+          <select
+            title="sortBy"
+            className={classes.select}
+            onChange={(e) => setSortByValue(e.target.value)}
+          >
+            {sortBy.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div className={classes.section}>
+          <span className={classes.sectionLabel}>
+            {!isDescending ? "Rastuće" : "Opadajuće"}
+          </span>
+          <button
+            title="direkcija sortiranja"
+            className={clsx(
+              classes.direction,
+              !isDescending && classes.descending
+            )}
+            onClick={handleChangeDirection}
+          >
+            <Image alt="strelica" src={dArrow} />
+          </button>
+        </div>
       </div>
-      <div className={classes.cardContainer} ref={list}>
+      <div
+        className={classes.cardContainer}
+        ref={list}
+        onScrollCapture={handleScroll}
+      >
         {items
           .toSorted((a, b) => {
-            const first = isAscending ? a : b;
-            const second = isAscending ? b : a;
+            const first = isDescending ? b : a;
+            const second = isDescending ? a : b;
             return isNaN(a[sortByValue]) && isNaN(b[sortByValue])
               ? first[sortByValue].localeCompare(second[sortByValue])
               : first[sortByValue] - second[sortByValue];
@@ -158,9 +163,6 @@ export const CardCollection: React.FC<CardCollectionProps> = ({
                 );
             }
           })}
-      </div>
-      <div className={classes.loading}>
-        {isLoading && <span>Učitavanje...</span>}
       </div>
     </div>
   );
