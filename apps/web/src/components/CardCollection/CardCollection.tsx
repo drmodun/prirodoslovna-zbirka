@@ -53,10 +53,6 @@ export const CardCollection: React.FC<CardCollectionProps> = ({
     }
   };
 
-  const checkIfVisible = (ref: React.RefObject<HTMLDivElement>) => {
-    return ref.current?.getBoundingClientRect().y! <= 0;
-  };
-
   useEffect(() => {
     setSortByValue(sortBy[0].value);
   }, []);
@@ -83,7 +79,7 @@ export const CardCollection: React.FC<CardCollectionProps> = ({
     window.addEventListener("scroll", handleScrolling);
     return () => window.removeEventListener("scroll", handleScrolling);
   });
-  return (
+  return items.length > 0 ? (
     <div className={classes.container}>
       <div className={classes.sortSelect}>
         <div className={classes.section}>
@@ -185,6 +181,10 @@ export const CardCollection: React.FC<CardCollectionProps> = ({
           <Image src={dArrow} alt="back to top arrow" />
         </div>
       </div>
+    </div>
+  ) : (
+    <div className={classes.noResults} ref={list}>
+      <h1>Nema rezultata</h1>
     </div>
   );
 };
