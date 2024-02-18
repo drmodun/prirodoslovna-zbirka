@@ -99,7 +99,7 @@ export const UserPageBody = ({ user }: UserPageBodyProps) => {
             <CardCollection
               items={user.memberships}
               sortBy={[
-                { label: "Abecedno", value: "organisationName" },
+                { label: "Abecedno", value: "name" },
                 { label: "Likeovi", value: "points" },
                 { label: "Broj Followera", value: "followerCount" },
                 { label: "Broj Članova", value: "memberCount" },
