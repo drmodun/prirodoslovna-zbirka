@@ -10,14 +10,13 @@ import classes from "./CardCollection.module.scss";
 import MembershipCard from "components/MembershipCard";
 import { PostCard } from "components/PostCard";
 import placeholder from "assets/images/lion.svg";
-import SelectInput from "components/SelectInput";
-import { use, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import dArrow from "assets/images/d-arrow.svg";
 import Image from "next/image";
-import { set } from "react-hook-form";
 import clsx from "clsx";
 import { Indexable } from "@biosfera/types/src/jsonObjects";
 import BaseButton from "components/BaseButton";
+import { useIsInView } from "@/utility/hooks/useIsInView";
 
 export interface SortOption {
   label: string;
@@ -54,6 +53,10 @@ export const CardCollection: React.FC<CardCollectionProps> = ({
     }
   };
 
+  const checkIfVisible = (ref: React.RefObject<HTMLDivElement>) => {
+    return ref.current?.getBoundingClientRect().y! <= 0;
+  };
+
   useEffect(() => {
     setSortByValue(sortBy[0].value);
   }, []);
@@ -66,8 +69,11 @@ export const CardCollection: React.FC<CardCollectionProps> = ({
     setIsDescending((prev) => !prev);
   };
 
+  const listInView = useIsInView(list);
+
   useEffect(() => {
     const handleScrolling = () => {
+      console.log(list.current?.getBoundingClientRect().y);
       const { scrollTop, clientHeight, scrollHeight } =
         document.documentElement;
       if (scrollTop + clientHeight >= scrollHeight - 20) {
@@ -77,7 +83,6 @@ export const CardCollection: React.FC<CardCollectionProps> = ({
     window.addEventListener("scroll", handleScrolling);
     return () => window.removeEventListener("scroll", handleScrolling);
   });
-
   return (
     <div className={classes.container}>
       <div className={classes.sortSelect}>
@@ -161,17 +166,25 @@ export const CardCollection: React.FC<CardCollectionProps> = ({
             }
           })}
       </div>
-      {amount === items.length && (
-        <BaseButton
-          text="Nazad na vrh"
+
+      <div
+        className={clsx(
+          classes.floatingButton,
+          amount > (pageSize || 20) && !listInView ? classes.show : classes.hide
+        )}
+      >
+        <div
+          className={classes.image}
           onClick={() =>
             list.current?.scrollIntoView({
               behavior: "smooth",
               block: "start",
             })
           }
-        />
-      )}
+        >
+          <Image src={dArrow} alt="back to top arrow" />
+        </div>
+      </div>
     </div>
   );
 };
