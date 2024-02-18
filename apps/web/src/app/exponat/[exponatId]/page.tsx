@@ -3,6 +3,7 @@ import { ExponatExtendedResponse } from "@biosfera/types";
 import classes from "./page.module.scss";
 import ExponatModal from "components/ExponatModal";
 import { PostCard } from "components/PostCard";
+import CardCollection from "components/CardCollection";
 
 const ExponatPage = async ({ params }: { params: any }) => {
   const exponatInfo: ExponatExtendedResponse = await serverGetExponat(
@@ -16,13 +17,18 @@ const ExponatPage = async ({ params }: { params: any }) => {
       </div>
       <div className={classes.posts}>
         <span className={classes.title}>Objave</span>
-        {exponatInfo.posts.length > 0 && (
-          <div className={classes.postsRow}>
-            {exponatInfo.posts.map((post, index) => (
-              <PostCard post={post} key={index} />
-            ))}
-          </div>
-        )}
+        {
+          <CardCollection
+            items={exponatInfo.posts}
+            type="post"
+            sortBy={[
+              { label: "Abecedno", value: "title" },
+              { label: "Likeovi", value: "likeScore" },
+              { label: "Datum Objave", value: "updatedAt" },
+            ]}
+            pageSize={10}
+          />
+        }
       </div>
     </div>
   );
