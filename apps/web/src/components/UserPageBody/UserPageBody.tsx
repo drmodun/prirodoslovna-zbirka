@@ -9,6 +9,7 @@ import { ExponatCard } from "components/ExponatCard";
 import { PostCard } from "components/PostCard";
 import MembershipCard from "components/MembershipCard";
 import { memberWeight } from "components/MembershipCard/MembershipCard";
+import CardCollection from "components/CardCollection";
 
 const tabs = ["About", "Posts", "Likes", "Favourites", "Organisations"];
 
@@ -45,74 +46,67 @@ export const UserPageBody = ({ user }: UserPageBodyProps) => {
 
       {activeTab === "Favourites" && (
         <div className={classes.tabContent}>
-          <div className={classes.cardRow}>
-            {user.favouriteExponats.length > 0 ? (
-              user.favouriteExponats.map((exponat) => (
-                <ExponatCard exponat={exponat} key={exponat.id} />
-              ))
-            ) : (
-              <span className={classes.error}>
-                Korisnik nema omiljenih eksponata
-              </span>
-            )}
-          </div>
+          {
+            <CardCollection
+              items={user.favouriteExponats}
+              sortBy={[
+                { label: "Abecedno", value: "title" },
+                { label: "Znanstveno ime", value: "alternateName" },
+                { label: "Datum Objave", value: "updatedAt" },
+                { label: "Broj Favorita", value: "Favourite Count" },
+              ]}
+              type="exponat"
+            />
+          }
         </div>
       )}
 
       {activeTab === "Posts" && (
         <div className={classes.tabContent}>
-          <div className={classes.cardRow}>
-            {user.posts.length > 0 ? (
-              user.posts.map((post) => <PostCard post={post} key={post.id} />)
-            ) : (
-              <span className={classes.error}>Korisnik nema objava</span>
-            )}
-          </div>
+          {
+            <CardCollection
+              items={user.posts}
+              sortBy={[
+                { label: "Abecedno", value: "title" },
+                { label: "Datum Objave", value: "updatedAt" },
+                { label: "Likeovi", value: "likeScore" },
+              ]}
+              type="post"
+            />
+          }
         </div>
       )}
 
       {activeTab === "Likes" && (
         <div className={classes.tabContent}>
-          <div className={classes.cardRow}>
-            {user.likedPosts.length > 0 ? (
-              user.likedPosts.map((post) => (
-                <PostCard post={post} key={post.id} />
-              ))
-            ) : (
-              <span className={classes.error}>
-                Korisnik nije lajkao nijednu objavu
-              </span>
-            )}
-          </div>
+          {
+            <CardCollection
+              items={user.likedPosts}
+              sortBy={[
+                { label: "Abecedno", value: "title" },
+                { label: "Broj Lajkova", value: "likeScore" },
+                { label: "Autor", value: "authorName" },
+              ]}
+              type="post"
+            />
+          }
         </div>
       )}
 
       {activeTab === "Organisations" && (
         <div className={classes.tabContent}>
-          <div className={classes.cardRow}>
-            {user.memberships.length > 0 ? (
-              user.memberships
-                .toSorted(
-                  (b, a) => memberWeight[a.role!] - memberWeight[b.role!]
-                )
-                .map((organisation) => (
-                  <MembershipCard
-                    description={organisation.location}
-                    object={organisation}
-                    id={organisation.id}
-                    image={organisation.mainImage}
-                    name={organisation.name}
-                    role={organisation.role as string}
-                    type="organisation"
-                    key={organisation.id}
-                  />
-                ))
-            ) : (
-              <span className={classes.error}>
-                Korisnik nije član nijedne organizacije
-              </span>
-            )}
-          </div>
+          {user.memberships && (
+            <CardCollection
+              items={user.memberships}
+              sortBy={[
+                { label: "Abecedno", value: "organisationName" },
+                { label: "Likeovi", value: "points" },
+                { label: "Broj Followera", value: "followerCount" },
+                { label: "Broj Članova", value: "memberCount" },
+              ]}
+              type="organisation"
+            />
+          )}
         </div>
       )}
     </div>

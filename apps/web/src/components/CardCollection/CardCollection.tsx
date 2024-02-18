@@ -118,7 +118,7 @@ export const CardCollection: React.FC<CardCollectionProps> = ({
             const first = isDescending ? b : a;
             const second = isDescending ? a : b;
             return isNaN(a[sortByValue]) && isNaN(b[sortByValue])
-              ? first[sortByValue].localeCompare(second[sortByValue])
+              ? first[sortByValue]?.localeCompare(second[sortByValue])
               : first[sortByValue] - second[sortByValue];
           })
           .slice(0, Math.min(amount, items.length))
