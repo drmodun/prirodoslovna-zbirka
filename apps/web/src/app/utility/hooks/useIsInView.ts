@@ -10,10 +10,11 @@ export function useIsInView(ref: React.RefObject<HTMLDivElement>) {
           entry.isIntersecting || ref.current?.getBoundingClientRect().y! > 0
         )
       ),
-    []
+    [ref.current]
   );
 
   useEffect(() => {
+    console.log(ref.current?.getBoundingClientRect().y);
     observer.observe(ref.current!);
 
     return () => {

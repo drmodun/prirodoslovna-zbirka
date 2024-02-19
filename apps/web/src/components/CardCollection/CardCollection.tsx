@@ -69,7 +69,7 @@ export const CardCollection: React.FC<CardCollectionProps> = ({
 
   useEffect(() => {
     const handleScrolling = () => {
-      console.log(list.current?.getBoundingClientRect().y);
+      console.log(list.current?.getBoundingClientRect().y, listInView);
       const { scrollTop, clientHeight, scrollHeight } =
         document.documentElement;
       if (scrollTop + clientHeight >= scrollHeight - 20) {
