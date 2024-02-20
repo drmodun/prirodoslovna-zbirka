@@ -11,6 +11,8 @@ import {
 import { Indexable } from "@biosfera/types/src/jsonObjects";
 import { UserWrapper } from "@/utility/wrappers/userWrapper";
 import MembershipFollowButton from "../MembershipFollowButton";
+import LeaveOrganisationButton from "components/LeaveOrganisationButton";
+import RemoveMembershipButton from "components/RemoveMembershipButton";
 
 export const memberWeight = {
   ADMIN: 2,
@@ -24,15 +26,21 @@ export interface MemberShipCardProps {
   image: string | StaticImageData;
   type: "organisation" | "user";
   id: string;
+  organisationId?: string;
   role: string;
+  isUser?: boolean;
+  isAdmin?: boolean;
   object: OrganisationResponseShort | ShortUserResponse;
 }
 
 export const MembershipCard = ({
   name,
+  isUser,
   description,
   image,
+  organisationId,
   role,
+  isAdmin,
   id,
   type,
   object: oq,
@@ -61,7 +69,19 @@ export const MembershipCard = ({
             : "Zahtjev"}
         </div>
         <UserWrapper>
-          <MembershipFollowButton object={oq} type={type} />
+          {isUser ? (
+            <LeaveOrganisationButton organisationId={oq.id} />
+          ) : isAdmin ? (
+            <div className={classes.buttons}>
+              <RemoveMembershipButton
+                userId={oq.id}
+                organisationId={organisationId!}
+              />
+            </div>
+          ) : null}
+          <div className={classes.buttons}>
+            <MembershipFollowButton object={oq} type={type} />
+          </div>
         </UserWrapper>
       </div>
     </div>
