@@ -17,6 +17,7 @@ import clsx from "clsx";
 import { Indexable } from "@biosfera/types/src/jsonObjects";
 import BaseButton from "components/BaseButton";
 import { useIsInView } from "@/utility/hooks/useIsInView";
+import useUser from "@/utility/context/UserContext";
 
 export interface SortOption {
   label: string;
@@ -34,6 +35,8 @@ export interface CardCollectionProps {
   type: "exponat" | "post" | "user" | "organisation";
   sortBy: SortOption[];
   pageSize?: number;
+  isAdmin?: boolean;
+  isUser?: boolean;
 }
 
 export const CardCollection: React.FC<CardCollectionProps> = ({
@@ -45,6 +48,7 @@ export const CardCollection: React.FC<CardCollectionProps> = ({
   const [sortByValue, setSortByValue] = useState<string>("");
   const [isDescending, setIsDescending] = useState<boolean>(false);
   const [amount, setAmount] = useState<number>(pageSize || 20);
+  const { memberships, user } = useUser();
   const list = useRef<HTMLDivElement>(null);
 
   const handleScroll = async () => {
@@ -79,6 +83,21 @@ export const CardCollection: React.FC<CardCollectionProps> = ({
     window.addEventListener("scroll", handleScrolling);
     return () => window.removeEventListener("scroll", handleScrolling);
   });
+
+  const checkAdminMembership = (organisationId: string) => {
+    return memberships.some(
+      (membership) =>
+        membership.id === organisationId &&
+        (membership.role === "ADMIN" ||
+          membership.role === "OWNER" ||
+          user?.role === "super")
+    );
+  };
+
+  const checkIsAuthor = (authorId: string) => {
+    return authorId === user?.id;
+  };
+
   return items.length > 0 ? (
     <div className={classes.container}>
       <div className={classes.sortSelect}>
@@ -129,6 +148,9 @@ export const CardCollection: React.FC<CardCollectionProps> = ({
                   <ExponatCard
                     key={index}
                     exponat={item as ExponatResponseShort}
+                    isAdmin={checkAdminMembership(
+                      (item as ExponatResponseShort).organizationId
+                    )}
                   />
                 );
               case "post":

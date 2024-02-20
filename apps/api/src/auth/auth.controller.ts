@@ -136,6 +136,7 @@ export class AuthController {
       hasProfileImage: item.hasProfileImage,
       likeCount: item.Posts.reduce((agg, curr) => agg + curr._count.Likes, 0),
       favouriteExponats,
+      role: item.role,
       memberships,
     };
 
