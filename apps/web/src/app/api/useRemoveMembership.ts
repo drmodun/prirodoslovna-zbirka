@@ -19,8 +19,12 @@ export const useRemoveMembership = () => {
       });
       queryClient.invalidateQueries("memberships");
     },
-    onError: (error) => {
-      if (error === "Unauthorized") {
+    onError: (error: string) => {
+      if (
+        error === "Unauthorized" ||
+        error.includes("Unauthorized") ||
+        error.includes("You")
+      ) {
         toast.error("Morate biti admin da biste uklonili clanstvo", {
           icon: "🔒",
           id: "unauthorized",

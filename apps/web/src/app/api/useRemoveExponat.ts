@@ -16,8 +16,12 @@ export const useRemoveExponat = () => {
       });
       queryClient.invalidateQueries("exponats");
     },
-    onError: (error) => {
-      if (error === "Unauthorized") {
+    onError: (error: string) => {
+      if (
+        error === "Unauthorized" ||
+        error.includes("Unauthorized") ||
+        error.includes("You")
+      ) {
         toast.error("Morate biti admin da biste uklonili eksponat", {
           icon: "🔒",
           id: "unauthorized",

@@ -16,8 +16,12 @@ export const useLeaveMembership = () => {
       });
       queryClient.invalidateQueries("memberships");
     },
-    onError: (error) => {
-      if (error === "Unauthorized") {
+    onError: (error: string) => {
+      if (
+        error === "Unauthorized" ||
+        error.includes("Unauthorized") ||
+        error.includes("You")
+      ) {
         toast.error("Neispravna autorizacija", {
           icon: "🔒",
           id: "unauthorized",

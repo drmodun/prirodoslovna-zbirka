@@ -16,8 +16,13 @@ export const useRemovePost = () => {
       });
       queryClient.invalidateQueries("posts");
     },
-    onError: (error) => {
-      if (error === "Unauthorized") {
+    onError: (error: string) => {
+      console.log(error);
+      if (
+        error === "Unauthorized" ||
+        error.includes("Unauthorized") ||
+        error.includes("You")
+      ) {
         toast.error("Morate biti admin da biste uklonili eksponat", {
           icon: "🔒",
           id: "unauthorized",
