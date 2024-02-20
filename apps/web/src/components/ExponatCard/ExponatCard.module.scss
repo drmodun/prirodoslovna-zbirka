@@ -5,6 +5,7 @@
   display: flex;
   flex-direction: column;
   width: vw-calc(200);
+  position: relative;
   height: vw-calc(340);
   border: 2px solid $stroke-color;
   background-color: $background-color;
