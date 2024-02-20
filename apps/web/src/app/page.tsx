@@ -13,7 +13,7 @@ export default function Home() {
             Jednostavno prikažite sadržaj prirodoslovne zbirke vaše ustanove u
             samo nekoliko klikova!
           </p>
-          <BaseButton text="Prijavite se" />
+          <BaseButton className={c.button} text="Prijavite se" />
         </div>
         <Image className={c.plantImage} src={PlantPicture} alt="plant" />
       </section>
