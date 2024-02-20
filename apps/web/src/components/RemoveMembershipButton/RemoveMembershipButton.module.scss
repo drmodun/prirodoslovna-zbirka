@@ -1,0 +1,25 @@
+@import "styles/variables.scss";
+@import "styles/calc.scss";
+
+.kickButton {
+  width: vw-calc(100);
+  height: vw-calc(50);
+  border: none;
+  background-color: $red;
+  border-radius: vw-calc(10);
+  display: flex;
+  outline: none;
+  justify-content: center;
+  color: $background-color;
+  transition: background-color 0.2s ease-out;
+
+  &:hover {
+    cursor: pointer;
+    background-color: $dark-red;
+  }
+
+  @media screen and (max-width: 768px) {
+    width: vw-mobile-calc(50);
+    height: vw-mobile-calc(25);
+  }
+}
