@@ -7,7 +7,11 @@ const toggleLike = (id: string) => api.post(`/likes/${id}`);
 export const useToggleLike = () => {
   return useMutation(toggleLike, {
     onError: (error) => {
-      if (error === "Unauthorized") {
+      if (
+        error === "Unauthorized" ||
+        error.includes("Unauthorized") ||
+        error.includes("You")
+      ) {
         toast.error("You must be logged in to like a post", {
           icon: "🔒",
           id: "unauthorized",

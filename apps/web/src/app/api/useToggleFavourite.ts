@@ -11,7 +11,11 @@ export const useToggleFavourite = () => {
       queryClient.invalidateQueries("exponats");
     },
     onError: (error) => {
-      if (error === "Unauthorized") {
+      if (
+        error === "Unauthorized" ||
+        error.includes("Unauthorized") ||
+        error.includes("You")
+      ) {
         toast.error("You must be logged in to favourite a post", {
           icon: "🔒",
           id: "unauthorized",
