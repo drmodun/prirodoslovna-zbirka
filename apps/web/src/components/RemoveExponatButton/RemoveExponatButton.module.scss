@@ -1,0 +1,37 @@
+@import "styles/variables.scss";
+@import "styles/calc.scss";
+
+.container {
+  position: absolute;
+  top: vw-calc(10);
+  right: vw-calc(10);
+  width: vw-calc(50);
+  height: vw-calc(50);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .removalButton {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border: none;
+    background-color: $red;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.2s ease-out;
+
+    img {
+      width: vw-calc(25);
+      height: vw-calc(25);
+    }
+
+    &:hover {
+      cursor: pointer;
+      background-color: $dark-red;
+    }
+  }
+}
