@@ -12,6 +12,7 @@ import OrganisationHomepage from "../OrganisationHomepage";
 import OrganisationAbout from "../OrganisationAbout";
 import MembershipCard from "components/MembershipCard";
 import { memberWeight } from "components/MembershipCard/MembershipCard";
+import CardCollection from "components/CardCollection";
 export interface OrganisationBodyProps {
   organisation: ExtendedOrganisationResponse;
 }
@@ -51,27 +52,16 @@ export const OrganisationBody = ({
             <OrganisationExponatsView exponats={organisation.exponats} />
           )}
           {activeTab === "Objave" && <div>objave</div>}
-          {activeTab === "Članovi" && organisation.members.length > 0 ? (
-            <div className={classes.membersColumn}>
-              {organisation.members
-                .toSorted(
-                  (b, a) => memberWeight[a.role!] - memberWeight[b.role!]
-                )
-                .map((member) => (
-                  <MembershipCard
-                    description={member.email}
-                    object={member}
-                    id={member.id}
-                    name={member.username}
-                    image={member.avatar || placeholder}
-                    role={member.role as string}
-                    type="user"
-                    key={member.id}
-                  />
-                ))}
-            </div>
-          ) : (
-            <span className={classes.error}>Organizacija nema članova</span>
+          {activeTab === "Članovi" && (
+            <CardCollection
+              items={organisation.members}
+              type="user"
+              sortBy={[
+                { label: "Abecedno", value: "username" },
+                { label: "Uloga", value: "role" },
+              ]}
+              pageSize={10}
+            />
           )}
           {activeTab === "O organizaciji" && (
             <OrganisationAbout organisation={organisation} />

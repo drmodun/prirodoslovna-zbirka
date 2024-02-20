@@ -32,15 +32,25 @@ export interface CardCollectionProps {
     | OrganisationResponseShort[]
   ) &
     Indexable[];
-  type: "exponat" | "post" | "user" | "organisation";
+  type:
+    | "exponat"
+    | "post"
+    | "user"
+    | "organisation"
+    | "user-member"
+    | "organisation-member";
   sortBy: SortOption[];
+  organisationId?: string;
+  userId?: string;
   pageSize?: number;
 }
 
 export const CardCollection: React.FC<CardCollectionProps> = ({
   items,
   type,
+  userId,
   sortBy,
+  organisationId,
   pageSize,
 }) => {
   const [sortByValue, setSortByValue] = useState<string>("");
@@ -166,7 +176,7 @@ export const CardCollection: React.FC<CardCollectionProps> = ({
                     isUser={checkIsAuthor((item as PostResponse).authorId)}
                   />
                 );
-              case "user":
+              case "user-member":
                 item = item as ShortUserResponse;
                 return (
                   <MembershipCard
@@ -175,11 +185,16 @@ export const CardCollection: React.FC<CardCollectionProps> = ({
                     image={placeholder}
                     object={item as ShortUserResponse}
                     role={item.role as string}
+                    isUser={checkIsAuthor(item.id)}
+                    isAdmin={
+                      user?.role === "super" ||
+                      checkAdminMembership(organisationId!)
+                    }
                     name={item.username}
                     id={item.id}
                   />
                 );
-              case "organisation":
+              case "organisation-member":
                 item = item as OrganisationResponseShort;
                 return (
                   <MembershipCard
@@ -190,6 +205,8 @@ export const CardCollection: React.FC<CardCollectionProps> = ({
                     role={item.role as string}
                     name={item.name}
                     id={item.id}
+                    isAdmin={checkAdminMembership(item.id)}
+                    isUser={checkIsAuthor(userId!)}
                   />
                 );
             }

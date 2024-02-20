@@ -66,7 +66,6 @@ export const UserPageBody = ({ user }: UserPageBodyProps) => {
           {
             <CardCollection
               items={user.posts}
-              isUser={true}
               sortBy={[
                 { label: "Abecedno", value: "title" },
                 { label: "Datum Objave", value: "updatedAt" },
@@ -99,11 +98,11 @@ export const UserPageBody = ({ user }: UserPageBodyProps) => {
           {user.memberships && (
             <CardCollection
               items={user.memberships}
+              userId={user.id}
               sortBy={[
                 { label: "Abecedno", value: "name" },
-                { label: "Likeovi", value: "points" },
-                { label: "Broj Followera", value: "followerCount" },
-                { label: "Broj Članova", value: "memberCount" },
+                { label: "Lokacija", value: "location" },
+                { label: "Uloga", value: "role" },
               ]}
               type="organisation"
             />
