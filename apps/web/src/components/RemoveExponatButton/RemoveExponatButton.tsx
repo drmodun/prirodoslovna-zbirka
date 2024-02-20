@@ -1,6 +1,6 @@
 "use client";
 import { useRemoveExponat } from "@/api/useRemoveExponat";
-import classes from "./RemoveExponatButton.module.css";
+import classes from "./RemoveExponatButton.module.scss";
 import remove from "assets/images/remove.svg";
 import Image from "next/image";
 import { useEffect } from "react";
