@@ -19,7 +19,7 @@ export const RemoveExponatButton: React.FC<RemoveExponatButtonProps> = ({
 
   const handleDelete = () => {
     const confirm = window.confirm(
-      "Da li ste sigurni da želite da uklonite eksponat?"
+      "Jeste li sigurni da želite maknuti eksponat?"
     );
     confirm && mutate(exponatId);
 
@@ -46,12 +46,7 @@ export const RemoveExponatButton: React.FC<RemoveExponatButtonProps> = ({
         title="Delete Exponat"
         className={classes.removalButton}
       >
-        <Image
-          title="Makni eksponat"
-          src={remove}
-          alt="Makni eksponat"
-          layout="fill"
-        />
+        <Image title="Makni eksponat" src={remove} alt="Makni eksponat" />
       </button>
     </div>
   );

@@ -475,8 +475,7 @@ async function main() {
       email: 'rsamweyes0@51.la',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'rsamweyes0',
+      hasProfileImage: false, isActivated: true, username: 'rsamweyes0',
     },
     {
       id: 'ae7f50d8-f871-4bc7-86e5-fedb3959431a',
@@ -486,8 +485,7 @@ async function main() {
       email: 'amacon1@jimdo.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'amacon1',
+      hasProfileImage: false, isActivated: true, username: 'amacon1',
     },
     {
       id: 'b869220a-19ad-4aa5-8cf5-b2bf15d80b64',
@@ -497,8 +495,7 @@ async function main() {
       email: 'cmichin2@google.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'cmichin2',
+      hasProfileImage: false, isActivated: true, username: 'cmichin2',
     },
     {
       id: '5be5c3f8-dc65-421a-a679-66b92c199a53',
@@ -508,8 +505,7 @@ async function main() {
       email: 'sgooderidge3@tripadvisor.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'sgooderidge3',
+      hasProfileImage: false, isActivated: true, username: 'sgooderidge3',
     },
     {
       id: 'fe6a609e-71fa-475a-befd-f5834d77d6e9',
@@ -519,8 +515,7 @@ async function main() {
       email: 'vgarett4@fc2.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'vgarett4',
+      hasProfileImage: false, isActivated: true, username: 'vgarett4',
     },
     {
       id: '55df6e12-bb34-4300-a972-82888e60eb45',
@@ -530,8 +525,7 @@ async function main() {
       email: 'skilrow5@netscape.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'skilrow5',
+      hasProfileImage: false, isActivated: true, username: 'skilrow5',
     },
     {
       id: 'cdaca9ef-f5bf-44c5-968c-d34ce6aad8e0',
@@ -541,8 +535,7 @@ async function main() {
       email: 'mdesaur6@reverbnation.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'mdesaur6',
+      hasProfileImage: false, isActivated: true, username: 'mdesaur6',
     },
     {
       id: '815df75f-383f-4d5e-8141-31772717b3b7',
@@ -552,8 +545,7 @@ async function main() {
       email: 'hquestier7@tripadvisor.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'hquestier7',
+      hasProfileImage: false, isActivated: true, username: 'hquestier7',
     },
     {
       id: '52f1af3a-1058-4198-9628-cfec73f2fa94',
@@ -563,8 +555,7 @@ async function main() {
       email: 'ktremaine8@linkedin.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'ktremaine8',
+      hasProfileImage: false, isActivated: true, username: 'ktremaine8',
     },
     {
       id: '97a5bf27-b83d-46de-ba51-c2e1249d5a11',
@@ -574,8 +565,7 @@ async function main() {
       email: 'bmcgarvie9@indiatimes.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'bmcgarvie9',
+      hasProfileImage: false, isActivated: true, username: 'bmcgarvie9',
     },
     {
       id: '72dff496-52e3-4d95-ac98-c2c8f7d765e6',
@@ -585,8 +575,7 @@ async function main() {
       email: 'cloebera@technorati.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'cloebera',
+      hasProfileImage: false, isActivated: true, username: 'cloebera',
     },
     {
       id: '6edfcd3e-e794-45d6-89b6-7731684cd4fd',
@@ -596,8 +585,7 @@ async function main() {
       email: 'bbreartyb@mozilla.org',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'bbreartyb',
+      hasProfileImage: false, isActivated: true, username: 'bbreartyb',
     },
     {
       id: 'c6a57aa1-976c-4488-a1b6-7d1cacb360e0',
@@ -607,8 +595,7 @@ async function main() {
       email: 'btidyc@cam.ac.uk',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'btidyc',
+      hasProfileImage: false, isActivated: true, username: 'btidyc',
     },
     {
       id: '3251861f-8b6b-46d4-8219-ed6fd96b47e5',
@@ -618,8 +605,7 @@ async function main() {
       email: 'smottershawd@live.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'smottershawd',
+      hasProfileImage: false, isActivated: true, username: 'smottershawd',
     },
     {
       id: '65fa1fb7-039a-4d3d-bd58-d21a731657ae',
@@ -629,8 +615,7 @@ async function main() {
       email: 'rlambee@bloglines.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'rlambee',
+      hasProfileImage: false, isActivated: true, username: 'rlambee',
     },
     {
       id: '950a1598-635c-4466-9cfd-e3bddbdec0bb',
@@ -640,8 +625,7 @@ async function main() {
       email: 'fthreadkellf@fastcompany.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'fthreadkellf',
+      hasProfileImage: false, isActivated: true, username: 'fthreadkellf',
     },
     {
       id: '929524b4-acac-464b-956e-f843c2741b7b',
@@ -651,8 +635,7 @@ async function main() {
       email: 'ebettertong@hugedomains.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'ebettertong',
+      hasProfileImage: false, isActivated: true, username: 'ebettertong',
     },
     {
       id: '1f836910-11cb-4970-96a9-af346ea0475d',
@@ -662,8 +645,7 @@ async function main() {
       email: 'gkinsleyh@ucoz.ru',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'gkinsleyh',
+      hasProfileImage: false, isActivated: true, username: 'gkinsleyh',
     },
     {
       id: 'a8a3f799-74b4-4f39-9f1b-209db4e965f1',
@@ -673,8 +655,7 @@ async function main() {
       email: 'jjuschkei@apache.org',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'jjuschkei',
+      hasProfileImage: false, isActivated: true, username: 'jjuschkei',
     },
     {
       id: 'ed077e25-9f95-40ff-8584-394a610c1133',
@@ -684,8 +665,7 @@ async function main() {
       email: 'lkenninghamj@ebay.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'lkenninghamj',
+      hasProfileImage: false, isActivated: true, username: 'lkenninghamj',
     },
     {
       id: '2d297164-d3e0-4987-be86-ba110a91a185',
@@ -695,8 +675,7 @@ async function main() {
       email: 'cfritchek@abc.net.au',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'cfritchek',
+      hasProfileImage: false, isActivated: true, username: 'cfritchek',
     },
     {
       id: 'df2269e6-164a-40ee-876a-0a327edaa59e',
@@ -706,8 +685,7 @@ async function main() {
       email: 'swhittlesl@twitpic.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'swhittlesl',
+      hasProfileImage: false, isActivated: true, username: 'swhittlesl',
     },
     {
       id: 'cad2ee71-1cd5-4f58-a99f-0b15bd7dddde',
@@ -717,8 +695,7 @@ async function main() {
       email: 'ewakesm@edublogs.org',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'ewakesm',
+      hasProfileImage: false, isActivated: true, username: 'ewakesm',
     },
     {
       id: '59468cec-1278-4a89-8fa7-fca669177d05',
@@ -728,8 +705,7 @@ async function main() {
       email: 'mokien@posterous.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'mokien',
+      hasProfileImage: false, isActivated: true, username: 'mokien',
     },
     {
       id: '0b264289-5a95-4f05-baf0-25b5a0c04891',
@@ -739,8 +715,7 @@ async function main() {
       email: 'blonghirsto@joomla.org',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'blonghirsto',
+      hasProfileImage: false, isActivated: true, username: 'blonghirsto',
     },
     {
       id: '521a92a6-9c64-40f6-a2e4-b26bd6c2a7b7',
@@ -750,8 +725,7 @@ async function main() {
       email: 'kjanwayp@kickstarter.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'kjanwayp',
+      hasProfileImage: false, isActivated: true, username: 'kjanwayp',
     },
     {
       id: '1f63199e-887b-4ca5-9257-ebabc79c917c',
@@ -761,8 +735,7 @@ async function main() {
       email: 'akleineq@wikia.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'akleineq',
+      hasProfileImage: false, isActivated: true, username: 'akleineq',
     },
     {
       id: 'c5539d78-9730-457b-9109-099ae4df78b8',
@@ -772,8 +745,7 @@ async function main() {
       email: 'hkeenr@usda.gov',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'hkeenr',
+      hasProfileImage: false, isActivated: true, username: 'hkeenr',
     },
     {
       id: 'e4fe141f-d953-468f-b6dd-1d0283b5cdaa',
@@ -783,8 +755,7 @@ async function main() {
       email: 'amcneils@t-online.de',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'amcneils',
+      hasProfileImage: false, isActivated: true, username: 'amcneils',
     },
     {
       id: 'f972c993-25c9-4d6f-b18d-8e5daa7dd516',
@@ -794,8 +765,7 @@ async function main() {
       email: 'tkarolczykt@nationalgeographic.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'tkarolczykt',
+      hasProfileImage: false, isActivated: true, username: 'tkarolczykt',
     },
     {
       id: '0c0b7e73-6c3a-4edd-a985-b565496fbe85',
@@ -805,8 +775,7 @@ async function main() {
       email: 'rkobu@xrea.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'rkobu',
+      hasProfileImage: false, isActivated: true, username: 'rkobu',
     },
     {
       id: 'ac79c2cf-3ab7-4221-a8f8-d63e7d88262a',
@@ -816,8 +785,7 @@ async function main() {
       email: 'adibernardov@slashdot.org',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'adibernardov',
+      hasProfileImage: false, isActivated: true, username: 'adibernardov',
     },
     {
       id: '96423ba4-d842-47fb-a976-c7b164058144',
@@ -827,8 +795,7 @@ async function main() {
       email: 'hmckeanw@ameblo.jp',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'hmckeanw',
+      hasProfileImage: false, isActivated: true, username: 'hmckeanw',
     },
     {
       id: 'f7a6898c-0ee2-4561-b2f4-a121245a5f85',
@@ -838,8 +805,7 @@ async function main() {
       email: 'jmiccox@uiuc.edu',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'jmiccox',
+      hasProfileImage: false, isActivated: true, username: 'jmiccox',
     },
     {
       id: '236b665a-aee8-4026-aeea-97b08e9b05be',
@@ -849,8 +815,7 @@ async function main() {
       email: 'gchangy@cbsnews.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'gchangy',
+      hasProfileImage: false, isActivated: true, username: 'gchangy',
     },
     {
       id: 'e602902d-de4d-46e7-8d4c-6de3c2225d85',
@@ -860,8 +825,7 @@ async function main() {
       email: 'ssellandz@reddit.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'ssellandz',
+      hasProfileImage: false, isActivated: true, username: 'ssellandz',
     },
     {
       id: '4956872a-d802-47b4-8aa8-0d881764be1f',
@@ -871,8 +835,7 @@ async function main() {
       email: 'cbrandhardy10@dion.ne.jp',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'cbrandhardy10',
+      hasProfileImage: false, isActivated: true, username: 'cbrandhardy10',
     },
     {
       id: 'ecdc8ff2-81f6-4f0a-b951-81fdd82f9557',
@@ -882,8 +845,7 @@ async function main() {
       email: 'kstille11@stumbleupon.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'kstille11',
+      hasProfileImage: false, isActivated: true, username: 'kstille11',
     },
     {
       id: '63b1a725-7f1f-4231-90c6-e9f8ad90dc46',
@@ -893,8 +855,7 @@ async function main() {
       email: 'olambol12@posterous.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'olambol12',
+      hasProfileImage: false, isActivated: true, username: 'olambol12',
     },
     {
       id: '3198ade1-377e-49f5-84c9-6a07d7f1cf15',
@@ -904,8 +865,7 @@ async function main() {
       email: 'nedlyne13@reddit.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'nedlyne13',
+      hasProfileImage: false, isActivated: true, username: 'nedlyne13',
     },
     {
       id: '45e51995-9dd9-45bc-9c58-7cb0e24d874e',
@@ -915,8 +875,7 @@ async function main() {
       email: 'ebecaris14@surveymonkey.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'ebecaris14',
+      hasProfileImage: false, isActivated: true, username: 'ebecaris14',
     },
     {
       id: '5ee8fba9-5682-45db-b586-e1706faeff98',
@@ -926,8 +885,7 @@ async function main() {
       email: 'wshackesby15@opera.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'wshackesby15',
+      hasProfileImage: false, isActivated: true, username: 'wshackesby15',
     },
     {
       id: '92f7d802-8d05-4733-b021-bc182abbca6c',
@@ -937,8 +895,7 @@ async function main() {
       email: 'gvian16@dell.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'gvian16',
+      hasProfileImage: false, isActivated: true, username: 'gvian16',
     },
     {
       id: 'c2fb957d-d1a3-4e6b-8678-dda50b1d4c80',
@@ -948,8 +905,7 @@ async function main() {
       email: 'gfittis17@nhs.uk',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'gfittis17',
+      hasProfileImage: false, isActivated: true, username: 'gfittis17',
     },
     {
       id: '9a31bae6-9ff5-4c3c-91e9-770f6660d1fe',
@@ -959,8 +915,7 @@ async function main() {
       email: 'jqueste18@seattletimes.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'jqueste18',
+      hasProfileImage: false, isActivated: true, username: 'jqueste18',
     },
     {
       id: '9eeb14ad-d965-43dd-8b73-f2172a30a88e',
@@ -970,8 +925,7 @@ async function main() {
       email: 'mphilipeau19@nytimes.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'mphilipeau19',
+      hasProfileImage: false, isActivated: true, username: 'mphilipeau19',
     },
     {
       id: 'd1da71b0-89ed-480f-8eac-8444d7de0587',
@@ -981,8 +935,7 @@ async function main() {
       email: 'hbarter1a@t-online.de',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'hbarter1a',
+      hasProfileImage: false, isActivated: true, username: 'hbarter1a',
     },
     {
       id: 'cde1ba56-080f-4c88-8fe3-14cb3367aa95',
@@ -992,8 +945,7 @@ async function main() {
       email: 'bstegell1b@mlb.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'bstegell1b',
+      hasProfileImage: false, isActivated: true, username: 'bstegell1b',
     },
     {
       id: '681e7865-43da-4be4-9da2-7a0bb67ad74d',
@@ -1003,8 +955,7 @@ async function main() {
       email: 'hmcgloughlin1c@pagesperso-orange.fr',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'hmcgloughlin1c',
+      hasProfileImage: false, isActivated: true, username: 'hmcgloughlin1c',
     },
     {
       id: 'd310d702-52d8-433c-b15c-fb267d18902b',
@@ -1014,8 +965,7 @@ async function main() {
       email: 'jkyngdon1d@oakley.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'jkyngdon1d',
+      hasProfileImage: false, isActivated: true, username: 'jkyngdon1d',
     },
     {
       id: 'fb53b63b-e100-42fb-aedd-d2141063740e',
@@ -1025,8 +975,7 @@ async function main() {
       email: 'tgoudard1e@businessinsider.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'tgoudard1e',
+      hasProfileImage: false, isActivated: true, username: 'tgoudard1e',
     },
     {
       id: 'e36b32e0-08bd-4859-99e4-e2c52d29f65d',
@@ -1036,8 +985,7 @@ async function main() {
       email: 'zcoleiro1f@shinystat.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'zcoleiro1f',
+      hasProfileImage: false, isActivated: true, username: 'zcoleiro1f',
     },
     {
       id: 'b86cd003-82ab-45d7-bf25-84c197838f69',
@@ -1047,8 +995,7 @@ async function main() {
       email: 'hmarklin1g@prlog.org',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'hmarklin1g',
+      hasProfileImage: false, isActivated: true, username: 'hmarklin1g',
     },
     {
       id: '9078ae83-81dc-46c9-acf7-8cc379f333d9',
@@ -1058,8 +1005,7 @@ async function main() {
       email: 'rduplan1h@reference.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'rduplan1h',
+      hasProfileImage: false, isActivated: true, username: 'rduplan1h',
     },
     {
       id: '5ffcc466-00fd-46ae-98b0-c4f797e59b65',
@@ -1069,8 +1015,7 @@ async function main() {
       email: 'swhaymand1i@yale.edu',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'swhaymand1i',
+      hasProfileImage: false, isActivated: true, username: 'swhaymand1i',
     },
     {
       id: 'ac320012-9ecd-4934-b791-a4ff303a80d5',
@@ -1080,8 +1025,7 @@ async function main() {
       email: 'cdunckley1j@theguardian.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'cdunckley1j',
+      hasProfileImage: false, isActivated: true, username: 'cdunckley1j',
     },
     {
       id: '255ef900-a331-40ba-b6fa-8487ac4f5b74',
@@ -1091,8 +1035,7 @@ async function main() {
       email: 'mjolliff1k@wisc.edu',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'mjolliff1k',
+      hasProfileImage: false, isActivated: true, username: 'mjolliff1k',
     },
     {
       id: '036149c3-bfc9-4563-9a19-464f9f05b20a',
@@ -1102,8 +1045,7 @@ async function main() {
       email: 'edenholm1l@google.nl',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'edenholm1l',
+      hasProfileImage: false, isActivated: true, username: 'edenholm1l',
     },
     {
       id: 'a27e581c-35af-4de8-848c-cc0c53f1612a',
@@ -1113,8 +1055,7 @@ async function main() {
       email: 'gberkelay1m@t.co',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'gberkelay1m',
+      hasProfileImage: false, isActivated: true, username: 'gberkelay1m',
     },
     {
       id: 'c809b69a-07d1-4425-9c09-755805e5c412',
@@ -1124,8 +1065,7 @@ async function main() {
       email: 'hboomes1n@nhs.uk',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'hboomes1n',
+      hasProfileImage: false, isActivated: true, username: 'hboomes1n',
     },
     {
       id: '959373c2-d2d4-473b-8ba6-fef6bd0827a6',
@@ -1135,8 +1075,7 @@ async function main() {
       email: 'slohmeyer1o@wired.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'slohmeyer1o',
+      hasProfileImage: false, isActivated: true, username: 'slohmeyer1o',
     },
     {
       id: '8753a022-7496-4160-a115-a13991ee0838',
@@ -1146,8 +1085,7 @@ async function main() {
       email: 'tzettoi1p@addtoany.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'tzettoi1p',
+      hasProfileImage: false, isActivated: true, username: 'tzettoi1p',
     },
     {
       id: '05196e30-e2d3-460b-9c7e-cc4aadcae848',
@@ -1157,8 +1095,7 @@ async function main() {
       email: 'hseale1q@macromedia.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'hseale1q',
+      hasProfileImage: false, isActivated: true, username: 'hseale1q',
     },
     {
       id: '3127a875-e01b-49ef-a400-a93b714b0426',
@@ -1168,8 +1105,7 @@ async function main() {
       email: 'jcheel1r@wired.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'jcheel1r',
+      hasProfileImage: false, isActivated: true, username: 'jcheel1r',
     },
     {
       id: 'bcb33908-3521-4459-b0dc-d60dfaa3859c',
@@ -1179,8 +1115,7 @@ async function main() {
       email: 'dsafell1s@feedburner.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'dsafell1s',
+      hasProfileImage: false, isActivated: true, username: 'dsafell1s',
     },
     {
       id: 'bd96f664-0c17-4b40-b6a1-dce592e2b6f5',
@@ -1190,8 +1125,7 @@ async function main() {
       email: 'aderry1t@craigslist.org',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'aderry1t',
+      hasProfileImage: false, isActivated: true, username: 'aderry1t',
     },
     {
       id: '313fef14-41a3-4f7d-b37d-5085dc5f40b0',
@@ -1201,8 +1135,7 @@ async function main() {
       email: 'minseal1u@comsenz.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'minseal1u',
+      hasProfileImage: false, isActivated: true, username: 'minseal1u',
     },
     {
       id: '7f2a5578-95ab-45c1-a60d-92d5ca5a88ae',
@@ -1212,8 +1145,7 @@ async function main() {
       email: 'fscandrett1v@dailymail.co.uk',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'fscandrett1v',
+      hasProfileImage: false, isActivated: true, username: 'fscandrett1v',
     },
     {
       id: 'bc102741-9fd1-4d76-a216-6439c48fb1bc',
@@ -1223,8 +1155,7 @@ async function main() {
       email: 'croyson1w@nature.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'croyson1w',
+      hasProfileImage: false, isActivated: true, username: 'croyson1w',
     },
     {
       id: '5f1feadd-e038-4d2c-8852-d6a2cdda674f',
@@ -1234,8 +1165,7 @@ async function main() {
       email: 'cdowns1x@biblegateway.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'cdowns1x',
+      hasProfileImage: false, isActivated: true, username: 'cdowns1x',
     },
     {
       id: '0b52649a-9018-4a0c-ae26-40fed615882f',
@@ -1245,8 +1175,7 @@ async function main() {
       email: 'aschade1y@4shared.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'aschade1y',
+      hasProfileImage: false, isActivated: true, username: 'aschade1y',
     },
     {
       id: 'e4ab0780-1394-4f4c-b44b-6aad72378097',
@@ -1256,8 +1185,7 @@ async function main() {
       email: 'mfears1z@plala.or.jp',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'mfears1z',
+      hasProfileImage: false, isActivated: true, username: 'mfears1z',
     },
     {
       id: '96cb933d-e755-4e92-b84b-51bbd927ff11',
@@ -1267,8 +1195,7 @@ async function main() {
       email: 'bescofier20@japanpost.jp',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'bescofier20',
+      hasProfileImage: false, isActivated: true, username: 'bescofier20',
     },
     {
       id: '5cf7bcae-0f8e-4382-a4c6-40f79985c466',
@@ -1278,8 +1205,7 @@ async function main() {
       email: 'cbigglestone21@uol.com.br',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'cbigglestone21',
+      hasProfileImage: false, isActivated: true, username: 'cbigglestone21',
     },
     {
       id: '1010441a-d21a-4dad-8fdb-f6a3e5e298ee',
@@ -1289,8 +1215,7 @@ async function main() {
       email: 'grobrow22@shareasale.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'grobrow22',
+      hasProfileImage: false, isActivated: true, username: 'grobrow22',
     },
     {
       id: 'a076871e-aea6-4fb5-bb54-64ba03f33f8a',
@@ -1300,8 +1225,7 @@ async function main() {
       email: 'mscay23@house.gov',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'mscay23',
+      hasProfileImage: false, isActivated: true, username: 'mscay23',
     },
     {
       id: 'defe7158-b1c3-4819-8376-60c15ab15866',
@@ -1311,8 +1235,7 @@ async function main() {
       email: 'mhennington24@microsoft.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'mhennington24',
+      hasProfileImage: false, isActivated: true, username: 'mhennington24',
     },
     {
       id: '199109a3-2582-4875-95ac-26b206581048',
@@ -1322,8 +1245,7 @@ async function main() {
       email: 'rbuyers25@google.com.hk',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'rbuyers25',
+      hasProfileImage: false, isActivated: true, username: 'rbuyers25',
     },
     {
       id: 'e62c9873-ace6-4700-9ad4-0d22f32bee24',
@@ -1333,8 +1255,7 @@ async function main() {
       email: 'ttrousdell26@google.nl',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'ttrousdell26',
+      hasProfileImage: false, isActivated: true, username: 'ttrousdell26',
     },
     {
       id: '17ed9dd9-42dc-4f3f-bd89-2f05a8b87cb8',
@@ -1344,8 +1265,7 @@ async function main() {
       email: 'lhessenthaler27@forbes.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'lhessenthaler27',
+      hasProfileImage: false, isActivated: true, username: 'lhessenthaler27',
     },
     {
       id: '7d202af7-af34-4de9-8f2d-2bb2263f8223',
@@ -1355,8 +1275,7 @@ async function main() {
       email: 'sholstein28@yandex.ru',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'sholstein28',
+      hasProfileImage: false, isActivated: true, username: 'sholstein28',
     },
     {
       id: 'efd4425c-4106-42fd-879f-c31acfa89ae5',
@@ -1366,8 +1285,7 @@ async function main() {
       email: 'mtincknell29@mayoclinic.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'mtincknell29',
+      hasProfileImage: false, isActivated: true, username: 'mtincknell29',
     },
     {
       id: '8543ade6-07cc-4c9c-9c11-11428bc3897e',
@@ -1377,8 +1295,7 @@ async function main() {
       email: 'rdacca2a@fc2.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'rdacca2a',
+      hasProfileImage: false, isActivated: true, username: 'rdacca2a',
     },
     {
       id: 'c0f4e557-b2b3-4807-91f6-bc38c18a4444',
@@ -1388,8 +1305,7 @@ async function main() {
       email: 'nrenhard2b@usa.gov',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'nrenhard2b',
+      hasProfileImage: false, isActivated: true, username: 'nrenhard2b',
     },
     {
       id: 'fe012816-d8fa-40c4-9885-1f8b97b15941',
@@ -1399,8 +1315,7 @@ async function main() {
       email: 'wconey2c@goo.ne.jp',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'wconey2c',
+      hasProfileImage: false, isActivated: true, username: 'wconey2c',
     },
     {
       id: 'b7fae2a2-54c0-4b40-a88d-c16718a6ef8b',
@@ -1410,8 +1325,7 @@ async function main() {
       email: 'fmillion2d@usatoday.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'fmillion2d',
+      hasProfileImage: false, isActivated: true, username: 'fmillion2d',
     },
     {
       id: '7ea87686-cb19-4030-9cc7-89d6b5f5502e',
@@ -1421,8 +1335,7 @@ async function main() {
       email: 'ctawse2e@de.vu',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'ctawse2e',
+      hasProfileImage: false, isActivated: true, username: 'ctawse2e',
     },
     {
       id: '16ff2eb0-c15f-4ee3-bfce-de208c8545dc',
@@ -1432,8 +1345,7 @@ async function main() {
       email: 'scliss2f@wunderground.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'scliss2f',
+      hasProfileImage: false, isActivated: true, username: 'scliss2f',
     },
     {
       id: '387bdb12-cdcb-4d31-8d5c-cbd3cfbc244b',
@@ -1443,8 +1355,7 @@ async function main() {
       email: 'teadmeads2g@amazonaws.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'teadmeads2g',
+      hasProfileImage: false, isActivated: true, username: 'teadmeads2g',
     },
     {
       id: '46d4cbcb-c323-40aa-a6ba-b65d2b60af97',
@@ -1454,8 +1365,7 @@ async function main() {
       email: 'cdering2h@simplemachines.org',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'cdering2h',
+      hasProfileImage: false, isActivated: true, username: 'cdering2h',
     },
     {
       id: 'de9278cb-a570-448a-91a3-b784923a63bf',
@@ -1465,8 +1375,7 @@ async function main() {
       email: 'pisaaksohn2i@tripod.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'pisaaksohn2i',
+      hasProfileImage: false, isActivated: true, username: 'pisaaksohn2i',
     },
     {
       id: '41cc541d-b727-46cc-8bbe-3cb9ddb3ff93',
@@ -1476,8 +1385,7 @@ async function main() {
       email: 'smulhall2j@devhub.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'smulhall2j',
+      hasProfileImage: false, isActivated: true, username: 'smulhall2j',
     },
     {
       id: 'f87948a1-e5c8-410c-ad91-23a49c9591f6',
@@ -1487,8 +1395,7 @@ async function main() {
       email: 'nizakoff2k@washingtonpost.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'nizakoff2k',
+      hasProfileImage: false, isActivated: true, username: 'nizakoff2k',
     },
     {
       id: '6c544134-6c8a-45c3-a0d9-94c775f44665',
@@ -1498,8 +1405,7 @@ async function main() {
       email: 'hianno2l@utexas.edu',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'hianno2l',
+      hasProfileImage: false, isActivated: true, username: 'hianno2l',
     },
     {
       id: 'c28de41e-f5d0-4e39-b497-3025d1126b54',
@@ -1509,8 +1415,7 @@ async function main() {
       email: 'dseavers2m@youtu.be',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'dseavers2m',
+      hasProfileImage: false, isActivated: true, username: 'dseavers2m',
     },
     {
       id: '59f06a74-b9e0-4451-8fb5-a90aaa47fa5d',
@@ -1520,8 +1425,7 @@ async function main() {
       email: 'cyusupov2n@hatena.ne.jp',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'cyusupov2n',
+      hasProfileImage: false, isActivated: true, username: 'cyusupov2n',
     },
     {
       id: '8722be53-486a-4db1-9021-1d935806c203',
@@ -1531,8 +1435,7 @@ async function main() {
       email: 'malphonso2o@macromedia.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'malphonso2o',
+      hasProfileImage: false, isActivated: true, username: 'malphonso2o',
     },
     {
       id: 'a97ef277-c9e5-4d9a-99ee-8558ea849080',
@@ -1542,8 +1445,7 @@ async function main() {
       email: 'cohalleghane2p@lulu.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'cohalleghane2p',
+      hasProfileImage: false, isActivated: true, username: 'cohalleghane2p',
     },
     {
       id: 'ee28d865-9574-4160-934f-2b5839828180',
@@ -1553,8 +1455,7 @@ async function main() {
       email: 'alake2q@mac.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'alake2q',
+      hasProfileImage: false, isActivated: true, username: 'alake2q',
     },
     {
       id: 'bf944033-8f34-4f9b-afc9-7c39ba6dcb48',
@@ -1564,8 +1465,7 @@ async function main() {
       email: 'rkarpenko2r@wikispaces.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'rkarpenko2r',
+      hasProfileImage: false, isActivated: true, username: 'rkarpenko2r',
     },
     {
       id: 'c2d7315b-c8aa-4dfc-82d0-a97b5ba66a3d',
@@ -1575,8 +1475,7 @@ async function main() {
       email: 'wchewter2s@miitbeian.gov.cn',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'wchewter2s',
+      hasProfileImage: false, isActivated: true, username: 'wchewter2s',
     },
     {
       id: '22f56e12-5cc0-4319-8dc2-948a422adf96',
@@ -1586,8 +1485,7 @@ async function main() {
       email: 'mbanker2t@businesswire.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'mbanker2t',
+      hasProfileImage: false, isActivated: true, username: 'mbanker2t',
     },
     {
       id: '436ff06e-0342-4c6f-b5cb-8d0edb0da45f',
@@ -1597,8 +1495,7 @@ async function main() {
       email: 'nhasely2u@homestead.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'nhasely2u',
+      hasProfileImage: false, isActivated: true, username: 'nhasely2u',
     },
     {
       id: '11ab24fa-8af6-47b3-991a-809540f9bbac',
@@ -1608,8 +1505,7 @@ async function main() {
       email: 'zkleinmann2v@yellowbook.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'zkleinmann2v',
+      hasProfileImage: false, isActivated: true, username: 'zkleinmann2v',
     },
     {
       id: '7ffc3a9b-868a-4f16-8f80-c5271457e50d',
@@ -1619,8 +1515,7 @@ async function main() {
       email: 'dwooton2w@sohu.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'dwooton2w',
+      hasProfileImage: false, isActivated: true, username: 'dwooton2w',
     },
     {
       id: 'e8a978b1-38d1-4e5d-b7bc-6ff91a8df94a',
@@ -1630,8 +1525,7 @@ async function main() {
       email: 'egiannazzo2x@seattletimes.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'egiannazzo2x',
+      hasProfileImage: false, isActivated: true, username: 'egiannazzo2x',
     },
     {
       id: '7d715c0c-3624-470a-a169-83d11a171388',
@@ -1641,8 +1535,7 @@ async function main() {
       email: 'uchennells2y@dot.gov',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'uchennells2y',
+      hasProfileImage: false, isActivated: true, username: 'uchennells2y',
     },
     {
       id: 'd23bb67c-6acb-4c6b-80f7-b313ecf9c713',
@@ -1652,8 +1545,7 @@ async function main() {
       email: 'agiannazzi2z@ameblo.jp',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'agiannazzi2z',
+      hasProfileImage: false, isActivated: true, username: 'agiannazzi2z',
     },
     {
       id: '56aaf507-96d6-4807-a21b-4a1562e0caac',
@@ -1663,8 +1555,7 @@ async function main() {
       email: 'amumberson30@reddit.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'amumberson30',
+      hasProfileImage: false, isActivated: true, username: 'amumberson30',
     },
     {
       id: '15ef743c-05d2-4670-a7ec-503665ad241a',
@@ -1674,8 +1565,7 @@ async function main() {
       email: 'nthrift31@behance.net',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'nthrift31',
+      hasProfileImage: false, isActivated: true, username: 'nthrift31',
     },
     {
       id: 'fe69253f-7f41-4789-8ed3-4aa724f7e29d',
@@ -1685,8 +1575,7 @@ async function main() {
       email: 'jryburn32@marriott.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'jryburn32',
+      hasProfileImage: false, isActivated: true, username: 'jryburn32',
     },
     {
       id: '0f362c48-472f-4aa1-9da4-4d0a60918fdc',
@@ -1696,8 +1585,7 @@ async function main() {
       email: 'cpaynes33@wisc.edu',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'cpaynes33',
+      hasProfileImage: false, isActivated: true, username: 'cpaynes33',
     },
     {
       id: 'e196ce95-dde3-4eee-b7b6-727f0455e5b2',
@@ -1707,8 +1595,7 @@ async function main() {
       email: 'tspellecy34@last.fm',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'tspellecy34',
+      hasProfileImage: false, isActivated: true, username: 'tspellecy34',
     },
     {
       id: 'd759c213-7e0b-4719-902a-ed2498a5b3b5',
@@ -1718,8 +1605,7 @@ async function main() {
       email: 'rsmissen35@seesaa.net',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'rsmissen35',
+      hasProfileImage: false, isActivated: true, username: 'rsmissen35',
     },
     {
       id: '79d3d179-2443-4c98-ba59-91a354269fb1',
@@ -1729,8 +1615,7 @@ async function main() {
       email: 'rnorthbridge36@liveinternet.ru',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'rnorthbridge36',
+      hasProfileImage: false, isActivated: true, username: 'rnorthbridge36',
     },
     {
       id: 'fc710cf8-75e9-4261-b4ca-bd82569ef3dd',
@@ -1740,8 +1625,7 @@ async function main() {
       email: 'iamort37@auda.org.au',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'iamort37',
+      hasProfileImage: false, isActivated: true, username: 'iamort37',
     },
     {
       id: 'f1ef6081-6479-45e3-8d57-4fe1c0898d27',
@@ -1751,8 +1635,7 @@ async function main() {
       email: 'mduns38@nbcnews.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'mduns38',
+      hasProfileImage: false, isActivated: true, username: 'mduns38',
     },
     {
       id: '9a572cb9-475f-44d8-bd56-167be245feef',
@@ -1762,8 +1645,7 @@ async function main() {
       email: 'csacker39@cdbaby.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'csacker39',
+      hasProfileImage: false, isActivated: true, username: 'csacker39',
     },
     {
       id: 'e07da3cd-b1d3-4185-8c6d-d44ced51915d',
@@ -1773,8 +1655,7 @@ async function main() {
       email: 'bwilshaw3a@liveinternet.ru',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'bwilshaw3a',
+      hasProfileImage: false, isActivated: true, username: 'bwilshaw3a',
     },
     {
       id: 'dbc4c9f4-60f3-40bb-b342-c83a232400b8',
@@ -1784,8 +1665,7 @@ async function main() {
       email: 'lpetow3b@soundcloud.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'lpetow3b',
+      hasProfileImage: false, isActivated: true, username: 'lpetow3b',
     },
     {
       id: '7cc4c122-f1cf-4eea-b840-041b8931f0a6',
@@ -1795,8 +1675,7 @@ async function main() {
       email: 'mglazzard3c@spiegel.de',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'mglazzard3c',
+      hasProfileImage: false, isActivated: true, username: 'mglazzard3c',
     },
     {
       id: 'd6924c85-f7f6-40c8-842c-6fc6248d55ca',
@@ -1806,8 +1685,7 @@ async function main() {
       email: 'gsysland3d@live.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'gsysland3d',
+      hasProfileImage: false, isActivated: true, username: 'gsysland3d',
     },
     {
       id: 'e6bd6dbd-e992-40ca-8290-0b60a53305aa',
@@ -1817,8 +1695,7 @@ async function main() {
       email: 'epappin3e@usgs.gov',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'epappin3e',
+      hasProfileImage: false, isActivated: true, username: 'epappin3e',
     },
     {
       id: 'fe3db067-06a5-4416-9a19-f257f325cbb6',
@@ -1828,8 +1705,7 @@ async function main() {
       email: 'mmoverley3f@dion.ne.jp',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'mmoverley3f',
+      hasProfileImage: false, isActivated: true, username: 'mmoverley3f',
     },
     {
       id: '5f7fe8f8-86f9-4fa1-a7aa-cac5ee176aad',
@@ -1839,8 +1715,7 @@ async function main() {
       email: 'ewibrow3g@wordpress.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'ewibrow3g',
+      hasProfileImage: false, isActivated: true, username: 'ewibrow3g',
     },
     {
       id: '7204378b-8723-4341-b8ea-7e0bf6b3747a',
@@ -1850,8 +1725,7 @@ async function main() {
       email: 'iplayden3h@prweb.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'iplayden3h',
+      hasProfileImage: false, isActivated: true, username: 'iplayden3h',
     },
     {
       id: '6026dc93-501e-4b6d-ae08-36adaab5b93c',
@@ -1861,8 +1735,7 @@ async function main() {
       email: 'jcorney3i@home.pl',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'jcorney3i',
+      hasProfileImage: false, isActivated: true, username: 'jcorney3i',
     },
     {
       id: '5da98088-6e63-451a-a879-b91f2dcdf243',
@@ -1872,8 +1745,7 @@ async function main() {
       email: 'rpampling3j@multiply.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'rpampling3j',
+      hasProfileImage: false, isActivated: true, username: 'rpampling3j',
     },
     {
       id: '75cf819b-f21f-4905-b826-6d4d53aaf959',
@@ -1883,8 +1755,7 @@ async function main() {
       email: 'lnortham3k@discuz.net',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'lnortham3k',
+      hasProfileImage: false, isActivated: true, username: 'lnortham3k',
     },
     {
       id: '6e6ed482-6ae4-4340-b35b-b2804b70235b',
@@ -1894,8 +1765,7 @@ async function main() {
       email: 'tmobberley3l@purevolume.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'tmobberley3l',
+      hasProfileImage: false, isActivated: true, username: 'tmobberley3l',
     },
     {
       id: '6a601bef-6b2e-4d0b-a7d1-62b4b972ad85',
@@ -1905,8 +1775,7 @@ async function main() {
       email: 'zspinetti3m@technorati.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'zspinetti3m',
+      hasProfileImage: false, isActivated: true, username: 'zspinetti3m',
     },
     {
       id: 'eda10393-7cee-483d-8179-ffb26b69ff75',
@@ -1916,8 +1785,7 @@ async function main() {
       email: 'dfynan3n@newsvine.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'dfynan3n',
+      hasProfileImage: false, isActivated: true, username: 'dfynan3n',
     },
     {
       id: '9082f5ed-40ae-4f81-baf6-437937f0ce17',
@@ -1927,8 +1795,7 @@ async function main() {
       email: 'ipatmore3o@psu.edu',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'ipatmore3o',
+      hasProfileImage: false, isActivated: true, username: 'ipatmore3o',
     },
     {
       id: 'd72c1f2b-6a56-4a76-a5f4-b1f601daec1f',
@@ -1938,8 +1805,7 @@ async function main() {
       email: 'pmacane3p@google.co.jp',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'pmacane3p',
+      hasProfileImage: false, isActivated: true, username: 'pmacane3p',
     },
     {
       id: '7ab904c5-677d-4e12-a99e-2944dc78a408',
@@ -1949,8 +1815,7 @@ async function main() {
       email: 'lcovington3q@go.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'lcovington3q',
+      hasProfileImage: false, isActivated: true, username: 'lcovington3q',
     },
     {
       id: '0b051bc2-fb1f-4526-8afc-59a782ed27e0',
@@ -1960,8 +1825,7 @@ async function main() {
       email: 'eaukland3r@ucla.edu',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'eaukland3r',
+      hasProfileImage: false, isActivated: true, username: 'eaukland3r',
     },
     {
       id: '5071da59-68b3-41d3-abfd-66233c3f2975',
@@ -1971,8 +1835,7 @@ async function main() {
       email: 'rpritchitt3s@nhs.uk',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'rpritchitt3s',
+      hasProfileImage: false, isActivated: true, username: 'rpritchitt3s',
     },
     {
       id: '8c0c6b23-dbd6-4f5c-be88-41d82e5f6e49',
@@ -1982,8 +1845,7 @@ async function main() {
       email: 'mwalshe3t@unblog.fr',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'mwalshe3t',
+      hasProfileImage: false, isActivated: true, username: 'mwalshe3t',
     },
     {
       id: '0cdfe049-d630-4906-97c3-3013ac042c1e',
@@ -1993,8 +1855,7 @@ async function main() {
       email: 'hsconce3u@myspace.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'hsconce3u',
+      hasProfileImage: false, isActivated: true, username: 'hsconce3u',
     },
     {
       id: '95003e9a-5d38-492b-a1ba-13ae6516a3e1',
@@ -2004,8 +1865,7 @@ async function main() {
       email: 'rgors3v@furl.net',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'rgors3v',
+      hasProfileImage: false, isActivated: true, username: 'rgors3v',
     },
     {
       id: '636b61db-bac1-4806-a1d0-7bed0b2513a6',
@@ -2015,8 +1875,7 @@ async function main() {
       email: 'mstubley3w@exblog.jp',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'mstubley3w',
+      hasProfileImage: false, isActivated: true, username: 'mstubley3w',
     },
     {
       id: '495a6d3b-dd56-454a-9f07-6b5a9822cc09',
@@ -2026,8 +1885,7 @@ async function main() {
       email: 'sivatts3x@gmpg.org',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'sivatts3x',
+      hasProfileImage: false, isActivated: true, username: 'sivatts3x',
     },
     {
       id: 'a25991f0-1021-4501-95de-15c6f14821ce',
@@ -2037,8 +1895,7 @@ async function main() {
       email: 'rkentish3y@tmall.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'rkentish3y',
+      hasProfileImage: false, isActivated: true, username: 'rkentish3y',
     },
     {
       id: 'cf8b4a15-d3a6-49ef-bcf7-06dd5ae3f154',
@@ -2048,8 +1905,7 @@ async function main() {
       email: 'akingerby3z@facebook.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'akingerby3z',
+      hasProfileImage: false, isActivated: true, username: 'akingerby3z',
     },
     {
       id: '8afdfb3e-8063-4836-8830-ad2816e3f84f',
@@ -2059,8 +1915,7 @@ async function main() {
       email: 'kguillart40@statcounter.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'kguillart40',
+      hasProfileImage: false, isActivated: true, username: 'kguillart40',
     },
     {
       id: '08539b48-7172-4674-b230-18fecadc9b38',
@@ -2070,8 +1925,7 @@ async function main() {
       email: 'kduddin41@wufoo.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'kduddin41',
+      hasProfileImage: false, isActivated: true, username: 'kduddin41',
     },
     {
       id: '4703be37-859c-4629-ae19-f2c100020d46',
@@ -2081,8 +1935,7 @@ async function main() {
       email: 'afanstone42@npr.org',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'afanstone42',
+      hasProfileImage: false, isActivated: true, username: 'afanstone42',
     },
     {
       id: 'fc200ea8-2981-4b08-b69a-7972c95e3335',
@@ -2092,8 +1945,7 @@ async function main() {
       email: 'rosbourne43@epa.gov',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'rosbourne43',
+      hasProfileImage: false, isActivated: true, username: 'rosbourne43',
     },
     {
       id: '299ddfdd-dbe5-4dff-b77b-2d6c3a3047f4',
@@ -2103,8 +1955,7 @@ async function main() {
       email: 'pdeares44@answers.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'pdeares44',
+      hasProfileImage: false, isActivated: true, username: 'pdeares44',
     },
     {
       id: '24479b44-d599-443f-83d0-a0bcf27d05af',
@@ -2114,8 +1965,7 @@ async function main() {
       email: 'pcartlidge45@creativecommons.org',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'pcartlidge45',
+      hasProfileImage: false, isActivated: true, username: 'pcartlidge45',
     },
     {
       id: '78a47f23-2a19-4a36-ba2e-d7300a1020e8',
@@ -2125,8 +1975,7 @@ async function main() {
       email: 'tvero46@tripod.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'tvero46',
+      hasProfileImage: false, isActivated: true, username: 'tvero46',
     },
     {
       id: '224a2e63-374f-4487-abab-325db0602193',
@@ -2136,8 +1985,7 @@ async function main() {
       email: 'trumbold47@zimbio.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'trumbold47',
+      hasProfileImage: false, isActivated: true, username: 'trumbold47',
     },
     {
       id: '383b6a2b-f8be-476d-8b73-a2d9663d6b36',
@@ -2147,8 +1995,7 @@ async function main() {
       email: 'epooly48@artisteer.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'epooly48',
+      hasProfileImage: false, isActivated: true, username: 'epooly48',
     },
     {
       id: '739b01a0-bea5-441c-905c-bcec9d2b2fc3',
@@ -2158,8 +2005,7 @@ async function main() {
       email: 'kgrocock49@360.cn',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'kgrocock49',
+      hasProfileImage: false, isActivated: true, username: 'kgrocock49',
     },
     {
       id: 'a18ec2fb-9b22-4a7f-90a6-70eeb17475dc',
@@ -2169,8 +2015,7 @@ async function main() {
       email: 'elighterness4a@buzzfeed.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'elighterness4a',
+      hasProfileImage: false, isActivated: true, username: 'elighterness4a',
     },
     {
       id: '4910890e-8e04-4ef2-820f-d2a8dae2f13a',
@@ -2180,8 +2025,7 @@ async function main() {
       email: 'dstuckford4b@4shared.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'dstuckford4b',
+      hasProfileImage: false, isActivated: true, username: 'dstuckford4b',
     },
     {
       id: '93025900-4da4-4b56-9f54-382c83217a34',
@@ -2191,8 +2035,7 @@ async function main() {
       email: 'blouth4c@vimeo.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'blouth4c',
+      hasProfileImage: false, isActivated: true, username: 'blouth4c',
     },
     {
       id: '60a597f0-6e13-45ef-82a7-9bdfadd50947',
@@ -2202,8 +2045,7 @@ async function main() {
       email: 'estihl4d@biblegateway.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'estihl4d',
+      hasProfileImage: false, isActivated: true, username: 'estihl4d',
     },
     {
       id: 'c6756e17-40e2-477e-80c1-10f6f4a0a87e',
@@ -2213,8 +2055,7 @@ async function main() {
       email: 'swyllcocks4e@barnesandnoble.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'swyllcocks4e',
+      hasProfileImage: false, isActivated: true, username: 'swyllcocks4e',
     },
     {
       id: '4d416aed-4bc6-490f-8d28-84ad988c7923',
@@ -2224,8 +2065,7 @@ async function main() {
       email: 'kcockcroft4f@mashable.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'kcockcroft4f',
+      hasProfileImage: false, isActivated: true, username: 'kcockcroft4f',
     },
     {
       id: '665ac7af-5aab-441e-b429-229baf70cd32',
@@ -2235,8 +2075,7 @@ async function main() {
       email: 'charpin4g@bloglovin.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'charpin4g',
+      hasProfileImage: false, isActivated: true, username: 'charpin4g',
     },
     {
       id: '173ffb0d-8462-41c4-ad57-a215ae9f2638',
@@ -2246,8 +2085,7 @@ async function main() {
       email: 'rliger4h@discuz.net',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'rliger4h',
+      hasProfileImage: false, isActivated: true, username: 'rliger4h',
     },
     {
       id: 'a1c6811e-c3fa-425d-919a-04243c3c09c0',
@@ -2257,8 +2095,7 @@ async function main() {
       email: 'mashford4i@topsy.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'mashford4i',
+      hasProfileImage: false, isActivated: true, username: 'mashford4i',
     },
     {
       id: 'bd5ec03d-0c93-45eb-bcab-107ea309f23f',
@@ -2268,8 +2105,7 @@ async function main() {
       email: 'csymper4j@exblog.jp',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'csymper4j',
+      hasProfileImage: false, isActivated: true, username: 'csymper4j',
     },
     {
       id: '0486d5ac-09e4-4316-bf1c-78079a8c45f2',
@@ -2279,8 +2115,7 @@ async function main() {
       email: 'lbachelor4k@prweb.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'lbachelor4k',
+      hasProfileImage: false, isActivated: true, username: 'lbachelor4k',
     },
     {
       id: 'bf9e963b-45d1-491b-ac6a-8ac238487e08',
@@ -2290,8 +2125,7 @@ async function main() {
       email: 'kseeney4l@jigsy.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'kseeney4l',
+      hasProfileImage: false, isActivated: true, username: 'kseeney4l',
     },
     {
       id: 'b6b3e919-7e91-46d0-913d-96ab57833b7d',
@@ -2301,8 +2135,7 @@ async function main() {
       email: 'shastelow4m@ask.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'shastelow4m',
+      hasProfileImage: false, isActivated: true, username: 'shastelow4m',
     },
     {
       id: '57c18843-db49-46de-8f65-627f1b5915b2',
@@ -2312,8 +2145,7 @@ async function main() {
       email: 'ckubu4n@nhs.uk',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'ckubu4n',
+      hasProfileImage: false, isActivated: true, username: 'ckubu4n',
     },
     {
       id: '90563ca9-3644-41c6-8c6e-51a8bfd8e6fa',
@@ -2323,8 +2155,7 @@ async function main() {
       email: 'mdowns4o@rakuten.co.jp',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'mdowns4o',
+      hasProfileImage: false, isActivated: true, username: 'mdowns4o',
     },
     {
       id: 'c4f88536-72a6-410b-8f27-66c5cad7ca66',
@@ -2334,8 +2165,7 @@ async function main() {
       email: 'rdmiterko4p@edublogs.org',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'rdmiterko4p',
+      hasProfileImage: false, isActivated: true, username: 'rdmiterko4p',
     },
     {
       id: '826e8539-da0f-48a0-8c3d-18803e71628a',
@@ -2345,8 +2175,7 @@ async function main() {
       email: 'ipearton4q@nifty.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'ipearton4q',
+      hasProfileImage: false, isActivated: true, username: 'ipearton4q',
     },
     {
       id: '86a66b38-ef88-4d88-acd4-09cecbd31cbf',
@@ -2356,8 +2185,7 @@ async function main() {
       email: 'lharral4r@latimes.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'lharral4r',
+      hasProfileImage: false, isActivated: true, username: 'lharral4r',
     },
     {
       id: 'adcef755-e1fd-4098-a9a4-ab5340110674',
@@ -2367,8 +2195,7 @@ async function main() {
       email: 'aminors4s@biglobe.ne.jp',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'aminors4s',
+      hasProfileImage: false, isActivated: true, username: 'aminors4s',
     },
     {
       id: '2523085a-ed33-421f-aa7b-213bef297758',
@@ -2378,8 +2205,7 @@ async function main() {
       email: 'oraddenbury4t@google.es',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'oraddenbury4t',
+      hasProfileImage: false, isActivated: true, username: 'oraddenbury4t',
     },
     {
       id: 'e39d64cf-db5f-4d1a-97a9-b8fabe60023e',
@@ -2389,8 +2215,7 @@ async function main() {
       email: 'odewitt4u@cnn.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'odewitt4u',
+      hasProfileImage: false, isActivated: true, username: 'odewitt4u',
     },
     {
       id: '64014e0d-df44-486f-bcb2-3bc296ac3e2b',
@@ -2400,8 +2225,7 @@ async function main() {
       email: 'hguppey4v@samsung.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'hguppey4v',
+      hasProfileImage: false, isActivated: true, username: 'hguppey4v',
     },
     {
       id: '6caef85e-f80c-4bc3-b562-9270196112cb',
@@ -2411,8 +2235,7 @@ async function main() {
       email: 'gshrawley4w@epa.gov',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'gshrawley4w',
+      hasProfileImage: false, isActivated: true, username: 'gshrawley4w',
     },
     {
       id: 'dd4af408-a240-484b-bdb2-275ff8fe0951',
@@ -2422,8 +2245,7 @@ async function main() {
       email: 'kgaye4x@livejournal.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'kgaye4x',
+      hasProfileImage: false, isActivated: true, username: 'kgaye4x',
     },
     {
       id: '283e646e-96bd-43e9-9888-b5e6bd8e633b',
@@ -2433,8 +2255,7 @@ async function main() {
       email: 'mestrella4y@ucsd.edu',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'mestrella4y',
+      hasProfileImage: false, isActivated: true, username: 'mestrella4y',
     },
     {
       id: '0df9d497-783a-4639-a25e-685ef088fe79',
@@ -2444,8 +2265,7 @@ async function main() {
       email: 'mkadd4z@usgs.gov',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'mkadd4z',
+      hasProfileImage: false, isActivated: true, username: 'mkadd4z',
     },
     {
       id: '259e746f-b97a-4dc5-8a6a-b63a8ac9eec5',
@@ -2455,8 +2275,7 @@ async function main() {
       email: 'adorken50@indiatimes.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'adorken50',
+      hasProfileImage: false, isActivated: true, username: 'adorken50',
     },
     {
       id: '717eb02a-c47c-4b1d-8858-737d1edc69f9',
@@ -2466,8 +2285,7 @@ async function main() {
       email: 'ostubbe51@businesswire.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'ostubbe51',
+      hasProfileImage: false, isActivated: true, username: 'ostubbe51',
     },
     {
       id: 'b34004de-c1c5-4e48-95ab-24bf008bc52c',
@@ -2477,8 +2295,7 @@ async function main() {
       email: 'kdicky52@meetup.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'kdicky52',
+      hasProfileImage: false, isActivated: true, username: 'kdicky52',
     },
     {
       id: '98b9fc84-4136-4258-b726-62bbb8a6c6a7',
@@ -2488,8 +2305,7 @@ async function main() {
       email: 'mnusche53@tripod.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'mnusche53',
+      hasProfileImage: false, isActivated: true, username: 'mnusche53',
     },
     {
       id: '396f07a6-aaa4-4f79-934d-a31d27747676',
@@ -2499,8 +2315,7 @@ async function main() {
       email: 'lortiga54@wunderground.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'lortiga54',
+      hasProfileImage: false, isActivated: true, username: 'lortiga54',
     },
     {
       id: 'fd75273a-48bc-493a-83f5-094af8a03e07',
@@ -2510,8 +2325,7 @@ async function main() {
       email: 'rcorrie55@ow.ly',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'rcorrie55',
+      hasProfileImage: false, isActivated: true, username: 'rcorrie55',
     },
     {
       id: 'bbb19aec-ad8e-4039-9585-48e1ee719da0',
@@ -2521,8 +2335,7 @@ async function main() {
       email: 'csodor56@google.ca',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'csodor56',
+      hasProfileImage: false, isActivated: true, username: 'csodor56',
     },
     {
       id: '716af0ed-8b34-4271-a59b-a5ea17372991',
@@ -2532,8 +2345,7 @@ async function main() {
       email: 'ichateau57@harvard.edu',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'ichateau57',
+      hasProfileImage: false, isActivated: true, username: 'ichateau57',
     },
     {
       id: 'ef7e0b34-4126-44ec-8816-98421b6c9c23',
@@ -2543,8 +2355,7 @@ async function main() {
       email: 'ddemicoli58@washington.edu',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'ddemicoli58',
+      hasProfileImage: false, isActivated: true, username: 'ddemicoli58',
     },
     {
       id: 'fba2e59c-eade-4e4f-87aa-7519d849169b',
@@ -2554,8 +2365,7 @@ async function main() {
       email: 'lsavine59@csmonitor.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'lsavine59',
+      hasProfileImage: false, isActivated: true, username: 'lsavine59',
     },
     {
       id: '02f0c417-c829-40c7-bf91-e45174f522c2',
@@ -2565,8 +2375,7 @@ async function main() {
       email: 'llaible5a@shareasale.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'llaible5a',
+      hasProfileImage: false, isActivated: true, username: 'llaible5a',
     },
     {
       id: '2c29982c-7e7d-421d-b95d-39036f19110d',
@@ -2576,8 +2385,7 @@ async function main() {
       email: 'kpendrigh5b@networksolutions.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'kpendrigh5b',
+      hasProfileImage: false, isActivated: true, username: 'kpendrigh5b',
     },
     {
       id: 'eadb01c9-e9db-4903-bc53-87acda4ee248',
@@ -2587,8 +2395,7 @@ async function main() {
       email: 'thaining5c@about.me',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'thaining5c',
+      hasProfileImage: false, isActivated: true, username: 'thaining5c',
     },
     {
       id: '827f1993-26e9-4b1a-89b5-8da0414664d5',
@@ -2598,8 +2405,7 @@ async function main() {
       email: 'bfarans5d@examiner.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'bfarans5d',
+      hasProfileImage: false, isActivated: true, username: 'bfarans5d',
     },
     {
       id: 'e2cdd79a-4991-4685-8df6-75f3c834e884',
@@ -2609,8 +2415,7 @@ async function main() {
       email: 'tpoytres5e@nps.gov',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'tpoytres5e',
+      hasProfileImage: false, isActivated: true, username: 'tpoytres5e',
     },
     {
       id: 'a1e99c4d-35e5-42b7-ba9d-ca8ce157d583',
@@ -2620,8 +2425,7 @@ async function main() {
       email: 'fliversage5f@state.gov',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'fliversage5f',
+      hasProfileImage: false, isActivated: true, username: 'fliversage5f',
     },
     {
       id: 'e83b55ba-9104-43ef-ba52-03488865c8fa',
@@ -2631,8 +2435,7 @@ async function main() {
       email: 'rmcravey5g@jiathis.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'rmcravey5g',
+      hasProfileImage: false, isActivated: true, username: 'rmcravey5g',
     },
     {
       id: 'ed9fa103-17fc-4816-a36e-fd7ad3aaa735',
@@ -2642,8 +2445,7 @@ async function main() {
       email: 'mmulford5h@fda.gov',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'mmulford5h',
+      hasProfileImage: false, isActivated: true, username: 'mmulford5h',
     },
     {
       id: 'a6304c05-d03f-47c9-bb3b-e0a92ab5e63e',
@@ -2653,8 +2455,7 @@ async function main() {
       email: 'bedmenson5i@phpbb.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'bedmenson5i',
+      hasProfileImage: false, isActivated: true, username: 'bedmenson5i',
     },
     {
       id: '79777a34-16b4-4fa5-8947-798538f2d367',
@@ -2664,8 +2465,7 @@ async function main() {
       email: 'psecker5j@usatoday.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'psecker5j',
+      hasProfileImage: false, isActivated: true, username: 'psecker5j',
     },
     {
       id: '3fc59f60-f322-4362-82a7-61ab23d998f4',
@@ -2675,8 +2475,7 @@ async function main() {
       email: 'rferrand5k@dmoz.org',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'rferrand5k',
+      hasProfileImage: false, isActivated: true, username: 'rferrand5k',
     },
     {
       id: '9e3fa070-0a45-4af3-8c09-024fa1759210',
@@ -2686,8 +2485,7 @@ async function main() {
       email: 'abartles5l@weather.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'abartles5l',
+      hasProfileImage: false, isActivated: true, username: 'abartles5l',
     },
     {
       id: 'c4c6d6a1-3b3c-479b-aeaa-d1c113e50425',
@@ -2697,8 +2495,7 @@ async function main() {
       email: 'amuzzullo5m@delicious.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'amuzzullo5m',
+      hasProfileImage: false, isActivated: true, username: 'amuzzullo5m',
     },
     {
       id: '35a1f09c-f50a-4fca-9a08-2cb116900eff',
@@ -2708,8 +2505,7 @@ async function main() {
       email: 'sbeddoe5n@privacy.gov.au',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'sbeddoe5n',
+      hasProfileImage: false, isActivated: true, username: 'sbeddoe5n',
     },
     {
       id: '7a0aca7e-2991-4474-abe9-9de243b129d4',
@@ -2719,8 +2515,7 @@ async function main() {
       email: 'sgauche5o@abc.net.au',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'sgauche5o',
+      hasProfileImage: false, isActivated: true, username: 'sgauche5o',
     },
     {
       id: '416e1fb8-e3b9-490a-8f67-935bdfd2811d',
@@ -2730,8 +2525,7 @@ async function main() {
       email: 'irossiter5p@arstechnica.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'irossiter5p',
+      hasProfileImage: false, isActivated: true, username: 'irossiter5p',
     },
     {
       id: 'f3908483-1074-4a8e-b7b3-d5ba7716155f',
@@ -2741,8 +2535,7 @@ async function main() {
       email: 'rduberry5q@wunderground.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'rduberry5q',
+      hasProfileImage: false, isActivated: true, username: 'rduberry5q',
     },
     {
       id: 'c54eaf0d-5770-4010-9c66-db928c51d30e',
@@ -2752,8 +2545,7 @@ async function main() {
       email: 'afaucett5r@hibu.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'afaucett5r',
+      hasProfileImage: false, isActivated: true, username: 'afaucett5r',
     },
     {
       id: '74b93c46-1d3f-4155-b456-6a63dcb8cc93',
@@ -2763,8 +2555,7 @@ async function main() {
       email: 'tsherewood5s@liveinternet.ru',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'tsherewood5s',
+      hasProfileImage: false, isActivated: true, username: 'tsherewood5s',
     },
     {
       id: '52463cb2-1520-4e64-b337-f49d08cc1cb3',
@@ -2774,8 +2565,7 @@ async function main() {
       email: 'scundey5t@dmoz.org',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'scundey5t',
+      hasProfileImage: false, isActivated: true, username: 'scundey5t',
     },
     {
       id: '0c8ebda0-0cb8-41b6-9fbe-ba215fa5d4d8',
@@ -2785,8 +2575,7 @@ async function main() {
       email: 'ffetherstan5u@businesswire.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'ffetherstan5u',
+      hasProfileImage: false, isActivated: true, username: 'ffetherstan5u',
     },
     {
       id: 'f0f57afa-13b0-4c17-aa72-a1ec76412b7d',
@@ -2796,8 +2585,7 @@ async function main() {
       email: 'bshadfourth5v@joomla.org',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'bshadfourth5v',
+      hasProfileImage: false, isActivated: true, username: 'bshadfourth5v',
     },
     {
       id: '87a21074-1c75-4484-a696-7145f22372a4',
@@ -2807,8 +2595,7 @@ async function main() {
       email: 'gbingle5w@xing.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'gbingle5w',
+      hasProfileImage: false, isActivated: true, username: 'gbingle5w',
     },
     {
       id: 'b8f48c50-8ceb-448d-999d-652fc0eed09d',
@@ -2818,8 +2605,7 @@ async function main() {
       email: 'jdommett5x@nps.gov',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'jdommett5x',
+      hasProfileImage: false, isActivated: true, username: 'jdommett5x',
     },
     {
       id: '8914faec-313e-497b-8468-c67e237bc093',
@@ -2829,8 +2615,7 @@ async function main() {
       email: 'ssiccombe5y@ox.ac.uk',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'ssiccombe5y',
+      hasProfileImage: false, isActivated: true, username: 'ssiccombe5y',
     },
     {
       id: 'e963a05f-8162-4a8d-aed0-640655fc5f45',
@@ -2840,8 +2625,7 @@ async function main() {
       email: 'jcosti5z@webs.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'jcosti5z',
+      hasProfileImage: false, isActivated: true, username: 'jcosti5z',
     },
     {
       id: '843ff0e3-339b-4285-b5f5-0698a82c60c2',
@@ -2851,8 +2635,7 @@ async function main() {
       email: 'agrece60@wufoo.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'agrece60',
+      hasProfileImage: false, isActivated: true, username: 'agrece60',
     },
     {
       id: '96f72c88-7150-478b-be12-1f58d1569646',
@@ -2862,8 +2645,7 @@ async function main() {
       email: 'kmichelet61@kickstarter.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'kmichelet61',
+      hasProfileImage: false, isActivated: true, username: 'kmichelet61',
     },
     {
       id: '9f400b5f-37a1-4e38-bbe7-e8e522c1bd26',
@@ -2873,8 +2655,7 @@ async function main() {
       email: 'cheintze62@cdbaby.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'cheintze62',
+      hasProfileImage: false, isActivated: true, username: 'cheintze62',
     },
     {
       id: '0671dffc-aab2-42f9-9684-17813ddc8f97',
@@ -2884,8 +2665,7 @@ async function main() {
       email: 'btreadgear63@ning.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'btreadgear63',
+      hasProfileImage: false, isActivated: true, username: 'btreadgear63',
     },
     {
       id: '4a2b2cf6-559d-4440-b304-25f43ff4ffb8',
@@ -2895,8 +2675,7 @@ async function main() {
       email: 'tschaffler64@goo.gl',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'tschaffler64',
+      hasProfileImage: false, isActivated: true, username: 'tschaffler64',
     },
     {
       id: 'f41e117c-4636-42ce-9259-7d38e9d153dd',
@@ -2906,8 +2685,7 @@ async function main() {
       email: 'msneyd65@nifty.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'msneyd65',
+      hasProfileImage: false, isActivated: true, username: 'msneyd65',
     },
     {
       id: 'e0e77bf9-d288-4fc8-b6f9-ba3794d14363',
@@ -2917,8 +2695,7 @@ async function main() {
       email: 'rclemmey66@hao123.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'rclemmey66',
+      hasProfileImage: false, isActivated: true, username: 'rclemmey66',
     },
     {
       id: '4702d859-8017-4bcb-b251-2400d1348f9c',
@@ -2928,8 +2705,7 @@ async function main() {
       email: 'vpinckney67@addthis.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'vpinckney67',
+      hasProfileImage: false, isActivated: true, username: 'vpinckney67',
     },
     {
       id: '3cf8447e-2195-4c4b-8d4f-a106dbb377a2',
@@ -2939,8 +2715,7 @@ async function main() {
       email: 'dtuxill68@alibaba.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'dtuxill68',
+      hasProfileImage: false, isActivated: true, username: 'dtuxill68',
     },
     {
       id: '7a087fe1-9456-41cb-b6f9-c6e7adca7fce',
@@ -2950,8 +2725,7 @@ async function main() {
       email: 'salvar69@comsenz.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'salvar69',
+      hasProfileImage: false, isActivated: true, username: 'salvar69',
     },
     {
       id: 'f5a57336-ff7e-4cb9-b82a-0c3707388b4b',
@@ -2961,8 +2735,7 @@ async function main() {
       email: 'folyhane6a@mysql.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'folyhane6a',
+      hasProfileImage: false, isActivated: true, username: 'folyhane6a',
     },
     {
       id: '8ee398a5-e642-4179-8fc6-1d8aa02dafcd',
@@ -2972,8 +2745,7 @@ async function main() {
       email: 'gosgordby6b@sitemeter.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'gosgordby6b',
+      hasProfileImage: false, isActivated: true, username: 'gosgordby6b',
     },
     {
       id: '96c0f5e7-5900-4b2d-b7db-4cf0fa401a72',
@@ -2983,8 +2755,7 @@ async function main() {
       email: 'wstrettle6c@google.co.jp',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'wstrettle6c',
+      hasProfileImage: false, isActivated: true, username: 'wstrettle6c',
     },
     {
       id: '2d6f059f-7190-4103-9dbc-d7bb9d0dae63',
@@ -2994,8 +2765,7 @@ async function main() {
       email: 'bstoodale6d@wikipedia.org',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'bstoodale6d',
+      hasProfileImage: false, isActivated: true, username: 'bstoodale6d',
     },
     {
       id: '23253810-7fa7-4c1d-99ab-9c2776e251c4',
@@ -3005,8 +2775,7 @@ async function main() {
       email: 'lmckie6e@4shared.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'lmckie6e',
+      hasProfileImage: false, isActivated: true, username: 'lmckie6e',
     },
     {
       id: 'd874e22c-3b6d-44d1-8656-d3be4bb2a8e7',
@@ -3016,8 +2785,7 @@ async function main() {
       email: 'hwoodlands6f@networkadvertising.org',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'hwoodlands6f',
+      hasProfileImage: false, isActivated: true, username: 'hwoodlands6f',
     },
     {
       id: 'ad1ce6d1-7f47-4b71-89c6-f818c09d7f57',
@@ -3027,8 +2795,7 @@ async function main() {
       email: 'rsaice6g@godaddy.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'rsaice6g',
+      hasProfileImage: false, isActivated: true, username: 'rsaice6g',
     },
     {
       id: 'c72e8239-aa6c-44b3-8f78-c4a466ca23eb',
@@ -3038,8 +2805,7 @@ async function main() {
       email: 'jstores6h@csmonitor.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'jstores6h',
+      hasProfileImage: false, isActivated: true, username: 'jstores6h',
     },
     {
       id: '5bfadc47-abc2-4919-9f74-4583e10c0c14',
@@ -3049,8 +2815,7 @@ async function main() {
       email: 'ndehm6i@privacy.gov.au',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'ndehm6i',
+      hasProfileImage: false, isActivated: true, username: 'ndehm6i',
     },
     {
       id: '41e86c9b-30f2-4e29-9716-7e616c735bee',
@@ -3060,8 +2825,7 @@ async function main() {
       email: 'hrhymer6j@360.cn',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'hrhymer6j',
+      hasProfileImage: false, isActivated: true, username: 'hrhymer6j',
     },
     {
       id: 'e557f7d2-3b5b-463a-a29b-52c071742f47',
@@ -3071,8 +2835,7 @@ async function main() {
       email: 'icovert6k@arizona.edu',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'icovert6k',
+      hasProfileImage: false, isActivated: true, username: 'icovert6k',
     },
     {
       id: '7413015a-d47e-40e9-bad1-c7b249fb9492',
@@ -3082,8 +2845,7 @@ async function main() {
       email: 'ldun6l@creativecommons.org',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'ldun6l',
+      hasProfileImage: false, isActivated: true, username: 'ldun6l',
     },
     {
       id: '3f272a34-ffb8-4b02-ba70-421374a7b6f8',
@@ -3093,8 +2855,7 @@ async function main() {
       email: 'cplascott6m@dot.gov',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'cplascott6m',
+      hasProfileImage: false, isActivated: true, username: 'cplascott6m',
     },
     {
       id: '6974ba8c-d46e-4eac-8020-053c9fd5c468',
@@ -3104,8 +2865,7 @@ async function main() {
       email: 'vgarry6n@theglobeandmail.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'vgarry6n',
+      hasProfileImage: false, isActivated: true, username: 'vgarry6n',
     },
     {
       id: '011980f8-9792-4f67-8250-acf50e454e35',
@@ -3115,8 +2875,7 @@ async function main() {
       email: 'gmaclaine6o@is.gd',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'gmaclaine6o',
+      hasProfileImage: false, isActivated: true, username: 'gmaclaine6o',
     },
     {
       id: 'ce89940a-7795-4440-9f15-453fbb91d29e',
@@ -3126,8 +2885,7 @@ async function main() {
       email: 'mcowins6p@webeden.co.uk',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'mcowins6p',
+      hasProfileImage: false, isActivated: true, username: 'mcowins6p',
     },
     {
       id: '0766fbe1-9823-4c14-a9b6-b87703fd9df9',
@@ -3137,8 +2895,7 @@ async function main() {
       email: 'slavers6q@sciencedaily.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'slavers6q',
+      hasProfileImage: false, isActivated: true, username: 'slavers6q',
     },
     {
       id: '56ca82b6-ab0a-429c-af0f-db21ce97075c',
@@ -3148,8 +2905,7 @@ async function main() {
       email: 'ascripps6r@nba.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'ascripps6r',
+      hasProfileImage: false, isActivated: true, username: 'ascripps6r',
     },
     {
       id: '435fb28a-e396-4ecd-b4c0-bac7540a4fe9',
@@ -3159,8 +2915,7 @@ async function main() {
       email: 'wpettet6s@github.io',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'wpettet6s',
+      hasProfileImage: false, isActivated: true, username: 'wpettet6s',
     },
     {
       id: '1c6809cb-89f3-4269-8499-2225f9505b66',
@@ -3170,8 +2925,7 @@ async function main() {
       email: 'agrouse6t@google.com.hk',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'agrouse6t',
+      hasProfileImage: false, isActivated: true, username: 'agrouse6t',
     },
     {
       id: '08d3cf71-0a6f-4521-97ed-21d3bd4ef753',
@@ -3181,8 +2935,7 @@ async function main() {
       email: 'gcrighton6u@army.mil',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'gcrighton6u',
+      hasProfileImage: false, isActivated: true, username: 'gcrighton6u',
     },
     {
       id: 'f00312e5-73af-4159-aaa9-446a002d9ca4',
@@ -3192,8 +2945,7 @@ async function main() {
       email: 'cgleave6v@arstechnica.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'cgleave6v',
+      hasProfileImage: false, isActivated: true, username: 'cgleave6v',
     },
     {
       id: '14d3ef17-fc85-466f-8528-345e66477730',
@@ -3203,8 +2955,7 @@ async function main() {
       email: 'okadwallider6w@goo.ne.jp',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'okadwallider6w',
+      hasProfileImage: false, isActivated: true, username: 'okadwallider6w',
     },
     {
       id: 'e20f4a63-3ae8-4a71-beb5-58b0b0b8bf12',
@@ -3214,8 +2965,7 @@ async function main() {
       email: 'twhenham6x@wisc.edu',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'twhenham6x',
+      hasProfileImage: false, isActivated: true, username: 'twhenham6x',
     },
     {
       id: '053e73bb-e20c-483b-8098-573897cad911',
@@ -3225,8 +2975,7 @@ async function main() {
       email: 'wlangrish6y@etsy.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'wlangrish6y',
+      hasProfileImage: false, isActivated: true, username: 'wlangrish6y',
     },
     {
       id: '5e9940c0-f5ce-4e1b-b89c-958c74063b87',
@@ -3236,8 +2985,7 @@ async function main() {
       email: 'liffland6z@house.gov',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'liffland6z',
+      hasProfileImage: false, isActivated: true, username: 'liffland6z',
     },
     {
       id: 'aaad13c2-af8d-47f3-811d-3ebe2768b079',
@@ -3247,8 +2995,7 @@ async function main() {
       email: 'gclemmensen70@netlog.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'gclemmensen70',
+      hasProfileImage: false, isActivated: true, username: 'gclemmensen70',
     },
     {
       id: 'fa287a24-6861-4641-82d9-a0cfc74f34d3',
@@ -3258,8 +3005,7 @@ async function main() {
       email: 'ebotly71@archive.org',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'ebotly71',
+      hasProfileImage: false, isActivated: true, username: 'ebotly71',
     },
     {
       id: 'fa9d9ce8-ba1f-4811-a4ff-d4858d41fd9a',
@@ -3269,8 +3015,7 @@ async function main() {
       email: 'jortelt72@exblog.jp',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'jortelt72',
+      hasProfileImage: false, isActivated: true, username: 'jortelt72',
     },
     {
       id: 'd2cee9d5-54f0-4b5f-bb10-d58851ebd0d1',
@@ -3280,8 +3025,7 @@ async function main() {
       email: 'aescalero73@sciencedaily.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'aescalero73',
+      hasProfileImage: false, isActivated: true, username: 'aescalero73',
     },
     {
       id: 'b0b1720a-7376-428b-ac60-35ccb0154cc2',
@@ -3291,8 +3035,7 @@ async function main() {
       email: 'rdavage74@printfriendly.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'rdavage74',
+      hasProfileImage: false, isActivated: true, username: 'rdavage74',
     },
     {
       id: 'cc98119e-9dd5-45be-b48a-d9a58683ff5a',
@@ -3302,8 +3045,7 @@ async function main() {
       email: 'bstritton75@ifeng.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'bstritton75',
+      hasProfileImage: false, isActivated: true, username: 'bstritton75',
     },
     {
       id: '9ed1d525-4a7f-4cf1-8bc9-aaafec0a6c2f',
@@ -3313,8 +3055,7 @@ async function main() {
       email: 'dgammel76@illinois.edu',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'dgammel76',
+      hasProfileImage: false, isActivated: true, username: 'dgammel76',
     },
     {
       id: '3991e706-2d6f-425f-a6b2-a425ba245c22',
@@ -3324,8 +3065,7 @@ async function main() {
       email: 'egregs77@ehow.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'egregs77',
+      hasProfileImage: false, isActivated: true, username: 'egregs77',
     },
     {
       id: '226d9d8a-c87e-4423-9c92-785fd9592616',
@@ -3335,8 +3075,7 @@ async function main() {
       email: 'srustich78@china.com.cn',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'srustich78',
+      hasProfileImage: false, isActivated: true, username: 'srustich78',
     },
     {
       id: 'd1ff1a8b-6ff9-439b-8f4d-1e357566fcc8',
@@ -3346,8 +3085,7 @@ async function main() {
       email: 'lgood79@tuttocitta.it',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'lgood79',
+      hasProfileImage: false, isActivated: true, username: 'lgood79',
     },
     {
       id: '90b2d07d-3a3c-44d4-a57f-7182293ee722',
@@ -3357,8 +3095,7 @@ async function main() {
       email: 'brushton7a@sun.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'brushton7a',
+      hasProfileImage: false, isActivated: true, username: 'brushton7a',
     },
     {
       id: '04ecb824-2705-4836-8c84-e4e2c6af7318',
@@ -3368,8 +3105,7 @@ async function main() {
       email: 'phenriksson7b@weibo.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'phenriksson7b',
+      hasProfileImage: false, isActivated: true, username: 'phenriksson7b',
     },
     {
       id: 'e6cc3390-51ea-4f3e-852c-75229840dce7',
@@ -3379,8 +3115,7 @@ async function main() {
       email: 'cvaughton7c@skype.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'cvaughton7c',
+      hasProfileImage: false, isActivated: true, username: 'cvaughton7c',
     },
     {
       id: '1c7e2f39-3e96-46fb-adbc-1c709a035122',
@@ -3390,8 +3125,7 @@ async function main() {
       email: 'tjakubovsky7d@aol.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'tjakubovsky7d',
+      hasProfileImage: false, isActivated: true, username: 'tjakubovsky7d',
     },
     {
       id: '433088ec-8eaa-44bc-b303-0b03d9649638',
@@ -3401,8 +3135,7 @@ async function main() {
       email: 'adudman7e@phoca.cz',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'adudman7e',
+      hasProfileImage: false, isActivated: true, username: 'adudman7e',
     },
     {
       id: '1a8eb10a-ff7e-4a89-beb2-786e60d3c3a0',
@@ -3412,8 +3145,7 @@ async function main() {
       email: 'ghauxley7f@hibu.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'ghauxley7f',
+      hasProfileImage: false, isActivated: true, username: 'ghauxley7f',
     },
     {
       id: '54cef9f4-ea42-4919-b099-6bacf6504ce6',
@@ -3423,8 +3155,7 @@ async function main() {
       email: 'dgarrish7g@ameblo.jp',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'dgarrish7g',
+      hasProfileImage: false, isActivated: true, username: 'dgarrish7g',
     },
     {
       id: 'd90d58b1-4536-4be4-9a95-ef30af55d628',
@@ -3434,8 +3165,7 @@ async function main() {
       email: 'cmcguffie7h@yolasite.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'cmcguffie7h',
+      hasProfileImage: false, isActivated: true, username: 'cmcguffie7h',
     },
     {
       id: '3c3ec1b3-6245-4083-80d1-ad38ab285eb4',
@@ -3445,8 +3175,7 @@ async function main() {
       email: 'bmattusov7i@geocities.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'bmattusov7i',
+      hasProfileImage: false, isActivated: true, username: 'bmattusov7i',
     },
     {
       id: '8b7e76f0-c41c-4ec0-af75-4ae675dae2c0',
@@ -3456,8 +3185,7 @@ async function main() {
       email: 'wpicford7j@epa.gov',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'wpicford7j',
+      hasProfileImage: false, isActivated: true, username: 'wpicford7j',
     },
     {
       id: 'd1f9e622-6561-4270-b211-20d8cd5fcd19',
@@ -3467,8 +3195,7 @@ async function main() {
       email: 'bcorneil7k@alibaba.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'bcorneil7k',
+      hasProfileImage: false, isActivated: true, username: 'bcorneil7k',
     },
     {
       id: '30d7b2c4-2e88-41ea-ae74-46908f8398ef',
@@ -3478,8 +3205,7 @@ async function main() {
       email: 'cmartynka7l@bbb.org',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'cmartynka7l',
+      hasProfileImage: false, isActivated: true, username: 'cmartynka7l',
     },
     {
       id: '07073735-be92-4061-8bda-a4ecad95ea08',
@@ -3489,8 +3215,7 @@ async function main() {
       email: 'fclissell7m@comsenz.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'fclissell7m',
+      hasProfileImage: false, isActivated: true, username: 'fclissell7m',
     },
     {
       id: '2231806c-f2a3-4e61-be08-2925138901cd',
@@ -3500,8 +3225,7 @@ async function main() {
       email: 'mmcfater7n@google.com.hk',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'mmcfater7n',
+      hasProfileImage: false, isActivated: true, username: 'mmcfater7n',
     },
     {
       id: '4f1a2862-53f7-4f84-8f96-3308b71c4011',
@@ -3511,8 +3235,7 @@ async function main() {
       email: 'bruckhard7o@webnode.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'bruckhard7o',
+      hasProfileImage: false, isActivated: true, username: 'bruckhard7o',
     },
     {
       id: '4410057a-6b31-4d59-b931-5870c6706cfc',
@@ -3522,8 +3245,7 @@ async function main() {
       email: 'amcvity7p@t-online.de',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'amcvity7p',
+      hasProfileImage: false, isActivated: true, username: 'amcvity7p',
     },
     {
       id: '20b05521-60f5-4845-9553-d057b3d7066b',
@@ -3533,8 +3255,7 @@ async function main() {
       email: 'hharewood7q@deliciousdays.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'hharewood7q',
+      hasProfileImage: false, isActivated: true, username: 'hharewood7q',
     },
     {
       id: '291069ad-3c69-4c03-b8b1-2506e2aac260',
@@ -3544,8 +3265,7 @@ async function main() {
       email: 'icreavin7r@ning.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'icreavin7r',
+      hasProfileImage: false, isActivated: true, username: 'icreavin7r',
     },
     {
       id: '756861b8-7b39-4cad-a4d9-9906235201bd',
@@ -3555,8 +3275,7 @@ async function main() {
       email: 'qkenshole7s@wordpress.org',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'qkenshole7s',
+      hasProfileImage: false, isActivated: true, username: 'qkenshole7s',
     },
     {
       id: '8311856b-eeb3-439b-b309-4353833d8ff0',
@@ -3566,8 +3285,7 @@ async function main() {
       email: 'abridel7t@rambler.ru',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'abridel7t',
+      hasProfileImage: false, isActivated: true, username: 'abridel7t',
     },
     {
       id: '53d18faf-2a81-40f0-ad7e-8de76375cdf9',
@@ -3577,8 +3295,7 @@ async function main() {
       email: 'nponder7u@cornell.edu',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'nponder7u',
+      hasProfileImage: false, isActivated: true, username: 'nponder7u',
     },
     {
       id: '95bbaadc-8c48-4d55-8300-c5ae65095b7a',
@@ -3588,8 +3305,7 @@ async function main() {
       email: 'cjeacock7v@tiny.cc',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'cjeacock7v',
+      hasProfileImage: false, isActivated: true, username: 'cjeacock7v',
     },
     {
       id: '105f3148-96ae-4002-a829-33a1c813f439',
@@ -3599,8 +3315,7 @@ async function main() {
       email: 'aklewer7w@tuttocitta.it',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'aklewer7w',
+      hasProfileImage: false, isActivated: true, username: 'aklewer7w',
     },
     {
       id: 'a84fd639-4f98-466a-b7f7-62eaa545b832',
@@ -3610,8 +3325,7 @@ async function main() {
       email: 'pcearley7x@etsy.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'pcearley7x',
+      hasProfileImage: false, isActivated: true, username: 'pcearley7x',
     },
     {
       id: 'c7cb618b-2a13-4fbc-a1f2-1a93e6eefe75',
@@ -3621,8 +3335,7 @@ async function main() {
       email: 'pcrosby7y@mozilla.org',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'pcrosby7y',
+      hasProfileImage: false, isActivated: true, username: 'pcrosby7y',
     },
     {
       id: '810a567b-8a1f-4450-ac15-fd6993b4340a',
@@ -3632,8 +3345,7 @@ async function main() {
       email: 'pzanussii7z@bloomberg.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'pzanussii7z',
+      hasProfileImage: false, isActivated: true, username: 'pzanussii7z',
     },
     {
       id: '00276e27-9438-480c-a1e5-54e333b11dc0',
@@ -3643,8 +3355,7 @@ async function main() {
       email: 'lmatyashev80@over-blog.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'lmatyashev80',
+      hasProfileImage: false, isActivated: true, username: 'lmatyashev80',
     },
     {
       id: '99dc6454-919a-4934-b059-dff25e155a6e',
@@ -3654,8 +3365,7 @@ async function main() {
       email: 'ccornelius81@pagesperso-orange.fr',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'ccornelius81',
+      hasProfileImage: false, isActivated: true, username: 'ccornelius81',
     },
     {
       id: '3904143d-2281-4c6b-a98e-91561454005a',
@@ -3665,8 +3375,7 @@ async function main() {
       email: 'rroydon82@paypal.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'rroydon82',
+      hasProfileImage: false, isActivated: true, username: 'rroydon82',
     },
     {
       id: '805e4b28-b1ff-4a07-b354-7e74c07bff7e',
@@ -3676,8 +3385,7 @@ async function main() {
       email: 'dallgood83@privacy.gov.au',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'dallgood83',
+      hasProfileImage: false, isActivated: true, username: 'dallgood83',
     },
     {
       id: 'faeb538a-a172-4c43-a763-5e789f3eca4d',
@@ -3687,8 +3395,7 @@ async function main() {
       email: 'rbirrane84@mediafire.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'rbirrane84',
+      hasProfileImage: false, isActivated: true, username: 'rbirrane84',
     },
     {
       id: '5218c1ee-9ea7-4333-ab43-9d98f527a9c1',
@@ -3698,8 +3405,7 @@ async function main() {
       email: 'slesaunier85@t-online.de',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'slesaunier85',
+      hasProfileImage: false, isActivated: true, username: 'slesaunier85',
     },
     {
       id: 'dddb902c-f9ae-44d8-82e7-27edea9e6b6a',
@@ -3709,8 +3415,7 @@ async function main() {
       email: 'lallsebrook86@nymag.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'lallsebrook86',
+      hasProfileImage: false, isActivated: true, username: 'lallsebrook86',
     },
     {
       id: '8665eece-4cc4-46fc-98c0-88ae574a78d4',
@@ -3720,8 +3425,7 @@ async function main() {
       email: 'jsantarelli87@earthlink.net',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'jsantarelli87',
+      hasProfileImage: false, isActivated: true, username: 'jsantarelli87',
     },
     {
       id: '0916260e-12ef-4b0b-8a80-76f0c4db4f81',
@@ -3731,8 +3435,7 @@ async function main() {
       email: 'benoch88@webeden.co.uk',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'benoch88',
+      hasProfileImage: false, isActivated: true, username: 'benoch88',
     },
     {
       id: '7ada2e19-b864-4e0c-959c-7d196bfc306c',
@@ -3742,8 +3445,7 @@ async function main() {
       email: 'ehargess89@tamu.edu',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'ehargess89',
+      hasProfileImage: false, isActivated: true, username: 'ehargess89',
     },
     {
       id: '5e68d975-5f55-4c29-a2e5-50ead89604e7',
@@ -3753,8 +3455,7 @@ async function main() {
       email: 'mspensley8a@zimbio.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'mspensley8a',
+      hasProfileImage: false, isActivated: true, username: 'mspensley8a',
     },
     {
       id: '3b37a8c4-163e-450c-be13-bfa8d2973dda',
@@ -3764,8 +3465,7 @@ async function main() {
       email: 'mguinness8b@live.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'mguinness8b',
+      hasProfileImage: false, isActivated: true, username: 'mguinness8b',
     },
     {
       id: '687d4ecd-96a2-4023-8b6d-70be2319fc04',
@@ -3775,8 +3475,7 @@ async function main() {
       email: 'kbrugman8c@tinypic.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'kbrugman8c',
+      hasProfileImage: false, isActivated: true, username: 'kbrugman8c',
     },
     {
       id: 'd77fe9e1-b62a-4a8d-8688-bafd69ea4a40',
@@ -3786,8 +3485,7 @@ async function main() {
       email: 'bbernhardt8d@meetup.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'bbernhardt8d',
+      hasProfileImage: false, isActivated: true, username: 'bbernhardt8d',
     },
     {
       id: '518c914c-1b6a-4b97-b717-eb21e9570008',
@@ -3797,8 +3495,7 @@ async function main() {
       email: 'jhowerd8e@canalblog.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'jhowerd8e',
+      hasProfileImage: false, isActivated: true, username: 'jhowerd8e',
     },
     {
       id: 'b4ed6ad3-1cbd-42de-9645-9c6a05b98875',
@@ -3808,8 +3505,7 @@ async function main() {
       email: 'awinterflood8f@weibo.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'awinterflood8f',
+      hasProfileImage: false, isActivated: true, username: 'awinterflood8f',
     },
     {
       id: 'f8d94298-db73-448e-806f-60eafd898ea1',
@@ -3819,8 +3515,7 @@ async function main() {
       email: 'jneale8g@nydailynews.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'jneale8g',
+      hasProfileImage: false, isActivated: true, username: 'jneale8g',
     },
     {
       id: '6350ba51-5611-443f-8102-566a3ba30d4c',
@@ -3830,8 +3525,7 @@ async function main() {
       email: 'eleuchars8h@youku.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'eleuchars8h',
+      hasProfileImage: false, isActivated: true, username: 'eleuchars8h',
     },
     {
       id: '57304b9d-4bd5-49f3-99fa-19b29274918f',
@@ -3841,8 +3535,7 @@ async function main() {
       email: 'otupie8i@addthis.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'otupie8i',
+      hasProfileImage: false, isActivated: true, username: 'otupie8i',
     },
     {
       id: '9576dc96-f0f1-4f81-b2de-973459d35a58',
@@ -3852,8 +3545,7 @@ async function main() {
       email: 'mpreble8j@intel.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'mpreble8j',
+      hasProfileImage: false, isActivated: true, username: 'mpreble8j',
     },
     {
       id: 'ba816724-1697-4c59-ad3d-b5589c83ebae',
@@ -3863,8 +3555,7 @@ async function main() {
       email: 'pdartnell8k@cbslocal.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'pdartnell8k',
+      hasProfileImage: false, isActivated: true, username: 'pdartnell8k',
     },
     {
       id: '5a39e38f-6969-4133-a2f1-4fafaa085271',
@@ -3874,8 +3565,7 @@ async function main() {
       email: 'mdunnett8l@google.it',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'mdunnett8l',
+      hasProfileImage: false, isActivated: true, username: 'mdunnett8l',
     },
     {
       id: '4e2f4346-1fe9-4f62-a475-81a4bcfbef31',
@@ -3885,8 +3575,7 @@ async function main() {
       email: 'kbettles8m@plala.or.jp',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'kbettles8m',
+      hasProfileImage: false, isActivated: true, username: 'kbettles8m',
     },
     {
       id: 'b0550561-a64e-4219-a13e-5b0de4c08b72',
@@ -3896,8 +3585,7 @@ async function main() {
       email: 'csharville8n@dot.gov',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'csharville8n',
+      hasProfileImage: false, isActivated: true, username: 'csharville8n',
     },
     {
       id: 'c2f9d6fd-5b3c-42f5-85e4-2129ffaa3a2d',
@@ -3907,8 +3595,7 @@ async function main() {
       email: 'cchiles8o@ask.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'cchiles8o',
+      hasProfileImage: false, isActivated: true, username: 'cchiles8o',
     },
     {
       id: 'f4f90523-4467-4c45-bae4-b1f30ffb85cf',
@@ -3918,8 +3605,7 @@ async function main() {
       email: 'pambrogio8p@comsenz.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'pambrogio8p',
+      hasProfileImage: false, isActivated: true, username: 'pambrogio8p',
     },
     {
       id: '71f5d879-ff29-40a7-a562-cca230b5036f',
@@ -3929,8 +3615,7 @@ async function main() {
       email: 'mbakesef8q@ow.ly',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'mbakesef8q',
+      hasProfileImage: false, isActivated: true, username: 'mbakesef8q',
     },
     {
       id: '7e1866c1-e9ec-4000-bc61-2b4ccb23d656',
@@ -3940,8 +3625,7 @@ async function main() {
       email: 'dlilliman8r@facebook.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'dlilliman8r',
+      hasProfileImage: false, isActivated: true, username: 'dlilliman8r',
     },
     {
       id: 'c98ae34f-0f0c-4b78-bff4-48ed6ed8cfc6',
@@ -3951,8 +3635,7 @@ async function main() {
       email: 'voneil8s@goodreads.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'voneil8s',
+      hasProfileImage: false, isActivated: true, username: 'voneil8s',
     },
     {
       id: 'baf4e0d5-03d7-4ec9-a682-da435d112dbd',
@@ -3962,8 +3645,7 @@ async function main() {
       email: 'flavall8t@istockphoto.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'flavall8t',
+      hasProfileImage: false, isActivated: true, username: 'flavall8t',
     },
     {
       id: 'cf0ce33d-b34f-4651-831e-18ffb77f06b7',
@@ -3973,8 +3655,7 @@ async function main() {
       email: 'geldridge8u@deliciousdays.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'geldridge8u',
+      hasProfileImage: false, isActivated: true, username: 'geldridge8u',
     },
     {
       id: 'fd39aa18-2a2b-4f94-888e-d8df8d59e279',
@@ -3984,8 +3665,7 @@ async function main() {
       email: 'chilhouse8v@house.gov',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'chilhouse8v',
+      hasProfileImage: false, isActivated: true, username: 'chilhouse8v',
     },
     {
       id: '0e1549ce-3e39-419f-925e-17fb11fd7f20',
@@ -3995,8 +3675,7 @@ async function main() {
       email: 'mpettman8w@yale.edu',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'mpettman8w',
+      hasProfileImage: false, isActivated: true, username: 'mpettman8w',
     },
     {
       id: '8ae6f2be-392d-4992-a384-acce49f57146',
@@ -4006,8 +3685,7 @@ async function main() {
       email: 'stinan8x@squarespace.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'stinan8x',
+      hasProfileImage: false, isActivated: true, username: 'stinan8x',
     },
     {
       id: '120d9300-8fb4-42dd-89e4-399bd88626b4',
@@ -4017,8 +3695,7 @@ async function main() {
       email: 'egain8y@weather.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'egain8y',
+      hasProfileImage: false, isActivated: true, username: 'egain8y',
     },
     {
       id: '8b3211a8-9572-44bf-8cbc-cee3b305ab21',
@@ -4028,8 +3705,7 @@ async function main() {
       email: 'cmartello8z@china.com.cn',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'cmartello8z',
+      hasProfileImage: false, isActivated: true, username: 'cmartello8z',
     },
     {
       id: '8164766c-1d98-4a96-9e31-03a068567235',
@@ -4039,8 +3715,7 @@ async function main() {
       email: 'bloan90@mail.ru',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'bloan90',
+      hasProfileImage: false, isActivated: true, username: 'bloan90',
     },
     {
       id: '5edd8ff8-dbd1-47e5-bd65-3e6034a3d74e',
@@ -4050,8 +3725,7 @@ async function main() {
       email: 'bhollyland91@163.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'bhollyland91',
+      hasProfileImage: false, isActivated: true, username: 'bhollyland91',
     },
     {
       id: '53f49c99-db1f-4cb1-b51e-19dc7c0ce6b9',
@@ -4061,8 +3735,7 @@ async function main() {
       email: 'acudbertson92@netvibes.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'acudbertson92',
+      hasProfileImage: false, isActivated: true, username: 'acudbertson92',
     },
     {
       id: '860d25b7-eac4-410b-8061-6719c265bf18',
@@ -4072,8 +3745,7 @@ async function main() {
       email: 'lpabst93@t.co',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'lpabst93',
+      hasProfileImage: false, isActivated: true, username: 'lpabst93',
     },
     {
       id: 'b04f1c6e-172a-42ed-99de-3c9efae9f2cf',
@@ -4083,8 +3755,7 @@ async function main() {
       email: 'bgroll94@creativecommons.org',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'bgroll94',
+      hasProfileImage: false, isActivated: true, username: 'bgroll94',
     },
     {
       id: 'a0ba2833-cfad-4bf0-af24-699ce233faee',
@@ -4094,8 +3765,7 @@ async function main() {
       email: 'bdietmar95@opensource.org',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'bdietmar95',
+      hasProfileImage: false, isActivated: true, username: 'bdietmar95',
     },
     {
       id: 'b32a235b-4172-4abf-8cb4-be9d899f2ef3',
@@ -4105,8 +3775,7 @@ async function main() {
       email: 'oconisbee96@addtoany.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'oconisbee96',
+      hasProfileImage: false, isActivated: true, username: 'oconisbee96',
     },
     {
       id: 'fe9ce0b4-38c4-4451-a6a0-b5ced52c6f96',
@@ -4116,8 +3785,7 @@ async function main() {
       email: 'vperot97@chronoengine.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'vperot97',
+      hasProfileImage: false, isActivated: true, username: 'vperot97',
     },
     {
       id: 'de5c2fa6-7c03-4506-a6d1-0c52d099c9ec',
@@ -4127,8 +3795,7 @@ async function main() {
       email: 'drapi98@paypal.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'drapi98',
+      hasProfileImage: false, isActivated: true, username: 'drapi98',
     },
     {
       id: '9dcfadba-bc19-4986-b6c8-24082544eb5d',
@@ -4138,8 +3805,7 @@ async function main() {
       email: 'tblue99@netlog.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'tblue99',
+      hasProfileImage: false, isActivated: true, username: 'tblue99',
     },
     {
       id: '8b469e9c-8d92-48df-ad3d-08027b30969b',
@@ -4149,8 +3815,7 @@ async function main() {
       email: 'mpresnell9a@altervista.org',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'mpresnell9a',
+      hasProfileImage: false, isActivated: true, username: 'mpresnell9a',
     },
     {
       id: '6e5d6025-9390-4ea0-9814-94d8f29e2e2a',
@@ -4160,8 +3825,7 @@ async function main() {
       email: 'kainsby9b@latimes.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'kainsby9b',
+      hasProfileImage: false, isActivated: true, username: 'kainsby9b',
     },
     {
       id: '0c151ba6-b4ad-41ae-a483-1e51cc73001e',
@@ -4171,8 +3835,7 @@ async function main() {
       email: 'epine9c@theguardian.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'epine9c',
+      hasProfileImage: false, isActivated: true, username: 'epine9c',
     },
     {
       id: 'abc9efd4-6443-443b-a0e6-f920d1330b45',
@@ -4182,8 +3845,7 @@ async function main() {
       email: 'lioannou9d@cbslocal.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'lioannou9d',
+      hasProfileImage: false, isActivated: true, username: 'lioannou9d',
     },
     {
       id: 'a63dab4a-2603-44f2-9ac5-ae7339212448',
@@ -4193,8 +3855,7 @@ async function main() {
       email: 'bwantling9e@elegantthemes.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'bwantling9e',
+      hasProfileImage: false, isActivated: true, username: 'bwantling9e',
     },
     {
       id: '0b6d0c9a-5f85-47f2-8567-2465b86b034d',
@@ -4204,8 +3865,7 @@ async function main() {
       email: 'astrete9f@amazonaws.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'astrete9f',
+      hasProfileImage: false, isActivated: true, username: 'astrete9f',
     },
     {
       id: 'b8dbeddf-6231-4725-bba5-45ff4ad09686',
@@ -4215,8 +3875,7 @@ async function main() {
       email: 'bbrosh9g@joomla.org',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'bbrosh9g',
+      hasProfileImage: false, isActivated: true, username: 'bbrosh9g',
     },
     {
       id: 'ab0496c2-9eb3-49a8-ae0a-6d6292a5fefd',
@@ -4226,8 +3885,7 @@ async function main() {
       email: 'dsearsby9h@histats.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'dsearsby9h',
+      hasProfileImage: false, isActivated: true, username: 'dsearsby9h',
     },
     {
       id: '59dbae65-1b02-4a11-a411-1a8d5f29e75f',
@@ -4237,8 +3895,7 @@ async function main() {
       email: 'srigbye9i@usatoday.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'srigbye9i',
+      hasProfileImage: false, isActivated: true, username: 'srigbye9i',
     },
     {
       id: 'c9e8b72b-c42b-44c2-96b6-3060b0151595',
@@ -4248,8 +3905,7 @@ async function main() {
       email: 'epiet9j@blinklist.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'epiet9j',
+      hasProfileImage: false, isActivated: true, username: 'epiet9j',
     },
     {
       id: '9572d977-b575-44c7-a5b0-250914326036',
@@ -4259,8 +3915,7 @@ async function main() {
       email: 'hthurlby9k@cbslocal.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'hthurlby9k',
+      hasProfileImage: false, isActivated: true, username: 'hthurlby9k',
     },
     {
       id: '285cda4f-38c1-49f3-87a2-3d51ec3c3847',
@@ -4270,8 +3925,7 @@ async function main() {
       email: 'mcaghy9l@businessinsider.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'mcaghy9l',
+      hasProfileImage: false, isActivated: true, username: 'mcaghy9l',
     },
     {
       id: '90767e30-dc7d-4c1a-8592-a243bca1481c',
@@ -4281,8 +3935,7 @@ async function main() {
       email: 'bkite9m@comcast.net',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'bkite9m',
+      hasProfileImage: false, isActivated: true, username: 'bkite9m',
     },
     {
       id: '152a0aee-5a77-447b-b1c9-4e1ca83c6294',
@@ -4292,8 +3945,7 @@ async function main() {
       email: 'qmcloney9n@msn.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'qmcloney9n',
+      hasProfileImage: false, isActivated: true, username: 'qmcloney9n',
     },
     {
       id: 'f350ce9a-c465-441a-904c-cd5a01ae426b',
@@ -4303,8 +3955,7 @@ async function main() {
       email: 'kliddell9o@huffingtonpost.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'kliddell9o',
+      hasProfileImage: false, isActivated: true, username: 'kliddell9o',
     },
     {
       id: 'b2135488-abfd-4ef2-92ca-daaf24f4c9e6',
@@ -4314,8 +3965,7 @@ async function main() {
       email: 'gsante9p@nps.gov',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'gsante9p',
+      hasProfileImage: false, isActivated: true, username: 'gsante9p',
     },
     {
       id: 'c692aa75-6d8e-4631-a6a2-b7adf92067ff',
@@ -4325,8 +3975,7 @@ async function main() {
       email: 'pshelton9q@bbc.co.uk',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'pshelton9q',
+      hasProfileImage: false, isActivated: true, username: 'pshelton9q',
     },
     {
       id: '9ebdb3b9-cbbd-41bd-9614-2cc55ded1959',
@@ -4336,8 +3985,7 @@ async function main() {
       email: 'tbaden9r@shinystat.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'tbaden9r',
+      hasProfileImage: false, isActivated: true, username: 'tbaden9r',
     },
     {
       id: '27894846-3978-4365-acd6-34144e1e65c6',
@@ -4347,8 +3995,7 @@ async function main() {
       email: 'schudleigh9s@whitehouse.gov',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'schudleigh9s',
+      hasProfileImage: false, isActivated: true, username: 'schudleigh9s',
     },
     {
       id: '37eafe3e-d754-4717-8d62-58883a64a9cc',
@@ -4358,8 +4005,7 @@ async function main() {
       email: 'dchetter9t@joomla.org',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'dchetter9t',
+      hasProfileImage: false, isActivated: true, username: 'dchetter9t',
     },
     {
       id: 'fb6616b9-5d87-4dc1-ab95-1893a247c1d9',
@@ -4369,8 +4015,7 @@ async function main() {
       email: 'rlippett9u@goo.ne.jp',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'rlippett9u',
+      hasProfileImage: false, isActivated: true, username: 'rlippett9u',
     },
     {
       id: 'f608700f-5140-4e1a-91c8-0ba25513b79c',
@@ -4380,8 +4025,7 @@ async function main() {
       email: 'cfeaveer9v@nationalgeographic.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'cfeaveer9v',
+      hasProfileImage: false, isActivated: true, username: 'cfeaveer9v',
     },
     {
       id: '2b90d928-a139-4e38-abee-c2ad6661c9eb',
@@ -4391,8 +4035,7 @@ async function main() {
       email: 'hblonfield9w@desdev.cn',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'hblonfield9w',
+      hasProfileImage: false, isActivated: true, username: 'hblonfield9w',
     },
     {
       id: '1d54124c-5ad5-4af1-b0f2-6883a37a7b71',
@@ -4402,8 +4045,7 @@ async function main() {
       email: 'ableiman9x@miibeian.gov.cn',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'ableiman9x',
+      hasProfileImage: false, isActivated: true, username: 'ableiman9x',
     },
     {
       id: '0e2d6330-166a-4d58-b9d0-c02d40c56428',
@@ -4413,8 +4055,7 @@ async function main() {
       email: 'dturnell9y@yelp.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'dturnell9y',
+      hasProfileImage: false, isActivated: true, username: 'dturnell9y',
     },
     {
       id: 'caeb4d77-0006-42aa-8123-5d4ac55d7529',
@@ -4424,8 +4065,7 @@ async function main() {
       email: 'clivingstone9z@sbwire.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'clivingstone9z',
+      hasProfileImage: false, isActivated: true, username: 'clivingstone9z',
     },
     {
       id: 'e3f69a9e-d33e-4eb7-9e50-bc7846832308',
@@ -4435,8 +4075,7 @@ async function main() {
       email: 'cchevinsa0@amazon.co.jp',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'cchevinsa0',
+      hasProfileImage: false, isActivated: true, username: 'cchevinsa0',
     },
     {
       id: '3cdfb8ae-c6f6-422d-8055-e2d017e37f52',
@@ -4446,8 +4085,7 @@ async function main() {
       email: 'vvalancea1@nifty.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'vvalancea1',
+      hasProfileImage: false, isActivated: true, username: 'vvalancea1',
     },
     {
       id: 'ab257162-c8eb-47d2-a517-8abefe8a2b37',
@@ -4457,8 +4095,7 @@ async function main() {
       email: 'wmumbesona2@plala.or.jp',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'wmumbesona2',
+      hasProfileImage: false, isActivated: true, username: 'wmumbesona2',
     },
     {
       id: 'c5a8c568-cdc9-4f6f-aa41-0d5e4adebe46',
@@ -4468,8 +4105,7 @@ async function main() {
       email: 'wheisa3@reuters.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'wheisa3',
+      hasProfileImage: false, isActivated: true, username: 'wheisa3',
     },
     {
       id: '10d9497d-7a91-445e-a9a4-032c6112d1a1',
@@ -4479,8 +4115,7 @@ async function main() {
       email: 'eleifa4@cornell.edu',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'eleifa4',
+      hasProfileImage: false, isActivated: true, username: 'eleifa4',
     },
     {
       id: '4595aeaa-7aa8-42de-ad2f-8674279512e8',
@@ -4490,8 +4125,7 @@ async function main() {
       email: 'zdeernessa5@hibu.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'zdeernessa5',
+      hasProfileImage: false, isActivated: true, username: 'zdeernessa5',
     },
     {
       id: '8da82d74-cab8-431f-8dda-daba1a97f605',
@@ -4501,8 +4135,7 @@ async function main() {
       email: 'mcarslawa6@google.ru',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'mcarslawa6',
+      hasProfileImage: false, isActivated: true, username: 'mcarslawa6',
     },
     {
       id: 'e737c8f8-fd31-4950-938f-5e20d3b9711a',
@@ -4512,8 +4145,7 @@ async function main() {
       email: 'hmarlowea7@businessinsider.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'hmarlowea7',
+      hasProfileImage: false, isActivated: true, username: 'hmarlowea7',
     },
     {
       id: 'cdb9e260-ace2-47d0-b2c4-fa78de647662',
@@ -4523,8 +4155,7 @@ async function main() {
       email: 'kdrana8@usatoday.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'kdrana8',
+      hasProfileImage: false, isActivated: true, username: 'kdrana8',
     },
     {
       id: '5ee4dc6d-5a31-4388-a95a-ebe5cbdf1337',
@@ -4534,8 +4165,7 @@ async function main() {
       email: 'tgreenwaya9@goodreads.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'tgreenwaya9',
+      hasProfileImage: false, isActivated: true, username: 'tgreenwaya9',
     },
     {
       id: '00f6df47-79c6-4404-aff3-a21ab1edc44e',
@@ -4545,8 +4175,7 @@ async function main() {
       email: 'ykolodziejskiaa@prnewswire.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'ykolodziejskiaa',
+      hasProfileImage: false, isActivated: true, username: 'ykolodziejskiaa',
     },
     {
       id: 'dc011acf-b17d-4c83-91e5-d799fe32ba32',
@@ -4556,8 +4185,7 @@ async function main() {
       email: 'dshawyersab@ow.ly',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'dshawyersab',
+      hasProfileImage: false, isActivated: true, username: 'dshawyersab',
     },
     {
       id: '97680aea-043b-42d2-8b66-07f55516dde6',
@@ -4567,8 +4195,7 @@ async function main() {
       email: 'rceeleyac@dailymail.co.uk',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'rceeleyac',
+      hasProfileImage: false, isActivated: true, username: 'rceeleyac',
     },
     {
       id: '12e390d8-c003-4bd9-ad01-061ded191730',
@@ -4578,8 +4205,7 @@ async function main() {
       email: 'gmciloryad@cbslocal.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'gmciloryad',
+      hasProfileImage: false, isActivated: true, username: 'gmciloryad',
     },
     {
       id: '2fd7310c-385d-4ef3-9e53-8d96aeeb9968',
@@ -4589,8 +4215,7 @@ async function main() {
       email: 'steazae@de.vu',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'steazae',
+      hasProfileImage: false, isActivated: true, username: 'steazae',
     },
     {
       id: 'e054a2aa-a70a-4f6c-b51e-3ee90255ab24',
@@ -4600,8 +4225,7 @@ async function main() {
       email: 'ftupperaf@soup.io',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'ftupperaf',
+      hasProfileImage: false, isActivated: true, username: 'ftupperaf',
     },
     {
       id: '544460f6-3abe-4af7-881d-ec09c6e82356',
@@ -4611,8 +4235,7 @@ async function main() {
       email: 'rbutchersag@netscape.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'rbutchersag',
+      hasProfileImage: false, isActivated: true, username: 'rbutchersag',
     },
     {
       id: '70ce6087-cdd0-4097-8ba1-5a4b590c6375',
@@ -4622,8 +4245,7 @@ async function main() {
       email: 'lhurticah@about.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'lhurticah',
+      hasProfileImage: false, isActivated: true, username: 'lhurticah',
     },
     {
       id: '0a8f22ed-4964-4d5a-ae23-54b5abeb9621',
@@ -4633,8 +4255,7 @@ async function main() {
       email: 'hhowardgaterai@studiopress.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'hhowardgaterai',
+      hasProfileImage: false, isActivated: true, username: 'hhowardgaterai',
     },
     {
       id: '250d0697-e273-476e-899f-5b07d157a6dd',
@@ -4644,8 +4265,7 @@ async function main() {
       email: 'xbrokenshireaj@webmd.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'xbrokenshireaj',
+      hasProfileImage: false, isActivated: true, username: 'xbrokenshireaj',
     },
     {
       id: '5608cf4c-7bbe-46b4-a64a-7895b4a2e4c0',
@@ -4655,8 +4275,7 @@ async function main() {
       email: 'tsawleak@github.io',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'tsawleak',
+      hasProfileImage: false, isActivated: true, username: 'tsawleak',
     },
     {
       id: '2aaaf641-86f6-431b-bc16-d8924fded866',
@@ -4666,8 +4285,7 @@ async function main() {
       email: 'kshayleral@house.gov',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'kshayleral',
+      hasProfileImage: false, isActivated: true, username: 'kshayleral',
     },
     {
       id: '627bb409-9f63-4e1b-8518-c48a33c49cd1',
@@ -4677,8 +4295,7 @@ async function main() {
       email: 'rgraveneyam@mashable.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'rgraveneyam',
+      hasProfileImage: false, isActivated: true, username: 'rgraveneyam',
     },
     {
       id: '6b2e462b-cf05-4342-ae74-3a9e609a4cf6',
@@ -4688,8 +4305,7 @@ async function main() {
       email: 'smoradan@xing.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'smoradan',
+      hasProfileImage: false, isActivated: true, username: 'smoradan',
     },
     {
       id: '0da44b5c-94b5-428a-a53f-50424a9d52e2',
@@ -4699,8 +4315,7 @@ async function main() {
       email: 'sstandingao@icio.us',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'sstandingao',
+      hasProfileImage: false, isActivated: true, username: 'sstandingao',
     },
     {
       id: 'b3828a91-636b-49d8-b06b-c0b0dbc56f17',
@@ -4710,8 +4325,7 @@ async function main() {
       email: 'syerrillap@economist.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'syerrillap',
+      hasProfileImage: false, isActivated: true, username: 'syerrillap',
     },
     {
       id: '543731eb-89b7-4a22-aee2-fbae06cba736',
@@ -4721,8 +4335,7 @@ async function main() {
       email: 'mmaturaaq@baidu.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'mmaturaaq',
+      hasProfileImage: false, isActivated: true, username: 'mmaturaaq',
     },
     {
       id: 'ea4960ac-dcba-4bae-b167-690898fcc163',
@@ -4732,8 +4345,7 @@ async function main() {
       email: 'bwedonar@networksolutions.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'bwedonar',
+      hasProfileImage: false, isActivated: true, username: 'bwedonar',
     },
     {
       id: 'eb6a3e97-d842-40c7-ada6-234dbc96c6f8',
@@ -4743,8 +4355,7 @@ async function main() {
       email: 'dlutonas@sakura.ne.jp',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'dlutonas',
+      hasProfileImage: false, isActivated: true, username: 'dlutonas',
     },
     {
       id: '70e91848-e824-42ea-ab55-6a5beba66eff',
@@ -4754,8 +4365,7 @@ async function main() {
       email: 'vpartingtonat@sfgate.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'vpartingtonat',
+      hasProfileImage: false, isActivated: true, username: 'vpartingtonat',
     },
     {
       id: 'c48efb93-3916-48da-85d9-d6f49560d301',
@@ -4765,8 +4375,7 @@ async function main() {
       email: 'bshakespearau@com.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'bshakespearau',
+      hasProfileImage: false, isActivated: true, username: 'bshakespearau',
     },
     {
       id: '548ba13a-e853-409e-ade0-c6101e4f729c',
@@ -4776,8 +4385,7 @@ async function main() {
       email: 'lattrydeav@samsung.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'lattrydeav',
+      hasProfileImage: false, isActivated: true, username: 'lattrydeav',
     },
     {
       id: '436fddbf-22fd-4ae5-bcdb-0a2733269946',
@@ -4787,8 +4395,7 @@ async function main() {
       email: 'oternottaw@ed.gov',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'oternottaw',
+      hasProfileImage: false, isActivated: true, username: 'oternottaw',
     },
     {
       id: '1a7343b7-79d3-466a-912c-0cc113e291de',
@@ -4798,8 +4405,7 @@ async function main() {
       email: 'rmathonax@ustream.tv',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'rmathonax',
+      hasProfileImage: false, isActivated: true, username: 'rmathonax',
     },
     {
       id: '0ebb7b55-8fee-4c56-a6ea-fdf910539011',
@@ -4809,8 +4415,7 @@ async function main() {
       email: 'ksandbachay@redcross.org',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'ksandbachay',
+      hasProfileImage: false, isActivated: true, username: 'ksandbachay',
     },
     {
       id: '720b2056-6924-438b-b187-b3de9a8a1c55',
@@ -4820,8 +4425,7 @@ async function main() {
       email: 'ikelsowaz@friendfeed.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'ikelsowaz',
+      hasProfileImage: false, isActivated: true, username: 'ikelsowaz',
     },
     {
       id: '812adb02-c323-41d1-86eb-fb46badc4ce4',
@@ -4831,8 +4435,7 @@ async function main() {
       email: 'eellwoodb0@ftc.gov',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'eellwoodb0',
+      hasProfileImage: false, isActivated: true, username: 'eellwoodb0',
     },
     {
       id: '2e194ac1-46f1-473d-a747-b5198de2ac11',
@@ -4842,8 +4445,7 @@ async function main() {
       email: 'pterbruggenb1@smh.com.au',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'pterbruggenb1',
+      hasProfileImage: false, isActivated: true, username: 'pterbruggenb1',
     },
     {
       id: '7d2c23cd-76bd-4cd8-86e9-45ebd60df278',
@@ -4853,8 +4455,7 @@ async function main() {
       email: 'fdumphreyb2@twitter.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'fdumphreyb2',
+      hasProfileImage: false, isActivated: true, username: 'fdumphreyb2',
     },
     {
       id: '8b36e1fd-4a93-4c74-b132-157802b3b9f0',
@@ -4864,8 +4465,7 @@ async function main() {
       email: 'gheissb3@soup.io',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'gheissb3',
+      hasProfileImage: false, isActivated: true, username: 'gheissb3',
     },
     {
       id: '751062e0-734e-4fa7-a878-0f1540acfbd2',
@@ -4875,8 +4475,7 @@ async function main() {
       email: 'dmitchellb4@loc.gov',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'dmitchellb4',
+      hasProfileImage: false, isActivated: true, username: 'dmitchellb4',
     },
     {
       id: 'c4108c04-962d-439e-9fa4-bf3fef8f8abd',
@@ -4886,8 +4485,7 @@ async function main() {
       email: 'hjerdeinb5@comcast.net',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'hjerdeinb5',
+      hasProfileImage: false, isActivated: true, username: 'hjerdeinb5',
     },
     {
       id: '3fd2ad26-2821-4c01-a17a-f075c1293251',
@@ -4897,8 +4495,7 @@ async function main() {
       email: 'sgaggb6@dropbox.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'sgaggb6',
+      hasProfileImage: false, isActivated: true, username: 'sgaggb6',
     },
     {
       id: 'a8b52aba-fa50-4a95-bc62-96ca470b9864',
@@ -4908,8 +4505,7 @@ async function main() {
       email: 'tcoupmanb7@go.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'tcoupmanb7',
+      hasProfileImage: false, isActivated: true, username: 'tcoupmanb7',
     },
     {
       id: '5b1d0c25-0092-4c54-b37f-a559bc7efe7a',
@@ -4919,8 +4515,7 @@ async function main() {
       email: 'hinkpenb8@utexas.edu',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'hinkpenb8',
+      hasProfileImage: false, isActivated: true, username: 'hinkpenb8',
     },
     {
       id: '35cc33da-99ab-4215-8db7-55a481b729ae',
@@ -4930,8 +4525,7 @@ async function main() {
       email: 'yforceb9@delicious.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'yforceb9',
+      hasProfileImage: false, isActivated: true, username: 'yforceb9',
     },
     {
       id: '6215b071-3d6a-4b29-b16b-ff3540e1d607',
@@ -4941,8 +4535,7 @@ async function main() {
       email: 'zdegiorgioba@barnesandnoble.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'zdegiorgioba',
+      hasProfileImage: false, isActivated: true, username: 'zdegiorgioba',
     },
     {
       id: 'dcdf369f-5342-437d-8e20-ae11f983c5ce',
@@ -4952,8 +4545,7 @@ async function main() {
       email: 'rmoirbb@webmd.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'rmoirbb',
+      hasProfileImage: false, isActivated: true, username: 'rmoirbb',
     },
     {
       id: 'c1493abc-0f23-495d-a31a-5d107073e31e',
@@ -4963,8 +4555,7 @@ async function main() {
       email: 'caubraybc@about.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'caubraybc',
+      hasProfileImage: false, isActivated: true, username: 'caubraybc',
     },
     {
       id: '81e86940-2307-4542-9885-2f7b1dacee21',
@@ -4974,8 +4565,7 @@ async function main() {
       email: 'ybeckinghambd@army.mil',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'ybeckinghambd',
+      hasProfileImage: false, isActivated: true, username: 'ybeckinghambd',
     },
     {
       id: '7870b42c-ef23-468d-b5ce-c87c8497a530',
@@ -4985,8 +4575,7 @@ async function main() {
       email: 'graittbe@elegantthemes.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'graittbe',
+      hasProfileImage: false, isActivated: true, username: 'graittbe',
     },
     {
       id: '98e0efa0-8482-4919-96b7-412152c5df4b',
@@ -4996,8 +4585,7 @@ async function main() {
       email: 'abinfordbf@example.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'abinfordbf',
+      hasProfileImage: false, isActivated: true, username: 'abinfordbf',
     },
     {
       id: 'd294c143-71ed-4d20-9a10-a781cb5073ca',
@@ -5007,8 +4595,7 @@ async function main() {
       email: 'jmerrigansbg@harvard.edu',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'jmerrigansbg',
+      hasProfileImage: false, isActivated: true, username: 'jmerrigansbg',
     },
     {
       id: '6a850090-e573-4448-9404-1ff2fc3839bd',
@@ -5018,8 +4605,7 @@ async function main() {
       email: 'emulvennabh@engadget.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'emulvennabh',
+      hasProfileImage: false, isActivated: true, username: 'emulvennabh',
     },
     {
       id: 'be2712c2-a6cc-42fd-b72d-74569dbfcc2e',
@@ -5029,8 +4615,7 @@ async function main() {
       email: 'lharnessbi@123-reg.co.uk',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'lharnessbi',
+      hasProfileImage: false, isActivated: true, username: 'lharnessbi',
     },
     {
       id: '97b34ffc-d480-4d7f-a1c8-c0e3240bc226',
@@ -5040,8 +4625,7 @@ async function main() {
       email: 'lpreblebj@nytimes.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'lpreblebj',
+      hasProfileImage: false, isActivated: true, username: 'lpreblebj',
     },
     {
       id: '115f3740-4ad1-45a3-a3fb-46b542c13d0b',
@@ -5051,8 +4635,7 @@ async function main() {
       email: 'abangerbk@photobucket.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'abangerbk',
+      hasProfileImage: false, isActivated: true, username: 'abangerbk',
     },
     {
       id: '44d47eb5-2d6a-4d11-a431-aae5e47b8574',
@@ -5062,8 +4645,7 @@ async function main() {
       email: 'bnassibl@time.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'bnassibl',
+      hasProfileImage: false, isActivated: true, username: 'bnassibl',
     },
     {
       id: 'eceb9a0b-c79f-4549-95c7-fb715db56246',
@@ -5073,8 +4655,7 @@ async function main() {
       email: 'nwisbybm@themeforest.net',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'nwisbybm',
+      hasProfileImage: false, isActivated: true, username: 'nwisbybm',
     },
     {
       id: '66638970-b3cf-406d-ac72-a68e663a54bd',
@@ -5084,8 +4665,7 @@ async function main() {
       email: 'rbelchampbn@angelfire.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'rbelchampbn',
+      hasProfileImage: false, isActivated: true, username: 'rbelchampbn',
     },
     {
       id: '7cb5027c-26a8-41b6-a83d-9c9c023414b7',
@@ -5095,8 +4675,7 @@ async function main() {
       email: 'kfaslerbo@mtv.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'kfaslerbo',
+      hasProfileImage: false, isActivated: true, username: 'kfaslerbo',
     },
     {
       id: '8a56ecd2-6786-4d84-8fe4-4271e6df6245',
@@ -5106,8 +4685,7 @@ async function main() {
       email: 'creolfobp@ihg.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'creolfobp',
+      hasProfileImage: false, isActivated: true, username: 'creolfobp',
     },
     {
       id: '49ed2e9a-ad97-4939-ac16-ece191df60c9',
@@ -5117,8 +4695,7 @@ async function main() {
       email: 'bsertinbq@netlog.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'bsertinbq',
+      hasProfileImage: false, isActivated: true, username: 'bsertinbq',
     },
     {
       id: 'f0c0f226-41cf-4c0d-af5d-58fc1534726e',
@@ -5128,8 +4705,7 @@ async function main() {
       email: 'djanickibr@4shared.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'djanickibr',
+      hasProfileImage: false, isActivated: true, username: 'djanickibr',
     },
     {
       id: '3f88c69f-e1b9-405b-abf0-ed488de6b854',
@@ -5139,8 +4715,7 @@ async function main() {
       email: 'lfishburnbs@google.co.uk',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'lfishburnbs',
+      hasProfileImage: false, isActivated: true, username: 'lfishburnbs',
     },
     {
       id: '9ac01cb6-31a3-4440-9c54-6790ca6e3d14',
@@ -5150,8 +4725,7 @@ async function main() {
       email: 'afannbt@timesonline.co.uk',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'afannbt',
+      hasProfileImage: false, isActivated: true, username: 'afannbt',
     },
     {
       id: '9afb8486-92a1-41f2-88aa-b210f2cab8d1',
@@ -5161,8 +4735,7 @@ async function main() {
       email: 'thealybu@elegantthemes.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'thealybu',
+      hasProfileImage: false, isActivated: true, username: 'thealybu',
     },
     {
       id: 'bed3e359-c0f5-4ce8-9b39-40d80e8b876a',
@@ -5172,8 +4745,7 @@ async function main() {
       email: 'cepinebv@bing.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'cepinebv',
+      hasProfileImage: false, isActivated: true, username: 'cepinebv',
     },
     {
       id: 'b7c9c319-0d72-46d2-b291-857084af1a8d',
@@ -5183,8 +4755,7 @@ async function main() {
       email: 'abelleebw@weather.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'abelleebw',
+      hasProfileImage: false, isActivated: true, username: 'abelleebw',
     },
     {
       id: '5d6f6e44-edb4-4a3f-bbc7-1ff633860ab2',
@@ -5194,8 +4765,7 @@ async function main() {
       email: 'oyakubowiczbx@telegraph.co.uk',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'oyakubowiczbx',
+      hasProfileImage: false, isActivated: true, username: 'oyakubowiczbx',
     },
     {
       id: 'b97e9ad4-32b3-491d-9c74-6e67c6092b22',
@@ -5205,8 +4775,7 @@ async function main() {
       email: 'vstubbsby@sogou.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'vstubbsby',
+      hasProfileImage: false, isActivated: true, username: 'vstubbsby',
     },
     {
       id: 'c4d75aa7-a3bf-4ba8-bf41-2f4636aeafe5',
@@ -5216,8 +4785,7 @@ async function main() {
       email: 'emarrowbz@npr.org',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'emarrowbz',
+      hasProfileImage: false, isActivated: true, username: 'emarrowbz',
     },
     {
       id: '715a6b3c-63d4-4141-9d94-4905d6edcdb6',
@@ -5227,8 +4795,7 @@ async function main() {
       email: 'ihaberfieldc0@diigo.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'ihaberfieldc0',
+      hasProfileImage: false, isActivated: true, username: 'ihaberfieldc0',
     },
     {
       id: 'ad9b7dbd-226b-4878-a819-c900b99bd0e8',
@@ -5238,8 +4805,7 @@ async function main() {
       email: 'lworttc1@topsy.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'lworttc1',
+      hasProfileImage: false, isActivated: true, username: 'lworttc1',
     },
     {
       id: '2f0c0708-480f-4d31-b2ac-72f9a0f0ea68',
@@ -5249,8 +4815,7 @@ async function main() {
       email: 'gpigeonc2@abc.net.au',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'gpigeonc2',
+      hasProfileImage: false, isActivated: true, username: 'gpigeonc2',
     },
     {
       id: 'bd2dfca8-0e06-4112-829a-ce5ec457ad83',
@@ -5260,8 +4825,7 @@ async function main() {
       email: 'gwixc3@aol.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'gwixc3',
+      hasProfileImage: false, isActivated: true, username: 'gwixc3',
     },
     {
       id: '7a0e62ef-149e-4e5a-b6d0-4b0c988a54cc',
@@ -5271,8 +4835,7 @@ async function main() {
       email: 'otrowerc4@sogou.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'otrowerc4',
+      hasProfileImage: false, isActivated: true, username: 'otrowerc4',
     },
     {
       id: 'd7e59139-ffea-40b5-865b-cc1713213301',
@@ -5282,8 +4845,7 @@ async function main() {
       email: 'bpatrickc5@acquirethisname.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'bpatrickc5',
+      hasProfileImage: false, isActivated: true, username: 'bpatrickc5',
     },
     {
       id: 'e80608b3-b90d-4f9c-9c06-a6ca08fb614a',
@@ -5293,8 +4855,7 @@ async function main() {
       email: 'savramovitzc6@census.gov',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'savramovitzc6',
+      hasProfileImage: false, isActivated: true, username: 'savramovitzc6',
     },
     {
       id: '6c8408f6-8cde-42a6-ad30-6264874d86c9',
@@ -5304,8 +4865,7 @@ async function main() {
       email: 'hcunninghamc7@xinhuanet.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'hcunninghamc7',
+      hasProfileImage: false, isActivated: true, username: 'hcunninghamc7',
     },
     {
       id: '7b781493-9125-4e23-b8cb-98894866cb2e',
@@ -5315,8 +4875,7 @@ async function main() {
       email: 'atindleyc8@about.me',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'atindleyc8',
+      hasProfileImage: false, isActivated: true, username: 'atindleyc8',
     },
     {
       id: '15f86ada-3719-4f13-a101-96a7e3c2a4e5',
@@ -5326,8 +4885,7 @@ async function main() {
       email: 'rblennerhassettc9@eepurl.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'rblennerhassettc9',
+      hasProfileImage: false, isActivated: true, username: 'rblennerhassettc9',
     },
     {
       id: '80af0c57-4e48-4e82-a9a5-60f3ca7edc60',
@@ -5337,8 +4895,7 @@ async function main() {
       email: 'ecableca@samsung.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'ecableca',
+      hasProfileImage: false, isActivated: true, username: 'ecableca',
     },
     {
       id: '8f108cee-bfcd-4cab-8c4b-e9881ad2a787',
@@ -5348,8 +4905,7 @@ async function main() {
       email: 'bgrollecb@w3.org',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'bgrollecb',
+      hasProfileImage: false, isActivated: true, username: 'bgrollecb',
     },
     {
       id: 'e47bcf17-83e7-4145-8243-46ca94509530',
@@ -5359,8 +4915,7 @@ async function main() {
       email: 'emargarsoncc@sun.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'emargarsoncc',
+      hasProfileImage: false, isActivated: true, username: 'emargarsoncc',
     },
     {
       id: '413ad327-71a9-4b09-adab-13e81892a846',
@@ -5370,8 +4925,7 @@ async function main() {
       email: 'bklaisercd@usgs.gov',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'bklaisercd',
+      hasProfileImage: false, isActivated: true, username: 'bklaisercd',
     },
     {
       id: 'eb23bcc9-1740-454b-a2e4-301aa923c491',
@@ -5381,8 +4935,7 @@ async function main() {
       email: 'vmccafferyce@hud.gov',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'vmccafferyce',
+      hasProfileImage: false, isActivated: true, username: 'vmccafferyce',
     },
     {
       id: 'c96f5a4c-771a-4d76-a603-07a3392f1853',
@@ -5392,8 +4945,7 @@ async function main() {
       email: 'sjeenescf@jalbum.net',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'sjeenescf',
+      hasProfileImage: false, isActivated: true, username: 'sjeenescf',
     },
     {
       id: '2e054b40-c4e7-450d-a360-d72c702e4b43',
@@ -5403,8 +4955,7 @@ async function main() {
       email: 'rrentelllcg@admin.ch',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'rrentelllcg',
+      hasProfileImage: false, isActivated: true, username: 'rrentelllcg',
     },
     {
       id: '36bcc68e-7cbc-48f5-9c51-c3245bcb44ce',
@@ -5414,8 +4965,7 @@ async function main() {
       email: 'mgreatbanksch@cargocollective.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'mgreatbanksch',
+      hasProfileImage: false, isActivated: true, username: 'mgreatbanksch',
     },
     {
       id: '84ca4eda-a661-4cba-90f3-5891f353b9e4',
@@ -5425,8 +4975,7 @@ async function main() {
       email: 'hcrawcourci@lulu.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'hcrawcourci',
+      hasProfileImage: false, isActivated: true, username: 'hcrawcourci',
     },
     {
       id: '598a08a9-42e0-46c0-992d-dea09fefe816',
@@ -5436,8 +4985,7 @@ async function main() {
       email: 'mcorballycj@google.co.uk',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'mcorballycj',
+      hasProfileImage: false, isActivated: true, username: 'mcorballycj',
     },
     {
       id: '64d906f4-3a0e-4108-a858-e01335e1f15e',
@@ -5447,8 +4995,7 @@ async function main() {
       email: 'bgrinyerck@theguardian.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'bgrinyerck',
+      hasProfileImage: false, isActivated: true, username: 'bgrinyerck',
     },
     {
       id: '918be37e-ec87-4ba6-8c75-79c5c6ef108b',
@@ -5458,8 +5005,7 @@ async function main() {
       email: 'ikivellecl@youku.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'ikivellecl',
+      hasProfileImage: false, isActivated: true, username: 'ikivellecl',
     },
     {
       id: 'b99e8954-f58a-40bf-b22e-70c04f8afa42',
@@ -5469,8 +5015,7 @@ async function main() {
       email: 'csleightholmecm@epa.gov',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'csleightholmecm',
+      hasProfileImage: false, isActivated: true, username: 'csleightholmecm',
     },
     {
       id: '91cc7eef-ad14-41ce-b4a6-b417c522f2e5',
@@ -5480,8 +5025,7 @@ async function main() {
       email: 'ylileycn@weibo.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'ylileycn',
+      hasProfileImage: false, isActivated: true, username: 'ylileycn',
     },
     {
       id: '2e626340-de27-4ca6-8ffe-06236650b612',
@@ -5491,8 +5035,7 @@ async function main() {
       email: 'zyanshonokco@yahoo.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'zyanshonokco',
+      hasProfileImage: false, isActivated: true, username: 'zyanshonokco',
     },
     {
       id: 'acb4790e-f8f3-469f-bf7f-b272d34aba56',
@@ -5502,8 +5045,7 @@ async function main() {
       email: 'dmcareaveycp@cnet.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'dmcareaveycp',
+      hasProfileImage: false, isActivated: true, username: 'dmcareaveycp',
     },
     {
       id: 'dd86d3c8-428f-4a0a-b0e8-787457e6be90',
@@ -5513,8 +5055,7 @@ async function main() {
       email: 'btomichcq@squarespace.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'btomichcq',
+      hasProfileImage: false, isActivated: true, username: 'btomichcq',
     },
     {
       id: 'fdbaa335-d2f3-4c2e-a247-ce37c8710e23',
@@ -5524,8 +5065,7 @@ async function main() {
       email: 'lcarmancr@livejournal.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'lcarmancr',
+      hasProfileImage: false, isActivated: true, username: 'lcarmancr',
     },
     {
       id: '23528852-dd47-43ab-a801-5a7093176143',
@@ -5535,8 +5075,7 @@ async function main() {
       email: 'cdurandcs@wufoo.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'cdurandcs',
+      hasProfileImage: false, isActivated: true, username: 'cdurandcs',
     },
     {
       id: 'f4ca6d96-8a0e-4bd2-8398-01263546de6d',
@@ -5546,8 +5085,7 @@ async function main() {
       email: 'sbrunstanct@ifeng.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'sbrunstanct',
+      hasProfileImage: false, isActivated: true, username: 'sbrunstanct',
     },
     {
       id: '8021d11f-e818-4982-9f44-2fcbd5d8a989',
@@ -5557,8 +5095,7 @@ async function main() {
       email: 'iglazyercu@si.edu',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'iglazyercu',
+      hasProfileImage: false, isActivated: true, username: 'iglazyercu',
     },
     {
       id: '3a022785-f22c-4c36-ab25-4fac30936fb7',
@@ -5568,8 +5105,7 @@ async function main() {
       email: 'atitcomcv@nhs.uk',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'atitcomcv',
+      hasProfileImage: false, isActivated: true, username: 'atitcomcv',
     },
     {
       id: '6e388f29-389c-46ae-b6de-4c5b933137c6',
@@ -5579,8 +5115,7 @@ async function main() {
       email: 'rgerrishcw@mac.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'rgerrishcw',
+      hasProfileImage: false, isActivated: true, username: 'rgerrishcw',
     },
     {
       id: '49aa9dac-33ff-4716-b8a6-67657f696c67',
@@ -5590,8 +5125,7 @@ async function main() {
       email: 'shaylandcx@illinois.edu',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'shaylandcx',
+      hasProfileImage: false, isActivated: true, username: 'shaylandcx',
     },
     {
       id: '2ef541a9-77d8-457c-b705-7d79971f8aaf',
@@ -5601,8 +5135,7 @@ async function main() {
       email: 'pgilfillancy@opera.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'pgilfillancy',
+      hasProfileImage: false, isActivated: true, username: 'pgilfillancy',
     },
     {
       id: '488a301f-a01d-41f6-8a6e-33ad39769f1c',
@@ -5612,8 +5145,7 @@ async function main() {
       email: 'tvankovcz@auda.org.au',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'tvankovcz',
+      hasProfileImage: false, isActivated: true, username: 'tvankovcz',
     },
     {
       id: 'd964a403-1370-4bbe-8826-fd210121126e',
@@ -5623,8 +5155,7 @@ async function main() {
       email: 'dchansonnaud0@imageshack.us',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'dchansonnaud0',
+      hasProfileImage: false, isActivated: true, username: 'dchansonnaud0',
     },
     {
       id: 'c20ad164-c34f-45d8-a30f-316cf4a59f08',
@@ -5634,8 +5165,7 @@ async function main() {
       email: 'asandelandd1@joomla.org',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'asandelandd1',
+      hasProfileImage: false, isActivated: true, username: 'asandelandd1',
     },
     {
       id: '1a960e1c-3254-4457-b8c5-7870aff21566',
@@ -5645,8 +5175,7 @@ async function main() {
       email: 'lallittd2@epa.gov',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'lallittd2',
+      hasProfileImage: false, isActivated: true, username: 'lallittd2',
     },
     {
       id: 'a37b149c-b381-4ff8-9ccf-e2ad4d1c2ae1',
@@ -5656,8 +5185,7 @@ async function main() {
       email: 'rdigiorgiod3@kickstarter.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'rdigiorgiod3',
+      hasProfileImage: false, isActivated: true, username: 'rdigiorgiod3',
     },
     {
       id: 'bd4bb986-ec88-43a7-b87b-d9a957a8985c',
@@ -5667,8 +5195,7 @@ async function main() {
       email: 'kdyched4@dot.gov',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'kdyched4',
+      hasProfileImage: false, isActivated: true, username: 'kdyched4',
     },
     {
       id: '35073368-ae6e-4ef1-9c58-c790f823e857',
@@ -5678,8 +5205,7 @@ async function main() {
       email: 'gcastletined5@sciencedaily.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'gcastletined5',
+      hasProfileImage: false, isActivated: true, username: 'gcastletined5',
     },
     {
       id: 'b3ca53b4-f085-4583-919b-8602fbbef693',
@@ -5689,8 +5215,7 @@ async function main() {
       email: 'ehaggerwoodd6@theglobeandmail.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'ehaggerwoodd6',
+      hasProfileImage: false, isActivated: true, username: 'ehaggerwoodd6',
     },
     {
       id: '8d69297b-7df2-4043-b213-e362e51a76ad',
@@ -5700,8 +5225,7 @@ async function main() {
       email: 'rwagond7@deliciousdays.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'rwagond7',
+      hasProfileImage: false, isActivated: true, username: 'rwagond7',
     },
     {
       id: '8fae0140-e8d3-4980-95ee-c713e8398b94',
@@ -5711,8 +5235,7 @@ async function main() {
       email: 'eunsworthd8@usa.gov',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'eunsworthd8',
+      hasProfileImage: false, isActivated: true, username: 'eunsworthd8',
     },
     {
       id: 'ba10d77c-77c9-499b-b9d9-aa87e2c62e6d',
@@ -5722,8 +5245,7 @@ async function main() {
       email: 'dbowcherd9@symantec.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'dbowcherd9',
+      hasProfileImage: false, isActivated: true, username: 'dbowcherd9',
     },
     {
       id: '5bf6cd73-7d9c-477e-b844-45d4a0d19911',
@@ -5733,8 +5255,7 @@ async function main() {
       email: 'acongreaveda@foxnews.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'acongreaveda',
+      hasProfileImage: false, isActivated: true, username: 'acongreaveda',
     },
     {
       id: '37cc1115-d0a1-4f37-8827-c271879dfd8b',
@@ -5744,8 +5265,7 @@ async function main() {
       email: 'lgubbindb@multiply.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'lgubbindb',
+      hasProfileImage: false, isActivated: true, username: 'lgubbindb',
     },
     {
       id: 'e4435f4e-2d8b-4889-9868-01058af43947',
@@ -5755,8 +5275,7 @@ async function main() {
       email: 'lmawdc@nyu.edu',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'lmawdc',
+      hasProfileImage: false, isActivated: true, username: 'lmawdc',
     },
     {
       id: 'b7bb8b2b-e343-42f8-b673-c6419432376d',
@@ -5766,8 +5285,7 @@ async function main() {
       email: 'elemarquisdd@indiegogo.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'elemarquisdd',
+      hasProfileImage: false, isActivated: true, username: 'elemarquisdd',
     },
     {
       id: '06aaef28-3340-4509-bc87-52d1f12d3afb',
@@ -5777,8 +5295,7 @@ async function main() {
       email: 'jgreenroydde@behance.net',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'jgreenroydde',
+      hasProfileImage: false, isActivated: true, username: 'jgreenroydde',
     },
     {
       id: 'f0e4809b-7fe4-4ff2-a8fc-38a3bae87760',
@@ -5788,8 +5305,7 @@ async function main() {
       email: 'mknyvettdf@pagesperso-orange.fr',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'mknyvettdf',
+      hasProfileImage: false, isActivated: true, username: 'mknyvettdf',
     },
     {
       id: '6f42ae8f-c036-45e6-b439-983378dab53f',
@@ -5799,8 +5315,7 @@ async function main() {
       email: 'ployleydg@elpais.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'ployleydg',
+      hasProfileImage: false, isActivated: true, username: 'ployleydg',
     },
     {
       id: '32dc38c1-deb1-462b-b7e1-da41d337d902',
@@ -5810,8 +5325,7 @@ async function main() {
       email: 'hdillicatedh@usgs.gov',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'hdillicatedh',
+      hasProfileImage: false, isActivated: true, username: 'hdillicatedh',
     },
     {
       id: 'c23328b9-ff90-4111-a103-e9b0d5755b6e',
@@ -5821,8 +5335,7 @@ async function main() {
       email: 'wbuncherdi@yellowpages.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'wbuncherdi',
+      hasProfileImage: false, isActivated: true, username: 'wbuncherdi',
     },
     {
       id: 'aed8ec6e-fd4c-4839-9d53-b3171df9c601',
@@ -5832,8 +5345,7 @@ async function main() {
       email: 'msaltdj@icio.us',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'msaltdj',
+      hasProfileImage: false, isActivated: true, username: 'msaltdj',
     },
     {
       id: '943d7f80-f098-497c-b1f0-27858578fde3',
@@ -5843,8 +5355,7 @@ async function main() {
       email: 'cwoolnoughdk@examiner.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'cwoolnoughdk',
+      hasProfileImage: false, isActivated: true, username: 'cwoolnoughdk',
     },
     {
       id: '6d3f8626-eac8-4d6b-86ef-8177f9173d61',
@@ -5854,8 +5365,7 @@ async function main() {
       email: 'mfewingsdl@fotki.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'mfewingsdl',
+      hasProfileImage: false, isActivated: true, username: 'mfewingsdl',
     },
     {
       id: '7c0832a0-c6a9-4810-a7a7-c5a714437598',
@@ -5865,8 +5375,7 @@ async function main() {
       email: 'siacovonedm@nationalgeographic.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'siacovonedm',
+      hasProfileImage: false, isActivated: true, username: 'siacovonedm',
     },
     {
       id: 'cfb43ed8-37ce-432a-8a4b-7c84411b2c6f',
@@ -5876,8 +5385,7 @@ async function main() {
       email: 'bpostgatedn@instagram.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'bpostgatedn',
+      hasProfileImage: false, isActivated: true, username: 'bpostgatedn',
     },
     {
       id: '390186a9-31b3-4013-b786-fb813f3a6e1b',
@@ -5887,8 +5395,7 @@ async function main() {
       email: 'mfilipponedo@w3.org',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'mfilipponedo',
+      hasProfileImage: false, isActivated: true, username: 'mfilipponedo',
     },
     {
       id: 'f6928faa-5d1d-4497-a843-a57efa7978d3',
@@ -5898,8 +5405,7 @@ async function main() {
       email: 'kjervoisdp@wikimedia.org',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'kjervoisdp',
+      hasProfileImage: false, isActivated: true, username: 'kjervoisdp',
     },
     {
       id: '2684b456-facd-4501-abd8-e060783fb8c7',
@@ -5909,8 +5415,7 @@ async function main() {
       email: 'mstonmandq@comcast.net',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'mstonmandq',
+      hasProfileImage: false, isActivated: true, username: 'mstonmandq',
     },
     {
       id: '63b1cff8-b15d-4261-877c-7f6c89150c34',
@@ -5920,8 +5425,7 @@ async function main() {
       email: 'dleadbeaterdr@independent.co.uk',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'dleadbeaterdr',
+      hasProfileImage: false, isActivated: true, username: 'dleadbeaterdr',
     },
     {
       id: '0f09156d-d6a2-4053-914c-5a8b41d89c29',
@@ -5931,8 +5435,7 @@ async function main() {
       email: 'sdelagnesds@altervista.org',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'sdelagnesds',
+      hasProfileImage: false, isActivated: true, username: 'sdelagnesds',
     },
     {
       id: 'aecbb3e6-301c-48c0-8c7f-1654b6ec0f72',
@@ -5942,8 +5445,7 @@ async function main() {
       email: 'egoublierdt@artisteer.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'egoublierdt',
+      hasProfileImage: false, isActivated: true, username: 'egoublierdt',
     },
     {
       id: '818fde36-c8a5-4661-814f-db5baadcc686',
@@ -5953,8 +5455,7 @@ async function main() {
       email: 'sstotherdu@dell.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'sstotherdu',
+      hasProfileImage: false, isActivated: true, username: 'sstotherdu',
     },
     {
       id: '315783a8-c468-4ee6-9a91-edb5a158a837',
@@ -5964,8 +5465,7 @@ async function main() {
       email: 'mcollingdv@sitemeter.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'mcollingdv',
+      hasProfileImage: false, isActivated: true, username: 'mcollingdv',
     },
     {
       id: '7ca7cb66-f145-4a71-8060-70454d11d08a',
@@ -5975,8 +5475,7 @@ async function main() {
       email: 'kneesondw@usnews.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'kneesondw',
+      hasProfileImage: false, isActivated: true, username: 'kneesondw',
     },
     {
       id: 'b37c25ff-c529-4a39-bbd4-78a066969f22',
@@ -5986,8 +5485,7 @@ async function main() {
       email: 'crudmandx@wikispaces.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'crudmandx',
+      hasProfileImage: false, isActivated: true, username: 'crudmandx',
     },
     {
       id: 'f942cea7-bcb6-42f5-a06a-6494c8a2e1c0',
@@ -5997,8 +5495,7 @@ async function main() {
       email: 'cregusdy@blogtalkradio.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'cregusdy',
+      hasProfileImage: false, isActivated: true, username: 'cregusdy',
     },
     {
       id: '90ae71a2-3cb5-4828-9cd1-b193559407b2',
@@ -6008,8 +5505,7 @@ async function main() {
       email: 'sasburydz@miitbeian.gov.cn',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'sasburydz',
+      hasProfileImage: false, isActivated: true, username: 'sasburydz',
     },
     {
       id: '29df5bba-edad-4d9f-8197-a34a73f7444e',
@@ -6019,8 +5515,7 @@ async function main() {
       email: 'mbeggie0@google.ca',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'mbeggie0',
+      hasProfileImage: false, isActivated: true, username: 'mbeggie0',
     },
     {
       id: '8e249570-5a83-47c2-b651-e4ae1d3df1ef',
@@ -6030,8 +5525,7 @@ async function main() {
       email: 'fcollisone1@prnewswire.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'fcollisone1',
+      hasProfileImage: false, isActivated: true, username: 'fcollisone1',
     },
     {
       id: '312b7e03-c469-49e0-bc34-5346b5e0d1e7',
@@ -6041,8 +5535,7 @@ async function main() {
       email: 'psloeye2@desdev.cn',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'psloeye2',
+      hasProfileImage: false, isActivated: true, username: 'psloeye2',
     },
     {
       id: '625745e6-1e29-4e8c-b5aa-7e6fee884a03',
@@ -6052,8 +5545,7 @@ async function main() {
       email: 'abradfielde3@sbwire.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'abradfielde3',
+      hasProfileImage: false, isActivated: true, username: 'abradfielde3',
     },
     {
       id: '1d01bc8b-7809-4329-84b7-c139252e5b44',
@@ -6063,8 +5555,7 @@ async function main() {
       email: 'bisaksene4@mayoclinic.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'bisaksene4',
+      hasProfileImage: false, isActivated: true, username: 'bisaksene4',
     },
     {
       id: 'd2f0fb11-8ad9-4e44-b2c3-b4a682472343',
@@ -6074,8 +5565,7 @@ async function main() {
       email: 'araite5@issuu.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'araite5',
+      hasProfileImage: false, isActivated: true, username: 'araite5',
     },
     {
       id: '1ed4b9dc-3dc9-4bf1-a31c-548e1ac403c7',
@@ -6085,8 +5575,7 @@ async function main() {
       email: 'fsenchenkoe6@pinterest.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'fsenchenkoe6',
+      hasProfileImage: false, isActivated: true, username: 'fsenchenkoe6',
     },
     {
       id: '7d5a8a26-4902-4daf-99f9-5e03fd0952c7',
@@ -6096,8 +5585,7 @@ async function main() {
       email: 'vlande7@reverbnation.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'vlande7',
+      hasProfileImage: false, isActivated: true, username: 'vlande7',
     },
     {
       id: '824065a1-eab0-41b3-849c-1c9401a24f77',
@@ -6107,8 +5595,7 @@ async function main() {
       email: 'jkubiceke8@npr.org',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'jkubiceke8',
+      hasProfileImage: false, isActivated: true, username: 'jkubiceke8',
     },
     {
       id: '800ab8a2-3411-4eae-b65b-1e31e4aadd90',
@@ -6118,8 +5605,7 @@ async function main() {
       email: 'lmerridaye9@ycombinator.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'lmerridaye9',
+      hasProfileImage: false, isActivated: true, username: 'lmerridaye9',
     },
     {
       id: '3777e456-6811-4e5a-a51f-507aafb2872d',
@@ -6129,8 +5615,7 @@ async function main() {
       email: 'wpetrusea@zdnet.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'wpetrusea',
+      hasProfileImage: false, isActivated: true, username: 'wpetrusea',
     },
     {
       id: '8f7aad50-51e5-4ac9-87fe-51fdbfa72fe8',
@@ -6140,8 +5625,7 @@ async function main() {
       email: 'gmelloreb@stanford.edu',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'gmelloreb',
+      hasProfileImage: false, isActivated: true, username: 'gmelloreb',
     },
     {
       id: 'f1a97916-a77d-4c93-b376-2071eb718c9d',
@@ -6151,8 +5635,7 @@ async function main() {
       email: 'dlabbeyec@thetimes.co.uk',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'dlabbeyec',
+      hasProfileImage: false, isActivated: true, username: 'dlabbeyec',
     },
     {
       id: '1d36d885-49c6-4dab-a2f9-e9faa6bf61c5',
@@ -6162,8 +5645,7 @@ async function main() {
       email: 'kfeldberged@booking.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'kfeldberged',
+      hasProfileImage: false, isActivated: true, username: 'kfeldberged',
     },
     {
       id: 'e0fe32ac-8be9-4db9-b313-725c246c94dd',
@@ -6173,8 +5655,7 @@ async function main() {
       email: 'chancornee@indiatimes.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'chancornee',
+      hasProfileImage: false, isActivated: true, username: 'chancornee',
     },
     {
       id: 'decb34ed-f7e4-4ee3-b582-3f33b6082ac5',
@@ -6184,8 +5665,7 @@ async function main() {
       email: 'cskoylesef@icio.us',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'cskoylesef',
+      hasProfileImage: false, isActivated: true, username: 'cskoylesef',
     },
     {
       id: '42593e4f-ee1c-4396-8261-0fea4a7c9ea1',
@@ -6195,8 +5675,7 @@ async function main() {
       email: 'oeburneeg@chicagotribune.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'oeburneeg',
+      hasProfileImage: false, isActivated: true, username: 'oeburneeg',
     },
     {
       id: 'a2fff2cb-2aac-4f27-a820-129ff3d0786c',
@@ -6206,8 +5685,7 @@ async function main() {
       email: 'aodooganeh@flickr.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'aodooganeh',
+      hasProfileImage: false, isActivated: true, username: 'aodooganeh',
     },
     {
       id: '3651f663-9ea6-4a77-9f20-b521f734167e',
@@ -6217,8 +5695,7 @@ async function main() {
       email: 'askaymanei@java.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'askaymanei',
+      hasProfileImage: false, isActivated: true, username: 'askaymanei',
     },
     {
       id: '16526ed6-0f9a-4e77-8855-a5b0748f9bf1',
@@ -6228,8 +5705,7 @@ async function main() {
       email: 'jmellmothej@bloomberg.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'jmellmothej',
+      hasProfileImage: false, isActivated: true, username: 'jmellmothej',
     },
     {
       id: 'a6ef01c4-ad14-4305-b21a-a4ed32733a58',
@@ -6239,8 +5715,7 @@ async function main() {
       email: 'alotonek@microsoft.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'alotonek',
+      hasProfileImage: false, isActivated: true, username: 'alotonek',
     },
     {
       id: '0e1f4a81-69d4-450a-9f78-c0c3326775f5',
@@ -6250,8 +5725,7 @@ async function main() {
       email: 'cyoxallel@nymag.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'cyoxallel',
+      hasProfileImage: false, isActivated: true, username: 'cyoxallel',
     },
     {
       id: '620b3e5c-58e3-4a1c-bc06-c4388c84d893',
@@ -6261,8 +5735,7 @@ async function main() {
       email: 'jlinningem@dedecms.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'jlinningem',
+      hasProfileImage: false, isActivated: true, username: 'jlinningem',
     },
     {
       id: '8fbc4926-5b85-48a0-a909-999867b68931',
@@ -6272,8 +5745,7 @@ async function main() {
       email: 'amullisen@fda.gov',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'amullisen',
+      hasProfileImage: false, isActivated: true, username: 'amullisen',
     },
     {
       id: '189abc3f-d803-4299-af12-b394601631d0',
@@ -6283,8 +5755,7 @@ async function main() {
       email: 'kmattheiseo@amazon.co.uk',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'kmattheiseo',
+      hasProfileImage: false, isActivated: true, username: 'kmattheiseo',
     },
     {
       id: '7548b21b-8a8f-424a-a3f0-8ffc91a43ef7',
@@ -6294,8 +5765,7 @@ async function main() {
       email: 'rmartusovep@boston.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'rmartusovep',
+      hasProfileImage: false, isActivated: true, username: 'rmartusovep',
     },
     {
       id: '2b6c6e8a-8f64-485c-a1cb-f50fcc2b0afb',
@@ -6305,8 +5775,7 @@ async function main() {
       email: 'nhearneeq@creativecommons.org',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'nhearneeq',
+      hasProfileImage: false, isActivated: true, username: 'nhearneeq',
     },
     {
       id: 'd775a1a4-a265-48f3-a306-e63fb43e1ac6',
@@ -6316,8 +5785,7 @@ async function main() {
       email: 'hrouxer@nyu.edu',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'hrouxer',
+      hasProfileImage: false, isActivated: true, username: 'hrouxer',
     },
     {
       id: 'd9496984-c517-4c17-be33-c3ef120255d4',
@@ -6327,8 +5795,7 @@ async function main() {
       email: 'emcilvaneyes@sun.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'emcilvaneyes',
+      hasProfileImage: false, isActivated: true, username: 'emcilvaneyes',
     },
     {
       id: 'a606c579-3872-4bec-b0f8-6817859a2901',
@@ -6338,8 +5805,7 @@ async function main() {
       email: 'hflintiffet@spiegel.de',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'hflintiffet',
+      hasProfileImage: false, isActivated: true, username: 'hflintiffet',
     },
     {
       id: '4da4dc47-54df-40c6-afc8-beea00b13bbf',
@@ -6349,8 +5815,7 @@ async function main() {
       email: 'bbrauntereu@sogou.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'bbrauntereu',
+      hasProfileImage: false, isActivated: true, username: 'bbrauntereu',
     },
     {
       id: 'c34dca55-b975-482d-ad68-f7ea30f74b55',
@@ -6360,8 +5825,7 @@ async function main() {
       email: 'ehullotev@senate.gov',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'ehullotev',
+      hasProfileImage: false, isActivated: true, username: 'ehullotev',
     },
     {
       id: 'eb836b15-2105-4805-9558-da2533fd7f22',
@@ -6371,8 +5835,7 @@ async function main() {
       email: 'ssnaddonew@ask.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'ssnaddonew',
+      hasProfileImage: false, isActivated: true, username: 'ssnaddonew',
     },
     {
       id: '992c7571-77d1-4432-b499-52215c6c393b',
@@ -6382,8 +5845,7 @@ async function main() {
       email: 'rtizardex@state.gov',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'rtizardex',
+      hasProfileImage: false, isActivated: true, username: 'rtizardex',
     },
     {
       id: 'c54bf5ca-debb-4409-b214-f17c5c998d13',
@@ -6393,8 +5855,7 @@ async function main() {
       email: 'plivockey@opera.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'plivockey',
+      hasProfileImage: false, isActivated: true, username: 'plivockey',
     },
     {
       id: 'a93efe5a-f034-4352-b41d-6e98162abcb8',
@@ -6404,8 +5865,7 @@ async function main() {
       email: 'cbeacroftez@deliciousdays.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'cbeacroftez',
+      hasProfileImage: false, isActivated: true, username: 'cbeacroftez',
     },
     {
       id: 'b446423b-7d62-4951-8c2e-99ba4261b950',
@@ -6415,8 +5875,7 @@ async function main() {
       email: 'rwillimentf0@nbcnews.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'rwillimentf0',
+      hasProfileImage: false, isActivated: true, username: 'rwillimentf0',
     },
     {
       id: '642b6591-7536-4aa9-a8f4-e1ddb70b010d',
@@ -6426,8 +5885,7 @@ async function main() {
       email: 'soconnellf1@mit.edu',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'soconnellf1',
+      hasProfileImage: false, isActivated: true, username: 'soconnellf1',
     },
     {
       id: '280d573a-3995-45a8-8828-155ebe9a8853',
@@ -6437,8 +5895,7 @@ async function main() {
       email: 'hcotteyf2@clickbank.net',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'hcotteyf2',
+      hasProfileImage: false, isActivated: true, username: 'hcotteyf2',
     },
     {
       id: '0f9c4468-007b-4e52-b7e9-c971362d4199',
@@ -6448,8 +5905,7 @@ async function main() {
       email: 'bbouldonf3@princeton.edu',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'bbouldonf3',
+      hasProfileImage: false, isActivated: true, username: 'bbouldonf3',
     },
     {
       id: '8836a545-453d-4671-981f-f00551d9fb91',
@@ -6459,8 +5915,7 @@ async function main() {
       email: 'ebeavisf4@indiatimes.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'ebeavisf4',
+      hasProfileImage: false, isActivated: true, username: 'ebeavisf4',
     },
     {
       id: '19214cf3-f35c-458b-8986-d5b00d931414',
@@ -6470,8 +5925,7 @@ async function main() {
       email: 'mrashf5@clickbank.net',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'mrashf5',
+      hasProfileImage: false, isActivated: true, username: 'mrashf5',
     },
     {
       id: 'faa72203-6778-439f-9361-1e581663bf72',
@@ -6481,8 +5935,7 @@ async function main() {
       email: 'gbaudainf6@uol.com.br',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'gbaudainf6',
+      hasProfileImage: false, isActivated: true, username: 'gbaudainf6',
     },
     {
       id: 'a87125c9-68d0-47f2-906c-56e0fae56ed3',
@@ -6492,8 +5945,7 @@ async function main() {
       email: 'jcubbonf7@skype.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'jcubbonf7',
+      hasProfileImage: false, isActivated: true, username: 'jcubbonf7',
     },
     {
       id: '966df152-85ba-4321-a6c5-1d1a7bf3f8ec',
@@ -6503,8 +5955,7 @@ async function main() {
       email: 'jmarkf8@meetup.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'jmarkf8',
+      hasProfileImage: false, isActivated: true, username: 'jmarkf8',
     },
     {
       id: '4034313e-29f4-479d-b7e2-9f97f4273c35',
@@ -6514,8 +5965,7 @@ async function main() {
       email: 'ojewettf9@51.la',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'ojewettf9',
+      hasProfileImage: false, isActivated: true, username: 'ojewettf9',
     },
     {
       id: 'e1e9ca2b-294c-42d2-93c7-6ead419ac188',
@@ -6525,8 +5975,7 @@ async function main() {
       email: 'skalefa@so-net.ne.jp',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'skalefa',
+      hasProfileImage: false, isActivated: true, username: 'skalefa',
     },
     {
       id: '15ca5d99-3bdc-4b3f-b8f5-3c6e81650de1',
@@ -6536,8 +5985,7 @@ async function main() {
       email: 'edirrfb@unicef.org',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'edirrfb',
+      hasProfileImage: false, isActivated: true, username: 'edirrfb',
     },
     {
       id: '5a825c39-8982-4dde-b30d-8a7adcbb6fcb',
@@ -6547,8 +5995,7 @@ async function main() {
       email: 'delcefc@wikipedia.org',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'delcefc',
+      hasProfileImage: false, isActivated: true, username: 'delcefc',
     },
     {
       id: '4ff37048-08d2-442b-80d0-9819a27ea54d',
@@ -6558,8 +6005,7 @@ async function main() {
       email: 'mmatthiesonfd@independent.co.uk',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'mmatthiesonfd',
+      hasProfileImage: false, isActivated: true, username: 'mmatthiesonfd',
     },
     {
       id: '2d0a5d9e-683f-48d3-acb2-0a33607767cb',
@@ -6569,8 +6015,7 @@ async function main() {
       email: 'gallsopfe@cnet.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'gallsopfe',
+      hasProfileImage: false, isActivated: true, username: 'gallsopfe',
     },
     {
       id: '201b67b1-1970-4c1d-a32f-7616f42877f6',
@@ -6580,8 +6025,7 @@ async function main() {
       email: 'wkendredff@blog.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'wkendredff',
+      hasProfileImage: false, isActivated: true, username: 'wkendredff',
     },
     {
       id: '4f58246d-e497-4736-bbd9-a840b5e46f2a',
@@ -6591,8 +6035,7 @@ async function main() {
       email: 'pwillmanfg@ow.ly',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'pwillmanfg',
+      hasProfileImage: false, isActivated: true, username: 'pwillmanfg',
     },
     {
       id: 'b3550ade-4a7b-4efd-aa1f-1954d131ba87',
@@ -6602,8 +6045,7 @@ async function main() {
       email: 'rcorkillfh@mtv.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'rcorkillfh',
+      hasProfileImage: false, isActivated: true, username: 'rcorkillfh',
     },
     {
       id: '8d03ca98-c6c7-4e1d-8727-56c86d12e11c',
@@ -6613,8 +6055,7 @@ async function main() {
       email: 'mskallsfi@vinaora.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'mskallsfi',
+      hasProfileImage: false, isActivated: true, username: 'mskallsfi',
     },
     {
       id: 'be3266b7-f41a-4468-a7fc-d2f08edb5960',
@@ -6624,8 +6065,7 @@ async function main() {
       email: 'jpidgeleyfj@g.co',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'jpidgeleyfj',
+      hasProfileImage: false, isActivated: true, username: 'jpidgeleyfj',
     },
     {
       id: '970377e3-8369-42ca-a098-4eb40ebc6af6',
@@ -6635,8 +6075,7 @@ async function main() {
       email: 'vmccombefk@instagram.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'vmccombefk',
+      hasProfileImage: false, isActivated: true, username: 'vmccombefk',
     },
     {
       id: '26f1685e-c567-4278-920e-94a7f939a84a',
@@ -6646,8 +6085,7 @@ async function main() {
       email: 'rfollifl@dailymail.co.uk',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'rfollifl',
+      hasProfileImage: false, isActivated: true, username: 'rfollifl',
     },
     {
       id: '29f17a9b-2fbd-4627-a135-0e12efea5a3f',
@@ -6657,8 +6095,7 @@ async function main() {
       email: 'rsoppethfm@usatoday.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'rsoppethfm',
+      hasProfileImage: false, isActivated: true, username: 'rsoppethfm',
     },
     {
       id: '2f6fb052-f79a-4a60-a32d-3d33c5cd99a5',
@@ -6668,8 +6105,7 @@ async function main() {
       email: 'rdodgshunfn@dailymail.co.uk',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'rdodgshunfn',
+      hasProfileImage: false, isActivated: true, username: 'rdodgshunfn',
     },
     {
       id: '4282d7ed-0999-4dbd-b164-624c197efa48',
@@ -6679,8 +6115,7 @@ async function main() {
       email: 'yhandfordfo@bravesites.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'yhandfordfo',
+      hasProfileImage: false, isActivated: true, username: 'yhandfordfo',
     },
     {
       id: 'a033384d-d838-49e2-a6ec-67e61c7d2e8f',
@@ -6690,8 +6125,7 @@ async function main() {
       email: 'chaitliefp@ycombinator.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'chaitliefp',
+      hasProfileImage: false, isActivated: true, username: 'chaitliefp',
     },
     {
       id: '9e9204f9-5e14-4fdd-95dc-db5cad25a526',
@@ -6701,8 +6135,7 @@ async function main() {
       email: 'tgaytherfq@buzzfeed.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'tgaytherfq',
+      hasProfileImage: false, isActivated: true, username: 'tgaytherfq',
     },
     {
       id: '7c85e222-253e-43b3-a8c2-8366eb68340b',
@@ -6712,8 +6145,7 @@ async function main() {
       email: 'tblakesleefr@nature.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'tblakesleefr',
+      hasProfileImage: false, isActivated: true, username: 'tblakesleefr',
     },
     {
       id: 'e6a03f29-635e-4dfe-956f-a3887945c555',
@@ -6723,8 +6155,7 @@ async function main() {
       email: 'ncrightenfs@vkontakte.ru',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'ncrightenfs',
+      hasProfileImage: false, isActivated: true, username: 'ncrightenfs',
     },
     {
       id: 'f267a6c1-d3b5-4b36-8c8d-ed50569e7b72',
@@ -6734,8 +6165,7 @@ async function main() {
       email: 'vvilliersft@buzzfeed.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'vvilliersft',
+      hasProfileImage: false, isActivated: true, username: 'vvilliersft',
     },
     {
       id: '5c4224fe-6bae-4d9d-820b-44d3c5a2d6e3',
@@ -6745,8 +6175,7 @@ async function main() {
       email: 'ybeckittfu@posterous.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'ybeckittfu',
+      hasProfileImage: false, isActivated: true, username: 'ybeckittfu',
     },
     {
       id: '92bad3cc-1031-4149-b07e-29189511df02',
@@ -6756,8 +6185,7 @@ async function main() {
       email: 'awestmorefv@time.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'awestmorefv',
+      hasProfileImage: false, isActivated: true, username: 'awestmorefv',
     },
     {
       id: 'a403cd5c-6e30-4aa8-a6ad-0e3af5a8344c',
@@ -6767,8 +6195,7 @@ async function main() {
       email: 'jdollardfw@craigslist.org',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'jdollardfw',
+      hasProfileImage: false, isActivated: true, username: 'jdollardfw',
     },
     {
       id: '9cc7e3c1-4df4-48ef-8275-8b9dbdf8d59c',
@@ -6778,8 +6205,7 @@ async function main() {
       email: 'erobelowfx@icio.us',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'erobelowfx',
+      hasProfileImage: false, isActivated: true, username: 'erobelowfx',
     },
     {
       id: '828b7610-4a40-49e7-95c0-16c030078bf2',
@@ -6789,8 +6215,7 @@ async function main() {
       email: 'pbamfieldfy@washington.edu',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'pbamfieldfy',
+      hasProfileImage: false, isActivated: true, username: 'pbamfieldfy',
     },
     {
       id: 'e6a25722-b19d-4348-a969-b497f94dc9b0',
@@ -6800,8 +6225,7 @@ async function main() {
       email: 'wchecchetellifz@ucoz.ru',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'wchecchetellifz',
+      hasProfileImage: false, isActivated: true, username: 'wchecchetellifz',
     },
     {
       id: '4bb9fd04-9176-4f93-9344-1e7c47aaa79b',
@@ -6811,8 +6235,7 @@ async function main() {
       email: 'breubensg0@europa.eu',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'breubensg0',
+      hasProfileImage: false, isActivated: true, username: 'breubensg0',
     },
     {
       id: 'f0dfc7ce-60a8-40e8-8981-957908dd16ac',
@@ -6822,8 +6245,7 @@ async function main() {
       email: 'ascanesg1@ameblo.jp',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'ascanesg1',
+      hasProfileImage: false, isActivated: true, username: 'ascanesg1',
     },
     {
       id: 'efdb26dd-417a-42aa-8980-c71420e69fd6',
@@ -6833,8 +6255,7 @@ async function main() {
       email: 'amacgrathg2@auda.org.au',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'amacgrathg2',
+      hasProfileImage: false, isActivated: true, username: 'amacgrathg2',
     },
     {
       id: 'b4792e2a-c8d1-4ceb-8d42-6a74f28601d1',
@@ -6844,8 +6265,7 @@ async function main() {
       email: 'sleemang3@ihg.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'sleemang3',
+      hasProfileImage: false, isActivated: true, username: 'sleemang3',
     },
     {
       id: '1a5dd41b-2760-45f3-a033-eddd64b2ae36',
@@ -6855,8 +6275,7 @@ async function main() {
       email: 'yalfonsog4@posterous.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'yalfonsog4',
+      hasProfileImage: false, isActivated: true, username: 'yalfonsog4',
     },
     {
       id: 'f4250f4e-c886-47c2-908c-1b16acc52d6f',
@@ -6866,8 +6285,7 @@ async function main() {
       email: 'adellascalag5@huffingtonpost.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'adellascalag5',
+      hasProfileImage: false, isActivated: true, username: 'adellascalag5',
     },
     {
       id: '7fef7d01-8e3d-45d4-b8c5-ba35d25c2e82',
@@ -6877,8 +6295,7 @@ async function main() {
       email: 'tparysiakg6@vk.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'tparysiakg6',
+      hasProfileImage: false, isActivated: true, username: 'tparysiakg6',
     },
     {
       id: '7aff8c47-4cc1-405f-879b-e36d58b3bb6b',
@@ -6888,8 +6305,7 @@ async function main() {
       email: 'frylandsg7@google.com.hk',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'frylandsg7',
+      hasProfileImage: false, isActivated: true, username: 'frylandsg7',
     },
     {
       id: '8cfe4578-394f-4fdd-bd51-70209770289a',
@@ -6899,8 +6315,7 @@ async function main() {
       email: 'splastowg8@si.edu',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'splastowg8',
+      hasProfileImage: false, isActivated: true, username: 'splastowg8',
     },
     {
       id: 'c4c48b2f-d129-4462-989c-d4da2de95003',
@@ -6910,8 +6325,7 @@ async function main() {
       email: 'ralvisg9@usa.gov',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'ralvisg9',
+      hasProfileImage: false, isActivated: true, username: 'ralvisg9',
     },
     {
       id: '9df16037-99a2-4e88-a33b-de7723b69762',
@@ -6921,8 +6335,7 @@ async function main() {
       email: 'pkertonga@biglobe.ne.jp',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'pkertonga',
+      hasProfileImage: false, isActivated: true, username: 'pkertonga',
     },
     {
       id: '8c1128a3-8c8e-4dc6-a8d5-14102471f9e5',
@@ -6932,8 +6345,7 @@ async function main() {
       email: 'mhughlandgb@indiatimes.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'mhughlandgb',
+      hasProfileImage: false, isActivated: true, username: 'mhughlandgb',
     },
     {
       id: '5fab2a6f-e3a2-4386-ba59-c3e112224bd5',
@@ -6943,8 +6355,7 @@ async function main() {
       email: 'ecastaniegc@instagram.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'ecastaniegc',
+      hasProfileImage: false, isActivated: true, username: 'ecastaniegc',
     },
     {
       id: 'e815618f-6a99-4ea7-bd26-cf3cfa487acb',
@@ -6954,8 +6365,7 @@ async function main() {
       email: 'prackgd@nationalgeographic.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'prackgd',
+      hasProfileImage: false, isActivated: true, username: 'prackgd',
     },
     {
       id: 'df446028-fec8-406f-a90e-9de8f447147d',
@@ -6965,8 +6375,7 @@ async function main() {
       email: 'egironege@bigcartel.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'egironege',
+      hasProfileImage: false, isActivated: true, username: 'egironege',
     },
     {
       id: 'f204c493-71bb-4793-a66f-822753abde5c',
@@ -6976,8 +6385,7 @@ async function main() {
       email: 'mcassargf@topsy.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'mcassargf',
+      hasProfileImage: false, isActivated: true, username: 'mcassargf',
     },
     {
       id: '85a01c0e-ecb7-4775-8ab3-a9087aebd2ad',
@@ -6987,8 +6395,7 @@ async function main() {
       email: 'achampkengg@ask.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'achampkengg',
+      hasProfileImage: false, isActivated: true, username: 'achampkengg',
     },
     {
       id: '97b1667f-da3e-4c34-b187-dde4c2800ae1',
@@ -6998,8 +6405,7 @@ async function main() {
       email: 'blarvingh@wiley.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'blarvingh',
+      hasProfileImage: false, isActivated: true, username: 'blarvingh',
     },
     {
       id: 'a12c361a-ca05-4625-a7c4-44a7ea903185',
@@ -7009,8 +6415,7 @@ async function main() {
       email: 'estormgi@tumblr.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'estormgi',
+      hasProfileImage: false, isActivated: true, username: 'estormgi',
     },
     {
       id: '341428f4-9d90-4443-a248-b5300803ba4c',
@@ -7020,8 +6425,7 @@ async function main() {
       email: 'brissongj@noaa.gov',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'brissongj',
+      hasProfileImage: false, isActivated: true, username: 'brissongj',
     },
     {
       id: '5a854e7e-b6da-404c-ae3b-b24bcc8843a0',
@@ -7031,8 +6435,7 @@ async function main() {
       email: 'rravelusgk@github.io',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'rravelusgk',
+      hasProfileImage: false, isActivated: true, username: 'rravelusgk',
     },
     {
       id: '8ec8b8df-be90-495c-9cc2-777a5b8817a6',
@@ -7042,8 +6445,7 @@ async function main() {
       email: 'sshellsheeregl@paginegialle.it',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'sshellsheeregl',
+      hasProfileImage: false, isActivated: true, username: 'sshellsheeregl',
     },
     {
       id: '91246ba7-2d4e-4466-94eb-489717e6ffac',
@@ -7053,8 +6455,7 @@ async function main() {
       email: 'fchastagniergm@nps.gov',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'fchastagniergm',
+      hasProfileImage: false, isActivated: true, username: 'fchastagniergm',
     },
     {
       id: 'da878d31-6cce-417b-8c66-5c2e00d5a74e',
@@ -7064,8 +6465,7 @@ async function main() {
       email: 'pdovinsongn@creativecommons.org',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'pdovinsongn',
+      hasProfileImage: false, isActivated: true, username: 'pdovinsongn',
     },
     {
       id: 'a6bde605-700b-440b-b761-c5647ed0d788',
@@ -7075,8 +6475,7 @@ async function main() {
       email: 'rpassiego@1688.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'rpassiego',
+      hasProfileImage: false, isActivated: true, username: 'rpassiego',
     },
     {
       id: '1113d215-2274-4578-b300-24cb536c887f',
@@ -7086,8 +6485,7 @@ async function main() {
       email: 'afullerdgp@bloglovin.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'afullerdgp',
+      hasProfileImage: false, isActivated: true, username: 'afullerdgp',
     },
     {
       id: 'dfc8e483-a924-4710-882e-895b1c83a2b5',
@@ -7097,8 +6495,7 @@ async function main() {
       email: 'mbompassgq@prweb.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'mbompassgq',
+      hasProfileImage: false, isActivated: true, username: 'mbompassgq',
     },
     {
       id: '8d036309-8731-49a7-86a6-6b76a916a8d4',
@@ -7108,8 +6505,7 @@ async function main() {
       email: 'agilfethergr@123-reg.co.uk',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'agilfethergr',
+      hasProfileImage: false, isActivated: true, username: 'agilfethergr',
     },
     {
       id: 'f487089b-e153-4563-a07f-70c6d4bd244c',
@@ -7119,8 +6515,7 @@ async function main() {
       email: 'epieraccigs@jalbum.net',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'epieraccigs',
+      hasProfileImage: false, isActivated: true, username: 'epieraccigs',
     },
     {
       id: '0016bb23-e120-488c-a7e7-890b641a4cd9',
@@ -7130,8 +6525,7 @@ async function main() {
       email: 'shuffagt@topsy.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'shuffagt',
+      hasProfileImage: false, isActivated: true, username: 'shuffagt',
     },
     {
       id: '181b53ed-71fc-45df-a45e-0a6fe7234b7e',
@@ -7141,8 +6535,7 @@ async function main() {
       email: 'jdarrachgu@yahoo.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'jdarrachgu',
+      hasProfileImage: false, isActivated: true, username: 'jdarrachgu',
     },
     {
       id: '31b71454-36e5-4f30-856e-df0205758886',
@@ -7152,8 +6545,7 @@ async function main() {
       email: 'adilaweygv@google.com.au',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'adilaweygv',
+      hasProfileImage: false, isActivated: true, username: 'adilaweygv',
     },
     {
       id: 'e34d93fd-29e3-4758-8138-d601743af474',
@@ -7163,8 +6555,7 @@ async function main() {
       email: 'rbarclaygw@icio.us',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'rbarclaygw',
+      hasProfileImage: false, isActivated: true, username: 'rbarclaygw',
     },
     {
       id: '6047fc40-49f8-4e35-b97e-25771113b82a',
@@ -7174,8 +6565,7 @@ async function main() {
       email: 'wmathesongx@printfriendly.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'wmathesongx',
+      hasProfileImage: false, isActivated: true, username: 'wmathesongx',
     },
     {
       id: 'fb92ee90-72c9-4fe1-b0cb-1e295d82f1a8',
@@ -7185,8 +6575,7 @@ async function main() {
       email: 'llippigy@si.edu',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'llippigy',
+      hasProfileImage: false, isActivated: true, username: 'llippigy',
     },
     {
       id: '9f28361b-cf60-4cce-b8f6-ec1ed7e05d5e',
@@ -7196,8 +6585,7 @@ async function main() {
       email: 'cmaccriegz@telegraph.co.uk',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'cmaccriegz',
+      hasProfileImage: false, isActivated: true, username: 'cmaccriegz',
     },
     {
       id: '604ea34a-2f59-4153-95f4-fa7a75a47d93',
@@ -7207,8 +6595,7 @@ async function main() {
       email: 'idomnineyh0@cdbaby.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'idomnineyh0',
+      hasProfileImage: false, isActivated: true, username: 'idomnineyh0',
     },
     {
       id: '8b835250-3aa8-4f7a-ab37-c380adc2bd56',
@@ -7218,8 +6605,7 @@ async function main() {
       email: 'prothmanh1@google.es',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'prothmanh1',
+      hasProfileImage: false, isActivated: true, username: 'prothmanh1',
     },
     {
       id: 'c1322c50-3258-455b-be81-daa3cea4482f',
@@ -7229,8 +6615,7 @@ async function main() {
       email: 'mlivezeyh2@un.org',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'mlivezeyh2',
+      hasProfileImage: false, isActivated: true, username: 'mlivezeyh2',
     },
     {
       id: '3562e049-ad3a-4575-bb4c-92914e7c7da5',
@@ -7240,8 +6625,7 @@ async function main() {
       email: 'tspivieh3@opensource.org',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'tspivieh3',
+      hasProfileImage: false, isActivated: true, username: 'tspivieh3',
     },
     {
       id: 'ef1af75e-c20b-4fe5-b9d4-04dc3938fe12',
@@ -7251,8 +6635,7 @@ async function main() {
       email: 'aserridgeh4@mysql.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'aserridgeh4',
+      hasProfileImage: false, isActivated: true, username: 'aserridgeh4',
     },
     {
       id: 'f3c0bab4-746b-45af-8d40-6ce56842eee8',
@@ -7262,8 +6645,7 @@ async function main() {
       email: 'pwhittakerh5@yellowpages.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'pwhittakerh5',
+      hasProfileImage: false, isActivated: true, username: 'pwhittakerh5',
     },
     {
       id: 'c5d9eace-1304-453c-9598-a7ccd108bef4',
@@ -7273,8 +6655,7 @@ async function main() {
       email: 'iwehnerrh6@apache.org',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'iwehnerrh6',
+      hasProfileImage: false, isActivated: true, username: 'iwehnerrh6',
     },
     {
       id: 'adba2f95-4221-4db7-923c-318fc380bd79',
@@ -7284,8 +6665,7 @@ async function main() {
       email: 'qrosellh7@topsy.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'qrosellh7',
+      hasProfileImage: false, isActivated: true, username: 'qrosellh7',
     },
     {
       id: '8b2d249e-1dcd-43db-8440-2aedc3ac5da4',
@@ -7295,8 +6675,7 @@ async function main() {
       email: 'wmaylardh8@issuu.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'wmaylardh8',
+      hasProfileImage: false, isActivated: true, username: 'wmaylardh8',
     },
     {
       id: '851f8da6-7413-4fd6-a3a9-c8f121640b39',
@@ -7306,8 +6685,7 @@ async function main() {
       email: 'tjeduchh9@flickr.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'tjeduchh9',
+      hasProfileImage: false, isActivated: true, username: 'tjeduchh9',
     },
     {
       id: 'e942a200-d897-4531-a991-f22a2e0eeb66',
@@ -7317,8 +6695,7 @@ async function main() {
       email: 'nstebbingsha@baidu.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'nstebbingsha',
+      hasProfileImage: false, isActivated: true, username: 'nstebbingsha',
     },
     {
       id: '3285e684-dd2a-4018-9552-1b4dcc4e0827',
@@ -7328,8 +6705,7 @@ async function main() {
       email: 'atramelhb@csmonitor.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'atramelhb',
+      hasProfileImage: false, isActivated: true, username: 'atramelhb',
     },
     {
       id: 'de0c29b5-f3d5-4210-85fc-50ff14fe8d28',
@@ -7339,8 +6715,7 @@ async function main() {
       email: 'xangelohc@parallels.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'xangelohc',
+      hasProfileImage: false, isActivated: true, username: 'xangelohc',
     },
     {
       id: '6f1b1ed6-236e-4937-84a2-97e3f04dec09',
@@ -7350,8 +6725,7 @@ async function main() {
       email: 'rrowesbyhd@163.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'rrowesbyhd',
+      hasProfileImage: false, isActivated: true, username: 'rrowesbyhd',
     },
     {
       id: '40145b55-fb46-4e40-8017-308d07d70081',
@@ -7361,8 +6735,7 @@ async function main() {
       email: 'awestriphe@alexa.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'awestriphe',
+      hasProfileImage: false, isActivated: true, username: 'awestriphe',
     },
     {
       id: '27a177ef-ea0c-4278-8a6d-4ac6326a742f',
@@ -7372,8 +6745,7 @@ async function main() {
       email: 'emacduffhf@slashdot.org',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'emacduffhf',
+      hasProfileImage: false, isActivated: true, username: 'emacduffhf',
     },
     {
       id: '3db7d46e-133e-4125-a7b9-3d30afd87e77',
@@ -7383,8 +6755,7 @@ async function main() {
       email: 'cdysarthg@abc.net.au',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'cdysarthg',
+      hasProfileImage: false, isActivated: true, username: 'cdysarthg',
     },
     {
       id: 'b3869dd3-5930-4a6d-be62-f227dd77ebfe',
@@ -7394,8 +6765,7 @@ async function main() {
       email: 'lwellardhh@apache.org',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'lwellardhh',
+      hasProfileImage: false, isActivated: true, username: 'lwellardhh',
     },
     {
       id: '522598c1-2046-42b3-8767-5a45c50b8631',
@@ -7405,8 +6775,7 @@ async function main() {
       email: 'adehnhi@intel.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'adehnhi',
+      hasProfileImage: false, isActivated: true, username: 'adehnhi',
     },
     {
       id: '9d229675-fc71-4ae6-9fe4-a27d2ec4d2a0',
@@ -7416,8 +6785,7 @@ async function main() {
       email: 'thallybonehj@wikimedia.org',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'thallybonehj',
+      hasProfileImage: false, isActivated: true, username: 'thallybonehj',
     },
     {
       id: '163b0dac-e182-42c3-b329-2eed7ab6b911',
@@ -7427,8 +6795,7 @@ async function main() {
       email: 'rwanekhk@umich.edu',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'rwanekhk',
+      hasProfileImage: false, isActivated: true, username: 'rwanekhk',
     },
     {
       id: '894b483b-2e91-4d91-9ef2-f9f10782327c',
@@ -7438,8 +6805,7 @@ async function main() {
       email: 'vdesvigneshl@artisteer.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'vdesvigneshl',
+      hasProfileImage: false, isActivated: true, username: 'vdesvigneshl',
     },
     {
       id: '4e77663a-9a61-48f5-8e09-96649ddd3925',
@@ -7449,8 +6815,7 @@ async function main() {
       email: 'ktanswellhm@mapquest.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'ktanswellhm',
+      hasProfileImage: false, isActivated: true, username: 'ktanswellhm',
     },
     {
       id: '025a6791-6e42-4560-98f3-7a20496f318f',
@@ -7460,8 +6825,7 @@ async function main() {
       email: 'bsimenethn@tripadvisor.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'bsimenethn',
+      hasProfileImage: false, isActivated: true, username: 'bsimenethn',
     },
     {
       id: 'b9a8feb7-069a-4b65-b230-b8ae33442ecd',
@@ -7471,8 +6835,7 @@ async function main() {
       email: 'hmclarnonho@nature.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'hmclarnonho',
+      hasProfileImage: false, isActivated: true, username: 'hmclarnonho',
     },
     {
       id: '3f27beca-ea42-416c-a22a-e1050613496f',
@@ -7482,8 +6845,7 @@ async function main() {
       email: 'lgeelyhp@irs.gov',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'lgeelyhp',
+      hasProfileImage: false, isActivated: true, username: 'lgeelyhp',
     },
     {
       id: '6d1f1499-fa27-428c-bc7e-fd4c96543943',
@@ -7493,8 +6855,7 @@ async function main() {
       email: 'ebrockwayhq@springer.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'ebrockwayhq',
+      hasProfileImage: false, isActivated: true, username: 'ebrockwayhq',
     },
     {
       id: '5e9b86f1-5c9b-4990-b8ef-23b4ac434043',
@@ -7504,8 +6865,7 @@ async function main() {
       email: 'nliccardihr@google.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'nliccardihr',
+      hasProfileImage: false, isActivated: true, username: 'nliccardihr',
     },
     {
       id: 'ba9582f0-6810-467d-b76c-54e26cce07e0',
@@ -7515,8 +6875,7 @@ async function main() {
       email: 'cballantinehs@example.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'cballantinehs',
+      hasProfileImage: false, isActivated: true, username: 'cballantinehs',
     },
     {
       id: 'd1c3953a-fd10-4f13-86a9-f5ea09de9869',
@@ -7526,8 +6885,7 @@ async function main() {
       email: 'fheaslipht@whitehouse.gov',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'fheaslipht',
+      hasProfileImage: false, isActivated: true, username: 'fheaslipht',
     },
     {
       id: 'ee5622ca-6dbb-4847-9eca-6d6e037a38a4',
@@ -7537,8 +6895,7 @@ async function main() {
       email: 'laldrinhu@homestead.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'laldrinhu',
+      hasProfileImage: false, isActivated: true, username: 'laldrinhu',
     },
     {
       id: 'c46b8c03-dc86-48cb-8492-4bfce574c942',
@@ -7548,8 +6905,7 @@ async function main() {
       email: 'abuesnelhv@comcast.net',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'abuesnelhv',
+      hasProfileImage: false, isActivated: true, username: 'abuesnelhv',
     },
     {
       id: 'c4db80aa-a55a-4b38-aada-ab4ba2ca3034',
@@ -7559,8 +6915,7 @@ async function main() {
       email: 'ohellinghw@infoseek.co.jp',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'ohellinghw',
+      hasProfileImage: false, isActivated: true, username: 'ohellinghw',
     },
     {
       id: '8b08148c-9f4b-4653-acac-a2bc84c15ca0',
@@ -7570,8 +6925,7 @@ async function main() {
       email: 'rgamellhx@hud.gov',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'rgamellhx',
+      hasProfileImage: false, isActivated: true, username: 'rgamellhx',
     },
     {
       id: '0a8573aa-a228-4885-87d1-d71d96575777',
@@ -7581,8 +6935,7 @@ async function main() {
       email: 'adumkehy@thetimes.co.uk',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'adumkehy',
+      hasProfileImage: false, isActivated: true, username: 'adumkehy',
     },
     {
       id: 'dfd91d62-0417-4c89-90c1-061112a9bff0',
@@ -7592,8 +6945,7 @@ async function main() {
       email: 'kpincheshz@rakuten.co.jp',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'kpincheshz',
+      hasProfileImage: false, isActivated: true, username: 'kpincheshz',
     },
     {
       id: 'f8b8a80f-5a52-4040-929a-0e5095f14c23',
@@ -7603,8 +6955,7 @@ async function main() {
       email: 'swoolacotti0@chronoengine.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'swoolacotti0',
+      hasProfileImage: false, isActivated: true, username: 'swoolacotti0',
     },
     {
       id: 'a28d0922-c167-49e9-8f87-251221ed8163',
@@ -7614,8 +6965,7 @@ async function main() {
       email: 'vboysoni1@blog.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'vboysoni1',
+      hasProfileImage: false, isActivated: true, username: 'vboysoni1',
     },
     {
       id: 'c127705b-b84f-4be4-b7d0-41806a9ab4b2',
@@ -7625,8 +6975,7 @@ async function main() {
       email: 'hcaesmansi2@jalbum.net',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'hcaesmansi2',
+      hasProfileImage: false, isActivated: true, username: 'hcaesmansi2',
     },
     {
       id: 'f39e0399-d3a1-42e0-99bf-3498d8d97856',
@@ -7636,8 +6985,7 @@ async function main() {
       email: 'gvanbrugi3@parallels.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'gvanbrugi3',
+      hasProfileImage: false, isActivated: true, username: 'gvanbrugi3',
     },
     {
       id: '5f01e041-41c9-4cc0-882b-37ef32de3176',
@@ -7647,8 +6995,7 @@ async function main() {
       email: 'gwigelsworthi4@mashable.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'gwigelsworthi4',
+      hasProfileImage: false, isActivated: true, username: 'gwigelsworthi4',
     },
     {
       id: '4a280a46-b8c6-436a-aa38-6c5954d2ebb0',
@@ -7658,8 +7005,7 @@ async function main() {
       email: 'lkirkami5@theglobeandmail.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'lkirkami5',
+      hasProfileImage: false, isActivated: true, username: 'lkirkami5',
     },
     {
       id: '0e8b5ea8-0633-42f6-ab2e-be2d4c7d4e50',
@@ -7669,8 +7015,7 @@ async function main() {
       email: 'tclacei6@exblog.jp',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'tclacei6',
+      hasProfileImage: false, isActivated: true, username: 'tclacei6',
     },
     {
       id: 'b889c69a-4462-4486-9a53-6c15cd7982f2',
@@ -7680,8 +7025,7 @@ async function main() {
       email: 'cfleotei7@foxnews.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'cfleotei7',
+      hasProfileImage: false, isActivated: true, username: 'cfleotei7',
     },
     {
       id: 'e4f6d144-b371-47b8-899b-d5190aa7c055',
@@ -7691,8 +7035,7 @@ async function main() {
       email: 'scovei8@google.cn',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'scovei8',
+      hasProfileImage: false, isActivated: true, username: 'scovei8',
     },
     {
       id: '555773d6-9741-4a87-b099-89edb7a69201',
@@ -7702,8 +7045,7 @@ async function main() {
       email: 'htabordi9@pagesperso-orange.fr',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'htabordi9',
+      hasProfileImage: false, isActivated: true, username: 'htabordi9',
     },
     {
       id: '0b4ef00d-9d24-4963-87cd-dde8b7367b65',
@@ -7713,8 +7055,7 @@ async function main() {
       email: 'nwenhamia@stumbleupon.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'nwenhamia',
+      hasProfileImage: false, isActivated: true, username: 'nwenhamia',
     },
     {
       id: 'd82c5598-f42b-4b41-a680-be675ecc906d',
@@ -7724,8 +7065,7 @@ async function main() {
       email: 'maloshkinib@google.cn',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'maloshkinib',
+      hasProfileImage: false, isActivated: true, username: 'maloshkinib',
     },
     {
       id: 'b5e9ad66-7f42-4cbc-b486-caf709eb91fb',
@@ -7735,8 +7075,7 @@ async function main() {
       email: 'kikinsic@biblegateway.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'kikinsic',
+      hasProfileImage: false, isActivated: true, username: 'kikinsic',
     },
     {
       id: '6f65807c-4a70-48d6-8056-861b78198ec4',
@@ -7746,8 +7085,7 @@ async function main() {
       email: 'mfeakinsid@virginia.edu',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'mfeakinsid',
+      hasProfileImage: false, isActivated: true, username: 'mfeakinsid',
     },
     {
       id: 'f6cf6064-86e0-45f3-b61a-aa03033123f6',
@@ -7757,8 +7095,7 @@ async function main() {
       email: 'nvanderlindeie@hexun.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'nvanderlindeie',
+      hasProfileImage: false, isActivated: true, username: 'nvanderlindeie',
     },
     {
       id: '5beacbe9-3146-48a4-8780-95a5a7d3b48b',
@@ -7768,8 +7105,7 @@ async function main() {
       email: 'nalexanderif@howstuffworks.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'nalexanderif',
+      hasProfileImage: false, isActivated: true, username: 'nalexanderif',
     },
     {
       id: '3444c014-6901-424e-accb-056a7bc44ab9',
@@ -7779,8 +7115,7 @@ async function main() {
       email: 'dchownig@last.fm',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'dchownig',
+      hasProfileImage: false, isActivated: true, username: 'dchownig',
     },
     {
       id: '41a1c230-2e2d-4952-8c8d-280a676b40d6',
@@ -7790,8 +7125,7 @@ async function main() {
       email: 'tgoscarih@utexas.edu',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'tgoscarih',
+      hasProfileImage: false, isActivated: true, username: 'tgoscarih',
     },
     {
       id: 'cdf763f3-5c6a-4155-b830-14962ad3cf3e',
@@ -7801,8 +7135,7 @@ async function main() {
       email: 'dalleryii@spotify.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'dalleryii',
+      hasProfileImage: false, isActivated: true, username: 'dalleryii',
     },
     {
       id: 'f664e496-56c8-447e-8031-fcabe5b8efa4',
@@ -7812,8 +7145,7 @@ async function main() {
       email: 'gramosij@xing.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'gramosij',
+      hasProfileImage: false, isActivated: true, username: 'gramosij',
     },
     {
       id: '2a4fd3a3-8760-4a6b-83eb-14677faf1705',
@@ -7823,8 +7155,7 @@ async function main() {
       email: 'mpickavanceik@imdb.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'mpickavanceik',
+      hasProfileImage: false, isActivated: true, username: 'mpickavanceik',
     },
     {
       id: '86f79aae-d160-4cf4-8585-3a5ca7240823',
@@ -7834,8 +7165,7 @@ async function main() {
       email: 'cfiridolfiil@geocities.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'cfiridolfiil',
+      hasProfileImage: false, isActivated: true, username: 'cfiridolfiil',
     },
     {
       id: 'eb4dad60-8ee2-4000-91fb-4c1af308ac93',
@@ -7845,8 +7175,7 @@ async function main() {
       email: 'kmckerlieim@yellowbook.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'kmckerlieim',
+      hasProfileImage: false, isActivated: true, username: 'kmckerlieim',
     },
     {
       id: '2d6dcb66-06c1-4810-a76b-26dd41e82d6e',
@@ -7856,8 +7185,7 @@ async function main() {
       email: 'khawtryin@go.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'khawtryin',
+      hasProfileImage: false, isActivated: true, username: 'khawtryin',
     },
     {
       id: 'fb74b7d0-5209-494e-bc24-a4878212e827',
@@ -7867,8 +7195,7 @@ async function main() {
       email: 'glaidlawio@flavors.me',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'glaidlawio',
+      hasProfileImage: false, isActivated: true, username: 'glaidlawio',
     },
     {
       id: 'a0276b52-5c0d-4474-947c-3506e22c515d',
@@ -7878,8 +7205,7 @@ async function main() {
       email: 'nsunshineip@umn.edu',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'nsunshineip',
+      hasProfileImage: false, isActivated: true, username: 'nsunshineip',
     },
     {
       id: '356d255a-71aa-4de9-8776-cc60ba10db66',
@@ -7889,8 +7215,7 @@ async function main() {
       email: 'lbewshireiq@wired.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'lbewshireiq',
+      hasProfileImage: false, isActivated: true, username: 'lbewshireiq',
     },
     {
       id: 'c29deeee-884c-4d84-97d8-2a747836971c',
@@ -7900,8 +7225,7 @@ async function main() {
       email: 'bpicknettir@sun.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'bpicknettir',
+      hasProfileImage: false, isActivated: true, username: 'bpicknettir',
     },
     {
       id: '1957d02d-422d-4d66-9b58-daeace8f9e37',
@@ -7911,8 +7235,7 @@ async function main() {
       email: 'poldakeris@redcross.org',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'poldakeris',
+      hasProfileImage: false, isActivated: true, username: 'poldakeris',
     },
     {
       id: '421b6357-7b4c-4eef-9ed3-87a964009d66',
@@ -7922,8 +7245,7 @@ async function main() {
       email: 'wgregolinit@google.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'wgregolinit',
+      hasProfileImage: false, isActivated: true, username: 'wgregolinit',
     },
     {
       id: 'ce6bb534-8879-4de6-b948-04aa5c38ed21',
@@ -7933,8 +7255,7 @@ async function main() {
       email: 'cscranneyiu@jugem.jp',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'cscranneyiu',
+      hasProfileImage: false, isActivated: true, username: 'cscranneyiu',
     },
     {
       id: '0d943248-5706-4715-a41f-5e7dbb285fea',
@@ -7944,8 +7265,7 @@ async function main() {
       email: 'fmacalesteriv@cnet.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'fmacalesteriv',
+      hasProfileImage: false, isActivated: true, username: 'fmacalesteriv',
     },
     {
       id: '9c897871-0d24-4d20-b004-d77a7f054319',
@@ -7955,8 +7275,7 @@ async function main() {
       email: 'mchesswasiw@tripadvisor.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'mchesswasiw',
+      hasProfileImage: false, isActivated: true, username: 'mchesswasiw',
     },
     {
       id: 'ae8623ee-eb66-4c90-99fe-dffb97ca1d44',
@@ -7966,8 +7285,7 @@ async function main() {
       email: 'djantotix@ca.gov',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'djantotix',
+      hasProfileImage: false, isActivated: true, username: 'djantotix',
     },
     {
       id: 'ba092082-ccc0-4b9f-ab1b-876195eb1a48',
@@ -7977,8 +7295,7 @@ async function main() {
       email: 'kcoupmaniy@ezinearticles.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'kcoupmaniy',
+      hasProfileImage: false, isActivated: true, username: 'kcoupmaniy',
     },
     {
       id: 'ddc1c896-a4d7-42bd-a4c6-fc5d6acbf6d4',
@@ -7988,8 +7305,7 @@ async function main() {
       email: 'flobbeiz@chronoengine.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'flobbeiz',
+      hasProfileImage: false, isActivated: true, username: 'flobbeiz',
     },
     {
       id: 'b12cb58e-6668-4f6b-b00d-b602550aa3c4',
@@ -7999,8 +7315,7 @@ async function main() {
       email: 'epasmorej0@slideshare.net',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'epasmorej0',
+      hasProfileImage: false, isActivated: true, username: 'epasmorej0',
     },
     {
       id: '5ffadf29-ecee-480b-9a66-5def682681f9',
@@ -8010,8 +7325,7 @@ async function main() {
       email: 'ldemarchij1@marriott.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'ldemarchij1',
+      hasProfileImage: false, isActivated: true, username: 'ldemarchij1',
     },
     {
       id: 'a149f330-bb9c-47c2-a8c6-e932ca8412bc',
@@ -8021,8 +7335,7 @@ async function main() {
       email: 'smaccarrollj2@squidoo.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'smaccarrollj2',
+      hasProfileImage: false, isActivated: true, username: 'smaccarrollj2',
     },
     {
       id: 'b273ddf3-5542-4c92-9c37-37f8c4d55b8e',
@@ -8032,8 +7345,7 @@ async function main() {
       email: 'wwaddiej3@statcounter.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'wwaddiej3',
+      hasProfileImage: false, isActivated: true, username: 'wwaddiej3',
     },
     {
       id: 'c75087a5-c6f0-4b24-930b-8ed8eb161015',
@@ -8043,8 +7355,7 @@ async function main() {
       email: 'kfromantj4@sfgate.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'kfromantj4',
+      hasProfileImage: false, isActivated: true, username: 'kfromantj4',
     },
     {
       id: '272817d3-6516-4a49-bce5-583be392a224',
@@ -8054,8 +7365,7 @@ async function main() {
       email: 'cduckettj5@nytimes.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'cduckettj5',
+      hasProfileImage: false, isActivated: true, username: 'cduckettj5',
     },
     {
       id: '54a01c26-0e1a-4a1d-ac38-c6562350e733',
@@ -8065,8 +7375,7 @@ async function main() {
       email: 'lstreaderj6@uol.com.br',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'lstreaderj6',
+      hasProfileImage: false, isActivated: true, username: 'lstreaderj6',
     },
     {
       id: '3849ab29-4244-4f92-ae25-197131e6a0ac',
@@ -8076,8 +7385,7 @@ async function main() {
       email: 'pstronoughj7@bbb.org',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'pstronoughj7',
+      hasProfileImage: false, isActivated: true, username: 'pstronoughj7',
     },
     {
       id: '21a0eebb-6c89-452f-8a77-f67caa2f5701',
@@ -8087,8 +7395,7 @@ async function main() {
       email: 'scolstonj8@sfgate.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'scolstonj8',
+      hasProfileImage: false, isActivated: true, username: 'scolstonj8',
     },
     {
       id: 'a34b7d6a-a929-48db-ba31-9780c16e400e',
@@ -8098,8 +7405,7 @@ async function main() {
       email: 'ateaserj9@eepurl.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'ateaserj9',
+      hasProfileImage: false, isActivated: true, username: 'ateaserj9',
     },
     {
       id: '640f069c-6f70-46c2-a678-98e9d5f44571',
@@ -8109,8 +7415,7 @@ async function main() {
       email: 'kcassellaja@ebay.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'kcassellaja',
+      hasProfileImage: false, isActivated: true, username: 'kcassellaja',
     },
     {
       id: '1abb91b0-beda-40d3-82cc-c29b100ca77b',
@@ -8120,8 +7425,7 @@ async function main() {
       email: 'lvanyukhinjb@liveinternet.ru',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'lvanyukhinjb',
+      hasProfileImage: false, isActivated: true, username: 'lvanyukhinjb',
     },
     {
       id: 'c8382129-92e7-42b0-acd1-fed195935146',
@@ -8131,8 +7435,7 @@ async function main() {
       email: 'ssheeranjc@reuters.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'ssheeranjc',
+      hasProfileImage: false, isActivated: true, username: 'ssheeranjc',
     },
     {
       id: '2d077a04-ba71-492b-b59f-16f76aed8275',
@@ -8142,8 +7445,7 @@ async function main() {
       email: 'lfarrynjd@usnews.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'lfarrynjd',
+      hasProfileImage: false, isActivated: true, username: 'lfarrynjd',
     },
     {
       id: '3b5c8b92-eeb4-416a-a642-865349ff670c',
@@ -8153,8 +7455,7 @@ async function main() {
       email: 'cmyrkusje@elpais.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'cmyrkusje',
+      hasProfileImage: false, isActivated: true, username: 'cmyrkusje',
     },
     {
       id: '3c9180ad-8f9e-4404-8f6f-71be208f9ec4',
@@ -8164,8 +7465,7 @@ async function main() {
       email: 'tskilbeckjf@tuttocitta.it',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'tskilbeckjf',
+      hasProfileImage: false, isActivated: true, username: 'tskilbeckjf',
     },
     {
       id: '93ad942c-afd1-409c-b130-8ec2a8ffc628',
@@ -8175,8 +7475,7 @@ async function main() {
       email: 'rpurverjg@amazonaws.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'rpurverjg',
+      hasProfileImage: false, isActivated: true, username: 'rpurverjg',
     },
     {
       id: '3bc6db88-7cb5-48b0-9bad-2e16a212c7bf',
@@ -8186,8 +7485,7 @@ async function main() {
       email: 'sbucknalljh@chron.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'sbucknalljh',
+      hasProfileImage: false, isActivated: true, username: 'sbucknalljh',
     },
     {
       id: '40b364df-c118-424c-8923-9678396780b7',
@@ -8197,8 +7495,7 @@ async function main() {
       email: 'tpeddersenji@phoca.cz',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'tpeddersenji',
+      hasProfileImage: false, isActivated: true, username: 'tpeddersenji',
     },
     {
       id: '003ead73-5969-4ea3-abcf-931e5e611b53',
@@ -8208,8 +7505,7 @@ async function main() {
       email: 'wraitjj@twitter.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'wraitjj',
+      hasProfileImage: false, isActivated: true, username: 'wraitjj',
     },
     {
       id: '7b5d6cfa-f951-418e-b668-9233ce074bf0',
@@ -8219,8 +7515,7 @@ async function main() {
       email: 'minkpenjk@dailymail.co.uk',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'minkpenjk',
+      hasProfileImage: false, isActivated: true, username: 'minkpenjk',
     },
     {
       id: '0e14bc19-a025-4635-9ecb-cc08430ec322',
@@ -8230,8 +7525,7 @@ async function main() {
       email: 'rbendlejl@ebay.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'rbendlejl',
+      hasProfileImage: false, isActivated: true, username: 'rbendlejl',
     },
     {
       id: '0565f2a6-ed2f-403e-8beb-222384f586c5',
@@ -8241,8 +7535,7 @@ async function main() {
       email: 'mspicerjm@narod.ru',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'mspicerjm',
+      hasProfileImage: false, isActivated: true, username: 'mspicerjm',
     },
     {
       id: 'b0d95977-3341-4bdc-9eda-e6bdb51f9cf8',
@@ -8252,8 +7545,7 @@ async function main() {
       email: 'rmanlowjn@oakley.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'rmanlowjn',
+      hasProfileImage: false, isActivated: true, username: 'rmanlowjn',
     },
     {
       id: '6f46c3ae-22ca-4b0f-8ce7-01d472bccaf1',
@@ -8263,8 +7555,7 @@ async function main() {
       email: 'mtorbettjo@rambler.ru',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'mtorbettjo',
+      hasProfileImage: false, isActivated: true, username: 'mtorbettjo',
     },
     {
       id: '88973aa8-5629-4b28-a39b-c87a258026fb',
@@ -8274,8 +7565,7 @@ async function main() {
       email: 'nmaldinjp@wikipedia.org',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'nmaldinjp',
+      hasProfileImage: false, isActivated: true, username: 'nmaldinjp',
     },
     {
       id: '5ad158ad-9c3a-43b0-852c-a64178240b0f',
@@ -8285,8 +7575,7 @@ async function main() {
       email: 'pmushetjq@reuters.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'pmushetjq',
+      hasProfileImage: false, isActivated: true, username: 'pmushetjq',
     },
     {
       id: '4e35c485-5f42-4d4a-8146-dbcb128ec7da',
@@ -8296,8 +7585,7 @@ async function main() {
       email: 'mespadaterjr@spotify.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'mespadaterjr',
+      hasProfileImage: false, isActivated: true, username: 'mespadaterjr',
     },
     {
       id: 'bd3d49a2-6dc1-40c5-9742-ff38ec5de8c5',
@@ -8307,8 +7595,7 @@ async function main() {
       email: 'dskeenjs@globo.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'dskeenjs',
+      hasProfileImage: false, isActivated: true, username: 'dskeenjs',
     },
     {
       id: 'fad265d3-1edd-4ae5-b309-ef1aeeab6f69',
@@ -8318,8 +7605,7 @@ async function main() {
       email: 'rbottelstonejt@house.gov',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'rbottelstonejt',
+      hasProfileImage: false, isActivated: true, username: 'rbottelstonejt',
     },
     {
       id: 'dbd8b513-9df1-4f6c-ad8a-151c88bddd61',
@@ -8329,8 +7615,7 @@ async function main() {
       email: 'kkowalju@dailymotion.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'kkowalju',
+      hasProfileImage: false, isActivated: true, username: 'kkowalju',
     },
     {
       id: 'ef36af3d-2c0d-4f3d-ab03-a724b483c880',
@@ -8340,8 +7625,7 @@ async function main() {
       email: 'bthursbyjv@fastcompany.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'bthursbyjv',
+      hasProfileImage: false, isActivated: true, username: 'bthursbyjv',
     },
     {
       id: '814f23fa-e248-43c3-846a-638b39db63ce',
@@ -8351,8 +7635,7 @@ async function main() {
       email: 'cpurcelljw@amazonaws.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'cpurcelljw',
+      hasProfileImage: false, isActivated: true, username: 'cpurcelljw',
     },
     {
       id: '95b30ca8-cc4a-42c4-af74-396175749d49',
@@ -8362,8 +7645,7 @@ async function main() {
       email: 'mishchenkojx@furl.net',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'mishchenkojx',
+      hasProfileImage: false, isActivated: true, username: 'mishchenkojx',
     },
     {
       id: 'd0fcea02-302b-47e2-9db7-7e1deb9a8280',
@@ -8373,8 +7655,7 @@ async function main() {
       email: 'ybearhamjy@360.cn',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'ybearhamjy',
+      hasProfileImage: false, isActivated: true, username: 'ybearhamjy',
     },
     {
       id: '6c47f0df-7f54-42a3-861e-a4c445a31fa8',
@@ -8384,8 +7665,7 @@ async function main() {
       email: 'gsedmanjz@wsj.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'gsedmanjz',
+      hasProfileImage: false, isActivated: true, username: 'gsedmanjz',
     },
     {
       id: '11d2944e-aa7a-4d09-b91d-751f15817e3c',
@@ -8395,8 +7675,7 @@ async function main() {
       email: 'btremberthk0@bizjournals.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'btremberthk0',
+      hasProfileImage: false, isActivated: true, username: 'btremberthk0',
     },
     {
       id: '04d1e6ea-819d-4fe1-aeaf-868b8a9a02b5',
@@ -8406,8 +7685,7 @@ async function main() {
       email: 'sremonk1@last.fm',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'sremonk1',
+      hasProfileImage: false, isActivated: true, username: 'sremonk1',
     },
     {
       id: '583a44b7-08e2-4f47-b8a4-b14b5a4f6075',
@@ -8417,8 +7695,7 @@ async function main() {
       email: 'lhewesk2@berkeley.edu',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'lhewesk2',
+      hasProfileImage: false, isActivated: true, username: 'lhewesk2',
     },
     {
       id: 'bedd7b96-a3a4-4a5c-90b4-940dda2556aa',
@@ -8428,8 +7705,7 @@ async function main() {
       email: 'jkmicickik3@51.la',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'jkmicickik3',
+      hasProfileImage: false, isActivated: true, username: 'jkmicickik3',
     },
     {
       id: 'bdc44afe-a771-44c6-a084-fee2897f9c1d',
@@ -8439,8 +7715,7 @@ async function main() {
       email: 'clackeyk4@kickstarter.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'clackeyk4',
+      hasProfileImage: false, isActivated: true, username: 'clackeyk4',
     },
     {
       id: 'e3f31b23-a892-4d52-945f-b8af4a2a7459',
@@ -8450,8 +7725,7 @@ async function main() {
       email: 'gtownsendk5@redcross.org',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'gtownsendk5',
+      hasProfileImage: false, isActivated: true, username: 'gtownsendk5',
     },
     {
       id: '0732bd6e-2cd2-40ce-bbbb-0b49e5a2635e',
@@ -8461,8 +7735,7 @@ async function main() {
       email: 'lthomtsonk6@wordpress.org',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'lthomtsonk6',
+      hasProfileImage: false, isActivated: true, username: 'lthomtsonk6',
     },
     {
       id: '4066bf38-1427-47ac-9d83-b13f82a2e92b',
@@ -8472,8 +7745,7 @@ async function main() {
       email: 'lshenfishk7@vimeo.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'lshenfishk7',
+      hasProfileImage: false, isActivated: true, username: 'lshenfishk7',
     },
     {
       id: 'b4bf67d3-1803-4929-8e28-d59d74dbf228',
@@ -8483,8 +7755,7 @@ async function main() {
       email: 'bpirozzik8@360.cn',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'bpirozzik8',
+      hasProfileImage: false, isActivated: true, username: 'bpirozzik8',
     },
     {
       id: 'c44bc4cc-cc44-4529-a172-c5be3a4192dc',
@@ -8494,8 +7765,7 @@ async function main() {
       email: 'dcorneilk9@taobao.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'dcorneilk9',
+      hasProfileImage: false, isActivated: true, username: 'dcorneilk9',
     },
     {
       id: 'fd42dac4-4c49-41e6-a472-32d7e081eb2f',
@@ -8505,8 +7775,7 @@ async function main() {
       email: 'edilworthka@topsy.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'edilworthka',
+      hasProfileImage: false, isActivated: true, username: 'edilworthka',
     },
     {
       id: '791bf4ac-2cfe-4a2c-8c73-e1f83472bbcb',
@@ -8516,8 +7785,7 @@ async function main() {
       email: 'bmaggillandreiskb@163.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'bmaggillandreiskb',
+      hasProfileImage: false, isActivated: true, username: 'bmaggillandreiskb',
     },
     {
       id: 'ab610d75-12d1-46fe-a51a-8a3e3910cb57',
@@ -8527,8 +7795,7 @@ async function main() {
       email: 'esamplekc@sun.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'esamplekc',
+      hasProfileImage: false, isActivated: true, username: 'esamplekc',
     },
     {
       id: '774e0cc3-6b72-444e-b8bf-09565bfd7114',
@@ -8538,8 +7805,7 @@ async function main() {
       email: 'amurrillkd@rediff.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'amurrillkd',
+      hasProfileImage: false, isActivated: true, username: 'amurrillkd',
     },
     {
       id: 'aad19be9-4348-43ee-b638-50f88636e1b6',
@@ -8549,8 +7815,7 @@ async function main() {
       email: 'bdoeke@blog.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'bdoeke',
+      hasProfileImage: false, isActivated: true, username: 'bdoeke',
     },
     {
       id: '278d8704-d7de-4f49-a0d8-67e24521cb90',
@@ -8560,8 +7825,7 @@ async function main() {
       email: 'dcolcuttkf@example.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'dcolcuttkf',
+      hasProfileImage: false, isActivated: true, username: 'dcolcuttkf',
     },
     {
       id: 'e0e2f155-c9a8-4e0e-a6b3-4ce160f5c922',
@@ -8571,8 +7835,7 @@ async function main() {
       email: 'ldiceykg@reference.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'ldiceykg',
+      hasProfileImage: false, isActivated: true, username: 'ldiceykg',
     },
     {
       id: 'f8984420-c7d8-448a-881f-93f1dc9a62cd',
@@ -8582,8 +7845,7 @@ async function main() {
       email: 'jshippamkh@oracle.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'jshippamkh',
+      hasProfileImage: false, isActivated: true, username: 'jshippamkh',
     },
     {
       id: 'f94ca654-7ea9-40ef-a428-d64e00d3a5bc',
@@ -8593,8 +7855,7 @@ async function main() {
       email: 'sradenki@lulu.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'sradenki',
+      hasProfileImage: false, isActivated: true, username: 'sradenki',
     },
     {
       id: '0004e8c6-8eca-43e8-b96d-5cb08d825734',
@@ -8604,8 +7865,7 @@ async function main() {
       email: 'sbudleighkj@washingtonpost.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'sbudleighkj',
+      hasProfileImage: false, isActivated: true, username: 'sbudleighkj',
     },
     {
       id: 'e9f305a1-9452-477a-8092-03d0b72167bc',
@@ -8615,8 +7875,7 @@ async function main() {
       email: 'orannigankk@yale.edu',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'orannigankk',
+      hasProfileImage: false, isActivated: true, username: 'orannigankk',
     },
     {
       id: 'ba5bc767-744a-4566-835e-f69b5f7719b9',
@@ -8626,8 +7885,7 @@ async function main() {
       email: 'scarriagekl@cargocollective.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'scarriagekl',
+      hasProfileImage: false, isActivated: true, username: 'scarriagekl',
     },
     {
       id: '599d7e4d-c493-42d4-aeaa-e3b157b146b8',
@@ -8637,8 +7895,7 @@ async function main() {
       email: 'pkilkennykm@1688.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'pkilkennykm',
+      hasProfileImage: false, isActivated: true, username: 'pkilkennykm',
     },
     {
       id: '31c58b24-6f4c-4e78-b7a5-a95c4989ff44',
@@ -8648,8 +7905,7 @@ async function main() {
       email: 'rfellgettkn@bloglovin.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'rfellgettkn',
+      hasProfileImage: false, isActivated: true, username: 'rfellgettkn',
     },
     {
       id: '533ab57c-a54e-45b4-b162-23ae58d8d9b6',
@@ -8659,8 +7915,7 @@ async function main() {
       email: 'arowellko@economist.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'arowellko',
+      hasProfileImage: false, isActivated: true, username: 'arowellko',
     },
     {
       id: '00768a2a-0950-43a5-a75e-4060349c67d1',
@@ -8670,8 +7925,7 @@ async function main() {
       email: 'cemelinekp@usda.gov',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'cemelinekp',
+      hasProfileImage: false, isActivated: true, username: 'cemelinekp',
     },
     {
       id: '8abc3e30-c71f-4409-add9-98a17de81168',
@@ -8681,8 +7935,7 @@ async function main() {
       email: 'squidenhamkq@webmd.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'squidenhamkq',
+      hasProfileImage: false, isActivated: true, username: 'squidenhamkq',
     },
     {
       id: '224252bb-d5ee-454a-942a-1ae7fae740b7',
@@ -8692,8 +7945,7 @@ async function main() {
       email: 'erosetkr@fastcompany.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'erosetkr',
+      hasProfileImage: false, isActivated: true, username: 'erosetkr',
     },
     {
       id: '1fa06ea2-8e6e-4f9a-9b3f-65256bc3aae9',
@@ -8703,8 +7955,7 @@ async function main() {
       email: 'njoderliks@drupal.org',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'njoderliks',
+      hasProfileImage: false, isActivated: true, username: 'njoderliks',
     },
     {
       id: '5d8d6ade-61b8-4c1c-bb0d-4436eea63f26',
@@ -8714,8 +7965,7 @@ async function main() {
       email: 'cruberrykt@addtoany.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'cruberrykt',
+      hasProfileImage: false, isActivated: true, username: 'cruberrykt',
     },
     {
       id: '70717217-4f7a-4c5e-810a-204fe16728ba',
@@ -8725,8 +7975,7 @@ async function main() {
       email: 'triggottku@g.co',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'triggottku',
+      hasProfileImage: false, isActivated: true, username: 'triggottku',
     },
     {
       id: 'e79e2fa8-ca54-4d18-b560-896e8f8d1622',
@@ -8736,8 +7985,7 @@ async function main() {
       email: 'iborsnallkv@upenn.edu',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'iborsnallkv',
+      hasProfileImage: false, isActivated: true, username: 'iborsnallkv',
     },
     {
       id: '2268ba02-28e0-41b3-aa48-9b75699055c1',
@@ -8747,8 +7995,7 @@ async function main() {
       email: 'aweetchkw@archive.org',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'aweetchkw',
+      hasProfileImage: false, isActivated: true, username: 'aweetchkw',
     },
     {
       id: 'e7dbdde9-6dc1-4b7f-8687-c7e0951e0925',
@@ -8758,8 +8005,7 @@ async function main() {
       email: 'rclaitonkx@biblegateway.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'rclaitonkx',
+      hasProfileImage: false, isActivated: true, username: 'rclaitonkx',
     },
     {
       id: '9dadb18a-8eb4-4be7-8b04-cd241cf5c17c',
@@ -8769,8 +8015,7 @@ async function main() {
       email: 'parmitky@sitemeter.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'parmitky',
+      hasProfileImage: false, isActivated: true, username: 'parmitky',
     },
     {
       id: '8157e5bc-4452-4192-a7e1-4a038e7613e6',
@@ -8780,8 +8025,7 @@ async function main() {
       email: 'tgirardotkz@mozilla.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'tgirardotkz',
+      hasProfileImage: false, isActivated: true, username: 'tgirardotkz',
     },
     {
       id: '25202202-7e3e-4adf-9ca0-dbe3035771bd',
@@ -8791,8 +8035,7 @@ async function main() {
       email: 'bincognal0@zdnet.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'bincognal0',
+      hasProfileImage: false, isActivated: true, username: 'bincognal0',
     },
     {
       id: 'fb1da1e6-11a5-4f5a-9a2f-4181b624c04e',
@@ -8802,8 +8045,7 @@ async function main() {
       email: 'mtutherl1@usgs.gov',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'mtutherl1',
+      hasProfileImage: false, isActivated: true, username: 'mtutherl1',
     },
     {
       id: '7418eff9-268f-4704-a825-77f1ebf2cdea',
@@ -8813,8 +8055,7 @@ async function main() {
       email: 'bdruettl2@opensource.org',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'bdruettl2',
+      hasProfileImage: false, isActivated: true, username: 'bdruettl2',
     },
     {
       id: '28292cbc-ea01-43e3-a15b-e6927b58d31a',
@@ -8824,8 +8065,7 @@ async function main() {
       email: 'adrainl3@vistaprint.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'adrainl3',
+      hasProfileImage: false, isActivated: true, username: 'adrainl3',
     },
     {
       id: '8fd05ede-96db-461f-afae-1c9e901ed018',
@@ -8835,8 +8075,7 @@ async function main() {
       email: 'eadgerl4@flickr.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'eadgerl4',
+      hasProfileImage: false, isActivated: true, username: 'eadgerl4',
     },
     {
       id: '06b9f4ae-45c0-477e-aabc-15ba9abcd048',
@@ -8846,8 +8085,7 @@ async function main() {
       email: 'sormerodl5@cam.ac.uk',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'sormerodl5',
+      hasProfileImage: false, isActivated: true, username: 'sormerodl5',
     },
     {
       id: 'a26d16ce-158a-4f3a-9800-a2849b8b7a53',
@@ -8857,8 +8095,7 @@ async function main() {
       email: 'aricardetl6@cnbc.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'aricardetl6',
+      hasProfileImage: false, isActivated: true, username: 'aricardetl6',
     },
     {
       id: '28ab36d0-c14b-4f17-b080-980bed515710',
@@ -8868,8 +8105,7 @@ async function main() {
       email: 'kpeetl7@patch.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'kpeetl7',
+      hasProfileImage: false, isActivated: true, username: 'kpeetl7',
     },
     {
       id: 'd35b4bda-4eba-4235-82d9-6e4d35846d05',
@@ -8879,8 +8115,7 @@ async function main() {
       email: 'sbyartl8@geocities.jp',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'sbyartl8',
+      hasProfileImage: false, isActivated: true, username: 'sbyartl8',
     },
     {
       id: '807b4336-fc43-4070-8339-a5c759de20e7',
@@ -8890,8 +8125,7 @@ async function main() {
       email: 'jkahnl9@nature.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'jkahnl9',
+      hasProfileImage: false, isActivated: true, username: 'jkahnl9',
     },
     {
       id: 'b16c37f9-a88d-4b2e-88d8-e748a4bc7828',
@@ -8901,8 +8135,7 @@ async function main() {
       email: 'gbulgenla@blogs.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'gbulgenla',
+      hasProfileImage: false, isActivated: true, username: 'gbulgenla',
     },
     {
       id: '04c7ea37-c292-47d2-9cdf-feb0f4c54845',
@@ -8912,8 +8145,7 @@ async function main() {
       email: 'mstratleylb@jigsy.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'mstratleylb',
+      hasProfileImage: false, isActivated: true, username: 'mstratleylb',
     },
     {
       id: '0260ea1d-a23f-4b09-9e34-a92871f07a82',
@@ -8923,8 +8155,7 @@ async function main() {
       email: 'ymassielc@deliciousdays.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'ymassielc',
+      hasProfileImage: false, isActivated: true, username: 'ymassielc',
     },
     {
       id: '671f58dc-dd0c-45e4-88a2-95bfd1399523',
@@ -8934,8 +8165,7 @@ async function main() {
       email: 'nlumsdaleld@wunderground.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'nlumsdaleld',
+      hasProfileImage: false, isActivated: true, username: 'nlumsdaleld',
     },
     {
       id: '5de00d0e-f0af-48e3-9ec6-ab6f4f3f332d',
@@ -8945,8 +8175,7 @@ async function main() {
       email: 'bblampyle@shutterfly.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'bblampyle',
+      hasProfileImage: false, isActivated: true, username: 'bblampyle',
     },
     {
       id: 'bf9fe975-ee51-4151-8983-3fd51572bbe0',
@@ -8956,8 +8185,7 @@ async function main() {
       email: 'dillstonlf@tiny.cc',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'dillstonlf',
+      hasProfileImage: false, isActivated: true, username: 'dillstonlf',
     },
     {
       id: 'e4fcc1b2-ca66-4628-9e32-f77179bd2c22',
@@ -8967,8 +8195,7 @@ async function main() {
       email: 'tscogganslg@macromedia.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'tscogganslg',
+      hasProfileImage: false, isActivated: true, username: 'tscogganslg',
     },
     {
       id: 'c3a5159d-04d6-4cb3-9a69-4e50f8b84f54',
@@ -8978,8 +8205,7 @@ async function main() {
       email: 'lnimmolh@deliciousdays.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'lnimmolh',
+      hasProfileImage: false, isActivated: true, username: 'lnimmolh',
     },
     {
       id: '8102f250-4146-4bcd-b56f-a6739e298f01',
@@ -8989,8 +8215,7 @@ async function main() {
       email: 'pcunniffli@unc.edu',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'pcunniffli',
+      hasProfileImage: false, isActivated: true, username: 'pcunniffli',
     },
     {
       id: '00246d64-448e-4ea1-8414-f3fdf749413d',
@@ -9000,8 +8225,7 @@ async function main() {
       email: 'rcelandlj@google.nl',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'rcelandlj',
+      hasProfileImage: false, isActivated: true, username: 'rcelandlj',
     },
     {
       id: 'c460b301-d2db-4e92-8264-97abc8f731e3',
@@ -9011,8 +8235,7 @@ async function main() {
       email: 'tstowgilllk@quantcast.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'tstowgilllk',
+      hasProfileImage: false, isActivated: true, username: 'tstowgilllk',
     },
     {
       id: '011f0167-e55e-4c06-bf35-26c02ae28009',
@@ -9022,8 +8245,7 @@ async function main() {
       email: 'barrowll@jugem.jp',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'barrowll',
+      hasProfileImage: false, isActivated: true, username: 'barrowll',
     },
     {
       id: '9640293e-be95-401e-bdf8-e76009d55c0c',
@@ -9033,8 +8255,7 @@ async function main() {
       email: 'llaverocklm@xrea.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'llaverocklm',
+      hasProfileImage: false, isActivated: true, username: 'llaverocklm',
     },
     {
       id: '71b3f004-a4d8-4b1c-85ff-75cb2dec1717',
@@ -9044,8 +8265,7 @@ async function main() {
       email: 'aeggletonln@creativecommons.org',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'aeggletonln',
+      hasProfileImage: false, isActivated: true, username: 'aeggletonln',
     },
     {
       id: '643b2769-8d0b-4f65-9535-734678eb99f2',
@@ -9055,8 +8275,7 @@ async function main() {
       email: 'hheadanlo@storify.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'hheadanlo',
+      hasProfileImage: false, isActivated: true, username: 'hheadanlo',
     },
     {
       id: '0957cb3e-1fde-4889-9d1e-350952d9cf47',
@@ -9066,8 +8285,7 @@ async function main() {
       email: 'clarslp@admin.ch',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'clarslp',
+      hasProfileImage: false, isActivated: true, username: 'clarslp',
     },
     {
       id: '7b26e184-892b-42dc-a652-cc994161715d',
@@ -9077,8 +8295,7 @@ async function main() {
       email: 'nbarrowlq@php.net',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'nbarrowlq',
+      hasProfileImage: false, isActivated: true, username: 'nbarrowlq',
     },
     {
       id: '418995fb-ca87-4b22-91b7-53d53c73e896',
@@ -9088,8 +8305,7 @@ async function main() {
       email: 'tkaboslr@mlb.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'tkaboslr',
+      hasProfileImage: false, isActivated: true, username: 'tkaboslr',
     },
     {
       id: '46ba40e4-d20f-4936-928d-be0725bc559c',
@@ -9099,8 +8315,7 @@ async function main() {
       email: 'tgoodeels@bigcartel.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'tgoodeels',
+      hasProfileImage: false, isActivated: true, username: 'tgoodeels',
     },
     {
       id: '6de24e32-8fa2-4d0a-b0ff-5966c2ff0c72',
@@ -9110,8 +8325,7 @@ async function main() {
       email: 'keskriettlt@themeforest.net',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'keskriettlt',
+      hasProfileImage: false, isActivated: true, username: 'keskriettlt',
     },
     {
       id: '6ce3a4b1-5d8d-44a3-8476-0ed4bdb18518',
@@ -9121,8 +8335,7 @@ async function main() {
       email: 'nborgarslu@ted.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'nborgarslu',
+      hasProfileImage: false, isActivated: true, username: 'nborgarslu',
     },
     {
       id: '64e9f0db-b047-4138-a793-3c6a69e52341',
@@ -9132,8 +8345,7 @@ async function main() {
       email: 'bprydielv@answers.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'bprydielv',
+      hasProfileImage: false, isActivated: true, username: 'bprydielv',
     },
     {
       id: '3eaac2e9-fb57-41e7-af27-b28791e85b79',
@@ -9143,8 +8355,7 @@ async function main() {
       email: 'phustonlw@cbc.ca',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'phustonlw',
+      hasProfileImage: false, isActivated: true, username: 'phustonlw',
     },
     {
       id: '1b06e1aa-fce8-4168-aa97-00604048d151',
@@ -9154,8 +8365,7 @@ async function main() {
       email: 'athirtlelx@yelp.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'athirtlelx',
+      hasProfileImage: false, isActivated: true, username: 'athirtlelx',
     },
     {
       id: '753885f7-db3e-405b-a37b-c07c40001453',
@@ -9165,8 +8375,7 @@ async function main() {
       email: 'rowainly@amazon.co.uk',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'rowainly',
+      hasProfileImage: false, isActivated: true, username: 'rowainly',
     },
     {
       id: 'e832b1d5-0f75-4b17-9af1-5d13e4aab1f7',
@@ -9176,8 +8385,7 @@ async function main() {
       email: 'bmcsorleylz@simplemachines.org',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'bmcsorleylz',
+      hasProfileImage: false, isActivated: true, username: 'bmcsorleylz',
     },
     {
       id: '37e13b0d-039f-43ec-8c43-6bd9a1f192b4',
@@ -9187,8 +8395,7 @@ async function main() {
       email: 'pegginsm0@ucoz.ru',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'pegginsm0',
+      hasProfileImage: false, isActivated: true, username: 'pegginsm0',
     },
     {
       id: '06cb4d89-3a2e-43e3-939d-9bb92aea4cda',
@@ -9198,8 +8405,7 @@ async function main() {
       email: 'cstorrahm1@deviantart.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'cstorrahm1',
+      hasProfileImage: false, isActivated: true, username: 'cstorrahm1',
     },
     {
       id: '02ad7a50-c402-4601-9603-954ee3ede8b3',
@@ -9209,8 +8415,7 @@ async function main() {
       email: 'gquadlingm2@about.me',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'gquadlingm2',
+      hasProfileImage: false, isActivated: true, username: 'gquadlingm2',
     },
     {
       id: '7ad8456c-828e-455b-8c78-fd57730d4932',
@@ -9220,8 +8425,7 @@ async function main() {
       email: 'nwestfalenm3@google.es',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'nwestfalenm3',
+      hasProfileImage: false, isActivated: true, username: 'nwestfalenm3',
     },
     {
       id: '7c4b3000-af3a-4b76-8a8c-8c5cce1f6f79',
@@ -9231,8 +8435,7 @@ async function main() {
       email: 'ldabnotm4@studiopress.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'ldabnotm4',
+      hasProfileImage: false, isActivated: true, username: 'ldabnotm4',
     },
     {
       id: 'f1932762-fed3-4012-903c-3727e1df76e2',
@@ -9242,8 +8445,7 @@ async function main() {
       email: 'mkiddellm5@mashable.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'mkiddellm5',
+      hasProfileImage: false, isActivated: true, username: 'mkiddellm5',
     },
     {
       id: '286fa529-3410-4785-a8fa-a32952793b56',
@@ -9253,8 +8455,7 @@ async function main() {
       email: 'ddefreynem6@hubpages.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'ddefreynem6',
+      hasProfileImage: false, isActivated: true, username: 'ddefreynem6',
     },
     {
       id: '44abbd8b-c5ac-44eb-a7d1-05041c62b452',
@@ -9264,8 +8465,7 @@ async function main() {
       email: 'lhasslocherm7@auda.org.au',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'lhasslocherm7',
+      hasProfileImage: false, isActivated: true, username: 'lhasslocherm7',
     },
     {
       id: 'aadff3c6-1875-4b80-bc14-09ac7379a812',
@@ -9275,8 +8475,7 @@ async function main() {
       email: 'yfitchetm8@chronoengine.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'yfitchetm8',
+      hasProfileImage: false, isActivated: true, username: 'yfitchetm8',
     },
     {
       id: '79a4b690-e643-4c6c-a3b0-70e81db068f0',
@@ -9286,8 +8485,7 @@ async function main() {
       email: 'tshakspearem9@nbcnews.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'tshakspearem9',
+      hasProfileImage: false, isActivated: true, username: 'tshakspearem9',
     },
     {
       id: 'be7399d7-5716-4932-bca2-e833e3db90b8',
@@ -9297,8 +8495,7 @@ async function main() {
       email: 'dchurnma@usnews.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'dchurnma',
+      hasProfileImage: false, isActivated: true, username: 'dchurnma',
     },
     {
       id: '001d7e41-1b03-4969-b7a4-55dd498b028f',
@@ -9308,8 +8505,7 @@ async function main() {
       email: 'agraffhammb@1und1.de',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'agraffhammb',
+      hasProfileImage: false, isActivated: true, username: 'agraffhammb',
     },
     {
       id: '0da7af89-c52a-4c7e-b07e-e30d6e43fd6b',
@@ -9319,8 +8515,7 @@ async function main() {
       email: 'odubosemc@shutterfly.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'odubosemc',
+      hasProfileImage: false, isActivated: true, username: 'odubosemc',
     },
     {
       id: 'a6b7c296-8a2e-4b67-b1c6-8d737db2ff2e',
@@ -9330,8 +8525,7 @@ async function main() {
       email: 'bweavermd@wired.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'bweavermd',
+      hasProfileImage: false, isActivated: true, username: 'bweavermd',
     },
     {
       id: '61dda877-7546-4efc-a9f5-f690ebeebf3b',
@@ -9341,8 +8535,7 @@ async function main() {
       email: 'barmalme@clickbank.net',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'barmalme',
+      hasProfileImage: false, isActivated: true, username: 'barmalme',
     },
     {
       id: '1400fea5-b5c5-4d92-86a2-c499a337e9b8',
@@ -9352,8 +8545,7 @@ async function main() {
       email: 'kribchestermf@hud.gov',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'kribchestermf',
+      hasProfileImage: false, isActivated: true, username: 'kribchestermf',
     },
     {
       id: 'a6a05012-dee0-47af-8a0e-fc3c63ef5fda',
@@ -9363,8 +8555,7 @@ async function main() {
       email: 'laltimasmg@opensource.org',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'laltimasmg',
+      hasProfileImage: false, isActivated: true, username: 'laltimasmg',
     },
     {
       id: '702f2073-6da1-4cd8-b613-ee75770edfe2',
@@ -9374,8 +8565,7 @@ async function main() {
       email: 'bohartnettmh@marriott.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'bohartnettmh',
+      hasProfileImage: false, isActivated: true, username: 'bohartnettmh',
     },
     {
       id: '0efb6fe0-8cee-4b9a-87ac-7c46b3dd30e1',
@@ -9385,8 +8575,7 @@ async function main() {
       email: 'mfrankishmi@ftc.gov',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'mfrankishmi',
+      hasProfileImage: false, isActivated: true, username: 'mfrankishmi',
     },
     {
       id: '7e01a722-40a8-4e9b-b194-d876d01c61f3',
@@ -9396,8 +8585,7 @@ async function main() {
       email: 'rpalfreemj@dell.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'rpalfreemj',
+      hasProfileImage: false, isActivated: true, username: 'rpalfreemj',
     },
     {
       id: '79a4cc6d-2d92-4a99-84cf-f07db8f44c31',
@@ -9407,8 +8595,7 @@ async function main() {
       email: 'khoffmk@shareasale.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'khoffmk',
+      hasProfileImage: false, isActivated: true, username: 'khoffmk',
     },
     {
       id: '61a873e4-841f-49ef-9ffa-ee892c51a6ea',
@@ -9418,8 +8605,7 @@ async function main() {
       email: 'cmosebyml@cpanel.net',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'cmosebyml',
+      hasProfileImage: false, isActivated: true, username: 'cmosebyml',
     },
     {
       id: 'bfe580ea-faef-4da3-8b42-3e1184a68d1f',
@@ -9429,8 +8615,7 @@ async function main() {
       email: 'mkinnerkmm@tmall.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'mkinnerkmm',
+      hasProfileImage: false, isActivated: true, username: 'mkinnerkmm',
     },
     {
       id: '88358b41-3066-4f06-a5bc-3bbfdea2e0f9',
@@ -9440,8 +8625,7 @@ async function main() {
       email: 'atickmn@netlog.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'atickmn',
+      hasProfileImage: false, isActivated: true, username: 'atickmn',
     },
     {
       id: '8435504b-55c8-48e4-b0c2-098a227ab64d',
@@ -9451,8 +8635,7 @@ async function main() {
       email: 'ptweddellmo@gov.uk',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'ptweddellmo',
+      hasProfileImage: false, isActivated: true, username: 'ptweddellmo',
     },
     {
       id: '6e4eeda7-6084-4d04-ac65-e94e8d6670e1',
@@ -9462,8 +8645,7 @@ async function main() {
       email: 'gholdrenmp@cafepress.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'gholdrenmp',
+      hasProfileImage: false, isActivated: true, username: 'gholdrenmp',
     },
     {
       id: '67264849-bf25-4f8d-85b7-23a890f074a4',
@@ -9473,8 +8655,7 @@ async function main() {
       email: 'tidellmq@bravesites.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'tidellmq',
+      hasProfileImage: false, isActivated: true, username: 'tidellmq',
     },
     {
       id: '1fc831d8-479d-44e9-b167-7dafbeed9959',
@@ -9484,8 +8665,7 @@ async function main() {
       email: 'ahargreavemr@topsy.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'ahargreavemr',
+      hasProfileImage: false, isActivated: true, username: 'ahargreavemr',
     },
     {
       id: 'f82dc98f-d7a7-40db-9a38-81b4fe0e057b',
@@ -9495,8 +8675,7 @@ async function main() {
       email: 'gwaterhowsems@mapy.cz',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'gwaterhowsems',
+      hasProfileImage: false, isActivated: true, username: 'gwaterhowsems',
     },
     {
       id: 'a1a5c770-7968-49c9-bf54-7379d1a37714',
@@ -9506,8 +8685,7 @@ async function main() {
       email: 'eclemintonimt@va.gov',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'eclemintonimt',
+      hasProfileImage: false, isActivated: true, username: 'eclemintonimt',
     },
     {
       id: '934eb8bd-7926-41aa-ad65-fa70c9347d67',
@@ -9517,8 +8695,7 @@ async function main() {
       email: 'cmussettimu@gmpg.org',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'cmussettimu',
+      hasProfileImage: false, isActivated: true, username: 'cmussettimu',
     },
     {
       id: '16ce7e7f-f851-45ca-9f77-a7abb75ca7dd',
@@ -9528,8 +8705,7 @@ async function main() {
       email: 'bdikelsmv@chicagotribune.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'bdikelsmv',
+      hasProfileImage: false, isActivated: true, username: 'bdikelsmv',
     },
     {
       id: '66910edb-b90f-4407-ae4f-4537a31f9784',
@@ -9539,8 +8715,7 @@ async function main() {
       email: 'mmacgillacolmmw@merriam-webster.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'mmacgillacolmmw',
+      hasProfileImage: false, isActivated: true, username: 'mmacgillacolmmw',
     },
     {
       id: '19f685f8-5f0d-4b70-9cd6-7e1d6e1ea704',
@@ -9550,8 +8725,7 @@ async function main() {
       email: 'hpagdenmx@constantcontact.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'hpagdenmx',
+      hasProfileImage: false, isActivated: true, username: 'hpagdenmx',
     },
     {
       id: '5fd9490a-4e57-4460-8ee5-24123a612382',
@@ -9561,8 +8735,7 @@ async function main() {
       email: 'dlomasneymy@dailymotion.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'dlomasneymy',
+      hasProfileImage: false, isActivated: true, username: 'dlomasneymy',
     },
     {
       id: '285791a0-7f06-4a6a-afa3-66f781692b8a',
@@ -9572,8 +8745,7 @@ async function main() {
       email: 'amacailinemz@paypal.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'amacailinemz',
+      hasProfileImage: false, isActivated: true, username: 'amacailinemz',
     },
     {
       id: '5a519a83-0eb4-467c-921e-5f195b8c8ab1',
@@ -9583,8 +8755,7 @@ async function main() {
       email: 'dworsomn0@miibeian.gov.cn',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'dworsomn0',
+      hasProfileImage: false, isActivated: true, username: 'dworsomn0',
     },
     {
       id: '2aecb28e-1ad0-4efc-acff-c82bbba7a064',
@@ -9594,8 +8765,7 @@ async function main() {
       email: 'cdesporten1@dailymail.co.uk',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'cdesporten1',
+      hasProfileImage: false, isActivated: true, username: 'cdesporten1',
     },
     {
       id: 'c8a4c900-543d-48d2-92c8-e478364e9471',
@@ -9605,8 +8775,7 @@ async function main() {
       email: 'jkhosan2@hibu.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'jkhosan2',
+      hasProfileImage: false, isActivated: true, username: 'jkhosan2',
     },
     {
       id: 'ef0e16ac-ee08-49e3-a060-dc8c7f05cec6',
@@ -9616,8 +8785,7 @@ async function main() {
       email: 'mmoresiden3@i2i.jp',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'mmoresiden3',
+      hasProfileImage: false, isActivated: true, username: 'mmoresiden3',
     },
     {
       id: '6b99c02b-2987-4647-96ca-ffd961fae9f7',
@@ -9627,8 +8795,7 @@ async function main() {
       email: 'hbruynsn4@pcworld.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'hbruynsn4',
+      hasProfileImage: false, isActivated: true, username: 'hbruynsn4',
     },
     {
       id: '52050314-4326-4ee7-b2cf-82c7a43e468c',
@@ -9638,8 +8805,7 @@ async function main() {
       email: 'rokierann5@economist.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'rokierann5',
+      hasProfileImage: false, isActivated: true, username: 'rokierann5',
     },
     {
       id: 'c7dcf8bf-15c6-4587-83f6-9a9d48ce1d8a',
@@ -9649,8 +8815,7 @@ async function main() {
       email: 'bdameiselen6@blogger.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'bdameiselen6',
+      hasProfileImage: false, isActivated: true, username: 'bdameiselen6',
     },
     {
       id: '0aa1bb85-cbbc-4ede-94c6-d5a6b5c11005',
@@ -9660,8 +8825,7 @@ async function main() {
       email: 'cguilen7@samsung.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'cguilen7',
+      hasProfileImage: false, isActivated: true, username: 'cguilen7',
     },
     {
       id: '014745f5-d1ea-4f98-928c-ac7ebf97594b',
@@ -9671,8 +8835,7 @@ async function main() {
       email: 'frojahnn8@1und1.de',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'frojahnn8',
+      hasProfileImage: false, isActivated: true, username: 'frojahnn8',
     },
     {
       id: 'adb603a2-5aa3-4fe8-8416-d78e77c8ab1e',
@@ -9682,8 +8845,7 @@ async function main() {
       email: 'cculwenn9@eventbrite.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'cculwenn9',
+      hasProfileImage: false, isActivated: true, username: 'cculwenn9',
     },
     {
       id: '68d01ba5-dd84-4bb3-8cf8-1e10b1ee9a06',
@@ -9693,8 +8855,7 @@ async function main() {
       email: 'dwistancena@slashdot.org',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'dwistancena',
+      hasProfileImage: false, isActivated: true, username: 'dwistancena',
     },
     {
       id: '5d3ca52a-bafc-4ac8-bdd7-4ca8b56dd695',
@@ -9704,8 +8865,7 @@ async function main() {
       email: 'bgallahuenb@dmoz.org',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'bgallahuenb',
+      hasProfileImage: false, isActivated: true, username: 'bgallahuenb',
     },
     {
       id: '45aed3ff-f26d-455d-8267-aa4ffb7d97fb',
@@ -9715,8 +8875,7 @@ async function main() {
       email: 'mstampenc@liveinternet.ru',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'mstampenc',
+      hasProfileImage: false, isActivated: true, username: 'mstampenc',
     },
     {
       id: 'b2bb6d55-86e9-4174-897f-2774135b24f9',
@@ -9726,8 +8885,7 @@ async function main() {
       email: 'dmazilliusnd@sbwire.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'dmazilliusnd',
+      hasProfileImage: false, isActivated: true, username: 'dmazilliusnd',
     },
     {
       id: '0f1ff217-9680-4262-bcb1-b096d08cddd2',
@@ -9737,8 +8895,7 @@ async function main() {
       email: 'dvaunene@yolasite.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'dvaunene',
+      hasProfileImage: false, isActivated: true, username: 'dvaunene',
     },
     {
       id: 'ae2e2adf-cc88-419d-91a3-628d03c8b257',
@@ -9748,8 +8905,7 @@ async function main() {
       email: 'gkingzethnf@cbc.ca',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'gkingzethnf',
+      hasProfileImage: false, isActivated: true, username: 'gkingzethnf',
     },
     {
       id: 'bb140a70-becf-4cfc-971b-1494ced7b522',
@@ -9759,8 +8915,7 @@ async function main() {
       email: 'ckahenng@github.io',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'ckahenng',
+      hasProfileImage: false, isActivated: true, username: 'ckahenng',
     },
     {
       id: '20ab9976-39f0-4ce6-aa20-68f1657414fd',
@@ -9770,8 +8925,7 @@ async function main() {
       email: 'lfarronnh@moonfruit.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'lfarronnh',
+      hasProfileImage: false, isActivated: true, username: 'lfarronnh',
     },
     {
       id: 'b200fb30-f285-4220-95e6-7c4695dfbe59',
@@ -9781,8 +8935,7 @@ async function main() {
       email: 'ywoodhouseni@unblog.fr',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'ywoodhouseni',
+      hasProfileImage: false, isActivated: true, username: 'ywoodhouseni',
     },
     {
       id: 'cd1607e9-8a54-4f5c-b35f-77fe6c5a71f9',
@@ -9792,8 +8945,7 @@ async function main() {
       email: 'placroutznj@reverbnation.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'placroutznj',
+      hasProfileImage: false, isActivated: true, username: 'placroutznj',
     },
     {
       id: 'ff6e76c4-c624-42d3-bda8-8fc01bbef34f',
@@ -9803,8 +8955,7 @@ async function main() {
       email: 'nrothchildnk@unblog.fr',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'nrothchildnk',
+      hasProfileImage: false, isActivated: true, username: 'nrothchildnk',
     },
     {
       id: '5042f156-892e-404b-8448-0ecfcd5cec62',
@@ -9814,8 +8965,7 @@ async function main() {
       email: 'tdelhantynl@devhub.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'tdelhantynl',
+      hasProfileImage: false, isActivated: true, username: 'tdelhantynl',
     },
     {
       id: '0c5cb47e-4ca7-4338-9889-932c115b6063',
@@ -9825,8 +8975,7 @@ async function main() {
       email: 'sstrangmannm@dropbox.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'sstrangmannm',
+      hasProfileImage: false, isActivated: true, username: 'sstrangmannm',
     },
     {
       id: '02f8b26d-0c60-4997-a95b-6d4ec6ef5cd1',
@@ -9836,8 +8985,7 @@ async function main() {
       email: 'rgabenn@amazon.de',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'rgabenn',
+      hasProfileImage: false, isActivated: true, username: 'rgabenn',
     },
     {
       id: '9e8c07f2-0218-4875-941f-885eccb18f50',
@@ -9847,8 +8995,7 @@ async function main() {
       email: 'dfudgeno@paginegialle.it',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'dfudgeno',
+      hasProfileImage: false, isActivated: true, username: 'dfudgeno',
     },
     {
       id: 'de3baaf9-2a90-4ada-aee2-1eb2feb8f0b6',
@@ -9858,8 +9005,7 @@ async function main() {
       email: 'dkermeennp@reference.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'dkermeennp',
+      hasProfileImage: false, isActivated: true, username: 'dkermeennp',
     },
     {
       id: '493f0ad0-1551-494a-b19a-03c9739df7aa',
@@ -9869,8 +9015,7 @@ async function main() {
       email: 'sbullockenq@blogs.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'sbullockenq',
+      hasProfileImage: false, isActivated: true, username: 'sbullockenq',
     },
     {
       id: 'cfc54cf3-d162-4d44-aef4-b3dc6a1d15ba',
@@ -9880,8 +9025,7 @@ async function main() {
       email: 'htaberernr@huffingtonpost.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'htaberernr',
+      hasProfileImage: false, isActivated: true, username: 'htaberernr',
     },
     {
       id: '2794b45f-950f-4f59-bb6f-bde53fcd0e62',
@@ -9891,8 +9035,7 @@ async function main() {
       email: 'ajermanns@marketwatch.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'ajermanns',
+      hasProfileImage: false, isActivated: true, username: 'ajermanns',
     },
     {
       id: 'ade701ae-d50a-424f-b863-d3f202a20167',
@@ -9902,8 +9045,7 @@ async function main() {
       email: 'sbarenskient@state.tx.us',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'sbarenskient',
+      hasProfileImage: false, isActivated: true, username: 'sbarenskient',
     },
     {
       id: '210731f2-40f6-425e-a5d6-afffa1dcbc38',
@@ -9913,8 +9055,7 @@ async function main() {
       email: 'ewrefordnu@goo.gl',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'ewrefordnu',
+      hasProfileImage: false, isActivated: true, username: 'ewrefordnu',
     },
     {
       id: '8f8014d4-7b05-4ae9-bb2d-a29a2efd82a1',
@@ -9924,8 +9065,7 @@ async function main() {
       email: 'atathernv@netvibes.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'atathernv',
+      hasProfileImage: false, isActivated: true, username: 'atathernv',
     },
     {
       id: '841fb952-c48d-4ec5-89a8-9fea8d8e3d35',
@@ -9935,8 +9075,7 @@ async function main() {
       email: 'gakidnw@springer.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'gakidnw',
+      hasProfileImage: false, isActivated: true, username: 'gakidnw',
     },
     {
       id: '30d52b65-9f06-4ab0-95f9-699780bdb93e',
@@ -9946,8 +9085,7 @@ async function main() {
       email: 'jlepruvostnx@eventbrite.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'jlepruvostnx',
+      hasProfileImage: false, isActivated: true, username: 'jlepruvostnx',
     },
     {
       id: '8b4f5382-1a22-4b47-a244-19ae29fdd8c3',
@@ -9957,8 +9095,7 @@ async function main() {
       email: 'sdugdaleny@netlog.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'sdugdaleny',
+      hasProfileImage: false, isActivated: true, username: 'sdugdaleny',
     },
     {
       id: '060a1b61-384a-4f38-8e2b-965f8b3f5766',
@@ -9968,8 +9105,7 @@ async function main() {
       email: 'avernaynz@goo.ne.jp',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'avernaynz',
+      hasProfileImage: false, isActivated: true, username: 'avernaynz',
     },
     {
       id: '2d28ac1e-3075-4152-a621-aab14a397d17',
@@ -9979,8 +9115,7 @@ async function main() {
       email: 'lpalluscheko0@buzzfeed.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'lpalluscheko0',
+      hasProfileImage: false, isActivated: true, username: 'lpalluscheko0',
     },
     {
       id: '4f1952c0-f3f5-478d-92b2-ee621323dbf9',
@@ -9990,8 +9125,7 @@ async function main() {
       email: 'lamorio1@bloomberg.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'lamorio1',
+      hasProfileImage: false, isActivated: true, username: 'lamorio1',
     },
     {
       id: 'ceb18288-ef4d-4561-90dc-2c327b41c88c',
@@ -10001,8 +9135,7 @@ async function main() {
       email: 'dwhaleo2@hud.gov',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'dwhaleo2',
+      hasProfileImage: false, isActivated: true, username: 'dwhaleo2',
     },
     {
       id: '913c7f10-c13e-41b7-beee-bd56222f9632',
@@ -10012,8 +9145,7 @@ async function main() {
       email: 'cpuddifero3@rediff.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'cpuddifero3',
+      hasProfileImage: false, isActivated: true, username: 'cpuddifero3',
     },
     {
       id: 'e14d0240-e772-465d-b2ba-d8eb25582937',
@@ -10023,8 +9155,7 @@ async function main() {
       email: 'qpeizero4@newsvine.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'qpeizero4',
+      hasProfileImage: false, isActivated: true, username: 'qpeizero4',
     },
     {
       id: 'b283efbf-40dd-4372-8689-8b81a024564f',
@@ -10034,8 +9165,7 @@ async function main() {
       email: 'awhistlecrofto5@ft.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'awhistlecrofto5',
+      hasProfileImage: false, isActivated: true, username: 'awhistlecrofto5',
     },
     {
       id: '7c2d7ebb-ecea-45a6-8f8e-1bfe3c98855f',
@@ -10045,8 +9175,7 @@ async function main() {
       email: 'fthorpeo6@pen.io',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'fthorpeo6',
+      hasProfileImage: false, isActivated: true, username: 'fthorpeo6',
     },
     {
       id: '0c1286e9-80d5-412b-a1c3-c6ce26e92b41',
@@ -10056,8 +9185,7 @@ async function main() {
       email: 'dsycamoreo7@prlog.org',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'dsycamoreo7',
+      hasProfileImage: false, isActivated: true, username: 'dsycamoreo7',
     },
     {
       id: '4b105cf6-3f18-4872-ab6d-8425c818c7f6',
@@ -10067,8 +9195,7 @@ async function main() {
       email: 'rjanosevico8@pagesperso-orange.fr',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'rjanosevico8',
+      hasProfileImage: false, isActivated: true, username: 'rjanosevico8',
     },
     {
       id: '87df81d2-b163-4ad7-9e0b-7f8b9119ab04',
@@ -10078,8 +9205,7 @@ async function main() {
       email: 'egabottio9@ucsd.edu',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'egabottio9',
+      hasProfileImage: false, isActivated: true, username: 'egabottio9',
     },
     {
       id: '17a4b25e-fb09-4f2f-8680-00827e84f71e',
@@ -10089,8 +9215,7 @@ async function main() {
       email: 'qglendzeroa@unblog.fr',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'qglendzeroa',
+      hasProfileImage: false, isActivated: true, username: 'qglendzeroa',
     },
     {
       id: '8241d5f8-d649-44d5-841e-9816e20ab0f8',
@@ -10100,8 +9225,7 @@ async function main() {
       email: 'dbirwhistleob@bizjournals.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'dbirwhistleob',
+      hasProfileImage: false, isActivated: true, username: 'dbirwhistleob',
     },
     {
       id: '94af1359-d256-4a56-b354-9b86540f555b',
@@ -10111,8 +9235,7 @@ async function main() {
       email: 'bbengeoc@tripadvisor.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'bbengeoc',
+      hasProfileImage: false, isActivated: true, username: 'bbengeoc',
     },
     {
       id: '5b0d4748-78b5-44ee-97c1-e78cbbbf91a2',
@@ -10122,8 +9245,7 @@ async function main() {
       email: 'rfennerod@moonfruit.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'rfennerod',
+      hasProfileImage: false, isActivated: true, username: 'rfennerod',
     },
     {
       id: '751db3be-9167-4f01-9738-3c495fb398be',
@@ -10133,8 +9255,7 @@ async function main() {
       email: 'adiruggierooe@blogtalkradio.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'adiruggierooe',
+      hasProfileImage: false, isActivated: true, username: 'adiruggierooe',
     },
     {
       id: 'd3bd3106-6580-4eee-916d-5489d337bc6d',
@@ -10144,8 +9265,7 @@ async function main() {
       email: 'ccramof@gov.uk',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'ccramof',
+      hasProfileImage: false, isActivated: true, username: 'ccramof',
     },
     {
       id: '5b48f931-8e25-4212-a738-e2f3b14a8e75',
@@ -10155,8 +9275,7 @@ async function main() {
       email: 'tjaimezog@moonfruit.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'tjaimezog',
+      hasProfileImage: false, isActivated: true, username: 'tjaimezog',
     },
     {
       id: '11a40dd7-c891-4e1a-b66c-5e947d8321a9',
@@ -10166,8 +9285,7 @@ async function main() {
       email: 'svlasovoh@answers.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'svlasovoh',
+      hasProfileImage: false, isActivated: true, username: 'svlasovoh',
     },
     {
       id: '4e022673-b76a-4bfb-923a-2dca7bad0ad7',
@@ -10177,8 +9295,7 @@ async function main() {
       email: 'msturtonoi@china.com.cn',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'msturtonoi',
+      hasProfileImage: false, isActivated: true, username: 'msturtonoi',
     },
     {
       id: '9c238c6e-d75a-4b5d-8cbe-b19850aeaa45',
@@ -10188,8 +9305,7 @@ async function main() {
       email: 'rratleyoj@t-online.de',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'rratleyoj',
+      hasProfileImage: false, isActivated: true, username: 'rratleyoj',
     },
     {
       id: 'b37242b6-ed65-4c7c-a1b5-eb4c5e82cf2f',
@@ -10199,8 +9315,7 @@ async function main() {
       email: 'mdawidowitzok@wiley.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'mdawidowitzok',
+      hasProfileImage: false, isActivated: true, username: 'mdawidowitzok',
     },
     {
       id: '0d200217-939a-4efa-a620-6938277fe8c9',
@@ -10210,8 +9325,7 @@ async function main() {
       email: 'gmundfordol@wordpress.org',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'gmundfordol',
+      hasProfileImage: false, isActivated: true, username: 'gmundfordol',
     },
     {
       id: 'dfef041f-89f9-47c0-8827-3e6135b47cf6',
@@ -10221,8 +9335,7 @@ async function main() {
       email: 'akornackiom@scribd.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'akornackiom',
+      hasProfileImage: false, isActivated: true, username: 'akornackiom',
     },
     {
       id: 'cce7f547-f91d-423f-a0f0-2b13f33935f8',
@@ -10232,8 +9345,7 @@ async function main() {
       email: 'tmibourneon@ftc.gov',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'tmibourneon',
+      hasProfileImage: false, isActivated: true, username: 'tmibourneon',
     },
     {
       id: '203ce6da-7704-477a-8cb1-2a337d877d68',
@@ -10243,8 +9355,7 @@ async function main() {
       email: 'estokoeoo@bloglovin.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'estokoeoo',
+      hasProfileImage: false, isActivated: true, username: 'estokoeoo',
     },
     {
       id: 'ff30e64a-e07f-468c-a905-20549e4489af',
@@ -10254,8 +9365,7 @@ async function main() {
       email: 'ehugoop@ask.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'ehugoop',
+      hasProfileImage: false, isActivated: true, username: 'ehugoop',
     },
     {
       id: '61d3c74a-f6fb-47a3-8c6e-09f72895f295',
@@ -10265,8 +9375,7 @@ async function main() {
       email: 'lmatignonoq@cbslocal.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'lmatignonoq',
+      hasProfileImage: false, isActivated: true, username: 'lmatignonoq',
     },
     {
       id: '70b33b9f-17c0-456d-a1ff-0169a2eaa8c6',
@@ -10276,8 +9385,7 @@ async function main() {
       email: 'msansunor@topsy.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'msansunor',
+      hasProfileImage: false, isActivated: true, username: 'msansunor',
     },
     {
       id: '9b7f20dc-3ecd-42e9-89f1-8f88c491d4ac',
@@ -10287,8 +9395,7 @@ async function main() {
       email: 'masselos@sourceforge.net',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'masselos',
+      hasProfileImage: false, isActivated: true, username: 'masselos',
     },
     {
       id: '92e8cc23-0c1f-4255-9b22-e8ea87a58fb5',
@@ -10298,8 +9405,7 @@ async function main() {
       email: 'ssellanot@ifeng.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'ssellanot',
+      hasProfileImage: false, isActivated: true, username: 'ssellanot',
     },
     {
       id: '232a40af-311e-4dba-9457-9a70b76b9df3',
@@ -10309,8 +9415,7 @@ async function main() {
       email: 'sburdellou@freewebs.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'sburdellou',
+      hasProfileImage: false, isActivated: true, username: 'sburdellou',
     },
     {
       id: 'a557530a-6a3a-4af8-999e-e2f26e0d81c0',
@@ -10320,8 +9425,7 @@ async function main() {
       email: 'jthowlessov@tumblr.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'jthowlessov',
+      hasProfileImage: false, isActivated: true, username: 'jthowlessov',
     },
     {
       id: 'd03eb9b6-f573-4f6e-822d-86a84dbca066',
@@ -10331,8 +9435,7 @@ async function main() {
       email: 'adillestoneow@123-reg.co.uk',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'adillestoneow',
+      hasProfileImage: false, isActivated: true, username: 'adillestoneow',
     },
     {
       id: 'd5d0b8f4-27cd-4c4c-b098-1ca96712f3dc',
@@ -10342,8 +9445,7 @@ async function main() {
       email: 'eerrattox@cargocollective.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'eerrattox',
+      hasProfileImage: false, isActivated: true, username: 'eerrattox',
     },
     {
       id: 'e10fd0dd-2cfc-4d8c-8d52-e841cf9d463b',
@@ -10353,8 +9455,7 @@ async function main() {
       email: 'cmaclardieoy@chron.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'cmaclardieoy',
+      hasProfileImage: false, isActivated: true, username: 'cmaclardieoy',
     },
     {
       id: 'a9692230-fbe3-4988-b0cf-2e447baed191',
@@ -10364,8 +9465,7 @@ async function main() {
       email: 'hshealsoz@ycombinator.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'hshealsoz',
+      hasProfileImage: false, isActivated: true, username: 'hshealsoz',
     },
     {
       id: 'ddb43e2e-5f5a-4d44-93a7-a9fb28e92f71',
@@ -10375,8 +9475,7 @@ async function main() {
       email: 'ehawsp0@altervista.org',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'ehawsp0',
+      hasProfileImage: false, isActivated: true, username: 'ehawsp0',
     },
     {
       id: 'ebb57ff1-654a-4951-ac4c-5d6876a9cb43',
@@ -10386,8 +9485,7 @@ async function main() {
       email: 'jnellp1@angelfire.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'jnellp1',
+      hasProfileImage: false, isActivated: true, username: 'jnellp1',
     },
     {
       id: '2070a17b-c48e-4f56-b073-4e86f8f76526',
@@ -10397,8 +9495,7 @@ async function main() {
       email: 'alammasp2@cdc.gov',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'alammasp2',
+      hasProfileImage: false, isActivated: true, username: 'alammasp2',
     },
     {
       id: '4e4ec58b-2c9b-49ef-b4dd-cdfddbbe5b6e',
@@ -10408,8 +9505,7 @@ async function main() {
       email: 'kshavelp3@cdbaby.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'kshavelp3',
+      hasProfileImage: false, isActivated: true, username: 'kshavelp3',
     },
     {
       id: 'a8095509-5df1-4a4f-af39-cba123ddc6dd',
@@ -10419,8 +9515,7 @@ async function main() {
       email: 'sscroggsp4@yolasite.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'sscroggsp4',
+      hasProfileImage: false, isActivated: true, username: 'sscroggsp4',
     },
     {
       id: 'd5fdcbbb-1aee-45ea-a993-43ad8f04a829',
@@ -10430,8 +9525,7 @@ async function main() {
       email: 'wfloodp5@icio.us',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'wfloodp5',
+      hasProfileImage: false, isActivated: true, username: 'wfloodp5',
     },
     {
       id: 'afd47a9f-b2a1-4083-a7dc-005fb59401e8',
@@ -10441,8 +9535,7 @@ async function main() {
       email: 'jdeeneyp6@yahoo.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'jdeeneyp6',
+      hasProfileImage: false, isActivated: true, username: 'jdeeneyp6',
     },
     {
       id: '06b28163-a349-4b0b-b357-0d6b7b074912',
@@ -10452,8 +9545,7 @@ async function main() {
       email: 'jmiddlep7@goodreads.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'jmiddlep7',
+      hasProfileImage: false, isActivated: true, username: 'jmiddlep7',
     },
     {
       id: '51966c5f-ae95-4593-9c2f-6ee8498857f9',
@@ -10463,8 +9555,7 @@ async function main() {
       email: 'jlowndesp8@archive.org',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'jlowndesp8',
+      hasProfileImage: false, isActivated: true, username: 'jlowndesp8',
     },
     {
       id: 'ae16f29a-084d-4eb4-8b8f-e3e0a6a588ff',
@@ -10474,8 +9565,7 @@ async function main() {
       email: 'sriallp9@sina.com.cn',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'sriallp9',
+      hasProfileImage: false, isActivated: true, username: 'sriallp9',
     },
     {
       id: '432a3aaf-dc90-4380-88d9-9cdf9f907877',
@@ -10485,8 +9575,7 @@ async function main() {
       email: 'jburbagepa@over-blog.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'jburbagepa',
+      hasProfileImage: false, isActivated: true, username: 'jburbagepa',
     },
     {
       id: '91b375f4-faf4-4566-9068-9ff5eb859e60',
@@ -10496,8 +9585,7 @@ async function main() {
       email: 'garrighinipb@bloomberg.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'garrighinipb',
+      hasProfileImage: false, isActivated: true, username: 'garrighinipb',
     },
     {
       id: '72cf1940-1f60-4588-bac4-d5487fa74fd4',
@@ -10507,8 +9595,7 @@ async function main() {
       email: 'cfrancescozzipc@comcast.net',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'cfrancescozzipc',
+      hasProfileImage: false, isActivated: true, username: 'cfrancescozzipc',
     },
     {
       id: '33a16747-a4d9-4ff0-9f85-c3136e963667',
@@ -10518,8 +9605,7 @@ async function main() {
       email: 'cdaniellotpd@yolasite.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'cdaniellotpd',
+      hasProfileImage: false, isActivated: true, username: 'cdaniellotpd',
     },
     {
       id: 'f52a49a7-3de7-4c46-9186-a8f705290ef9',
@@ -10529,8 +9615,7 @@ async function main() {
       email: 'mjanjusevicpe@mozilla.org',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'mjanjusevicpe',
+      hasProfileImage: false, isActivated: true, username: 'mjanjusevicpe',
     },
     {
       id: '1f978e50-838d-4ba9-b5a7-69a292db3b1a',
@@ -10540,8 +9625,7 @@ async function main() {
       email: 'ghawkyenspf@meetup.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'ghawkyenspf',
+      hasProfileImage: false, isActivated: true, username: 'ghawkyenspf',
     },
     {
       id: '0702ba76-9a05-419b-aa52-c0fe693cd221',
@@ -10551,8 +9635,7 @@ async function main() {
       email: 'bphetheanpg@indiatimes.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'bphetheanpg',
+      hasProfileImage: false, isActivated: true, username: 'bphetheanpg',
     },
     {
       id: '21c52e0e-c9eb-4157-89e3-7406c7c3cf40',
@@ -10562,8 +9645,7 @@ async function main() {
       email: 'bcarlisleph@reverbnation.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'bcarlisleph',
+      hasProfileImage: false, isActivated: true, username: 'bcarlisleph',
     },
     {
       id: '171ecd7d-ec3c-4f27-a5b2-a11b9255991d',
@@ -10573,8 +9655,7 @@ async function main() {
       email: 'iwalleypi@examiner.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'iwalleypi',
+      hasProfileImage: false, isActivated: true, username: 'iwalleypi',
     },
     {
       id: '08b1cfb4-0e30-4b04-adbe-50468d47ff36',
@@ -10584,8 +9665,7 @@ async function main() {
       email: 'mgamblinpj@europa.eu',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'mgamblinpj',
+      hasProfileImage: false, isActivated: true, username: 'mgamblinpj',
     },
     {
       id: 'a186de10-161d-4efa-9f59-cd1df2b3d235',
@@ -10595,8 +9675,7 @@ async function main() {
       email: 'ajeannequinpk@eventbrite.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'ajeannequinpk',
+      hasProfileImage: false, isActivated: true, username: 'ajeannequinpk',
     },
     {
       id: '86de9efc-2edc-4064-b071-59672db6ecd2',
@@ -10606,8 +9685,7 @@ async function main() {
       email: 'astannettpl@jigsy.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'astannettpl',
+      hasProfileImage: false, isActivated: true, username: 'astannettpl',
     },
     {
       id: '027f77f8-4bfe-4ad0-9514-c8bb2a187bf1',
@@ -10617,8 +9695,7 @@ async function main() {
       email: 'mmarshlandpm@engadget.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'mmarshlandpm',
+      hasProfileImage: false, isActivated: true, username: 'mmarshlandpm',
     },
     {
       id: 'b4df3049-f207-40ea-8e0c-1b6a5e1cc9a3',
@@ -10628,8 +9705,7 @@ async function main() {
       email: 'amollinpn@reuters.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'amollinpn',
+      hasProfileImage: false, isActivated: true, username: 'amollinpn',
     },
     {
       id: '8ea557a2-5ba5-4589-a0ca-4d80281a3415',
@@ -10639,8 +9715,7 @@ async function main() {
       email: 'wrudgepo@youtu.be',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'wrudgepo',
+      hasProfileImage: false, isActivated: true, username: 'wrudgepo',
     },
     {
       id: '0c82110b-3d7a-4c49-8d08-80a9aec344e7',
@@ -10650,8 +9725,7 @@ async function main() {
       email: 'keampp@live.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'keampp',
+      hasProfileImage: false, isActivated: true, username: 'keampp',
     },
     {
       id: '47b88a53-5d67-499f-acf0-5c6f2991d608',
@@ -10661,8 +9735,7 @@ async function main() {
       email: 'dstampferpq@nbcnews.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'dstampferpq',
+      hasProfileImage: false, isActivated: true, username: 'dstampferpq',
     },
     {
       id: '7d5bb5b3-238c-4ba2-8efc-5d90a221930f',
@@ -10672,8 +9745,7 @@ async function main() {
       email: 'ekitcattpr@newsvine.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'ekitcattpr',
+      hasProfileImage: false, isActivated: true, username: 'ekitcattpr',
     },
     {
       id: 'f537d8b7-5599-4613-83a9-360dd53dfc74',
@@ -10683,8 +9755,7 @@ async function main() {
       email: 'gfinniganps@europa.eu',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'gfinniganps',
+      hasProfileImage: false, isActivated: true, username: 'gfinniganps',
     },
     {
       id: 'f029a2c2-048a-4571-afd3-46f199356c96',
@@ -10694,8 +9765,7 @@ async function main() {
       email: 'skohnertpt@com.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'skohnertpt',
+      hasProfileImage: false, isActivated: true, username: 'skohnertpt',
     },
     {
       id: 'b3cad5e1-d5bb-4c26-975a-9a0d8e7795ea',
@@ -10705,8 +9775,7 @@ async function main() {
       email: 'bquirkpu@squidoo.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'bquirkpu',
+      hasProfileImage: false, isActivated: true, username: 'bquirkpu',
     },
     {
       id: '6bbe278e-c555-4d4d-8416-4dd57ee5f6ec',
@@ -10716,8 +9785,7 @@ async function main() {
       email: 'lhumphriespv@cloudflare.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'lhumphriespv',
+      hasProfileImage: false, isActivated: true, username: 'lhumphriespv',
     },
     {
       id: '5995f6fd-d7b8-47fd-99b7-462dac7a2b36',
@@ -10727,8 +9795,7 @@ async function main() {
       email: 'amordenpw@toplist.cz',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'amordenpw',
+      hasProfileImage: false, isActivated: true, username: 'amordenpw',
     },
     {
       id: '3c4a9437-5227-40c8-86b1-50e87a74ab4d',
@@ -10738,8 +9805,7 @@ async function main() {
       email: 'bmatthiaspx@webeden.co.uk',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'bmatthiaspx',
+      hasProfileImage: false, isActivated: true, username: 'bmatthiaspx',
     },
     {
       id: '05e32499-523c-4b8a-9fea-313c28b3a4d0',
@@ -10749,8 +9815,7 @@ async function main() {
       email: 'njerratschpy@amazon.co.uk',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'njerratschpy',
+      hasProfileImage: false, isActivated: true, username: 'njerratschpy',
     },
     {
       id: '3f40f65d-319a-478a-a64e-39726f05d6c6',
@@ -10760,8 +9825,7 @@ async function main() {
       email: 'ndowsettpz@godaddy.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'ndowsettpz',
+      hasProfileImage: false, isActivated: true, username: 'ndowsettpz',
     },
     {
       id: 'ccc3b117-eeeb-4125-9973-0891b64eee99',
@@ -10771,8 +9835,7 @@ async function main() {
       email: 'jmaccolmq0@intel.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'jmaccolmq0',
+      hasProfileImage: false, isActivated: true, username: 'jmaccolmq0',
     },
     {
       id: 'af47c376-9ee8-455d-8ed0-389ad5372fb8',
@@ -10782,8 +9845,7 @@ async function main() {
       email: 'mpoonq1@pbs.org',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'mpoonq1',
+      hasProfileImage: false, isActivated: true, username: 'mpoonq1',
     },
     {
       id: '7dfaacad-431d-4eed-a83a-fa71bf7d9123',
@@ -10793,8 +9855,7 @@ async function main() {
       email: 'mneaversonq2@engadget.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'mneaversonq2',
+      hasProfileImage: false, isActivated: true, username: 'mneaversonq2',
     },
     {
       id: '5840936d-aa76-4f0c-8546-fcfa118e6d16',
@@ -10804,8 +9865,7 @@ async function main() {
       email: 'cdorsayq3@google.com.hk',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'cdorsayq3',
+      hasProfileImage: false, isActivated: true, username: 'cdorsayq3',
     },
     {
       id: '27612843-852a-478e-86bd-c743337dcb8a',
@@ -10815,8 +9875,7 @@ async function main() {
       email: 'xweemsq4@dmoz.org',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'xweemsq4',
+      hasProfileImage: false, isActivated: true, username: 'xweemsq4',
     },
     {
       id: 'ed123dbe-ecc7-49e5-9117-b38fe6f3c4a1',
@@ -10826,8 +9885,7 @@ async function main() {
       email: 'jollerenshawq5@foxnews.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'jollerenshawq5',
+      hasProfileImage: false, isActivated: true, username: 'jollerenshawq5',
     },
     {
       id: '512b31c2-b9f9-48cf-a82d-79cf419d66a8',
@@ -10837,8 +9895,7 @@ async function main() {
       email: 'kcopestickq6@mlb.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'kcopestickq6',
+      hasProfileImage: false, isActivated: true, username: 'kcopestickq6',
     },
     {
       id: 'ad650550-920c-456d-9a8b-4eae501c7e3f',
@@ -10848,8 +9905,7 @@ async function main() {
       email: 'cabramovq7@arstechnica.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'cabramovq7',
+      hasProfileImage: false, isActivated: true, username: 'cabramovq7',
     },
     {
       id: 'a45e5d71-0005-4f50-9566-31cda1fec971',
@@ -10859,8 +9915,7 @@ async function main() {
       email: 'mblevinq8@aol.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'mblevinq8',
+      hasProfileImage: false, isActivated: true, username: 'mblevinq8',
     },
     {
       id: '74dd3e4f-2afd-4263-9fa4-411cffcb100d',
@@ -10870,8 +9925,7 @@ async function main() {
       email: 'mfostenq9@alibaba.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'mfostenq9',
+      hasProfileImage: false, isActivated: true, username: 'mfostenq9',
     },
     {
       id: 'daeebca6-1482-4459-80b2-db93efa1a3e3',
@@ -10881,8 +9935,7 @@ async function main() {
       email: 'mfooksqa@e-recht24.de',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'mfooksqa',
+      hasProfileImage: false, isActivated: true, username: 'mfooksqa',
     },
     {
       id: '5e63ea65-65a0-4f75-83a2-de6282d3917b',
@@ -10892,8 +9945,7 @@ async function main() {
       email: 'nwilboreqb@so-net.ne.jp',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'nwilboreqb',
+      hasProfileImage: false, isActivated: true, username: 'nwilboreqb',
     },
     {
       id: 'd51af89c-ed77-4bd5-869e-7ae3f9e3f033',
@@ -10903,8 +9955,7 @@ async function main() {
       email: 'mspancockqc@skype.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'mspancockqc',
+      hasProfileImage: false, isActivated: true, username: 'mspancockqc',
     },
     {
       id: '93d16217-ce5c-48f8-90ac-93cfc0536d86',
@@ -10914,8 +9965,7 @@ async function main() {
       email: 'arumbleqd@wikimedia.org',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'arumbleqd',
+      hasProfileImage: false, isActivated: true, username: 'arumbleqd',
     },
     {
       id: '37783838-d464-440f-add5-cdae6bb50710',
@@ -10925,8 +9975,7 @@ async function main() {
       email: 'mbecerilqe@rambler.ru',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'mbecerilqe',
+      hasProfileImage: false, isActivated: true, username: 'mbecerilqe',
     },
     {
       id: '30bf2285-bd00-41e4-88c2-92766d16ccdb',
@@ -10936,8 +9985,7 @@ async function main() {
       email: 'wsenechaultqf@weebly.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'wsenechaultqf',
+      hasProfileImage: false, isActivated: true, username: 'wsenechaultqf',
     },
     {
       id: 'cfa7e258-eef4-4f5a-968f-b3f2d1f02d84',
@@ -10947,8 +9995,7 @@ async function main() {
       email: 'zgobyqg@sitemeter.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'zgobyqg',
+      hasProfileImage: false, isActivated: true, username: 'zgobyqg',
     },
     {
       id: 'a6b7cc83-9bb3-4f4b-b776-c43801d79f65',
@@ -10958,8 +10005,7 @@ async function main() {
       email: 'nmooreqh@g.co',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'nmooreqh',
+      hasProfileImage: false, isActivated: true, username: 'nmooreqh',
     },
     {
       id: '6566efee-b391-4407-ad83-614a00c653b2',
@@ -10969,8 +10015,7 @@ async function main() {
       email: 'aloundqi@reference.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'aloundqi',
+      hasProfileImage: false, isActivated: true, username: 'aloundqi',
     },
     {
       id: '6bf22b55-b3cc-4835-9c96-ad285b994e06',
@@ -10980,8 +10025,7 @@ async function main() {
       email: 'htomblingqj@reverbnation.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'htomblingqj',
+      hasProfileImage: false, isActivated: true, username: 'htomblingqj',
     },
     {
       id: '79424543-cf31-4574-b6a5-5dd847e0ae2d',
@@ -10991,8 +10035,7 @@ async function main() {
       email: 'elaurandqk@cbsnews.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'elaurandqk',
+      hasProfileImage: false, isActivated: true, username: 'elaurandqk',
     },
     {
       id: 'b92409ee-bfb3-470a-8bbe-fb9f77719de5',
@@ -11002,8 +10045,7 @@ async function main() {
       email: 'eemerql@delicious.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'eemerql',
+      hasProfileImage: false, isActivated: true, username: 'eemerql',
     },
     {
       id: '6af5904e-6f34-4a8a-b697-c391ca550f4a',
@@ -11013,8 +10055,7 @@ async function main() {
       email: 'kgasquoineqm@hatena.ne.jp',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'kgasquoineqm',
+      hasProfileImage: false, isActivated: true, username: 'kgasquoineqm',
     },
     {
       id: 'dd1c4599-4555-4a39-a085-251cbd95bbc2',
@@ -11024,8 +10065,7 @@ async function main() {
       email: 'aweldenqn@behance.net',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'aweldenqn',
+      hasProfileImage: false, isActivated: true, username: 'aweldenqn',
     },
     {
       id: '43e21402-6cef-4446-8543-ce9899f0e9a2',
@@ -11035,8 +10075,7 @@ async function main() {
       email: 'hcostardqo@java.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'hcostardqo',
+      hasProfileImage: false, isActivated: true, username: 'hcostardqo',
     },
     {
       id: '08396d98-707c-4d79-aa41-3ed5210c6340',
@@ -11046,8 +10085,7 @@ async function main() {
       email: 'htooherqp@google.co.jp',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'htooherqp',
+      hasProfileImage: false, isActivated: true, username: 'htooherqp',
     },
     {
       id: 'eda68cdc-220c-4e06-8ab3-d2efe4acd9c2',
@@ -11057,8 +10095,7 @@ async function main() {
       email: 'ftorbeckqq@furl.net',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'ftorbeckqq',
+      hasProfileImage: false, isActivated: true, username: 'ftorbeckqq',
     },
     {
       id: '754ca881-03a9-44d0-a92d-fd98f7a7b74d',
@@ -11068,8 +10105,7 @@ async function main() {
       email: 'tparkhouseqr@wiley.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'tparkhouseqr',
+      hasProfileImage: false, isActivated: true, username: 'tparkhouseqr',
     },
     {
       id: '9dae9bcd-5c73-43c2-97d0-c3ef80e2055b',
@@ -11079,8 +10115,7 @@ async function main() {
       email: 'cfudgeqs@princeton.edu',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'cfudgeqs',
+      hasProfileImage: false, isActivated: true, username: 'cfudgeqs',
     },
     {
       id: '73a57c49-ebda-4df3-83a5-52f33d3524d3',
@@ -11090,8 +10125,7 @@ async function main() {
       email: 'twyerqt@theguardian.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'twyerqt',
+      hasProfileImage: false, isActivated: true, username: 'twyerqt',
     },
     {
       id: 'db659348-af77-4a04-b827-68d533f7e93e',
@@ -11101,8 +10135,7 @@ async function main() {
       email: 'bmckeurtonqu@nbcnews.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'bmckeurtonqu',
+      hasProfileImage: false, isActivated: true, username: 'bmckeurtonqu',
     },
     {
       id: 'b63321f0-d538-47bc-b550-99dc6555015d',
@@ -11112,8 +10145,7 @@ async function main() {
       email: 'aralestoneqv@nsw.gov.au',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'aralestoneqv',
+      hasProfileImage: false, isActivated: true, username: 'aralestoneqv',
     },
     {
       id: 'b872737b-b33d-4664-a837-0a842954504b',
@@ -11123,8 +10155,7 @@ async function main() {
       email: 'brailtonqw@buzzfeed.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'brailtonqw',
+      hasProfileImage: false, isActivated: true, username: 'brailtonqw',
     },
     {
       id: '01aff5b9-29f4-4bef-96ed-758bc72803dd',
@@ -11134,8 +10165,7 @@ async function main() {
       email: 'mroscampqx@squidoo.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'mroscampqx',
+      hasProfileImage: false, isActivated: true, username: 'mroscampqx',
     },
     {
       id: '63c2b036-a84d-4ae6-9ea0-00f3570256ae',
@@ -11145,8 +10175,7 @@ async function main() {
       email: 'bfaroqy@businessinsider.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'bfaroqy',
+      hasProfileImage: false, isActivated: true, username: 'bfaroqy',
     },
     {
       id: '3100b405-2d3c-4611-b2c4-981d6a3df68d',
@@ -11156,8 +10185,7 @@ async function main() {
       email: 'vtealeqz@theguardian.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'vtealeqz',
+      hasProfileImage: false, isActivated: true, username: 'vtealeqz',
     },
     {
       id: 'f0a7fa98-b51f-469e-9c57-633a4759a98d',
@@ -11167,8 +10195,7 @@ async function main() {
       email: 'ckillikr0@bloomberg.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'ckillikr0',
+      hasProfileImage: false, isActivated: true, username: 'ckillikr0',
     },
     {
       id: '35239ac4-908b-458c-94ea-3fbb50a9d9b2',
@@ -11178,8 +10205,7 @@ async function main() {
       email: 'ldobbisonr1@prnewswire.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'ldobbisonr1',
+      hasProfileImage: false, isActivated: true, username: 'ldobbisonr1',
     },
     {
       id: 'ccde9988-a03e-4fea-b7e2-1b37193f83f5',
@@ -11189,8 +10215,7 @@ async function main() {
       email: 'shellyerr2@baidu.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'shellyerr2',
+      hasProfileImage: false, isActivated: true, username: 'shellyerr2',
     },
     {
       id: 'a713327e-c4f9-4537-bc3d-bff08aeb08bc',
@@ -11200,8 +10225,7 @@ async function main() {
       email: 'sstoker3@angelfire.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'sstoker3',
+      hasProfileImage: false, isActivated: true, username: 'sstoker3',
     },
     {
       id: '58418219-8157-489c-ad3f-6634f972b039',
@@ -11211,8 +10235,7 @@ async function main() {
       email: 'epacquetr4@cmu.edu',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'epacquetr4',
+      hasProfileImage: false, isActivated: true, username: 'epacquetr4',
     },
     {
       id: '61ad2679-b6d2-469e-bd6b-4d492eb9816a',
@@ -11222,8 +10245,7 @@ async function main() {
       email: 'rkayner5@soundcloud.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'rkayner5',
+      hasProfileImage: false, isActivated: true, username: 'rkayner5',
     },
     {
       id: '63b18677-4b21-4425-af3c-cbc263eb300a',
@@ -11233,8 +10255,7 @@ async function main() {
       email: 'jvennerr6@imageshack.us',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'jvennerr6',
+      hasProfileImage: false, isActivated: true, username: 'jvennerr6',
     },
     {
       id: '8a7a4e2a-ecc2-4ce0-b0f0-e978e53321ae',
@@ -11244,8 +10265,7 @@ async function main() {
       email: 'mskillr7@deliciousdays.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'mskillr7',
+      hasProfileImage: false, isActivated: true, username: 'mskillr7',
     },
     {
       id: 'de97a8e8-d6cc-4899-9c3a-9e21807a9032',
@@ -11255,8 +10275,7 @@ async function main() {
       email: 'dgodsilr8@accuweather.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'dgodsilr8',
+      hasProfileImage: false, isActivated: true, username: 'dgodsilr8',
     },
     {
       id: '566097d2-8709-4bf4-b97e-30b16d149603',
@@ -11266,8 +10285,7 @@ async function main() {
       email: 'kthysr9@narod.ru',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'kthysr9',
+      hasProfileImage: false, isActivated: true, username: 'kthysr9',
     },
     {
       id: '52f409b4-9f51-4c4a-901f-38392aaa5cef',
@@ -11277,8 +10295,7 @@ async function main() {
       email: 'nhugillra@nba.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'nhugillra',
+      hasProfileImage: false, isActivated: true, username: 'nhugillra',
     },
     {
       id: 'f12a66a2-d2cf-4c6b-ac64-4b4e78b416ff',
@@ -11288,8 +10305,7 @@ async function main() {
       email: 'bmacgiffinrb@nydailynews.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'bmacgiffinrb',
+      hasProfileImage: false, isActivated: true, username: 'bmacgiffinrb',
     },
     {
       id: '90423083-3967-4efc-ac16-7aa59a46cd6f',
@@ -11299,8 +10315,7 @@ async function main() {
       email: 'gblaslrc@de.vu',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'gblaslrc',
+      hasProfileImage: false, isActivated: true, username: 'gblaslrc',
     },
     {
       id: '9438d815-5561-4984-bf38-78aae8104f1c',
@@ -11310,8 +10325,7 @@ async function main() {
       email: 'givashnikovrd@networksolutions.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'givashnikovrd',
+      hasProfileImage: false, isActivated: true, username: 'givashnikovrd',
     },
     {
       id: '6c2a4a9f-d403-432c-b00a-897dbbca11a2',
@@ -11321,8 +10335,7 @@ async function main() {
       email: 'dburtonre@jiathis.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'dburtonre',
+      hasProfileImage: false, isActivated: true, username: 'dburtonre',
     },
     {
       id: 'c0d61b58-fad3-42bc-a13b-4cd6c47a1f29',
@@ -11332,8 +10345,7 @@ async function main() {
       email: 'rkibbyerf@meetup.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'rkibbyerf',
+      hasProfileImage: false, isActivated: true, username: 'rkibbyerf',
     },
     {
       id: 'bbb3c966-3f48-4c9f-8a8d-f8f885e43a26',
@@ -11343,8 +10355,7 @@ async function main() {
       email: 'bwinterbornerg@blogtalkradio.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'bwinterbornerg',
+      hasProfileImage: false, isActivated: true, username: 'bwinterbornerg',
     },
     {
       id: 'dada3db5-6c24-4149-b84d-b3bbc3657e27',
@@ -11354,8 +10365,7 @@ async function main() {
       email: 'snasebyrh@cargocollective.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'snasebyrh',
+      hasProfileImage: false, isActivated: true, username: 'snasebyrh',
     },
     {
       id: 'e213077a-1ecb-4417-94cf-bf9f9391182d',
@@ -11365,8 +10375,7 @@ async function main() {
       email: 'mdochertyri@mapquest.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'mdochertyri',
+      hasProfileImage: false, isActivated: true, username: 'mdochertyri',
     },
     {
       id: 'edcdf1d0-c519-4110-b75b-576602246c59',
@@ -11376,8 +10385,7 @@ async function main() {
       email: 'dgoldenofirelandrj@upenn.edu',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'dgoldenofirelandrj',
+      hasProfileImage: false, isActivated: true, username: 'dgoldenofirelandrj',
     },
     {
       id: '866103f7-0d1d-4341-97aa-652c240dc284',
@@ -11387,8 +10395,7 @@ async function main() {
       email: 'dwillcotrk@plala.or.jp',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'dwillcotrk',
+      hasProfileImage: false, isActivated: true, username: 'dwillcotrk',
     },
     {
       id: '62bd49ee-e0c6-4579-a89e-4fa987bbcf5c',
@@ -11398,8 +10405,7 @@ async function main() {
       email: 'abaughnrl@dell.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'abaughnrl',
+      hasProfileImage: false, isActivated: true, username: 'abaughnrl',
     },
     {
       id: 'fb947713-99cd-4ed5-b632-67b0fa9223b6',
@@ -11409,8 +10415,7 @@ async function main() {
       email: 'csetteringtonrm@hp.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'csetteringtonrm',
+      hasProfileImage: false, isActivated: true, username: 'csetteringtonrm',
     },
     {
       id: '51404b51-4246-42aa-9583-9ac1e13a15c9',
@@ -11420,8 +10425,7 @@ async function main() {
       email: 'qnisslern@indiegogo.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.SUPER,
-      hasProfileImage: false,
-      username: 'qnisslern',
+      hasProfileImage: false, isActivated: true, username: 'qnisslern',
     },
     {
       id: '493841d1-0cec-495f-ab2c-7178e835ff2e',
@@ -11431,8 +10435,7 @@ async function main() {
       email: 'ekaesmakersro@nytimes.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'ekaesmakersro',
+      hasProfileImage: false, isActivated: true, username: 'ekaesmakersro',
     },
     {
       id: '9d4aa5ff-8bb6-4180-a06b-c893dad8d889',
@@ -11442,8 +10445,7 @@ async function main() {
       email: 'skondrachenkorp@answers.com',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.ADMIN,
-      hasProfileImage: false,
-      username: 'skondrachenkorp',
+      hasProfileImage: false, isActivated: true, username: 'skondrachenkorp',
     },
     {
       id: '104b573a-fe70-4eb5-8b32-bc5dc30ed074',
@@ -11453,8 +10455,7 @@ async function main() {
       email: 'nsutchrq@flavors.me',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'nsutchrq',
+      hasProfileImage: false, isActivated: true, username: 'nsutchrq',
     },
     {
       id: '1df6aa63-116a-4c38-a969-67b8d163c072',
@@ -11464,8 +10465,7 @@ async function main() {
       email: 'rcoaserr@yahoo.co.jp',
       password: '$2b$10$CutRMiXkfxSOsw4hibuRLe5ZO32nixfcZTeJxG00a78mmb35j4PGG',
       role: Role.USER,
-      hasProfileImage: false,
-      username: 'rcoaserr',
+      hasProfileImage: false, isActivated: true, username: 'rcoaserr',
     },
   ];
   
