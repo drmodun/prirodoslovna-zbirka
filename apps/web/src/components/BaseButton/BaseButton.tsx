@@ -14,6 +14,7 @@ export type BaseButtonPros = {
 
 export const BaseButton = ({
   text,
+  onClick,
   initColor = ButtonColor.GREEN,
   isNotSubmit,
   className,
@@ -22,6 +23,7 @@ export const BaseButton = ({
     <button
       type={isNotSubmit ? "button" : "submit"}
       className={clsx(classes.button, classes[initColor], className)}
+      onClick={onClick}
     >
       {text}
     </button>

@@ -2,6 +2,7 @@ import c from "./page.module.scss";
 import PlantPicture from "../assets/images/landing-plant.png";
 import Image from "next/image";
 import BaseButton from "components/BaseButton";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -13,7 +14,9 @@ export default function Home() {
             Jednostavno prikažite sadržaj prirodoslovne zbirke vaše ustanove u
             samo nekoliko klikova!
           </p>
-          <BaseButton className={c.button} text="Prijavite se" />
+          <Link href="/login">
+            <BaseButton className={c.button} text="Prijavi se" />
+          </Link>
         </div>
         <Image className={c.plantImage} src={PlantPicture} alt="plant" />
       </section>
