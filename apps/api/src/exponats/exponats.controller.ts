@@ -132,6 +132,7 @@ export class ExponatsController {
         thumbnail: post.thumbnailImage,
         hasProfilePicture: post.author.hasProfileImage,
         updatedAt: post.updatedAt,
+        organisationId: item.organisationId,
         likeScore: post._count.Likes,
         title: post.title,
       } as PostResponse;

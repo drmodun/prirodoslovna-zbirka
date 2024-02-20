@@ -66,6 +66,7 @@ export const UserPageBody = ({ user }: UserPageBodyProps) => {
           {
             <CardCollection
               items={user.posts}
+              isUser={true}
               sortBy={[
                 { label: "Abecedno", value: "title" },
                 { label: "Datum Objave", value: "updatedAt" },

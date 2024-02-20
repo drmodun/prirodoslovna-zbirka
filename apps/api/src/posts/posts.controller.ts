@@ -95,6 +95,7 @@ export class PostsController {
         thumbnail: post.thumbnailImage,
         likeScore: post._count.Likes,
         title: post.title,
+        organisationId: post.Exponat.organisationId,
       } as PostResponse;
     });
 
@@ -122,6 +123,7 @@ export class PostsController {
       content: post.text,
       image: post.image,
       updatedAt: post.updatedAt,
+      organisationId: post.Exponat.organisationId,
       thumbnail: post.thumbnailImage,
     } as PostResponseExtended;
   }
@@ -216,6 +218,8 @@ export class PostsController {
         authorName: post.author.username,
         exponatId: post.ExponatId,
         exponatName: post.Exponat.name,
+        organisationId: post.Exponat.organisationId,
+        updatedAt: post.updatedAt,
         id: post.id,
         thumbnail: post.thumbnailImage,
         likeScore: post._count.Likes,
@@ -254,6 +258,7 @@ export class PostsController {
         id: post.id,
         thumbnail: post.thumbnailImage,
         likeScore: post._count.Likes,
+        organisationId: post.Exponat.organisationId,
         title: post.title,
         hasProfilePicture: post.author.hasProfileImage,
         updatedAt: post.updatedAt,

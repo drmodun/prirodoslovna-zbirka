@@ -205,6 +205,7 @@ export class OrganisationsController {
             title: post.title,
             id: post.id,
             updatedAt: post.updatedAt,
+            organisationId: item.id,
             likeScore: post._count.Likes,
           } as PostResponse;
         }) as PostResponse[],

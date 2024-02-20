@@ -4,17 +4,18 @@
 .container {
   position: absolute;
   top: vw-calc(10);
-  right: vw-calc(10);
-  flex-direction: column;
+  right: vw-calc(70);
+  flex-direction: row;
   gap: vw-calc(10);
   border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 2;
 
   @media screen and (max-width: 768px) {
     top: vw-mobile-calc(5);
-    right: vw-mobile-calc(5);
+    right: vw-mobile-calc(25);
   }
 
   .removalButton {
@@ -81,7 +82,7 @@
 
     &:hover {
       cursor: pointer;
-      background-color: $secondary;
+      background-color: $stroke-color;
     }
   }
 }

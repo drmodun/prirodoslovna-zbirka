@@ -6,6 +6,7 @@ export interface PostResponse {
   likeScore: number;
   exponatId: string;
   exponatName: string;
+  organisationId: string;
   updatedAt: Date;
   thumbnail: string;
   hasProfilePicture?: boolean;
@@ -28,6 +29,7 @@ export interface PostResponseExtended {
   likeScore: number;
   exponatId: string;
   exponatName: string;
+  organisationId: string;
   updatedAt: Date;
   content: string;
   authorFullName: string;
