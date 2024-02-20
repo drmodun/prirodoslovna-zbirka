@@ -27,7 +27,7 @@ export default function Home() {
           <h2>Pregledaj eksponate</h2>
           <p>Pogledaj sadržaj prirodoslovnih zbirki svih organizacija.</p>
           <Link href="/login">
-            <BaseButton className={c.button} text="Prijavi se" />
+            <BaseButton className={c.button} text="Pregledaj" />
           </Link>
         </div>
         <Image className={c.plantImage} src={ExponatGroupPicture} alt="plant" />
