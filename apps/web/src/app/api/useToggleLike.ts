@@ -8,9 +8,15 @@ export const useToggleLike = () => {
   return useMutation(toggleLike, {
     onError: (error) => {
       if (error === "Unauthorized") {
-        toast.error("You must be logged in to like a post");
+        toast.error("You must be logged in to like a post", {
+          icon: "🔒",
+          id: "unauthorized",
+        });
       } else {
-        toast.error("An error occurred, please try again later");
+        toast.error("An error occurred, please try again later", {
+          icon: "🚨",
+          id: "error",
+        });
       }
     },
   });
