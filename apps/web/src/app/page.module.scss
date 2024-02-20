@@ -1,15 +1,35 @@
 @import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Lexend:wght@100..900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Commissioner:wght@100..900&family=Instrument+Serif:ital@0;1&family=Lexend:wght@100..900&display=swap");
 
-.headerHero {
-  width: 1100px;
+.landingSection {
   height: 100vh;
   color: black;
   margin: 0 auto;
 
   display: flex;
   justify-content: space-between;
-  padding-top: 130px;
+  padding: 100px 200px 0;
+
+  &:nth-of-type(2) {
+    color: white;
+    background-color: #039300;
+    flex-direction: row-reverse;
+
+    .content {
+      align-items: flex-end;
+      text-align: right;
+
+      .button {
+        background-color: white;
+        color: #039300;
+      }
+    }
+
+    .plantImage {
+      width: 40%;
+      height: 80%;
+    }
+  }
 
   .content {
     display: flex;
@@ -29,7 +49,7 @@
       line-height: 150%;
       margin-bottom: 70px;
       width: 80%;
-      color: rgba(0, 0, 0, 0.5);
+      opacity: 0.5;
     }
 
     .button {
