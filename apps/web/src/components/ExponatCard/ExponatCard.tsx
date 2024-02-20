@@ -7,18 +7,27 @@ import clsx from "clsx";
 import { stringCapitaliser } from "@/utility/static/stringCapitaliser";
 import { FavouriteButton } from "components/FavouriteButton/FavouriteButton";
 import { UserWrapper } from "@/utility/wrappers/userWrapper";
+import RemoveExponatButton from "components/RemoveExponatButton";
+import { QueryClientWrapper } from "@/utility/wrappers/queryWrapper";
 
 export interface ExponatCardProps {
   exponat: ExponatResponseShort;
+  isAdmin?: boolean;
+  isUser?: boolean;
 }
 
 //TODO: funcionality of like to be added after backend implementation and user context
 
-export const ExponatCard = ({ exponat }: ExponatCardProps) => (
+export const ExponatCard = ({ exponat, isUser, isAdmin }: ExponatCardProps) => (
   <div className={classes.container}>
     <div className={classes.image}>
       <Image src={exponat.mainImage} alt={exponat.name} layout="fill" />
     </div>
+    {isUser || isAdmin ? (
+      <QueryClientWrapper>
+        <RemoveExponatButton exponatId={exponat.id} />
+      </QueryClientWrapper>
+    ) : null}
     <Link
       href={`/organisation/${exponat.organizationId}`}
       className={classes.organisation}

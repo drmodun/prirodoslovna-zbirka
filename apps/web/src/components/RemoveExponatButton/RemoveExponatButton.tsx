@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { useRemoveExponat } from "@/api/useRemoveExponat";
 import classes from "./RemoveExponatButton.module.css";
 import remove from "assets/images/remove.svg";
@@ -9,12 +9,10 @@ import useUser from "@/utility/context/UserContext";
 
 export interface RemoveExponatButtonProps {
   exponatId: string;
-  onSuccess?: () => void;
 }
 
 export const RemoveExponatButton: React.FC<RemoveExponatButtonProps> = ({
   exponatId,
-  onSuccess,
 }) => {
   const { mutate, isSuccess } = useRemoveExponat();
   const { favouriteExponats, updateFavourites } = useUser();
@@ -36,8 +34,8 @@ export const RemoveExponatButton: React.FC<RemoveExponatButtonProps> = ({
   };
 
   useEffect(() => {
-    if (isSuccess && onSuccess) {
-      onSuccess();
+    if (isSuccess) {
+      window.location.reload(); //TODO: possibly change the solution later
     }
   }, [isSuccess]);
 
