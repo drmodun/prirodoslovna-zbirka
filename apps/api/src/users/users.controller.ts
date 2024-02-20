@@ -146,6 +146,7 @@ export class UsersController {
           title: post.title,
           exponatId: post.Exponat.id,
           exponatName: post.Exponat.name,
+          organisationId: post.Exponat.organisationId,
         };
       });
 
@@ -153,6 +154,7 @@ export class UsersController {
         return {
           authorId: like.Post.author.id,
           authorName: like.Post.author.username,
+          organisationId: like.Post.Exponat.organisationId,
           id: like.Post.id,
           thumbnail: like.Post.thumbnailImage,
           likeScore: like.Post._count.Likes,

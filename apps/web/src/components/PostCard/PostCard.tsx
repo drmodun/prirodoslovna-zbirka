@@ -8,16 +8,21 @@ import likeLeaf from "assets/images/like-leaf.svg";
 import Link from "next/link";
 import { UserWrapper } from "@/utility/wrappers/userWrapper";
 import LikeButton from "components/LikeButton";
+import { RemovePostButton } from "components/RemovePostButton/RemovePostButton";
+import { Query } from "react-query";
+import { QueryClientWrapper } from "@/utility/wrappers/queryWrapper";
 
 export interface PostCardProps {
   post: PostResponse;
+  isAdmin?: boolean;
+  isUser?: boolean;
 }
 
 //will a post have one or more pictures?
 //TODO: add functionality of like after backend implementation and user context
 //Also a like count somewhere is needed
 
-export const PostCard = ({ post }: PostCardProps) => (
+export const PostCard = ({ post, isUser, isAdmin }: PostCardProps) => (
   <div className={classes.container}>
     <div className={classes.upper}>
       <UserWrapper>
@@ -27,6 +32,11 @@ export const PostCard = ({ post }: PostCardProps) => (
         <Image src={post.thumbnail} alt={post.title} layout="fill" />
       </div>
     </div>
+    {(isUser || isAdmin) && (
+      <QueryClientWrapper>
+        <RemovePostButton postId={post.id} />
+      </QueryClientWrapper>
+    )}
     <div className={classes.content}>
       <span className={classes.date}>{dateShortener(post.updatedAt)}</span>
       <span className={classes.title}>{post.title}</span>

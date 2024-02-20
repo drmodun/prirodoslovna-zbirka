@@ -2,10 +2,12 @@
 import { useRemoveExponat } from "@/api/useRemoveExponat";
 import classes from "./RemoveExponatButton.module.scss";
 import remove from "assets/images/remove.svg";
+import edit from "assets/images/edit.svg";
 import Image from "next/image";
 import { useEffect } from "react";
 import { ExponatResponseShort } from "@biosfera/types";
 import useUser from "@/utility/context/UserContext";
+import Link from "next/link";
 
 export interface RemoveExponatButtonProps {
   exponatId: string;
@@ -48,6 +50,9 @@ export const RemoveExponatButton: React.FC<RemoveExponatButtonProps> = ({
       >
         <Image title="Makni eksponat" src={remove} alt="Makni eksponat" />
       </button>
+      <Link href={`/post/${exponatId}/edit`} className={classes.edit}>
+        <Image src={edit} alt="edit" />
+      </Link>
     </div>
   );
 };

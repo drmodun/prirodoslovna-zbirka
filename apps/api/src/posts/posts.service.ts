@@ -55,6 +55,7 @@ export class PostsService {
         Exponat: {
           select: {
             name: true,
+            organisationId: true,
           },
         },
         _count: {
@@ -120,6 +121,7 @@ export class PostsService {
         Exponat: {
           select: {
             name: true,
+            organisationId: true,
           },
         },
         _count: {
@@ -177,6 +179,7 @@ export class PostsService {
         Exponat: {
           select: {
             name: true,
+            organisationId: true,
           },
         },
         _count: {

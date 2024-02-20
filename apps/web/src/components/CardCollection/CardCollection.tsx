@@ -35,8 +35,6 @@ export interface CardCollectionProps {
   type: "exponat" | "post" | "user" | "organisation";
   sortBy: SortOption[];
   pageSize?: number;
-  isAdmin?: boolean;
-  isUser?: boolean;
 }
 
 export const CardCollection: React.FC<CardCollectionProps> = ({
@@ -98,6 +96,10 @@ export const CardCollection: React.FC<CardCollectionProps> = ({
     return authorId === user?.id;
   };
 
+  const checkIsAdminForPost = (organisationId: string) => {
+    return user?.role === "super" || checkAdminMembership(organisationId);
+  };
+
   return items.length > 0 ? (
     <div className={classes.container}>
       <div className={classes.sortSelect}>
@@ -154,7 +156,16 @@ export const CardCollection: React.FC<CardCollectionProps> = ({
                   />
                 );
               case "post":
-                return <PostCard key={index} post={item as PostResponse} />;
+                return (
+                  <PostCard
+                    key={index}
+                    post={item as PostResponse}
+                    isAdmin={checkIsAdminForPost(
+                      (item as PostResponse).organisationId
+                    )}
+                    isUser={checkIsAuthor((item as PostResponse).authorId)}
+                  />
+                );
               case "user":
                 item = item as ShortUserResponse;
                 return (
