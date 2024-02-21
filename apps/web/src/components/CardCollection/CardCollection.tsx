@@ -57,7 +57,12 @@ export const CardCollection: React.FC<CardCollectionProps> = ({
   const [isDescending, setIsDescending] = useState<boolean>(false);
   const [amount, setAmount] = useState<number>(pageSize || 20);
   const { memberships, user } = useUser();
+  const [itemsToShow, setItemsToShow] = useState<Indexable[]>(items);
   const list = useRef<HTMLDivElement>(null);
+
+  const handleDelete = (id: string) => {
+    setItemsToShow((prev) => prev.filter((item) => item.id !== id));
+  };
 
   const handleScroll = async () => {
     if (amount < items.length) {
@@ -68,6 +73,10 @@ export const CardCollection: React.FC<CardCollectionProps> = ({
   useEffect(() => {
     setSortByValue(sortBy[0].value);
   }, []);
+
+  useEffect(() => {
+    setItemsToShow(items);
+  }, [items]);
 
   useEffect(() => {
     setAmount(pageSize || 20);
@@ -110,7 +119,7 @@ export const CardCollection: React.FC<CardCollectionProps> = ({
     return user?.role === "super" || checkAdminMembership(organisationId);
   };
 
-  return items.length > 0 ? (
+  return itemsToShow.length > 0 ? (
     <div className={classes.container}>
       <div className={classes.sortSelect}>
         <div className={classes.section}>
@@ -144,7 +153,7 @@ export const CardCollection: React.FC<CardCollectionProps> = ({
         </div>
       </div>
       <div className={classes.cardContainer}>
-        {items
+        {itemsToShow
           .toSorted((a, b) => {
             const first = isDescending ? b : a;
             const second = isDescending ? a : b;

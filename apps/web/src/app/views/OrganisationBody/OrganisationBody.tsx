@@ -5,13 +5,9 @@ import classes from "./OrganisationBody.module.scss";
 import { useState } from "react";
 import Tabs from "components/Tabs";
 import OrganisationHero from "components/OrganisationHero";
-import { DomainButton } from "components/DomainButton";
-import placeholder from "assets/images/lion.svg";
 import OrganisationExponatsView from "../OrganisationExponatsView";
 import OrganisationHomepage from "../OrganisationHomepage";
 import OrganisationAbout from "../OrganisationAbout";
-import MembershipCard from "components/MembershipCard";
-import { memberWeight } from "components/MembershipCard/MembershipCard";
 import CardCollection from "components/CardCollection";
 export interface OrganisationBodyProps {
   organisation: ExtendedOrganisationResponse;
