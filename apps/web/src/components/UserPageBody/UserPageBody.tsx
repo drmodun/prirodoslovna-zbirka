@@ -10,6 +10,7 @@ import { PostCard } from "components/PostCard";
 import MembershipCard from "components/MembershipCard";
 import { memberWeight } from "components/MembershipCard/MembershipCard";
 import CardCollection from "components/CardCollection";
+import { UserWrapper } from "@/utility/wrappers/userWrapper";
 
 const tabs = ["About", "Posts", "Likes", "Favourites", "Organisations"];
 
@@ -25,90 +26,92 @@ export const UserPageBody = ({ user }: UserPageBodyProps) => {
   };
 
   return (
-    <div className={classes.container}>
-      <Tabs
-        activeTab={activeTab}
-        onSelect={handleSelectTab}
-        tabs={tabs}
-        key={"tabRow"}
-      />
-      {activeTab === "About" && (
-        <div className={classes.tabContent}>
-          {
-            <UserDescription
-              bio={user.bio || "Nema opisa korisnika"}
-              county={user.location}
-              lastUpdated={user.updatedAt}
-            />
-          }
-        </div>
-      )}
+    <UserWrapper>
+      <div className={classes.container}>
+        <Tabs
+          activeTab={activeTab}
+          onSelect={handleSelectTab}
+          tabs={tabs}
+          key={"tabRow"}
+        />
+        {activeTab === "About" && (
+          <div className={classes.tabContent}>
+            {
+              <UserDescription
+                bio={user.bio || "Nema opisa korisnika"}
+                county={user.location}
+                lastUpdated={user.updatedAt}
+              />
+            }
+          </div>
+        )}
 
-      {activeTab === "Favourites" && (
-        <div className={classes.tabContent}>
-          {
-            <CardCollection
-              items={user.favouriteExponats}
-              sortBy={[
-                { label: "Abecedno", value: "title" },
-                { label: "Znanstveno ime", value: "alternateName" },
-                { label: "Datum Objave", value: "updatedAt" },
-                { label: "Broj Favorita", value: "Favourite Count" },
-              ]}
-              type="exponat"
-            />
-          }
-        </div>
-      )}
+        {activeTab === "Favourites" && (
+          <div className={classes.tabContent}>
+            {
+              <CardCollection
+                items={user.favouriteExponats}
+                sortBy={[
+                  { label: "Abecedno", value: "title" },
+                  { label: "Znanstveno ime", value: "alternateName" },
+                  { label: "Datum Objave", value: "updatedAt" },
+                  { label: "Broj Favorita", value: "Favourite Count" },
+                ]}
+                type="exponat"
+              />
+            }
+          </div>
+        )}
 
-      {activeTab === "Posts" && (
-        <div className={classes.tabContent}>
-          {
-            <CardCollection
-              items={user.posts}
-              sortBy={[
-                { label: "Abecedno", value: "title" },
-                { label: "Datum Objave", value: "updatedAt" },
-                { label: "Likeovi", value: "likeScore" },
-              ]}
-              type="post"
-            />
-          }
-        </div>
-      )}
+        {activeTab === "Posts" && (
+          <div className={classes.tabContent}>
+            {
+              <CardCollection
+                items={user.posts}
+                sortBy={[
+                  { label: "Abecedno", value: "title" },
+                  { label: "Datum Objave", value: "updatedAt" },
+                  { label: "Likeovi", value: "likeScore" },
+                ]}
+                type="post"
+              />
+            }
+          </div>
+        )}
 
-      {activeTab === "Likes" && (
-        <div className={classes.tabContent}>
-          {
-            <CardCollection
-              items={user.likedPosts}
-              sortBy={[
-                { label: "Abecedno", value: "title" },
-                { label: "Broj Lajkova", value: "likeScore" },
-                { label: "Autor", value: "authorName" },
-              ]}
-              type="post"
-            />
-          }
-        </div>
-      )}
+        {activeTab === "Likes" && (
+          <div className={classes.tabContent}>
+            {
+              <CardCollection
+                items={user.likedPosts}
+                sortBy={[
+                  { label: "Abecedno", value: "title" },
+                  { label: "Broj Lajkova", value: "likeScore" },
+                  { label: "Autor", value: "authorName" },
+                ]}
+                type="post"
+              />
+            }
+          </div>
+        )}
 
-      {activeTab === "Organisations" && (
-        <div className={classes.tabContent}>
-          {user.memberships && (
-            <CardCollection
-              items={user.memberships}
-              userId={user.id}
-              sortBy={[
-                { label: "Abecedno", value: "name" },
-                { label: "Lokacija", value: "location" },
-                { label: "Uloga", value: "role" },
-              ]}
-              type="organisation"
-            />
-          )}
-        </div>
-      )}
-    </div>
+        {activeTab === "Organisations" && (
+          <div className={classes.tabContent}>
+            {user.memberships && (
+              <CardCollection
+                items={user.memberships}
+                userId={user.id}
+                sortBy={[
+                  { label: "Abecedno", value: "name" },
+                  { label: "Lokacija", value: "location" },
+                  { label: "Uloga", value: "role" },
+                ]}
+                type="organisation"
+              />
+            )}
+          </div>
+        )}
+      </div>
+    </UserWrapper>
   );
 };

@@ -1,4 +1,4 @@
-import classes from "./LeaveOrganisationButton.module.scss";
+import classes from "./RemoveMembershipButton.module.scss";
 import { useRemoveMembership } from "@/api/useRemoveMembership";
 
 export interface LeaveOrganisationButtonProps {
@@ -6,9 +6,10 @@ export interface LeaveOrganisationButtonProps {
   userId: string;
 }
 
-export const RemoveMembershipButton: React.FC<
-  LeaveOrganisationButtonProps
-> = ({ organisationId, userId }) => {
+export const RemoveMembershipButton: React.FC<LeaveOrganisationButtonProps> = ({
+  organisationId,
+  userId,
+}) => {
   const { mutate } = useRemoveMembership();
 
   const handleLeave = () => {

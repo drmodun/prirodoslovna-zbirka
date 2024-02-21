@@ -4,6 +4,7 @@ import classes from "./page.module.scss";
 import ExponatModal from "components/ExponatModal";
 import { PostCard } from "components/PostCard";
 import CardCollection from "components/CardCollection";
+import { UserWrapper } from "@/utility/wrappers/userWrapper";
 
 const ExponatPage = async ({ params }: { params: any }) => {
   const exponatInfo: ExponatExtendedResponse = await serverGetExponat(
@@ -18,16 +19,18 @@ const ExponatPage = async ({ params }: { params: any }) => {
       <div className={classes.posts}>
         <span className={classes.title}>Objave</span>
         {
-          <CardCollection
-            items={exponatInfo.posts}
-            type="post"
-            sortBy={[
-              { label: "Abecedno", value: "title" },
-              { label: "Likeovi", value: "likeScore" },
-              { label: "Datum Objave", value: "updatedAt" },
-            ]}
-            pageSize={10}
-          />
+          <UserWrapper>
+            <CardCollection
+              items={exponatInfo.posts}
+              type="post"
+              sortBy={[
+                { label: "Abecedno", value: "title" },
+                { label: "Likeovi", value: "likeScore" },
+                { label: "Datum Objave", value: "updatedAt" },
+              ]}
+              pageSize={10}
+            />
+          </UserWrapper>
         }
       </div>
     </div>
