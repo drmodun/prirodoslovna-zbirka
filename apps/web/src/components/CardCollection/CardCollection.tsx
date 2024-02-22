@@ -198,6 +198,7 @@ export const CardCollection: React.FC<CardCollectionProps> = ({
                     role={item.role as string}
                     isUser={checkIsAuthor(item.id)}
                     onRemove={handleDelete}
+                    organisationId={organisationId}
                     isAdmin={
                       user?.role === "super" ||
                       checkAdminMembership(organisationId!)
@@ -218,6 +219,7 @@ export const CardCollection: React.FC<CardCollectionProps> = ({
                     name={item.name}
                     onRemove={handleDelete}
                     id={item.id}
+                    organisationId={item.id}
                     isAdmin={checkAdminMembership(item.id)}
                     isUser={checkIsAuthor(userId!)}
                   />
