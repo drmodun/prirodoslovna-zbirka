@@ -73,7 +73,7 @@
     width: vw-calc(20);
     height: vw-calc(20);
     position: relative;
-
+    margin-right: vw-calc(10);
     @media (max-width: 768px) {
       width: vw-mobile-calc(20);
       height: vw-mobile-calc(20);

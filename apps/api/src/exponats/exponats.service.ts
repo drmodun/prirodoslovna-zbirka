@@ -1,4 +1,8 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { CreateExponatDto, UpdateExponatDto } from './dto/exponats.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import {
@@ -235,19 +239,20 @@ export class ExponatsService {
       },
     });
 
-    if (!exponat) return false;
+    if (!exponat) throw new NotFoundException();
 
     const check = await this.checkForValidity(
       userId,
       exponat.organisationId,
       true,
     );
-    if (!check) return false;
+    if (!check) throw new UnauthorizedException();
     const current = await this.prisma.exponat.findFirst({
       where: {
         id,
       },
     });
+    if (!current) throw new NotFoundException();
     await this.prisma.exponat.update({
       where: {
         id,
@@ -279,9 +284,9 @@ export class ExponatsService {
       return checkForSuper.role !== Role.SUPER;
     }
 
-    return !(
-      (adminOnly && connection.role !== MemberRoleType.ADMIN) ||
-      (adminOnly && connection.role !== MemberRoleType.OWNER)
+    return (
+      (adminOnly && connection.role === MemberRoleType.ADMIN) ||
+      (adminOnly && connection.role === MemberRoleType.OWNER)
     );
   }
 

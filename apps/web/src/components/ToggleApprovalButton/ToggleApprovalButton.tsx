@@ -1,41 +1,36 @@
 "use client";
 
 import { useToggleApproval } from "@/api/useToggleApproval";
-import classes from "./ToggelApprovalButton.module.scss";
+import classes from "./ToggleApprovalButton.module.scss";
 import { useEffect, useState } from "react";
 import clsx from "clsx";
 import Image from "next/image";
 import approved from "assets/images/approved.svg";
 import disapproved from "assets/images/disapproved.svg";
 
-export interface ToggelApprovalButtonProps {
+export interface ToggleApprovalButtonProps {
   id: string;
   entity: string;
   isApproved?: boolean;
 }
 
-export const ToggelApprovalButton: React.FC<ToggelApprovalButtonProps> = ({
+export const ToggleApprovalButton: React.FC<ToggleApprovalButtonProps> = ({
   id,
   entity,
   isApproved,
 }) => {
-  const [approval, setApproval] = useState(isApproved || true);
-  const { mutate } = useToggleApproval();
-  const handleToggle = () => {
-    const confirm = window.confirm(
-      `Are you sure you want to ${
-        isApproved ? "disapprove" : "approve"
-      } this ${entity}?`
-    );
-    confirm &&
-      mutate({
-        id,
-        entity,
-      });
+  const [approval, setApproval] = useState<Boolean>(isApproved ?? true);
+  const { mutateAsync } = useToggleApproval();
+  const handleToggle = async () => {
+    await mutateAsync({
+      id,
+      entity,
+    });
+    setApproval((prev) => !prev);
   };
 
   useEffect(() => {
-    setApproval(isApproved || true);
+    setApproval(isApproved ?? true);
   }, [isApproved]);
 
   return (
@@ -47,12 +42,12 @@ export const ToggelApprovalButton: React.FC<ToggelApprovalButtonProps> = ({
         approval ? classes.approved : classes.disapproved
       )}
     >
-      {
+      <div className={classes.image}>
         <Image
           src={approval ? approved : disapproved}
           alt={approval ? "vidljiv" : "sakriven"}
         />
-      }
+      </div>
     </button>
   );
 };
