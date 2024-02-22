@@ -6,7 +6,7 @@ const toggleLike = (id: string) => api.post(`/likes/${id}`);
 
 export const useToggleLike = () => {
   return useMutation(toggleLike, {
-    onError: (error) => {
+    onError: (error: string) => {
       if (
         error === "Unauthorized" ||
         error.includes("Unauthorized") ||

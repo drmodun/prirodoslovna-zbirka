@@ -6,7 +6,7 @@ const toggleFollow = (id: string) => api.post(`/follows/${id}`);
 
 export const useToggleFollow = () => {
   return useMutation(toggleFollow, {
-    onError: (error) => {
+    onError: (error: string) => {
       if (
         error === "Unauthorized" ||
         error.includes("Unauthorized") ||
