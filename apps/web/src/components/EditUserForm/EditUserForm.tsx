@@ -24,6 +24,7 @@ import userImg from "assets/images/user-alt.svg";
 import FileUpload from "components/FileUpload";
 import { useState } from "react";
 import { useEditUserInfo } from "@/api/useEditUserInfo";
+import { useUploadProfilePicture } from "@/api/useUploadProfilePicture";
 
 export const EditUserForm = ({ user }: { user: ExtendedUserResponse }) => {
   const schema = z.object({
@@ -76,12 +77,14 @@ export const EditUserForm = ({ user }: { user: ExtendedUserResponse }) => {
     } as FieldValues,
   });
 
-  const { mutateAsync, isSuccess, isLoading } = useEditUserInfo();
+  const { mutateAsync, isLoading } = useEditUserInfo();
+  const { mutateAsync: uploadImage, isSuccess } = useUploadProfilePicture();
 
   const [profilePicture, setProfilePicture] = useState<File[]>([]);
 
   const onSubmit = async (data: any) => {
     console.log(data);
+    profilePicture[0] && (await uploadImage(profilePicture[0]));
     data.hasProfileImage = profilePicture.length > 0;
     await mutateAsync(data);
   };
