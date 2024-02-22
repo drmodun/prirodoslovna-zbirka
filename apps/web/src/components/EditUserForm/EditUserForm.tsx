@@ -7,7 +7,7 @@ import { z } from "zod";
 import email from "assets/images/email.svg";
 import password from "assets/images/password.svg";
 import BaseButton from "components/BaseButton";
-import classes from "./RegisterForm.module.scss";
+import classes from "./EditUserForm.module.scss";
 import Link from "next/link";
 import { ButtonColor } from "@/shared/enums";
 import {
@@ -88,13 +88,6 @@ export const EditUserForm = ({ user }: { user: ExtendedUserResponse }) => {
 
   return (
     <>
-      <Modal
-        title="Success"
-        text="Uspješno napravljen korisnik, molimo potvrdie email pa se prijavite"
-        actionText="Otiđi na prijavu"
-        actionLink="/login"
-        open={isSuccess}
-      />
       <form onSubmit={form.handleSubmit(onSubmit)} className={classes.form}>
         <Input
           form={form}
@@ -135,9 +128,7 @@ export const EditUserForm = ({ user }: { user: ExtendedUserResponse }) => {
           onChange={setProfilePicture}
         />
         <div className={classes.buttons}>
-          <Link href="/login">
-            <BaseButton text="Spremi promjene" initColor={ButtonColor.BLUE} />
-          </Link>
+          <BaseButton text="Spremi promjene" />
         </div>
       </form>
     </>
