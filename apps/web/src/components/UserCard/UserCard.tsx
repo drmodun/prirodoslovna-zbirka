@@ -36,7 +36,7 @@ export const UserCard = ({ user }: UserCardProps) => (
         className={classes.link}
         href={{
           pathname: "/follows/" + user.id,
-          query: { tab: 0 },
+          query: { tab: "Followers" },
         }}
       >
         {user.followerCount} followers
@@ -45,7 +45,7 @@ export const UserCard = ({ user }: UserCardProps) => (
         className={classes.link}
         href={{
           pathname: "/follows/" + user.id,
-          query: { tab: 1 }, //this will make a lot more sense later
+          query: { tab: "Following" }, //this will make a lot more sense later
         }}
       >
         {user.followingCount} following
