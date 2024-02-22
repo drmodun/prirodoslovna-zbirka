@@ -1,4 +1,4 @@
-import { getRegisterUserDto } from '@biosfera/types';
+import { getRegisterUserDto, getUpateUserDto } from '@biosfera/types';
 import { ApiProperty, PartialType } from '@nestjs/swagger';
 import { Exclude } from 'class-transformer';
 
@@ -6,10 +6,6 @@ export const _registerUserDto = getRegisterUserDto(ApiProperty);
 
 export class RegisterUserDto extends _registerUserDto {}
 
-export class UpdateUserDto extends PartialType(RegisterUserDto) {
-  @Exclude()
-  password: string;
+export const _updateUserDto = getUpateUserDto(ApiProperty);
 
-  @Exclude()
-  email: string;
-}
+export class UpdateUserDto extends _updateUserDto {}
