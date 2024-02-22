@@ -4,21 +4,23 @@ import useUser from "@/utility/context/UserContext";
 
 export interface LeaveOrganisationButtonProps {
   organisationId: string;
+  onRemove?: (id: string) => void;
 }
 
 export const LeaveOrganisationButton: React.FC<
   LeaveOrganisationButtonProps
-> = ({ organisationId }) => {
+> = ({ organisationId, onRemove }) => {
   const { mutate } = useLeaveMembership();
   const { memberships, updateMemberships } = useUser();
 
   const handleLeave = () => {
     const confirm = window.confirm(
-      "Are you sure you want to leave this organisation?"
+      "Jeste li sigurni da želite napustiti organizaciju?"
     );
     confirm && mutate(organisationId);
     const membershipToRemove = memberships.find((x) => x.id === organisationId);
     updateMemberships(membershipToRemove!);
+    onRemove && onRemove(organisationId);
   };
 
   return (

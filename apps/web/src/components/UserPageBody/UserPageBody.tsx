@@ -106,7 +106,7 @@ export const UserPageBody = ({ user }: UserPageBodyProps) => {
                   { label: "Lokacija", value: "location" },
                   { label: "Uloga", value: "role" },
                 ]}
-                type="organisation"
+                type="organisation-member"
               />
             )}
           </div>

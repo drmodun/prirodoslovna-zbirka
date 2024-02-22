@@ -13,7 +13,7 @@ export const useRemoveMembership = () => {
   const queryClient = useQueryClient();
   return useMutation(removeMembership, {
     onSuccess: () => {
-      toast.success("Eksponat maknut", {
+      toast.success("Članstvo ukinuto", {
         icon: "👋",
         id: "membership_removal_success",
       });

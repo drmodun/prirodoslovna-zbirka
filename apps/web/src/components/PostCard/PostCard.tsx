@@ -16,13 +16,19 @@ export interface PostCardProps {
   post: PostResponse;
   isAdmin?: boolean;
   isUser?: boolean;
+  onRemove?: (id: string) => void;
 }
 
 //will a post have one or more pictures?
 //TODO: add functionality of like after backend implementation and user context
 //Also a like count somewhere is needed
 
-export const PostCard = ({ post, isUser, isAdmin }: PostCardProps) => (
+export const PostCard = ({
+  post,
+  isUser,
+  isAdmin,
+  onRemove,
+}: PostCardProps) => (
   <div className={classes.container}>
     <div className={classes.upper}>
       <UserWrapper>
@@ -34,7 +40,7 @@ export const PostCard = ({ post, isUser, isAdmin }: PostCardProps) => (
     </div>
     {(isUser || isAdmin) && (
       <QueryClientWrapper>
-        <RemovePostButton postId={post.id} />
+        <RemovePostButton postId={post.id} onRemove={onRemove} />
       </QueryClientWrapper>
     )}
     <div className={classes.content}>

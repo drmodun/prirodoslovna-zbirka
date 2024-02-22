@@ -11,10 +11,12 @@ import Link from "next/link";
 
 export interface RemovePostButtonProps {
   postId: string;
+  onRemove?: (id: string) => void;
 }
 
 export const RemovePostButton: React.FC<RemovePostButtonProps> = ({
   postId,
+  onRemove,
 }) => {
   const { mutate, isSuccess } = useRemovePost();
   const { posts, updatePosts, likedPosts, updateLikes } = useUser();
@@ -39,9 +41,7 @@ export const RemovePostButton: React.FC<RemovePostButtonProps> = ({
   };
 
   useEffect(() => {
-    if (isSuccess) {
-      window.location.reload(); //TODO: possibly change the solution later
-    }
+    onRemove && onRemove(postId);
   }, [isSuccess]);
 
   return (
