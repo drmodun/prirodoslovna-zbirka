@@ -31,6 +31,7 @@ export interface MemberShipCardProps {
   isUser?: boolean;
   isAdmin?: boolean;
   object: OrganisationResponseShort | ShortUserResponse;
+  onRemove?: (id: string) => void;
 }
 
 export const MembershipCard = ({
@@ -42,6 +43,7 @@ export const MembershipCard = ({
   role,
   isAdmin,
   id,
+  onRemove,
   type,
   object: oq,
 }: MemberShipCardProps) => {
@@ -69,17 +71,21 @@ export const MembershipCard = ({
             : "Zahtjev"}
         </div>
         <UserWrapper>
-          {isUser ? (
-            <LeaveOrganisationButton organisationId={oq.id} />
-          ) : isAdmin ? (
-            <div className={classes.buttons}>
-              <RemoveMembershipButton
-                userId={oq.id}
-                organisationId={organisationId!}
-              />
-            </div>
-          ) : null}
           <div className={classes.buttons}>
+            {isUser ? (
+              <LeaveOrganisationButton
+                organisationId={oq.id}
+                onRemove={onRemove}
+              />
+            ) : isAdmin ? (
+              <div className={classes.buttons}>
+                <RemoveMembershipButton
+                  userId={oq.id}
+                  organisationId={organisationId!}
+                  onRemove={onRemove}
+                />
+              </div>
+            ) : null}
             <MembershipFollowButton object={oq} type={type} />
           </div>
         </UserWrapper>

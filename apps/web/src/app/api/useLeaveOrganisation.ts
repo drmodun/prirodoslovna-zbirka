@@ -3,14 +3,14 @@ import { api } from "./shared";
 import toast from "react-hot-toast";
 
 const leaveMembership = async (id: string) => {
-  return api.delete(`/memberships/${id}`);
+  return api.delete(`/members/${id}/leave`);
 };
 
 export const useLeaveMembership = () => {
   const queryClient = useQueryClient();
   return useMutation(leaveMembership, {
     onSuccess: () => {
-      toast.success("Eksponat maknut", {
+      toast.success("Izašli ste iz organizacije", {
         icon: "👋",
         id: "membership_removal_success",
       });

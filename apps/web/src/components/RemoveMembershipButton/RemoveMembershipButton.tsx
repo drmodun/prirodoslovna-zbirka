@@ -4,10 +4,12 @@ import { useRemoveMembership } from "@/api/useRemoveMembership";
 export interface LeaveOrganisationButtonProps {
   organisationId: string;
   userId: string;
+  onRemove?: (id: string) => void;
 }
 
 export const RemoveMembershipButton: React.FC<LeaveOrganisationButtonProps> = ({
   organisationId,
+  onRemove,
   userId,
 }) => {
   const { mutate } = useRemoveMembership();
@@ -21,6 +23,7 @@ export const RemoveMembershipButton: React.FC<LeaveOrganisationButtonProps> = ({
         organisationId,
         userId,
       });
+    onRemove && onRemove(organisationId);
   };
   return (
     <button

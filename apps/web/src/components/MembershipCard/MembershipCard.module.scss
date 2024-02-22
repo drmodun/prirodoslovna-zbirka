@@ -143,4 +143,10 @@
       }
     }
   }
+
+  .buttons {
+    display: flex;
+    flex-direction: row;
+    gap: vw-calc(10);
+  }
 }

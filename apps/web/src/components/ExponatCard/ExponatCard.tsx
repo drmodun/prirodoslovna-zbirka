@@ -13,18 +13,23 @@ import { QueryClientWrapper } from "@/utility/wrappers/queryWrapper";
 export interface ExponatCardProps {
   exponat: ExponatResponseShort;
   isAdmin?: boolean;
+  onRemove?: (id: string) => void;
 }
 
 //TODO: funcionality of like to be added after backend implementation and user context
 
-export const ExponatCard = ({ exponat, isAdmin }: ExponatCardProps) => (
+export const ExponatCard = ({
+  exponat,
+  onRemove,
+  isAdmin,
+}: ExponatCardProps) => (
   <div className={classes.container}>
     <div className={classes.image}>
       <Image src={exponat.mainImage} alt={exponat.name} layout="fill" />
     </div>
     {isAdmin ? (
       <QueryClientWrapper>
-        <RemoveExponatButton exponatId={exponat.id} />
+        <RemoveExponatButton onRemove={onRemove} exponatId={exponat.id} />
       </QueryClientWrapper>
     ) : null}
     <Link

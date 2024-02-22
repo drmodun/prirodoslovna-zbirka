@@ -11,10 +11,12 @@ import Link from "next/link";
 
 export interface RemoveExponatButtonProps {
   exponatId: string;
+  onRemove?: (id: string) => void;
 }
 
 export const RemoveExponatButton: React.FC<RemoveExponatButtonProps> = ({
   exponatId,
+  onRemove,
 }) => {
   const { mutate, isSuccess } = useRemoveExponat();
   const { favouriteExponats, updateFavourites } = useUser();
@@ -37,7 +39,7 @@ export const RemoveExponatButton: React.FC<RemoveExponatButtonProps> = ({
 
   useEffect(() => {
     if (isSuccess) {
-      window.location.reload(); //TODO: possibly change the solution later
+      onRemove && onRemove(exponatId);
     }
   }, [isSuccess]);
 
