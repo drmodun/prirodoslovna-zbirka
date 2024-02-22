@@ -71,7 +71,7 @@ export const OrganisationBody = ({
             <OrganisationExponatsView exponats={organisationData.exponats} />
           )}
           {activeTab === "Objave" && <div>objave</div>}
-          {activeTab === "Članovi" && (
+          {activeTab === "Članovi" && organisationData.id && (
             <CardCollection
               items={organisationData.members}
               type="user-member"
