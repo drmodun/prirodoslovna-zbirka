@@ -2,7 +2,7 @@
 import Tabs from "components/Tabs";
 import classes from "./UserPageBody.module.scss";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ExtendedUserResponse } from "@biosfera/types";
 import UserDescription from "@/views/UserDescription";
 import { ExponatCard } from "components/ExponatCard";
@@ -11,6 +11,8 @@ import MembershipCard from "components/MembershipCard";
 import { memberWeight } from "components/MembershipCard/MembershipCard";
 import CardCollection from "components/CardCollection";
 import { UserWrapper } from "@/utility/wrappers/userWrapper";
+import useUser from "@/utility/context/UserContext";
+import EditUserForm from "components/EditUserForm";
 
 const tabs = ["About", "Posts", "Likes", "Favourites", "Organisations"];
 
@@ -20,6 +22,19 @@ export interface UserPageBodyProps {
 
 export const UserPageBody = ({ user }: UserPageBodyProps) => {
   const [activeTab, setActiveTab] = useState<string>(tabs[0]);
+  const [availableTabs, setAvailableTabs] = useState<string[]>(tabs);
+  const { user: loggedUser } = useUser();
+
+  useEffect(() => {
+    if (availableTabs.includes("Edit")) return;
+    if (user.id === loggedUser?.id || loggedUser?.role === "super") {
+      setAvailableTabs((prev) => [
+        "Edit",
+        ...prev.filter((tab) => tab !== "About"),
+      ]);
+    }
+    setActiveTab("Edit");
+  }, [loggedUser, user]);
 
   const handleSelectTab = (tab: string) => {
     setActiveTab(tab);
@@ -31,9 +46,19 @@ export const UserPageBody = ({ user }: UserPageBodyProps) => {
         <Tabs
           activeTab={activeTab}
           onSelect={handleSelectTab}
-          tabs={tabs}
+          tabs={availableTabs}
           key={"tabRow"}
         />
+        {activeTab === "Edit" && (
+          <div className={classes.tabContent}>
+            <div className={classes.editForm}>
+              <span className={classes.title}>
+                Uredi Profil Korisnika {user.username}
+              </span>
+              <EditUserForm user={user} />
+            </div>
+          </div>
+        )}
         {activeTab === "About" && (
           <div className={classes.tabContent}>
             {

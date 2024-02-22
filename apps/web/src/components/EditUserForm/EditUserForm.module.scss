@@ -16,5 +16,10 @@
 
 .buttons {
   display: flex;
-  width: 100%;
+  width: vw-calc(400);
+
+  @media (max-width: 768px) {
+    width: 100%;
+    justify-content: space-between;
+  }
 }

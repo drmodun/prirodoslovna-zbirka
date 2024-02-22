@@ -8,7 +8,7 @@ export const _updateUserDto = getUpateUserDto();
 export class UpdateUserDto extends _updateUserDto {}
 
 const editUserInfo = async (userInfo: UpdateUserDto) =>
-  await api.put("/users", userInfo);
+  await api.patch("/users", userInfo);
 
 export const useEditUserInfo = () => {
   return useMutation(editUserInfo, {
