@@ -234,18 +234,52 @@ export class UsersController {
 
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
+  @Delete()
+  async remove(@Req() req: any) {
+    return (await this.usersService.remove(req.user.id)) !== null;
+  }
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
+  @Patch('/pfp')
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        file: {
+          type: 'string',
+          format: 'binary',
+        },
+      },
+    },
+  })
+  @UseInterceptors(FileInterceptor('file'))
+  async addLogo(
+    @Req() req: any,
+    @UploadedFile(
+      new ParseFilePipe({
+        validators: [
+          new FileTypeValidator({ fileType: 'image/*' }),
+          new MaxFileSizeValidator({ maxSize: 1024 * 1024 * 10 }),
+        ],
+      }),
+    )
+    file: Express.Multer.File,
+  ) {
+    const addedUserProfilePicture = await this.usersService.uploadProfileImage(
+      req.user.id,
+      file,
+    );
+
+    return addedUserProfilePicture;
+  }
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @Patch()
   async update(@Body() updateUserDto: UpdateUserDto, @Req() req: any) {
     return (
       (await this.usersService.update(req.user.id, updateUserDto)) !== null
     );
-  }
-
-  @UseGuards(JwtAuthGuard)
-  @ApiBearerAuth()
-  @Delete()
-  async remove(@Req() req: any) {
-    return (await this.usersService.remove(req.user.id)) !== null;
   }
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
@@ -326,42 +360,6 @@ export class UsersController {
     @Body() { newPassword }: { newPassword: string },
   ) {
     await this.usersService.resetPassword(activationCode, newPassword);
-  }
-
-  @UseGuards(JwtAuthGuard)
-  @ApiBearerAuth()
-  @Post(':id/pfp')
-  @ApiConsumes('multipart/form-data')
-  @ApiBody({
-    schema: {
-      type: 'object',
-      properties: {
-        file: {
-          type: 'string',
-          format: 'binary',
-        },
-      },
-    },
-  })
-  @UseInterceptors(FileInterceptor('file'))
-  async addLogo(
-    @Req() req: any,
-    @UploadedFile(
-      new ParseFilePipe({
-        validators: [
-          new FileTypeValidator({ fileType: 'image/*' }),
-          new MaxFileSizeValidator({ maxSize: 1024 * 1024 * 10 }),
-        ],
-      }),
-    )
-    file: Express.Multer.File,
-  ) {
-    const addedUserProfilePicture = await this.usersService.uploadProfileImage(
-      req.user.id,
-      file,
-    );
-
-    return addedUserProfilePicture;
   }
 }
 
