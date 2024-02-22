@@ -10,7 +10,7 @@ export const useToggleFavourite = () => {
     onSuccess: () => {
       queryClient.invalidateQueries("exponats");
     },
-    onError: (error) => {
+    onError: (error: string) => {
       if (
         error === "Unauthorized" ||
         error.includes("Unauthorized") ||

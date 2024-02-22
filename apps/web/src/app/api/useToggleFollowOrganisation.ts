@@ -7,7 +7,7 @@ const toggleFollowOrganisations = (id: string) =>
 
 export const useToggleFollowOrganisation = () => {
   return useMutation(toggleFollowOrganisations, {
-    onError: (error) => {
+    onError: (error: string) => {
       if (
         error === "Unauthorized" ||
         error.includes("Unauthorized") ||
