@@ -207,6 +207,26 @@ export const CardCollection: React.FC<CardCollectionProps> = ({
                     id={item.id}
                   />
                 );
+              case "user":
+                item = item as ShortUserResponse;
+                return (
+                  <MembershipCard
+                    description={item.email}
+                    type="user"
+                    image={placeholder}
+                    object={item as ShortUserResponse}
+                    role={item.location}
+                    isUser={checkIsAuthor(item.id)}
+                    onRemove={handleDelete}
+                    organisationId={organisationId}
+                    isAdmin={
+                      user?.role === "super" ||
+                      checkAdminMembership(organisationId!)
+                    }
+                    name={item.username}
+                    id={item.id}
+                  />
+                );
               case "organisation-member":
                 item = item as OrganisationResponseShort;
                 return (

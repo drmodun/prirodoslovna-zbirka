@@ -68,7 +68,9 @@ export const MembershipCard = ({
             ? "Vlasnik"
             : role === "MEMBER"
             ? "Član"
-            : "Zahtjev"}
+            : role === "REQUESTED"
+            ? "Zahtjev"
+            : role}
         </div>
         <UserWrapper>
           <div className={classes.buttons}>

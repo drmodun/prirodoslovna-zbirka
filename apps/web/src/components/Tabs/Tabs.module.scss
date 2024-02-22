@@ -7,16 +7,18 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  gap: vw-calc(20);
 
   @media screen and (max-width: 768px) {
     justify-content: space-around;
     align-items: center;
-    column-gap: vw-mobile-calc(5);
+    column-gap: vw-mobile-calc(10);
   }
 }
 
 .tab {
-  width: vw-calc(150);
+  width: 100%;
+  min-width: vw-calc(150);
   height: vw-calc(50);
   min-height: vw-calc(50);
   border-radius: vw-calc(10);
