@@ -232,7 +232,7 @@ export class PostsController {
 
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
-  @Get(':organisationId/')
+  @Get(':organisationId/hidden')
   async findAllNotApproved(
     @Param('organisationId') organisationId: string,
     @Req() req: any,
@@ -247,7 +247,9 @@ export class PostsController {
         "You cannot see unapproved posts because you don't have admin rights",
       );
 
-    const posts = await this.postsService.findAllNotApproved(organisationId);
+    const posts = await this.postsService.findAllWithoutApproval(
+      organisationId,
+    );
 
     const mapped: PostResponse[] = posts.map((post) => {
       return {
@@ -261,6 +263,7 @@ export class PostsController {
         organisationId: post.Exponat.organisationId,
         title: post.title,
         hasProfilePicture: post.author.hasProfileImage,
+        isApproved: post.isApproved,
         updatedAt: post.updatedAt,
       } as PostResponse;
     });

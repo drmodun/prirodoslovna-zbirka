@@ -87,6 +87,11 @@ export class OrganisationsService {
           },
           include: {
             Posts: {
+              where: {
+                ...(approval && {
+                  isApproved: approval,
+                }),
+              },
               include: {
                 _count: {
                   select: {
@@ -121,7 +126,9 @@ export class OrganisationsService {
         UserOrganisationFollowers: true,
         OrganisationUsers: {
           where: {
-            role: { not: MemberRoleType.REQUESTED },
+            ...(approval && {
+              role: { not: MemberRoleType.REQUESTED },
+            }),
           },
           select: {
             user: {

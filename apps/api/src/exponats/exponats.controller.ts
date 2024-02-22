@@ -118,7 +118,9 @@ export class ExponatsController {
   @Get(':id')
   async findOne(@Param('id') id: string, @Req() req?: any) {
     const isAdmin =
-      req.user && (await this.exponatsService.checkUserRole(req?.user?.id, id));
+      req.user &&
+      (req.user.role === 'super' ||
+        (await this.exponatsService.checkUserRole(req?.user?.id, id)));
     const item = await this.exponatsService.findOne(id, !isAdmin);
 
     const posts: PostResponse[] = item.Posts.map((post) => {

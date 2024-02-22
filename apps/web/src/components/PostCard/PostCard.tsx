@@ -11,6 +11,7 @@ import LikeButton from "components/LikeButton";
 import { RemovePostButton } from "components/RemovePostButton/RemovePostButton";
 import { Query } from "react-query";
 import { QueryClientWrapper } from "@/utility/wrappers/queryWrapper";
+import ToggelApprovalButton from "components/ToggleApprovalButton";
 
 export interface PostCardProps {
   post: PostResponse;
@@ -40,6 +41,10 @@ export const PostCard = ({
     </div>
     {(isUser || isAdmin) && (
       <QueryClientWrapper>
+        {isAdmin && (
+          <ToggelApprovalButton entity="post" id={post.id} isApproved={post} />
+           
+          }
         <RemovePostButton postId={post.id} onRemove={onRemove} />
       </QueryClientWrapper>
     )}

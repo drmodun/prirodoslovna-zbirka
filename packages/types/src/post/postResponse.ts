@@ -9,6 +9,7 @@ export interface PostResponse {
   organisationId: string;
   updatedAt: Date;
   thumbnail: string;
+  isApproved?: boolean;
   hasProfilePicture?: boolean;
   // add likes and stuff
   //author profile picutre is supposed ti be findable by authorId

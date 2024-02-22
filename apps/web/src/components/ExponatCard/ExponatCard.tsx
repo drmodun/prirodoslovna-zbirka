@@ -9,6 +9,7 @@ import { FavouriteButton } from "components/FavouriteButton/FavouriteButton";
 import { UserWrapper } from "@/utility/wrappers/userWrapper";
 import RemoveExponatButton from "components/RemoveExponatButton";
 import { QueryClientWrapper } from "@/utility/wrappers/queryWrapper";
+import ToggelApprovalButton from "components/ToggleApprovalButton";
 
 export interface ExponatCardProps {
   exponat: ExponatResponseShort;
@@ -29,6 +30,11 @@ export const ExponatCard = ({
     </div>
     {isAdmin ? (
       <QueryClientWrapper>
+        <ToggelApprovalButton
+          id={exponat.id}
+          isApproved={exponat.isApproved}
+          entity="exponat"
+        />
         <RemoveExponatButton onRemove={onRemove} exponatId={exponat.id} />
       </QueryClientWrapper>
     ) : null}
