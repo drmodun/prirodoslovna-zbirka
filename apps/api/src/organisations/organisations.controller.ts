@@ -204,6 +204,7 @@ export class OrganisationsController {
             thumbnail: post.thumbnailImage,
             title: post.title,
             id: post.id,
+            isApproved: post.isApproved,
             updatedAt: post.updatedAt,
             organisationId: item.id,
             likeScore: post._count.Likes,

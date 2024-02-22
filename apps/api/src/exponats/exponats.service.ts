@@ -149,9 +149,7 @@ export class ExponatsService {
       true,
     );
 
-    if (!check) return false;
-
-    return true;
+    return check;
   }
 
   async findOne(id: string, approval?: boolean) {
