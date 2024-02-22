@@ -192,7 +192,7 @@ export class PostsController {
         "You cannot approve or disapprove this post because it is not yours and you don't have admin rights",
       );
 
-    return this.postsService.toggleApproval(id);
+    return await this.postsService.toggleApproval(id);
   }
 
   @UseGuards(OptionalJwtAuthGuard)

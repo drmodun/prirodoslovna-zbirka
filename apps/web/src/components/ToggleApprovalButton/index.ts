@@ -1,3 +1,3 @@
-import { ToggelApprovalButton } from "./ToggleApprovalButton";
+import { ToggleApprovalButton } from "./ToggleApprovalButton";
 
-export default ToggelApprovalButton;
+export default ToggleApprovalButton;

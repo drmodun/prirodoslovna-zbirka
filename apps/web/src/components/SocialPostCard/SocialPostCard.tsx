@@ -2,7 +2,7 @@ import { ShortSocialPostResponse } from "@biosfera/types";
 import classes from "./SocialPostCard.module.scss";
 import Image from "next/image";
 import Link from "next/link";
-import ToggelApprovalButton from "components/ToggleApprovalButton";
+import ToggleApprovalButton from "components/ToggleApprovalButton";
 
 export interface SocialPostCardProps {
   post: ShortSocialPostResponse;
