@@ -103,21 +103,24 @@ export const CardCollection: React.FC<CardCollectionProps> = ({
   });
 
   const checkAdminMembership = (organisationId: string) => {
-    return memberships.some(
-      (membership) =>
-        membership.id === organisationId &&
-        (membership.role === "ADMIN" ||
-          membership.role === "OWNER" ||
-          user?.role === "super")
+    return (
+      user?.role?.toLowerCase() === "super" ||
+      memberships.some(
+        (membership) =>
+          membership.id === organisationId &&
+          (membership.role === "ADMIN" || membership.role === "OWNER")
+      )
     );
   };
-
   const checkIsAuthor = (authorId: string) => {
     return authorId === user?.id;
   };
 
   const checkIsAdminForPost = (organisationId: string) => {
-    return user?.role === "super" || checkAdminMembership(organisationId);
+    return (
+      user?.role?.toLowerCase() === "super" ||
+      checkAdminMembership(organisationId)
+    );
   };
 
   return itemsToShow.length > 0 ? (
@@ -201,7 +204,7 @@ export const CardCollection: React.FC<CardCollectionProps> = ({
                     onRemove={handleDelete}
                     organisationId={organisationId}
                     isAdmin={
-                      user?.role === "super" ||
+                      user?.role?.toLowerCase() === "super" ||
                       checkAdminMembership(organisationId!)
                     }
                     name={item.username}
@@ -221,7 +224,7 @@ export const CardCollection: React.FC<CardCollectionProps> = ({
                     onRemove={handleDelete}
                     organisationId={organisationId}
                     isAdmin={
-                      user?.role === "super" ||
+                      user?.role?.toLowerCase() === "super" ||
                       checkAdminMembership(organisationId!)
                     }
                     name={item.username}

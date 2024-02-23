@@ -11,6 +11,10 @@ import OrganisationAbout from "../OrganisationAbout";
 import CardCollection from "components/CardCollection";
 import useUser from "@/utility/context/UserContext";
 import { api } from "@/api/shared";
+import { set } from "react-hook-form";
+import { QueryClientWrapper } from "@/utility/wrappers/queryWrapper";
+import { UserWrapper } from "@/utility/wrappers/userWrapper";
+import OrganisationForm from "components/CreateOrganisationForm";
 export interface OrganisationBodyProps {
   organisation: ExtendedOrganisationResponse;
 }
@@ -39,9 +43,11 @@ export const OrganisationBody = ({
   const [organisationData, setOrganisationData] =
     useState<ExtendedOrganisationResponse>(organisation);
   const [activeTab, setActiveTab] = useState("Početna");
+  const [availableTabs, setAvailableTabs] = useState<string[]>(tabs);
 
   const possiblyRefecth = async () => {
     if (
+      user?.role?.toLocaleLowerCase() === "super" ||
       memberships.some(
         (x) =>
           x.id === organisation.id && (x.role === "ADMIN" || x.role === "OWNER")
@@ -51,6 +57,7 @@ export const OrganisationBody = ({
         `/organisations/${organisation.id}`
       );
       if (adminOrg) setOrganisationData(adminOrg);
+      setAvailableTabs((prev) => [...prev.filter((x) => x !== "Edit"), "Edit"]);
     }
   };
   useEffect(() => {
@@ -61,27 +68,37 @@ export const OrganisationBody = ({
     <div className={classes.container}>
       <OrganisationHero organisation={organisationData} />
       <div className={classes.body}>
-        <Tabs tabs={tabs} activeTab={activeTab} onSelect={setActiveTab} />
+        <Tabs
+          tabs={availableTabs}
+          activeTab={activeTab}
+          onSelect={setActiveTab}
+        />
         <div className={classes.selectedBody}>
           {activeTab === "Početna" && (
             <OrganisationHomepage organisation={organisationData} />
           )}
-          {activeTab === "Stablo" && <div>stablo</div>}
+          {activeTab === "Edit" && (
+            <UserWrapper>
+              <OrganisationForm isEdit initvalues={organisationData} />
+            </UserWrapper>
+          )}
           {activeTab === "Eksponati" && (
             <OrganisationExponatsView exponats={organisationData.exponats} />
           )}
           {activeTab === "Objave" && <div>objave</div>}
           {activeTab === "Članovi" && organisationData.id && (
-            <CardCollection
-              items={organisationData.members}
-              type="user-member"
-              sortBy={[
-                { label: "Abecedno", value: "username" },
-                { label: "Uloga", value: "role" },
-              ]}
-              organisationId={organisationData.id}
-              pageSize={10}
-            />
+            <UserWrapper>
+              <CardCollection
+                items={organisationData.members}
+                type="user-member"
+                sortBy={[
+                  { label: "Abecedno", value: "username" },
+                  { label: "Uloga", value: "role" },
+                ]}
+                organisationId={organisationData.id}
+                pageSize={10}
+              />
+            </UserWrapper>
           )}
           {activeTab === "O organizaciji" && (
             <OrganisationAbout organisation={organisationData} />

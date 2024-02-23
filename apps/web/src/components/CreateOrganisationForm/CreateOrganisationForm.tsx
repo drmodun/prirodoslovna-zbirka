@@ -22,13 +22,14 @@ import { makeCountyName } from "@/utility/static/countyNameMaker";
 import FileUpload from "components/FileUpload";
 import { useState } from "react";
 import { useUploadFile } from "@/api/useUploadFile";
+import { useUpdateOrganisation } from "@/api/useUpdateOrganisation";
 
 export interface CreateOrganisationFormProps {
   initvalues?: ExtendedOrganisationResponse;
   isEdit?: boolean;
 }
 
-export const CreateOrganisationForm = ({
+export const OrganisationForm = ({
   initvalues,
   isEdit,
 }: CreateOrganisationFormProps) => {
@@ -83,11 +84,23 @@ export const CreateOrganisationForm = ({
 
   const onSubmit = async (data: any) => {
     console.log(data);
-    data.mainImage = await mutateAsync({
-      file: image[0],
-      directory: Directories.ORGANISATION,
-    });
-    await create.mutateAsync(data);
+    data.mainImage = isEdit && initvalues?.mainImage;
+    isEdit
+      ? image[0] &&
+        (data.mainImage = await mutateAsync({
+          file: image[0],
+          directory: Directories.ORGANISATION,
+        }))
+      : (data.mainImage = await mutateAsync({
+          file: image[0],
+          directory: Directories.ORGANISATION,
+        }));
+    isEdit
+      ? await update.mutateAsync({
+          organisationId: initvalues!.id,
+          updateOrganisationDto: data,
+        })
+      : await create.mutateAsync(data);
   };
 
   return (

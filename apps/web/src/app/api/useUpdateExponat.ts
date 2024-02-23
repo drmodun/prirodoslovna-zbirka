@@ -22,7 +22,7 @@ export const useUpdateExponat = () => {
       });
     },
     onSuccess: () => {
-      toast.success("Promijenjeni podaci organizacije", {
+      toast.success("Promijenjeni podaci exponata", {
         id: "update-exponat",
       });
     },
