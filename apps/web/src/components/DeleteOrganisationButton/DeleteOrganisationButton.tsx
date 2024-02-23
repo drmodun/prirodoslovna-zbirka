@@ -12,7 +12,7 @@ export const DeleteOrganisationButton = ({
 
   const handleDelete = async () => {
     const confirm = window.confirm(
-      `Jeste li sigurni da želite obrisati korisnika?`
+      `Jeste li sigurni da želite obrisati organizaciju?`
     );
     if (!confirm) return;
 

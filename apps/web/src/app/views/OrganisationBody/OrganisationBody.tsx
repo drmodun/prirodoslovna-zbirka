@@ -15,6 +15,7 @@ import { set } from "react-hook-form";
 import { QueryClientWrapper } from "@/utility/wrappers/queryWrapper";
 import { UserWrapper } from "@/utility/wrappers/userWrapper";
 import OrganisationForm from "components/CreateOrganisationForm";
+import DeleteOrganisationButton from "components/DeleteOrganisationButton";
 export interface OrganisationBodyProps {
   organisation: ExtendedOrganisationResponse;
 }
@@ -80,6 +81,7 @@ export const OrganisationBody = ({
           {activeTab === "Edit" && (
             <UserWrapper>
               <OrganisationForm isEdit initvalues={organisationData} />
+              <DeleteOrganisationButton organisationId={organisationData.id} />
             </UserWrapper>
           )}
           {activeTab === "Eksponati" && (
