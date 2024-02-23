@@ -14,6 +14,7 @@ import MembershipFollowButton from "../MembershipFollowButton";
 import LeaveOrganisationButton from "components/LeaveOrganisationButton";
 import RemoveMembershipButton from "components/RemoveMembershipButton";
 import ImageWithFallback from "components/ImageWithFallback/ImageWithFallback";
+import EditUserRoleModal from "components/EditUserRoleModal";
 
 export const memberWeight = {
   ADMIN: 2,
@@ -26,6 +27,7 @@ export interface MemberShipCardProps {
   description: string; //TODO: potentially change this to description
   image: string | StaticImageData;
   type: "organisation" | "user";
+  isFollowCard?: boolean;
   id: string;
   organisationId?: string;
   role: string;
@@ -44,6 +46,7 @@ export const MembershipCard = ({
   role,
   isAdmin,
   id,
+  isFollowCard,
   onRemove,
   type,
   object: oq,
@@ -75,17 +78,22 @@ export const MembershipCard = ({
         </div>
         <UserWrapper>
           <div className={classes.buttons}>
-            {isUser ? (
+            {isUser && !isFollowCard ? (
               <LeaveOrganisationButton
                 organisationId={oq.id}
                 onRemove={onRemove}
               />
-            ) : isAdmin ? (
+            ) : isAdmin && !isFollowCard ? (
               <div className={classes.buttons}>
                 <RemoveMembershipButton
                   userId={oq.id}
                   organisationId={organisationId!}
                   onRemove={onRemove}
+                />
+                <EditUserRoleModal
+                  userId={oq.id}
+                  organisationId={organisationId!}
+                  userRole={role}
                 />
               </div>
             ) : null}

@@ -17,7 +17,8 @@ export const LeaveOrganisationButton: React.FC<
     const confirm = window.confirm(
       "Jeste li sigurni da želite napustiti organizaciju?"
     );
-    confirm && mutate(organisationId);
+    if (!confirm) return;
+    mutate(organisationId);
     const membershipToRemove = memberships.find((x) => x.id === organisationId);
     updateMemberships(membershipToRemove!);
     onRemove && onRemove(organisationId);
