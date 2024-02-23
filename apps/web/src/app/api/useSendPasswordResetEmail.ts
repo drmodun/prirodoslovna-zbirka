@@ -8,11 +8,15 @@ const sendResetPasswordEmail = (email: string) =>
 export const useSendPasswordResetEmail = () => {
   return useMutation(sendResetPasswordEmail, {
     onError: (error: string) => {
-      toast.error("Greška pri slanju emaila za resetiranje lozinke");
+      toast.error("Greška pri slanju emaila za resetiranje lozinke", {
+        id: "send-reset-password-email",
+      });
       console.error(error);
     },
     onSuccess: () => {
-      toast.success("Email za resetiranje lozinke je poslan");
+      toast.success("Email za resetiranje lozinke je poslan", {
+        id: "send-reset-password-email",
+      });
     },
   });
 };

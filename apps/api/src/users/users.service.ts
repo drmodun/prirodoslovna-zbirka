@@ -119,6 +119,7 @@ export class UsersService {
               select: {
                 name: true,
                 id: true,
+                organisationId: true,
               },
             },
           },

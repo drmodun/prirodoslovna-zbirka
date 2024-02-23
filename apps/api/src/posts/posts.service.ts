@@ -7,6 +7,38 @@ import { sortQueryBuilder } from '@biosfera/types';
 export class PostsService {
   constructor(private readonly prisma: PrismaService) {}
 
+  async findAllWithoutApproval(organiastionId: string) {
+    return await this.prisma.post.findMany({
+      where: {
+        isApproved: false,
+        Exponat: {
+          organisationId: organiastionId,
+        },
+      },
+      include: {
+        author: {
+          select: {
+            firstName: true,
+            lastName: true,
+            hasProfileImage: true,
+            username: true,
+          },
+        },
+        Exponat: {
+          select: {
+            name: true,
+            organisationId: true,
+          },
+        },
+        _count: {
+          select: {
+            Likes: true,
+          },
+        },
+      },
+    });
+  }
+
   async findAll(filter: PostQuery) {
     const sort = sortQueryBuilder({
       attribute: filter.attribute,
@@ -50,11 +82,13 @@ export class PostsService {
             firstName: true,
             lastName: true,
             username: true,
+            hasProfileImage: true,
           },
         },
         Exponat: {
           select: {
             name: true,
+            organisationId: true,
           },
         },
         _count: {
@@ -120,6 +154,7 @@ export class PostsService {
         Exponat: {
           select: {
             name: true,
+            organisationId: true,
           },
         },
         _count: {
@@ -146,47 +181,5 @@ export class PostsService {
         isApproved: !post.isApproved,
       },
     });
-  }
-
-  async findAllNotApproved(organisationId: string) {
-    const exponatIds = await this.prisma.exponat.findMany({
-      where: {
-        organisationId: organisationId,
-      },
-      select: {
-        id: true,
-      },
-    });
-
-    const posts = this.prisma.post.findMany({
-      where: {
-        isApproved: false,
-        ExponatId: {
-          in: exponatIds.map((exponat) => exponat.id),
-        },
-      },
-      include: {
-        author: {
-          select: {
-            firstName: true,
-            lastName: true,
-            username: true,
-            hasProfileImage: true,
-          },
-        },
-        Exponat: {
-          select: {
-            name: true,
-          },
-        },
-        _count: {
-          select: {
-            Likes: true,
-          },
-        },
-      },
-    });
-
-    return posts;
   }
 }

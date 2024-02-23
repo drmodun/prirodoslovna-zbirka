@@ -7,18 +7,44 @@ import clsx from "clsx";
 import { stringCapitaliser } from "@/utility/static/stringCapitaliser";
 import { FavouriteButton } from "components/FavouriteButton/FavouriteButton";
 import { UserWrapper } from "@/utility/wrappers/userWrapper";
+import RemoveExponatButton from "components/RemoveExponatButton";
+import { QueryClientWrapper } from "@/utility/wrappers/queryWrapper";
+import ToggleApprovalButton from "components/ToggleApprovalButton";
+import ImageWithFallback from "components/ImageWithFallback/ImageWithFallback";
+import crystal from "assets/images/crystal.svg";
 
 export interface ExponatCardProps {
   exponat: ExponatResponseShort;
+  isAdmin?: boolean;
+  onRemove?: (id: string) => void;
 }
 
 //TODO: funcionality of like to be added after backend implementation and user context
 
-export const ExponatCard = ({ exponat }: ExponatCardProps) => (
+export const ExponatCard = ({
+  exponat,
+  onRemove,
+  isAdmin,
+}: ExponatCardProps) => (
   <div className={classes.container}>
     <div className={classes.image}>
-      <Image src={exponat.mainImage} alt={exponat.name} layout="fill" />
+      <ImageWithFallback
+        src={exponat.mainImage}
+        alt={exponat.name}
+        fallbackSrc={crystal}
+        layout="fill"
+      />
     </div>
+    {isAdmin ? (
+      <QueryClientWrapper>
+        <ToggleApprovalButton
+          id={exponat.id}
+          isApproved={exponat.isApproved}
+          entity="exponats"
+        />
+        <RemoveExponatButton onRemove={onRemove} exponatId={exponat.id} />
+      </QueryClientWrapper>
+    ) : null}
     <Link
       href={`/organisation/${exponat.organizationId}`}
       className={classes.organisation}

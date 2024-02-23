@@ -3,6 +3,7 @@ import { serverGetUser } from "@/api/serverUser";
 import UserCard from "components/UserCard";
 import { ExtendedUserResponse } from "@biosfera/types";
 import { UserPageBody } from "components/UserPageBody/UserPageBody";
+import { UserWrapper } from "@/utility/wrappers/userWrapper";
 const UserPage = async ({ params }: { params: any }) => {
   const userInfo: ExtendedUserResponse = await serverGetUser(params.userId);
   return (
@@ -14,7 +15,11 @@ const UserPage = async ({ params }: { params: any }) => {
             <UserCard user={userInfo} />
           </div>
         )}
-        {userInfo && <UserPageBody user={userInfo} />}
+        {userInfo && (
+          <UserWrapper>
+            <UserPageBody user={userInfo} />
+          </UserWrapper>
+        )}
       </div>
     </div>
   );

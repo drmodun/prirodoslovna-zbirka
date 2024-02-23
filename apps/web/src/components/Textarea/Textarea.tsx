@@ -30,7 +30,7 @@ export const Textarea = ({
       <div className={clsx(classes.container, error && classes.errorInput)}>
         {image && (
           <div className={classes.image}>
-            <Image layout="fill" src={image} alt={question} />{" "}
+            <Image layout="fill" src={image} alt={question} />
           </div>
         )}
         <textarea

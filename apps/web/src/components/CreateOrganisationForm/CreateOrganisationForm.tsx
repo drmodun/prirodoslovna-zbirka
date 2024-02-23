@@ -2,7 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import Input from "components/Input";
-import { useForm } from "react-hook-form";
+import { FieldValues, useForm } from "react-hook-form";
 import { z } from "zod";
 import email from "assets/images/email.svg";
 import url from "assets/images/url.svg";
@@ -11,15 +11,28 @@ import organitionIcon from "assets/images/organitionIcon.svg";
 import description from "assets/images/description.svg";
 import BaseButton from "components/BaseButton";
 import classes from "./CreateOrganisationForm.module.scss";
-import { County, Directories } from "@biosfera/types";
+import {
+  County,
+  Directories,
+  ExtendedOrganisationResponse,
+} from "@biosfera/types";
 import { SelectInput } from "components/SelectInput/SelectInput";
 import { useCreateOrganisation } from "@/api/useCreateOrganisation";
 import { makeCountyName } from "@/utility/static/countyNameMaker";
 import FileUpload from "components/FileUpload";
 import { useState } from "react";
 import { useUploadFile } from "@/api/useUploadFile";
+import { useUpdateOrganisation } from "@/api/useUpdateOrganisation";
 
-export const CreateOrganisationForm = () => {
+export interface CreateOrganisationFormProps {
+  initvalues?: ExtendedOrganisationResponse;
+  isEdit?: boolean;
+}
+
+export const OrganisationForm = ({
+  initvalues,
+  isEdit,
+}: CreateOrganisationFormProps) => {
   const schema = z.object({
     name: z
       .string()
@@ -63,17 +76,31 @@ export const CreateOrganisationForm = () => {
 
   const form = useForm({
     resolver: zodResolver(schema),
+    ...(initvalues && { defaultValues: initvalues as FieldValues }),
   });
 
   const create = useCreateOrganisation();
+  const update = useUpdateOrganisation();
 
   const onSubmit = async (data: any) => {
     console.log(data);
-    data.mainImage = await mutateAsync({
-      file: image[0],
-      directory: Directories.ORGANISATION,
-    });
-    await create.mutateAsync(data);
+    data.mainImage = isEdit && initvalues?.mainImage;
+    isEdit
+      ? image[0] &&
+        (data.mainImage = await mutateAsync({
+          file: image[0],
+          directory: Directories.ORGANISATION,
+        }))
+      : (data.mainImage = await mutateAsync({
+          file: image[0],
+          directory: Directories.ORGANISATION,
+        }));
+    isEdit
+      ? await update.mutateAsync({
+          organisationId: initvalues!.id,
+          updateOrganisationDto: data,
+        })
+      : await create.mutateAsync(data);
   };
 
   return (

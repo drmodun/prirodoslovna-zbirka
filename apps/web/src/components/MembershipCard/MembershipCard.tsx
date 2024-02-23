@@ -11,6 +11,10 @@ import {
 import { Indexable } from "@biosfera/types/src/jsonObjects";
 import { UserWrapper } from "@/utility/wrappers/userWrapper";
 import MembershipFollowButton from "../MembershipFollowButton";
+import LeaveOrganisationButton from "components/LeaveOrganisationButton";
+import RemoveMembershipButton from "components/RemoveMembershipButton";
+import ImageWithFallback from "components/ImageWithFallback/ImageWithFallback";
+import EditUserRoleModal from "components/EditUserRoleModal";
 
 export const memberWeight = {
   ADMIN: 2,
@@ -23,17 +27,27 @@ export interface MemberShipCardProps {
   description: string; //TODO: potentially change this to description
   image: string | StaticImageData;
   type: "organisation" | "user";
+  isFollowCard?: boolean;
   id: string;
+  organisationId?: string;
   role: string;
+  isUser?: boolean;
+  isAdmin?: boolean;
   object: OrganisationResponseShort | ShortUserResponse;
+  onRemove?: (id: string) => void;
 }
 
 export const MembershipCard = ({
   name,
+  isUser,
   description,
   image,
+  organisationId,
   role,
+  isAdmin,
   id,
+  isFollowCard,
+  onRemove,
   type,
   object: oq,
 }: MemberShipCardProps) => {
@@ -41,7 +55,7 @@ export const MembershipCard = ({
     <div className={classes.container}>
       <div className={classes.entity}>
         <div className={classes.imageContainer}>
-          <Image src={image} alt={name} layout="fill" />
+          <ImageWithFallback layout="fill" src={image} alt={name} />
         </div>
         <div className={classes.content}>
           <Link href={`/${type}/${id}`}>
@@ -58,10 +72,33 @@ export const MembershipCard = ({
             ? "Vlasnik"
             : role === "MEMBER"
             ? "Član"
-            : "Zahtjev"}
+            : role === "REQUESTED"
+            ? "Zahtjev"
+            : role}
         </div>
         <UserWrapper>
-          <MembershipFollowButton object={oq} type={type} />
+          <div className={classes.buttons}>
+            {isUser && !isFollowCard ? (
+              <LeaveOrganisationButton
+                organisationId={oq.id}
+                onRemove={onRemove}
+              />
+            ) : isAdmin && !isFollowCard ? (
+              <div className={classes.buttons}>
+                <RemoveMembershipButton
+                  userId={oq.id}
+                  organisationId={organisationId!}
+                  onRemove={onRemove}
+                />
+                <EditUserRoleModal
+                  userId={oq.id}
+                  organisationId={organisationId!}
+                  userRole={role}
+                />
+              </div>
+            ) : null}
+            <MembershipFollowButton object={oq} type={type} />
+          </div>
         </UserWrapper>
       </div>
     </div>

@@ -9,6 +9,7 @@ import { stringCapitaliser } from "@/utility/static/stringCapitaliser";
 import ExponatModalSections from "components/ExponatModalSections";
 import CategorizationCard from "components/CategorizationCard";
 import Link from "next/link";
+import ImageWithFallback from "components/ImageWithFallback/ImageWithFallback";
 export interface ExponatModalProps {
   exponat: ExponatExtendedResponse;
 }
@@ -18,7 +19,11 @@ export const ExponatModal = ({ exponat }: ExponatModalProps) => {
   return (
     <div className={classes.container}>
       <div className={classes.mainImage}>
-        <Image src={exponat.mainImage} alt={exponat.title} layout="fill" />
+        <ImageWithFallback
+          src={exponat.mainImage}
+          alt={exponat.title}
+          layout="fill"
+        />
       </div>
       <div className={classes.title}>
         <span className={classes.latinName}>{exponat.alternateName}</span>

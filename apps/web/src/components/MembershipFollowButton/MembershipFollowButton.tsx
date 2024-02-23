@@ -35,7 +35,7 @@ export const MembershipFollowButton = ({ object, type }: FollowButtonProps) => {
         ? following?.find((x) => x.id === object.id) != null
         : followedOrganisations?.find((x) => x.id === object.id) != null
     );
-  }, [followedOrganisations, loading, following]);
+  }, [followedOrganisations, loading, following, object]);
 
   const toggleFollow = async () => {
     if (type === "user") {

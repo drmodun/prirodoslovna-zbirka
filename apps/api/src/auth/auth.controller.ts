@@ -56,6 +56,7 @@ export class AuthController {
         likeScore: post._count.Likes,
         title: post.title,
         exponatId: post.Exponat.id,
+        organisationId: post.Exponat.organisationId,
         exponatName: post.Exponat.name,
         updatedAt: post.updatedAt,
         hasProfilePicture: item.hasProfileImage,
@@ -68,6 +69,7 @@ export class AuthController {
         authorName: like.Post.author.username,
         id: like.Post.id,
         thumbnail: like.Post.thumbnailImage,
+        organisationId: like.Post.Exponat.organisationId,
         image: like.Post.image,
         likeScore: like.Post._count.Likes,
         title: like.Post.title,
@@ -136,6 +138,7 @@ export class AuthController {
       hasProfileImage: item.hasProfileImage,
       likeCount: item.Posts.reduce((agg, curr) => agg + curr._count.Likes, 0),
       favouriteExponats,
+      role: item.role,
       memberships,
     };
 
