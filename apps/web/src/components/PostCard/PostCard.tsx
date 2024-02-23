@@ -65,7 +65,7 @@ export const PostCard = ({
         <div className={classes.profile}>
           <ImageWithFallback
             src={getPfpUrl(post.authorId)}
-            alt={post.authorName}
+            alt={post.authorName} 
             layout="fill"
           />
         </div>
