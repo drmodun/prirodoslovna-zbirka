@@ -4,6 +4,7 @@ import c from "./SideMenu.module.scss";
 import ProfileImagePlaceholder from "../../assets/images/profile-image-placeholder.png";
 import Image from "next/image";
 import SettingsIcon from "../../assets/icons/settings.svg";
+import SearchIcon from "../../assets/icons/search.svg";
 import IconButton from "./IconButton";
 
 type SideMenuProps = {
@@ -32,7 +33,10 @@ const SideMenu = ({ isOpen }: SideMenuProps) => {
           <IconButton icon={SettingsIcon} />
         </div>
       </div>
-      <input type="text" />
+      <div className={c.searchBar}>
+        <Image src={SearchIcon} alt="search icon" />
+        <input type="text" placeholder="Pretraži Biosferu" />
+      </div>
     </div>
   );
 };
