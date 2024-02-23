@@ -94,6 +94,14 @@ export const getOrganisationQuery = (ApiPropertySwagger?: any) => {
     @IsOptional()
     @ApiProperty()
     location: County;
+
+    @IsOptional()
+    @ApiProperty()
+    size: number;
+
+    @IsOptional()
+    @ApiProperty()
+    page: number;
   }
 
   return UpdatedOrganisationQuery;
