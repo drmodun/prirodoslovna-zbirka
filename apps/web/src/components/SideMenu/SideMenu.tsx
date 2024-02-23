@@ -2,8 +2,9 @@
 import clsx from "clsx";
 import c from "./SideMenu.module.scss";
 import ProfileImagePlaceholder from "../../assets/images/profile-image-placeholder.png";
-import Input from "components/Input";
 import Image from "next/image";
+import SettingsIcon from "../../assets/icons/settings.svg";
+import IconButton from "./IconButton";
 
 type SideMenuProps = {
   isOpen: boolean;
@@ -26,9 +27,9 @@ const SideMenu = ({ isOpen }: SideMenuProps) => {
           <a href="">III. gimnazija, Split</a>
         </div>
         <div className={c.buttons}>
-          <button></button>
-          <button></button>
-          <button></button>
+          <IconButton icon={SettingsIcon} />
+          <IconButton icon={SettingsIcon} />
+          <IconButton icon={SettingsIcon} />
         </div>
       </div>
       <input type="text" />
