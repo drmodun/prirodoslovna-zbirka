@@ -12,7 +12,7 @@ const editUserInfo = async (params: {
   userInfo: UpdateUserDto;
 }) => await api.patch(`/users/${params.userId}`, params.userInfo);
 
-export const useEditUserInfo = () => {
+export const useAdminUpdateUserInfo = () => {
   return useMutation(editUserInfo, {
     onError: (error: string) => {
       toast.error(error, { id: "edit-user-info" });

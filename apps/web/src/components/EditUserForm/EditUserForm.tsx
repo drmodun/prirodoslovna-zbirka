@@ -25,6 +25,7 @@ import FileUpload from "components/FileUpload";
 import { useState } from "react";
 import { useEditUserInfo } from "@/api/useEditUserInfo";
 import { useUploadProfilePicture } from "@/api/useUploadProfilePicture";
+import { useAdminUpdateUserInfo } from "@/api/useAdminUpdateUserInfo";
 
 export const EditUserForm = ({
   user,
@@ -85,7 +86,7 @@ export const EditUserForm = ({
 
   const { mutateAsync, isLoading } = useEditUserInfo();
   const { mutateAsync: uploadImage, isSuccess } = useUploadProfilePicture();
-  const { mutateAsync: adminEditUserInfo } = useEditUserInfo();
+  const { mutateAsync: adminEditUserInfo } = useAdminUpdateUserInfo();
 
   const [profilePicture, setProfilePicture] = useState<File[]>([]);
 
@@ -93,7 +94,12 @@ export const EditUserForm = ({
     console.log(data);
     profilePicture[0] && (await uploadImage(profilePicture[0]));
     data.hasProfileImage = profilePicture.length > 0;
-    await mutateAsync(data);
+    isSuper
+      ? await adminEditUserInfo({
+          userId: user.id,
+          userInfo: data,
+        })
+      : await mutateAsync(data);
   };
 
   return (
@@ -133,10 +139,12 @@ export const EditUserForm = ({
           form={form}
           error={form.formState.errors.location?.message?.toString()}
         />
-        <FileUpload
-          name="Promjenite profilnu sliku"
-          onChange={setProfilePicture}
-        />
+        {!isSuper && (
+          <FileUpload
+            name="Promjenite profilnu sliku"
+            onChange={setProfilePicture}
+          />
+        )}
         <div className={classes.buttons}>
           <BaseButton text="Spremi promjene" />
         </div>

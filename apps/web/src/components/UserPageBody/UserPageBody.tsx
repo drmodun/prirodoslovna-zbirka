@@ -27,7 +27,10 @@ export const UserPageBody = ({ user }: UserPageBodyProps) => {
 
   useEffect(() => {
     if (availableTabs.includes("Edit")) return;
-    if (user.id === loggedUser?.id) {
+    if (
+      user.id === loggedUser?.id ||
+      loggedUser?.role?.toLowerCase() === "super"
+    ) {
       setAvailableTabs((prev) => [
         "Edit",
         ...prev.filter((tab) => tab !== "About"),
@@ -55,7 +58,10 @@ export const UserPageBody = ({ user }: UserPageBodyProps) => {
               <span className={classes.title}>
                 Uredi Profil Korisnika {user.username}
               </span>
-              <EditUserForm user={user} />
+              <EditUserForm
+                isSuper={loggedUser?.role?.toLowerCase() === "super"}
+                user={user}
+              />
             </div>
           </div>
         )}

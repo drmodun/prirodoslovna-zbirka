@@ -6,7 +6,7 @@ const deleteUser = async (id: string) => {
   await api.delete(`/users/${id}`);
 };
 
-export const useDeleteUser = () => {
+export const useAdminDeleteUser = () => {
   return useMutation(deleteUser, {
     onError: (error) => {
       toast.error("Greška pri brisanju korisnika", { id: "delete-user" });
