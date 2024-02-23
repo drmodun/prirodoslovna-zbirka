@@ -21,12 +21,12 @@ export const FollowsTable = ({
 }: FollowsTableProps) => {
   const [tab, setTab] = useState<string>(firstTab);
   const [listToRender, setListToRender] = useState(
-    firstTab ? following : followers
+    firstTab === "Following" ? following : followers
   );
   console.log(firstTab, tab, listToRender);
 
   useEffect(() => {
-    setListToRender(tab.toLowerCase() === "followers" ? following : followers);
+    setListToRender(tab.toLowerCase() === "followers" ? followers : following);
   }, [tab]);
 
   useEffect(() => {
