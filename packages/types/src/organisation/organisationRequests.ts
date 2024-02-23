@@ -87,11 +87,11 @@ export const getUpdateOrganisationDto = (ApiPropertySwagger?: any) => {
 export const getOrganisationQuery = (ApiPropertySwagger?: any) => {
   const ApiProperty = ApiPropertySwagger || function () {};
   class UpdatedOrganisationQuery {
-    @IsString()
+    @IsOptional()
     @ApiProperty()
     name: string;
 
-    @IsString()
+    @IsOptional()
     @ApiProperty()
     location: County;
   }

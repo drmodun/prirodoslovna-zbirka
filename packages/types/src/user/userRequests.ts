@@ -102,27 +102,15 @@ export const getUserQuery = (ApiPropertySwagger?: any) => {
   class UserQueryDto {
     @IsString()
     @ApiProperty()
-    name: string;
+    name?: string;
 
     @IsEnum(County)
     @ApiProperty()
-    location: County;
+    location?: County;
 
     @IsString()
     @ApiProperty()
-    username: string;
-
-    @IsString()
-    @ApiProperty()
-    bio: string;
-
-    @IsString()
-    @ApiProperty()
-    organisation: string;
-
-    @IsString()
-    @ApiProperty()
-    role: number;
+    username?: string;
   }
 
   return UserQueryDto;
