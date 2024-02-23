@@ -5,6 +5,7 @@ export interface ExponatExtendedResponse {
   id: string;
   title: string;
   description: string;
+  exponatKind: string;
   mainImage: string;
   alternateName: string;
   organizationId: string;

@@ -14,6 +14,7 @@ export interface ListInputProps {
   attribute: string;
   form: UseFormReturn<FieldValues>;
   error?: string;
+  initValue?: string[];
 }
 
 export const ListInput = ({
@@ -21,9 +22,10 @@ export const ListInput = ({
   attribute,
   form,
   error,
+  initValue,
 }: ListInputProps) => {
   const { setValue } = form;
-  const [elements, setElements] = useState<string[]>([]);
+  const [elements, setElements] = useState<string[]>(initValue || []);
   const [newValue, setNewValue] = useState<string>("");
 
   const handleOnChange = () => {

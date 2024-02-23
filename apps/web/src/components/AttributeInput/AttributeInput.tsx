@@ -9,22 +9,25 @@ import leaf from "assets/images/like-leaf-green.svg";
 import plus from "assets/images/plus.svg";
 import { Json } from "@biosfera/types/src/jsonObjects";
 import ErrorText from "components/Error";
+import { init } from "next/dist/compiled/webpack/webpack";
 
 export interface AttributeInputProps {
   question: string;
   attribute: string;
   form: UseFormReturn<FieldValues>;
   error?: string;
+  initValue?: Json;
 }
 
 export const AttributeInput = ({
   question,
   attribute,
   form,
+  initValue,
   error,
 }: AttributeInputProps) => {
   const { setValue } = form;
-  const [object, setObject] = useState<Json>({});
+  const [object, setObject] = useState<Json>(initValue || {});
   const [newAttribute, setNewAttribute] = useState<string>("");
   const [newValue, setNewValue] = useState<string>("");
 
