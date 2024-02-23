@@ -23,10 +23,10 @@ const SideMenu = ({ isOpen }: SideMenuProps) => {
           alt="placeholder"
         />
         <div className={c.userInfoWrapper}>
-          <p>Ivana Ivanović</p>
-          <a href="">III. gimnazija, Split</a>
+          <p className={c.name}>Ivana Ivanović</p>
+          <a className={c.organisation}>III. gimnazija, Split</a>
         </div>
-        <div className={c.buttons}>
+        <div className={c.buttonsWrapper}>
           <IconButton icon={SettingsIcon} />
           <IconButton icon={SettingsIcon} />
           <IconButton icon={SettingsIcon} />
