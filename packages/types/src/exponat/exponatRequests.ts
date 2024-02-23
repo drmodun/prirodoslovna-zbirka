@@ -133,43 +133,46 @@ export const getExponatQuery = (ApiPropertySwagger?: any) => {
   const ApiProperty = ApiPropertySwagger || function () {};
 
   class ExponatQueryDto {
+    @IsOptional()
+    @ApiProperty({ required: false })
+    name?: string;
+
+    @IsOptional()
     @IsString()
     @ApiProperty({ required: false })
-    name: string;
+    alternateName?: string;
 
-    @IsString()
-    @ApiProperty({ required: false })
-    alternateName: string;
-
-    @IsString()
+    @IsOptional()
     @ApiProperty({ type: Date, required: false })
-    createdAt: Date;
+    createdAt?: Date;
 
-    @IsString()
+    @IsOptional()
     @ApiProperty({ required: false })
-    minFavoriteCount: number;
+    minFavoriteCount?: number;
 
-    @IsString()
+    @IsOptional()
     @ApiProperty({ required: false })
-    maxFavoriteCount: number;
+    maxFavoriteCount?: number;
 
-    @IsString()
+    @IsOptional()
     @ApiProperty({ required: false })
-    organisationId: string;
+    organisationId?: string;
 
-    @IsEnum(SortingEnum)
+    @IsOptional()
     @ApiProperty({ enum: SortingEnum, required: false })
-    attribute: SortingEnum;
+    attribute?: SortingEnum;
 
-    @IsEnum(SortType)
+    @IsOptional()
     @ApiProperty({ enum: SortType, required: false })
-    direction: SortType;
+    direction?: SortType;
 
+    @IsOptional()
     @ApiProperty({ required: false })
-    page: number;
+    page?: number;
 
+    @IsOptional()
     @ApiProperty({ required: false })
-    size: number;
+    size?: number;
   }
   return ExponatQueryDto;
 };
