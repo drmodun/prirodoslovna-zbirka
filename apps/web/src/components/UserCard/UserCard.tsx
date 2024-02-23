@@ -15,7 +15,12 @@ export const UserCard = ({ user }: UserCardProps) => (
   <div className={classes.container}>
     <div className={classes.picture}>
       <Image
-        src={user.hasProfileImage ? user : placeholder}
+        src={
+          user.hasProfileImage
+            ? `https://biosfera-files.s3.eu-north-1.amazonaws.com/user/${user.id}`
+            : placeholder
+        }
+        layout="fill"
         alt={user.username}
       />
     </div>

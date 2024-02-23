@@ -13,6 +13,7 @@ import { UserWrapper } from "@/utility/wrappers/userWrapper";
 import MembershipFollowButton from "../MembershipFollowButton";
 import LeaveOrganisationButton from "components/LeaveOrganisationButton";
 import RemoveMembershipButton from "components/RemoveMembershipButton";
+import ImageWithFallback from "components/ImageWithFallback/ImageWithFallback";
 
 export const memberWeight = {
   ADMIN: 2,
@@ -51,7 +52,7 @@ export const MembershipCard = ({
     <div className={classes.container}>
       <div className={classes.entity}>
         <div className={classes.imageContainer}>
-          <Image src={image} alt={name} layout="fill" />
+          <ImageWithFallback src={image} alt={name} />
         </div>
         <div className={classes.content}>
           <Link href={`/${type}/${id}`}>
