@@ -18,6 +18,7 @@ import { Indexable } from "@biosfera/types/src/jsonObjects";
 import BaseButton from "components/BaseButton";
 import { useIsInView } from "@/utility/hooks/useIsInView";
 import useUser from "@/utility/context/UserContext";
+import { getPfpUrl } from "@/utility/static/getPfpUrl";
 
 export interface SortOption {
   label: string;
@@ -193,7 +194,7 @@ export const CardCollection: React.FC<CardCollectionProps> = ({
                   <MembershipCard
                     description={item.email}
                     type="user"
-                    image={placeholder}
+                    image={getPfpUrl(item.id)}
                     object={item as ShortUserResponse}
                     role={item.role as string}
                     isUser={checkIsAuthor(item.id)}
@@ -213,7 +214,7 @@ export const CardCollection: React.FC<CardCollectionProps> = ({
                   <MembershipCard
                     description={item.email}
                     type="user"
-                    image={placeholder}
+                    image={item.hasProfileImage && getPfpUrl(item.id)}
                     object={item as ShortUserResponse}
                     role={item.location}
                     isUser={checkIsAuthor(item.id)}

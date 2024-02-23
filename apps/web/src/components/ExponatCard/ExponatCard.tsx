@@ -10,6 +10,8 @@ import { UserWrapper } from "@/utility/wrappers/userWrapper";
 import RemoveExponatButton from "components/RemoveExponatButton";
 import { QueryClientWrapper } from "@/utility/wrappers/queryWrapper";
 import ToggleApprovalButton from "components/ToggleApprovalButton";
+import ImageWithFallback from "components/ImageWithFallback/ImageWithFallback";
+import crystal from "assets/images/crystal.svg";
 
 export interface ExponatCardProps {
   exponat: ExponatResponseShort;
@@ -26,7 +28,11 @@ export const ExponatCard = ({
 }: ExponatCardProps) => (
   <div className={classes.container}>
     <div className={classes.image}>
-      <Image src={exponat.mainImage} alt={exponat.name} layout="fill" />
+      <ImageWithFallback
+        src={exponat.mainImage}
+        alt={exponat.name}
+        fallbackSrc={crystal}
+      />
     </div>
     {isAdmin ? (
       <QueryClientWrapper>

@@ -12,6 +12,8 @@ import { RemovePostButton } from "components/RemovePostButton/RemovePostButton";
 import { Query } from "react-query";
 import { QueryClientWrapper } from "@/utility/wrappers/queryWrapper";
 import ToggleApprovalButton from "components/ToggleApprovalButton";
+import ImageWithFallback from "components/ImageWithFallback/ImageWithFallback";
+import { getPfpUrl } from "@/utility/static/getPfpUrl";
 
 export interface PostCardProps {
   post: PostResponse;
@@ -36,7 +38,12 @@ export const PostCard = ({
         <LikeButton post={post} />
       </UserWrapper>
       <div className={classes.image}>
-        <Image src={post.thumbnail} alt={post.title} layout="fill" />
+        <ImageWithFallback
+          src={post.thumbnail}
+          layout="fill"
+          fallbackSrc={defaultPic}
+          alt={post.title}
+        />
       </div>
     </div>
     {(isUser || isAdmin) && (
@@ -56,10 +63,9 @@ export const PostCard = ({
       <span className={classes.title}>{post.title}</span>
       <div className={classes.author}>
         <div className={classes.profile}>
-          <Image
-            src={post.hasProfilePicture ? defaultPic : placeholder}
+          <ImageWithFallback
+            src={getPfpUrl(post.authorId)}
             alt={post.authorName}
-            layout="fill"
           />
         </div>
         <div className={classes.authorInfo}>
