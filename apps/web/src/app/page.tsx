@@ -4,6 +4,8 @@ import ExponatGroupPicture from "../assets/images/exponat-group.png";
 import Image from "next/image";
 import BaseButton from "components/BaseButton";
 import Link from "next/link";
+import clsx from "clsx";
+import blogPost from "assets/images/blogPost.svg";
 
 export default function Home() {
   return (
@@ -22,15 +24,58 @@ export default function Home() {
         <Image className={c.plantImage} src={PlantPicture} alt="plant" />
       </section>
 
-      <section className={c.landingSection}>
+      <section className={clsx(c.landingSection, c.exponats)}>
         <div className={c.content}>
           <h2>Pregledaj eksponate</h2>
           <p>Pogledaj sadržaj prirodoslovnih zbirki svih organizacija.</p>
-          <Link href="/login">
+          <Link
+            href={{
+              pathname: "/discover",
+              query: { kind: "exponat" },
+            }}
+          >
             <BaseButton className={c.button} text="Pregledaj" />
           </Link>
         </div>
         <Image className={c.plantImage} src={ExponatGroupPicture} alt="plant" />
+      </section>
+
+      <section className={clsx(c.landingSection, c.posts)}>
+        <div className={c.content}>
+          <h2>Pregledaj objave</h2>
+          <p>
+            Pogledajte objave korisnika o eksponatima, sve informacije i
+            zanimljivosti
+          </p>
+          <Link
+            href={{
+              pathname: "/discover",
+              query: { kind: "post" },
+            }}
+          >
+            <BaseButton className={c.button} text="Pregledaj" />
+          </Link>
+        </div>
+        <Image className={c.plantImage} src={blogPost} alt="plant" />
+      </section>
+
+      <section className={clsx(c.landingSection, c.organisations)}>
+        <div className={c.content}>
+          <h2>Pregledaj organizacije</h2>
+          <p>
+            Pogledajte sve organizacije koje su se pridružile platformi i
+            pregledajte njihove eksponate, objave i članove
+          </p>
+          <Link
+            href={{
+              pathname: "/discover",
+              query: { kind: "organisation" },
+            }}
+          >
+            <BaseButton className={c.button} text="Pregledaj" />
+          </Link>
+        </div>
+        <Image className={c.plantImage} src={blogPost} alt="plant" />
       </section>
     </main>
   );
