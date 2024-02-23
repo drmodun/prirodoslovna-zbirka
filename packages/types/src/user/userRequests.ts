@@ -4,6 +4,7 @@ import {
   IsEnum,
   IsStrongPassword,
   IsEmail,
+  IsOptional,
   IsBoolean,
 } from "class-validator";
 import { LoginRequest } from "../auth";
@@ -100,17 +101,25 @@ export const getUserQuery = (ApiPropertySwagger?: any) => {
   const ApiProperty = ApiPropertySwagger || function () {};
 
   class UserQueryDto {
-    @IsString()
+    @IsOptional()
     @ApiProperty()
     name?: string;
 
-    @IsEnum(County)
+    @IsOptional()
     @ApiProperty()
     location?: County;
 
-    @IsString()
+    @IsOptional()
     @ApiProperty()
     username?: string;
+
+    @IsOptional()
+    @ApiProperty()
+    page?: number;
+
+    @IsOptional()
+    @ApiProperty()
+    size?: number;
   }
 
   return UserQueryDto;

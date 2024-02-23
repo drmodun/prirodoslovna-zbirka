@@ -11,3 +11,4 @@ export const serverGetUser = async (id: string) => {
     console.log(error);
   }
 };
+

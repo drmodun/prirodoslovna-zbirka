@@ -41,6 +41,5 @@ const SearchPage = async ({
     location: searchParams?.location,
     username: searchParams?.username,
   });
-
   
 };
