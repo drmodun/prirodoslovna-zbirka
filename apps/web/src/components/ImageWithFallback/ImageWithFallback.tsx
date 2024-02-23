@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image, { ImageProps, StaticImageData } from "next/image";
 import placeholder from "assets/images/lion.svg";
 
@@ -12,6 +12,10 @@ interface ImageWithFallbackProps extends ImageProps {
 const ImageWithFallback = (props: ImageWithFallbackProps) => {
   const { src, fallbackSrc, alt, ...rest } = props;
   const [imgSrc, setImgSrc] = useState(src);
+
+  useEffect(() => {
+    setImgSrc(src);
+  }, [src]);
 
   return (
     <Image

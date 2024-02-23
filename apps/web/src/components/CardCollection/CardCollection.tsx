@@ -222,6 +222,7 @@ export const CardCollection: React.FC<CardCollectionProps> = ({
                     role={item.location}
                     isUser={checkIsAuthor(item.id)}
                     onRemove={handleDelete}
+                    isFollowCard
                     organisationId={organisationId}
                     isAdmin={
                       user?.role?.toLowerCase() === "super" ||

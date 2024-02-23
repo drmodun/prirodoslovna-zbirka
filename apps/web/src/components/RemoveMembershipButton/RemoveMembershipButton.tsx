@@ -18,11 +18,11 @@ export const RemoveMembershipButton: React.FC<LeaveOrganisationButtonProps> = ({
     const confirm = window.confirm(
       "jeste li sigurni da želite ukinuti ovo članstvo?"
     );
-    confirm &&
-      mutate({
-        organisationId,
-        userId,
-      });
+    if (!confirm) return;
+    mutate({
+      organisationId,
+      userId,
+    });
     onRemove && onRemove(userId);
   };
   return (
