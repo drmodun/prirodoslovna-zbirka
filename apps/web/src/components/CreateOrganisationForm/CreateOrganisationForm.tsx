@@ -2,7 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import Input from "components/Input";
-import { useForm } from "react-hook-form";
+import { FieldValues, useForm } from "react-hook-form";
 import { z } from "zod";
 import email from "assets/images/email.svg";
 import url from "assets/images/url.svg";
@@ -11,7 +11,11 @@ import organitionIcon from "assets/images/organitionIcon.svg";
 import description from "assets/images/description.svg";
 import BaseButton from "components/BaseButton";
 import classes from "./CreateOrganisationForm.module.scss";
-import { County, Directories } from "@biosfera/types";
+import {
+  County,
+  Directories,
+  ExtendedOrganisationResponse,
+} from "@biosfera/types";
 import { SelectInput } from "components/SelectInput/SelectInput";
 import { useCreateOrganisation } from "@/api/useCreateOrganisation";
 import { makeCountyName } from "@/utility/static/countyNameMaker";
@@ -19,7 +23,15 @@ import FileUpload from "components/FileUpload";
 import { useState } from "react";
 import { useUploadFile } from "@/api/useUploadFile";
 
-export const CreateOrganisationForm = () => {
+export interface CreateOrganisationFormProps {
+  initvalues?: ExtendedOrganisationResponse;
+  isEdit?: boolean;
+}
+
+export const CreateOrganisationForm = ({
+  initvalues,
+  isEdit,
+}: CreateOrganisationFormProps) => {
   const schema = z.object({
     name: z
       .string()
@@ -63,9 +75,11 @@ export const CreateOrganisationForm = () => {
 
   const form = useForm({
     resolver: zodResolver(schema),
+    ...(initvalues && { defaultValues: initvalues as FieldValues }),
   });
 
   const create = useCreateOrganisation();
+  const update = useUpdateOrganisation();
 
   const onSubmit = async (data: any) => {
     console.log(data);

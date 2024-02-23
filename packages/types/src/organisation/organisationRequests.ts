@@ -28,10 +28,6 @@ export const getCreateOrganisationDto = (ApiPropertySwagger?: any) => {
     @ApiProperty()
     mainImage: string;
 
-    @IsString({ each: true })
-    @ApiProperty()
-    otherImages: string[];
-
     @IsEnum(County)
     @ApiProperty()
     location: County;
@@ -39,6 +35,40 @@ export const getCreateOrganisationDto = (ApiPropertySwagger?: any) => {
     OrganisationUsers?: any;
   }
   return CreateOrganisationDto;
+};
+
+export const getUpdateOrganisationDto = (ApiPropertySwagger?: any) => {
+  const ApiProperty = ApiPropertySwagger || function () {};
+
+  class UpdateOrganisationDto {
+    @IsString()
+    @MinLength(5)
+    @ApiProperty({ required: false })
+    name?: string;
+
+    @IsString()
+    @MinLength(10)
+    @ApiProperty({ required: false })
+    description?: string;
+
+    @IsString()
+    @IsEmail()
+    @ApiProperty({ required: false })
+    email?: string;
+
+    @IsUrl()
+    @ApiProperty({ required: false })
+    websiteUrl?: string;
+
+    @IsString()
+    @ApiProperty({ required: false })
+    mainImage?: string;
+
+    @IsEnum(County)
+    @ApiProperty({ required: false })
+    location?: County;
+  }
+  return UpdateOrganisationDto;
 };
 
 export const getOrganisationQuery = (ApiPropertySwagger?: any) => {
