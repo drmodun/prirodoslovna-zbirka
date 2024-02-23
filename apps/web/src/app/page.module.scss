@@ -51,7 +51,7 @@
     .plantImage {
       width: 60%;
       height: 80%;
-      transform: rotate(25deg);
+      transform: rotate(12deg);
     }
   }
 
@@ -142,14 +142,36 @@
       height: 50%;
       margin-bottom: 50px;
     }
-  }
 
-  .landingSection:nth-of-type(2) {
-    flex-direction: row;
+    &.exponats {
+      flex-direction: row;
 
-    .content {
-      align-items: flex-start;
-      text-align: left;
+      .content {
+        align-items: flex-start;
+        text-align: left;
+      }
+    }
+
+    &.posts {
+      flex-direction: row-reverse;
+
+      .content {
+        align-items: flex-end;
+        text-align: right;
+      }
+    }
+
+    &.organisations {
+      flex-direction: row;
+
+      .content {
+        align-items: flex-start;
+        text-align: left;
+      }
+      .plantImage {
+        width: 50%;
+        height: 50%;
+      }
     }
   }
 }
