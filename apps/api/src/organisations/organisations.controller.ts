@@ -141,7 +141,8 @@ export class OrganisationsController {
   async findOne(@Param('id') id: string, @Req() req?: any) {
     const isAdmin =
       req?.user?.role === 'super' ||
-      (await this.membersService.hasAdminRights(req.user.id, id));
+      (req.user &&
+        (await this.membersService.hasAdminRights(req.user?.id, id)));
 
     const item = await this.organisationsService.findOne(id, !isAdmin);
 

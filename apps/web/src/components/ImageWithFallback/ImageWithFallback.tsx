@@ -1,3 +1,4 @@
+"use client";
 import React, { useState } from "react";
 import Image, { ImageProps, StaticImageData } from "next/image";
 import placeholder from "assets/images/lion.svg";

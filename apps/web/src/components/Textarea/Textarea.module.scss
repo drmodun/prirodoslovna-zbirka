@@ -1,6 +1,17 @@
 @import "styles/variables.scss";
 @import "styles/calc.scss";
 
+.main {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  @media (max-width: 768px) {
+    gap: vw-mobile-calc(10);
+  }
+}
+
 .container {
   min-width: vw-calc(400);
   width: 100%;

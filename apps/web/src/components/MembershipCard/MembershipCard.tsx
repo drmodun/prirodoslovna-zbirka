@@ -52,7 +52,7 @@ export const MembershipCard = ({
     <div className={classes.container}>
       <div className={classes.entity}>
         <div className={classes.imageContainer}>
-          <ImageWithFallback src={image} alt={name} />
+          <ImageWithFallback layout="fill" src={image} alt={name} />
         </div>
         <div className={classes.content}>
           <Link href={`/${type}/${id}`}>

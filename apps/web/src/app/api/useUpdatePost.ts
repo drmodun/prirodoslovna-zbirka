@@ -16,14 +16,24 @@ export const updatePost = async (params: {
 export const useUpdatePost = () => {
   return useMutation(updatePost, {
     onError: (error: string) => {
-      console.log(error);
-      toast.error(
-        "Greška se dogodila tijekom mijenjanja podataka organizacije",
-        { id: "update-post" }
-      );
+      if (
+        error === "Unauthorized" ||
+        error.includes("Unauthorized") ||
+        error.includes("You")
+      ) {
+        toast.error("Nemate ovlasti za ovu akciju", {
+          icon: "🔒",
+          id: "unauthorized",
+        });
+      } else {
+        console.log(error);
+        toast.error("Greška se dogodila tijekom mijenjanja podataka objave", {
+          id: "update-post",
+        });
+      }
     },
     onSuccess: () => {
-      toast.success("Promijenjeni podaci organizacije", {
+      toast.success("Promijenjeni podaci objave", {
         id: "update-post",
       });
     },

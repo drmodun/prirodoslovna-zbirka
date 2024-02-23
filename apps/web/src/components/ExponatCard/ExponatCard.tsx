@@ -32,6 +32,7 @@ export const ExponatCard = ({
         src={exponat.mainImage}
         alt={exponat.name}
         fallbackSrc={crystal}
+        layout="fill"
       />
     </div>
     {isAdmin ? (
