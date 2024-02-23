@@ -7,10 +7,10 @@ type IconButtonProps = {
 } & React.HTMLAttributes<HTMLButtonElement>;
 
 const IconButton = ({ icon, className, ...handlers }: IconButtonProps) => {
-  const classes = clsx(c.sideMenu, className);
+  const classes = clsx(c.iconButton, className);
   return (
-    <button {...handlers}>
-      <Image className={classes} src={icon} alt="icon" />
+    <button className={classes} {...handlers}>
+      <Image src={icon} alt="icon" />
     </button>
   );
 };
