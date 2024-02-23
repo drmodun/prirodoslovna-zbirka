@@ -52,7 +52,7 @@ export const RemoveExponatButton: React.FC<RemoveExponatButtonProps> = ({
       >
         <Image title="Makni eksponat" src={remove} alt="Makni eksponat" />
       </button>
-      <Link href={`/post/${exponatId}/edit`} className={classes.edit}>
+      <Link href={`/exponat/${exponatId}/edit`} className={classes.edit}>
         <Image src={edit} alt="edit" />
       </Link>
     </div>

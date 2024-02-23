@@ -13,6 +13,7 @@ import CardCollection from "components/CardCollection";
 import { UserWrapper } from "@/utility/wrappers/userWrapper";
 import useUser from "@/utility/context/UserContext";
 import EditUserForm from "components/EditUserForm";
+import DeleteUserButton from "components/DeleteUserButton";
 
 const tabs = ["About", "Posts", "Likes", "Favourites", "Organisations"];
 
@@ -33,7 +34,7 @@ export const UserPageBody = ({ user }: UserPageBodyProps) => {
     ) {
       setAvailableTabs((prev) => [
         "Edit",
-        ...prev.filter((tab) => tab !== "About"),
+        ...prev.filter((tab) => tab !== "About" && tab !== "Edit"),
       ]);
     }
     setActiveTab("Edit");
@@ -61,6 +62,10 @@ export const UserPageBody = ({ user }: UserPageBodyProps) => {
               <EditUserForm
                 isSuper={loggedUser?.role?.toLowerCase() === "super"}
                 user={user}
+              />
+              <DeleteUserButton
+                isSuper={loggedUser?.role?.toLowerCase() === "super"}
+                userId={user.id}
               />
             </div>
           </div>

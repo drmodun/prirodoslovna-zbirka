@@ -3,8 +3,8 @@
 
 .deleteButton {
   width: 100%;
-  height: vw-calc(30);
-  border-radius: vw-calc(5);
+  height: vw-calc(50);
+  border-radius: vw-calc(20);
   background-color: $red;
   color: $button-text-color;
   font-size: vw-calc(16);
@@ -17,8 +17,8 @@
   justify-content: center;
   @media (max-width: 768px) {
     width: 100%;
-    height: vw-mobile-calc(15);
-    border-radius: vw-mobile-calc(5);
+    height: vw-mobile-calc(25);
+    border-radius: vw-mobile-calc(10);
   }
   &:hover {
     background-color: $dark-red;
