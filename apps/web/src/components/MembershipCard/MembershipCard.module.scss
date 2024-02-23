@@ -151,6 +151,8 @@
 
     @media (max-width: 768px) {
       flex-direction: column;
+      align-items: flex-end;
+      justify-content: center;
     }
   }
 }
