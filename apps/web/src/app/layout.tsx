@@ -5,6 +5,7 @@ import Header from "./views/Header";
 import Footer from "./views/Footer";
 import { BodyWrapper } from "./utility/wrappers/bodyWrapper";
 import { Toaster } from "react-hot-toast";
+import SideMenu from "components/SideMenu";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -27,6 +28,7 @@ export default function RootLayout({
           {children}
         </BodyWrapper>
         <Footer />
+        <SideMenu isOpen={true} />
       </body>
     </html>
   );
