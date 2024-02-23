@@ -12,7 +12,7 @@
     justify-content: space-between;
     align-items: flex-start;
     margin-bottom: vw-calc(100);
-    min-height: vw-calc(250);
+    height: vw-calc(250);
 
     @media screen and (max-width: 768px) {
       flex-direction: column;

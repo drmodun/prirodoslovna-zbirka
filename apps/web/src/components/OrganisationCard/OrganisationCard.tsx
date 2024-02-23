@@ -11,7 +11,7 @@ import Link from "next/link";
 import { makeCountyName } from "@/utility/static/countyNameMaker";
 
 export interface OrganisationCardProps {
-  organisation: OrganisationResponseShort | ExtendedOrganisationResponse;
+  organisation: OrganisationResponseShort;
 }
 
 export const OrganisationCard = ({ organisation }: OrganisationCardProps) => {
@@ -37,15 +37,15 @@ export const OrganisationCard = ({ organisation }: OrganisationCardProps) => {
         <div className={classes.stats}>
           <div className={classes.stat}>
             <Image src={desc} alt={organisation.name} />
-            <span>{organisation.exponatCount || 0}</span>
+            <span>{organisation.exponatCount}</span>
           </div>
           <div className={classes.stat}>
             <Image src={favouriteDrop} alt={organisation.name} />
-            <span>{organisation.followerCount || 0}</span>
+            <span>{organisation.points}</span>
           </div>
           <div className={classes.stat}>
             <Image src={userDark} alt={organisation.name} />
-            <span>{organisation.followerCount || 0}</span>
+            <span>{organisation.followerCount}</span>
           </div>
         </div>
         <Link

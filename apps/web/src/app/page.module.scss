@@ -33,6 +33,28 @@
     }
   }
 
+  &.organisations {
+    color: white;
+    background-color: $mineral-color;
+    flex-direction: row-reverse;
+
+    .content {
+      align-items: flex-end;
+      text-align: right;
+
+      .button {
+        background-color: white;
+        color: $mineral-color;
+      }
+    }
+
+    .plantImage {
+      width: 60%;
+      height: 80%;
+      transform: rotate(25deg);
+    }
+  }
+
   &.posts {
     color: white;
     background-color: $procariot-color;
