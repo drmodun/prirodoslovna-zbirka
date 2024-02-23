@@ -163,6 +163,7 @@ export class ExponatsController {
       funFacts: item.funFacts,
       mainImage: item.mainImage,
       organizationId: item.organisationId,
+      exponatKind: item.ExponatKind,
       organizationName: item.Organisation.name,
       updatedAt: item.updatedAt,
       posts: posts,

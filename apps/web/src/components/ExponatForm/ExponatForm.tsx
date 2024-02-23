@@ -1,13 +1,14 @@
 "use client";
 import {
   Directories,
+  ExponatExtendedResponse,
   ExponatKind,
   ExponatResponseShort,
   SpeciesResponse,
 } from "@biosfera/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Input from "components/Input";
-import { useForm } from "react-hook-form";
+import { FieldValues, useForm } from "react-hook-form";
 import { any, z } from "zod";
 import classes from "./ExponatForm.module.scss";
 import Textarea from "components/Textarea";
@@ -23,11 +24,19 @@ import { CreateExponatDto, useCreateExponat } from "@/api/useCreateExponat";
 import FileUpload from "components/FileUpload";
 import { useUploadFile } from "@/api/useUploadFile";
 import toast from "react-hot-toast";
+import { useUpdateExponat } from "@/api/useUpdateExponat";
+import exp from "constants";
 export interface ExponatModalSectionsProps {
   organisationId: string;
+  isEdit?: boolean;
+  values?: ExponatExtendedResponse;
 }
 
-export const ExponatForm = ({ organisationId }: ExponatModalSectionsProps) => {
+export const ExponatForm = ({
+  organisationId,
+  isEdit,
+  values,
+}: ExponatModalSectionsProps) => {
   const schema = z
     .object({
       name: z
@@ -57,24 +66,38 @@ export const ExponatForm = ({ organisationId }: ExponatModalSectionsProps) => {
         path: ["attributes"],
       }
     );
-  const [selectedSpecies, setSelectedSpecies] = useState<string>("" as string);
+  const [selectedSpecies, setSelectedSpecies] = useState<string>(
+    values?.alternateName || ""
+  );
   const [exponatMainImage, setExponatMainImage] = useState<File[]>(
     [] as File[]
   );
 
   const form = useForm({
     resolver: zodResolver(schema),
+    ...(isEdit && {
+      defaultValues: {
+        ...values,
+        name: values?.title,
+        description: values?.description,
+        funFacts: values?.funFacts,
+        alternateName: values?.alternateName,
+        exponatKind: values?.exponatKind,
+        attributes: JSON.parse(values?.attributes as any),
+      } as FieldValues,
+    }),
   });
 
   const { data, error, isLoading } = useGetSpecies(selectedSpecies);
   const { mutateAsync } = useReadOrCreateCategorization();
   const { mutateAsync: createExponat } = useCreateExponat();
   const { mutateAsync: uploadImage } = useUploadFile();
+  const { mutateAsync: updateExponat } = useUpdateExponat();
 
   const onSubmit = async (formData: any) => {
     console.log(formData);
 
-    if (exponatMainImage.length === 0) {
+    if (exponatMainImage.length === 0 && !isEdit) {
       toast.error("Mora postojati glavna slika eksponata");
       return;
     }
@@ -83,7 +106,7 @@ export const ExponatForm = ({ organisationId }: ExponatModalSectionsProps) => {
       (x: SpeciesResponse) => x.species === formData.alternateName
     );
 
-    if (!species) {
+    if (!species && !isEdit) {
       alert("Nomenklatura nije validna");
       return;
     }
@@ -97,12 +120,14 @@ export const ExponatForm = ({ organisationId }: ExponatModalSectionsProps) => {
       return;
     }
 
-    const image = await uploadImage({
-      file: exponatMainImage[0],
-      directory: Directories.EXPONAT,
-    });
+    const image =
+      exponatMainImage[0] &&
+      (await uploadImage({
+        file: exponatMainImage[0],
+        directory: Directories.EXPONAT,
+      }));
 
-    if (!image) {
+    if (!image && !isEdit) {
       toast.error("Greška prilikom uploada slike");
       return;
     }
@@ -124,13 +149,12 @@ export const ExponatForm = ({ organisationId }: ExponatModalSectionsProps) => {
       exponat: request,
     };
 
-    const action = await createExponat(params);
-    if (!action) {
-      alert("Greška prilikom kreiranja eksponata");
-      return;
-    } else {
-      alert("Eksponat uspješno kreiran");
-    }
+    const action = isEdit
+      ? await updateExponat({
+          exponatId: values?.id as string,
+          updateExponatDto: request,
+        })
+      : await createExponat(params);
   };
 
   return (
@@ -167,6 +191,7 @@ export const ExponatForm = ({ organisationId }: ExponatModalSectionsProps) => {
               label: species.species,
             })) || []
         }
+        initSelected={values?.alternateName}
         onSelect={setSelectedSpecies}
       />
       <p className={classes.error}>
@@ -182,6 +207,7 @@ export const ExponatForm = ({ organisationId }: ExponatModalSectionsProps) => {
         form={form}
         attribute="funFacts"
         question="Fun Facts"
+        initValue={values?.funFacts}
         error={form.formState.errors.funFacts?.message?.toString()}
       />
       <FileUpload
@@ -192,6 +218,9 @@ export const ExponatForm = ({ organisationId }: ExponatModalSectionsProps) => {
         form={form}
         attribute="attributes"
         question="Attributes"
+        initValue={
+          values?.attributes ? JSON.parse(values?.attributes as Json) : {}
+        }
         error={form.formState.errors.attributes?.message?.toString()}
       />
 

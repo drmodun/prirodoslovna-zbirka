@@ -206,7 +206,7 @@ export class ExponatsService {
       },
     });
 
-    if (!exponat) return false;
+    if (!exponat) throw new NotFoundException();
 
     const check = await this.checkForValidity(
       userId,
@@ -214,7 +214,7 @@ export class ExponatsService {
       true,
     );
 
-    if (!check) return false;
+    if (!check) throw new UnauthorizedException();
 
     await this.prisma.exponat.update({
       where: {
@@ -281,7 +281,7 @@ export class ExponatsService {
           id: userId,
         },
       });
-      return checkForSuper.role !== Role.SUPER;
+      return checkForSuper.role === Role.SUPER;
     }
 
     return (
