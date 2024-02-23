@@ -26,7 +26,13 @@ import { useState } from "react";
 import { useEditUserInfo } from "@/api/useEditUserInfo";
 import { useUploadProfilePicture } from "@/api/useUploadProfilePicture";
 
-export const EditUserForm = ({ user }: { user: ExtendedUserResponse }) => {
+export const EditUserForm = ({
+  user,
+  isSuper,
+}: {
+  user: ExtendedUserResponse;
+  isSuper?: boolean;
+}) => {
   const schema = z.object({
     firstName: z
       .string()
@@ -79,6 +85,7 @@ export const EditUserForm = ({ user }: { user: ExtendedUserResponse }) => {
 
   const { mutateAsync, isLoading } = useEditUserInfo();
   const { mutateAsync: uploadImage, isSuccess } = useUploadProfilePicture();
+  const { mutateAsync: adminEditUserInfo } = useEditUserInfo();
 
   const [profilePicture, setProfilePicture] = useState<File[]>([]);
 

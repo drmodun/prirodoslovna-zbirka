@@ -27,7 +27,7 @@ export const UserPageBody = ({ user }: UserPageBodyProps) => {
 
   useEffect(() => {
     if (availableTabs.includes("Edit")) return;
-    if (user.id === loggedUser?.id || loggedUser?.role === "super") {
+    if (user.id === loggedUser?.id) {
       setAvailableTabs((prev) => [
         "Edit",
         ...prev.filter((tab) => tab !== "About"),
