@@ -1,0 +1,29 @@
+@import "styles/variables.scss";
+@import "styles/calc.scss";
+
+.leaveButton {
+  min-width: vw-calc(100);
+  height: vw-calc(30);
+  padding: vw-calc(10);
+  align-items: center;
+  border: none;
+  font-weight: 600;
+  background-color: $red;
+  border-radius: vw-calc(5);
+  display: flex;
+  outline: none;
+  justify-content: center;
+  color: $background-color;
+  transition: background-color 0.2s ease-out;
+
+  &:hover {
+    cursor: pointer;
+    background-color: $dark-red;
+  }
+
+  @media screen and (max-width: 768px) {
+    min-width: vw-mobile-calc(50);
+    height: vw-mobile-calc(15);
+    border-radius: vw-mobile-calc(5);
+  }
+}

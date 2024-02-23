@@ -1,6 +1,4 @@
 import { useQuery } from "react-query";
-import { api } from "./shared";
-import { SpeciesResponse } from "@biosfera/types";
 
 const getSpecies = async (search: string) => {
   const response = await fetch(
@@ -12,9 +10,6 @@ const getSpecies = async (search: string) => {
 
 export const useGetSpecies = (search: string) => {
   return useQuery(["species" + search], () => getSpecies(search), {
-    onSettled: () => {
-      console.log("Settled");
-    },
     onSuccess(data) {
       console.log(data);
     },

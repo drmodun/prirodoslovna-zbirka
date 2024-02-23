@@ -1,3 +1,3 @@
-import { CreateOrganisationForm } from "./CreateOrganisationForm";
+import { OrganisationForm } from "./CreateOrganisationForm";
 
-export default CreateOrganisationForm;
+export default OrganisationForm;

@@ -3,21 +3,26 @@
 import { useUploadFile } from "@/api/useUploadFile";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { FieldValues, useForm } from "react-hook-form";
 import { z } from "zod";
 import classes from "./PostForm.module.scss";
 import Input from "components/Input";
 import Textarea from "components/Textarea";
 import FileUpload from "components/FileUpload";
-import { Directories } from "@biosfera/types";
+import { Directories, PostResponseExtended } from "@biosfera/types";
 import { useCreatePost } from "@/api/useCreatePost";
 import BaseButton from "components/BaseButton";
+import { useUpdatePost } from "@/api/useUpdatePost";
+import toast from "react-hot-toast";
+import { text } from "stream/consumers";
 
 export interface PostFormProps {
   exponatId: string;
+  isEdit?: boolean;
+  values?: PostResponseExtended;
 }
 
-export const PostForm = ({ exponatId }: PostFormProps) => {
+export const PostForm = ({ exponatId, isEdit, values }: PostFormProps) => {
   const schema = z.object({
     title: z.string().min(5, "Naslov mora imati najmanje 5 znakova"),
     text: z
@@ -28,29 +33,46 @@ export const PostForm = ({ exponatId }: PostFormProps) => {
 
   const { mutateAsync: uploadFile } = useUploadFile();
   const { mutateAsync: createPost } = useCreatePost();
+  const { mutateAsync: updatePost } = useUpdatePost();
 
   const [image, setImage] = useState<File[]>([]);
   const [thumbnail, setThumbnail] = useState<File[]>([]);
 
   const form = useForm({
     resolver: zodResolver(schema),
+    ...(isEdit && {
+      defaultValues: {
+        ...values,
+        text: values?.content,
+      } as FieldValues,
+    }),
   });
 
   const onSumbit = async (data: any) => {
     console.log(data);
-    const imageResponse = await uploadFile({
-      file: image[0],
-      directory: Directories.POST,
-    });
-    const thumbnailResponse = await uploadFile({
-      file: thumbnail[0],
-      directory: Directories.POST,
-    });
+    if ((image.length === 0 || thumbnail.length === 0) && !isEdit) {
+      toast.error("Morate dodati slike", { id: "create-post" });
+      return;
+    }
+    const imageResponse =
+      image[0] &&
+      (await uploadFile({
+        file: image[0],
+        directory: Directories.POST,
+      }));
+    const thumbnailResponse =
+      thumbnail[0] &&
+      (await uploadFile({
+        file: thumbnail[0],
+        directory: Directories.POST,
+      }));
 
-    data.image = imageResponse;
-    data.thumbnailImage = thumbnailResponse;
+    data.image = imageResponse || values?.image;
+    data.thumbnailImage = thumbnailResponse || values?.thumbnail;
 
-    await createPost({ post: data, exponatId: exponatId });
+    isEdit
+      ? await updatePost({ updatePostDto: data, postId: values?.id! })
+      : await createPost({ post: data, exponatId: exponatId });
 
     console.log(imageResponse);
     console.log(thumbnailResponse);
@@ -58,7 +80,9 @@ export const PostForm = ({ exponatId }: PostFormProps) => {
 
   return (
     <div className={classes.container}>
-      <span className={classes.title}>Napravite novu objavu</span>
+      <span className={classes.title}>
+        {isEdit ? "Uredi" : "Napravite novu"} objavu
+      </span>
       <form onSubmit={form.handleSubmit(onSumbit)} className={classes.form}>
         <Input
           form={form}

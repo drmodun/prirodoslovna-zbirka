@@ -19,5 +19,13 @@ export const useCreateExponat = () => {
     onError: (error: string) => {
       toast.error(error, { id: "create-exponat" });
     },
+    onSuccess: () => {
+      toast.success("Uspješno kreiran exponat", {
+        id: "create-exponat",
+      });
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
+    },
   });
 };

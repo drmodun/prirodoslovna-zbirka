@@ -2,6 +2,7 @@ import { serverGetOrganisation } from "@/api/serverOrganisation";
 import { ExtendedOrganisationResponse } from "@biosfera/types";
 import classes from "./page.module.scss";
 import { OrganisationBody } from "@/views/OrganisationBody/OrganisationBody";
+import { UserWrapper } from "@/utility/wrappers/userWrapper";
 
 const OrganisationPage = async ({ params }: { params: any }) => {
   const organisationInfo: ExtendedOrganisationResponse =
@@ -9,7 +10,9 @@ const OrganisationPage = async ({ params }: { params: any }) => {
 
   return (
     <div className={classes.container}>
-      <OrganisationBody organisation={organisationInfo} />
+      <UserWrapper>
+        <OrganisationBody organisation={organisationInfo} />
+      </UserWrapper>
     </div>
   );
 };

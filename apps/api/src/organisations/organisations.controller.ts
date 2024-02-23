@@ -140,7 +140,10 @@ export class OrganisationsController {
   @ApiBearerAuth()
   @Get(':id')
   async findOne(@Param('id') id: string, @Req() req?: any) {
-    const isAdmin = req?.user?.role === 'super';
+    const isAdmin =
+      req?.user?.role === 'super' ||
+      (req.user &&
+        (await this.membersService.hasAdminRights(req.user?.id, id)));
 
     const item = await this.organisationsService.findOne(id, !isAdmin);
 
@@ -205,7 +208,9 @@ export class OrganisationsController {
             thumbnail: post.thumbnailImage,
             title: post.title,
             id: post.id,
+            isApproved: post.isApproved,
             updatedAt: post.updatedAt,
+            organisationId: item.id,
             likeScore: post._count.Likes,
           } as PostResponse;
         }) as PostResponse[],

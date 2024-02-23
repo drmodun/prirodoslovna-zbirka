@@ -8,33 +8,64 @@ import likeLeaf from "assets/images/like-leaf.svg";
 import Link from "next/link";
 import { UserWrapper } from "@/utility/wrappers/userWrapper";
 import LikeButton from "components/LikeButton";
+import { RemovePostButton } from "components/RemovePostButton/RemovePostButton";
+import { Query } from "react-query";
+import { QueryClientWrapper } from "@/utility/wrappers/queryWrapper";
+import ToggleApprovalButton from "components/ToggleApprovalButton";
+import ImageWithFallback from "components/ImageWithFallback/ImageWithFallback";
+import { getPfpUrl } from "@/utility/static/getPfpUrl";
 
 export interface PostCardProps {
   post: PostResponse;
+  isAdmin?: boolean;
+  isUser?: boolean;
+  onRemove?: (id: string) => void;
 }
 
 //will a post have one or more pictures?
 //TODO: add functionality of like after backend implementation and user context
 //Also a like count somewhere is needed
 
-export const PostCard = ({ post }: PostCardProps) => (
+export const PostCard = ({
+  post,
+  isUser,
+  isAdmin,
+  onRemove,
+}: PostCardProps) => (
   <div className={classes.container}>
     <div className={classes.upper}>
       <UserWrapper>
         <LikeButton post={post} />
       </UserWrapper>
       <div className={classes.image}>
-        <Image src={post.thumbnail} alt={post.title} layout="fill" />
+        <ImageWithFallback
+          src={post.thumbnail}
+          layout="fill"
+          fallbackSrc={defaultPic}
+          alt={post.title}
+        />
       </div>
     </div>
+    {(isUser || isAdmin) && (
+      <QueryClientWrapper>
+        {isAdmin && (
+          <ToggleApprovalButton
+            entity="posts"
+            id={post.id}
+            isApproved={post.isApproved}
+          />
+        )}
+        <RemovePostButton postId={post.id} onRemove={onRemove} />
+      </QueryClientWrapper>
+    )}
     <div className={classes.content}>
       <span className={classes.date}>{dateShortener(post.updatedAt)}</span>
       <span className={classes.title}>{post.title}</span>
       <div className={classes.author}>
         <div className={classes.profile}>
-          <Image
-            src={post.hasProfilePicture ? defaultPic : placeholder}
-            alt={post.authorName}
+          <ImageWithFallback
+            src={getPfpUrl(post.authorId)}
+            alt={post.authorName} 
             layout="fill"
           />
         </div>

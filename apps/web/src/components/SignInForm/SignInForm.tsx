@@ -35,7 +35,6 @@ export const SignInForm = () => {
   const onSubmit = async (data: any) => {
     await login.mutateAsync(data);
     await queryClient.invalidateQueries("me");
-    window.location.reload();
   };
 
   const [open, setOpen] = useState(false);

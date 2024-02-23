@@ -1,6 +1,17 @@
 @import "styles/variables.scss";
 @import "styles/calc.scss";
 
+.main {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  @media (max-width: 768px) {
+    gap: vw-mobile-calc(10);
+  }
+}
+
 .container {
   min-width: vw-calc(400);
   width: 100%;
@@ -91,6 +102,7 @@
 
   textarea {
     font-size: vw-calc(16);
+    font-family: inherit;
 
     @media (max-width: 768px) {
       font-size: vw-mobile-calc(12);
