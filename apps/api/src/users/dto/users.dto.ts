@@ -1,6 +1,5 @@
 import { getRegisterUserDto, getUpateUserDto } from '@biosfera/types';
-import { ApiProperty, PartialType } from '@nestjs/swagger';
-import { Exclude } from 'class-transformer';
+import { ApiProperty } from '@nestjs/swagger';
 
 export const _registerUserDto = getRegisterUserDto(ApiProperty);
 

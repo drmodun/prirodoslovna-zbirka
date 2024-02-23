@@ -26,6 +26,7 @@ import { useUploadFile } from "@/api/useUploadFile";
 import toast from "react-hot-toast";
 import { useUpdateExponat } from "@/api/useUpdateExponat";
 import exp from "constants";
+import { Json } from "@biosfera/types/src/jsonObjects";
 export interface ExponatModalSectionsProps {
   organisationId: string;
   isEdit?: boolean;
@@ -219,7 +220,7 @@ export const ExponatForm = ({
         attribute="attributes"
         question="Attributes"
         initValue={
-          values?.attributes ? JSON.parse(values?.attributes as Json) : {}
+          values?.attributes ? JSON.parse(values?.attributes as any) : {}
         }
         error={form.formState.errors.attributes?.message?.toString()}
       />
