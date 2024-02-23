@@ -125,6 +125,7 @@ export class OrganisationsController {
         ),
         //possibly already make this in sql later
         isFavorite: false,
+        description: org.description,
         updatedAt: org.updatedAt,
         followerCount: org._count.UserOrganisationFollowers,
         memberCount: org._count.OrganisationUsers,

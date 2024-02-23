@@ -33,6 +33,7 @@ export interface OrganisationResponseShort {
   followerCount: number;
   memberCount: number;
   points: number;
+  description?: string;
   isApproved?: boolean;
   role?: string;
 }

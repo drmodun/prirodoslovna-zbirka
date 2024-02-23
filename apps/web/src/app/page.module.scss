@@ -1,5 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Lexend:wght@100..900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Commissioner:wght@100..900&family=Instrument+Serif:ital@0;1&family=Lexend:wght@100..900&display=swap");
+@import "styles/variables.scss";
+@import "styles/calc.scss";
 
 .landingSection {
   height: 100vh;
@@ -10,7 +12,7 @@
   justify-content: space-between;
   padding: 100px 200px 0;
 
-  &:nth-of-type(2) {
+  &.exponats {
     color: white;
     background-color: #039300;
     flex-direction: row-reverse;
@@ -27,6 +29,27 @@
 
     .plantImage {
       width: 40%;
+      height: 80%;
+    }
+  }
+
+  &.posts {
+    color: white;
+    background-color: $procariot-color;
+
+    .content {
+      align-items: flex-start;
+      text-align: left;
+
+      .button {
+        background-color: white;
+        color: $procariot-color;
+      }
+    }
+
+    .plantImage {
+      width: 40%;
+      transform: rotate(25deg);
       height: 80%;
     }
   }
@@ -79,17 +102,23 @@
 @media screen and (max-width: 770px) {
   .landingSection {
     padding: 70px 50px 0;
+    flex-direction: column-reverse;
+    align-items: center;
+    height: auto;
 
     .content {
       width: 100%;
 
       .button {
         width: 100%;
+        margin-bottom: 50px;
       }
     }
 
     .plantImage {
-      display: none;
+      width: 50%;
+      height: 50%;
+      margin-bottom: 50px;
     }
   }
 
