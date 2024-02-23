@@ -14,7 +14,6 @@ export const OrganisationHomepage = ({
   return (
     <div className={classes.container}>
       <div className={classes.topRow}>
-        <OrganisationCard organisation={organisation} />
         <div className={classes.actions}>
           <span className={classes.title}>Akcije</span>
           <div className={classes.actionsRow}>

@@ -6,6 +6,7 @@ import BaseButton from "components/BaseButton";
 import Link from "next/link";
 import clsx from "clsx";
 import blogPost from "assets/images/blogPost.svg";
+import organisationCard from "assets/images/organisationCard.png";
 
 export default function Home() {
   return (
@@ -75,7 +76,7 @@ export default function Home() {
             <BaseButton className={c.button} text="Pregledaj" />
           </Link>
         </div>
-        <Image className={c.plantImage} src={blogPost} alt="plant" />
+        <Image className={c.plantImage} src={organisationCard} alt="plant" />
       </section>
     </main>
   );
