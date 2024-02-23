@@ -1,0 +1,20 @@
+.sideMenu {
+  color: black;
+  position: absolute;
+  top: 200px;
+  right: 0;
+  z-index: 5;
+}
+
+.profileInfo {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+
+  .image {
+    width: 90px;
+    height: 90px;
+  }
+  .userInfoWrapper {
+  }
+}
