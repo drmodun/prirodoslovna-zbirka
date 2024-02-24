@@ -1,0 +1,58 @@
+@import "styles/variables";
+@import "styles/calc";
+
+.container {
+  height: rem-calc(24);
+  border-radius: 0;
+  outline: none;
+  border: none;
+  position: relative;
+  top: rem-calc(-4);
+  background-color: transparent;
+  transition: all 0.3s ease-in-ease-out;
+  cursor: pointer;
+  padding: 0;
+
+  .label {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    width: rem-calc(24);
+    height: rem-calc(16);
+    transition: all 0.3s ease-in-out;
+
+    .bar {
+      width: 100%;
+      height: rem-calc(2);
+      background-color: $primary;
+      transition:
+        transform 0.3s ease-in-out,
+        opacity 0.3s ease-in-out;
+    }
+  }
+
+  &.open {
+    width: rem-calc(24);
+
+    @media (max-width: 768px) {
+      width: rem-calc(24);
+    }
+
+    .label {
+      .bar {
+        background-color: $secondary;
+        &:nth-child(1) {
+          transform: rotate(45deg) translate(9px, 0px);
+        }
+
+        &:nth-child(3) {
+          transform: rotate(-45deg) translate(10px, -1px);
+        }
+
+        &:nth-child(2) {
+          opacity: 0;
+        }
+      }
+    }
+  }
+}
