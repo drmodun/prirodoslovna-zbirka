@@ -15,6 +15,7 @@ import { getPosts } from "@/api/serverPosts";
 import { getOrganisations } from "@/api/serverOrganisations";
 import CardCollectionAsync from "components/CardCollectionAsync";
 import { UserWrapper } from "@/utility/wrappers/userWrapper";
+import { Indexable } from "@biosfera/types/src/jsonObjects";
 
 export interface SearchPageViewProps {
   users: ShortUserResponse[];
@@ -36,13 +37,6 @@ export const tabDictionary = {
   Objave: "post",
 };
 
-export const tabDictionaryReverse = {
-  user: "Korisnici",
-  organisation: "Organizacije",
-  exponat: "Eksponati",
-  post: "Objave",
-};
-
 export const SearchPageView = ({
   users,
   organisations,
@@ -52,15 +46,15 @@ export const SearchPageView = ({
   query,
 }: SearchPageViewProps) => {
   const [activeTab, setActiveTab] = useState<tabType>(initTab);
-  const [page, setPage] = useState<number>(query?.page || 1);
+  const [page, setPage] = useState<number>(query?.page || 2);
 
   useEffect(() => {
-    setPage(query?.page || 1);
-  }, [query]);
+    setPage(2);
+  }, [query, activeTab]);
 
   return (
     <div className={classes.container}>
-      <Tabs activeTab={initTab} tabs={tabs} onSelect={setActiveTab} />
+      <Tabs activeTab={activeTab} tabs={tabs} onSelect={setActiveTab} />
       <div className={classes.content}>
         {query && (
           <UserWrapper>

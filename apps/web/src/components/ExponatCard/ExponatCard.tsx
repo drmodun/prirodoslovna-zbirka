@@ -67,10 +67,10 @@ export const ExponatCard = ({
       <div
         className={clsx(
           classes.kind,
-          classes[exponat.exponatKind.toLowerCase()]
+          classes[exponat.exponatKind?.toLowerCase()]
         )}
       >
-        {stringCapitaliser(exponat.exponatKind)}
+        {exponat.exponatKind && stringCapitaliser(exponat.exponatKind)}
       </div>
     </div>
     <div className={classes.buttons}>

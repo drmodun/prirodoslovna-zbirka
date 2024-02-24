@@ -33,7 +33,6 @@ export interface CardCollectionAsyncProps {
   page: number;
   getMore: (query: any, page: number) => Promise<any>;
   params: any;
-  size?: number;
 }
 
 export const CardCollectionAsync: React.FC<CardCollectionAsyncProps> = ({
@@ -41,7 +40,6 @@ export const CardCollectionAsync: React.FC<CardCollectionAsyncProps> = ({
   getMore,
   page = 1,
   type,
-  size,
   params,
 }) => {
   const { memberships, user } = useUser();
@@ -57,9 +55,10 @@ export const CardCollectionAsync: React.FC<CardCollectionAsyncProps> = ({
 
   const handleScroll = async () => {
     try {
-      if (!loading && !failed && currentPage >= page) {
+      if (!loading && !failed) {
         setLoading(true);
         setCurrentPage((prev) => prev + 1);
+        console.log("fetching more", currentPage);
         const items = await getMore(params, currentPage);
         setItemsToShow((prev) => [
           ...prev,
@@ -77,13 +76,14 @@ export const CardCollectionAsync: React.FC<CardCollectionAsyncProps> = ({
 
   useEffect(() => {
     setItemsToShow(items);
-  }, [items]);
-
-  useEffect(() => {
-    setCurrentPage(page || 1);
+    setCurrentPage(page || 2);
     setLoading(false);
     setFailed(false);
-  }, [page, type]);
+  }, [page, type, items]);
+
+  useEffect(() => {
+    setCurrentPage(page);
+  }, [page]);
 
   const listInView = useIsInView(list);
 

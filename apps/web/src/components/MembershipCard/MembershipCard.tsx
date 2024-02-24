@@ -65,7 +65,7 @@ export const MembershipCard = ({
         </div>
       </div>
       <div className={classes.last}>
-        <div className={clsx(classes.role, classes[role.toLowerCase()])}>
+        <div className={clsx(classes.role, classes[role?.toLowerCase()])}>
           {role === "ADMIN"
             ? "Admin"
             : role === "OWNER"
