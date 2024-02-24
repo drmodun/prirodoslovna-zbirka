@@ -1,10 +1,11 @@
 "use client";
 import Image from "next/image";
 import classes from "./Header.module.scss";
-import logo from "assets/images/logoWithBackground.svg";
+import logo from "assets/images/FullLogo.svg";
 import useSideMenu from "@/utility/context/SideMenuContext";
 import Hamburger from "components/Hamburger";
 import { SideMenuWrapper } from "@/utility/wrappers/sideMenuWrapper";
+import Link from "next/link";
 export const Header = () => {
   const { active, toggleActive } = useSideMenu();
 
@@ -12,7 +13,9 @@ export const Header = () => {
     <div className={classes.container}>
       <div className={classes.main}>
         <div className={classes.logo}>
-          <Image src={logo} alt="logo" layout="fill" />
+          <Link href="/">
+            <Image src={logo} alt="logo" layout="fill" />
+          </Link>
         </div>
         <span className={classes.title}>Biosfera</span>
       </div>

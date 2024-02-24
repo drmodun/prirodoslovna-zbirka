@@ -26,31 +26,19 @@
   }
 
   .logo {
-    height: vw-calc(70);
-    width: vw-calc(70);
+    height: vw-calc(50);
+    width: vw-calc(200);
     position: relative;
 
     @media screen and (max-width: 768px) {
-      height: vw-mobile-calc(35);
-      width: vw-mobile-calc(35);
+      height: vw-mobile-calc(25);
+      width: vw-mobile-calc(100);
     }
 
     img {
       height: 100%;
       width: 100%;
       object-fit: cover;
-    }
-  }
-
-  .title {
-    font-size: vw-calc(30);
-    font-weight: 700;
-    color: $title;
-    margin-left: vw-calc(20);
-
-    @media screen and (max-width: 768px) {
-      font-size: vw-mobile-calc(15);
-      margin-left: vw-mobile-calc(5);
     }
   }
 
