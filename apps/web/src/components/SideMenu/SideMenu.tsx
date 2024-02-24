@@ -44,36 +44,40 @@ const SideMenu = () => {
   };
 
   return (
-    <div className={clsx(c.sideMenu, active && c.active)}>
-      <div className={c.profileInfo}>
-        <ImageWithFallback
-          className={c.image}
-          src={user?.id ? getPfpUrl(user?.id) : ProfileImagePlaceholder}
-          fallbackSrc={ProfileImagePlaceholder}
-          alt="placeholder"
+    <>
+      <div className={clsx(c.sideMenu, active && c.active)}>
+        <div className={c.profileInfo}>
+          <div className={c.image}>
+            <ImageWithFallback
+              src={user?.id ? getPfpUrl(user?.id) : ProfileImagePlaceholder}
+              fallbackSrc={ProfileImagePlaceholder}
+              alt="placeholder"
+              layout="fill"
+            />
+          </div>
+          <div className={c.userInfoWrapper}>
+            <p className={c.name}>
+              {user?.firstName || "Niste"} {user?.lastName || "prijavljeni"}
+            </p>
+            <p className={c.county}>{makeCountyName(user?.location || "")}</p>
+          </div>
+          <div className={c.buttonsWrapper}>
+            <IconButton icon={UserIcon} onClick={handeleUserRedirect} />
+            <IconButton icon={LogoutIcon} onClick={handleLogout} />
+          </div>
+        </div>
+        <SingleInput
+          value={search}
+          onChange={setSearch}
+          image={SearchIcon}
+          question="Pretraži..."
+          linkedImage={{
+            pathname: "/search",
+            query: { name: search },
+          }}
         />
-        <div className={c.userInfoWrapper}>
-          <p className={c.name}>
-            {user?.firstName || "Niste"} {user?.lastName || "prijavljeni"}
-          </p>
-          <p className={c.county}>{makeCountyName(user?.location || "")}</p>
-        </div>
-        <div className={c.buttonsWrapper}>
-          <IconButton icon={UserIcon} onClick={handeleUserRedirect} />
-          <IconButton icon={LogoutIcon} onClick={handleLogout} />
-        </div>
       </div>
-      <SingleInput
-        value={search}
-        onChange={setSearch}
-        image={SearchIcon}
-        question="Pretraži..."
-        linkedImage={{
-          pathname: "/search",
-          query: { name: search },
-        }}
-      />
-    </div>
+    </>
   );
 };
 
