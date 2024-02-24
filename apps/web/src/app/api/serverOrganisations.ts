@@ -21,6 +21,7 @@ export const getOrganisations = async (
       queryDto.attribute !== "points"
     )
       delete queryDto.attribute;
+    if ((queryDto as any).title) queryDto.name = (queryDto as any).title;
     const query = queryString.stringify(queryDto);
     const response = await fetch(`${baseURL}/organisations?${query}`);
     return response.json();

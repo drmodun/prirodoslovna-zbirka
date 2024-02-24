@@ -8,7 +8,7 @@
   align-items: center;
   border-radius: vw-calc(20);
   padding: vw-calc(20);
-  box-shadow: 0px vw-calc(10) vw-calc(20) rgba(0, 0, 0, 0.1);
+  border: 1px solid $secondary;
 
   @media (max-width: 768px) {
     width: 100%;

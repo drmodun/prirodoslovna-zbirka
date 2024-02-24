@@ -17,6 +17,7 @@ export const getUsers = async (queryDto: UserQuery, page?: number) => {
       queryDto.attribute !== "following"
     )
       delete queryDto.attribute;
+    if ((queryDto as any).title) queryDto.name = (queryDto as any).title;
     if (page) queryDto.page = page;
     if (!queryDto.page) queryDto.page = 1;
     queryDto.size = 20;
