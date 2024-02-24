@@ -13,6 +13,14 @@ export const getOrganisations = async (
     if (page) queryDto.page = page;
     queryDto.size = 20;
     if (!queryDto.page) queryDto.page = 1;
+    if (
+      queryDto.attribute !== "name" &&
+      queryDto.attribute !== "createdAt" &&
+      queryDto.attribute !== "alternateName" &&
+      queryDto.attribute !== "postAmount" &&
+      queryDto.attribute !== "points"
+    )
+      delete queryDto.attribute;
     const query = queryString.stringify(queryDto);
     const response = await fetch(`${baseURL}/organisations?${query}`);
     return response.json();

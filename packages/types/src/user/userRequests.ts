@@ -115,6 +115,14 @@ export const getUserQuery = (ApiPropertySwagger?: any) => {
 
     @IsOptional()
     @ApiProperty()
+    attribute?: string;
+
+    @IsOptional()
+    @ApiProperty()
+    direction?: string;
+
+    @IsOptional()
+    @ApiProperty()
     page?: number;
 
     @IsOptional()

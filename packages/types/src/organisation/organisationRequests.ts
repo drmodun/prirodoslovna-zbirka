@@ -101,6 +101,14 @@ export const getOrganisationQuery = (ApiPropertySwagger?: any) => {
 
     @IsOptional()
     @ApiProperty()
+    attribute?: string;
+
+    @IsOptional()
+    @ApiProperty()
+    direction?: string;
+
+    @IsOptional()
+    @ApiProperty()
     page?: number;
   }
 

@@ -17,6 +17,7 @@ export interface PagiantaionResponse {
 
 export enum SortingEnum {
   NAME = "name",
+  USERNAME = "username",
   COUNTY = "county",
   POST_AMOUNT = "postAmount",
   POINTS = "points",
@@ -90,6 +91,8 @@ export const sortQueryBuilder = (request: SortingRequest) => {
       return { createdAt: request.direction };
     case SortingEnum.ALTERNATE_NAME:
       return { alternateName: request.direction };
+    case SortingEnum.USERNAME:
+      return { username: request.direction };
   }
 };
 export interface QueryResponse<T> {
@@ -124,9 +127,9 @@ export const socialPostSortQueryBuilder = (request: SortingRequest) => {
     case SortingEnum.TITLE:
       return {
         title: request.direction,
-      }
+      };
   }
-}
+};
 export const sortCategorizationQueryBuilderWithComplexFilters = (
   request: SortingRequest
 ) => {
@@ -166,4 +169,4 @@ export const sortCategorizationQueryBuilderWithComplexFilters = (
         kingdom: request.direction,
       };
   }
-}
+};

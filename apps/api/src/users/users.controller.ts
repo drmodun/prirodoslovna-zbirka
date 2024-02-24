@@ -64,7 +64,7 @@ export class UsersController {
   async findAll(
     @PaginationParams() paginationParam?: PaginationRequest,
     @SortingParams([
-      SortingEnum.NAME,
+      SortingEnum.USERNAME,
       SortingEnum.COUNTY,
       SortingEnum.POST_AMOUNT,
       SortingEnum.POINTS,
