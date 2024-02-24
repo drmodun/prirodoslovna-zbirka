@@ -10,6 +10,12 @@ import SearchIcon from "../../assets/icons/search.svg";
 import IconButton from "./IconButton";
 import useUser from "@/utility/context/UserContext";
 import { makeCountyName } from "@/utility/static/countyNameMaker";
+import ImageWithFallback from "components/ImageWithFallback/ImageWithFallback";
+import { getPfpUrl } from "@/utility/static/getPfpUrl";
+import SingleInput from "components/SingleInput";
+import { useState } from "react";
+import { useRouter } from "next/router";
+import path from "path";
 
 type UserData = {
   image: string;
@@ -37,14 +43,28 @@ const SideMenu = ({ isOpen, userData = defaultUser }: SideMenuProps) => {
     [c.closed]: !isOpen,
   });
 
-  const { user } = useUser();
+  const [search, setSearch] = useState("");
+
+  const { user, logout } = useUser();
+
+  const handeleUserRedirect = () => {
+    user?.id
+      ? (window.location.href = "/user/" + user?.id)
+      : (window.location.href = "/login");
+  };
+
+  const handleLogout = () => {
+    const confirm = window.confirm("Jeste li sigurni da se želite odjaviti?");
+    confirm && logout && logout();
+  };
 
   return (
     <div className={classes}>
       <div className={c.profileInfo}>
-        <Image
+        <ImageWithFallback
           className={c.image}
-          src={ProfileImagePlaceholder}
+          src={user?.id ? getPfpUrl(user?.id) : ProfileImagePlaceholder}
+          fallbackSrc={ProfileImagePlaceholder}
           alt="placeholder"
         />
         <div className={c.userInfoWrapper}>
@@ -54,17 +74,20 @@ const SideMenu = ({ isOpen, userData = defaultUser }: SideMenuProps) => {
           <p className={c.county}>{makeCountyName(user?.location || "")}</p>
         </div>
         <div className={c.buttonsWrapper}>
-          <IconButton
-            icon={UserIcon}
-            onClick={() => (window.location.href = "/user/" + user?.id)}
-          />
-          <IconButton icon={LogoutIcon} onClick={() => alert("logout")} />
+          <IconButton icon={UserIcon} onClick={handeleUserRedirect} />
+          <IconButton icon={LogoutIcon} onClick={handleLogout} />
         </div>
       </div>
-      <div className={c.searchBar}>
-        <Image src={SearchIcon} alt="search icon" />
-        <input type="text" placeholder="Pretraži Biosferu" />
-      </div>
+      <SingleInput
+        value={search}
+        onChange={setSearch}
+        image={SearchIcon}
+        question="Pretraži..."
+        linkedImage={{
+          pathname: "/search",
+          query: { name: search },
+        }}
+      />
     </div>
   );
 };
