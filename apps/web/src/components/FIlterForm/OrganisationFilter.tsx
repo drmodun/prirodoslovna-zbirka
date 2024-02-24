@@ -64,12 +64,10 @@ export const OrganisationFilter = ({ searchParams }: Props) => {
     defaultValues: {
       name: searchParams?.name || searchParams?.title || "",
       location: searchParams?.location,
-      attribute: searchParams?.attribute || "",
-      direction: searchParams?.direction || "",
+      attribute: searchParams?.attribute || "Relevantnost",
+      direction: searchParams?.direction || "desc",
     } as FieldValues,
   });
-
-  //add better ways to filtrate
 
   const handleFilter = (data: any) => {
     console.log(data);
@@ -100,6 +98,7 @@ export const OrganisationFilter = ({ searchParams }: Props) => {
           label="Sortiraj po"
           form={form}
           options={[
+            { label: "Relevantnost", value: "Relevantnost" },
             { label: "Naslov", value: "name" },
             { label: "Lokacija", value: "location" },
             { label: "Bodovi", value: "points" },
@@ -129,12 +128,14 @@ export const OrganisationFilter = ({ searchParams }: Props) => {
             ...(form.watch("location") && {
               location: form.watch("location"),
             }),
-            ...(form.watch("attribute") && {
-              attribute: form.watch("attribute"),
-            }),
-            ...(form.watch("direction") && {
-              direction: form.watch("direction"),
-            }),
+            ...(form.watch("attribute") &&
+              form.watch("attribute") !== "Relevantnost" && {
+                attribute: form.watch("attribute"),
+              }),
+            ...(form.watch("direction") &&
+              form.watch("attribute") !== "Relevantnost" && {
+                direction: form.watch("direction"),
+              }),
           },
         }}
       >

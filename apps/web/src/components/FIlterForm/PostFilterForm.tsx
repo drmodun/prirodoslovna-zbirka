@@ -37,8 +37,8 @@ export const PostFilter = ({ searchParams }: Props) => {
     defaultValues: {
       title: searchParams?.title || searchParams?.name || "",
       userName: searchParams?.search || "",
-      attribute: searchParams?.attribute || "",
-      direction: searchParams?.direction || "",
+      attribute: searchParams?.attribute || "Relevantnost",
+      direction: searchParams?.direction || "desc",
     } as FieldValues,
   });
 
@@ -66,6 +66,7 @@ export const PostFilter = ({ searchParams }: Props) => {
           label="Sortiraj po"
           form={form}
           options={[
+            { label: "Relevantnost", value: "Relevantnost" },
             { label: "Naslov", value: "title" },
             { label: "Datumu kreiranja", value: "createdAt" },
           ]}
@@ -97,12 +98,14 @@ export const PostFilter = ({ searchParams }: Props) => {
             ...(form.watch("exponatName") && {
               exponatName: form.watch("exponatName"),
             }),
-            ...(form.watch("attribute") && {
-              attribute: form.watch("attribute"),
-            }),
-            ...(form.watch("direction") && {
-              direction: form.watch("direction"),
-            }),
+            ...(form.watch("attribute") &&
+              form.watch("attribute") !== "Relevantnost" && {
+                attribute: form.watch("attribute"),
+              }),
+            ...(form.watch("direction") &&
+              form.watch("attribute") !== "Relevantnost" && {
+                direction: form.watch("direction"),
+              }),
           },
         }}
       >

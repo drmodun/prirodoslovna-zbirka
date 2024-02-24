@@ -37,8 +37,8 @@ export const ExponatFilter = ({ searchParams }: Props) => {
     defaultValues: {
       name: searchParams?.name || searchParams?.title || "",
       alternateName: searchParams?.search || "",
-      attribute: searchParams?.attribute || "",
-      direction: searchParams?.direction || "",
+      attribute: searchParams?.attribute || "Relevantnost",
+      direction: searchParams?.direction || "desc",
     } as FieldValues,
   });
 
@@ -67,6 +67,7 @@ export const ExponatFilter = ({ searchParams }: Props) => {
           label="Sortiraj po"
           form={form}
           options={[
+            { label: "Relevantnost", value: "Relevantnost" },
             { label: "Naslov", value: "name" },
             { label: "Datumu kreiranja", value: "createdAt" },
             { label: "Broju postova", value: "postAmount" },
@@ -97,12 +98,14 @@ export const ExponatFilter = ({ searchParams }: Props) => {
             ...(form.watch("alternateName") && {
               search: form.watch("alternateName"),
             }),
-            ...(form.watch("attribute") && {
-              attribute: form.watch("attribute"),
-            }),
-            ...(form.watch("direction") && {
-              direction: form.watch("direction"),
-            }),
+            ...(form.watch("attribute") &&
+              form.watch("attribute") !== "Relevantnost" && {
+                attribute: form.watch("attribute"),
+              }),
+            ...(form.watch("direction") &&
+              form.watch("attribute") !== "Relevantnost" && {
+                direction: form.watch("direction"),
+              }),
           },
         }}
       >
