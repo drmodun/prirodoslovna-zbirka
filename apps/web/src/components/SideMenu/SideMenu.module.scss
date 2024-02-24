@@ -123,6 +123,22 @@
     display: flex;
     gap: vw-calc(12);
 
+    .link {
+      width: vw-calc(40);
+      height: vw-calc(40);
+
+      @media (max-width: 768px) {
+        width: vw-mobile-calc(25);
+        height: vw-mobile-calc(25);
+      }
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+
     @media (max-width: 768px) {
       gap: vw-mobile-calc(8);
     }

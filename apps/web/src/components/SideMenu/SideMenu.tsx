@@ -63,12 +63,16 @@ const SideMenu = () => {
           </div>
           <div className={c.buttonsWrapper}>
             <Link href={user?.id ? `/users/${user.id}` : "/login"}>
-              <IconButton icon={UserIcon} />
+              <IconButton className={c.link} icon={UserIcon} />
             </Link>
             <Link href="/discovery">
-              <IconButton icon={DiscoveryIcon} />
+              <IconButton className={c.link} icon={DiscoveryIcon} />
             </Link>
-            <IconButton icon={LogoutIcon} onClick={handleLogout} />
+            <IconButton
+              className={c.link}
+              icon={LogoutIcon}
+              onClick={handleLogout}
+            />
           </div>
         </div>
         <SingleInput
