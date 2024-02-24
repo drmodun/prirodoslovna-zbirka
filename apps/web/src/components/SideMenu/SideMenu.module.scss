@@ -2,11 +2,20 @@
 @import "styles/variables.scss";
 @import "styles/calc.scss";
 
-.background {
-  position: absolute;
+.backdrop {
+  position: fixed;
   width: 100%;
-  height: 100vh;
-  z-index: 1;
+  top: 0;
+  left: vw-calc(-2000);
+  height: 100%;
+  z-index: 2;
+  opacity: 0.3;
+  background-color: rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s ease-in-out;
+
+  &.active {
+    transform: translateX(vw-calc(2000));
+  }
 }
 
 .sideMenu {
@@ -16,7 +25,7 @@
   top: vw-calc(100);
   z-index: 5;
   box-sizing: border-box;
-  padding: 50px 100px 50px 50px;
+  padding: vw-calc(50) vw-calc(100) vw-calc(50) vw-calc(50);
   background-color: white;
   border-radius: 40px 0 0 40px;
   box-shadow: 0px 0px 100px 0px rgba(0, 0, 0, 0.2);
@@ -44,13 +53,31 @@
 
 .profileInfo {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: 24px;
-  margin-bottom: 24px;
+  gap: vw-calc(24);
+  margin-bottom: vw-calc(24);
+
+  @media (max-width: 768px) {
+    gap: vw-mobile-calc(16);
+    margin-bottom: vw-mobile-calc(16);
+  }
+
+  .content {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: vw-calc(24);
+
+    @media (max-width: 768px) {
+      gap: vw-mobile-calc(16);
+    }
+  }
 
   .image {
-    width: 90px;
-    height: 90px;
+    width: vw-calc(90);
+    height: vw-calc(90);
     position: relative;
     border-radius: 50%;
 
@@ -72,9 +99,9 @@
     font-family: "Commissioner";
 
     .name {
-      font-size: 28px;
+      font-size: vw-calc(28);
       font-weight: bold;
-      max-width: vw-calc(300);
+      max-width: vw-calc(400);
 
       @media (max-width: 768px) {
         font-size: vw-mobile-calc(10);
@@ -83,7 +110,7 @@
     }
 
     .county {
-      font-size: 16px;
+      font-size: vw-calc(20);
       font-weight: 300;
 
       @media (max-width: 768px) {
@@ -94,7 +121,11 @@
 
   .buttonsWrapper {
     display: flex;
-    gap: 8px;
+    gap: vw-calc(12);
+
+    @media (max-width: 768px) {
+      gap: vw-mobile-calc(8);
+    }
   }
 }
 
@@ -114,6 +145,10 @@
     outline: none;
     color: black;
     font-family: "Commissioner";
-    font-size: 19px;
+    font-size: vw-calc(20);
+
+    @media (max-width: 768px) {
+      font-size: vw-mobile-calc(12);
+    }
   }
 }
