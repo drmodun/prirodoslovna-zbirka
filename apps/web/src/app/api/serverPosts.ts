@@ -1,4 +1,4 @@
-import { getPostQuery } from "@biosfera/types";
+import { SortingEnum, getPostQuery } from "@biosfera/types";
 import queryString from "query-string";
 import { useQuery } from "react-query";
 import { baseURL } from "./shared";
@@ -7,6 +7,13 @@ export class PostQuery extends _postQuery {}
 
 export const getPosts = async (queryDto: PostQuery, page?: number) => {
   try {
+    if (queryDto.attribute === "name") queryDto.attribute = SortingEnum.TITLE;
+    if (
+      queryDto.attribute !== SortingEnum.TITLE &&
+      queryDto.attribute !== SortingEnum.CREATED_AT
+    )
+      delete queryDto.attribute;
+    if ((queryDto as any).name) queryDto.title = (queryDto as any).name;
     if (page) queryDto.page = page;
     if (!queryDto.page) queryDto.page = 1;
     queryDto.size = 20;

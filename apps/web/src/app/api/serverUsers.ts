@@ -7,6 +7,16 @@ export class UserQuery extends _userQuery {}
 
 export const getUsers = async (queryDto: UserQuery, page?: number) => {
   try {
+    if (queryDto.attribute === "name") queryDto.attribute = "username";
+    if (
+      queryDto.attribute !== "username" &&
+      queryDto.attribute !== "points" &&
+      queryDto.attribute !== "county" &&
+      queryDto.attribute !== "postAmount" &&
+      queryDto.attribute !== "followers" &&
+      queryDto.attribute !== "following"
+    )
+      delete queryDto.attribute;
     if (page) queryDto.page = page;
     if (!queryDto.page) queryDto.page = 1;
     queryDto.size = 20;

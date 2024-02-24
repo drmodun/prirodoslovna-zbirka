@@ -16,6 +16,10 @@ import { getOrganisations } from "@/api/serverOrganisations";
 import CardCollectionAsync from "components/CardCollectionAsync";
 import { UserWrapper } from "@/utility/wrappers/userWrapper";
 import { Indexable } from "@biosfera/types/src/jsonObjects";
+import { ExponatFilter } from "components/FIlterForm/ExponatFIlterForm";
+import { PostFilter } from "components/FIlterForm/PostFilterForm";
+import { OrganisationFilter } from "components/FIlterForm/OrganisationFilter";
+import { UserFilter } from "components/FIlterForm/UserFilterForm";
 
 export interface SearchPageViewProps {
   users: ShortUserResponse[];
@@ -56,6 +60,12 @@ export const SearchPageView = ({
     <div className={classes.container}>
       <Tabs activeTab={activeTab} tabs={tabs} onSelect={setActiveTab} />
       <div className={classes.content}>
+        {activeTab === "Eksponati" && <ExponatFilter searchParams={query} />}
+        {activeTab === "Objave" && <PostFilter searchParams={query} />}
+        {activeTab === "Organizacije" && (
+          <OrganisationFilter searchParams={query} />
+        )}
+        {activeTab === "Korisnici" && <UserFilter searchParams={query} />}
         {query && (
           <UserWrapper>
             <CardCollectionAsync

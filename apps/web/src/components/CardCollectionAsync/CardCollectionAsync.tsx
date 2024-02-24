@@ -49,9 +49,7 @@ export const CardCollectionAsync: React.FC<CardCollectionAsyncProps> = ({
   const list = useRef<HTMLDivElement>(null);
   const [failed, setFailed] = useState<boolean>(false);
 
-  const handleDelete = (id: string) => {
-    setItemsToShow((prev) => prev.filter((item) => item.id !== id));
-  };
+  const handleDelete = (id: string) => {};
 
   const handleScroll = async () => {
     try {

@@ -19,7 +19,7 @@ const SearchPage = async ({
   searchParams: any;
 }) => {
   const initExponats = getExponats({
-    name: searchParams?.name,
+    name: searchParams?.name || searchParams?.title,
     alternateName: searchParams?.alternateName,
     attribute: searchParams?.attribute,
     createdAt: searchParams?.createdAt,
@@ -35,22 +35,26 @@ const SearchPage = async ({
     direction: searchParams?.direction,
     exponatId: searchParams?.exponatId,
     exponatName: searchParams?.exponatName,
-    title: searchParams?.title,
+    title: searchParams?.title || searchParams?.name,
     userName: searchParams?.userName,
     page: searchParams?.page,
   });
 
   const initOrganisations = getOrganisations({
-    name: searchParams?.name,
+    name: searchParams?.name || searchParams?.title,
     location: searchParams?.location,
     page: searchParams?.page,
+    attribute: searchParams?.attribute,
+    direction: searchParams?.direction,
   });
 
   const initUser = getUsers({
-    name: searchParams?.name,
+    name: searchParams?.name || searchParams?.title,
     location: searchParams?.location,
     username: searchParams?.username,
     page: searchParams?.page,
+    attribute: searchParams?.attribute,
+    direction: searchParams?.direction,
   });
 
   const results = await Promise.all([

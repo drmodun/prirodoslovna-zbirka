@@ -18,7 +18,7 @@ export const RemoveExponatButton: React.FC<RemoveExponatButtonProps> = ({
   exponatId,
   onRemove,
 }) => {
-  const { mutate, isSuccess } = useRemoveExponat();
+  const { mutate, isSuccess = false } = useRemoveExponat();
   const { favouriteExponats, updateFavourites } = useUser();
 
   const handleDelete = () => {
