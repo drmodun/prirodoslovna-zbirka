@@ -20,13 +20,8 @@ import { useIsInView } from "@/utility/hooks/useIsInView";
 import useUser from "@/utility/context/UserContext";
 import { getPfpUrl } from "@/utility/static/getPfpUrl";
 import OrganisationCard from "components/OrganisationCard";
-
-export interface SortOption {
-  label: string;
-  value: string;
-}
-
-export interface CardCollectionProps {
+import { set } from "react-hook-form";
+export interface CardCollectionAsyncProps {
   items: (
     | ExponatResponseShort[]
     | PostResponse[]
@@ -36,17 +31,15 @@ export interface CardCollectionProps {
     Indexable[];
   type: "exponat" | "post" | "user" | "organisation";
   page: number;
-  isLoading: boolean;
-  getMore: () => void;
+  getMore: (query: any, page: number) => Promise<any>;
   params: any;
   size?: number;
 }
 
-export const CardCollectionAsync: React.FC<CardCollectionProps> = ({
+export const CardCollectionAsync: React.FC<CardCollectionAsyncProps> = ({
   items,
   getMore,
   page = 1,
-  isLoading,
   type,
   size,
   params,
@@ -62,15 +55,14 @@ export const CardCollectionAsync: React.FC<CardCollectionProps> = ({
   };
 
   const handleScroll = async () => {
-    if (!loading) {
+    if (!loading && currentPage >= page) {
+      setLoading(true);
+      const items = await getMore(params, currentPage + 1);
       setCurrentPage((prev) => prev + 1);
-      getMore();
+      setItemsToShow((prev) => [...prev, ...items]);
+      setLoading(false);
     }
   };
-
-  useEffect(() => {
-    setLoading(isLoading);
-  }, [isLoading]);
 
   useEffect(() => {
     setItemsToShow(items);
@@ -112,8 +104,9 @@ export const CardCollectionAsync: React.FC<CardCollectionProps> = ({
     );
   };
 
-  return itemsToShow.length > 0 ? (
+  return list && itemsToShow.length > 0 ? (
     <div className={classes.container}>
+      <div className={classes.section} ref={list}></div>
       <div className={classes.cardContainer}>
         {itemsToShow.map((item, index) => {
           switch (type) {
@@ -184,9 +177,9 @@ export const CardCollectionAsync: React.FC<CardCollectionProps> = ({
         >
           <Image src={dArrow} alt="back to top arrow" />
         </div>
-        <div className={classes.spinnerContainer}>
-          <div className={classes.spinner}></div>
-        </div>
+      </div>
+      <div className={classes.spinnerContainer}>
+        <div className={classes.spinner}></div>
       </div>
     </div>
   ) : (
