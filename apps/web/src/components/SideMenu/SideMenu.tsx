@@ -14,9 +14,9 @@ import ImageWithFallback from "components/ImageWithFallback/ImageWithFallback";
 import { getPfpUrl } from "@/utility/static/getPfpUrl";
 import SingleInput from "components/SingleInput";
 import { useState } from "react";
-import { useRouter } from "next/router";
-import path from "path";
 import useSideMenu from "@/utility/context/SideMenuContext";
+import Link from "next/link";
+import DiscoveryIcon from "assets/icons/discovery.svg";
 
 type UserData = {
   image: string;
@@ -31,12 +31,6 @@ const SideMenu = () => {
   const { active, toggleActive } = useSideMenu();
 
   const { user, logout } = useUser();
-
-  const handeleUserRedirect = () => {
-    user?.id
-      ? (window.location.href = "/user/" + user?.id)
-      : (window.location.href = "/login");
-  };
 
   const handleLogout = () => {
     const confirm = window.confirm("Jeste li sigurni da se želite odjaviti?");
@@ -68,7 +62,12 @@ const SideMenu = () => {
             </div>
           </div>
           <div className={c.buttonsWrapper}>
-            <IconButton icon={UserIcon} onClick={handeleUserRedirect} />
+            <Link href={user?.id ? `/users/${user.id}` : "/login"}>
+              <IconButton icon={UserIcon} />
+            </Link>
+            <Link href="/discovery">
+              <IconButton icon={DiscoveryIcon} />
+            </Link>
             <IconButton icon={LogoutIcon} onClick={handleLogout} />
           </div>
         </div>
