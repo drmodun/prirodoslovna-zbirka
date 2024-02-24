@@ -6,7 +6,7 @@ import {
   ShortUserResponse,
 } from "@biosfera/types";
 import { ExponatCard } from "components/ExponatCard";
-import classes from "./CardCollection.module.scss";
+import classes from "./CardCollectionAsync.module.scss";
 import MembershipCard from "components/MembershipCard";
 import { PostCard } from "components/PostCard";
 import placeholder from "assets/images/lion.svg";
@@ -19,6 +19,7 @@ import BaseButton from "components/BaseButton";
 import { useIsInView } from "@/utility/hooks/useIsInView";
 import useUser from "@/utility/context/UserContext";
 import { getPfpUrl } from "@/utility/static/getPfpUrl";
+import OrganisationCard from "components/OrganisationCard";
 
 export interface SortOption {
   label: string;
@@ -35,17 +36,25 @@ export interface CardCollectionProps {
     Indexable[];
   type: "exponat" | "post" | "user" | "organisation";
   page: number;
+  isLoading: boolean;
   getMore: () => void;
   params: any;
   size?: number;
 }
 
-export const CardCollection: React.FC<CardCollectionProps> = ({
+export const CardCollectionAsync: React.FC<CardCollectionProps> = ({
   items,
+  getMore,
+  page = 1,
+  isLoading,
   type,
+  size,
+  params,
 }) => {
   const { memberships, user } = useUser();
   const [itemsToShow, setItemsToShow] = useState<Indexable[]>(items);
+  const [currentPage, setCurrentPage] = useState<number>(page);
+  const [loading, setLoading] = useState<boolean>(false);
   const list = useRef<HTMLDivElement>(null);
 
   const handleDelete = (id: string) => {
@@ -53,26 +62,19 @@ export const CardCollection: React.FC<CardCollectionProps> = ({
   };
 
   const handleScroll = async () => {
-    if (amount < items.length) {
-      setAmount((prev) => prev + Math.min(pageSize || 20, items.length - prev));
+    if (!loading) {
+      setCurrentPage((prev) => prev + 1);
+      getMore();
     }
   };
 
   useEffect(() => {
-    setSortByValue(sortBy[0].value);
-  }, []);
+    setLoading(isLoading);
+  }, [isLoading]);
 
   useEffect(() => {
     setItemsToShow(items);
   }, [items]);
-
-  useEffect(() => {
-    setAmount(pageSize || 20);
-  }, [sortByValue, pageSize]);
-
-  const handleChangeDirection = () => {
-    setIsDescending((prev) => !prev);
-  };
 
   const listInView = useIsInView(list);
 
@@ -112,138 +114,63 @@ export const CardCollection: React.FC<CardCollectionProps> = ({
 
   return itemsToShow.length > 0 ? (
     <div className={classes.container}>
-      <div className={classes.sortSelect}>
-        <div className={classes.section}>
-          <span className={classes.sectionLabel}>Sortiraj po:</span>
-          <select
-            title="sortBy"
-            className={classes.select}
-            onChange={(e) => setSortByValue(e.target.value)}
-          >
-            {sortBy.map((option) => (
-              <option key={option.value} value={option.value}>
-                {option.label}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div className={classes.section} ref={list}>
-          <span className={classes.sectionLabel}>
-            {!isDescending ? "Rastuće" : "Opadajuće"}
-          </span>
-          <button
-            title="direkcija sortiranja"
-            className={clsx(
-              classes.direction,
-              !isDescending && classes.descending
-            )}
-            onClick={handleChangeDirection}
-          >
-            <Image alt="strelica" src={dArrow} />
-          </button>
-        </div>
-      </div>
       <div className={classes.cardContainer}>
-        {itemsToShow
-          .toSorted((a, b) => {
-            const first = isDescending ? b : a;
-            const second = isDescending ? a : b;
-            return isNaN(a[sortByValue]) && isNaN(b[sortByValue])
-              ? first[sortByValue]?.localeCompare(second[sortByValue])
-              : first[sortByValue] - second[sortByValue];
-          })
-          .slice(0, Math.min(amount, items.length))
-          .map((item, index) => {
-            switch (type) {
-              case "exponat":
-                return (
-                  <ExponatCard
-                    key={index}
-                    exponat={item as ExponatResponseShort}
-                    isAdmin={checkAdminMembership(
-                      (item as ExponatResponseShort).organizationId
-                    )}
-                    onRemove={handleDelete}
-                  />
-                );
-              case "post":
-                return (
-                  <PostCard
-                    key={index}
-                    post={item as PostResponse}
-                    isAdmin={checkIsAdminForPost(
-                      (item as PostResponse).organisationId
-                    )}
-                    onRemove={handleDelete}
-                    isUser={checkIsAuthor((item as PostResponse).authorId)}
-                  />
-                );
-              case "user-member":
-                item = item as ShortUserResponse;
-                return (
-                  <MembershipCard
-                    description={item.email}
-                    type="user"
-                    image={getPfpUrl(item.id)}
-                    object={item as ShortUserResponse}
-                    role={item.role as string}
-                    isUser={checkIsAuthor(item.id)}
-                    onRemove={handleDelete}
-                    organisationId={organisationId}
-                    isAdmin={
-                      user?.role?.toLowerCase() === "super" ||
-                      checkAdminMembership(organisationId!)
-                    }
-                    name={item.username}
-                    id={item.id}
-                  />
-                );
-              case "user":
-                item = item as ShortUserResponse;
-                return (
-                  <MembershipCard
-                    description={item.email}
-                    type="user"
-                    image={item.hasProfileImage && getPfpUrl(item.id)}
-                    object={item as ShortUserResponse}
-                    role={item.location}
-                    isUser={checkIsAuthor(item.id)}
-                    onRemove={handleDelete}
-                    isFollowCard
-                    organisationId={organisationId}
-                    isAdmin={
-                      user?.role?.toLowerCase() === "super" ||
-                      checkAdminMembership(organisationId!)
-                    }
-                    name={item.username}
-                    id={item.id}
-                  />
-                );
-              case "organisation-member":
-                item = item as OrganisationResponseShort;
-                return (
-                  <MembershipCard
-                    description={item.location}
-                    type="organisation"
-                    image={item.mainImage}
-                    object={item as OrganisationResponseShort}
-                    role={item.role as string}
-                    name={item.name}
-                    onRemove={handleDelete}
-                    id={item.id}
-                    organisationId={item.id}
-                    isAdmin={checkAdminMembership(item.id)}
-                    isUser={checkIsAuthor(userId!)}
-                  />
-                );
-            }
-          })}
+        {itemsToShow.map((item, index) => {
+          switch (type) {
+            case "exponat":
+              return (
+                <ExponatCard
+                  key={index}
+                  exponat={item as ExponatResponseShort}
+                  isAdmin={checkAdminMembership(
+                    (item as ExponatResponseShort).organizationId
+                  )}
+                  onRemove={handleDelete}
+                />
+              );
+            case "post":
+              return (
+                <PostCard
+                  key={index}
+                  post={item as PostResponse}
+                  isAdmin={checkIsAdminForPost(
+                    (item as PostResponse).organisationId
+                  )}
+                  onRemove={handleDelete}
+                  isUser={checkIsAuthor((item as PostResponse).authorId)}
+                />
+              );
+            case "user":
+              item = item as ShortUserResponse;
+              return (
+                <MembershipCard
+                  description={item.email}
+                  type="user"
+                  image={item.hasProfileImage && getPfpUrl(item.id)}
+                  object={item as ShortUserResponse}
+                  role={item.location}
+                  isUser={checkIsAuthor(item.id)}
+                  onRemove={handleDelete}
+                  isFollowCard
+                  isAdmin={user?.role?.toLowerCase() === "super"}
+                  name={item.username}
+                  id={item.id}
+                />
+              );
+            case "organisation":
+              return (
+                <OrganisationCard
+                  organisation={item as OrganisationResponseShort}
+                />
+              );
+          }
+        })}
       </div>
 
       <div
         className={clsx(
           classes.floatingButton,
-          amount > (pageSize || 20) && !listInView ? classes.show : classes.hide
+          currentPage > 1 && !listInView ? classes.show : classes.hide
         )}
       >
         <div
@@ -256,6 +183,9 @@ export const CardCollection: React.FC<CardCollectionProps> = ({
           }
         >
           <Image src={dArrow} alt="back to top arrow" />
+        </div>
+        <div className={classes.spinnerContainer}>
+          <div className={classes.spinner}></div>
         </div>
       </div>
     </div>
