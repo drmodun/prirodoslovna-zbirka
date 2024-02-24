@@ -46,7 +46,7 @@ export class UsersService {
       where: {
         ...(filter?.name && {
           firstName: {
-            search: filter.name.replace(/(\w)\s+(\w)/g, '$1 <-> $2'),
+            search: filter.name.split(' ').join(' | '),
             mode: 'insensitive',
           },
         }),
@@ -56,9 +56,17 @@ export class UsersService {
         }),
         ...(filter?.role && { role: filter.role as any }),
       },
-
-      ...(sort && { orderBy: sort }),
-
+      orderBy: {
+        ...(sort
+          ? sort
+          : {
+              _relevance: {
+                fields: ['username'],
+                search: filter?.name.split(' ').join(' <-> '),
+                sort: 'desc',
+              },
+            }),
+      },
       skip: (pagination?.page - 1) * pagination?.size,
       take: pagination?.size,
 

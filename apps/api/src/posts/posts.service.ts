@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { CreatePostDto, PostQuery, UpdatePostDto } from './posts.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { sortQueryBuilder } from '@biosfera/types';
-import { title } from 'process';
 
 @Injectable()
 export class PostsService {

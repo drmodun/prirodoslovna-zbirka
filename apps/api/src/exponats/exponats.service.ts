@@ -75,13 +75,13 @@ export class ExponatsService {
       where: {
         ...(filter?.name && {
           name: {
-            search: filter.name.replace(/(\w)\s+(\w)/g, '$1 <-> $2'),
+            search: filter.name.split(' ').join(' | '),
             mode: 'insensitive',
           },
         }),
         ...(filter?.alternateName && {
           alternateName: {
-            search: filter.alternateName.replace(/(\w)\s+(\w)/g, '$1 <-> $2'),
+            search: filter.alternateName.split(' ').join(' | '),
             mode: 'insensitive',
           },
         }),
@@ -132,7 +132,17 @@ export class ExponatsService {
           },
         },
       },
-      ...(sort && { orderBy: sort }),
+      orderBy: {
+        ...(sort
+          ? sort
+          : {
+              _relevance: {
+                fields: ['name'],
+                search: filter?.name.split(' ').join(' <-> '),
+                sort: 'desc',
+              },
+            }),
+      },
       skip: (pagination?.page - 1) * pagination?.size,
       take: pagination?.size,
     });
