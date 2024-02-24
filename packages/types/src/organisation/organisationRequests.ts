@@ -89,19 +89,19 @@ export const getOrganisationQuery = (ApiPropertySwagger?: any) => {
   class UpdatedOrganisationQuery {
     @IsOptional()
     @ApiProperty()
-    name: string;
+    name?: string;
 
     @IsOptional()
     @ApiProperty()
-    location: County;
+    location?: County;
 
     @IsOptional()
     @ApiProperty()
-    size: number;
+    size?: number;
 
     @IsOptional()
     @ApiProperty()
-    page: number;
+    page?: number;
   }
 
   return UpdatedOrganisationQuery;
