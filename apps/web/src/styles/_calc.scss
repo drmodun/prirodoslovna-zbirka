@@ -53,3 +53,7 @@ $vw-mobile: 360px;
 
   @return $vwValues;
 }
+
+@function rem-calc($px) {
+  @return calc(($px / 16 * 1rem));
+}

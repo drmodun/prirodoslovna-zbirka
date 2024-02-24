@@ -16,6 +16,7 @@ import SingleInput from "components/SingleInput";
 import { useState } from "react";
 import { useRouter } from "next/router";
 import path from "path";
+import useSideMenu from "@/utility/context/SideMenuContext";
 
 type UserData = {
   image: string;
@@ -25,25 +26,9 @@ type UserData = {
   organisationUrl: string;
 };
 
-const defaultUser: UserData = {
-  image: "",
-  profileUrl: "",
-  fullName: "Ime Prezime",
-  organisation: "Ime Organizacije",
-  organisationUrl: "",
-};
-
-type SideMenuProps = {
-  isOpen: boolean;
-  userData?: UserData;
-};
-
-const SideMenu = ({ isOpen, userData = defaultUser }: SideMenuProps) => {
-  const classes = clsx(c.sideMenu, {
-    [c.closed]: !isOpen,
-  });
-
+const SideMenu = () => {
   const [search, setSearch] = useState("");
+  const { active, toggleActive } = useSideMenu();
 
   const { user, logout } = useUser();
 
@@ -59,7 +44,7 @@ const SideMenu = ({ isOpen, userData = defaultUser }: SideMenuProps) => {
   };
 
   return (
-    <div className={classes}>
+    <div className={clsx(c.sideMenu, active && c.active)}>
       <div className={c.profileInfo}>
         <ImageWithFallback
           className={c.image}
@@ -69,7 +54,7 @@ const SideMenu = ({ isOpen, userData = defaultUser }: SideMenuProps) => {
         />
         <div className={c.userInfoWrapper}>
           <p className={c.name}>
-            {user?.firstName} {user?.lastName}
+            {user?.firstName || "Niste"} {user?.lastName || "prijavljeni"}
           </p>
           <p className={c.county}>{makeCountyName(user?.location || "")}</p>
         </div>
