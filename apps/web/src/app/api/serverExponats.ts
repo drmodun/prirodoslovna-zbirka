@@ -15,6 +15,7 @@ export const getExponats = async (queryDto: ExponatQuery, number?: number) => {
       queryDto.attribute !== "favourites"
     )
       delete queryDto.attribute;
+    if ((queryDto as any).title) queryDto.name = (queryDto as any).title;
     if (number) queryDto.page = number;
     if (!queryDto.page) queryDto.page = 1;
     queryDto.size = 20;

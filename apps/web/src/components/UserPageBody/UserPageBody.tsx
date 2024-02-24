@@ -36,8 +36,8 @@ export const UserPageBody = ({ user }: UserPageBodyProps) => {
         "Edit",
         ...prev.filter((tab) => tab !== "About" && tab !== "Edit"),
       ]);
+      setActiveTab("Edit");
     }
-    setActiveTab("Edit");
   }, [loggedUser, user]);
 
   const handleSelectTab = (tab: string) => {
