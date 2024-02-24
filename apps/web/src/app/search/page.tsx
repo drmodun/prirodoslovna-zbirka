@@ -2,15 +2,28 @@ import { getExponats } from "@/api/serverExponats";
 import { getOrganisations } from "@/api/serverOrganisations";
 import { getPosts } from "@/api/serverPosts";
 import { getUsers } from "@/api/serverUsers";
-import { SearchPageView } from "@/views/SearchPageView/SearchPageView";
+import {
+  SearchPageView,
+  tabDictionaryType,
+  tabType,
+} from "@/views/SearchPageView/SearchPageView";
 import { Indexable } from "@biosfera/types/src/jsonObjects";
 
-export const tabDictionaryReverse = {
-  user: "Korisnici",
-  organisation: "Organizacije",
-  exponat: "Eksponati",
-  post: "Objave",
-} as Indexable;
+const getTab = (tab: string): tabType => {
+  switch (tab) {
+    case "user":
+      return "Korisnici";
+    case "organisation":
+      return "Organizacije";
+    case "exponat":
+      return "Eksponati";
+    case "post":
+      return "Objave";
+    default:
+      return "Eksponati";
+  }
+};
+
 const SearchPage = async ({
   params,
   searchParams,
@@ -79,7 +92,7 @@ const SearchPage = async ({
         posts={results[1]}
         organisations={results[2]}
         query={searchParams}
-        initTab={tabDictionaryReverse[searchParams?.kind] || "Eksponati"}
+        initTab={getTab(searchParams?.kind) || ("Eksponati" as tabType)}
         users={results[3]}
       />
     </div>
