@@ -49,24 +49,41 @@ export const CardCollectionAsync: React.FC<CardCollectionAsyncProps> = ({
   const [currentPage, setCurrentPage] = useState<number>(page);
   const [loading, setLoading] = useState<boolean>(false);
   const list = useRef<HTMLDivElement>(null);
+  const [failed, setFailed] = useState<boolean>(false);
 
   const handleDelete = (id: string) => {
     setItemsToShow((prev) => prev.filter((item) => item.id !== id));
   };
 
   const handleScroll = async () => {
-    if (!loading && currentPage >= page) {
-      setLoading(true);
-      const items = await getMore(params, currentPage + 1);
-      setCurrentPage((prev) => prev + 1);
-      setItemsToShow((prev) => [...prev, ...items]);
-      setLoading(false);
+    try {
+      if (!loading && !failed && currentPage >= page) {
+        setLoading(true);
+        setCurrentPage((prev) => prev + 1);
+        const items = await getMore(params, currentPage);
+        setItemsToShow((prev) => [
+          ...prev,
+          ...items.filter(
+            (item: Indexable) =>
+              !prev.some((prevItem) => prevItem.id === item.id)
+          ),
+        ]);
+        setLoading(false);
+      }
+    } catch (e) {
+      setFailed(true);
     }
   };
 
   useEffect(() => {
     setItemsToShow(items);
   }, [items]);
+
+  useEffect(() => {
+    setCurrentPage(page || 1);
+    setLoading(false);
+    setFailed(false);
+  }, [page, type]);
 
   const listInView = useIsInView(list);
 
@@ -178,9 +195,11 @@ export const CardCollectionAsync: React.FC<CardCollectionAsyncProps> = ({
           <Image src={dArrow} alt="back to top arrow" />
         </div>
       </div>
-      <div className={classes.spinnerContainer}>
-        <div className={classes.spinner}></div>
-      </div>
+      {!failed && loading && (
+        <div className={classes.spinnerContainer}>
+          <div className={classes.spinner}></div>
+        </div>
+      )}
     </div>
   ) : (
     <div className={classes.noResults} ref={list}>
