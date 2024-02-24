@@ -53,6 +53,8 @@ const SearchPage = async ({
     initUser,
   ]);
 
+  console.log(results);
+
   return (
     <div>
       <SearchPageView
