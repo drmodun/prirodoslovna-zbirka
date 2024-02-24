@@ -66,12 +66,12 @@ export const UserFilter = ({ searchParams }: Props) => {
       name: searchParams?.name || searchParams?.title || "",
       location: searchParams?.location,
       username: searchParams?.username || "",
-      attribute: searchParams?.attribute || "",
-      direction: searchParams?.direction || "",
+      attribute: searchParams?.attribute || "Relevantnost",
+      direction: searchParams?.direction || "desc",
     } as FieldValues,
   });
 
-  //TODO: add defualt values on select fields on filters, se why name matching is not working and see why posts are not sorting well, and see why county filter is not working
+  //TODO: add defualt values on select fields on filters and see why county filter is not working
 
   const handleFilter = (data: any) => {
     console.log(data);
@@ -103,6 +103,7 @@ export const UserFilter = ({ searchParams }: Props) => {
           label="Sortiraj po"
           form={form}
           options={[
+            { label: "Relevantnost", value: "Relevantnost" },
             { label: "Naslov", value: "name" },
             { label: "Lokacija", value: "location" },
             { label: "Bodovi", value: "points" },
@@ -135,12 +136,14 @@ export const UserFilter = ({ searchParams }: Props) => {
             ...(form.watch("username") && {
               username: form.watch("username"),
             }),
-            ...(form.watch("attribute") && {
-              attribute: form.watch("attribute"),
-            }),
-            ...(form.watch("direction") && {
-              direction: form.watch("direction"),
-            }),
+            ...(form.watch("attribute") &&
+              form.watch("attribute") !== "Relevantnost" && {
+                attribute: form.watch("attribute"),
+              }),
+            ...(form.watch("direction") &&
+              form.watch("attribute") !== "Relevantnost" && {
+                direction: form.watch("direction"),
+              }),
           },
         }}
       >

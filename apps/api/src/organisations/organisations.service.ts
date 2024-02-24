@@ -65,13 +65,15 @@ export class OrganisationsService {
       orderBy: {
         ...(sort
           ? sort
-          : {
+          : filter.name
+          ? {
               _relevance: {
                 fields: ['name'],
                 search: filter?.name.split(' ').join(' <-> '),
                 sort: 'desc',
               },
-            }),
+            }
+          : null),
       },
       skip: (pagination?.page - 1) * pagination?.size,
       take: pagination?.size,
