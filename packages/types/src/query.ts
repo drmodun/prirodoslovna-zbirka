@@ -60,6 +60,8 @@ export const sortQueryBuilder = (request: SortingRequest) => {
       return { name: request.direction };
     case SortingEnum.COUNTY:
       return { location: request.direction };
+    case SortingEnum.TITLE:
+      return { title: request.direction };
     case SortingEnum.POINTS:
       return { points: request.direction };
     case SortingEnum.POST_AMOUNT:
@@ -93,6 +95,7 @@ export const sortQueryBuilder = (request: SortingRequest) => {
       return { alternateName: request.direction };
     case SortingEnum.USERNAME:
       return { username: request.direction };
+    default:  return null;
   }
 };
 export interface QueryResponse<T> {

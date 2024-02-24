@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { CreatePostDto, PostQuery, UpdatePostDto } from './posts.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { sortQueryBuilder } from '@biosfera/types';
+import { title } from 'process';
 
 @Injectable()
 export class PostsService {
@@ -54,12 +55,13 @@ export class PostsService {
       },
     });
 
+    console.log(filter.title);
     const posts = this.prisma.post.findMany({
       where: {
         ...(!filter.isAdmin && { isApproved: true }),
         ...(filter?.title && {
           title: {
-            search: filter.title.replace(/(\w)\s+(\w)/g, '$1 <-> $2'),
+            search: filter.title.split(' ').join(' | '),
             mode: 'insensitive',
           },
         }),
@@ -75,7 +77,17 @@ export class PostsService {
           Exponat: { name: filter.exponatName },
         }),
       },
-      ...(sort && { orderBy: sort }),
+      orderBy: {
+        ...(sort
+          ? sort
+          : {
+              _relevance: {
+                fields: ['title'],
+                search: filter.title.split(' ').join(' <-> '),
+                sort: 'desc',
+              },
+            }),
+      },
       include: {
         author: {
           select: {
