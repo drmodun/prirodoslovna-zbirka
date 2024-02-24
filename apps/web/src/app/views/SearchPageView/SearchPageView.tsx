@@ -31,8 +31,8 @@ export interface SearchPageViewProps {
 }
 
 const tabs = ["Korisnici", "Organizacije", "Eksponati", "Objave"];
-type tabType = "Korisnici" | "Organizacije" | "Eksponati" | "Objave";
-type tabDictionaryType = "user" | "organisation" | "exponat" | "post";
+export type tabType = "Korisnici" | "Organizacije" | "Eksponati" | "Objave";
+export type tabDictionaryType = "user" | "organisation" | "exponat" | "post";
 
 export const tabDictionary = {
   Korisnici: "user",
