@@ -8,12 +8,13 @@ import {
   PostResponse,
   ShortUserResponse,
 } from "@biosfera/types";
-import { useState } from "react";
-import { getUsers, useGetUsers } from "@/api/serverUsers";
-import { useGetExponats } from "@/api/serverExponats";
-import { useGetPosts } from "@/api/serverPosts";
-import { useGetOrganisations } from "@/api/serverOrganisations";
+import { useEffect, useState } from "react";
+import { getUsers } from "@/api/serverUsers";
+import { getExponats } from "@/api/serverExponats";
+import { getPosts } from "@/api/serverPosts";
+import { getOrganisations } from "@/api/serverOrganisations";
 import CardCollectionAsync from "components/CardCollectionAsync";
+import { UserWrapper } from "@/utility/wrappers/userWrapper";
 
 export interface SearchPageViewProps {
   users: ShortUserResponse[];
@@ -53,89 +54,41 @@ export const SearchPageView = ({
   const [activeTab, setActiveTab] = useState<tabType>(initTab);
   const [page, setPage] = useState<number>(query?.page || 1);
 
-  const handleGetMore = () => {
-    if (userLoading || organisationLoading || exponatsLoading || postsLoading)
-      return;
-    setPage((prev) => prev + 1);
-  };
-
-  //TODO: remove theese conversions and use "as" casting and  potentially make it so only one entity is callrf instead of all of them
-  const { data: foundUsers, isLoading: userLoading } = useGetUsers(
-    {
-      name: query?.name,
-      location: query?.location,
-      username: query?.username,
-    },
-    page
-  );
-
-  const { data: foundOrganisations, isLoading: organisationLoading } =
-    useGetOrganisations(
-      {
-        name: query?.name,
-        location: query?.location,
-      },
-      page
-    );
-
-  const { data: foundExponats, isLoading: exponatsLoading } = useGetExponats(
-    {
-      name: query?.name,
-      alternateName: query?.alternateName,
-      attribute: query?.attribute,
-      createdAt: query?.createdAt,
-      direction: query?.direction,
-      maxFavoriteCount: query?.maxFavoriteCount,
-      minFavoriteCount: query?.minFavoriteCount,
-      organisationId: query?.organisationId,
-    },
-    page
-  );
-  const { data: foundPosts, isLoading: postsLoading } = useGetPosts(
-    {
-      attribute: query?.attribute,
-      direction: query?.direction,
-      exponatId: query?.exponatId,
-      exponatName: query?.exponatName,
-      title: query?.title,
-      userName: query?.userName,
-    },
-    page
-  );
+  useEffect(() => {
+    setPage(query?.page || 1);
+  }, [query]);
 
   return (
     <div className={classes.container}>
       <Tabs activeTab={initTab} tabs={tabs} onSelect={setActiveTab} />
       <div className={classes.content}>
-        <CardCollectionAsync
-          isLoading={
-            userLoading ||
-            organisationLoading ||
-            exponatsLoading ||
-            postsLoading
-          }
-          type={tabDictionary[activeTab] as tabDictionaryType}
-          page={page}
-          getMore={handleGetMore}
-          params={query}
-          items={
-            activeTab === "Korisnici"
-              ? page > (query?.page || 1)
-                ? foundUsers
-                : users
-              : activeTab === "Organizacije"
-              ? page > (query?.page || 1)
-                ? foundOrganisations
-                : organisations
-              : activeTab === "Eksponati"
-              ? page > (query?.page || 1)
-                ? foundExponats
-                : exponats
-              : page > (query?.page || 1)
-              ? foundPosts
-              : posts
-          }
-        />
+        {query && (
+          <UserWrapper>
+            <CardCollectionAsync
+              type={tabDictionary[activeTab] as tabDictionaryType}
+              page={page}
+              getMore={
+                activeTab === "Korisnici"
+                  ? getUsers
+                  : activeTab === "Organizacije"
+                  ? getOrganisations
+                  : activeTab === "Eksponati"
+                  ? getExponats
+                  : getPosts
+              }
+              params={query}
+              items={
+                activeTab === "Korisnici"
+                  ? users
+                  : activeTab === "Organizacije"
+                  ? organisations
+                  : activeTab === "Eksponati"
+                  ? exponats
+                  : posts
+              }
+            />
+          </UserWrapper>
+        )}
       </div>
     </div>
   );

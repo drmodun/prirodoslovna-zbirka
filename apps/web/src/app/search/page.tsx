@@ -2,9 +2,7 @@ import { getExponats } from "@/api/serverExponats";
 import { getOrganisations } from "@/api/serverOrganisations";
 import { getPosts } from "@/api/serverPosts";
 import { getUsers } from "@/api/serverUsers";
-import { QueryClientWrapper } from "@/utility/wrappers/queryWrapper";
 import { SearchPageView } from "@/views/SearchPageView/SearchPageView";
-import { useSearchParams } from "next/navigation";
 
 const SearchPage = async ({
   params,
@@ -13,7 +11,7 @@ const SearchPage = async ({
   params: any;
   searchParams: any;
 }) => {
-  const initExponats = await getExponats({
+  const initExponats = getExponats({
     name: searchParams?.name,
     alternateName: searchParams?.alternateName,
     attribute: searchParams?.attribute,
@@ -25,7 +23,7 @@ const SearchPage = async ({
     page: searchParams?.page,
   });
 
-  const initPosts = await getPosts({
+  const initPosts = getPosts({
     attribute: searchParams?.attribute,
     direction: searchParams?.direction,
     exponatId: searchParams?.exponatId,
@@ -35,30 +33,37 @@ const SearchPage = async ({
     page: searchParams?.page,
   });
 
-  const initOrganisations = await getOrganisations({
+  const initOrganisations = getOrganisations({
     name: searchParams?.name,
     location: searchParams?.location,
     page: searchParams?.page,
   });
 
-  const initUser = await getUsers({
+  const initUser = getUsers({
     name: searchParams?.name,
     location: searchParams?.location,
     username: searchParams?.username,
     page: searchParams?.page,
   });
 
+  const results = await Promise.all([
+    initExponats,
+    initPosts,
+    initOrganisations,
+    initUser,
+  ]);
+
   return (
-    <QueryClientWrapper>
+    <div>
       <SearchPageView
-        exponats={initExponats}
-        posts={initPosts}
-        organisations={initOrganisations}
+        exponats={results[0]}
+        posts={results[1]}
+        organisations={results[2]}
         query={searchParams}
         initTab="Objave"
-        users={initUser}
+        users={results[3]}
       />
-    </QueryClientWrapper>
+    </div>
   );
 };
 
