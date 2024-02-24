@@ -25,7 +25,7 @@ export class CategorizationsService {
     const item = await this.prisma.categorization.findFirst({
       where: {
         species: {
-          search: name.replace(/(\w)\s+(\w)/g, '$1 <-> $2'),
+          search: name.split(' ').join(' | '),
           mode: 'insensitive',
         },
       },
@@ -49,37 +49,37 @@ export class CategorizationsService {
       where: {
         ...(filter?.genus && {
           genus: {
-            search: filter.genus.replace(/(\w)\s+(\w)/g, '$1 <-> $2'),
+            search: filter.genus.split(' ').join(' | '),
             mode: 'insensitive',
           },
         }),
         ...(filter?.phylum && {
           phylum: {
-            search: filter.phylum.replace(/(\w)\s+(\w)/g, '$1 <-> $2'),
+            search: filter.phylum.split(' ').join(' | '),
             mode: 'insensitive',
           },
         }),
         ...(filter?.order && {
           order: {
-            search: filter.order.replace(/(\w)\s+(\w)/g, '$1 <-> $2'),
+            search: filter.order.split(' ').join(' | '),
             mode: 'insensitive',
           },
         }),
         ...(filter?.domain && {
           domain: {
-            search: filter.domain.replace(/(\w)\s+(\w)/g, '$1 <-> $2'),
+            search: filter.domain.split(' ').join(' | '),
             mode: 'insensitive',
           },
         }),
         ...(filter?.family && {
           family: {
-            search: filter.family.replace(/(\w)\s+(\w)/g, '$1 <-> $2'),
+            search: filter.family.split(' ').join(' | '),
             mode: 'insensitive',
           },
         }),
         ...(filter?.kingdom && {
           kingdom: {
-            search: filter.kingdom.replace(/(\w)\s+(\w)/g, '$1 <-> $2'),
+            search: filter.kingdom.split(' ').join(' | '),
             mode: 'insensitive',
           },
         }),
