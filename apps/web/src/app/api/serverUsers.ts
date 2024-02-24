@@ -6,9 +6,14 @@ export const _userQuery = getUserQuery();
 export class UserQuery extends _userQuery {}
 
 export const getUsers = async (queryDto: UserQuery, page?: number) => {
-  if (page) queryDto.page = page;
-  queryDto.size = 20;
-  const query = queryString.stringify(queryDto);
-  const response = await fetch(`${baseURL}/users?${query}`);
-  return response.json();
+  try {
+    if (page) queryDto.page = page;
+    if (!queryDto.page) queryDto.page = 1;
+    queryDto.size = 20;
+    const query = queryString.stringify(queryDto);
+    const response = await fetch(`${baseURL}/users?${query}`);
+    return response.json();
+  } catch (error) {
+    console.log(error);
+  }
 };

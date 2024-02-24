@@ -3,7 +3,14 @@ import { getOrganisations } from "@/api/serverOrganisations";
 import { getPosts } from "@/api/serverPosts";
 import { getUsers } from "@/api/serverUsers";
 import { SearchPageView } from "@/views/SearchPageView/SearchPageView";
+import { Indexable } from "@biosfera/types/src/jsonObjects";
 
+export const tabDictionaryReverse = {
+  user: "Korisnici",
+  organisation: "Organizacije",
+  exponat: "Eksponati",
+  post: "Objave",
+} as Indexable;
 const SearchPage = async ({
   params,
   searchParams,
@@ -53,7 +60,13 @@ const SearchPage = async ({
     initUser,
   ]);
 
-  console.log(results);
+  console.log(
+    results[0].length,
+    results[1].length,
+    results[2].length,
+    results[3].length,
+    searchParams
+  );
 
   return (
     <div>
@@ -62,7 +75,7 @@ const SearchPage = async ({
         posts={results[1]}
         organisations={results[2]}
         query={searchParams}
-        initTab="Objave"
+        initTab={tabDictionaryReverse[searchParams?.kind] || "Eksponati"}
         users={results[3]}
       />
     </div>

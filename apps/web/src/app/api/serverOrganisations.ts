@@ -9,9 +9,14 @@ export const getOrganisations = async (
   queryDto: OrganisationQuery,
   page?: number
 ) => {
-  if (page) queryDto.page = page;
-  queryDto.size = 20;
-  const query = queryString.stringify(queryDto);
-  const response = await fetch(`${baseURL}/organisations?${query}`);
-  return response.json();
+  try {
+    if (page) queryDto.page = page;
+    queryDto.size = 20;
+    if (!queryDto.page) queryDto.page = 1;
+    const query = queryString.stringify(queryDto);
+    const response = await fetch(`${baseURL}/organisations?${query}`);
+    return response.json();
+  } catch (error) {
+    console.log(error);
+  }
 };
