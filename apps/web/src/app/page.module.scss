@@ -4,13 +4,13 @@
 @import "styles/calc.scss";
 
 .landingSection {
-  height: 100vh;
+  height: vw-calc(800);
   color: black;
   margin: 0 auto;
 
   display: flex;
   justify-content: space-between;
-  padding: 100px 200px 0;
+  padding: vw-calc(100) vw-calc(200) 0;
 
   &.exponats {
     color: white;
@@ -83,28 +83,33 @@
 
     h2 {
       font-family: "Lexend";
-      font-size: 80px;
+      font-size: vw-calc(80);
       line-height: 100%;
-      margin-bottom: 30px;
+      margin-bottom: vw-calc(30);
     }
 
     p {
       font-family: "Commissioner";
-      font-size: 20px;
+      font-size: vw-calc(20);
       line-height: 150%;
-      margin-bottom: 70px;
+      margin-bottom: vw-calc(70);
       width: 80%;
       opacity: 0.5;
+
+      @media (max-width: 768px) {
+        font-size: vw-mobile-calc(12);
+        margin-bottom: vw-mobile-calc(40);
+      }
     }
 
     .button {
-      width: 200px;
+      width: vw-calc(200);
     }
   }
 
   .plantImage {
-    height: 400px;
-    width: 400px;
+    height: vw-calc(400);
+    width: vw-calc(400);
     object-fit: contain;
   }
 }
@@ -123,7 +128,7 @@
 
 @media screen and (max-width: 770px) {
   .landingSection {
-    padding: 70px 50px 0;
+    padding: vw-mobile-calc(30) vw-mobile-calc(20) 0;
     flex-direction: column-reverse;
     align-items: center;
     height: auto;
@@ -133,14 +138,14 @@
 
       .button {
         width: 100%;
-        margin-bottom: 50px;
+        margin-bottom: vw-mobile-calc(50);
       }
     }
 
     .plantImage {
       width: 50%;
       height: 50%;
-      margin-bottom: 50px;
+      margin-bottom: vw-mobile-calc(50);
     }
 
     &.exponats {
@@ -178,11 +183,11 @@
 
 @media screen and (max-width: 570px) {
   .landingSection {
-    padding: 70px 20px 0;
+    padding: vw-mobile-calc(70) vw-mobile-calc(20) 0;
 
     .content {
       h2 {
-        font-size: 40px;
+        font-size: vw-mobile-calc(40);
       }
     }
   }
