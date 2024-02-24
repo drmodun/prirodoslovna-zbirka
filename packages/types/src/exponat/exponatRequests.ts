@@ -6,6 +6,7 @@ import {
   IsUUID,
   IsNumber,
   isString,
+  IsOptional,
 } from "class-validator";
 import { ExponatKind } from "../enums";
 import { Json } from "../jsonObjects";
@@ -61,37 +62,45 @@ export const getUpdateExponatDto = (ApiPropertySwagger?: any) => {
   const ApiProperty = ApiPropertySwagger || function () {};
 
   class CreateExponatDto {
+    @IsOptional()
     @IsString()
     @MinLength(5)
     @ApiProperty()
     name?: string;
 
+    @IsOptional()
     @IsString()
     @MinLength(5)
     @ApiProperty()
     alternateName?: string;
 
+    @IsOptional()
     @IsString()
     @MinLength(10)
     @ApiProperty()
     description?: string;
 
+    @IsOptional()
     @IsString()
     @ApiProperty()
     mainImage?: string;
 
+    @IsOptional()
     @IsString({ each: true })
     @ApiProperty()
     funFacts?: string[];
 
+    @IsOptional()
     @IsString()
     @ApiProperty()
     ExponatKind?: ExponatKindType;
 
+    @IsOptional()
     @IsJSON()
     @ApiProperty()
     attributes?: Json;
 
+    @IsOptional()
     @IsUUID()
     @ApiProperty()
     cateogorizationId?: string;

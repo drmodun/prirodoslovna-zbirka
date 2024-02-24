@@ -17,6 +17,8 @@ import clsx from "clsx";
 import { Indexable } from "@biosfera/types/src/jsonObjects";
 import BaseButton from "components/BaseButton";
 import { useIsInView } from "@/utility/hooks/useIsInView";
+import useUser from "@/utility/context/UserContext";
+import { getPfpUrl } from "@/utility/static/getPfpUrl";
 
 export interface SortOption {
   label: string;
@@ -31,21 +33,37 @@ export interface CardCollectionProps {
     | OrganisationResponseShort[]
   ) &
     Indexable[];
-  type: "exponat" | "post" | "user" | "organisation";
+  type:
+    | "exponat"
+    | "post"
+    | "user"
+    | "organisation"
+    | "user-member"
+    | "organisation-member";
   sortBy: SortOption[];
+  organisationId?: string;
+  userId?: string;
   pageSize?: number;
 }
 
 export const CardCollection: React.FC<CardCollectionProps> = ({
   items,
   type,
+  userId,
   sortBy,
+  organisationId,
   pageSize,
 }) => {
   const [sortByValue, setSortByValue] = useState<string>("");
   const [isDescending, setIsDescending] = useState<boolean>(false);
   const [amount, setAmount] = useState<number>(pageSize || 20);
+  const { memberships, user } = useUser();
+  const [itemsToShow, setItemsToShow] = useState<Indexable[]>(items);
   const list = useRef<HTMLDivElement>(null);
+
+  const handleDelete = (id: string) => {
+    setItemsToShow((prev) => prev.filter((item) => item.id !== id));
+  };
 
   const handleScroll = async () => {
     if (amount < items.length) {
@@ -56,6 +74,10 @@ export const CardCollection: React.FC<CardCollectionProps> = ({
   useEffect(() => {
     setSortByValue(sortBy[0].value);
   }, []);
+
+  useEffect(() => {
+    setItemsToShow(items);
+  }, [items]);
 
   useEffect(() => {
     setAmount(pageSize || 20);
@@ -79,7 +101,29 @@ export const CardCollection: React.FC<CardCollectionProps> = ({
     window.addEventListener("scroll", handleScrolling);
     return () => window.removeEventListener("scroll", handleScrolling);
   });
-  return items.length > 0 ? (
+
+  const checkAdminMembership = (organisationId: string) => {
+    return (
+      user?.role?.toLowerCase() === "super" ||
+      memberships.some(
+        (membership) =>
+          membership.id === organisationId &&
+          (membership.role === "ADMIN" || membership.role === "OWNER")
+      )
+    );
+  };
+  const checkIsAuthor = (authorId: string) => {
+    return authorId === user?.id;
+  };
+
+  const checkIsAdminForPost = (organisationId: string) => {
+    return (
+      user?.role?.toLowerCase() === "super" ||
+      checkAdminMembership(organisationId)
+    );
+  };
+
+  return itemsToShow.length > 0 ? (
     <div className={classes.container}>
       <div className={classes.sortSelect}>
         <div className={classes.section}>
@@ -113,7 +157,7 @@ export const CardCollection: React.FC<CardCollectionProps> = ({
         </div>
       </div>
       <div className={classes.cardContainer}>
-        {items
+        {itemsToShow
           .toSorted((a, b) => {
             const first = isDescending ? b : a;
             const second = isDescending ? a : b;
@@ -129,24 +173,66 @@ export const CardCollection: React.FC<CardCollectionProps> = ({
                   <ExponatCard
                     key={index}
                     exponat={item as ExponatResponseShort}
+                    isAdmin={checkAdminMembership(
+                      (item as ExponatResponseShort).organizationId
+                    )}
+                    onRemove={handleDelete}
                   />
                 );
               case "post":
-                return <PostCard key={index} post={item as PostResponse} />;
+                return (
+                  <PostCard
+                    key={index}
+                    post={item as PostResponse}
+                    isAdmin={checkIsAdminForPost(
+                      (item as PostResponse).organisationId
+                    )}
+                    onRemove={handleDelete}
+                    isUser={checkIsAuthor((item as PostResponse).authorId)}
+                  />
+                );
+              case "user-member":
+                item = item as ShortUserResponse;
+                return (
+                  <MembershipCard
+                    description={item.email}
+                    type="user"
+                    image={getPfpUrl(item.id)}
+                    object={item as ShortUserResponse}
+                    role={item.role as string}
+                    isUser={checkIsAuthor(item.id)}
+                    onRemove={handleDelete}
+                    organisationId={organisationId}
+                    isAdmin={
+                      user?.role?.toLowerCase() === "super" ||
+                      checkAdminMembership(organisationId!)
+                    }
+                    name={item.username}
+                    id={item.id}
+                  />
+                );
               case "user":
                 item = item as ShortUserResponse;
                 return (
                   <MembershipCard
                     description={item.email}
                     type="user"
-                    image={placeholder}
+                    image={item.hasProfileImage && getPfpUrl(item.id)}
                     object={item as ShortUserResponse}
-                    role={item.role as string}
+                    role={item.location}
+                    isUser={checkIsAuthor(item.id)}
+                    onRemove={handleDelete}
+                    isFollowCard
+                    organisationId={organisationId}
+                    isAdmin={
+                      user?.role?.toLowerCase() === "super" ||
+                      checkAdminMembership(organisationId!)
+                    }
                     name={item.username}
                     id={item.id}
                   />
                 );
-              case "organisation":
+              case "organisation-member":
                 item = item as OrganisationResponseShort;
                 return (
                   <MembershipCard
@@ -156,7 +242,11 @@ export const CardCollection: React.FC<CardCollectionProps> = ({
                     object={item as OrganisationResponseShort}
                     role={item.role as string}
                     name={item.name}
+                    onRemove={handleDelete}
                     id={item.id}
+                    organisationId={item.id}
+                    isAdmin={checkAdminMembership(item.id)}
+                    isUser={checkIsAuthor(userId!)}
                   />
                 );
             }

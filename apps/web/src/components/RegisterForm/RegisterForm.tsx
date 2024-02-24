@@ -1,6 +1,5 @@
 "use client";
 
-import { useLogin } from "@/api/useLogin";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Input from "components/Input";
 import { useForm } from "react-hook-form";
@@ -16,6 +15,8 @@ import { SelectInput } from "components/SelectInput/SelectInput";
 import { useRegister } from "@/api/useRegister";
 import { makeCountyName } from "@/utility/static/countyNameMaker";
 import Modal from "components/BaseModal";
+import Textarea from "components/Textarea";
+import user from "assets/images/user-alt.svg";
 
 export const RegisterForm = () => {
   const schema = z
@@ -53,6 +54,7 @@ export const RegisterForm = () => {
         "OTHER",
       ]),
       username: z.string(),
+      bio: z.string().optional(),
       email: z.string().email("Mail mora biti pravilan"),
       password: z
         .string()
@@ -91,26 +93,27 @@ export const RegisterForm = () => {
         <Input
           form={form}
           attribute="firstName"
-          question="First Name"
-          image={email}
+          question="Ime"
+          image={user}
           error={form.formState.errors.firstName?.message?.toString()}
         />
         <Input
           form={form}
           attribute="lastName"
-          question="Last Name"
-          image={email}
+          question="Prezime"
+          image={user}
           error={form.formState.errors.lastName?.message?.toString()}
         />
         <Input
           form={form}
           attribute="username"
-          question="Username"
+          question="Korisničko ime"
           image={email}
           error={form.formState.errors.username?.message?.toString()}
         />
+        <Textarea form={form} attribute="bio" question="Opis" />
         <SelectInput
-          label="Location"
+          label="Županija"
           name="location"
           options={Object.values(County)
             .filter((county) => county.length > 2)
@@ -131,7 +134,7 @@ export const RegisterForm = () => {
         <Input
           form={form}
           attribute="password"
-          question="Password"
+          question="Lozinka"
           isPassword
           image={password}
           isDisabled={isLoading}
@@ -140,7 +143,7 @@ export const RegisterForm = () => {
         <Input
           form={form}
           attribute="passwordConfirmation"
-          question="Password Confirmation"
+          question="Potvrdi lozinku"
           isPassword
           image={password}
           isDisabled={isLoading}

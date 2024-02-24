@@ -18,6 +18,25 @@
     }
   }
 
+  .editForm {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: vw-calc(25);
+
+    .title {
+      font-size: vw-calc(30);
+      font-weight: 600;
+      color: $text;
+      text-align: start;
+    }
+
+    @media screen and (max-width: 768px) {
+      gap: vw-mobile-calc(15);
+    }
+  }
+
   .error {
     width: 100%;
     height: vw-calc(50);

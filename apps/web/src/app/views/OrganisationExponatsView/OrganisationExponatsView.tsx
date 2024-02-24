@@ -11,6 +11,8 @@ import search from "assets/images/search.svg";
 import { ExponatCard } from "components/ExponatCard";
 import SingleInput from "components/SingleInput";
 import CardCollection from "components/CardCollection";
+import useUser from "@/utility/context/UserContext";
+import { UserWrapper } from "@/utility/wrappers/userWrapper";
 
 export interface OrganisationExponatsViewProps {
   exponats: ExponatResponseShort[];
@@ -54,23 +56,25 @@ export const OrganisationExponatsView = ({
           selected={domain === Domains.MINERAL}
         />
       </div>
-      <CardCollection
-        pageSize={10}
-        items={exponats
-          .filter((exponat) => exponat.exponatKind.toLowerCase() === domain)
-          .filter((exponat) =>
-            exponat.name.toLowerCase().includes(searchValue.toLowerCase())
-          )
-          .map((exponat) => exponat)}
-        type="exponat"
-        sortBy={[
-          { label: "Abecedno", value: "name" },
-          { label: "Abecedno (znanstveno ime)", value: "alternateName" },
-          { label: "Datum Objave", value: "updatedAt" },
-          { label: "Broj Favorita", value: "favouriteCount" },
-          { label: "Broj objava", value: "postCount" },
-        ]}
-      />
+      <UserWrapper>
+        <CardCollection
+          pageSize={10}
+          items={exponats
+            .filter((exponat) => exponat.exponatKind.toLowerCase() === domain)
+            .filter((exponat) =>
+              exponat.name.toLowerCase().includes(searchValue.toLowerCase())
+            )
+            .map((exponat) => exponat)}
+          type="exponat"
+          sortBy={[
+            { label: "Abecedno", value: "name" },
+            { label: "Abecedno (znanstveno ime)", value: "alternateName" },
+            { label: "Datum Objave", value: "updatedAt" },
+            { label: "Broj Favorita", value: "favouriteCount" },
+            { label: "Broj objava", value: "postCount" },
+          ]}
+        />
+      </UserWrapper>
     </div>
   );
 };

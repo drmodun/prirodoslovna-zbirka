@@ -1,4 +1,11 @@
-import { IsString, MinLength, IsEmail, IsUrl, IsEnum } from "class-validator";
+import {
+  IsString,
+  MinLength,
+  IsOptional,
+  IsEmail,
+  IsUrl,
+  IsEnum,
+} from "class-validator";
 import { County } from "../enums";
 
 export const getCreateOrganisationDto = (ApiPropertySwagger?: any) => {
@@ -28,10 +35,6 @@ export const getCreateOrganisationDto = (ApiPropertySwagger?: any) => {
     @ApiProperty()
     mainImage: string;
 
-    @IsString({ each: true })
-    @ApiProperty()
-    otherImages: string[];
-
     @IsEnum(County)
     @ApiProperty()
     location: County;
@@ -39,6 +42,46 @@ export const getCreateOrganisationDto = (ApiPropertySwagger?: any) => {
     OrganisationUsers?: any;
   }
   return CreateOrganisationDto;
+};
+
+export const getUpdateOrganisationDto = (ApiPropertySwagger?: any) => {
+  const ApiProperty = ApiPropertySwagger || function () {};
+
+  class UpdateOrganisationDto {
+    @IsOptional()
+    @IsString()
+    @MinLength(5)
+    @ApiProperty({ required: false })
+    name?: string;
+
+    @IsOptional()
+    @IsString()
+    @MinLength(10)
+    @ApiProperty({ required: false })
+    description?: string;
+
+    @IsOptional()
+    @IsString()
+    @IsEmail()
+    @ApiProperty({ required: false })
+    email?: string;
+
+    @IsOptional()
+    @IsUrl()
+    @ApiProperty({ required: false })
+    websiteUrl?: string;
+
+    @IsOptional()
+    @IsString()
+    @ApiProperty({ required: false })
+    mainImage?: string;
+
+    @IsOptional()
+    @IsEnum(County)
+    @ApiProperty({ required: false })
+    location?: County;
+  }
+  return UpdateOrganisationDto;
 };
 
 export const getOrganisationQuery = (ApiPropertySwagger?: any) => {

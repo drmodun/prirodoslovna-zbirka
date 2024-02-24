@@ -143,4 +143,16 @@
       }
     }
   }
+
+  .buttons {
+    display: flex;
+    flex-direction: row;
+    gap: vw-calc(10);
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      align-items: flex-end;
+      justify-content: center;
+    }
+  }
 }
