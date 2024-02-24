@@ -15,7 +15,12 @@ export const UserCard = ({ user }: UserCardProps) => (
   <div className={classes.container}>
     <div className={classes.picture}>
       <Image
-        src={user.hasProfileImage ? user : placeholder}
+        src={
+          user.hasProfileImage
+            ? `https://biosfera-files.s3.eu-north-1.amazonaws.com/user/${user.id}`
+            : placeholder
+        }
+        layout="fill"
         alt={user.username}
       />
     </div>
@@ -36,7 +41,7 @@ export const UserCard = ({ user }: UserCardProps) => (
         className={classes.link}
         href={{
           pathname: "/follows/" + user.id,
-          query: { tab: 0 },
+          query: { tab: "Followers" },
         }}
       >
         {user.followerCount} followers
@@ -45,7 +50,7 @@ export const UserCard = ({ user }: UserCardProps) => (
         className={classes.link}
         href={{
           pathname: "/follows/" + user.id,
-          query: { tab: 1 }, //this will make a lot more sense later
+          query: { tab: "Following" }, //this will make a lot more sense later
         }}
       >
         {user.followingCount} following

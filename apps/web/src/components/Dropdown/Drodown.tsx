@@ -32,8 +32,10 @@ export const Dropdown: React.FC<DropdownProps> = ({
 }: DropdownProps) => {
   const { setValue } = form;
 
-  const [searchTerm, setSearchTerm] = useState<string | number>("");
-  const [selected, setSelected] = useState<string | number>("");
+  const [searchTerm, setSearchTerm] = useState<string | number>(
+    initSelected || ""
+  );
+  const [selected, setSelected] = useState<string | number>(initSelected || "");
   const [visible, setVisible] = useState<boolean>(false);
   const [placeholder, setPlaceholder] = useState<string>(
     options.find((option) => option.value == initSelected)?.label ||
@@ -81,7 +83,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
   useEffect(() => {
     setVisible(false);
   }, [cancel]);
-  
+
   return (
     <div className={classes.dropdown} onFocus={toggleVisible} onBlur={slowHide}>
       <div className={clsx(classes.top, visible && classes.active)}>

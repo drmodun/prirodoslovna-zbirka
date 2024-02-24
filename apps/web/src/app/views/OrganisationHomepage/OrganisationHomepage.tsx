@@ -2,6 +2,7 @@ import { ExtendedOrganisationResponse } from "@biosfera/types";
 import classes from "./OrganisationHomepage.module.scss";
 import SocialPostCard from "components/SocialPostCard";
 import clsx from "clsx";
+import OrganisationCard from "components/OrganisationCard";
 
 export interface OrganisationHomepageProps {
   organisation: ExtendedOrganisationResponse;
@@ -13,9 +14,6 @@ export const OrganisationHomepage = ({
   return (
     <div className={classes.container}>
       <div className={classes.topRow}>
-        {organisation.socialPosts?.length && (
-          <SocialPostCard post={organisation.socialPosts[0]} />
-        )}
         <div className={classes.actions}>
           <span className={classes.title}>Akcije</span>
           <div className={classes.actionsRow}>

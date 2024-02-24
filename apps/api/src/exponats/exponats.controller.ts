@@ -118,7 +118,9 @@ export class ExponatsController {
   @Get(':id')
   async findOne(@Param('id') id: string, @Req() req?: any) {
     const isAdmin =
-      req.user && (await this.exponatsService.checkUserRole(req?.user?.id, id));
+      req.user &&
+      (req.user.role === 'super' ||
+        (await this.exponatsService.checkUserRole(req?.user?.id, id)));
     const item = await this.exponatsService.findOne(id, !isAdmin);
 
     const posts: PostResponse[] = item.Posts.map((post) => {
@@ -132,6 +134,7 @@ export class ExponatsController {
         thumbnail: post.thumbnailImage,
         hasProfilePicture: post.author.hasProfileImage,
         updatedAt: post.updatedAt,
+        organisationId: item.organisationId,
         likeScore: post._count.Likes,
         title: post.title,
       } as PostResponse;
@@ -160,6 +163,7 @@ export class ExponatsController {
       funFacts: item.funFacts,
       mainImage: item.mainImage,
       organizationId: item.organisationId,
+      exponatKind: item.ExponatKind,
       organizationName: item.Organisation.name,
       updatedAt: item.updatedAt,
       posts: posts,

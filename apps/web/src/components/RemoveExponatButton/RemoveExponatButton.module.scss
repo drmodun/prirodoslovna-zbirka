@@ -1,0 +1,87 @@
+@import "styles/variables.scss";
+@import "styles/calc.scss";
+
+.container {
+  position: absolute;
+  top: vw-calc(10);
+  right: vw-calc(10);
+  flex-direction: column;
+  gap: vw-calc(10);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  @media screen and (max-width: 768px) {
+    top: vw-mobile-calc(5);
+    right: vw-mobile-calc(5);
+  }
+
+  .removalButton {
+    position: relative;
+    width: vw-calc(50);
+    height: vw-calc(50);
+    border: none;
+    background-color: $red;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.2s ease-out;
+    box-shadow: 0px 0px 10px 0px $dark-red;
+
+    @media screen and (max-width: 768px) {
+      width: vw-mobile-calc(25);
+      height: vw-mobile-calc(25);
+    }
+
+    img {
+      width: vw-calc(25);
+      height: vw-calc(25);
+
+      @media screen and (max-width: 768px) {
+        width: vw-mobile-calc(10);
+        height: vw-mobile-calc(10);
+      }
+    }
+
+    &:hover {
+      cursor: pointer;
+      background-color: $dark-red;
+    }
+  }
+
+  .edit {
+    position: relative;
+    width: vw-calc(50);
+    height: vw-calc(50);
+    border: none;
+    background-color: $secondary;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.2s ease-out;
+    box-shadow: 0px 0px 10px 0px $primary;
+
+    @media screen and (max-width: 768px) {
+      width: vw-mobile-calc(25);
+      height: vw-mobile-calc(25);
+    }
+
+    img {
+      width: vw-calc(25);
+      height: vw-calc(25);
+
+      @media screen and (max-width: 768px) {
+        width: vw-mobile-calc(10);
+        height: vw-mobile-calc(10);
+      }
+    }
+
+    &:hover {
+      cursor: pointer;
+      background-color: $secondary;
+    }
+  }
+}

@@ -95,6 +95,7 @@ export class PostsController {
         thumbnail: post.thumbnailImage,
         likeScore: post._count.Likes,
         title: post.title,
+        organisationId: post.Exponat.organisationId,
       } as PostResponse;
     });
 
@@ -122,6 +123,7 @@ export class PostsController {
       content: post.text,
       image: post.image,
       updatedAt: post.updatedAt,
+      organisationId: post.Exponat.organisationId,
       thumbnail: post.thumbnailImage,
     } as PostResponseExtended;
   }
@@ -190,7 +192,7 @@ export class PostsController {
         "You cannot approve or disapprove this post because it is not yours and you don't have admin rights",
       );
 
-    return this.postsService.toggleApproval(id);
+    return await this.postsService.toggleApproval(id);
   }
 
   @UseGuards(OptionalJwtAuthGuard)
@@ -216,6 +218,8 @@ export class PostsController {
         authorName: post.author.username,
         exponatId: post.ExponatId,
         exponatName: post.Exponat.name,
+        organisationId: post.Exponat.organisationId,
+        updatedAt: post.updatedAt,
         id: post.id,
         thumbnail: post.thumbnailImage,
         likeScore: post._count.Likes,
@@ -228,7 +232,7 @@ export class PostsController {
 
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
-  @Get(':organisationId/')
+  @Get(':organisationId/hidden')
   async findAllNotApproved(
     @Param('organisationId') organisationId: string,
     @Req() req: any,
@@ -243,7 +247,9 @@ export class PostsController {
         "You cannot see unapproved posts because you don't have admin rights",
       );
 
-    const posts = await this.postsService.findAllNotApproved(organisationId);
+    const posts = await this.postsService.findAllWithoutApproval(
+      organisationId,
+    );
 
     const mapped: PostResponse[] = posts.map((post) => {
       return {
@@ -254,8 +260,10 @@ export class PostsController {
         id: post.id,
         thumbnail: post.thumbnailImage,
         likeScore: post._count.Likes,
+        organisationId: post.Exponat.organisationId,
         title: post.title,
         hasProfilePicture: post.author.hasProfileImage,
+        isApproved: post.isApproved,
         updatedAt: post.updatedAt,
       } as PostResponse;
     });

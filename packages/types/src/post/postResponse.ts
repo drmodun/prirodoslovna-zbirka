@@ -6,8 +6,10 @@ export interface PostResponse {
   likeScore: number;
   exponatId: string;
   exponatName: string;
+  organisationId: string;
   updatedAt: Date;
   thumbnail: string;
+  isApproved?: boolean;
   hasProfilePicture?: boolean;
   // add likes and stuff
   //author profile picutre is supposed ti be findable by authorId
@@ -28,6 +30,7 @@ export interface PostResponseExtended {
   likeScore: number;
   exponatId: string;
   exponatName: string;
+  organisationId: string;
   updatedAt: Date;
   content: string;
   authorFullName: string;

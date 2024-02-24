@@ -7,6 +7,8 @@ import { dateShortener } from "@/utility/static/dateShortener";
 import Link from "next/link";
 import useUser from "@/utility/context/UserContext";
 import { useToggleLike } from "@/api/useToggleLike";
+import ImageWithFallback from "components/ImageWithFallback/ImageWithFallback";
+import { getPfpUrl } from "@/utility/static/getPfpUrl";
 
 export interface PostViewProps {
   post: PostResponseExtended;
@@ -19,11 +21,15 @@ export const PostView = ({ post }: PostViewProps) => {
   return (
     <div className={classes.container}>
       <div className={classes.mainImage}>
-        <Image src={post.image} alt={post.title} layout="fill" />
+        <ImageWithFallback layout="fill" src={post.image} alt={post.title} />
       </div>
       <div className={classes.info}>
         <div className={classes.authorImage}>
-          <Image src={placeholder} alt={post.authorName} layout="fill" />
+          <ImageWithFallback
+            src={getPfpUrl(post.authorId)}
+            alt={post.authorName}
+            layout="fill"
+          />
         </div>
         <span className={classes.authorName}>{post.authorFullName}</span>
         <span className={classes.updated}>{dateShortener(post.updatedAt)}</span>
