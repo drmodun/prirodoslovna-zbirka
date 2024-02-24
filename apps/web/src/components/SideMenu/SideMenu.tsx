@@ -45,21 +45,27 @@ const SideMenu = () => {
 
   return (
     <>
+      <div
+        className={clsx(c.backdrop, active && c.active)}
+        onClick={toggleActive}
+      ></div>
       <div className={clsx(c.sideMenu, active && c.active)}>
         <div className={c.profileInfo}>
-          <div className={c.image}>
-            <ImageWithFallback
-              src={user?.id ? getPfpUrl(user?.id) : ProfileImagePlaceholder}
-              fallbackSrc={ProfileImagePlaceholder}
-              alt="placeholder"
-              layout="fill"
-            />
-          </div>
-          <div className={c.userInfoWrapper}>
-            <p className={c.name}>
-              {user?.firstName || "Niste"} {user?.lastName || "prijavljeni"}
-            </p>
-            <p className={c.county}>{makeCountyName(user?.location || "")}</p>
+          <div className={c.content}>
+            <div className={c.image}>
+              <ImageWithFallback
+                src={user?.id ? getPfpUrl(user?.id) : ProfileImagePlaceholder}
+                fallbackSrc={ProfileImagePlaceholder}
+                alt="placeholder"
+                layout="fill"
+              />
+            </div>
+            <div className={c.userInfoWrapper}>
+              <p className={c.name}>
+                {user?.firstName || "Niste"} {user?.lastName || "prijavljeni"}
+              </p>
+              <p className={c.county}>{makeCountyName(user?.location || "")}</p>
+            </div>
           </div>
           <div className={c.buttonsWrapper}>
             <IconButton icon={UserIcon} onClick={handeleUserRedirect} />
