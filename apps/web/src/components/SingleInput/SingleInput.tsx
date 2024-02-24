@@ -3,6 +3,8 @@ import classes from "./SingleInput.module.scss";
 import Image from "next/image";
 import { InputResult } from "@/shared/enums";
 import clsx from "clsx";
+import Link from "next/link";
+import { Indexable } from "@biosfera/types/src/jsonObjects";
 interface InputProps {
   question: string;
   value: string;
@@ -10,12 +12,14 @@ interface InputProps {
   image?: string;
   isPassword?: boolean;
   isDisabled?: boolean;
+  linkedImage?: string | Indexable;
   status?: InputResult;
 }
 
 export const SingleInput = ({
   question,
   value,
+  linkedImage,
   onChange,
   isDisabled,
   image,
@@ -28,11 +32,16 @@ export const SingleInput = ({
 
   return (
     <div className={classes.container}>
-      {image && (
-        <div className={classes.image}>
-          <Image layout="fill" src={image} alt={question} />
-        </div>
-      )}
+      {image &&
+        (linkedImage ? (
+          <Link href={linkedImage} className={classes.image}>
+            <Image layout="fill" src={image} alt={question} />
+          </Link>
+        ) : (
+          <div className={classes.image}>
+            <Image layout="fill" src={image} alt={question} />
+          </div>
+        ))}
       <input
         type={isPassword ? "password" : "text"}
         className={clsx(classes.input, classes[status])}
