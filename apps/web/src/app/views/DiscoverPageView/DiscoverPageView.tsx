@@ -16,7 +16,7 @@ import { useDiscoverExponats } from "@/api/useDiscoverExponats";
 import { useDiscoverPosts } from "@/api/useDiscoverPosts";
 import { set } from "react-hook-form";
 
-export interface SearchPageViewProps {
+export interface DiscoverPageViewProps {
   organisations: OrganisationResponseShort[];
   exponats: ExponatResponseShort[];
   posts: PostResponse[];
@@ -40,7 +40,7 @@ export const DiscoverPageView = ({
   posts,
   initTab,
   query = { page: 1, size: 20 },
-}: SearchPageViewProps) => {
+}: DiscoverPageViewProps) => {
   const [activeTab, setActiveTab] = useState<tabType>(initTab);
   const [size, setSize] = useState<number>(query.page || 20);
   const [currentOrganisations, setCurrentOrganisations] = useState<
