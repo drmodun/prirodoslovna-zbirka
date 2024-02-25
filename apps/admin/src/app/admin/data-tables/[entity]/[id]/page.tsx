@@ -63,7 +63,6 @@ export default function ProfileOverview({
     window.scrollTo(0, 0);
   }, [item]);
 
-  //TODO: Add funfacts as list object here csv
 
   return (
     <Box

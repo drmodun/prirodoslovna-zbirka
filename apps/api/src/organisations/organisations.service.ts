@@ -54,7 +54,6 @@ export class OrganisationsService {
         ...(approval && {
           isApproved: approval,
         }),
-        //fix enums later;
       },
       include: {
         _count: {

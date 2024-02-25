@@ -71,7 +71,6 @@ export const UserFilter = ({ searchParams }: Props) => {
     } as FieldValues,
   });
 
-  //TODO: add defualt values on select fields on filters and see why county filter is not working
 
   const handleFilter = (data: any) => {
     console.log(data);

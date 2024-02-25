@@ -152,5 +152,3 @@ export const EditUserForm = ({
     </>
   );
 };
-
-//TODO: Make frontend validation and error messages blocked by the "MODAL" task

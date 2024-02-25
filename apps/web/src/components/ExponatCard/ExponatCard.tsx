@@ -19,7 +19,6 @@ export interface ExponatCardProps {
   onRemove?: (id: string) => void;
 }
 
-//TODO: funcionality of like to be added after backend implementation and user context
 
 export const ExponatCard = ({
   exponat,

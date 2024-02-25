@@ -3,7 +3,6 @@ import { FieldValues, UseFormReturn } from "react-hook-form";
 import classes from "./SelectInput.module.scss";
 import ErrorText from "components/Error";
 
-//TODO: Maybe make this a custom dropdown
 export interface Option {
   value: string;
   label: string;

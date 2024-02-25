@@ -59,5 +59,4 @@ export class BlobController {
     else throw new BadRequestException('File upload failed');
   }
 
-  //TODO: add deletion
 }

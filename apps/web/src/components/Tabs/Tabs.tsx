@@ -6,7 +6,7 @@ export interface TabsProps {
   tabs: string[];
   onSelect: Function;
   activeTab: String;
-  color?: string; //later add support for differently colored tabs TODO
+  color?: string; 
 }
 
 export const Tabs = ({ tabs, activeTab, onSelect }: TabsProps) => {

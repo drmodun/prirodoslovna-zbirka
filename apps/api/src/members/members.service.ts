@@ -98,7 +98,7 @@ export class MembersService {
   async editMemberRole(
     userId: string,
     organisationId: string,
-    newRole: MemberRoleType, //TODO: check why enums are acting weird
+    newRole: MemberRoleType, 
   ) {
     const memberCheck = await this.checkForMember(userId, organisationId);
 

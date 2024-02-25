@@ -231460,8 +231460,6 @@ const userFollowers = [{"followerId":users[88].id,"followeeId":users[8].id},
     }
   }
 
-  //TODO: Replace this temporary way of deleting duplicates
-
   await prisma.user.deleteMany();
   await prisma.organisation.deleteMany();
   await prisma.post.deleteMany();
