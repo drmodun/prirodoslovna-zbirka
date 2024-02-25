@@ -210,7 +210,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
       setMemberships([]);
       setPosts([]);
     }
-  }, [user]);
+  }, [user?.id]);
 
   useEffect(() => {
     console.log(isLoading);
