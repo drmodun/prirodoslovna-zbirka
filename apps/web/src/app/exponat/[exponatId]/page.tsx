@@ -6,13 +6,14 @@ import { PostCard } from "components/PostCard";
 import CardCollection from "components/CardCollection";
 import { UserWrapper } from "@/utility/wrappers/userWrapper";
 import SingleExponatView from "@/views/SingleExponatView.ts";
+import NotFound from "@/not-found";
 
 const ExponatPage = async ({ params }: { params: any }) => {
   const exponatInfo: ExponatExtendedResponse = await serverGetExponat(
     params.exponatId
   );
 
-  return (
+  return exponatInfo ? (
     <div className={classes.container}>
       <div className={classes.modal}>
         <ExponatModal exponat={exponatInfo} />
@@ -21,6 +22,8 @@ const ExponatPage = async ({ params }: { params: any }) => {
         <SingleExponatView exponat={exponatInfo} />
       </UserWrapper>
     </div>
+  ) : (
+    <NotFound />
   );
 };
 

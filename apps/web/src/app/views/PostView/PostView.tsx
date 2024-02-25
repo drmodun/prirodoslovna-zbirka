@@ -9,15 +9,14 @@ import useUser from "@/utility/context/UserContext";
 import { useToggleLike } from "@/api/useToggleLike";
 import ImageWithFallback from "components/ImageWithFallback/ImageWithFallback";
 import { getPfpUrl } from "@/utility/static/getPfpUrl";
+import { useEffect } from "react";
 
 export interface PostViewProps {
   post: PostResponseExtended;
 }
 
 export const PostView = ({ post }: PostViewProps) => {
-  const { likedPosts } = useUser();
-  const { mutate } = useToggleLike();
-
+  if (!post) return (window.location.href = "/404");
   return (
     <div className={classes.container}>
       <div className={classes.mainImage}>
@@ -38,10 +37,6 @@ export const PostView = ({ post }: PostViewProps) => {
         <span>{post.title}</span>
       </div>
       <div className={classes.buttons}>
-        <button className={classes.button} onClick={() => mutate(post.id)}>
-          {likedPosts.find((x) => x.id === post.id) != null ? "Unlike" : "Like"}
-        </button>
-        <button className={classes.button}>Share</button>
         <Link href={`/exponat/${post.exponatId}`} className={classes.button}>
           Pogledaj eksponat
         </Link>

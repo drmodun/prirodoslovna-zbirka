@@ -36,6 +36,7 @@ export const OrganisationBody = ({
 }: {
   organisation: ExtendedOrganisationResponse;
 }) => {
+  if (!organisation) window.location.href = "/404";
   const { memberships, user } = useUser();
   const [organisationData, setOrganisationData] =
     useState<ExtendedOrganisationResponse>(organisation);
