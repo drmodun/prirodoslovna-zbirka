@@ -55,14 +55,20 @@ export const DiscoverPageView = ({
     exponatPage,
     organisationPage,
     postPage,
+    resetPages,
     setOrganisationPage,
     setExponatPage,
     setPostPage,
   } = useDiscover();
 
+  const handleError = () => {
+    resetPages && resetPages();
+    window.location.reload();
+  };
+
   const { data: currentOrganisationsQuery, isFetching: organisationLoading } =
     useDiscoverOrganisations(organisationPage, size);
-  const { data: currentExponatsQuery, isFetching: exponatsLoding } =
+  const { data: currentExponatsQuery, isFetching: exponatsLoading } =
     useDiscoverExponats(exponatPage, size);
   const { data: currentPostsQuery, isFetching: postLoading } = useDiscoverPosts(
     postPage,
@@ -70,6 +76,7 @@ export const DiscoverPageView = ({
   );
 
   useEffect(() => {
+    if (currentOrganisationsQuery?.length === 0) handleError();
     setCurrentOrganisations((prev) => [
       ...prev,
       ...(currentOrganisationsQuery?.filter(
@@ -79,6 +86,7 @@ export const DiscoverPageView = ({
   }, [currentOrganisationsQuery]);
 
   useEffect(() => {
+    if (currentExponatsQuery?.length === 0) handleError();
     setCurrentExponats((prev) => [
       ...prev,
       ...(currentExponatsQuery?.filter(
@@ -88,6 +96,7 @@ export const DiscoverPageView = ({
   }, [currentExponatsQuery]);
 
   useEffect(() => {
+    if (currentPostsQuery?.length === 0) handleError();
     setCurrentPosts((prev) => [
       ...prev,
       ...(currentPostsQuery?.filter((x) => !prev.some((y) => y.id == x.id)) ||
@@ -95,24 +104,18 @@ export const DiscoverPageView = ({
     ]);
   }, [currentPostsQuery]);
 
-  const handleOrganisationSearch = async (params: {
-    page: number;
-    size: number;
-  }) => {
-    if (organisationLoading || exponatsLoding || postLoading) return;
+  const handleOrganisationSearch = async () => {
+    if (organisationLoading || exponatsLoading || postLoading) return;
     setOrganisationPage && setOrganisationPage((prev) => prev + 1);
   };
 
-  const handleExponatSearch = async (params: {
-    page: number;
-    size: number;
-  }) => {
-    if (organisationLoading || exponatsLoding || postLoading) return;
+  const handleExponatSearch = async () => {
+    if (organisationLoading || exponatsLoading || postLoading) return;
     setExponatPage && setExponatPage((prev) => prev + 1);
   };
 
-  const handlePostSearch = async (params: { page: number; size: number }) => {
-    if (organisationLoading || exponatsLoding || postLoading) return;
+  const handlePostSearch = async () => {
+    if (organisationLoading || exponatsLoading || postLoading) return;
     setPostPage && setPostPage((prev) => prev + 1);
   };
 
@@ -139,7 +142,8 @@ export const DiscoverPageView = ({
                 : handlePostSearch
             }
             params={query}
-            isLoading={organisationLoading || exponatsLoding || postLoading}
+            onError={handleError}
+            isLoading={organisationLoading || exponatsLoading || postLoading}
             items={
               activeTab === "Organizacije"
                 ? currentOrganisations || organisations

@@ -36,31 +36,49 @@ export const DiscoverProvider = ({
     setExponatPage(1);
     setOrganisationPage(1);
     setPostPage(1);
+    localStorage.removeItem("exponatPage");
+    localStorage.removeItem("organisationPage");
+    localStorage.removeItem("postPage");
   };
 
   const [exponatPage, setExponatPage] = React.useState<number>(1);
   const [organisationPage, setOrganisationPage] = React.useState<number>(1);
   const [postPage, setPostPage] = React.useState<number>(1);
 
-  const {
-    user,
-    likedPosts,
-    favouriteExponats,
-    followedOrganisations,
-    followers,
-    following,
-  } = useUser();
+  useEffect(() => {
+    if (exponatPage !== 1)
+      localStorage.setItem("exponatPage", exponatPage.toString());
+  }, [exponatPage]);
 
   useEffect(() => {
-    resetPages();
-  }, [
-    user?.id,
-    likedPosts,
-    favouriteExponats,
-    followedOrganisations,
-    followers,
-    following,
-  ]);
+    if (organisationPage !== 1)
+      localStorage.setItem("organisationPage", organisationPage.toString());
+  }, [organisationPage]);
+
+  useEffect(() => {
+    if (postPage !== 1) localStorage.setItem("postPage", postPage.toString());
+  }, [postPage]);
+
+  useEffect(() => {
+    const exponatPage = localStorage.getItem("exponatPage");
+    if (exponatPage) {
+      setExponatPage(parseInt(exponatPage));
+    }
+    const organisationPage = localStorage.getItem("organisationPage");
+    if (organisationPage) {
+      setOrganisationPage(parseInt(organisationPage));
+    }
+    const postPage = localStorage.getItem("postPage");
+    if (postPage) {
+      setPostPage(parseInt(postPage));
+    }
+  }, []);
+
+  const { user } = useUser();
+
+  useEffect(() => {
+    console.log(exponatPage, organisationPage, postPage, user);
+  }, [exponatPage, organisationPage, postPage, user]);
 
   return (
     <DiscoverContext.Provider

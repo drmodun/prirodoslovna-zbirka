@@ -203,7 +203,6 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
       setMemberships(user.memberships);
       setPosts(user.posts);
     }
-    console.log(user);
     if (!user) {
       setLikedPosts([]);
       setFavouriteExponats([]);
@@ -211,10 +210,6 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
       setPosts([]);
     }
   }, [user?.id]);
-
-  useEffect(() => {
-    console.log(isLoading);
-  }, [isLoading]);
 
   return (
     <UserContext.Provider

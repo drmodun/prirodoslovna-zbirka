@@ -26,15 +26,13 @@ const DiscoverPage = async ({
   });
 
   return (
-    <DiscoverWrapper>
-      <DiscoverPageView
-        exponats={initExponats}
-        initTab="Eksponati"
-        organisations={initOrganisations}
-        posts={initPosts}
-        query={searchParams}
-      />
-    </DiscoverWrapper>
+    <DiscoverPageView
+      exponats={initExponats}
+      initTab="Eksponati"
+      organisations={initOrganisations}
+      posts={initPosts}
+      query={searchParams}
+    />
   );
 };
 
