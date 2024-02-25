@@ -42,12 +42,14 @@ export const DiscoverPageView = ({
   query = { page: 1, size: 20 },
 }: SearchPageViewProps) => {
   const [activeTab, setActiveTab] = useState<tabType>(initTab);
-  const [page, setPage] = useState<number>(query.page || 1);
   const [size, setSize] = useState<number>(query.page || 20);
-
-  const { data: currentOrganisations } = useDiscoverOrganisations(page, size);
-  const { data: currentExponats } = useDiscoverExponats(page, size);
-  const { data: currentPosts } = useDiscoverPosts(page, size);
+  const [currentOrganisations, setCurrentOrganisations] = useState<
+    OrganisationResponseShort[]
+  >([]);
+  const [currentExponats, setCurrentExponats] = useState<
+    ExponatResponseShort[]
+  >([]);
+  const [currentPosts, setCurrentPosts] = useState<PostResponse[]>([]);
 
   const {
     exponatPage,
@@ -58,21 +60,46 @@ export const DiscoverPageView = ({
     setPostPage,
   } = useDiscover();
 
+  const { data: currentOrganisationsQuery, isFetching: organisationLoading } =
+    useDiscoverOrganisations(organisationPage, size);
+  const { data: currentExponatsQuery, isFetching: exponatsLoding } =
+    useDiscoverExponats(exponatPage, size);
+  const { data: currentPostsQuery, isFetching: postLoading } = useDiscoverPosts(
+    postPage,
+    size
+  );
+
   useEffect(() => {
-    if (activeTab === "Organizacije") {
-      setPage(organisationPage);
-    } else if (activeTab === "Eksponati") {
-      setPage(exponatPage);
-    } else {
-      setPage(postPage);
-    }
-  }, [query, activeTab, organisationPage, exponatPage, postPage]);
+    setCurrentOrganisations((prev) => [
+      ...prev,
+      ...(currentOrganisationsQuery?.filter(
+        (x) => !prev.some((y) => y.id == x.id)
+      ) || []),
+    ]);
+  }, [currentOrganisationsQuery]);
+
+  useEffect(() => {
+    setCurrentExponats((prev) => [
+      ...prev,
+      ...(currentExponatsQuery?.filter(
+        (x) => !prev.some((y) => y.id == x.id)
+      ) || []),
+    ]);
+  }, [currentExponatsQuery]);
+
+  useEffect(() => {
+    setCurrentPosts((prev) => [
+      ...prev,
+      ...(currentPostsQuery?.filter((x) => !prev.some((y) => y.id == x.id)) ||
+        []),
+    ]);
+  }, [currentPostsQuery]);
 
   const handleOrganisationSearch = async (params: {
     page: number;
     size: number;
   }) => {
-    setPage((prev) => prev + 1);
+    if (organisationLoading || exponatsLoding || postLoading) return;
     setOrganisationPage && setOrganisationPage((prev) => prev + 1);
   };
 
@@ -80,12 +107,12 @@ export const DiscoverPageView = ({
     page: number;
     size: number;
   }) => {
-    setPage((prev) => prev + 1);
+    if (organisationLoading || exponatsLoding || postLoading) return;
     setExponatPage && setExponatPage((prev) => prev + 1);
   };
 
   const handlePostSearch = async (params: { page: number; size: number }) => {
-    setPage((prev) => prev + 1);
+    if (organisationLoading || exponatsLoding || postLoading) return;
     setPostPage && setPostPage((prev) => prev + 1);
   };
 
@@ -96,7 +123,13 @@ export const DiscoverPageView = ({
         <UserWrapper>
           <CardCollectionAsync
             type={tabDictionary[activeTab] as tabDictionaryType}
-            page={query.page}
+            page={
+              activeTab === "Organizacije"
+                ? organisationPage
+                : activeTab === "Eksponati"
+                ? exponatPage
+                : postPage
+            }
             isDiscover
             getMore={
               activeTab === "Organizacije"
@@ -106,6 +139,7 @@ export const DiscoverPageView = ({
                 : handlePostSearch
             }
             params={query}
+            isLoading={organisationLoading || exponatsLoding || postLoading}
             items={
               activeTab === "Organizacije"
                 ? currentOrganisations || organisations

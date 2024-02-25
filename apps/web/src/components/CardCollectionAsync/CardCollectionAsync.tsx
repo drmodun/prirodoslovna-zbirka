@@ -32,12 +32,8 @@ export interface CardCollectionAsyncProps {
     Indexable[];
   type: "exponat" | "post" | "user" | "organisation";
   page: number;
-  getMore: (
-    query: any,
-    page?: number
-  ) =>
-    | Promise<any>
-    | ((params: { page: number; size: number }) => Promise<any>);
+  isLoading?: boolean;
+  getMore: (query?: any, page?: number) => Promise<any> | (() => void);
   params: any;
   isDiscover?: boolean;
   replaceFirst?: boolean;
@@ -46,6 +42,7 @@ export interface CardCollectionAsyncProps {
 export const CardCollectionAsync: React.FC<CardCollectionAsyncProps> = ({
   items,
   getMore,
+  isLoading = false,
   page = 1,
   type,
   isDiscover,
@@ -54,13 +51,17 @@ export const CardCollectionAsync: React.FC<CardCollectionAsyncProps> = ({
   const { memberships, user } = useUser();
   const [itemsToShow, setItemsToShow] = useState<Indexable[]>(items);
   const [currentPage, setCurrentPage] = useState<number>(page);
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(isLoading);
   const list = useRef<HTMLDivElement>(null);
   const [failed, setFailed] = useState<boolean>(false);
 
   const handleDelete = (id: string) => {
     setItemsToShow((prev) => prev.filter((item) => item.id !== id));
   };
+
+  useEffect(() => {
+    setLoading(isLoading);
+  }, [isLoading]);
 
   const handleScroll = async () => {
     try {
@@ -69,12 +70,13 @@ export const CardCollectionAsync: React.FC<CardCollectionAsyncProps> = ({
         setCurrentPage((prev) => prev + 1);
         console.log("fetching more", currentPage);
         const items = isDiscover
-          ? await getMore({ page: currentPage, size: params.size || 20 })
+          ? getMore()
           : await getMore(params, currentPage);
         items &&
+          items.filter &&
           setItemsToShow((prev) => [
             ...prev,
-            ...items.filter(
+            ...items?.filter(
               (item: Indexable) =>
                 !prev.some((prevItem) => prevItem.id === item.id)
             ),
@@ -137,7 +139,7 @@ export const CardCollectionAsync: React.FC<CardCollectionAsyncProps> = ({
     <div className={classes.container}>
       <div className={classes.section} ref={list}></div>
       <div className={classes.cardContainer}>
-        {itemsToShow.map((item, index) => {
+        {itemsToShow?.map((item, index) => {
           switch (type) {
             case "exponat":
               return (
