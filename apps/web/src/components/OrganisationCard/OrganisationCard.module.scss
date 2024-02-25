@@ -8,6 +8,12 @@
   flex-direction: column;
   box-shadow: 0px vw-calc(10) vw-calc(20) rgba(0, 0, 0, 0.1);
   border-radius: vw-calc(10);
+  transition: all 0.3s ease-in-out;
+
+  &:hover {
+    box-shadow: 0px vw-calc(10) vw-calc(20) rgba(0, 0, 0, 0.1);
+    transform: translateY(vw-calc(-10));
+  }
 
   .image {
     width: vw-calc(400);
