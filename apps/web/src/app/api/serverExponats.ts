@@ -35,17 +35,8 @@ export const discoverExponats = async (params: {
   try {
     if (!params.size) params.size = 20;
     if (!params.page) params.page = 1;
-    const auth =
-      typeof window !== "undefined" && localStorage.getItem("access_token");
     const response = await fetch(
-      `${baseURL}/exponats/discover?page=${params.page}&size=${params.size}`,
-      {
-        ...(auth && {
-          headers: {
-            Authorization: `Bearer ${auth}`,
-          },
-        }),
-      }
+      `${baseURL}/exponats/discover?page=${params.page}&size=${params.size}`
     );
     console.log(response);
     return response.json();

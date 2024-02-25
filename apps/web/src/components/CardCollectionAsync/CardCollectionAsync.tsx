@@ -47,7 +47,6 @@ export const CardCollectionAsync: React.FC<CardCollectionAsyncProps> = ({
   items,
   getMore,
   page = 1,
-  replaceFirst = false,
   type,
   isDiscover,
   params,
@@ -59,7 +58,9 @@ export const CardCollectionAsync: React.FC<CardCollectionAsyncProps> = ({
   const list = useRef<HTMLDivElement>(null);
   const [failed, setFailed] = useState<boolean>(false);
 
-  const handleDelete = (id: string) => {};
+  const handleDelete = (id: string) => {
+    setItemsToShow((prev) => prev.filter((item) => item.id !== id));
+  };
 
   const handleScroll = async () => {
     try {
@@ -70,14 +71,14 @@ export const CardCollectionAsync: React.FC<CardCollectionAsyncProps> = ({
         const items = isDiscover
           ? await getMore({ page: currentPage, size: params.size || 20 })
           : await getMore(params, currentPage);
-        await getMore(params, currentPage);
-        setItemsToShow((prev) => [
-          ...prev,
-          ...items.filter(
-            (item: Indexable) =>
-              !prev.some((prevItem) => prevItem.id === item.id)
-          ),
-        ]);
+        items &&
+          setItemsToShow((prev) => [
+            ...prev,
+            ...items.filter(
+              (item: Indexable) =>
+                !prev.some((prevItem) => prevItem.id === item.id)
+            ),
+          ]);
         setLoading(false);
       }
     } catch (e) {
@@ -95,17 +96,6 @@ export const CardCollectionAsync: React.FC<CardCollectionAsyncProps> = ({
   useEffect(() => {
     setCurrentPage(page);
   }, [page]);
-
-  useEffect(() => {
-    const fetchFirst = async () => {
-      if (replaceFirst) {
-        const first = await getMore({ page: 1, size: params.size || 20 });
-        setItemsToShow(first);
-      }
-    };
-
-    fetchFirst();
-  }, []);
 
   const listInView = useIsInView(list);
 

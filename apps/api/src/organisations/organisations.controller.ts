@@ -159,7 +159,7 @@ export class OrganisationsController {
         websiteUrl: org.websiteUrl,
         mainImage: org.mainImage,
         exponatCount: org.amountOfExponats || 0,
-        points: org.totalFavourites || 0,
+        points: org.totalFavourites?.d[0] || 0,
         isFavorite: false,
         description: org.description,
         updatedAt: org.updatedAt,

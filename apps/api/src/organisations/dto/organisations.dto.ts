@@ -12,6 +12,6 @@ export type OrganisationSQL = Organisation & {
   totalPosts?: number;
   amountOfExponats?: number;
   amountOfMembers?: number;
-  totalFavourites?: number;
+  totalFavourites?: any;
   amountOfFollowers?: number;
 };

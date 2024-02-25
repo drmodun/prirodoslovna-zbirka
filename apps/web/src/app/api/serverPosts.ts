@@ -29,18 +29,8 @@ export const discoverPosts = async (params: { page: number; size: number }) => {
   try {
     if (!params.size) params.size = 20;
     if (!params.page) params.page = 1;
-    const auth =
-      typeof window !== "undefined" && localStorage.getItem("access_token");
-    auth && console.log("auth", params);
     const response = await fetch(
-      `${baseURL}/posts/discover?page=${params.page}&size=${params.size}`,
-      {
-        ...(auth && {
-          headers: {
-            Authorization: `Bearer ${auth}`,
-          },
-        }),
-      }
+      `${baseURL}/posts/discover?page=${params.page}&size=${params.size}`
     );
     return response.json();
   } catch (error) {
