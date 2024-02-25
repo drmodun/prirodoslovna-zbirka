@@ -138,6 +138,41 @@ export class OrganisationsController {
 
   @UseGuards(OptionalJwtAuthGuard)
   @ApiBearerAuth()
+  @ApiQuery({ name: 'page', required: false })
+  @ApiQuery({ name: 'size', required: false })
+  @Get('discover')
+  async discover(
+    @PaginationParams() paginationParam?: PaginationRequest,
+    @Req() req?: any,
+  ) {
+    const items = await this.organisationsService.discover(
+      paginationParam.page,
+      paginationParam.size,
+      req?.user?.id,
+    );
+
+    const mapped = items.map((org) => {
+      return {
+        id: org.id,
+        name: org.name,
+        location: org.location,
+        websiteUrl: org.websiteUrl,
+        mainImage: org.mainImage,
+        exponatCount: org.amountOfExponats || 0,
+        points: org.totalFavourites || 0,
+        isFavorite: false,
+        description: org.description,
+        updatedAt: org.updatedAt,
+        followerCount: org.amountOfFollowers || 0,
+        memberCount: org.amountOfMembers || 0,
+        isApproved: org.isApproved,
+      } as OrganisationResponseShort;
+    });
+    return mapped;
+  }
+
+  @UseGuards(OptionalJwtAuthGuard)
+  @ApiBearerAuth()
   @Get(':id')
   async findOne(@Param('id') id: string, @Req() req?: any) {
     const isAdmin =
