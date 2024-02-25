@@ -37,10 +37,6 @@ const SideMenu = () => {
     confirm && logout && logout();
   };
 
-  useEffect(() => {
-    if (active) toggleActive();
-  }, [window.location.pathname]);
-
   return (
     <>
       <div
@@ -65,7 +61,7 @@ const SideMenu = () => {
               <p className={c.county}>{makeCountyName(user?.location || "")}</p>
             </div>
           </div>
-          <div className={c.buttonsWrapper}>
+          <div className={c.buttonsWrapper} onClick={toggleActive}>
             <Link href={user?.id ? `/user/${user.id}` : "/login"}>
               <IconButton className={c.link} icon={UserIcon} />
             </Link>
