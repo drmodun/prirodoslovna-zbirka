@@ -21,6 +21,7 @@ import useUser from "@/utility/context/UserContext";
 import { getPfpUrl } from "@/utility/static/getPfpUrl";
 import OrganisationCard from "components/OrganisationCard";
 import { set } from "react-hook-form";
+
 export interface CardCollectionAsyncProps {
   items: (
     | ExponatResponseShort[]
@@ -31,15 +32,24 @@ export interface CardCollectionAsyncProps {
     Indexable[];
   type: "exponat" | "post" | "user" | "organisation";
   page: number;
-  getMore: (query: any, page: number) => Promise<any>;
+  getMore: (
+    query: any,
+    page?: number
+  ) =>
+    | Promise<any>
+    | ((params: { page: number; size: number }) => Promise<any>);
   params: any;
+  isDiscover?: boolean;
+  replaceFirst?: boolean;
 }
 
 export const CardCollectionAsync: React.FC<CardCollectionAsyncProps> = ({
   items,
   getMore,
   page = 1,
+  replaceFirst = false,
   type,
+  isDiscover,
   params,
 }) => {
   const { memberships, user } = useUser();
@@ -57,7 +67,10 @@ export const CardCollectionAsync: React.FC<CardCollectionAsyncProps> = ({
         setLoading(true);
         setCurrentPage((prev) => prev + 1);
         console.log("fetching more", currentPage);
-        const items = await getMore(params, currentPage);
+        const items = isDiscover
+          ? await getMore({ page: currentPage, size: params.size || 20 })
+          : await getMore(params, currentPage);
+        await getMore(params, currentPage);
         setItemsToShow((prev) => [
           ...prev,
           ...items.filter(
@@ -82,6 +95,17 @@ export const CardCollectionAsync: React.FC<CardCollectionAsyncProps> = ({
   useEffect(() => {
     setCurrentPage(page);
   }, [page]);
+
+  useEffect(() => {
+    const fetchFirst = async () => {
+      if (replaceFirst) {
+        const first = await getMore({ page: 1, size: params.size || 20 });
+        setItemsToShow(first);
+      }
+    };
+
+    fetchFirst();
+  }, []);
 
   const listInView = useIsInView(list);
 
@@ -119,7 +143,7 @@ export const CardCollectionAsync: React.FC<CardCollectionAsyncProps> = ({
     );
   };
 
-  return list && itemsToShow.length > 0 ? (
+  return list && itemsToShow?.length > 0 ? (
     <div className={classes.container}>
       <div className={classes.section} ref={list}></div>
       <div className={classes.cardContainer}>
