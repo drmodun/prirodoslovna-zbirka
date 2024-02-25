@@ -5,6 +5,19 @@ import { DiscoverWrapper } from "@/utility/wrappers/discoverWrapper";
 import { UserWrapper } from "@/utility/wrappers/userWrapper";
 import DiscoverPageView from "@/views/DiscoverPageView";
 
+const getTab = (tab: string): tabType => {
+  switch (tab) {
+    case "organisation":
+      return "Organizacije";
+    case "exponat":
+      return "Eksponati";
+    case "post":
+      return "Objave";
+    default:
+      return "Eksponati";
+  }
+};
+
 const DiscoverPage = async ({
   params,
   searchParams,
@@ -28,7 +41,7 @@ const DiscoverPage = async ({
   return (
     <DiscoverPageView
       exponats={initExponats}
-      initTab="Eksponati"
+      initTab={getTab(searchParams?.kind) || "Eksponati"}
       organisations={initOrganisations}
       posts={initPosts}
       query={searchParams}
