@@ -1,4 +1,7 @@
-import { getUpdateOrganisationDto } from "@biosfera/types";
+import {
+  OrganisationResponseShort,
+  getUpdateOrganisationDto,
+} from "@biosfera/types";
 import { api } from "./shared";
 import { useMutation } from "react-query";
 import toast from "react-hot-toast";
@@ -10,7 +13,7 @@ export const updateOrganisation = async (params: {
   organisationId: string;
   updateOrganisationDto: UpdateOrganisationDto;
 }) => {
-  await api.patch(
+  await api.patch<UpdateOrganisationDto, OrganisationResponseShort>(
     `/organisations/${params.organisationId}`,
     params.updateOrganisationDto
   );

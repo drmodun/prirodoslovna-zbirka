@@ -8,7 +8,5 @@ const discoverPosts = async (page: number = 1, size: number = 20) =>
   );
 
 export const useDiscoverPosts = (page: number, size: number) => {
-  return useQuery(["discoverPosts", page, size], () =>
-    discoverPosts(page, size)
-  );
+  return useQuery([], () => discoverPosts(page, size));
 };

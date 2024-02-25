@@ -104,12 +104,19 @@ export const OrganisationForm = ({
           file: image[0],
           directory: Directories.ORGANISATION,
         }));
-    isEdit
+    const response = isEdit
       ? await update.mutateAsync({
           organisationId: initvalues!.id,
           updateOrganisationDto: data,
         })
       : await create.mutateAsync(data);
+    console.log(response);
+
+    if (response) {
+      setTimeout(() => {
+        window.location.href = `/organisation/${response.id}`;
+      }, 1000);
+    }
   };
 
   return (

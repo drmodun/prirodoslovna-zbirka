@@ -1,4 +1,4 @@
-import { getCreateExponatDto } from "@biosfera/types";
+import { ExponatResponseShort, getCreateExponatDto } from "@biosfera/types";
 import { api } from "./shared";
 import { useMutation } from "react-query";
 import toast from "react-hot-toast";
@@ -11,7 +11,10 @@ const createExponat = (params: {
   exponat: CreateExponatDto;
   organisationId: string;
 }) => {
-  return api.post(`/exponats/${params.organisationId}`, params.exponat);
+  return api.post<CreateExponatDto, ExponatResponseShort>(
+    `/exponats/${params.organisationId}`,
+    params.exponat
+  );
 };
 
 export const useCreateExponat = () => {
@@ -23,9 +26,6 @@ export const useCreateExponat = () => {
       toast.success("Uspješno kreiran exponat", {
         id: "create-exponat",
       });
-      setTimeout(() => {
-        window.location.reload();
-      }, 1000);
     },
   });
 };

@@ -3,7 +3,11 @@ import {
   NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
-import { CreateExponatDto, ExponatSQL, UpdateExponatDto } from './dto/exponats.dto';
+import {
+  CreateExponatDto,
+  ExponatSQL,
+  UpdateExponatDto,
+} from './dto/exponats.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import {
   ExponatQuery,
@@ -43,11 +47,13 @@ export class ExponatsService {
         description: createExponatDto.description,
         name: createExponatDto.name,
         mainImage: createExponatDto.mainImage,
-        Categorization: {
-          connect: {
-            id: createExponatDto.categorizationId,
+        ...(createExponatDto.categorizationId && {
+          Categorization: {
+            connect: {
+              id: createExponatDto.categorizationId,
+            },
           },
-        },
+        }),
         funFacts: createExponatDto.funFacts,
         ExponatKind: createExponatDto.ExponatKind as ExponatKind,
         Organisation: {
@@ -309,10 +315,16 @@ export class ExponatsService {
       return checkForSuper.role === Role.SUPER;
     }
 
-    return (
-      (adminOnly && connection.role === MemberRoleType.ADMIN) ||
-      (adminOnly && connection.role === MemberRoleType.OWNER)
-    );
+    console.log(connection.role);
+
+    if (adminOnly) {
+      return (
+        connection.role === MemberRoleType.ADMIN ||
+        connection.role === MemberRoleType.OWNER
+      );
+    }
+
+    return true;
   }
 
   async findExponatByPostId(postId: string) {

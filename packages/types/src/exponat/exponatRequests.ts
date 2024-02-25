@@ -49,9 +49,9 @@ export const getCreateExponatDto = (ApiPropertySwagger?: any) => {
     @ApiProperty()
     attributes: Json;
 
-    @IsString()
-    @ApiProperty()
-    categorizationId: string;
+    @IsOptional()
+    @ApiProperty({ require: false })
+    categorizationId?: string;
 
     authorId?: string;
   }
