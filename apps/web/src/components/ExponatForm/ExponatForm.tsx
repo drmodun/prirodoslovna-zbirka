@@ -96,8 +96,6 @@ export const ExponatForm = ({
   const { mutateAsync: updateExponat } = useUpdateExponat();
 
   const onSubmit = async (formData: any) => {
-    console.log(formData);
-
     if (exponatMainImage.length === 0 && !isEdit) {
       toast.error("Mora postojati glavna slika eksponata");
       return;

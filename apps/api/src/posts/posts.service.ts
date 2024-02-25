@@ -65,7 +65,6 @@ export class PostsService {
       },
     });
 
-    console.log(filter.title);
     const posts = this.prisma.post.findMany({
       where: {
         ...(!filter.isAdmin && { isApproved: true }),

@@ -9,12 +9,5 @@ const getSpecies = async (search: string) => {
 };
 
 export const useGetSpecies = (search: string) => {
-  return useQuery(["species" + search], () => getSpecies(search), {
-    onSuccess(data) {
-      console.log(data);
-    },
-    onError: (error: string) => {
-      console.log(error);
-    },
-  });
+  return useQuery(["species" + search], () => getSpecies(search), {});
 };

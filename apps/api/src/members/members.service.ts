@@ -98,7 +98,7 @@ export class MembersService {
   async editMemberRole(
     userId: string,
     organisationId: string,
-    newRole: MemberRoleType, 
+    newRole: MemberRoleType,
   ) {
     const memberCheck = await this.checkForMember(userId, organisationId);
 
@@ -121,10 +121,6 @@ export class MembersService {
         role: newRole,
       },
     });
-
-    const emberCheck = await this.checkForMember(userId, organisationId);
-
-    console.log(emberCheck);
   }
 
   async makeRequest(userId: string, organisationId: string) {

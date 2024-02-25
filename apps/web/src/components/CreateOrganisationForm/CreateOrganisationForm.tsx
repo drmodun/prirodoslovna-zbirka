@@ -92,7 +92,6 @@ export const OrganisationForm = ({
   const update = useUpdateOrganisation();
 
   const onSubmit = async (data: any) => {
-    console.log(data);
     data.mainImage = isEdit && initvalues?.mainImage;
     isEdit
       ? image[0] &&
@@ -110,7 +109,6 @@ export const OrganisationForm = ({
           updateOrganisationDto: data,
         })
       : await create.mutateAsync(data);
-    console.log(response);
 
     if (response) {
       setTimeout(() => {

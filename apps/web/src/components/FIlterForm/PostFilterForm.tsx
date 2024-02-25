@@ -43,7 +43,6 @@ export const PostFilter = ({ searchParams }: Props) => {
   });
 
   const handleFilter = (data: any) => {
-    console.log(data);
   };
 
   return (

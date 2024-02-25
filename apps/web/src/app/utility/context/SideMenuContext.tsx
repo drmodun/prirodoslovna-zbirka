@@ -30,7 +30,6 @@ export const SideMenuProvider = ({
   const [active, setActive] = useState<boolean>(false);
 
   const toggleActive = () => {
-    console.log(active);
     setActive((prev) => !prev);
   };
 

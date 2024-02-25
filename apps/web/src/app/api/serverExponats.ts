@@ -20,7 +20,6 @@ export const getExponats = async (queryDto: ExponatQuery, number?: number) => {
     if (!queryDto.page) queryDto.page = 1;
     queryDto.size = 20;
     const query = queryString.stringify(queryDto);
-    console.log(`${baseURL}/exponats?${query}`);
     const response = await fetch(`${baseURL}/exponats?${query}`, {
       cache: "no-store",
     });
@@ -40,7 +39,6 @@ export const discoverExponats = async (params: {
     const response = await fetch(
       `${baseURL}/exponats/discover?page=${params.page}&size=${params.size}`
     );
-    console.log(response);
     return response.json();
   } catch (error) {
     console.log(error);

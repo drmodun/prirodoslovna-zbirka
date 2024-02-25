@@ -91,7 +91,6 @@ export const EditUserForm = ({
   const [profilePicture, setProfilePicture] = useState<File[]>([]);
 
   const onSubmit = async (data: any) => {
-    console.log(data);
     profilePicture[0] && (await uploadImage(profilePicture[0]));
     data.hasProfileImage = profilePicture.length > 0;
     isSuper

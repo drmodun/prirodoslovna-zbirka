@@ -76,7 +76,6 @@ export const RegisterForm = () => {
   const { mutateAsync, isSuccess, isLoading } = useRegister();
 
   const onSubmit = async (data: any) => {
-    console.log(data);
     await mutateAsync(data);
   };
 

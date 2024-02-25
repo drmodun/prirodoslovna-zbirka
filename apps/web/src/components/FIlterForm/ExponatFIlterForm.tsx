@@ -45,7 +45,6 @@ export const ExponatFilter = ({ searchParams }: Props) => {
   //add better ways to filtrate
 
   const handleFilter = (data: any) => {
-    console.log(data);
   };
 
   return (

@@ -14,7 +14,6 @@ export function useIsInView(ref: React.RefObject<HTMLDivElement>) {
   );
 
   useEffect(() => {
-    console.log(ref.current?.getBoundingClientRect().y);
     observer.observe(ref.current!);
 
     return () => {

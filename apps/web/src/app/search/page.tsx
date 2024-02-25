@@ -77,13 +77,6 @@ const SearchPage = async ({
     initUser,
   ]);
 
-  console.log(
-    results[0].length,
-    results[1].length,
-    results[2].length,
-    results[3].length,
-    searchParams
-  );
 
   return (
     <div>

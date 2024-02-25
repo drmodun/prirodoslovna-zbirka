@@ -31,7 +31,6 @@ export const ListInput = ({
   const handleOnChange = () => {
     if (newValue === "") return;
     setElements((prev) => [...prev, newValue]);
-    console.log(elements);
     setNewValue("");
   };
 

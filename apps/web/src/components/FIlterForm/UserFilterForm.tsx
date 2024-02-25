@@ -71,10 +71,7 @@ export const UserFilter = ({ searchParams }: Props) => {
     } as FieldValues,
   });
 
-
-  const handleFilter = (data: any) => {
-    console.log(data);
-  };
+  const handleFilter = (data: any) => {};
 
   return (
     <div className={classes.container}>
