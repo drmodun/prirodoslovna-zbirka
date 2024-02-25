@@ -10,6 +10,12 @@
   border: 2px solid $stroke-color;
   background-color: $background-color;
   border-radius: vw-calc(20) vw-calc(20) 0 vw-calc(20);
+  transition: all 0.3s ease-in-out;
+
+  &:hover {
+    box-shadow: 0px vw-calc(10) vw-calc(20) rgba(0, 0, 0, 0.1);
+    transform: translateY(vw-calc(-10));
+  }
 
   @media screen and (max-width: 768px) {
     width: vw-mobile-calc(150);
@@ -158,13 +164,13 @@
       }
 
       &.eucariot {
-        background-color: $green;
-        color: $dark-green;
+        background-color: $eucariot-color;
+        color: $background-color;
       }
 
       &.mineral {
         background-color: $red;
-        color: $dark-red;
+        color: $background-color;
       }
     }
   }
@@ -193,11 +199,17 @@
       text-align: center;
       font-size: vw-calc(10);
       font-weight: 600;
+      transition: background-color 0.3s ease-in-out;
 
       @media screen and (max-width: 768px) {
         width: vw-mobile-calc(80);
         height: vw-mobile-calc(30);
         font-size: vw-mobile-calc(6);
+      }
+
+      &:hover {
+        cursor: pointer;
+        background-color: $background-color;
       }
     }
   }

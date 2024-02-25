@@ -60,12 +60,20 @@ export const PostCard = ({
     )}
     <div className={classes.content}>
       <span className={classes.date}>{dateShortener(post.updatedAt)}</span>
-      <span className={classes.title}>{post.title}</span>
+      <Link href={`/post/${post.id}`}>
+        <span className={classes.title}>{post.title}</span>
+      </Link>
+      <div className={classes.likes}>
+        <div className={classes.image}>
+          <Image src={likeLeaf} alt="like" layout="fill" />
+        </div>
+        <span className={classes.likeCount}>{post.likeScore}</span>
+      </div>
       <div className={classes.author}>
         <div className={classes.profile}>
           <ImageWithFallback
             src={getPfpUrl(post.authorId)}
-            alt={post.authorName} 
+            alt={post.authorName}
             layout="fill"
           />
         </div>
