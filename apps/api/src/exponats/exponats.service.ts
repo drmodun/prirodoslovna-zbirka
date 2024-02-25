@@ -3,7 +3,7 @@ import {
   NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
-import { CreateExponatDto, UpdateExponatDto } from './dto/exponats.dto';
+import { CreateExponatDto, ExponatSQL, UpdateExponatDto } from './dto/exponats.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import {
   ExponatQuery,
@@ -11,8 +11,12 @@ import {
   SortingRequest,
   sortExponatQueryBuilderWithComplexFilters,
 } from '@biosfera/types';
-import { ExponatKind, Role } from '@prisma/client';
+import { Exponat, ExponatKind, Role } from '@prisma/client';
 import { MemberRoleType } from 'src/members/members.dto';
+import {
+  anonymousExponatsDiscover,
+  personalizedExponatsDiscover,
+} from './rawQueries';
 
 @Injectable()
 export class ExponatsService {
@@ -62,6 +66,15 @@ export class ExponatsService {
         },
       },
     });
+  }
+
+  async discoverExponats(page: number = 1, size: number, userId?: string) {
+    const results = userId
+      ? await personalizedExponatsDiscover(page, size, userId, this.prisma)
+      : await anonymousExponatsDiscover(page, size, this.prisma);
+    const data = results as ExponatSQL[];
+    console.log(data);
+    return data;
   }
 
   async findAll(
