@@ -8,12 +8,6 @@ export const RegisterView = () => {
   return (
     <div className={classes.container}>
       <div className={classes.registerSection}>
-        <div className={classes.logo}>
-          <div className={classes.image}>
-            <Image src={logoWithBackground} layout="fill" alt="logo" />
-          </div>
-          <span className={classes.logoTitle}>Biosfera</span>
-        </div>
         <div className={classes.title}>Registracija</div>
         <div className={classes.description}>
           Dobrodošli u Prirodoslovnu zbirku! Ispunjavanjem ove forme stvorit

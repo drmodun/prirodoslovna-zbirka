@@ -8,17 +8,13 @@ export const CreateOrganisationView = () => {
   return (
     <div className={classes.container}>
       <div className={classes.formSection}>
-        <div className={classes.logo}>
-          <div className={classes.image}>
-            <Image src={logoWithBackground} layout="fill" alt="logo" />
-          </div>
-          <span className={classes.logoTitle}>Biosfera</span>
+        <div className={classes.title}>
+          Nova <br></br>organizacija
         </div>
-        <div className={classes.title}>Nova <br></br>organizacija </div>
         <div className={classes.description}>
           Dobrodošli u Prirodoslovnu zbirku! Ispunjavanjem ove forme stvorit
-          ćete novu organizaciju na našoj platformi te ćete moći surađivati
-          sa ostalim korisnicima.
+          ćete novu organizaciju na našoj platformi te ćete moći surađivati sa
+          ostalim korisnicima.
         </div>
         <QueryClientWrapper>
           <CreateOrganisationForm />
