@@ -24,3 +24,26 @@ export const getPosts = async (queryDto: PostQuery, page?: number) => {
     console.log(error);
   }
 };
+
+export const discoverPosts = async (params: { page: number; size: number }) => {
+  try {
+    if (!params.size) params.size = 20;
+    if (!params.page) params.page = 1;
+    const auth =
+      typeof window !== "undefined" && localStorage.getItem("access_token");
+    auth && console.log("auth", params);
+    const response = await fetch(
+      `${baseURL}/posts/discover?page=${params.page}&size=${params.size}`,
+      {
+        ...(auth && {
+          headers: {
+            Authorization: `Bearer ${auth}`,
+          },
+        }),
+      }
+    );
+    return response.json();
+  } catch (error) {
+    console.log(error);
+  }
+};

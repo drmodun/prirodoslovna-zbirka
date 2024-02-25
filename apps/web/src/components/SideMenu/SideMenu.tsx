@@ -13,7 +13,7 @@ import { makeCountyName } from "@/utility/static/countyNameMaker";
 import ImageWithFallback from "components/ImageWithFallback/ImageWithFallback";
 import { getPfpUrl } from "@/utility/static/getPfpUrl";
 import SingleInput from "components/SingleInput";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useSideMenu from "@/utility/context/SideMenuContext";
 import Link from "next/link";
 import DiscoveryIcon from "assets/icons/discovery.svg";
@@ -36,6 +36,10 @@ const SideMenu = () => {
     const confirm = window.confirm("Jeste li sigurni da se želite odjaviti?");
     confirm && logout && logout();
   };
+
+  useEffect(() => {
+    if (active) toggleActive();
+  }, [window.location.pathname]);
 
   return (
     <>
@@ -62,10 +66,10 @@ const SideMenu = () => {
             </div>
           </div>
           <div className={c.buttonsWrapper}>
-            <Link href={user?.id ? `/users/${user.id}` : "/login"}>
+            <Link href={user?.id ? `/user/${user.id}` : "/login"}>
               <IconButton className={c.link} icon={UserIcon} />
             </Link>
-            <Link href="/discovery">
+            <Link href="/discover">
               <IconButton className={c.link} icon={DiscoveryIcon} />
             </Link>
             <IconButton

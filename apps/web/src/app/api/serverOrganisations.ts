@@ -29,3 +29,29 @@ export const getOrganisations = async (
     console.log(error);
   }
 };
+
+export const discoverOrganisations = async (params: {
+  page: number;
+  size: number;
+}) => {
+  try {
+    if (!params.size) params.size = 20;
+    if (!params.page) params.page = 1;
+
+    const auth =
+      typeof window !== "undefined" && localStorage.getItem("access_token");
+    const response = await fetch(
+      `${baseURL}/organisations/discover?page=${params.page}&size=${params.size}`,
+      {
+        ...(auth && {
+          headers: {
+            Authorization: `Bearer ${auth}`,
+          },
+        }),
+      }
+    );
+    return response.json();
+  } catch (error) {
+    console.log(error);
+  }
+};
