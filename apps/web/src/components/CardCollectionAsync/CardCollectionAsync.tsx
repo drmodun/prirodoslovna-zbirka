@@ -36,6 +36,7 @@ export interface CardCollectionAsyncProps {
   getMore: (query?: any, page?: number) => Promise<any> | (() => void);
   params: any;
   isDiscover?: boolean;
+  onError?: () => void;
   replaceFirst?: boolean;
 }
 
@@ -47,6 +48,7 @@ export const CardCollectionAsync: React.FC<CardCollectionAsyncProps> = ({
   type,
   isDiscover,
   params,
+  onError,
 }) => {
   const { memberships, user } = useUser();
   const [itemsToShow, setItemsToShow] = useState<Indexable[]>(items);
@@ -87,6 +89,10 @@ export const CardCollectionAsync: React.FC<CardCollectionAsyncProps> = ({
       setFailed(true);
     }
   };
+
+  useEffect(() => {
+    failed && onError && onError();
+  }, [failed]);
 
   useEffect(() => {
     setItemsToShow(items);

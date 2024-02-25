@@ -7,6 +7,7 @@ import { BodyWrapper } from "./utility/wrappers/bodyWrapper";
 import { Toaster } from "react-hot-toast";
 import SideMenu from "components/SideMenu";
 import { SideMenuWrapper } from "./utility/wrappers/sideMenuWrapper";
+import { DiscoverWrapper } from "./utility/wrappers/discoverWrapper";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,13 +25,15 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <SideMenuWrapper>
-          <Header />
-          <BodyWrapper>
-            <Toaster />
-            {children}
-          </BodyWrapper>
-          <Footer />
-          <SideMenu />
+          <DiscoverWrapper>
+            <Header />
+            <BodyWrapper>
+              <Toaster />
+              {children}
+            </BodyWrapper>
+            <Footer />
+            <SideMenu />
+          </DiscoverWrapper>
         </SideMenuWrapper>
       </body>
     </html>

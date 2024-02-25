@@ -5,9 +5,14 @@ import {
   QueryClientProviderProps,
 } from "react-query";
 
-const queryClient = new QueryClient(
-  
-);
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      refetchOnMount: false,
+    },
+  },
+});
 
 export const QueryClientWrapper = ({ children }: { children: any }) => {
   return (
