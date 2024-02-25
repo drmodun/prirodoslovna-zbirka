@@ -11,7 +11,7 @@
   align-items: center;
 
   @media screen and (max-width: 768px) {
-    padding: vw-mobile-calc(40) vw-mobile-calc(40);
+    padding: vw-mobile-calc(20) vw-mobile-calc(40);
   }
 
   .image {
@@ -46,7 +46,7 @@
 
   .points {
     position: absolute;
-    top: vw-calc(200);
+    top: vw-calc(300);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -55,7 +55,7 @@
     text-align: center;
 
     @media screen and (max-width: 768px) {
-      top: vw-mobile-calc(160);
+      top: vw-mobile-calc(185);
       width: vw-mobile-calc(100);
       height: vw-mobile-calc(125);
     }

@@ -8,6 +8,11 @@
   align-items: center;
   justify-content: center;
 
+  .button {
+    width: vw-calc(620);
+    margin-bottom: vw-calc(50);
+  }
+
   .searchBar {
     width: vw-calc(600);
     margin-bottom: vw-calc(50);
