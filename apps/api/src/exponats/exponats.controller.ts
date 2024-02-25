@@ -37,6 +37,38 @@ export class ExponatsController {
 
   @UseGuards(OptionalJwtAuthGuard)
   @ApiBearerAuth()
+  @Get('discover')
+  async discover(
+    @PaginationParams() paginationParam?: PaginationRequest,
+    @Req() req?: any,
+  ) {
+    const exponats = await this.exponatsService.discoverExponats(
+      paginationParam.page,
+      paginationParam.size,
+      req.user?.id,
+    );
+
+    const mapped = exponats.map((item) => {
+      return {
+        id: item.id,
+        name: item.name,
+        mainImage: item.mainImage,
+        updatedAt: item.updatedAt,
+        favouriteCount: item.amountOfFavourites || 0,
+        postCount: item.amountOfPosts || 0,
+        alternateName: item.alternateName,
+        description: item.description,
+        organizationId: item.organisationId,
+        organizationName: item.organisationName,
+        exponatKind: item.ExponatKind,
+      } as ExponatResponseShort;
+    });
+
+    return mapped;
+  }
+
+  @UseGuards(OptionalJwtAuthGuard)
+  @ApiBearerAuth()
   @Get()
   async findAll(
     @PaginationParams() paginationParam?: PaginationRequest,
