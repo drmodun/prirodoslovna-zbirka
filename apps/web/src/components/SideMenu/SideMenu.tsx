@@ -84,6 +84,7 @@ const SideMenu = () => {
             pathname: "/search",
             query: { name: search },
           }}
+          onImageClick={toggleActive}
         />
       </div>
     </>

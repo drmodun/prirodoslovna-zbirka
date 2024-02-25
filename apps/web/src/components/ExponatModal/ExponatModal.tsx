@@ -15,7 +15,7 @@ export interface ExponatModalProps {
 }
 
 export const ExponatModal = ({ exponat }: ExponatModalProps) => {
-  exponat.attributes = JSON.parse(exponat.attributes.toString());
+  exponat.attributes = JSON.parse(exponat.attributes?.toString());
   return (
     <div className={classes.container}>
       <div className={classes.mainImage}>
