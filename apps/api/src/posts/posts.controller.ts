@@ -16,7 +16,7 @@ import { PostsService } from './posts.service';
 import { CreatePostDto, PostQuery, UpdatePostDto } from './posts.dto';
 import { MembersService } from 'src/members/members.service';
 import { JwtAuthGuard } from 'src/auth/jwt-auth-guard';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { OrganisationsService } from 'src/organisations/organisations.service';
 import { ExponatsService } from 'src/exponats/exponats.service';
 import { OptionalJwtAuthGuard } from 'src/auth/optional-jwt-auth-guard';
@@ -99,6 +99,39 @@ export class PostsController {
       } as PostResponse;
     });
 
+    return mapped;
+  }
+
+  @UseGuards(OptionalJwtAuthGuard)
+  @ApiBearerAuth()
+  @ApiQuery({ name: 'page', required: false })
+  @ApiQuery({ name: 'size', required: false })
+  @Get('discover')
+  async discover(
+    @PaginationParams() paginationParam?: PaginationRequest,
+    @Req() req?: any,
+  ) {
+    const items = await this.postsService.discover(
+      paginationParam.page,
+      paginationParam.size,
+      req?.user?.id,
+    );
+
+    const mapped = items.map((post) => {
+      return {
+        authorId: post.authorId,
+        authorName: post.authorName,
+        exponatId: post.ExponatId,
+        exponatName: post.exponatName,
+        id: post.id,
+        thumbnail: post.thumbnailImage,
+        likeScore: post.amountOfLikes,
+        title: post.title,
+        organisationId: post.organisationId,
+        updatedAt: post.updatedAt,
+        hasProfilePicture: post.hasProfileImage,
+      } as PostResponse;
+    });
     return mapped;
   }
 

@@ -1,11 +1,22 @@
 import { Injectable } from '@nestjs/common';
-import { CreatePostDto, PostQuery, UpdatePostDto } from './posts.dto';
+import { CreatePostDto, PostQuery, PostSQL, UpdatePostDto } from './posts.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { sortQueryBuilder } from '@biosfera/types';
+import {
+  anonymousPostsDiscover,
+  personalizedPostsDiscover,
+} from './rawQueries';
 
 @Injectable()
 export class PostsService {
   constructor(private readonly prisma: PrismaService) {}
+
+  async discover(page: number, size: number, userId?: string) {
+    const posts = userId
+      ? await personalizedPostsDiscover(page, size, userId, this.prisma)
+      : await anonymousPostsDiscover(page, size, this.prisma);
+    return posts as PostSQL[];
+  }
 
   async findAllWithoutApproval(organiastionId: string) {
     return await this.prisma.post.findMany({
