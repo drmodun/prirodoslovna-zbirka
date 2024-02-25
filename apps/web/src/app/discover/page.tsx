@@ -1,6 +1,8 @@
 import { discoverExponats } from "@/api/serverExponats";
 import { discoverOrganisations } from "@/api/serverOrganisations";
 import { discoverPosts } from "@/api/serverPosts";
+import { DiscoverWrapper } from "@/utility/wrappers/discoverWrapper";
+import { UserWrapper } from "@/utility/wrappers/userWrapper";
 import DiscoverPageView from "@/views/DiscoverPageView";
 
 const DiscoverPage = async ({
@@ -24,13 +26,15 @@ const DiscoverPage = async ({
   });
 
   return (
-    <DiscoverPageView
-      exponats={initExponats}
-      initTab="Eksponati"
-      organisations={initOrganisations}
-      posts={initPosts}
-      query={searchParams}
-    />
+    <DiscoverWrapper>
+      <DiscoverPageView
+        exponats={initExponats}
+        initTab="Eksponati"
+        organisations={initOrganisations}
+        posts={initPosts}
+        query={searchParams}
+      />
+    </DiscoverWrapper>
   );
 };
 

@@ -6,23 +6,15 @@ import {
   ExponatResponseShort,
   OrganisationResponseShort,
   PostResponse,
-  ShortUserResponse,
 } from "@biosfera/types";
 import { useEffect, useState } from "react";
-import { getUsers } from "@/api/serverUsers";
-import { discoverExponats, getExponats } from "@/api/serverExponats";
-import { discoverPosts, getPosts } from "@/api/serverPosts";
-import {
-  discoverOrganisations,
-  getOrganisations,
-} from "@/api/serverOrganisations";
 import CardCollectionAsync from "components/CardCollectionAsync";
 import { UserWrapper } from "@/utility/wrappers/userWrapper";
-import { Indexable } from "@biosfera/types/src/jsonObjects";
-import { ExponatFilter } from "components/FIlterForm/ExponatFIlterForm";
-import { PostFilter } from "components/FIlterForm/PostFilterForm";
-import { OrganisationFilter } from "components/FIlterForm/OrganisationFilter";
-import { UserFilter } from "components/FIlterForm/UserFilterForm";
+import useDiscover from "@/utility/context/DiscoverContext";
+import { useDiscoverOrganisations } from "@/api/useDiscoverOrganisations";
+import { useDiscoverExponats } from "@/api/useDiscoverExponats";
+import { useDiscoverPosts } from "@/api/useDiscoverPosts";
+import { set } from "react-hook-form";
 
 export interface SearchPageViewProps {
   organisations: OrganisationResponseShort[];
@@ -50,12 +42,52 @@ export const DiscoverPageView = ({
   query = { page: 1, size: 20 },
 }: SearchPageViewProps) => {
   const [activeTab, setActiveTab] = useState<tabType>(initTab);
-  const [page, setPage] = useState<number>(query?.page || 2);
+  const [page, setPage] = useState<number>(query.page || 1);
+  const [size, setSize] = useState<number>(query.page || 20);
+
+  const { data: currentOrganisations } = useDiscoverOrganisations(page, size);
+  const { data: currentExponats } = useDiscoverExponats(page, size);
+  const { data: currentPosts } = useDiscoverPosts(page, size);
+
+  const {
+    exponatPage,
+    organisationPage,
+    postPage,
+    setOrganisationPage,
+    setExponatPage,
+    setPostPage,
+  } = useDiscover();
 
   useEffect(() => {
-    setPage(2);
-    console.log("page reset");
-  }, [query, activeTab]);
+    if (activeTab === "Organizacije") {
+      setPage(organisationPage);
+    } else if (activeTab === "Eksponati") {
+      setPage(exponatPage);
+    } else {
+      setPage(postPage);
+    }
+  }, [query, activeTab, organisationPage, exponatPage, postPage]);
+
+  const handleOrganisationSearch = async (params: {
+    page: number;
+    size: number;
+  }) => {
+    setPage((prev) => prev + 1);
+    setOrganisationPage && setOrganisationPage((prev) => prev + 1);
+  };
+
+  const handleExponatSearch = async (params: {
+    page: number;
+    size: number;
+  }) => {
+    setPage((prev) => prev + 1);
+    setExponatPage && setExponatPage((prev) => prev + 1);
+  };
+
+  const handlePostSearch = async (params: { page: number; size: number }) => {
+    setPage((prev) => prev + 1);
+    setPostPage && setPostPage((prev) => prev + 1);
+  };
 
   return (
     <div className={classes.container}>
@@ -64,23 +96,22 @@ export const DiscoverPageView = ({
         <UserWrapper>
           <CardCollectionAsync
             type={tabDictionary[activeTab] as tabDictionaryType}
-            page={page}
+            page={query.page}
             isDiscover
-            replaceFirst
             getMore={
               activeTab === "Organizacije"
-                ? discoverOrganisations
+                ? handleOrganisationSearch
                 : activeTab === "Eksponati"
-                ? discoverExponats
-                : discoverPosts
+                ? handleExponatSearch
+                : handlePostSearch
             }
             params={query}
             items={
               activeTab === "Organizacije"
-                ? organisations
+                ? currentOrganisations || organisations
                 : activeTab === "Eksponati"
-                ? exponats
-                : posts
+                ? currentExponats || exponats
+                : currentPosts || posts
             }
           />
         </UserWrapper>

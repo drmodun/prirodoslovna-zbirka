@@ -28,7 +28,7 @@ export const anonymousOrganisationDiscover = async (
             ) p on p."ExponatId" = ex.id
                 group by "organisationId"
             ) es on es."organisationId" = o.id 
-            left join (
+    left join (
      select "organisationId", SUM("exponatFavourites") as "totalFavourites"
      from "Exponat" ex
      join (
