@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import {
   CreateOrganisationDto,
+  OrganisationSQL,
   UpdateOrganisationDto,
 } from './dto/organisations.dto';
 import { PrismaService } from '../prisma/prisma.service';
@@ -11,6 +12,10 @@ import {
   sortQueryBuilder,
 } from '@biosfera/types';
 import { MemberRoleType } from 'src/members/members.dto';
+import {
+  anonymousOrganisationDiscover,
+  personalizedOrganisationDiscover,
+} from './rawQueries';
 
 @Injectable()
 export class OrganisationsService {
@@ -20,6 +25,13 @@ export class OrganisationsService {
     return await this.prisma.organisation.create({
       data: createOrganisationDto,
     });
+  }
+
+  async discover(page: number, size: number, userId?: string) {
+    const result = !userId
+      ? await anonymousOrganisationDiscover(page, size, this.prisma)
+      : await personalizedOrganisationDiscover(page, size, userId, this.prisma);
+    return result as OrganisationSQL[];
   }
 
   async findAllShort(
