@@ -4,9 +4,10 @@ import UserCard from "components/UserCard";
 import { ExtendedUserResponse } from "@biosfera/types";
 import { UserPageBody } from "components/UserPageBody/UserPageBody";
 import { UserWrapper } from "@/utility/wrappers/userWrapper";
+import NotFound from "@/not-found";
 const UserPage = async ({ params }: { params: any }) => {
   const userInfo: ExtendedUserResponse = await serverGetUser(params.userId);
-  return (
+  return userInfo ? (
     <div className={classes.container}>
       <div className={classes.background} />
       <div className={classes.userBody}>
@@ -22,6 +23,8 @@ const UserPage = async ({ params }: { params: any }) => {
         )}
       </div>
     </div>
+  ) : (
+    <NotFound />
   );
 };
 

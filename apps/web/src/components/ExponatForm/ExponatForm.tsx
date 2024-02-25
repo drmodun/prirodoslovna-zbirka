@@ -159,7 +159,11 @@ export const ExponatForm = ({
           updateExponatDto: request,
         })
       : await createExponat(params);
-    if (action) window.location.href = `/exponat/${action.id}`;
+    if (action) {
+      setTimeout(() => {
+        window.location.href = `/organisation/${organisationId}`;
+      }, 2000);
+    }
   };
 
   return (
