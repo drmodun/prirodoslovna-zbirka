@@ -26,7 +26,7 @@ import {
 } from '@biosfera/types';
 import { PaginationParams } from 'src/config/pagination';
 import { SortingParams } from 'src/config/sorting';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/jwt-auth-guard';
 import { OptionalJwtAuthGuard } from 'src/auth/optional-jwt-auth-guard';
 
@@ -37,6 +37,8 @@ export class ExponatsController {
 
   @UseGuards(OptionalJwtAuthGuard)
   @ApiBearerAuth()
+  @ApiQuery({ name: 'page', required: false })
+  @ApiQuery({ name: 'size', required: false })
   @Get('discover')
   async discover(
     @PaginationParams() paginationParam?: PaginationRequest,
