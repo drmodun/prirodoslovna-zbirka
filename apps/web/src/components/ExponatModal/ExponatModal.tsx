@@ -29,15 +29,9 @@ export const ExponatModal = ({ exponat }: ExponatModalProps) => {
         <span className={classes.latinName}>{exponat.alternateName}</span>
         <span className={classes.name}>{exponat.title}</span>
       </div>
-      <CategorizationCard categorization={exponat.categorization} />
-      <div className={classes.actions}>
-        <div className={classes.button}>
-          <span className={classes.text}>Dodaj u favorite</span>
-        </div>
-        <div className={classes.button}>
-          <span className={classes.text}>Generiraj QR kod</span>
-        </div>
-      </div>
+      {!(exponat.exponatKind.toLowerCase() === "mineral") && (
+        <CategorizationCard categorization={exponat.categorization} />
+      )}
       <Link
         href={`/organisation/${exponat.organizationId}`}
         className={classes.orgName}

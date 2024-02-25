@@ -19,7 +19,7 @@
 
   .mainImage {
     width: vw-calc(444);
-    height: vw-calc(250);
+    height: vw-calc(300);
     border-radius: vw-calc(45) vw-calc(0) vw-calc(45) vw-calc(45);
     position: relative;
     top: vw-calc(-100);
@@ -27,7 +27,7 @@
 
     @media (max-width: 768px) {
       width: vw-mobile-calc(175);
-      height: vw-mobile-calc(100);
+      height: vw-mobile-calc(125);
       border-radius: vw-mobile-calc(20) vw-mobile-calc(0) vw-mobile-calc(20)
         vw-mobile-calc(20);
       top: vw-mobile-calc(-50);
