@@ -59,7 +59,7 @@ export const personalizedOrganisationDiscover = async (
   const userId = `${userIdRaw}`;
   console.log(userId);
   return await prisma.$queryRaw`
-  select o.name, o.location, o."websiteUrl", o."mainImage", o."isApproved", o.description, o."updatedAt", "amountOfFollowers", "amountOfExponats",
+  select o.id, o.name, o.location, o."websiteUrl", o."mainImage", o."isApproved", o.description, o."updatedAt", "amountOfFollowers", "amountOfExponats",
    ((coalesce("amountOfFollowers", 0) + coalesce("amountOfExponats" / 5, 0) + coalesce("totalPosts" / 10, 0) + coalesce("totalFavourites" / 10, 0) + coalesce("amountOfMembers" / 5, 0)
   + (case when exists (select 1 from "UserOrganisationFollower" uo where uo."organisationId" = o.id and uo."userId" = ${userId}) then -1000 else 0 end)) * (case when o.location = u.location then 2 else 1 end))
    as "points", "totalPosts", "amountOfMembers", "totalFavourites"
