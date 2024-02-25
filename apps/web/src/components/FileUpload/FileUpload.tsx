@@ -28,9 +28,6 @@ const FileUpload = ({ name, maxFiles = 1, onChange }: FileUploadProps) => {
 
     fileRejections: rejectedFiles,
   } = useDropzone({
-    onDrop: () => {
-      console.log(acceptedFiles);
-    },
     accept: {
       "image/*": [".jpg", ".jpeg", ".png"],
       "video/*": [".mp4"],

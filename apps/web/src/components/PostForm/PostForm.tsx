@@ -48,7 +48,6 @@ export const PostForm = ({ exponatId, isEdit, values }: PostFormProps) => {
   });
 
   const onSumbit = async (data: any) => {
-    console.log(data);
     if ((image.length === 0 || thumbnail.length === 0) && !isEdit) {
       toast.error("Morate dodati slike", { id: "create-post" });
       return;

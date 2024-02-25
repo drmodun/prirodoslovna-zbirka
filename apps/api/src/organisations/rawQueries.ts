@@ -57,7 +57,6 @@ export const personalizedOrganisationDiscover = async (
   prisma: PrismaService,
 ) => {
   const userId = `${userIdRaw}`;
-  console.log(userId);
   return await prisma.$queryRaw`
   select o.id, o.name, o.location, o."websiteUrl", o."mainImage", o."isApproved", o.description, o."updatedAt", "amountOfFollowers", "amountOfExponats",
    ((coalesce("amountOfFollowers", 0) + coalesce("amountOfExponats" / 5, 0) + coalesce("totalPosts" / 10, 0) + coalesce("totalFavourites" / 10, 0) + coalesce("amountOfMembers" / 5, 0)

@@ -22,7 +22,6 @@ const getFollowing = async (id: string) => {
 const FollowsPage = async ({ params, searchParams }: any) => {
   const id = params.userId;
   const firstTab = searchParams?.tab as string;
-  console.log(firstTab);
   const followers: ShortUserResponse[] = await getFollowers(id);
   const following: ShortUserResponse[] = await getFollowing(id);
 

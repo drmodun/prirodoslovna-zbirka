@@ -9,7 +9,6 @@ import toast from "react-hot-toast";
 const readOrCreateCategorization = async (
   categorization: CreateCategorizationRequest
 ) => {
-  console.log(categorization);
   try {
     const exists = await api.get<never, CategorizationResponse>(
       `/categorizations/name/${categorization.species}`

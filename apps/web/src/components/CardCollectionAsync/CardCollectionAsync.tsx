@@ -70,7 +70,6 @@ export const CardCollectionAsync: React.FC<CardCollectionAsyncProps> = ({
       if (!loading && !failed) {
         setLoading(true);
         setCurrentPage((prev) => prev + 1);
-        console.log("fetching more", currentPage);
         const items = isDiscover
           ? getMore()
           : await getMore(params, currentPage);
@@ -109,7 +108,6 @@ export const CardCollectionAsync: React.FC<CardCollectionAsyncProps> = ({
 
   useEffect(() => {
     const handleScrolling = () => {
-      console.log(list.current?.getBoundingClientRect().y, listInView);
       const { scrollTop, clientHeight, scrollHeight } =
         document.documentElement;
       if (scrollTop + clientHeight >= scrollHeight - 20) {

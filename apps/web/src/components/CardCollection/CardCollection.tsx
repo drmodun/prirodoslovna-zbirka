@@ -91,7 +91,6 @@ export const CardCollection: React.FC<CardCollectionProps> = ({
 
   useEffect(() => {
     const handleScrolling = () => {
-      console.log(list.current?.getBoundingClientRect().y, listInView);
       const { scrollTop, clientHeight, scrollHeight } =
         document.documentElement;
       if (scrollTop + clientHeight >= scrollHeight - 20) {
@@ -159,7 +158,6 @@ export const CardCollection: React.FC<CardCollectionProps> = ({
       <div className={classes.cardContainer}>
         {itemsToShow
           .toSorted((a, b) => {
-            console.log(a[sortByValue], b[sortByValue]);
             const first = isDescending ? b : a;
             const second = isDescending ? a : b;
             return isNaN(b[sortByValue])

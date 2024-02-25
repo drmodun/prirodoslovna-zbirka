@@ -315,7 +315,6 @@ export class ExponatsService {
       return checkForSuper.role === Role.SUPER;
     }
 
-    console.log(connection.role);
 
     if (adminOnly) {
       return (

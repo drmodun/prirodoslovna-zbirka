@@ -74,12 +74,6 @@ export const DiscoverProvider = ({
     }
   }, []);
 
-  const { user } = useUser();
-
-  useEffect(() => {
-    console.log(exponatPage, organisationPage, postPage, user);
-  }, [exponatPage, organisationPage, postPage, user]);
-
   return (
     <DiscoverContext.Provider
       value={{
