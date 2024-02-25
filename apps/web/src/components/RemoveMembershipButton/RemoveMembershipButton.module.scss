@@ -22,7 +22,7 @@
   }
 
   @media screen and (max-width: 768px) {
-    min-width: vw-mobile-calc(50);
+    width: vw-mobile-calc(100);
     height: vw-mobile-calc(15);
     border-radius: vw-mobile-calc(5);
   }

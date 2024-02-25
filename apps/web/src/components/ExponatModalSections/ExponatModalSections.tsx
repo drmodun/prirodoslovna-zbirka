@@ -8,7 +8,7 @@ import list from "assets/images/list.svg";
 import table from "assets/images/table.svg";
 import likeLeafGreen from "assets/images/like-leaf-green.svg";
 import { stringCapitaliser } from "@/utility/static/stringCapitaliser";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import clsx from "clsx";
 
 export interface ExponatModalSectionsProps {
@@ -19,10 +19,14 @@ export const ExponatModalSections = ({
   exponat,
 }: ExponatModalSectionsProps) => {
   const [extended, setExtended] = useState<boolean>(false);
+  const box = useRef<HTMLDivElement>(null);
 
   return (
     <div className={classes.container}>
-      <div className={clsx(classes.content, extended && classes.extended)}>
+      <div
+        ref={box}
+        className={clsx(classes.content, extended && classes.extended)}
+      >
         <div className={classes.section}>
           <div className={classes.title}>
             <div className={classes.image}>
