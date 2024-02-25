@@ -46,6 +46,12 @@
         background-color: white;
         color: $mineral-color;
       }
+
+      .altButton {
+        background-color: $eucariot-color;
+        margin-top: vw-calc(20);
+        color: white;
+      }
     }
 
     .plantImage {
@@ -176,6 +182,12 @@
       .plantImage {
         width: 50%;
         height: 50%;
+      }
+      .button {
+        margin-bottom: vw-mobile-calc(20);
+      }
+      .altButton {
+        margin-bottom: vw-mobile-calc(20);
       }
     }
   }

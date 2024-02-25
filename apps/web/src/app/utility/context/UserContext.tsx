@@ -22,6 +22,7 @@ import { QueryClientWrapper } from "../wrappers/queryWrapper";
 import { useGetFollowers } from "@/api/useGetFollowers";
 import { useGetFollowing } from "@/api/useGetFollowing";
 import { useGetFollowedOrganisations } from "@/api/useGetFollowedOrganisations";
+import { set } from "react-hook-form";
 
 interface UserContextProps {
   user?: ExtendedUserResponse;
@@ -193,7 +194,9 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   const logout = () => {
     localStorage.removeItem("access_token");
     localStorage.removeItem("time");
-    invalidateQueries("me");
+    setTimeout(() => {
+      window.location.href = "/";
+    }, 1000);
   };
 
   useEffect(() => {

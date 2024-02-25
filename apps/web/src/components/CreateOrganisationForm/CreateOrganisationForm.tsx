@@ -2,7 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import Input from "components/Input";
-import { FieldValues, useForm } from "react-hook-form";
+import { FieldValues, set, useForm } from "react-hook-form";
 import { z } from "zod";
 import email from "assets/images/email.svg";
 import url from "assets/images/url.svg";
@@ -20,9 +20,10 @@ import { SelectInput } from "components/SelectInput/SelectInput";
 import { useCreateOrganisation } from "@/api/useCreateOrganisation";
 import { makeCountyName } from "@/utility/static/countyNameMaker";
 import FileUpload from "components/FileUpload";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useUploadFile } from "@/api/useUploadFile";
 import { useUpdateOrganisation } from "@/api/useUpdateOrganisation";
+import useUser from "@/utility/context/UserContext";
 
 export interface CreateOrganisationFormProps {
   initvalues?: ExtendedOrganisationResponse;
@@ -73,6 +74,14 @@ export const OrganisationForm = ({
   const [image, setImage] = useState<File[]>([]);
 
   const { mutateAsync } = useUploadFile();
+
+  const { user } = useUser();
+
+  useEffect(() => {
+    if (!user) {
+      alert("Morate biti prijavljeni da biste mogli kreirati organizaciju");
+    }
+  }, []);
 
   const form = useForm({
     resolver: zodResolver(schema),

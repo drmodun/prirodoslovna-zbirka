@@ -11,7 +11,8 @@
   box-shadow: 0 0 vw-calc(8) rgba(0, 0, 0, 0.15);
   transition:
     box-shadow 0.3s ease-in-out,
-    background-color 0.3s ease-in-out;
+    background-color 0.3s ease-in-out,
+    color 0.3s ease-in-out;
 
   &:hover {
     box-shadow: 0 0 vw-calc(8) rgba(0, 0, 0, 0.25);
@@ -58,10 +59,12 @@
 
     &:hover {
       background-color: darken($blue, 5%);
+      color: $background-color;
     }
 
     &:active {
       background-color: darken($blue, 10%);
+      color: $background-color;
     }
   }
 }

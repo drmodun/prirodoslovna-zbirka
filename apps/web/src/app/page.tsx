@@ -75,6 +75,9 @@ export default function Home() {
           >
             <BaseButton className={c.button} text="Pregledaj" />
           </Link>
+          <Link href="/createOrganisation">
+            <BaseButton className={c.altButton} text="Stvori organizaciju" />
+          </Link>
         </div>
         <Image className={c.plantImage} src={organisationCard} alt="plant" />
       </section>
