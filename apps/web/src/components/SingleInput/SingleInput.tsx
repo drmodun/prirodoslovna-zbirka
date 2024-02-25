@@ -14,6 +14,7 @@ interface InputProps {
   isDisabled?: boolean;
   linkedImage?: string | Indexable;
   status?: InputResult;
+  onImageClick?: () => void;
 }
 
 export const SingleInput = ({
@@ -21,6 +22,7 @@ export const SingleInput = ({
   value,
   linkedImage,
   onChange,
+  onImageClick,
   isDisabled,
   image,
   status = InputResult.DEFAULT,
@@ -34,7 +36,11 @@ export const SingleInput = ({
     <div className={classes.container}>
       {image &&
         (linkedImage ? (
-          <Link href={linkedImage} className={classes.image}>
+          <Link
+            href={linkedImage}
+            className={classes.image}
+            onClick={onImageClick}
+          >
             <Image layout="fill" src={image} alt={question} />
           </Link>
         ) : (
