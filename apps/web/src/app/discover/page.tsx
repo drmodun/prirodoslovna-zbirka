@@ -4,8 +4,9 @@ import { discoverPosts } from "@/api/serverPosts";
 import { DiscoverWrapper } from "@/utility/wrappers/discoverWrapper";
 import { UserWrapper } from "@/utility/wrappers/userWrapper";
 import DiscoverPageView from "@/views/DiscoverPageView";
+import { tabType } from "@/views/SearchPageView/SearchPageView";
 
-const getTab = (tab: string): tabType => {
+const getTab = (tab: string) => {
   switch (tab) {
     case "organisation":
       return "Organizacije";

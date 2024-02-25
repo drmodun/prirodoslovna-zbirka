@@ -8,7 +8,5 @@ const discoverOrganisations = async (page: number = 1, size: number = 20) =>
   );
 
 export const useDiscoverOrganisations = (page: number, size: number) => {
-  return useQuery(["discoverOrganisations", page, size], () =>
-    discoverOrganisations(page, size)
-  );
+  return useQuery([], () => discoverOrganisations(page, size));
 };

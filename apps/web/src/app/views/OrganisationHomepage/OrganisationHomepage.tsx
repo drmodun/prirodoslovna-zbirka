@@ -79,62 +79,64 @@ export const OrganisationHomepage = ({
   };
 
   return (
-    <div className={classes.container}>
-      <div className={classes.topRow}>
-        <OrganisationAbout organisation={organisation} />
-        <div className={classes.actions}>
-          <span className={classes.title}>Akcije</span>
-          <div className={classes.actionsRow}>
-            <button
-              className={clsx(
-                classes.button,
-                followedOrganisations.some((x) => x.id === organisation.id) &&
-                  classes.unfollow
-              )}
-              onClick={handleToggleFollow}
-            >
-              {followedOrganisations.some((x) => x.id === organisation.id)
-                ? "Prestani pratiti"
-                : "Prati"}
-            </button>
-            <span className={classes.actionStat}>
-              {organisation.followersAmount}
-            </span>
-          </div>
-          <div className={classes.actionsRow}>
-            <button
-              className={clsx(
-                classes.button,
-                classes.blue,
-                memberships.some((x) => x.id === organisation.id) &&
-                  classes.leave
-              )}
-              onClick={handleMembership}
-            >
-              {memberships.some((x) => x.id === organisation.id)
-                ? "Napusti organizaciju"
-                : "Postani član"}
-            </button>
-            <span className={classes.actionStat}>
-              {organisation.membersAmount}
-            </span>
-          </div>
-          <div className={classes.stats}>
-            <div className={classes.bigStat}>
-              <span className={classes.title}>Objava</span>
-              <span className={classes.stat}>
-                {organisation.posts ? organisation.posts.length : 0}
+    organisation && (
+      <div className={classes.container}>
+        <div className={classes.topRow}>
+          <OrganisationAbout organisation={organisation} />
+          <div className={classes.actions}>
+            <span className={classes.title}>Akcije</span>
+            <div className={classes.actionsRow}>
+              <button
+                className={clsx(
+                  classes.button,
+                  followedOrganisations.some((x) => x.id === organisation.id) &&
+                    classes.unfollow
+                )}
+                onClick={handleToggleFollow}
+              >
+                {followedOrganisations.some((x) => x.id === organisation.id)
+                  ? "Prestani pratiti"
+                  : "Prati"}
+              </button>
+              <span className={classes.actionStat}>
+                {organisation.followersAmount}
               </span>
             </div>
-            <div className={classes.bigStat}>
-              <span className={classes.title}>Eksponata</span>
-              <span className={classes.stat}>
-                {organisation.exponats.length}
+            <div className={classes.actionsRow}>
+              <button
+                className={clsx(
+                  classes.button,
+                  classes.blue,
+                  memberships.some((x) => x.id === organisation.id) &&
+                    classes.leave
+                )}
+                onClick={handleMembership}
+              >
+                {memberships.some((x) => x.id === organisation.id)
+                  ? "Napusti organizaciju"
+                  : "Postani član"}
+              </button>
+              <span className={classes.actionStat}>
+                {organisation.membersAmount}
               </span>
+            </div>
+            <div className={classes.stats}>
+              <div className={classes.bigStat}>
+                <span className={classes.title}>Objava</span>
+                <span className={classes.stat}>
+                  {organisation.posts ? organisation.posts.length : 0}
+                </span>
+              </div>
+              <div className={classes.bigStat}>
+                <span className={classes.title}>Eksponata</span>
+                <span className={classes.stat}>
+                  {organisation.exponats?.length}
+                </span>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    )
   );
 };

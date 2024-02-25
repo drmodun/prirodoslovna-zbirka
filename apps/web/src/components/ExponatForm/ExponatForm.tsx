@@ -103,20 +103,23 @@ export const ExponatForm = ({
       return;
     }
 
-    const species = data?.find(
-      (x: SpeciesResponse) => x.species === formData.alternateName
-    );
+    const species =
+      formData.exponatKind?.toLowerCase() === "mineral" ||
+      data?.find((x: SpeciesResponse) => x.species === formData.alternateName);
 
     if (!species && !isEdit) {
       alert("Nomenklatura nije validna");
       return;
     }
 
-    species.domain = formData.exponatKind;
+    if (formData.exponatKind?.toLowerCase() !== "mineral")
+      species.domain = formData.exponatKind;
 
-    const speciesId = await mutateAsync(species);
+    const speciesId =
+      formData.exponatKind?.toLowerCase() !== "mineral" &&
+      (await mutateAsync(species));
 
-    if (!speciesId) {
+    if (!speciesId && formData.exponatKind?.toLowerCase() !== "mineral") {
       toast.error("Greška prilikom kreiranja kategorizacije");
       return;
     }
@@ -142,7 +145,7 @@ export const ExponatForm = ({
       ExponatKind: formData.exponatKind,
       mainImage: image,
       attributes: JSON.stringify(formData.attributes) as any,
-      categorizationId: speciesId,
+      categorizationId: speciesId || undefined,
     };
 
     const params = {
@@ -156,6 +159,7 @@ export const ExponatForm = ({
           updateExponatDto: request,
         })
       : await createExponat(params);
+    if (action) window.location.href = `/exponat/${action.id}`;
   };
 
   return (
@@ -177,24 +181,33 @@ export const ExponatForm = ({
         ]}
         error={form.formState.errors.exponatKind?.message?.toString()}
       />
-      <Dropdown
-        form={form}
-        attribute="alternateName"
-        initPlaceholder="Znanstvena vrsta eksponata"
-        options={
-          data
-            ?.filter(
-              (x: SpeciesResponse) =>
-                x.rank === "SPECIES" && x.species.split(" ").length > 1
-            ) //Check for valid species with two word nomenclature
-            .map((species: SpeciesResponse) => ({
-              value: species.species,
-              label: species.species,
-            })) || []
-        }
-        initSelected={values?.alternateName}
-        onSelect={setSelectedSpecies}
-      />
+      {form.watch("exponatKind")?.toLowerCase() !== "mineral" ? (
+        <Dropdown
+          form={form}
+          attribute="alternateName"
+          initPlaceholder="Znanstvena vrsta eksponata"
+          options={
+            data
+              ?.filter(
+                (x: SpeciesResponse) =>
+                  x.rank === "SPECIES" && x.species.split(" ").length > 1
+              ) //Check for valid species with two word nomenclature
+              .map((species: SpeciesResponse) => ({
+                value: species.species,
+                label: species.species,
+              })) || []
+          }
+          initSelected={values?.alternateName}
+          onSelect={setSelectedSpecies}
+        />
+      ) : (
+        <Input
+          form={form}
+          attribute="alternateName"
+          question="Nomenklatura"
+          error={form.formState.errors.alternateName?.message?.toString()}
+        />
+      )}
       <p className={classes.error}>
         {form.formState.errors.alternateName?.message?.toString() || ""}
       </p>

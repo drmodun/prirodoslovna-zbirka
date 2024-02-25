@@ -79,7 +79,7 @@ model User {
   username                 String
   password                 String
   hasProfileImage          Boolean                    @default(false)
-  activationCode           String                     @default(uuid()) @unique
+  activationCode           String                     @unique @default(uuid())
   role                     Role                       @default(USER)
   createdAt                DateTime                   @default(now())
   updatedAt                DateTime                   @default(now()) @updatedAt
@@ -120,7 +120,7 @@ model Organisation {
   websiteUrl                String
   description               String
   email                     String                     @unique
-  isApproved                Boolean                    @default(false)
+  isApproved                Boolean                    @default(true)
   mainImage                 String
   createdAt                 DateTime                   @default(now())
   updatedAt                 DateTime                   @default(now()) @updatedAt
@@ -156,7 +156,7 @@ model SocialPost {
   updatedAt    DateTime     @default(now()) @updatedAt
   authorId     String       @unique
   organisation Organisation @relation(fields: [authorId], references: [id], onDelete: Cascade)
-  isApproved   Boolean      @default(false)
+  isApproved   Boolean      @default(true)
 }
 
 model OrganisationUser {

@@ -107,7 +107,6 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
     }
   }, [followersGet, followingGet, followedOrganisationGet]);
 
-  const { invalidateQueries } = useQueryClient();
 
   const updatePosts = (post: PostResponse) => {
     if (!posts) return;

@@ -1,4 +1,4 @@
-import { getUpdatePostRequest } from "@biosfera/types";
+import { PostResponse, getUpdatePostRequest } from "@biosfera/types";
 import { api } from "./shared";
 import { useMutation } from "react-query";
 import toast from "react-hot-toast";
@@ -10,7 +10,10 @@ export const updatePost = async (params: {
   postId: string;
   updatePostDto: UpdatePostDto;
 }) => {
-  await api.patch(`/posts/${params.postId}`, params.updatePostDto);
+  await api.patch<UpdatePostDto, PostResponse>(
+    `/posts/${params.postId}`,
+    params.updatePostDto
+  );
 };
 
 export const useUpdatePost = () => {

@@ -21,7 +21,9 @@ export const getExponats = async (queryDto: ExponatQuery, number?: number) => {
     queryDto.size = 20;
     const query = queryString.stringify(queryDto);
     console.log(`${baseURL}/exponats?${query}`);
-    const response = await fetch(`${baseURL}/exponats?${query}`);
+    const response = await fetch(`${baseURL}/exponats?${query}`, {
+      cache: "no-store",
+    });
     return response.json();
   } catch (error) {
     console.log(error);

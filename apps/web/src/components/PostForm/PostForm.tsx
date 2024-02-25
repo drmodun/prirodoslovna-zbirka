@@ -14,7 +14,6 @@ import { useCreatePost } from "@/api/useCreatePost";
 import BaseButton from "components/BaseButton";
 import { useUpdatePost } from "@/api/useUpdatePost";
 import toast from "react-hot-toast";
-import { text } from "stream/consumers";
 
 export interface PostFormProps {
   exponatId: string;
@@ -70,12 +69,15 @@ export const PostForm = ({ exponatId, isEdit, values }: PostFormProps) => {
     data.image = imageResponse || values?.image;
     data.thumbnailImage = thumbnailResponse || values?.thumbnail;
 
-    isEdit
+    const response = isEdit
       ? await updatePost({ updatePostDto: data, postId: values?.id! })
       : await createPost({ post: data, exponatId: exponatId });
 
-    console.log(imageResponse);
-    console.log(thumbnailResponse);
+    if (response) {
+      setTimeout(() => {
+        window.location.href = `/post/${response.id}`;
+      });
+    }
   };
 
   return (
