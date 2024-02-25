@@ -13,21 +13,41 @@ import SingleInput from "components/SingleInput";
 import CardCollection from "components/CardCollection";
 import useUser from "@/utility/context/UserContext";
 import { UserWrapper } from "@/utility/wrappers/userWrapper";
+import BaseButton from "components/BaseButton";
+import Link from "next/link";
 
 export interface OrganisationExponatsViewProps {
   exponats: ExponatResponseShort[];
+  organisationId: string;
+  isAdmin: boolean;
+  isMember: boolean;
 }
 
 export const OrganisationExponatsView = ({
   exponats,
-}: {
-  exponats: ExponatResponseShort[];
-}) => {
+  organisationId,
+  isMember,
+  isAdmin,
+}: OrganisationExponatsViewProps) => {
   const [domain, setDomain] = useState(Domains.EUCARIOT);
   const [searchValue, setSearchValue] = useState("");
 
   return (
     <div className={classes.container}>
+      {isMember && (
+        <Link
+          className={classes.button}
+          onClick={() =>
+            !isAdmin &&
+            alert(
+              "Kao samo član, možete dodati eksponat ali neće odmah biti vidljiv na stranic već morate pričekati dopuštenje admina"
+            )
+          }
+          href={`/organisation/${organisationId}/createExponat`}
+        >
+          <BaseButton text="Dodaj eksponat" />
+        </Link>
+      )}
       <div className={classes.searchBar}>
         <SingleInput
           question="Pretraži eksponate"

@@ -81,9 +81,30 @@ export const OrganisationBody = ({
             </UserWrapper>
           )}
           {activeTab === "Eksponati" && (
-            <OrganisationExponatsView exponats={organisationData.exponats} />
+            <OrganisationExponatsView
+              isMember={memberships.some((x) => x.id === organisation.id)}
+              exponats={organisationData.exponats}
+              organisationId={organisation.id}
+              isAdmin={memberships.some(
+                (x) =>
+                  (x.id === organisation.id && x.role === "ADMIN") ||
+                  x.role === "OWNER" ||
+                  user?.role?.toLowerCase() === "super"
+              )}
+            />
           )}
-          {activeTab === "Objave" && <div>objave</div>}
+          {activeTab === "Objave" && (
+            <CardCollection
+              items={organisationData.posts}
+              type="post"
+              sortBy={[
+                { label: "Abecedno", value: "title" },
+                { label: "Najpopularnije", value: "likeScore" },
+                { label: "Ime autora", value: "authorName" },
+                { label: "Novo", value: "updatedAt" },
+              ]}
+            />
+          )}
           {activeTab === "Članovi" && organisationData.id && (
             <UserWrapper>
               <CardCollection
