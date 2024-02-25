@@ -10,7 +10,6 @@ import {
   SortingRequest,
   sortCategorizationQueryBuilderWithComplexFilters,
 } from '@biosfera/types';
-//TODO: Make error handling for non existing entities on search so it does not throw a 500 error when searcjing for related properties
 @Injectable()
 export class CategorizationsService {
   constructor(private readonly prisma: PrismaService) {}
@@ -91,13 +90,11 @@ export class CategorizationsService {
           },
         },
       },
-      //TODO: Possibly add filtering based on nnumbers of exponats or something
       skip: (pagination?.page - 1) * pagination?.size,
       take: pagination?.size,
       ...(sort && { orderBy: sort }),
     });
   }
-  //TODO: Discuss wether to paginate related results or not
   async findOne(id: string) {
     return await this.prisma.categorization.findUnique({
       where: {

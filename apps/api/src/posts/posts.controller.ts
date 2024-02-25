@@ -305,4 +305,3 @@ export class PostsController {
   }
 }
 
-//TODO: make special functions for organisation admins to see posts without approval and stuff

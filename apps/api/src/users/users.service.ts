@@ -256,9 +256,7 @@ export class UsersService {
     const baseUrl = process.env.WEB_URL || 'http://localhost:3000';
 
     const subject = `${user.firstName}, verificirajte e-mail adresu`;
-    //TODO: make random link for user verification
     const text = `${user.firstName} ${user.lastName}, molimo vas da verificirate vašu e-mail adresu (${user.email}) klikom na link ${baseUrl}/activateUser/${user.activationCode}`;
-
     const mail = await this.email.sendMail(user.email, subject, text);
 
     return mail;

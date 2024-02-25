@@ -6,7 +6,6 @@ export interface CategorizationResponseShort {
   family: string;
   numberOfExponats?: number;
 }
-//TODO: possibly add normal names as alternative to latin ones
 export interface CategorizationExtendedResponse {
   family: string;
   genus: string;

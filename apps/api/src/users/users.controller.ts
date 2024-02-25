@@ -363,5 +363,4 @@ export class UsersController {
   }
 }
 
-//TODO: add approval double route for other connected apis and properties such as likes
 //TODO: make a seperate mappers folder later

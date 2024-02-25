@@ -123,7 +123,6 @@ export class OrganisationsController {
           (acc, curr) => acc + curr._count.FavouriteExponats,
           0,
         ),
-        //possibly already make this in sql later
         isFavorite: false,
         description: org.description,
         updatedAt: org.updatedAt,
@@ -324,5 +323,4 @@ export class OrganisationsController {
   async changeApprovalStatus(@Param('id') id: string) {
     return await this.organisationsService.changeApprovalStatus(id);
   }
-  //TODO: add admin approval and disapproval and creation request endpoints
 }

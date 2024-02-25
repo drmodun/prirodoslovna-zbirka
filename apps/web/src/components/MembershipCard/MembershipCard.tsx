@@ -24,7 +24,7 @@ export const memberWeight = {
 } as Indexable;
 export interface MemberShipCardProps {
   name: string;
-  description: string; //TODO: potentially change this to description
+  description: string; 
   image: string | StaticImageData;
   type: "organisation" | "user";
   isFollowCard?: boolean;
