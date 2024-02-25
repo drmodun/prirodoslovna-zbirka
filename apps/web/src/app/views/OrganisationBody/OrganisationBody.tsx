@@ -11,8 +11,6 @@ import OrganisationAbout from "../OrganisationAbout";
 import CardCollection from "components/CardCollection";
 import useUser from "@/utility/context/UserContext";
 import { api } from "@/api/shared";
-import { set } from "react-hook-form";
-import { QueryClientWrapper } from "@/utility/wrappers/queryWrapper";
 import { UserWrapper } from "@/utility/wrappers/userWrapper";
 import OrganisationForm from "components/CreateOrganisationForm";
 import DeleteOrganisationButton from "components/DeleteOrganisationButton";
@@ -28,11 +26,9 @@ export enum Domains {
 
 const tabs = [
   "Početna", //Ovdi ce bit social postevi
-  "Stablo",
   "Eksponati",
   "Objave",
   "Članovi",
-  "O organizaciji",
 ];
 
 export const OrganisationBody = ({
@@ -101,9 +97,6 @@ export const OrganisationBody = ({
                 pageSize={10}
               />
             </UserWrapper>
-          )}
-          {activeTab === "O organizaciji" && (
-            <OrganisationAbout organisation={organisationData} />
           )}
         </div>
       </div>
