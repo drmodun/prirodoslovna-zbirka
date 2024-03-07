@@ -192,7 +192,7 @@ export const ExponatForm = ({
             data
               ?.filter(
                 (x: SpeciesResponse) =>
-                  x.rank === "SPECIES" && x.species.split(" ").length > 1
+                  x.rank === "SPECIES" && x.species?.split(" ").length > 1
               ) //Check for valid species with two word nomenclature
               .map((species: SpeciesResponse) => ({
                 value: species.species,

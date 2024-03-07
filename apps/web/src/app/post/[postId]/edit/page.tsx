@@ -9,7 +9,7 @@ const PostPage = async ({ params }: { params: any }) => {
   const post = await serverGetPost(params.postId);
   return (
     <UserWrapper>
-      <RightCheckingWrapper author={params.authorId}>
+      <RightCheckingWrapper author={post.authorId}>
         <PostForm exponatId={post.exponatId} values={post} isEdit />
       </RightCheckingWrapper>
     </UserWrapper>

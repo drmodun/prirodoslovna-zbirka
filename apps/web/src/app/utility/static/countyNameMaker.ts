@@ -1,4 +1,7 @@
+import { County } from "@biosfera/types";
+
 export const makeCountyName = (county: string) => {
+  if (!Object.keys(County).includes(county)) return county;
   if (county === "OTHER") return "Ostalo";
   if (county === "GRAD_ZAGREB") return "Grad Zagreb";
   if (!county) return "Nepoznato";
