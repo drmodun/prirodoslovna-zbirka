@@ -11,25 +11,27 @@ import { AdminCheckingWrapper } from "@/utility/wrappers/adminCheckWrapper";
 const ExponatCreate = async ({ params }: { params: any }) => {
   const exponat = await serverGetExponat(params.exponatId);
   return (
-    <div className={classes.container}>
-      <div className={classes.content}>
-        <div className={classes.title}>
-          <span>Uredi sadašnji eksponat</span>
+    exponat && (
+      <div className={classes.container}>
+        <div className={classes.content}>
+          <div className={classes.title}>
+            <span>Uredi sadašnji eksponat</span>
+          </div>
+          <div className={classes.form}>
+            <UserWrapper>
+              <AdminCheckingWrapper id={exponat.organizationId}>
+                <ExponatForm
+                  organisationId={params.organisationId}
+                  isEdit
+                  values={exponat}
+                />
+              </AdminCheckingWrapper>
+            </UserWrapper>
+          </div>
         </div>
-        <div className={classes.form}>
-          <UserWrapper>
-            <AdminCheckingWrapper id={exponat?.authorId}>
-              <ExponatForm
-                organisationId={params.organisationId}
-                isEdit
-                values={exponat}
-              />
-            </AdminCheckingWrapper>
-          </UserWrapper>
-        </div>
+        <ExponatFormImage />
       </div>
-      <ExponatFormImage />
-    </div>
+    )
   );
 };
 

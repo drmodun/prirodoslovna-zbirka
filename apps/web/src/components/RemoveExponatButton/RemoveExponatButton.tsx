@@ -12,10 +12,12 @@ import Link from "next/link";
 export interface RemoveExponatButtonProps {
   exponatId: string;
   onRemove?: (id: string) => void;
+  isHidden?: boolean;
 }
 
 export const RemoveExponatButton: React.FC<RemoveExponatButtonProps> = ({
   exponatId,
+  isHidden,
   onRemove,
 }) => {
   const { mutate, isSuccess = false } = useRemoveExponat();
@@ -52,9 +54,11 @@ export const RemoveExponatButton: React.FC<RemoveExponatButtonProps> = ({
       >
         <Image title="Makni eksponat" src={remove} alt="Makni eksponat" />
       </button>
-      <Link href={`/exponat/${exponatId}/edit`} className={classes.edit}>
-        <Image src={edit} alt="edit" />
-      </Link>
+      {!isHidden && (
+        <Link href={`/exponat/${exponatId}/edit`} className={classes.edit}>
+          <Image src={edit} alt="edit" />
+        </Link>
+      )}
     </div>
   );
 };

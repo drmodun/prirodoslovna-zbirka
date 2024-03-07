@@ -22,7 +22,7 @@ export const ExponatModalSections = ({
   const box = useRef<HTMLDivElement>(null);
 
   return (
-    <div className={classes.container}>
+    <div className={clsx(classes.container, extended && classes.extended)}>
       <div
         ref={box}
         className={clsx(classes.content, extended && classes.extended)}
@@ -75,12 +75,6 @@ export const ExponatModalSections = ({
           </div>
         </div>
       </div>
-      <button
-        onClick={() => setExtended((prev) => !prev)}
-        className={classes.expand}
-      >
-        {extended ? "Smanji" : "Proširi"}
-      </button>
     </div>
   );
 };

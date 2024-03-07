@@ -55,7 +55,12 @@ export const PostCard = ({
             isApproved={post.isApproved}
           />
         )}
-        <RemovePostButton postId={post.id} onRemove={onRemove} />
+        <RemovePostButton
+          isHidden={!post.isApproved && !isUser}
+          postId={post.id}
+          onRemove={onRemove}
+          isAdmin={isAdmin && !isUser}
+        />
       </QueryClientWrapper>
     )}
     <div className={classes.content}>

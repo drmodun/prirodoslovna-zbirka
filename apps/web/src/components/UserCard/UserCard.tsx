@@ -7,6 +7,8 @@ import placeholder from "assets/images/lion.svg";
 import userRandom from "assets/images/user.svg";
 import { UserWrapper } from "@/utility/wrappers/userWrapper";
 import UserFollowButton from "components/UserFollowButton";
+import { getPfpUrl } from "@/utility/static/getPfpUrl";
+import ImageWithFallback from "components/ImageWithFallback/ImageWithFallback";
 export interface UserCardProps {
   user: ExtendedUserResponse;
 }
@@ -14,12 +16,9 @@ export interface UserCardProps {
 export const UserCard = ({ user }: UserCardProps) => (
   <div className={classes.container}>
     <div className={classes.picture}>
-      <Image
-        src={
-          user.hasProfileImage
-            ? `https://biosfera-files.s3.eu-north-1.amazonaws.com/user/${user.id}`
-            : placeholder
-        }
+      <ImageWithFallback
+        src={getPfpUrl(user.id)}
+        fallbackSrc={placeholder}
         layout="fill"
         alt={user.username}
       />
