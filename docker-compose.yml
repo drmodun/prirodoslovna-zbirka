@@ -5,7 +5,7 @@ services:
     image: nginx:latest
     container_name: nginx_container
     ports:
-      - 81:81
+      - 80:80
     depends_on:
       - postgres
     volumes:
