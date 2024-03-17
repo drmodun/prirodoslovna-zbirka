@@ -15,7 +15,7 @@ import {
   SortingRequest,
   sortExponatQueryBuilderWithComplexFilters,
 } from '@biosfera/types';
-import { Exponat, ExponatKind, Role } from '@prisma/client';
+import { ExponatKind, Role } from '@prisma/client';
 import { MemberRoleType } from 'src/members/members.dto';
 import {
   anonymousExponatsDiscover,
@@ -314,7 +314,6 @@ export class ExponatsService {
       });
       return checkForSuper.role === Role.SUPER;
     }
-
 
     if (adminOnly) {
       return (

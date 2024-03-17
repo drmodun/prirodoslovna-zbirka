@@ -58,5 +58,4 @@ export class BlobController {
       return `https://biosfera-files.s3.eu-north-1.amazonaws.com/${directory}/${name}`;
     else throw new BadRequestException('File upload failed');
   }
-
 }

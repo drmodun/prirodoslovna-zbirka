@@ -1,10 +1,8 @@
 @import "styles/calc.scss";
 @import "styles/variables.scss";
 
-@import url("https://fonts.googleapis.com/css2?family=Commissioner:wght@100..900&family=Instrument+Serif:ital@0;1&family=Lexend:wght@100..900&display=swap");
 
 .button {
-  font-family: "Commissioner";
   font-weight: bold;
   border: none;
   border-radius: vw-calc(30) vw-calc(30) vw-calc(8) vw-calc(30);

@@ -15,6 +15,7 @@ import LeaveOrganisationButton from "components/LeaveOrganisationButton";
 import RemoveMembershipButton from "components/RemoveMembershipButton";
 import ImageWithFallback from "components/ImageWithFallback/ImageWithFallback";
 import EditUserRoleModal from "components/EditUserRoleModal";
+import { makeCountyName } from "@/utility/static/countyNameMaker";
 
 export const memberWeight = {
   ADMIN: 2,
@@ -24,7 +25,7 @@ export const memberWeight = {
 } as Indexable;
 export interface MemberShipCardProps {
   name: string;
-  description: string; 
+  description: string;
   image: string | StaticImageData;
   type: "organisation" | "user";
   isFollowCard?: boolean;
@@ -61,7 +62,9 @@ export const MembershipCard = ({
           <Link href={`/${type}/${id}`}>
             <span className={classes.name}>{name}</span>
           </Link>
-          <span className={classes.description}>{description}</span>
+          <span className={classes.description}>
+            {makeCountyName(description)}
+          </span>
         </div>
       </div>
       <div className={classes.last}>
@@ -74,7 +77,7 @@ export const MembershipCard = ({
             ? "Član"
             : role === "REQUESTED"
             ? "Zahtjev"
-            : role}
+            : makeCountyName(role)}
         </div>
         <UserWrapper>
           <div className={classes.buttons}>

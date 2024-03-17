@@ -11,7 +11,9 @@ export const RightCheckingWrapper = ({
   children,
   author,
 }: RightCheckingWrapperProps) => {
-  const { user } = useUser();
+  const { user, memberships } = useUser();
 
-  return user?.role === "SUPER" || user?.id === author ? children : null;
+  return user?.role?.toLowerCase() === "super" || user?.id === author
+    ? children
+    : null;
 };

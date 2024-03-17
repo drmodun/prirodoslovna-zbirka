@@ -1,4 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Commissioner:wght@100..900&family=Lexend:wght@100..900&display=swap");
 @import "styles/variables.scss";
 @import "styles/calc.scss";
 
@@ -96,7 +95,6 @@
   }
 
   .userInfoWrapper {
-    font-family: "Commissioner";
 
     .name {
       font-size: vw-calc(28);
@@ -160,7 +158,6 @@
     border: none;
     outline: none;
     color: black;
-    font-family: "Commissioner";
     font-size: vw-calc(20);
 
     @media (max-width: 768px) {

@@ -12,11 +12,15 @@ import Link from "next/link";
 export interface RemovePostButtonProps {
   postId: string;
   onRemove?: (id: string) => void;
+  isHidden?: boolean;
+  isAdmin?: boolean;
 }
 
 export const RemovePostButton: React.FC<RemovePostButtonProps> = ({
   postId,
+  isAdmin,
   onRemove,
+  isHidden,
 }) => {
   const { mutate, isSuccess } = useRemovePost();
   const { posts, updatePosts, likedPosts, updateLikes } = useUser();
@@ -53,9 +57,11 @@ export const RemovePostButton: React.FC<RemovePostButtonProps> = ({
       >
         <Image title="Makni objavu" src={remove} alt="Makni objavu" />
       </button>
-      <Link href={`/post/${postId}/edit`} className={classes.edit}>
-        <Image src={edit} alt="edit" />
-      </Link>
+      {!isHidden && !isAdmin && (
+        <Link href={`/post/${postId}/edit`} className={classes.edit}>
+          <Image src={edit} alt="edit" />
+        </Link>
+      )}
     </div>
   );
 };
