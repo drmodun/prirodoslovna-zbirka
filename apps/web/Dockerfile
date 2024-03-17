@@ -30,5 +30,4 @@ FROM node:16-alpine as runner
 WORKDIR /app
 COPY --from=sourcer /app/ .
 WORKDIR /app/apps/web/
-CMD [ "npm", "start" ]
-    
+CMD [ "yarn", "start" ]
