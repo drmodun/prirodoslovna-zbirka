@@ -13,7 +13,7 @@ export const AdminCheckingWrapper = ({
 }: RightCheckingWrapperProps) => {
   const { user, memberships } = useUser();
 
-  return user?.role === "SUPER" ||
+  return user?.role?.toLowerCase() === "super" ||
     memberships.some(
       (x) =>
         x.id == id &&

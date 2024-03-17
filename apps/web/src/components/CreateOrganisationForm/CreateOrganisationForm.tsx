@@ -170,7 +170,7 @@ export const OrganisationForm = ({
       />
 
       <div className={classes.buttons}>
-        <BaseButton text="Kreiraj" />
+        <BaseButton text={isEdit ? "Uredi" : "Kreiraj"} />
       </div>
     </form>
   );

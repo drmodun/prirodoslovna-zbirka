@@ -1,11 +1,5 @@
 import { ExponatExtendedResponse } from "@biosfera/types";
 import classes from "./ExponatModal.module.scss";
-import Image from "next/image";
-import desc from "assets/images/desc.svg";
-import list from "assets/images/list.svg";
-import table from "assets/images/table.svg";
-import likeLeafGreen from "assets/images/like-leaf-green.svg";
-import { stringCapitaliser } from "@/utility/static/stringCapitaliser";
 import ExponatModalSections from "components/ExponatModalSections";
 import CategorizationCard from "components/CategorizationCard";
 import Link from "next/link";
@@ -36,7 +30,7 @@ export const ExponatModal = ({ exponat }: ExponatModalProps) => {
         href={`/organisation/${exponat.organizationId}`}
         className={classes.orgName}
       >
-        Organizacija eksponata: {stringCapitaliser(exponat.organizationName)}
+        Organizacija eksponata: {exponat.organizationName}
       </Link>
       <ExponatModalSections exponat={exponat} />
     </div>

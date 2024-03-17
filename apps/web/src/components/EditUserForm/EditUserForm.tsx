@@ -22,7 +22,7 @@ import Modal from "components/BaseModal";
 import Textarea from "components/Textarea";
 import userImg from "assets/images/user-alt.svg";
 import FileUpload from "components/FileUpload";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useEditUserInfo } from "@/api/useEditUserInfo";
 import { useUploadProfilePicture } from "@/api/useUploadProfilePicture";
 import { useAdminUpdateUserInfo } from "@/api/useAdminUpdateUserInfo";
@@ -89,10 +89,21 @@ export const EditUserForm = ({
   const { mutateAsync: adminEditUserInfo } = useAdminUpdateUserInfo();
 
   const [profilePicture, setProfilePicture] = useState<File[]>([]);
+  const [hasProfilePic, setHasProfilePic] = useState(user.hasProfileImage);
+
+  useEffect(() => {
+    if (profilePicture.length > 0) {
+      setHasProfilePic(true);
+    }
+  }, [profilePicture]);
+
+  useEffect(() => {
+    setHasProfilePic(user.hasProfileImage);
+  }, [user.hasProfileImage]);
 
   const onSubmit = async (data: any) => {
     profilePicture[0] && (await uploadImage(profilePicture[0]));
-    data.hasProfileImage = profilePicture.length > 0;
+    data.hasProfileImage = hasProfilePic && profilePicture.length > 0;
     isSuper
       ? await adminEditUserInfo({
           userId: user.id,
@@ -138,12 +149,18 @@ export const EditUserForm = ({
           form={form}
           error={form.formState.errors.location?.message?.toString()}
         />
-        {!isSuper && (
-          <FileUpload
-            name="Promjenite profilnu sliku"
-            onChange={setProfilePicture}
-          />
-        )}
+        {!isSuper &&
+          (!hasProfilePic ? (
+            <FileUpload
+              name="Promjenite profilnu sliku"
+              onChange={setProfilePicture}
+            />
+          ) : (
+            <BaseButton
+              text="Uklonite profilnu sliku"
+              onClick={() => setHasProfilePic(false)}
+            ></BaseButton>
+          ))}
         <div className={classes.buttons}>
           <BaseButton text="Spremi promjene" />
         </div>

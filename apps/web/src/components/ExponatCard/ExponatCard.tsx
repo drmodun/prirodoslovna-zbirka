@@ -19,7 +19,6 @@ export interface ExponatCardProps {
   onRemove?: (id: string) => void;
 }
 
-
 export const ExponatCard = ({
   exponat,
   onRemove,
@@ -41,7 +40,11 @@ export const ExponatCard = ({
           isApproved={exponat.isApproved}
           entity="exponats"
         />
-        <RemoveExponatButton onRemove={onRemove} exponatId={exponat.id} />
+        <RemoveExponatButton
+          onRemove={onRemove}
+          exponatId={exponat.id}
+          isHidden={!exponat.isApproved}
+        />
       </QueryClientWrapper>
     ) : null}
     <Link
