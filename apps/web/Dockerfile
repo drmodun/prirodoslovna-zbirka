@@ -1,4 +1,4 @@
-FROM node:16-alpine AS builder
+FROM node:20-alpine AS builder
 RUN apk update
 # Set working directory
 WORKDIR /app
@@ -8,7 +8,7 @@ COPY . .
 RUN turbo prune --scope=web --docker
 
 # Add lockfile and package.json's of isolated subworkspace
-FROM node:16-alpine AS installer
+FROM node:20-alpine AS installer
 RUN apk update
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
@@ -18,7 +18,7 @@ COPY --from=builder /app/turbo.json ./turbo.json
 RUN yarn install --frozen-lockfile
 
 
-FROM node:16-alpine AS sourcer
+FROM node:20-alpine AS sourcer
 RUN apk update
 WORKDIR /app
 COPY --from=installer /app/ .
@@ -26,8 +26,10 @@ COPY --from=builder /app/out/full/ .
 COPY .gitignore .gitignore
 RUN yarn turbo run build --scope=web --include-dependencies --no-deps
 
-FROM node:16-alpine as runner
+FROM node:20-alpine as runner
 WORKDIR /app
 COPY --from=sourcer /app/ .
 WORKDIR /app/apps/web/
-CMD [ "yarn", "start" ]
+EXPOSE 3000
+ENV HOSTNAME "0.0.0.0"
+CMD [ "yarn", "start"]

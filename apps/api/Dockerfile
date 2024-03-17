@@ -1,4 +1,4 @@
-FROM node:16-alpine AS builder
+FROM node:20-alpine AS builder
 RUN apk update
 # Set working directory
 WORKDIR /app
@@ -6,8 +6,9 @@ RUN yarn global add turbo
 COPY . .
 RUN turbo prune --scope=api --docker
 
+
 # Add lockfile and package.json's of isolated subworkspace
-FROM node:16-alpine AS installer
+FROM node:20-alpine AS installer
 RUN apk update
 WORKDIR /app
 COPY --from=builder /app/out/json/ .
@@ -15,16 +16,17 @@ COPY --from=builder /app/out/yarn.lock ./yarn.lock
 COPY --from=builder /app/turbo.json ./turbo.json
 COPY --from=builder /app/apps/api/prisma ./prisma
 RUN yarn install --frozen-lockfile
-RUN yarn prisma generate 
 
 
-FROM node:16-alpine AS sourcer
+FROM node:20-alpine AS sourcer
 WORKDIR /app
 COPY --from=installer /app/ .
 COPY --from=builder /app/out/full/ .
 COPY .gitignore .gitignore
 RUN yarn turbo run build
-FROM node:16-alpine as runner
+FROM node:20-alpine as runner
 WORKDIR /app
 COPY --from=sourcer /app/ .
-CMD [ "yarn", "dev" ]
+WORKDIR /app/apps/api/
+EXPOSE 5500
+CMD ["yarn", "start"]

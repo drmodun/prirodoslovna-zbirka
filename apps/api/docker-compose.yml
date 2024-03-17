@@ -1,0 +1,66 @@
+version: "3.8"
+
+services:
+  reverse-proxy:
+    image: nginx:latest
+    container_name: nginx_container
+    ports:
+      - 80:80
+    depends_on:
+      - postgres
+    volumes:
+      - ./packages/config/nginx.conf:/etc/nginx/nginx.conf
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  postgres:
+    image: postgres:15
+    environment:
+      - POSTGRES_DB=biosfera
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  packages:
+    image: node:latest
+    container_name: packages_container
+    working_dir: /packages
+    volumes:
+      - ./:/packages
+    ports:
+      - "5500:5500"
+    depends_on:
+      - postgres
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  api:
+    image: node:latest
+    container_name: api_container
+    working_dir: /app
+    volumes:
+      - ./:/app
+    ports:
+      - "5500:5500"
+    depends_on:
+      - postgres
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+  web:
+    image: node:latest
+    container_name: web_container
+    working_dir: /app
+    volumes:
+      - ./:/app
+    ports:
+      - "3000:3000"
+    depends_on:
+      - api
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+volumes:
+  db_data:
