@@ -24,30 +24,43 @@ services:
     ports:
       - "5432:5432"
 
-  api:
-    container_name: api_container
+  packages:
+    image: node:latest
+    container_name: packages_container
+    working_dir: /packages
+    volumes:
+      - ./:/packages
     ports:
       - "5500:5500"
     depends_on:
       - postgres
     extra_hosts:
       - "host.docker.internal:host-gateway"
-    build:
-      dockerfile: ./apps/api/Dockerfile
-      target: runner
-    env_file:
-      - ./apps/api/.env
+
+  api:
+    image: node:latest
+    container_name: api_container
+    working_dir: /app
+    volumes:
+      - ./:/app
+    ports:
+      - "5500:5500"
+    depends_on:
+      - postgres
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
   web:
+    image: node:latest
     container_name: web_container
+    working_dir: /app
+    volumes:
+      - ./:/app
     ports:
       - "3000:3000"
     depends_on:
       - api
     extra_hosts:
       - "host.docker.internal:host-gateway"
-    build:
-      dockerfile: ./apps/web/Dockerfile
-      target: runner
 
 volumes:
   db_data:

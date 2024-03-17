@@ -8,7 +8,8 @@
   ],
   "scripts": {
     "build": "turbo run build",
-    "dev": "npx dotenv-cli turbo run dev",
+    "dev": "turbo run dev",
+    "start": "cd apps/api && yarn start",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },

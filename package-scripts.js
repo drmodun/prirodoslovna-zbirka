@@ -2,6 +2,7 @@ const path = require("path");
 
 const apiPath = path.resolve(__dirname, "apps/api");
 const webPath = path.resolve(__dirname, "apps/web");
+const packagesPath = path.resolve(__dirname, "packages/types")
 
 const ciApiPath = path.resolve(__dirname, "out/apps/api");
 const ciWebPath = path.resolve(__dirname, "out/apps/web");
@@ -49,7 +50,8 @@ module.exports = {
     },
     docker: {
       build: {
-        default: "nps docker.build.web docker.build.api",
+        default: "nps docker.build.web docker.build.api docker.build.packages",
+        packages: `docker build -t packages . -f ${apiPath}/Dockerfile`,
         web: `docker build -t web . -f ${webPath}/Dockerfile`,
         api: `docker build -t api . -f ${apiPath}/Dockerfile`,
       },
