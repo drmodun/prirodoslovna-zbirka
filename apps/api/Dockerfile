@@ -23,6 +23,7 @@ WORKDIR /app
 COPY --from=installer /app/ .
 COPY --from=builder /app/out/full/ .
 COPY .gitignore .gitignore
+ENV NODE_OPTIONS=--max_old_space_size=2048
 RUN yarn turbo run build
 FROM node:20-alpine as runner
 WORKDIR /app
