@@ -1,9 +1,13 @@
 import { getUserQuery } from "@biosfera/types";
 import queryString from "query-string";
 import { useQuery } from "react-query";
-import { baseURL } from "./shared";
 export const _userQuery = getUserQuery();
 export class UserQuery extends _userQuery {}
+
+const baseURL =
+  process.env.DOCKER === "true"
+    ? "http://api_container:5500"
+    : "http://localhost:5500";
 
 export const getUsers = async (queryDto: UserQuery, page?: number) => {
   try {

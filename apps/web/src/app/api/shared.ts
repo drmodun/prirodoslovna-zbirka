@@ -1,7 +1,7 @@
 import axios, { AxiosError, AxiosResponse } from "axios";
 import toast from "react-hot-toast";
 
-export const baseURL = "http://127.0.0.1:5500";
+export const baseURL = "http://localhost:5500";
 
 export const api = axios.create({
   baseURL: baseURL,

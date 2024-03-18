@@ -1,9 +1,10 @@
 import { getExponatQuery } from "@biosfera/types";
 import queryString from "query-string";
 import { useQuery } from "react-query";
-import { baseURL } from "./shared";
 export const _exponatQuery = getExponatQuery();
 export class ExponatQuery extends _exponatQuery {}
+
+const baseURL = process.env.DOCKER === "true" ? "http://api_container:5500" : "http://localhost:5500";
 
 export const getExponats = async (queryDto: ExponatQuery, number?: number) => {
   try {

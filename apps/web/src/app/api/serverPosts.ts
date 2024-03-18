@@ -1,9 +1,10 @@
 import { SortingEnum, getPostQuery } from "@biosfera/types";
 import queryString from "query-string";
 import { useQuery } from "react-query";
-import { baseURL } from "./shared";
 export const _postQuery = getPostQuery();
 export class PostQuery extends _postQuery {}
+
+const baseURL = process.env.DOCKER === "true" ? "http://api_container:5500" : "http://localhost:5500";
 
 export const getPosts = async (queryDto: PostQuery, page?: number) => {
   try {
