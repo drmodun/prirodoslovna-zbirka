@@ -32,4 +32,5 @@ COPY --from=sourcer /app/ .
 WORKDIR /app/apps/web/
 EXPOSE 3000
 ENV HOSTNAME "0.0.0.0"
+ENV DOCKER "true"
 CMD [ "yarn", "start"]
