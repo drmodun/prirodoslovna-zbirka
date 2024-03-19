@@ -32,5 +32,4 @@ WORKDIR /app
 COPY --from=sourcer /app/ .
 WORKDIR /app/apps/web/
 EXPOSE 3000
-ENV DOCKER=true
 CMD [ "yarn", "start"]
