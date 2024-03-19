@@ -1,3 +1,4 @@
+import { Console } from "console";
 import { getBaseUrl } from "./getUrlServer";
 
 export const serverGetExponat = async (id: string) => {

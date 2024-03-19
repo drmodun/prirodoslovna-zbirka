@@ -2,8 +2,7 @@ import axios, { AxiosError, AxiosResponse } from "axios";
 import toast from "react-hot-toast";
 
 export const baseURL =
-  process?.env?.NEXT_PUBLIC_WEB_URL &&
-  process?.env?.NEXT_PUBLIC_WEB_URL !== "http://localhost:3000"
+  process?.env?.NEXT_PUBLIC_WEB_URL && process?.env?.NEXT_PUBLIC_DOCKER
     ? `${process?.env?.NEXT_PUBLIC_WEB_URL}/api`
     : "http://localhost:5500";
 
