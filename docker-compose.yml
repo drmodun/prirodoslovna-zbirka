@@ -36,7 +36,7 @@ services:
       dockerfile: ./apps/api/Dockerfile
       target: runner
     env_file:
-      - ./apps/api/.env
+      - ./.env
   web:
     container_name: web_container
     ports:
@@ -48,6 +48,9 @@ services:
     build:
       dockerfile: ./apps/web/Dockerfile
       target: runner
+    env_file:
+      - ./.env
+
 
 volumes:
   db_data:
