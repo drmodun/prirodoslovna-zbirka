@@ -63,6 +63,7 @@ export const DiscoverPageView = ({
 
   const handleError = () => {
     resetPages && resetPages();
+    if (exponatPage === 1 || organisationPage === 1 || postPage === 1) return;
     window.location.reload();
   };
 
