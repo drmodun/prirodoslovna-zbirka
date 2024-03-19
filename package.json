@@ -7,7 +7,7 @@
     "packages/*"
   ],
   "scripts": {
-    "build": "turbo run build",
+    "build": "npx dotenv-cli turbo run build",
     "dev": "npx dotenv-cli turbo run dev",
     "start": "cd apps/api && yarn start",
     "lint": "turbo run lint",
