@@ -1,10 +1,9 @@
 import { getOrganisationQuery } from "@biosfera/types";
 import queryString from "query-string";
 import { useQuery } from "react-query";
+import { getBaseUrl } from "./getUrlServer";
 export const _organisationQuery = getOrganisationQuery();
 export class OrganisationQuery extends _organisationQuery {}
-
-const baseURL = process.env.DOCKER === "true" ? "http://api_container:5500" : "http://localhost:5500";
 
 export const getOrganisations = async (
   queryDto: OrganisationQuery,
@@ -24,7 +23,7 @@ export const getOrganisations = async (
       delete queryDto.attribute;
     if ((queryDto as any).title) queryDto.name = (queryDto as any).title;
     const query = queryString.stringify(queryDto);
-    const response = await fetch(`${baseURL}/organisations?${query}`);
+    const response = await fetch(`${getBaseUrl()}/organisations?${query}`);
     return response.json();
   } catch (error) {
     console.log(error);
@@ -40,7 +39,9 @@ export const discoverOrganisations = async (params: {
     if (!params.page) params.page = 1;
 
     const response = await fetch(
-      `${baseURL}/organisations/discover?page=${params.page}&size=${params.size}`
+      `${getBaseUrl()}/organisations/discover?page=${params.page}&size=${
+        params.size
+      }`
     );
     return response.json();
   } catch (error) {

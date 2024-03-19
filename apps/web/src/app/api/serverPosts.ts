@@ -1,10 +1,9 @@
 import { SortingEnum, getPostQuery } from "@biosfera/types";
 import queryString from "query-string";
 import { useQuery } from "react-query";
+import { getBaseUrl } from "./getUrlServer";
 export const _postQuery = getPostQuery();
 export class PostQuery extends _postQuery {}
-
-const baseURL = process.env.DOCKER === "true" ? "http://api_container:5500" : "http://localhost:5500";
 
 export const getPosts = async (queryDto: PostQuery, page?: number) => {
   try {
@@ -19,7 +18,7 @@ export const getPosts = async (queryDto: PostQuery, page?: number) => {
     if (!queryDto.page) queryDto.page = 1;
     queryDto.size = 20;
     const query = queryString.stringify(queryDto);
-    const response = await fetch(`${baseURL}/posts?${query}`);
+    const response = await fetch(`${getBaseUrl()}/posts?${query}`);
     return response.json();
   } catch (error) {
     console.log(error);
@@ -31,7 +30,7 @@ export const discoverPosts = async (params: { page: number; size: number }) => {
     if (!params.size) params.size = 20;
     if (!params.page) params.page = 1;
     const response = await fetch(
-      `${baseURL}/posts/discover?page=${params.page}&size=${params.size}`
+      `${getBaseUrl()}/posts/discover?page=${params.page}&size=${params.size}`
     );
     return response.json();
   } catch (error) {

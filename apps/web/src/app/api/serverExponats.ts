@@ -1,10 +1,8 @@
 import { getExponatQuery } from "@biosfera/types";
 import queryString from "query-string";
-import { useQuery } from "react-query";
+import { getBaseUrl } from "./getUrlServer";
 export const _exponatQuery = getExponatQuery();
 export class ExponatQuery extends _exponatQuery {}
-
-const baseURL = process.env.DOCKER === "true" ? "http://api_container:5500" : "http://localhost:5500";
 
 export const getExponats = async (queryDto: ExponatQuery, number?: number) => {
   try {
@@ -21,7 +19,7 @@ export const getExponats = async (queryDto: ExponatQuery, number?: number) => {
     if (!queryDto.page) queryDto.page = 1;
     queryDto.size = 20;
     const query = queryString.stringify(queryDto);
-    const response = await fetch(`${baseURL}/exponats?${query}`, {
+    const response = await fetch(`${getBaseUrl()}/exponats?${query}`, {
       cache: "no-store",
     });
     return response.json();
@@ -38,7 +36,9 @@ export const discoverExponats = async (params: {
     if (!params.size) params.size = 20;
     if (!params.page) params.page = 1;
     const response = await fetch(
-      `${baseURL}/exponats/discover?page=${params.page}&size=${params.size}`
+      `${getBaseUrl()}/exponats/discover?page=${params.page}&size=${
+        params.size
+      }`
     );
     return response.json();
   } catch (error) {

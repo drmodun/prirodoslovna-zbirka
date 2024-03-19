@@ -1,8 +1,8 @@
-const baseURL = process.env.DOCKER === "true" ? "http://api_container:5500" : "http://localhost:5500";
+import { getBaseUrl } from "./getUrlServer";
 
 export const serverGetOrganisation = async (id: string) => {
   try {
-    const response = await fetch(`${baseURL}/organisations/${id}`, {
+    const response = await fetch(`${getBaseUrl()}/organisations/${id}`, {
       cache: "no-store",
     });
     if (response.status === 404) {

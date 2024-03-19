@@ -4,6 +4,7 @@ const nextConfig = {
   transpilePackages: ["@biosfera/types"],
   env: {
     NEXT_PUBLIC_DOCKER: process?.env?.DOCKER,
+    NEXT_PUBLIC_WEB_URL: process?.env?.WEB_URL,
   },
   images: {
     domains: [

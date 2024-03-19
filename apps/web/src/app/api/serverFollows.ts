@@ -1,3 +1,5 @@
+import { getBaseUrl } from "./getUrlServer";
+
 const baseURL =
   process.env.DOCKER === "true"
     ? "http://api_container:5500"
@@ -5,7 +7,7 @@ const baseURL =
 
 export const getUserFollowers = async (id: string) => {
   try {
-    const response = await fetch(`${baseURL}/follows/${id}/followers`, {
+    const response = await fetch(`${getBaseUrl()}/follows/${id}/followers`, {
       cache: "no-store",
     });
     const data = await response.json();
@@ -17,7 +19,7 @@ export const getUserFollowers = async (id: string) => {
 
 export const getUserFollowing = async (id: string) => {
   try {
-    const response = await fetch(`${baseURL}/follows/${id}/following`, {
+    const response = await fetch(`${getBaseUrl()}/follows/${id}/following`, {
       cache: "no-store",
     });
     const data = await response.json();
