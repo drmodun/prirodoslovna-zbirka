@@ -15,7 +15,7 @@ import useUser from "@/utility/context/UserContext";
 import EditUserForm from "components/EditUserForm";
 import DeleteUserButton from "components/DeleteUserButton";
 
-const tabs = ["About", "Posts", "Likes", "Favourites", "Organisations"];
+const tabs = ["O korisniku", "Objave", "Kapljice", "Favoriti", "Organizacije"];
 
 export interface UserPageBodyProps {
   user: ExtendedUserResponse;
@@ -27,16 +27,16 @@ export const UserPageBody = ({ user }: UserPageBodyProps) => {
   const { user: loggedUser } = useUser();
 
   useEffect(() => {
-    if (availableTabs.includes("Edit")) return;
+    if (availableTabs.includes("Uredi")) return;
     if (
       user.id === loggedUser?.id ||
       loggedUser?.role?.toLowerCase() === "super"
     ) {
       setAvailableTabs((prev) => [
-        "Edit",
-        ...prev.filter((tab) => tab !== "About" && tab !== "Edit"),
+        "Uredi",
+        ...prev.filter((tab) => tab !== "O korisniku" && tab !== "Uredi"),
       ]);
-      setActiveTab("Edit");
+      setActiveTab("Uredi");
     }
   }, [loggedUser, user]);
 
@@ -53,12 +53,10 @@ export const UserPageBody = ({ user }: UserPageBodyProps) => {
           tabs={availableTabs}
           key={"tabRow"}
         />
-        {activeTab === "Edit" && (
+        {activeTab === "Uredi" && (
           <div className={classes.tabContent}>
             <div className={classes.editForm}>
-              <span className={classes.title}>
-                Uredi Profil Korisnika {user.username}
-              </span>
+              <span className={classes.title}>Uredi Profil</span>
               <EditUserForm
                 isSuper={loggedUser?.role?.toLowerCase() === "super"}
                 user={user}
@@ -70,7 +68,7 @@ export const UserPageBody = ({ user }: UserPageBodyProps) => {
             </div>
           </div>
         )}
-        {activeTab === "About" && (
+        {activeTab === "O korisniku" && (
           <div className={classes.tabContent}>
             {
               <UserDescription
@@ -82,7 +80,7 @@ export const UserPageBody = ({ user }: UserPageBodyProps) => {
           </div>
         )}
 
-        {activeTab === "Favourites" && (
+        {activeTab === "Favoriti" && (
           <div className={classes.tabContent}>
             {
               <CardCollection
@@ -99,7 +97,7 @@ export const UserPageBody = ({ user }: UserPageBodyProps) => {
           </div>
         )}
 
-        {activeTab === "Posts" && (
+        {activeTab === "Objave" && (
           <div className={classes.tabContent}>
             {
               <CardCollection
@@ -115,7 +113,7 @@ export const UserPageBody = ({ user }: UserPageBodyProps) => {
           </div>
         )}
 
-        {activeTab === "Likes" && (
+        {activeTab === "Kapljice" && (
           <div className={classes.tabContent}>
             {
               <CardCollection
@@ -131,7 +129,7 @@ export const UserPageBody = ({ user }: UserPageBodyProps) => {
           </div>
         )}
 
-        {activeTab === "Organisations" && (
+        {activeTab === "Organizacije" && (
           <div className={classes.tabContent}>
             {user.memberships && (
               <CardCollection
