@@ -47,11 +47,16 @@ export const SignInForm = () => {
 
   return (
     <form onSubmit={form.handleSubmit(onSubmit)} className={classes.form}>
-      <Input form={form} attribute="email" question="Email" image={email} />
+      <Input
+        form={form}
+        attribute="email"
+        question="Adresa e-pošte"
+        image={email}
+      />
       <Input
         form={form}
         attribute="password"
-        question="Password"
+        question="Lozinka"
         isPassword
         image={password}
         isDisabled={login.isLoading}
@@ -61,29 +66,29 @@ export const SignInForm = () => {
       </span>
       <Modal
         open={open}
-        title="Zaboravljena lozinka"
-        text="Unesite email adresu koju ste koristili prilikom registracije"
+        title="Oporavak lozinke"
+        text="Unesite adresu e-pošte koju ste koristili prilikom registracije"
         actionText="Zatvori"
         deMount={() => setOpen(false)}
       >
         <div className={classes.modalInput}>
           <SingleInput
             onChange={setResetEmail}
-            question="Upišite mail za oporavak"
+            question="Adresa e-pošte za oporavak"
             value={resetEmail}
             image={email}
           />
           <BaseButton
             isNotSubmit
             onClick={sendResetEmail}
-            text="Kliknite botun za slanje maila"
+            text="Pošalji e-poštu za oporavak lozinke"
           />
         </div>
       </Modal>
       <div className={classes.buttons}>
-        <BaseButton text="Sign In" />
+        <BaseButton text="Prijavite se" />
         <Link href="/register">
-          <BaseButton text="Register" initColor={ButtonColor.BLUE} />
+          <BaseButton text="Registrirajte se" initColor={ButtonColor.BLUE} />
         </Link>
       </div>
     </form>
