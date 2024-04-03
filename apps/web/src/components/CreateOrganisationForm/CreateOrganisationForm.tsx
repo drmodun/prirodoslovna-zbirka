@@ -122,14 +122,14 @@ export const OrganisationForm = ({
       <Input
         form={form}
         attribute="name"
-        question="Organisation Name"
+        question="Naziv organizacije"
         image={email}
         error={form.formState.errors.name?.message?.toString()}
       />
 
       <Input
         form={form}
-        attribute="description"
+        attribute="Opis"
         question="Description"
         image={description}
         error={form.formState.errors.description?.message?.toString()}
@@ -138,7 +138,7 @@ export const OrganisationForm = ({
       <Input
         form={form}
         attribute="websiteUrl"
-        question="Official Website url"
+        question="Poveznica na web stranicu"
         image={url}
         error={form.formState.errors.websiteUrl?.message?.toString()}
       />
@@ -159,18 +159,18 @@ export const OrganisationForm = ({
       <Input
         form={form}
         attribute="email"
-        question="Email"
+        question="Adresa e-pošte"
         image={email}
         error={form.formState.errors.email?.message?.toString()}
       />
 
       <FileUpload
-        name="Ovjde stavite glasvnu sliku za vašu organizaciju"
+        name="Prenesite glavnu sliku za vašu organizaciju"
         onChange={setImage}
       />
 
       <div className={classes.buttons}>
-        <BaseButton text={isEdit ? "Uredi" : "Kreiraj"} />
+        <BaseButton text={isEdit ? "Uredi" : "Stvori organizaciju"} />
       </div>
     </form>
   );
