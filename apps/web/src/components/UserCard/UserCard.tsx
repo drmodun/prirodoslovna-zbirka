@@ -27,11 +27,11 @@ export const UserCard = ({ user }: UserCardProps) => (
     <span className={classes.email}>{user.username}</span>
     <div className={classes.info}>
       <div className={clsx(classes.attribute, classes.posts)}>
-        <span>Posts:</span>
+        <span>Broj objava:</span>
         <span>{user.posts.length}</span>
       </div>
       <div className={clsx(classes.attribute, classes.likes)}>
-        <span>Likes:</span>
+        <span>Broj kapljica:</span>
         <span>{user.likeCount}</span>
       </div>
     </div>
@@ -43,7 +43,7 @@ export const UserCard = ({ user }: UserCardProps) => (
           query: { tab: "Followers" },
         }}
       >
-        {user.followerCount} followers
+        {user.followerCount} pratitelja
       </Link>
       <Link
         className={classes.link}
@@ -52,7 +52,7 @@ export const UserCard = ({ user }: UserCardProps) => (
           query: { tab: "Following" }, //this will make a lot more sense later
         }}
       >
-        {user.followingCount} following
+        prati {user.followingCount} korisnika
       </Link>
     </div>
     <UserWrapper>
