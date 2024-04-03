@@ -126,7 +126,7 @@ export const RegisterForm = () => {
         <Input
           form={form}
           attribute="email"
-          question="Email"
+          question="Adresa e-pošte"
           image={email}
           error={form.formState.errors.email?.message?.toString()}
         />
@@ -149,13 +149,12 @@ export const RegisterForm = () => {
           error={form.formState.errors.passwordConfirmation?.message?.toString()}
         />
         <div className={classes.buttons}>
-          <BaseButton text="Register" />
+          <BaseButton text="Registrirajte se" />
           <Link href="/login">
-            <BaseButton text="Sign in" initColor={ButtonColor.BLUE} />
+            <BaseButton text="Prijavite se" initColor={ButtonColor.BLUE} />
           </Link>
         </div>
       </form>
     </>
   );
 };
-
