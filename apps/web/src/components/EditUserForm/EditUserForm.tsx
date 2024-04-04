@@ -145,7 +145,8 @@ export const EditUserForm = ({
             .map((county) => ({
               label: makeCountyName(county),
               value: county,
-            }))}
+            }))
+            .sort((a, b) => a.label.localeCompare(b.label))}
           form={form}
           error={form.formState.errors.location?.message?.toString()}
         />

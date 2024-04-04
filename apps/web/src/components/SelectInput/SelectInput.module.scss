@@ -16,7 +16,7 @@
   border-radius: vw-calc(30);
   align-items: flex-start;
   justify-content: flex-start;
-  border: 1px solid $secondary;
+  border: 1px solid $stroke-color;
 
   @media (max-width: 768px) {
     width: 100%;
@@ -45,6 +45,10 @@
 
     &::placeholder {
       color: $secondary;
+    }
+
+    &:hover {
+      cursor: pointer;
     }
   }
 }
