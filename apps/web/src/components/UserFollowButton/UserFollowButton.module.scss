@@ -6,7 +6,7 @@
   margin-top: vw-calc(20);
   height: vw-calc(60);
   border-radius: vw-calc(20);
-  background: linear-gradient(100deg, $green, $blue);
+  background: $green;
   outline: none;
   border: none;
   font-size: vw-calc(20);
@@ -19,13 +19,11 @@
   }
 
   &.following {
-    background: linear-gradient(100deg, $secondary, $stroke-color);
+    background: #b9b9b9;
   }
 
   &:hover {
     cursor: pointer;
-    transform: scale(1.1);
     opacity: 0.8;
-    font-size: vw-calc(22);
   }
 }
