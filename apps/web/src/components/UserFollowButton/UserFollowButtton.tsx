@@ -35,7 +35,7 @@ export const FollowButton = ({ user }: FollowButtonProps) => {
         title="follow user"
         onClick={toggleFollow}
       >
-        {!isFollow ? "Prati" : "Prestani pratiti"}
+        {!isFollow ? "Zaprati" : "Prestani pratiti"}
       </button>
     )
   );

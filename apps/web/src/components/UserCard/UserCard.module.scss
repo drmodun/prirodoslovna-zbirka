@@ -12,7 +12,7 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  border: 1px solid $secondary;
+  border: 1px solid $stroke-color;
 
   @media screen and (max-width: 768px) {
     width: 100%;
@@ -25,13 +25,14 @@
   .picture {
     width: vw-calc(200);
     height: vw-calc(200);
-    border-radius: 50%;
+    border-radius: 10%;
     margin-bottom: vw-calc(30);
     display: flex;
     position: relative;
-    border: 3px solid $secondary;
+    border: 1px solid $stroke-color;
     justify-content: center;
     align-items: center;
+    overflow: none;
 
     @media screen and (max-width: 768px) {
       width: vw-calc(350);
@@ -43,7 +44,6 @@
     img {
       width: 100%;
       height: 100%;
-      border-radius: 50%;
     }
   }
 
