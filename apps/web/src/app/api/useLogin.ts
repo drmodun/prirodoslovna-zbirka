@@ -16,7 +16,7 @@ export const useLogin = () => {
       localStorage.setItem("access_token", access_token);
       localStorage.setItem("loggedTime", new Date().toISOString());
       toast.success("Logged in successfully!", { id: context?.toastId });
-      window.location.href = "/";
+      window.location.href = "/discover";
     },
     onError: (error: string, _variables, context) => {
       toast.error(error, { id: context?.toastId });
