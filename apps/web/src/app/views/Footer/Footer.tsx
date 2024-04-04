@@ -17,9 +17,7 @@ export const Footer = () => (
         <span className={classes.logoTitle}>Biosfera</span>
       </div>
       <div className={classes.links}>
-        <div className={classes.link}>O projektu</div>
         <div className={classes.link}>Dokumentacija</div>
-        <div className={classes.link}>Kontakt</div>
       </div>
     </div>
   </div>
