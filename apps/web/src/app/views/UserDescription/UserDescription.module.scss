@@ -8,7 +8,7 @@
   justify-content: center;
   gap: vw-calc(25);
   border-radius: vw-calc(20);
-  border: 1px solid $secondary;
+  border: 1px solid $stroke-color;
   padding: vw-calc(20);
 
   .bio {
@@ -39,7 +39,7 @@
     font-size: vw-calc(16);
     font-weight: 400;
     color: $stroke-color;
-    
+
     @media screen and (max-width: 768px) {
       font-size: vw-mobile-calc(6);
     }

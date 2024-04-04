@@ -5,19 +5,12 @@
   display: flex;
   width: 100%;
   min-width: vw-calc(360);
-  box-shadow: 0px vw-calc(10) vw-calc(20) rgba(0, 0, 0, 0.1);
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   min-height: vw-calc(80);
-  padding: vw-calc(10) vw-calc(15);
   border-radius: vw-calc(10);
   transition: all 0.3s ease-in-out;
-
-  &:hover {
-    box-shadow: 0px vw-calc(10) vw-calc(20) rgba(0, 0, 0, 0.1);
-    transform: translateY(vw-calc(5)) scale(1.05);
-  }
 
   @media (max-width: 768px) {
     padding: vw-mobile-calc(10) vw-mobile-calc(15);
@@ -61,7 +54,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    gap: vw-calc(15);
+    gap: vw-calc(5);
 
     @media (max-width: 768px) {
       gap: vw-mobile-calc(10);
