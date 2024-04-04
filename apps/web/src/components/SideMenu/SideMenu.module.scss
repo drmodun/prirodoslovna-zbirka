@@ -7,7 +7,7 @@
   top: 0;
   left: vw-calc(-2000);
   height: 100%;
-  z-index: 2;
+  z-index: 3;
   opacity: 0.3;
   background-color: rgba(0, 0, 0, 0.5);
   transition: transform 0.3s ease-in-out;
@@ -27,7 +27,8 @@
   padding: vw-calc(50) vw-calc(100) vw-calc(50) vw-calc(50);
   background-color: white;
   border-radius: 40px 0 0 40px;
-  box-shadow: 0px 0px 100px 0px rgba(0, 0, 0, 0.2);
+  //box-shadow: 0px 0px 100px 0px rgba(0, 0, 0, 0.2);
+  border: 1px solid $stroke-color;
   transition: transform 0.3s ease-in-out;
   width: vw-calc(800);
   display: flex;
@@ -95,7 +96,6 @@
   }
 
   .userInfoWrapper {
-
     .name {
       font-size: vw-calc(28);
       font-weight: bold;
