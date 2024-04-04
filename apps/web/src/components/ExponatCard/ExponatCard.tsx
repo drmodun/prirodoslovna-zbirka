@@ -47,41 +47,44 @@ export const ExponatCard = ({
         />
       </QueryClientWrapper>
     ) : null}
-    <Link
-      href={`/organisation/${exponat.organizationId}`}
-      className={classes.organisation}
-    >
-      {exponat.organizationName}
-    </Link>
-    <div className={classes.text}>
-      <Link href={`/exponat/${exponat.id}`}>
-        <span className={classes.name}>{exponat.name}</span>
-      </Link>
-      <span className={classes.alternateName}>{exponat.alternateName}</span>
-    </div>
-    <div className={classes.stats}>
-      <span className={classes.favourites}>
-        <div className={classes.favouriteDrop}>
-          <Image src={favouriteDrop} alt="broj favorita" layout="fill" />
-        </div>
-        {exponat.favouriteCount}
-      </span>
-      <div
-        className={clsx(
-          classes.kind,
-          classes[exponat.exponatKind?.toLowerCase()]
-        )}
+
+    <div className={classes.content}>
+      <Link
+        href={`/organisation/${exponat.organizationId}`}
+        className={classes.organisation}
       >
-        {exponat.exponatKind && stringCapitaliser(exponat.exponatKind)}
-      </div>
-    </div>
-    <div className={classes.buttons}>
-      <Link href={`/exponat/${exponat.id}`} className={classes.button}>
-        Pogledaj eksponat
+        {exponat.organizationName}
       </Link>
-      <UserWrapper>
-        <FavouriteButton exponat={exponat} />
-      </UserWrapper>
+      <div className={classes.text}>
+        <Link href={`/exponat/${exponat.id}`}>
+          <span className={classes.name}>{exponat.name}</span>
+        </Link>
+        <span className={classes.alternateName}>{exponat.alternateName}</span>
+      </div>
+      <div className={classes.stats}>
+        <span className={classes.favourites}>
+          <div className={classes.favouriteDrop}>
+            <Image src={favouriteDrop} alt="broj favorita" layout="fill" />
+          </div>
+          {exponat.favouriteCount}
+        </span>
+        <div
+          className={clsx(
+            classes.kind,
+            classes[exponat.exponatKind?.toLowerCase()]
+          )}
+        >
+          {exponat.exponatKind && stringCapitaliser(exponat.exponatKind)}
+        </div>
+      </div>
+      <div className={classes.buttons}>
+        <Link href={`/exponat/${exponat.id}`} className={classes.button}>
+          Pogledaj eksponat
+        </Link>
+        <UserWrapper>
+          <FavouriteButton exponat={exponat} />
+        </UserWrapper>
+      </div>
     </div>
   </div>
 );
