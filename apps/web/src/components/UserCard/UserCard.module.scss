@@ -32,7 +32,7 @@
     border: 1px solid $stroke-color;
     justify-content: center;
     align-items: center;
-    overflow: none;
+    overflow: hidden;
 
     @media screen and (max-width: 768px) {
       width: vw-calc(350);
