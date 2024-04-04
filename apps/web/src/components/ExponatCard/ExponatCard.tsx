@@ -51,7 +51,7 @@ export const ExponatCard = ({
       href={`/organisation/${exponat.organizationId}`}
       className={classes.organisation}
     >
-      by {exponat.organizationName}
+      {exponat.organizationName}
     </Link>
     <div className={classes.text}>
       <Link href={`/exponat/${exponat.id}`}>
