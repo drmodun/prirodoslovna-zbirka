@@ -1,14 +1,15 @@
-import Image from "next/image";
+"use client";
+
 import classes from "./UserCard.module.scss";
 import Link from "next/link";
 import clsx from "clsx";
 import { ExtendedUserResponse } from "@biosfera/types";
 import placeholder from "assets/images/lion.svg";
-import userRandom from "assets/images/user.svg";
 import { UserWrapper } from "@/utility/wrappers/userWrapper";
 import UserFollowButton from "components/UserFollowButton";
 import { getPfpUrl } from "@/utility/static/getPfpUrl";
 import ImageWithFallback from "components/ImageWithFallback/ImageWithFallback";
+import { useGetMe } from "@/api/useGetMe";
 export interface UserCardProps {
   user: ExtendedUserResponse;
 }
@@ -55,13 +56,15 @@ export const UserCard = ({ user }: UserCardProps) => (
         prati {user.followingCount} korisnika
       </Link>
     </div>
-    <UserWrapper>
-      <UserFollowButton
-        user={{
-          ...user,
-          postCount: user.posts.length,
-        }}
-      />
-    </UserWrapper>
+    {user.id !== useGetMe().data?.id ? (
+      <UserWrapper>
+        <UserFollowButton
+          user={{
+            ...user,
+            postCount: user.posts.length,
+          }}
+        />
+      </UserWrapper>
+    ) : null}
   </div>
 );
