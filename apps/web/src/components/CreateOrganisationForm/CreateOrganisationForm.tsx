@@ -41,8 +41,8 @@ export const OrganisationForm = ({
       .max(100, "Ime more imati najvise 100 slova"),
     description: z
       .string()
-      .min(2, "Deskripcija mora imati najmanje 2 slova")
-      .max(200, "Deskripcija mora imati najviše 100 slova"),
+      .min(2, "Opis mora imati najmanje 2 slova")
+      .max(200, "Opis mora imati najviše 100 slova"),
     location: z.enum([
       "SPLITSKO_DALMATINSKA",
       "DUBROVACKO_NERETVANSKA",
@@ -67,8 +67,8 @@ export const OrganisationForm = ({
       "VIROVITICKO_PODRAVSKA",
       "OTHER",
     ]),
-    email: z.string().email("Mail mora biti pravilan"),
-    websiteUrl: z.string().url("Stranica mora biti pravilna"),
+    email: z.string().email("Adresa e-pošte nije pravilnog formata"),
+    websiteUrl: z.string().url("Poveznica nije pravilnog formata"),
   });
 
   const [image, setImage] = useState<File[]>([]);
@@ -129,8 +129,8 @@ export const OrganisationForm = ({
 
       <Input
         form={form}
-        attribute="Opis"
-        question="Opis"
+        attribute="description"
+        question="Description"
         image={description}
         error={form.formState.errors.description?.message?.toString()}
       />
