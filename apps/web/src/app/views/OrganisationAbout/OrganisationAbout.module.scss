@@ -5,10 +5,10 @@
   display: flex;
   flex-direction: row;
   border-radius: vw-calc(20);
-  border: vw-calc(1) solid $secondary;
+  border: vw-calc(1) solid $stroke-color;
   padding: vw-calc(20);
   height: vw-calc(350);
-  width: vw-calc(800);
+  width: 100%;
 
   @media screen and (max-width: 768px) {
     width: vw-mobile-calc(300);
