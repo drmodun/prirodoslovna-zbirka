@@ -10,7 +10,12 @@
   align-items: center;
   min-height: vw-calc(80);
   border-radius: vw-calc(10);
-  transition: all 0.3s ease-in-out;
+  transition: all 150ms ease-in-out;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+    padding: 0 20px;
+  }
 
   @media (max-width: 768px) {
     padding: vw-mobile-calc(10) vw-mobile-calc(15);
