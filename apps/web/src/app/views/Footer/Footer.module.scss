@@ -11,6 +11,10 @@
   height: vw-calc(250);
   position: relative;
 
+  @media screen and (max-width: 768px) {
+      height: vw-calc(500);
+  }
+
   .leaf {
     left: vw-calc(100);
     position: absolute;
@@ -71,7 +75,7 @@
       flex-direction: row;
       gap: vw-calc(20);
       margin-top: vw-calc(20);
-
+        
       .link {
         font-size: vw-calc(14);
         font-weight: 400;
