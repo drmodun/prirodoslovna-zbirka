@@ -10,10 +10,10 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    align-items: flex-start;
+
     margin-bottom: vw-calc(100);
     height: vw-calc(350);
-    gap: vw-calc(50);
+    gap: vw-calc(20);
 
     @media screen and (max-width: 768px) {
       margin-bottom: vw-mobile-calc(20);
@@ -29,7 +29,7 @@
       flex-direction: column;
       align-items: flex-start;
       justify-content: space-around;
-      border-radius: vw-calc(10);
+      border-radius: vw-calc(20);
 
       @media screen and (max-width: 768px) {
         padding: vw-mobile-calc(10);
