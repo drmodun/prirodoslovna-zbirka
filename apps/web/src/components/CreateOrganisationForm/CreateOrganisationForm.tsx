@@ -130,7 +130,7 @@ export const OrganisationForm = ({
       <Input
         form={form}
         attribute="Opis"
-        question="Description"
+        question="Opis"
         image={description}
         error={form.formState.errors.description?.message?.toString()}
       />
