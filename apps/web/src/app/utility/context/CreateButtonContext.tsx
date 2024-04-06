@@ -2,11 +2,20 @@ import { createContext, useContext, useState } from "react";
 
 interface CreateButtonContextProps {
   isVisibleButton: boolean;
-  setIsVisibleButton?: (value: boolean) => void;
+  isVisibleModal?: boolean;
+  hideButton?: () => void;
+  hideModal?: () => void;
+  showButton?: () => void;
+  showModal?: () => void;
 }
 
 const defaultCreateButtonContext: CreateButtonContextProps = {
   isVisibleButton: false,
+  isVisibleModal: false,
+  hideButton: () => {},
+  hideModal: () => {},
+  showButton: () => {},
+  showModal: () => {},
 };
 
 const CreateButtonContext = createContext<CreateButtonContextProps>(
@@ -19,12 +28,33 @@ export const CreateButtonProvider = ({
   children: React.ReactNode;
 }) => {
   const [isVisibleButton, setIsVisibleButton] = useState<boolean>(false);
+  const [isVisibleModal, setIsVisibleModal] = useState<boolean>(false);
+
+  const hideButton = () => {
+    setIsVisibleButton(false);
+  };
+
+  const hideModal = () => {
+    setIsVisibleModal(false);
+  };
+
+  const showButton = () => {
+    setIsVisibleButton(true);
+  };
+
+  const showModal = () => {
+    setIsVisibleModal(true);
+  };
 
   return (
     <CreateButtonContext.Provider
       value={{
         isVisibleButton,
-        setIsVisibleButton,
+        isVisibleModal,
+        hideButton,
+        hideModal,
+        showButton,
+        showModal,
       }}
     >
       {children}
