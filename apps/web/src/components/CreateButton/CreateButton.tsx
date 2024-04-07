@@ -3,11 +3,17 @@ import useCreateButton from "@/utility/context/CreateButtonContext";
 import classes from "./CreateButton.module.css";
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
+import useUser from "@/utility/context/UserContext";
 
 export const CreateButton = () => {
   const { isVisibleButton, hideButton, showModal, showButton } =
     useCreateButton();
+  const { user } = useUser();
   const path = usePathname();
+
+  useEffect(() => {
+    user ? showButton && showButton() : hideButton && hideButton();
+  }, [user, hideButton, showButton]);
 
   useEffect(() => {
     switch (path) {
