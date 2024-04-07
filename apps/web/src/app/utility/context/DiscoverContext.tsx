@@ -1,7 +1,6 @@
 "use client";
 import React, { Dispatch, SetStateAction, useEffect } from "react";
 import { createContext } from "react";
-import useUser from "./UserContext";
 
 interface DiscoverContextProps {
   exponatPage: number;
