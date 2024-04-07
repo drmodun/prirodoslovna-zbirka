@@ -45,7 +45,7 @@ export const RemovePostButton: React.FC<RemovePostButtonProps> = ({
   };
 
   useEffect(() => {
-    onRemove && onRemove(postId);
+    isSuccess && onRemove && onRemove(postId);
   }, [isSuccess]);
 
   return (

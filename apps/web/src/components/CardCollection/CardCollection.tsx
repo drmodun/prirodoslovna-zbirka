@@ -62,12 +62,17 @@ export const CardCollection: React.FC<CardCollectionProps> = ({
   const list = useRef<HTMLDivElement>(null);
 
   const handleDelete = (id: string) => {
+    if (!id) return;
+    console.log(id);
     setItemsToShow((prev) => prev.filter((item) => item.id !== id));
   };
 
   const handleScroll = async () => {
-    if (amount < items.length) {
-      setAmount((prev) => prev + Math.min(pageSize || 20, items.length - prev));
+    if (amount <= items.length) {
+      setAmount(
+        (prev) =>
+          prev + Math.max(Math.min(pageSize || 20, items.length - prev), 0)
+      );
     }
   };
 
@@ -77,6 +82,7 @@ export const CardCollection: React.FC<CardCollectionProps> = ({
 
   useEffect(() => {
     setItemsToShow(items);
+    console.log(items);
   }, [items]);
 
   useEffect(() => {

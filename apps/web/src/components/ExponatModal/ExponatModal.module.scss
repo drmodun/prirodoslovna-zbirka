@@ -52,7 +52,7 @@
     transition: color 0.2s ease-in-out;
 
     @media (max-width: 768px) {
-      font-size: vw-mobile-calc(20);
+      font-size: vw-mobile-calc(8);
     }
 
     &:hover {

@@ -142,8 +142,11 @@
       transition: all 0.3s ease-in-out;
 
       @media screen and (max-width: 768px) {
-        font-size: vw-mobile-calc(8);
+        font-size: vw-mobile-calc(6);
+        word-wrap: break-word;
         min-height: vw-mobile-calc(26);
+        max-height: vw-mobile-calc(32);
+        overflow: hidden;
       }
 
       &:hover {
