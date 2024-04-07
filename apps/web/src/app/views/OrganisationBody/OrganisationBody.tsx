@@ -122,7 +122,6 @@ export const OrganisationBody = ({
           )}
         </div>
       </div>
-      ;
     </div>
   );
 };
