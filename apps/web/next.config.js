@@ -6,6 +6,9 @@ const nextConfig = {
     NEXT_PUBLIC_DOCKER: process?.env?.DOCKER,
     NEXT_PUBLIC_WEB_URL: process?.env?.WEB_URL,
   },
+  experimental: {
+    serverActions: true,
+  },
   images: {
     domains: [
       "localhost",
