@@ -3,13 +3,13 @@
 import { useGetExponatsForOrganisation } from "@/api/useGetExponatsForOrganisation";
 import useCreateButton from "@/utility/context/CreateButtonContext";
 import { zodResolver } from "@hookform/resolvers/zod";
-import classes from "./CreationModal.module.scss";
 import { FieldValues, useForm } from "react-hook-form";
 import { z } from "zod";
 import Modal from "components/BaseModal";
 import { useRouter } from "next/navigation";
 import SelectInput from "components/SelectInput";
 import useUser from "@/utility/context/UserContext";
+import BaseButton from "components/BaseButton";
 
 export const CreationModal = () => {
   const { isVisibleModal, hideButton, hideModal } = useCreateButton();
@@ -41,18 +41,20 @@ export const CreationModal = () => {
   };
 
   const onFormSubmit = async (data: any) => {
+    if (data.type === "post" && data.exponatId === "no-exponats") return;
+
+    hideModal && hideModal();
+
     switch (data.type) {
       case "organisation":
         data.organisationId && router.push(`/createOrganisation`);
         break;
       case "exponat":
         data.organisationId &&
-          router.push(`/organisation/${data.organisationId}/create`);
+          router.push(`/organisation/${data.organisationId}/createExponat`);
         break;
       case "post":
-        if (data.exponatId === "no-exponats") return;
-
-        data.exponatId && router.push(`/exponat/${data.exponatId}/create`);
+        data.exponatId && router.push(`/exponat/${data.exponatId}/createPost`);
         break;
     }
   };
@@ -63,6 +65,8 @@ export const CreationModal = () => {
       deMount={handleClickCloseModal}
       text="Odaberite što želite napraviti"
       open={isVisibleModal || false}
+      actionText="Zatvori"
+      
     >
       <form onSubmit={form.handleSubmit(onFormSubmit)}>
         <SelectInput
@@ -71,8 +75,8 @@ export const CreationModal = () => {
           name="type"
           options={[
             { value: "organisation", label: "Organizacija" },
-            { value: "exponat", label: "Exponat" },
-            { value: "post", label: "Post" },
+            { value: "exponat", label: "Eksponat" },
+            { value: "post", label: "Objava" },
           ]}
         />
         {form.watch("type") !== "organisation" && (
@@ -86,11 +90,12 @@ export const CreationModal = () => {
             }))}
           />
         )}
-        {form.watch("type") === "exponat" && (
+        {form.watch("type") === "post" && (
           <SelectInput
             form={form}
             label="Exponat"
             name="exponatId"
+            isDisabled={!availableExponats?.length}
             options={
               availableExponats?.length
                 ? availableExponats?.map((exponat) => ({
@@ -106,9 +111,7 @@ export const CreationModal = () => {
             }
           />
         )}
-        <button type="submit" className={classes.submitButton}>
-          Kreiraj
-        </button>
+        <BaseButton text="Kreiraj" />
       </form>
     </Modal>
   );

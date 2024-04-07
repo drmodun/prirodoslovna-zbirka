@@ -1,6 +1,6 @@
 "use client";
 import useCreateButton from "@/utility/context/CreateButtonContext";
-import classes from "./CreateButton.module.css";
+import classes from "./CreateButton.module.scss";
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 import useUser from "@/utility/context/UserContext";
@@ -12,55 +12,38 @@ export const CreateButton = () => {
   const path = usePathname();
 
   useEffect(() => {
-    user ? showButton && showButton() : hideButton && hideButton();
-  }, [user, hideButton, showButton]);
+    if (!user) {
+      hideButton && hideButton();
+      return;
+    }
 
-  useEffect(() => {
-    switch (path) {
-      case "/":
-        showButton && showButton();
-        break;
-      case "/discover":
-        showButton && showButton();
-        break;
-      case "/discover/exponat":
-        showButton && showButton();
-        break;
-      case "/discover/organisation":
-        showButton && showButton();
-        break;
-      case "/discover/post":
-        showButton && showButton();
-        break;
-      case "/profile":
-        showButton && showButton();
-        break;
-      case "/profile/[id]":
-        showButton && showButton();
-        break;
-      case "/organisation":
-        showButton && showButton();
-        break;
-      case "/organisation/[id]":
-        showButton && showButton();
-        break;
-      case "/exponat":
-        showButton && showButton();
-        break;
-      case "/exponat/[id]":
-        showButton && showButton();
-        break;
-      case "/post":
-        showButton && showButton();
-        break;
-      case "/post/[id]":
-        showButton && showButton();
-        break;
-      default:
+    switch (path.split("/").toReversed()[0]) {
+      case "createOrganisation":
         hideButton && hideButton();
         break;
+      case "createExponat":
+        hideButton && hideButton();
+        break;
+      case "createPost":
+        hideButton && hideButton();
+        break;
+      case "login":
+        hideButton && hideButton();
+        break;
+      case "register":
+        hideButton && hideButton();
+        break;
+      case "activateUser":
+        hideButton && hideButton();
+        break;
+      case "resetPassword":
+        hideButton && hideButton();
+        break;
+      default:
+        showButton && showButton();
+        break;
     }
-  }, [path, hideButton, showButton]);
+  }, [path, hideButton, showButton, user]);
 
   const handleClickCreateButton = () => {
     hideButton && hideButton();
