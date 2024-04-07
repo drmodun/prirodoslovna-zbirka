@@ -23,9 +23,10 @@ export const ExponatModal = ({ exponat }: ExponatModalProps) => {
         <span className={classes.latinName}>{exponat.alternateName}</span>
         <span className={classes.name}>{exponat.title}</span>
       </div>
-      {!(exponat.exponatKind.toLowerCase() === "mineral") && (
-        <CategorizationCard categorization={exponat.categorization} />
-      )}
+      {!(exponat.exponatKind.toLowerCase() === "mineral") &&
+        exponat.categorization && (
+          <CategorizationCard categorization={exponat.categorization} />
+        )}
       <Link
         href={`/organisation/${exponat.organizationId}`}
         className={classes.orgName}
