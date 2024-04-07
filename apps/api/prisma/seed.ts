@@ -6,7 +6,6 @@ import {
   Role,
 } from '@prisma/client';
 import { env } from 'process';
-import { MemberRoleType } from 'src/members/members.dto';
 const prisma = new PrismaClient();
 
 async function main() {
