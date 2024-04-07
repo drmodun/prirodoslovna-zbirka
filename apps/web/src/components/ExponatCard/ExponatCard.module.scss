@@ -73,6 +73,10 @@
         font-size: vw-calc(17);
         color: $primary;
         display: flex;
+        max-width: 100%;
+        text-align: left;
+        word-wrap: break-word;
+        margin-bottom: vw-calc(5);
 
         @media screen and (max-width: 768px) {
           font-size: vw-mobile-calc(8);
