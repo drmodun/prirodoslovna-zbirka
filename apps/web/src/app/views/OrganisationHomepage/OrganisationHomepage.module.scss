@@ -70,6 +70,7 @@
           cursor: pointer;
           transition: all 0.2s ease-in-out;
           background-color: $green;
+          color: black;
 
           @media screen and (max-width: 768px) {
             width: vw-mobile-calc(70);
