@@ -5,6 +5,7 @@ import classes from "./SingleExponatView.module.scss";
 import useUser from "@/utility/context/UserContext";
 import BaseButton from "components/BaseButton";
 import Link from "next/link";
+import CardCollectionAsync from "components/CardCollectionAsync";
 export interface SingleExponatViewProps {
   exponat: ExponatExtendedResponse;
 }
@@ -26,7 +27,7 @@ export const SingleExponatView = (props: SingleExponatViewProps) => {
         </Link>
       )}
       <span className={classes.title}>Objave</span>
-      <CardCollection
+      {props.exponat.posts.length && <CardCollection
         items={props.exponat.posts}
         type="post"
         sortBy={[
@@ -34,8 +35,8 @@ export const SingleExponatView = (props: SingleExponatViewProps) => {
           { label: "Likeovi", value: "likeScore" },
           { label: "Datum Objave", value: "updatedAt" },
         ]}
-        pageSize={10}
-      />
+        pageSize={12}
+      />}
     </div>
   );
 };

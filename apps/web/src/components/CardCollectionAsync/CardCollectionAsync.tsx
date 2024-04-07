@@ -9,18 +9,15 @@ import { ExponatCard } from "components/ExponatCard";
 import classes from "./CardCollectionAsync.module.scss";
 import MembershipCard from "components/MembershipCard";
 import { PostCard } from "components/PostCard";
-import placeholder from "assets/images/lion.svg";
 import { useEffect, useRef, useState } from "react";
 import dArrow from "assets/images/d-arrow.svg";
 import Image from "next/image";
 import clsx from "clsx";
 import { Indexable } from "@biosfera/types/src/jsonObjects";
-import BaseButton from "components/BaseButton";
 import { useIsInView } from "@/utility/hooks/useIsInView";
 import useUser from "@/utility/context/UserContext";
 import { getPfpUrl } from "@/utility/static/getPfpUrl";
 import OrganisationCard from "components/OrganisationCard";
-import { set } from "react-hook-form";
 
 export interface CardCollectionAsyncProps {
   items: (
