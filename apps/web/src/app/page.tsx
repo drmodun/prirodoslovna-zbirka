@@ -1,4 +1,3 @@
-"use client";
 import c from "./page.module.scss";
 import PlantPicture from "../assets/images/landing-plant.png";
 import ExponatGroupPicture from "../assets/images/exponat-group.png";
@@ -9,10 +8,9 @@ import clsx from "clsx";
 import blogPost from "assets/images/blogPost.svg";
 import organisationCard from "assets/images/organisationCard.png";
 import { useGetMe } from "./api/useGetMe";
+import LandingPageButton from "components/LandingPageButton";
 
 export default function Home() {
-  const { data: me } = useGetMe();
-
   return (
     <main>
       <section className={c.landingSection}>
@@ -22,16 +20,7 @@ export default function Home() {
             Jednostavno prikažite sadržaj prirodoslovne zbirke vaše ustanove u
             samo nekoliko klikova!
           </p>
-
-          {!me ? (
-            <Link href="/login">
-              <BaseButton className={c.button} text="Prijavi se" />
-            </Link>
-          ) : (
-            <Link href="/discover">
-              <BaseButton className={c.button} text="Pregledaj sadržaj" />
-            </Link>
-          )}
+          <LandingPageButton />
         </div>
         <Image className={c.plantImage} src={PlantPicture} alt="plant" />
       </section>
