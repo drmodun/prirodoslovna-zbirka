@@ -17,10 +17,13 @@ export const Footer = () => (
         <span className={classes.logoTitle}>Biosfera</span>
       </div>
       <div className={classes.links}>
-        <div className={classes.link}>Dokumentacija</div>
+        <a
+          href="https://dumphr-my.sharepoint.com/:w:/g/personal/lovre_tomic_dump_hr/ERCBMQLWj1hMpHv6HzS4458BgoE2rqk_4beVCwRbppiahg?e=G9EzIy"
+          className={classes.link}
+        >
+          Dokumentacija
+        </a>
       </div>
     </div>
   </div>
 );
-
-//TODO: make all theese links work

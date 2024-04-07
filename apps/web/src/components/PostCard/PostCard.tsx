@@ -23,7 +23,6 @@ export interface PostCardProps {
 }
 
 //will a post have one or more pictures?
-//TODO: add functionality of like after backend implementation and user context
 //Also a like count somewhere is needed
 
 export const PostCard = ({

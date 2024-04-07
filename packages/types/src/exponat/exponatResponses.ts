@@ -15,7 +15,7 @@ export interface ExponatExtendedResponse {
   attributes: Json;
   createdAt: Date;
   updatedAt: Date;
-  categorization: CategorizationResponse;
+  categorization?: CategorizationResponse;
   posts: PostResponse[];
   favouriteCount: number;
 }
