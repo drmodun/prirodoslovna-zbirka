@@ -10,6 +10,7 @@ import { useRouter } from "next/navigation";
 import SelectInput from "components/SelectInput";
 import useUser from "@/utility/context/UserContext";
 import BaseButton from "components/BaseButton";
+import { useEffect } from "react";
 
 export const CreationModal = () => {
   const { isVisibleModal, hideButton, hideModal } = useCreateButton();
@@ -31,9 +32,17 @@ export const CreationModal = () => {
     } as FieldValues,
   });
 
+  useEffect(() => {
+    form.setValue("organisationId", memberships[0]?.id);
+  }, [memberships, form, form.watch("type")]);
+
   const { data: availableExponats } = useGetExponatsForOrganisation(
     form.watch("organisationId")?.toLowerCase()
   );
+
+  useEffect(() => {
+    form.setValue("exponatId", availableExponats?.[0]?.id);
+  }, [availableExponats, form]);
 
   const handleClickCloseModal = () => {
     hideButton && hideButton();
@@ -66,7 +75,6 @@ export const CreationModal = () => {
       text="Odaberite što želite napraviti"
       open={isVisibleModal || false}
       actionText="Zatvori"
-      
     >
       <form onSubmit={form.handleSubmit(onFormSubmit)}>
         <SelectInput
