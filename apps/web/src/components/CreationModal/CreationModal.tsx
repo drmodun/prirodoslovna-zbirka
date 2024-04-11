@@ -56,7 +56,7 @@ export const CreationModal = () => {
 
     switch (data.type) {
       case "organisation":
-        data.organisationId && router.push(`/createOrganisation`);
+        router.push(`/createOrganisation`);
         break;
       case "exponat":
         data.organisationId &&

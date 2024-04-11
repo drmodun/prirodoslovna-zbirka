@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "npx dotenv-cli next start",
     "build": "next build",
     "start": "npx dotenv-cli next start",
     "lint": "next lint",
