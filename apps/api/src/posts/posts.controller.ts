@@ -95,6 +95,7 @@ export class PostsController {
         thumbnail: post.thumbnailImage,
         likeScore: post._count.Likes,
         title: post.title,
+        updatedAt: post.updatedAt,
         organisationId: post.Exponat.organisationId,
       } as PostResponse;
     });

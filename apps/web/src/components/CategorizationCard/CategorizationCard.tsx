@@ -27,20 +27,11 @@ export const CategorizationCard = ({
       {orderedCategorization.map((key) => {
         return (
           <div key={key} className={classes.categorization}>
-            <Link
-              href={{
-                pathname: `/categorization/${key}/${
-                  (categorization as Indexable)[key]
-                }`,
-                query: {
-                  [key]: (categorization as Indexable)[key],
-                },
-              }}
-            >
+            <span>
               <div className={classes.categorizationValue}>
                 {(categorization as Indexable)[key]}
               </div>
-            </Link>
+            </span>
             {key !== "genus" && (
               <div className={classes.image}>
                 <Image src={rArrow} alt="arrow" />

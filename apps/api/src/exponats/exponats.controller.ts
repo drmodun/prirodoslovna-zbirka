@@ -180,7 +180,7 @@ export class ExponatsController {
       title: item.name,
       ...(isAdmin && { isApproved: item.isApproved }),
       attributes: item.attributes,
-      categorization: {
+      categorization: item.Categorization && {
         class: item.Categorization.class,
         domain: item.Categorization.domain,
         family: item.Categorization.family,

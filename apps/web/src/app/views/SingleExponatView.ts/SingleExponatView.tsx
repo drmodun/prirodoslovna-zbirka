@@ -27,7 +27,7 @@ export const SingleExponatView = (props: SingleExponatViewProps) => {
         </Link>
       )}
       <span className={classes.title}>Objave</span>
-      {props.exponat.posts.length && <CardCollection
+      <CardCollection
         items={props.exponat.posts}
         type="post"
         sortBy={[
@@ -36,7 +36,7 @@ export const SingleExponatView = (props: SingleExponatViewProps) => {
           { label: "Datum Objave", value: "updatedAt" },
         ]}
         pageSize={12}
-      />}
+      />
     </div>
   );
 };

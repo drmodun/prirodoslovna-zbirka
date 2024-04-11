@@ -9,12 +9,12 @@ export const LandingPageButton = () => {
   const { user } = useUser();
 
   return !user ? (
-    <Link href="/login">
-      <BaseButton className={classes.button} text="Prijavi se" />
+    <Link className={classes.buttons} href="/login">
+      <BaseButton text="Prijavi se" />
     </Link>
   ) : (
-    <Link href="/discover">
-      <BaseButton className={classes.button} text="Pregledaj sadržaj" />
+    <Link href="/discover" className={classes.buttons}>
+      <BaseButton text="Pregledaj sadržaj" />
     </Link>
   );
 };
