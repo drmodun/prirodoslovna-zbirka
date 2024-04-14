@@ -9,6 +9,7 @@ import SideMenu from "components/SideMenu";
 import { SideMenuWrapper } from "./utility/wrappers/sideMenuWrapper";
 import { DiscoverWrapper } from "./utility/wrappers/discoverWrapper";
 import { CreateWrapper } from "./utility/wrappers/createWrapper";
+import { ReactLenis, useLenis } from "@studio-freight/react-lenis";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -26,17 +27,17 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <SideMenuWrapper>
-          <DiscoverWrapper>
-            <Header />
-            <BodyWrapper>
-              <Toaster />
+        <DiscoverWrapper>
+          <Header />
+          <BodyWrapper>
+            <Toaster />
+            <SideMenuWrapper>
               <CreateWrapper>{children}</CreateWrapper>
-            </BodyWrapper>
-            <Footer />
-            <SideMenu />
-          </DiscoverWrapper>
-        </SideMenuWrapper>
+            </SideMenuWrapper>
+          </BodyWrapper>
+          <Footer />
+          <SideMenu />
+        </DiscoverWrapper>
       </body>
     </html>
   );

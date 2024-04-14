@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "npx dotenv-cli next build",
     "start": "npx dotenv-cli next start",
     "lint": "next lint",
     "test": "jest",
@@ -20,6 +20,7 @@
     "@mui/material": "^5.15.0",
     "@mui/x-data-grid": "^6.13.0",
     "@mui/x-date-pickers": "^6.12.1",
+    "@studio-freight/react-lenis": "^0.0.47",
     "axios": "^1.6.0",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.0",
@@ -33,16 +34,16 @@
     "react-hook-form": "^7.47.0",
     "react-hot-toast": "^2.4.1",
     "react-query": "^3.39.3",
-    "sass": "^1.74.1",
+    "sass": "^1.75.0",
     "zod": "^3.22.4"
   },
   "devDependencies": {
-    "sass": "^1.74.1",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "eslint": "^8.10.0",
     "eslint-config-next": "^14.1.0",
+    "sass": "^1.74.1",
     "typescript": "^5"
   }
 }
