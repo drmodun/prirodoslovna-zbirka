@@ -5,6 +5,7 @@ import CategorizationCard from "components/CategorizationCard";
 import Link from "next/link";
 import ImageWithFallback from "components/ImageWithFallback/ImageWithFallback";
 import QrCodeGenerator from "components/QrCodeButton";
+import ShareButton from "components/ShareButton";
 export interface ExponatModalProps {
   exponat: ExponatExtendedResponse;
 }
@@ -26,6 +27,10 @@ export const ExponatModal = ({ exponat }: ExponatModalProps) => {
       </div>
       <div className={classes.actions}>
         <QrCodeGenerator name={exponat.title} />
+        <ShareButton
+          title={exponat.title}
+          text={`Pogledajte eksponat ${exponat.title} na biosfera.trema.hr`}
+        />
       </div>
       {!(exponat.exponatKind.toLowerCase() === "mineral") &&
         exponat.categorization && (

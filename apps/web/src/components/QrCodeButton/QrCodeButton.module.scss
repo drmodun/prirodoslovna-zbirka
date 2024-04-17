@@ -20,8 +20,7 @@
     transition:
       background-color 0.2s ease-in-out,
       color 0.2s ease-in-out,
-      height 0.2s ease-in-out,
-      width 0.2s ease-in-out;
+      transform 0.2s ease-in-out;
 
     @media (max-width: 768px) {
       height: vw-mobile-calc(20);
@@ -34,12 +33,11 @@
       cursor: pointer;
       background-color: $secondary;
       color: $actions-backround;
-      height: vw-calc(50);
-      width: 120%;
+      transform: scale(1.1);
 
       @media (max-width: 768px) {
         height: vw-mobile-calc(25);
-        width: 120%;
+        transform: scale(1.1);
       }
     }
 
