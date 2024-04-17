@@ -12,12 +12,14 @@
   padding: 8px;
   margin: 0;
   align-self: start;
+  transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
   display: flex;
     justify-content: center;
     align-items: center;
 
   &:hover {
     cursor: pointer;
+    transform: scale(1.1);
     background-color: rgba(0, 0, 0, 0.15);
   }
 

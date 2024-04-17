@@ -10,6 +10,8 @@ import { useToggleLike } from "@/api/useToggleLike";
 import ImageWithFallback from "components/ImageWithFallback/ImageWithFallback";
 import { getPfpUrl } from "@/utility/static/getPfpUrl";
 import { useEffect } from "react";
+import QrCodeGenerator from "components/QrCodeButton";
+import ShareButton from "components/ShareButton";
 
 export interface PostViewProps {
   post: PostResponseExtended;
@@ -24,13 +26,17 @@ export const PostView = ({ post }: PostViewProps) => {
       </div>
       <div className={classes.info}>
         <div className={classes.authorImage}>
-          <ImageWithFallback
-            src={getPfpUrl(post.authorId)}
-            alt={post.authorName}
-            layout="fill"
-          />
+          <Link href={`/user/${post.authorId}`}>
+            <ImageWithFallback
+              src={getPfpUrl(post.authorId)}
+              alt={post.authorName}
+              layout="fill"
+            />
+          </Link>
         </div>
-        <span className={classes.authorName}>{post.authorFullName}</span>
+        <Link href={`/user/${post.authorId}`}>
+          <span className={classes.authorName}>{post.authorFullName}</span>
+        </Link>
         <span className={classes.updated}>{dateShortener(post.updatedAt)}</span>
       </div>
       <div className={classes.title}>
@@ -40,6 +46,11 @@ export const PostView = ({ post }: PostViewProps) => {
         <Link href={`/exponat/${post.exponatId}`} className={classes.button}>
           Pogledaj eksponat
         </Link>
+        <QrCodeGenerator name={post.title} isIcon />
+        <ShareButton
+          title={post.title}
+          text={`Pogledajte post ${post.title} na biosfera.trema.hr`}
+        />
       </div>
       <div className={classes.text}>
         <span>{post.content}</span>

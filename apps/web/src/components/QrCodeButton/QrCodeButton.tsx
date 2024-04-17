@@ -7,12 +7,16 @@ import * as htmlToImage from "html-to-image";
 import toast from "react-hot-toast";
 import Modal from "components/BaseModal";
 import BaseButton from "components/BaseButton";
+import clsx from "clsx";
+import qrCodeIcon from "assets/icons/qr-code.svg";
+import Image from "next/image";
 
 interface QrCodeButtonProps {
   name: string;
+  isIcon?: boolean;
 }
 
-function QrCodeGenerator({ name }: QrCodeButtonProps) {
+function QrCodeGenerator({ isIcon, name }: QrCodeButtonProps) {
   const qrCodeRef = useRef<HTMLDivElement>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const url = window.location.href;
@@ -39,8 +43,15 @@ function QrCodeGenerator({ name }: QrCodeButtonProps) {
     setIsModalOpen(false);
   };
   return (
-    <button onClick={handleGenerateClick} className={classes.container}>
-      Generiraj QR kod
+    <button
+      onClick={handleGenerateClick}
+      className={clsx(classes.container, isIcon && classes.icon)}
+    >
+      {isIcon ? (
+        <Image src={qrCodeIcon} alt="qr code" />
+      ) : (
+        <span>Generiraj QR kod</span>
+      )}
       <Modal
         open={isModalOpen}
         deMount={handleModalClose}

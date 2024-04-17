@@ -99,7 +99,7 @@
     }
 
     .button {
-      height: vw-calc(40);
+      height: vw-calc(45);
       font-size: vw-calc(16);
       outline: none;
       border: 1px solid $secondary;
@@ -113,8 +113,8 @@
       color: $secondary;
 
       @media (max-width: 768px) {
-        height: vw-mobile-calc(30);
-        font-size: vw-mobile-calc(12);
+        height: vw-mobile-calc(20);
+        font-size: vw-mobile-calc(10);
       }
 
       background-color: $background-color;

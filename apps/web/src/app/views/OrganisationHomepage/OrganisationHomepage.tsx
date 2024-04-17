@@ -13,6 +13,8 @@ import useUser from "@/utility/context/UserContext";
 import { useFollowOrganisation } from "@/api/useFollowOrganisation";
 import { useLeaveMembership } from "@/api/useLeaveOrganisation";
 import { useRequestMembership } from "@/api/useRequestMembership";
+import QrCodeGenerator from "components/QrCodeButton";
+import ShareButton from "components/ShareButton";
 
 export interface OrganisationHomepageProps {
   organisation: ExtendedOrganisationResponse;
@@ -119,6 +121,13 @@ export const OrganisationHomepage = ({
               <span className={classes.actionStat}>
                 {organisation.membersAmount}
               </span>
+            </div>
+            <div className={classes.social}>
+              <QrCodeGenerator name={organisation.name} isIcon />
+              <ShareButton
+                text={`Podijelite profil organizacije ${organisation.name}`}
+                title={organisation.name}
+              />
             </div>
             <div className={classes.stats}>
               <div className={classes.bigStat}>
