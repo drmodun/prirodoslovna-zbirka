@@ -39,7 +39,7 @@
         margin-bottom: vw-calc(20);
 
         @media screen and (max-width: 768px) {
-          font-size: vw-mobile-calc(15);
+          font-size: vw-mobile-calc(18);
         }
       }
 
@@ -68,8 +68,8 @@
         }
 
         @media screen and (max-width: 768px) {
-          font-size: vw-mobile-calc(6);
-          height: vw-mobile-calc(30);
+          font-size: vw-mobile-calc(8);
+          height: vw-mobile-calc(60);
         }
       }
     }

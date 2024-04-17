@@ -17,7 +17,7 @@
 
     @media screen and (max-width: 768px) {
       margin-bottom: vw-mobile-calc(20);
-      height: vw-mobile-calc(120);
+      height: vw-mobile-calc(150);
     }
 
     .actions {
@@ -43,7 +43,7 @@
         font-weight: 700;
 
         @media screen and (max-width: 768px) {
-          font-size: vw-mobile-calc(10);
+          font-size: vw-mobile-calc(12);
         }
       }
 
@@ -149,6 +149,14 @@
           }
         }
       }
+    }
+    
+    .social{
+      margin-top: vw-calc(20);
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      gap: vw-calc(20);
     }
   }
 

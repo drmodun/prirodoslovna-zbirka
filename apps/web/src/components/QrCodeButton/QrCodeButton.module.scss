@@ -1,66 +1,91 @@
 @import "styles/variables.scss";
 @import "styles/calc.scss";
- 
+
 .container {
+  height: vw-calc(45);
+  width: 100%;
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+  background-color: $actions-backround;
+
+  font-size: vw-calc(16);
+  font-weight: 600;
+  color: $secondary;
+
+  margin-bottom: vw-calc(40);
+  border: 1.5px solid $secondary;
+  border-radius: vw-calc(10);
+  transition:
+    background-color 0.2s ease-in-out,
+    color 0.2s ease-in-out,
+    transform 0.2s ease-in-out;
+
+  @media (max-width: 768px) {
+    height: vw-mobile-calc(20);
+    font-size: vw-mobile-calc(10);
+    margin-bottom: vw-mobile-calc(20);
+    border-radius: vw-mobile-calc(5);
+  }
+
+  &:hover {
+    cursor: pointer;
+    background-color: $secondary;
+    color: $actions-backround;
+    transform: scale(1.1);
+
+  }
+
+  &.icon {
     height: vw-calc(45);
-    width: 100%;
+    width: vw-calc(45);
+    background-color: rgba(0, 0, 0, 0.08);
+    transition: 200ms;
+    border: none;
+    border-radius: 100px;
+    box-sizing: border-box;
+    padding: 8px;
+    margin: 0;
+    align-self: start;
     display: flex;
-
-    align-items: center;
     justify-content: center;
-    background-color: $actions-backround;
-
-    font-size: vw-calc(16);
-    font-weight: 600;
-    color: $secondary;
-
-    margin-bottom: vw-calc(40);
-    border: 1.5px solid $secondary;
-    border-radius: vw-calc(10);
-    transition:
-      background-color 0.2s ease-in-out,
-      color 0.2s ease-in-out,
-      transform 0.2s ease-in-out;
-
-    @media (max-width: 768px) {
-      height: vw-mobile-calc(20);
-      font-size: vw-mobile-calc(10);
-      margin-bottom: vw-mobile-calc(20);
-      border-radius: vw-mobile-calc(5);
-    }
+    align-items: center;
 
     &:hover {
       cursor: pointer;
-      background-color: $secondary;
-      color: $actions-backround;
-      transform: scale(1.1);
-
-      @media (max-width: 768px) {
-        height: vw-mobile-calc(25);
-        transform: scale(1.1);
-      }
+      background-color: rgba(0, 0, 0, 0.15);
     }
 
-}
-
-.qrCode{
-    width: auto;
-    display: flex;
-    height: vw-calc(300);
-    align-items: center;
-    position: relative;
-    justify-content: center;
+    img {
+      width: 80%;
+      height: 80%;
+      object-fit: cover;
+    }
 
     @media (max-width: 768px) {
-        width: auto;
-        height: vw-mobile-calc(150);
+      height: vw-mobile-calc(20);
+      width: vw-mobile-calc(20);
     }
+  }
+}
 
-    svg {
-        width: 100%;
-        height: 100%;
-        align-items: center;
-    }
+.qrCode {
+  width: auto;
+  display: flex;
+  height: vw-calc(300);
+  align-items: center;
+  position: relative;
+  justify-content: center;
 
-    
+  @media (max-width: 768px) {
+    width: auto;
+    height: vw-mobile-calc(150);
+  }
+
+  svg {
+    width: 100%;
+    height: 100%;
+    align-items: center;
+  }
 }

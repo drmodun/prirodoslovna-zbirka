@@ -74,6 +74,7 @@ export const UserPageBody = ({ user }: UserPageBodyProps) => {
               <UserDescription
                 bio={user.bio || "Nema opisa korisnika"}
                 county={user.location}
+                username={user.username}
                 lastUpdated={user.updatedAt}
               />
             }
