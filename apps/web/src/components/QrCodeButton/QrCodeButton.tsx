@@ -1,18 +1,21 @@
+"use client";
+
 import { useRef, useState } from "react";
 import QRCode from "react-qr-code";
-import classes from "./QrCodeButton.module.css";
+import classes from "./QrCodeButton.module.scss";
 import * as htmlToImage from "html-to-image";
 import toast from "react-hot-toast";
 import Modal from "components/BaseModal";
+import BaseButton from "components/BaseButton";
 
 interface QrCodeButtonProps {
-  url: string;
   name: string;
 }
 
-function QrCodeGenerator({ url, name }: QrCodeButtonProps) {
+function QrCodeGenerator({ name }: QrCodeButtonProps) {
   const qrCodeRef = useRef<HTMLDivElement>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const url = window.location.href;
 
   const downloadQRCode = () => {
     htmlToImage
@@ -35,20 +38,21 @@ function QrCodeGenerator({ url, name }: QrCodeButtonProps) {
   const handleModalClose = () => {
     setIsModalOpen(false);
   };
-
-  <button onClick={handleGenerateClick} className={classes.container}>
-    Generiraj QR kod
-    <Modal
-      open={isModalOpen}
-      deMount={handleModalClose}
-      text="Vaš QR kod"
-      title={`QR kod: ${name}`}
-    >
-      <div ref={qrCodeRef}>
-        <QRCode value={url} />
-      </div>
-      <button onClick={downloadQRCode}>Preuzmi QR kod</button>
-    </Modal>
-  </button>;
+  return (
+    <button onClick={handleGenerateClick} className={classes.container}>
+      Generiraj QR kod
+      <Modal
+        open={isModalOpen}
+        deMount={handleModalClose}
+        text="Vaš QR kod"
+        title={`QR kod: ${name}`}
+      >
+        <div className={classes.qrCode} ref={qrCodeRef}>
+          <QRCode value={url} size={500} />
+        </div>
+        <BaseButton text="Preuzmi QR kod" onClick={downloadQRCode}></BaseButton>
+      </Modal>
+    </button>
+  );
 }
 export default QrCodeGenerator;
