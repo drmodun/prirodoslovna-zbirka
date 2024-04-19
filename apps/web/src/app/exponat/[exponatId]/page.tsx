@@ -14,8 +14,7 @@ const ExponatPage = async ({ params }: { params: any }) => {
     params.exponatId
   );
 
-  const gpt =
-    exponatInfo && (await exponatInfoPrompt(exponatInfo.alternateName));
+  const gpt = exponatInfo && exponatInfoPrompt(exponatInfo.alternateName);
 
   return exponatInfo ? (
     <div className={classes.container}>
