@@ -6,21 +6,43 @@ import useUser from "@/utility/context/UserContext";
 import BaseButton from "components/BaseButton";
 import Link from "next/link";
 import CardCollectionAsync from "components/CardCollectionAsync";
+import { useEffect, useState } from "react";
+import Image from "next/image";
+import chatgpt from "assets/images/gpt.svg";
 export interface SingleExponatViewProps {
   exponat: ExponatExtendedResponse;
-  generatedDescription?: string;
+  generatedDescription?: Promise<string>;
 }
 
 export const SingleExponatView = (props: SingleExponatViewProps) => {
   const { memberships } = useUser();
+  const [description, setDescription] = useState<string | null>(null);
+
+  const handleDescription = async () => {
+    setDescription(await props.generatedDescription!);
+  };
+
+  useEffect(() => {
+    if (props.generatedDescription) {
+      handleDescription();
+    }
+  }, []);
+
   return (
     <div className={classes.container}>
       {props.generatedDescription && (
         <div className={classes.desc}>
-          <span className={classes.title}>
-            AI generirani kratki opis eksponata
-          </span>
-          <pre className={classes.text}>{props.generatedDescription}</pre>
+          <div className={classes.header}>
+            <div className={classes.icon}>
+              <Image src={chatgpt} alt="chatgpt" layout="fill" />
+            </div>
+            <span className={classes.title}>
+              AI generirani kratki opis eksponata
+            </span>
+          </div>
+          <pre className={classes.text}>
+            {description ? description : "Učitavanje..."}
+          </pre>
           <span className={classes.warning}>
             Molimo vas da provjerite točnost informacija, AI postaje sve bolji
             ali dalje relativno često zna griješiti

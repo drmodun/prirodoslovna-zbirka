@@ -18,7 +18,7 @@ export const getGPT = async (prompt: string) => {
     const response = await fetch(gptUrl, {
       ...options,
       body: JSON.stringify({
-        model: "gpt-3.5-turbo",
+        model: "gpt-3.5-turbo-0125",
         max_tokens: 400,
         messages: [{ role: "user", content: prompt }],
       }),
