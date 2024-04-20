@@ -3,12 +3,15 @@ import { ExponatExtendedResponse } from "@biosfera/types";
 import CardCollection from "components/CardCollection";
 import classes from "./SingleExponatView.module.scss";
 import useUser from "@/utility/context/UserContext";
+import AudioPlayer from "react-h5-audio-player";
 import BaseButton from "components/BaseButton";
 import Link from "next/link";
 import CardCollectionAsync from "components/CardCollectionAsync";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import chatgpt from "assets/images/gpt.svg";
+import { LoaderIcon } from "react-hot-toast";
+import AudioButton from "components/AudioButton";
 export interface SingleExponatViewProps {
   exponat: ExponatExtendedResponse;
   generatedDescription?: Promise<string>;
@@ -49,10 +52,10 @@ export const SingleExponatView = (props: SingleExponatViewProps) => {
             <span className={classes.title}>
               AI generirani kratki opis eksponata
             </span>
-            {audioDescription && (
-              <audio controls className={classes.audio}>
-                <source src={audioDescription} />
-              </audio>
+            {audioDescription ? (
+              <AudioButton src={audioDescription} />
+            ) : (
+              <LoaderIcon />
             )}
           </div>
           <pre className={classes.text}>

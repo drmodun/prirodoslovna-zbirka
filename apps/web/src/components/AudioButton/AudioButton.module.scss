@@ -1,0 +1,56 @@
+@import "styles/variables.scss";
+@import "styles/calc.scss";
+
+.container {
+  display: flex;
+  width: vw-calc(40);
+  min-height: vw-calc(40);
+  position: relative;
+
+  @media (max-width: 768px) {
+    width: vw-mobile-calc(20);
+    height: vw-mobile-calc(20);
+  }
+}
+
+.play {
+  width: vw-calc(40);
+  height: vw-calc(40);
+  background-color: $eucariot-color;
+  border-radius: 50%;
+  border: none;
+  box-shadow: 0 0 vw-calc(8) rgba(0, 0, 0, 0.15);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  transition: background-color 0.2s ease-in-out;
+
+  @media (max-width: 768px) {
+    width: vw-mobile-calc(20);
+    height: vw-mobile-calc(20);
+  }
+
+  img {
+    width: vw-calc(20);
+    height: vw-calc(20);
+
+    @media (max-width: 768px) {
+      width: vw-mobile-calc(10);
+      height: vw-mobile-calc(10);
+    }
+  }
+
+  &:hover {
+    cursor: pointer;
+    background-color: $green;
+  }
+
+  &.playing {
+    background-color: $stroke-color;
+
+    &:hover {
+      background-color: $secondary;
+    }
+  }
+}
