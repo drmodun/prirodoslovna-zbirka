@@ -15,7 +15,8 @@ const ExponatPage = async ({ params }: { params: any }) => {
   );
 
   const gpt = exponatInfo && exponatInfoPrompt(exponatInfo.alternateName);
-  const audio = gpt && gpt.then((res) => ttsPrompt(res));
+  const audio =
+    exponatInfo && gpt.then((res) => ttsPrompt(res, "exponat", exponatInfo.id));
 
   return exponatInfo ? (
     <div className={classes.container}>

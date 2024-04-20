@@ -4,12 +4,16 @@ import next from "next";
 import { OpenAI } from "openai";
 const fs = require("fs");
 import { Readable } from "stream";
+import { getBaseUrl } from "./getUrlServer";
+import { headers } from "next/headers";
 
 const key = process.env.OPENAI_API_KEY;
 const gptUrl = "https://api.openai.com/v1/chat/completions";
 
 const googleKey = process.env.GOOGLE_CLOUD_API_KEY;
 const ttsUrl = `https://texttospeech.googleapis.com/v1/text:synthesize?key=${googleKey}`;
+
+const s3Path = process.env.S3_PATH;
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -75,12 +79,25 @@ export const whisperPrompt = async (audio: any) => {
   }
 };
 
-export const ttsPrompt = async (text: string) => {
+export const ttsPrompt = async (
+  text: string,
+  directory: string,
+  id: string
+) => {
   const body = {
     input: { text: text },
     voice: { languageCode: "sr-RS", name: "sr-RS-Standard-A" },
     audioConfig: { audioEncoding: "LINEAR16", pitch: 0 },
   };
+
+  const exists = await fetch(`${s3Path}audio-${directory}/${id}`, {
+    method: "HEAD",
+  });
+
+  if (exists.ok) {
+    console.log("exists");
+    return `${s3Path}audio-${directory}/${id}`;
+  }
 
   try {
     const response = await fetch(ttsUrl, {
@@ -89,11 +106,25 @@ export const ttsPrompt = async (text: string) => {
       headers: {
         "Content-Type": "application/json",
       },
-      cache: "force-cache",
     });
 
     const audio = await response.json();
-    return audio.audioContent;
+    const buffer = Buffer.from(audio.audioContent, "base64");
+    const file = new File([buffer], `${id}.wav`, { type: "audio/wav" });
+    const request = new FormData();
+    request.append("file", file);
+
+    console.log(`${getBaseUrl()}/blobs/audio-${directory}/${id}`);
+
+    const url = await fetch(`${getBaseUrl()}/blobs/audio-${directory}/${id}`, {
+      method: "POST",
+      body: request,
+    });
+
+    const data = await url.text();
+    console.log(data, "sdad");
+
+    return data;
   } catch (error) {
     console.log("sd", error);
   }

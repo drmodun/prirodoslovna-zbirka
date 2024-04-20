@@ -5,6 +5,7 @@ import { getBaseUrl } from "./getUrlServer";
 export const _postQuery = getPostQuery();
 export class PostQuery extends _postQuery {}
 
+
 export const getPosts = async (queryDto: PostQuery, page?: number) => {
   try {
     if (queryDto.attribute === "name") queryDto.attribute = SortingEnum.TITLE;

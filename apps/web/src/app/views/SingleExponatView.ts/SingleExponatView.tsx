@@ -51,7 +51,7 @@ export const SingleExponatView = (props: SingleExponatViewProps) => {
             </span>
             {audioDescription && (
               <audio controls className={classes.audio}>
-                <source src={`data:audio/wav;base64,${audioDescription}`} />
+                <source src={audioDescription} />
               </audio>
             )}
           </div>

@@ -56,6 +56,20 @@
         }
       }
 
+      .audio {
+        height: vw-calc(50);
+        margin-right: vw-calc(10);
+        position: relative;
+        display: flex;
+
+        @media (max-width: 768px) {
+          width: vw-mobile-calc(30);
+          height: vw-mobile-calc(30);
+          margin-right: vw-mobile-calc(5);
+
+          
+      }
+
       .title {
         color: $button-text-color;
         font-size: vw-calc(20);
