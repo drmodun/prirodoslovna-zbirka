@@ -5,6 +5,7 @@ import Image from "next/image";
 import { InputResult } from "@/shared/enums";
 import clsx from "clsx";
 import ErrorText from "components/Error";
+import SpeechToText from "components/SpeechToText";
 interface TextareaProps {
   question: string;
   attribute: string;
@@ -40,6 +41,7 @@ export const Textarea = ({
           placeholder={question}
           rows={minRows}
         />
+        <SpeechToText onText={(text) => form.setValue(attribute, text)} />
       </div>
       <ErrorText message={error} />
     </div>

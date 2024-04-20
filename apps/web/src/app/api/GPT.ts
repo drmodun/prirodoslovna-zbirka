@@ -1,7 +1,16 @@
+"use server";
+
 import next from "next";
+import { OpenAI } from "openai";
+const fs = require("fs");
+import { Readable } from "stream";
 
 const key = process.env.OPENAI_API_KEY;
 const gptUrl = "https://api.openai.com/v1/chat/completions";
+
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY,
+});
 
 const options = {
   headers: {
@@ -39,4 +48,28 @@ export const exponatInfoPrompt = async (exponat: any) => {
   const response = await getGPT(prompt);
   console.log(response.choices[0].message);
   return response.choices[0].message.content;
+};
+
+export const whisperPrompt = async (audio: any) => {
+  const buffer = Buffer.from(audio, "base64");
+  const filePath = "./tmp/input.wav";
+  if (!key) return;
+
+  try {
+    const readStream = Readable.from(buffer);
+    const file = new File([buffer], "input.wav", { type: "audio/wav" });
+    openai.apiKey = key!;
+
+    const response = await openai.audio.transcriptions.create({
+      file: file,
+      model: "whisper-1",
+      language: "hr",
+    });
+
+    console.log(response);
+
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
 };

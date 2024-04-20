@@ -1,0 +1,45 @@
+@import "styles/variables.scss";
+@import "styles/calc.scss";
+
+.container {
+  height: vw-calc(45);
+  width: vw-calc(45);
+  background-color: rgba(0, 0, 0, 0.08);
+  transition: 200ms;
+  border: none;
+  border-radius: 100px;
+  box-sizing: border-box;
+  padding: 8px;
+  margin: 0;
+  align-self: start;
+  transition:
+    background-color 0.2s ease-in-out,
+    transform 0.2s ease-in-out;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+    background-color: rgba(0, 0, 0, 0.15);
+  }
+
+  .icon {
+    width: 80%;
+    height: 80%;
+    object-fit: cover;
+    position: relative;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  @media (max-width: 768px) {
+    height: vw-mobile-calc(20);
+    width: vw-mobile-calc(20);
+  }
+}
