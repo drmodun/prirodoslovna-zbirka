@@ -15,7 +15,7 @@ import AudioButton from "components/AudioButton";
 export interface SingleExponatViewProps {
   exponat: ExponatExtendedResponse;
   generatedDescription?: Promise<string>;
-  audioDescription?: Promise<string>;
+  audioDescription?: Promise<string | undefined>;
 }
 
 export const SingleExponatView = (props: SingleExponatViewProps) => {
@@ -28,7 +28,7 @@ export const SingleExponatView = (props: SingleExponatViewProps) => {
   };
 
   const handleAudioDescription = async () => {
-    setAudioDescription(await props.audioDescription!);
+    setAudioDescription((await props.audioDescription!) as string);
   };
 
   useEffect(() => {

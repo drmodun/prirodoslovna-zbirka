@@ -80,7 +80,7 @@ export class BlobController {
       new ParseFilePipe({
         validators: [
           new FileTypeValidator({ fileType: 'audio/*' }),
-          new MaxFileSizeValidator({ maxSize: 1024 * 1024 * 10 }),
+          new MaxFileSizeValidator({ maxSize: 1024 * 1024 * 100 }),
         ],
       }),
     )
