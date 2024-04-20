@@ -7,7 +7,7 @@ import CardCollection from "components/CardCollection";
 import { UserWrapper } from "@/utility/wrappers/userWrapper";
 import SingleExponatView from "@/views/SingleExponatView.ts";
 import NotFound from "@/not-found";
-import { exponatInfoPrompt } from "@/api/GPT";
+import { exponatInfoPrompt, ttsPrompt } from "@/api/AI";
 
 const ExponatPage = async ({ params }: { params: any }) => {
   const exponatInfo: ExponatExtendedResponse = await serverGetExponat(
@@ -15,6 +15,7 @@ const ExponatPage = async ({ params }: { params: any }) => {
   );
 
   const gpt = exponatInfo && exponatInfoPrompt(exponatInfo.alternateName);
+  const audio = gpt && gpt.then((res) => ttsPrompt(res));
 
   return exponatInfo ? (
     <div className={classes.container}>
@@ -22,7 +23,11 @@ const ExponatPage = async ({ params }: { params: any }) => {
         <ExponatModal exponat={exponatInfo} />
       </div>
       <UserWrapper>
-        <SingleExponatView generatedDescription={gpt} exponat={exponatInfo} />
+        <SingleExponatView
+          audioDescription={audio}
+          generatedDescription={gpt}
+          exponat={exponatInfo}
+        />
       </UserWrapper>
     </div>
   ) : (

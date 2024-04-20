@@ -2,7 +2,7 @@
 import { useEffect, useState, useRef } from "react";
 import { blobToBase64 } from "../static/blobToBase64";
 import { createMediaStream } from "../static/createMediaStream";
-import { whisperPrompt } from "@/api/GPT";
+import { whisperPrompt } from "@/api/AI";
 export const useRecordVoice = () => {
   const [text, setText] = useState("");
   const [mediaRecorder, setMediaRecorder] = useState<any>(null);
