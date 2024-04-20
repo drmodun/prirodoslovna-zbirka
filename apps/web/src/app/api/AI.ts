@@ -8,6 +8,9 @@ import { Readable } from "stream";
 const key = process.env.OPENAI_API_KEY;
 const gptUrl = "https://api.openai.com/v1/chat/completions";
 
+const googleKey = process.env.GOOGLE_CLOUD_API_KEY;
+const ttsUrl = `https://texttospeech.googleapis.com/v1/text:synthesize?key=${googleKey}`;
+
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
@@ -52,11 +55,9 @@ export const exponatInfoPrompt = async (exponat: any) => {
 
 export const whisperPrompt = async (audio: any) => {
   const buffer = Buffer.from(audio, "base64");
-  const filePath = "./tmp/input.wav";
   if (!key) return;
 
   try {
-    const readStream = Readable.from(buffer);
     const file = new File([buffer], "input.wav", { type: "audio/wav" });
     openai.apiKey = key!;
 
@@ -71,5 +72,29 @@ export const whisperPrompt = async (audio: any) => {
     return response;
   } catch (error) {
     console.log(error);
+  }
+};
+
+export const ttsPrompt = async (text: string) => {
+  const body = {
+    input: { text: text },
+    voice: { languageCode: "sr-RS", name: "sr-RS-Standard-A" },
+    audioConfig: { audioEncoding: "LINEAR16", pitch: 0 },
+  };
+
+  try {
+    const response = await fetch(ttsUrl, {
+      method: "POST",
+      body: JSON.stringify(body),
+      headers: {
+        "Content-Type": "application/json",
+      },
+      cache: "force-cache",
+    });
+
+    const audio = await response.json();
+    return audio.audioContent;
+  } catch (error) {
+    console.log("sd", error);
   }
 };

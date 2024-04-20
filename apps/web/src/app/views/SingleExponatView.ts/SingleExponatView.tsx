@@ -12,19 +12,29 @@ import chatgpt from "assets/images/gpt.svg";
 export interface SingleExponatViewProps {
   exponat: ExponatExtendedResponse;
   generatedDescription?: Promise<string>;
+  audioDescription?: Promise<string>;
 }
 
 export const SingleExponatView = (props: SingleExponatViewProps) => {
   const { memberships } = useUser();
   const [description, setDescription] = useState<string | null>(null);
+  const [audioDescription, setAudioDescription] = useState<string | null>(null);
 
   const handleDescription = async () => {
     setDescription(await props.generatedDescription!);
   };
 
+  const handleAudioDescription = async () => {
+    setAudioDescription(await props.audioDescription!);
+  };
+
   useEffect(() => {
     if (props.generatedDescription) {
       handleDescription();
+    }
+
+    if (props.audioDescription) {
+      handleAudioDescription();
     }
   }, []);
 
@@ -39,6 +49,11 @@ export const SingleExponatView = (props: SingleExponatViewProps) => {
             <span className={classes.title}>
               AI generirani kratki opis eksponata
             </span>
+            {audioDescription && (
+              <audio controls className={classes.audio}>
+                <source src={`data:audio/wav;base64,${audioDescription}`} />
+              </audio>
+            )}
           </div>
           <pre className={classes.text}>
             {description ? description : "Učitavanje..."}
