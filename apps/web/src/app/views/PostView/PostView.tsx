@@ -9,16 +9,32 @@ import useUser from "@/utility/context/UserContext";
 import { useToggleLike } from "@/api/useToggleLike";
 import ImageWithFallback from "components/ImageWithFallback/ImageWithFallback";
 import { getPfpUrl } from "@/utility/static/getPfpUrl";
-import { useEffect } from "react";
+import { use, useEffect, useState } from "react";
 import QrCodeGenerator from "components/QrCodeButton";
 import ShareButton from "components/ShareButton";
+import { LoaderIcon } from "react-hot-toast";
+import AudioButton from "components/AudioButton";
 
 export interface PostViewProps {
   post: PostResponseExtended;
+  audio?: Promise<string | undefined>;
 }
 
-export const PostView = ({ post }: PostViewProps) => {
+export const PostView = ({ audio, post }: PostViewProps) => {
+  const [audioDescription, setAudioDescription] = useState<string | null>(null);
+
+  const handleAudioDescription = async () => {
+    setAudioDescription((await audio!) as string);
+  };
+
+  useEffect(() => {
+    if (audio) {
+      handleAudioDescription();
+    }
+  }, []);
+
   if (!post) return (window.location.href = "/404");
+
   return (
     <div className={classes.container}>
       <div className={classes.mainImage}>
@@ -51,6 +67,13 @@ export const PostView = ({ post }: PostViewProps) => {
           title={post.title}
           text={`Pogledajte post ${post.title} na biosfera.trema.hr`}
         />
+        {audioDescription ? (
+          <AudioButton src={audioDescription} />
+        ) : (
+          <div className={classes.spinnerContainer}>
+            <div className={classes.spinner}></div>
+          </div>
+        )}
       </div>
       <div className={classes.text}>
         <span>{post.content}</span>
