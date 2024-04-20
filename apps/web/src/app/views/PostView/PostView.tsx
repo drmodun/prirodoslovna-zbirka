@@ -14,24 +14,40 @@ import QrCodeGenerator from "components/QrCodeButton";
 import ShareButton from "components/ShareButton";
 import { LoaderIcon } from "react-hot-toast";
 import AudioButton from "components/AudioButton";
+import chatgpt from "assets/images/gpt.svg";
 
 export interface PostViewProps {
   post: PostResponseExtended;
   audio?: Promise<string | undefined>;
+  summary?: Promise<string>;
 }
 
-export const PostView = ({ audio, post }: PostViewProps) => {
+export const PostView = ({ audio, post, summary }: PostViewProps) => {
   const [audioDescription, setAudioDescription] = useState<string | null>(null);
+  const [textSummary, setSummary] = useState<string | null>(null);
+  const [showSummary, setShowSummary] = useState<boolean>(false);
 
   const handleAudioDescription = async () => {
     setAudioDescription((await audio!) as string);
+  };
+
+  const handleSummary = async () => {
+    setSummary((await summary) as string);
   };
 
   useEffect(() => {
     if (audio) {
       handleAudioDescription();
     }
+
+    if (summary) {
+      handleSummary();
+    }
   }, []);
+
+  const toggleSummary = () => {
+    setShowSummary((prev) => !prev);
+  };
 
   if (!post) return (window.location.href = "/404");
 
@@ -62,6 +78,9 @@ export const PostView = ({ audio, post }: PostViewProps) => {
         <Link href={`/exponat/${post.exponatId}`} className={classes.button}>
           Pogledaj eksponat
         </Link>
+        <button className={classes.button} onClick={toggleSummary}>
+          Pogledaj sažetak
+        </button>
         <QrCodeGenerator name={post.title} isIcon />
         <ShareButton
           title={post.title}
@@ -75,6 +94,23 @@ export const PostView = ({ audio, post }: PostViewProps) => {
           </div>
         )}
       </div>
+      {showSummary && (
+        <div className={classes.desc}>
+          <div className={classes.header}>
+            <div className={classes.icon}>
+              <Image src={chatgpt} alt="chatgpt" layout="fill" />
+            </div>
+            <span className={classes.title}>AI generirani sažetak objave</span>
+          </div>
+          <pre className={classes.text}>
+            {textSummary ? textSummary : "Učitavanje..."}
+          </pre>
+          <span className={classes.warning}>
+            Molimo vas da provjerite točnost informacija, AI postaje sve bolji
+            ali dalje relativno često zna griješiti
+          </span>
+        </div>
+      )}
       <div className={classes.text}>
         <span>{post.content}</span>
       </div>

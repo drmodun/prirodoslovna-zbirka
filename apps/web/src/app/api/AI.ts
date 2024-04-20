@@ -35,7 +35,7 @@ export const getGPT = async (prompt: string) => {
       ...options,
       body: JSON.stringify({
         model: "gpt-3.5-turbo-0125",
-        max_tokens: 400,
+        max_tokens: 2000,
         messages: [{ role: "user", content: prompt }],
       }),
       cache: "force-cache",
@@ -51,6 +51,16 @@ export const exponatInfoPrompt = async (exponat: any) => {
   if (!key) return;
 
   const prompt = `You are a biology expert. Like a teacher, tell me some interesting and essential information about ${exponat}. Write about the characteristics od this species and mention the most important known things. Below the essay list your used sources Keep it structured in one paragraph, at about 200 (+/- 10%) words, the answer has to be written in croatian.`;
+
+  const response = await getGPT(prompt);
+  console.log(response.choices[0].message);
+  return response.choices[0].message.content;
+};
+
+export const summarisePostPrompt = async (title: string, content: string) => {
+  if (!key) return;
+
+  const prompt = `You are a biology expert. Like a teacher, summarise the post about ${title}. The post is: ${content}. Write about the main points and the most important information. Keep it structured in one paragraph, at about 1/5 to 1/3 of the words of the original posts, the answer has to be written in croatian.`;
 
   const response = await getGPT(prompt);
   console.log(response.choices[0].message);
