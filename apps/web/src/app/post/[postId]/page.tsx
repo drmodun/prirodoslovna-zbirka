@@ -3,6 +3,7 @@ import { serverGetPost } from "@/api/serverPost";
 import { QueryClientWrapper } from "@/utility/wrappers/queryWrapper";
 import PostView from "@/views/PostView";
 import { PostResponseExtended } from "@biosfera/types";
+import { Suspense } from "react";
 
 const PostPage = async ({ params }: { params: any }) => {
   const post = await serverGetPost(params.postId);
@@ -11,7 +12,9 @@ const PostPage = async ({ params }: { params: any }) => {
 
   return (
     <QueryClientWrapper>
-      <PostView summary={summary} post={post} audio={audio} />
+      <Suspense fallback={<PostView post={post} />}>
+        <PostView summary={summary} post={post} audio={audio} />
+      </Suspense>
     </QueryClientWrapper>
   );
 };

@@ -28,15 +28,15 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <DiscoverWrapper>
-          <Header />
-          <BodyWrapper>
+          <SideMenuWrapper>
+            <Header />
             <Toaster />
-            <SideMenuWrapper>
+            <BodyWrapper>
               <CreateWrapper>{children}</CreateWrapper>
-            </SideMenuWrapper>
-          </BodyWrapper>
-          <Footer />
-          <SideMenu />
+            </BodyWrapper>
+            <Footer />
+            <SideMenu />
+          </SideMenuWrapper>
         </DiscoverWrapper>
       </body>
     </html>
