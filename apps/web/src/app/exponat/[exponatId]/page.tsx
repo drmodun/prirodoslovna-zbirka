@@ -8,6 +8,7 @@ import { UserWrapper } from "@/utility/wrappers/userWrapper";
 import SingleExponatView from "@/views/SingleExponatView.ts";
 import NotFound from "@/not-found";
 import { exponatInfoPrompt, ttsPrompt } from "@/api/AI";
+import { Suspense } from "react";
 
 const ExponatPage = async ({ params }: { params: any }) => {
   const exponatInfo: ExponatExtendedResponse = await serverGetExponat(
@@ -24,11 +25,13 @@ const ExponatPage = async ({ params }: { params: any }) => {
         <ExponatModal exponat={exponatInfo} />
       </div>
       <UserWrapper>
-        <SingleExponatView
-          audioDescription={audio}
-          generatedDescription={gpt}
-          exponat={exponatInfo}
-        />
+        <Suspense fallback={<SingleExponatView exponat={exponatInfo} />}>
+          <SingleExponatView
+            audioDescription={audio}
+            generatedDescription={gpt}
+            exponat={exponatInfo}
+          />
+        </Suspense>
       </UserWrapper>
     </div>
   ) : (
