@@ -11,6 +11,7 @@ import {
   EmailShareButton,
   FacebookIcon,
   FacebookShareButton,
+  PinterestIcon,
   PinterestShareButton,
   RedditIcon,
   RedditShareButton,
@@ -59,7 +60,7 @@ const ShareButton = ({ text, imageUrl, title }: ShareButtonProps) => {
 
   return (
     <button title="share" className={classes.container} onClick={handleShare}>
-      <Image alt="share" src={share} l />
+      <Image alt="share" src={share} />
       <Modal open={isOpen} deMount={handleClose} title="Podijeli" text={text}>
         <div className={classes.sharingRow}>
           <TwitterShareButton title={title} url={window.location.href}>
