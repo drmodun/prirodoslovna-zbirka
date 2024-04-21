@@ -9,15 +9,12 @@ import SingleExponatView from "@/views/SingleExponatView.ts";
 import NotFound from "@/not-found";
 import { exponatInfoPrompt, ttsPrompt } from "@/api/AI";
 import { Suspense } from "react";
+import { ExponatAsyncWrapper } from "@/utility/wrappers/exponatAsyncWrapper";
 
 const ExponatPage = async ({ params }: { params: any }) => {
   const exponatInfo: ExponatExtendedResponse = await serverGetExponat(
     params.exponatId
   );
-
-  const gpt = exponatInfo && exponatInfoPrompt(exponatInfo.alternateName);
-  const audio =
-    exponatInfo && gpt.then((res) => ttsPrompt(res, "exponat", exponatInfo.id));
 
   return exponatInfo ? (
     <div className={classes.container}>
@@ -26,11 +23,7 @@ const ExponatPage = async ({ params }: { params: any }) => {
       </div>
       <UserWrapper>
         <Suspense fallback={<SingleExponatView exponat={exponatInfo} />}>
-          <SingleExponatView
-            audioDescription={audio}
-            generatedDescription={gpt}
-            exponat={exponatInfo}
-          />
+          <ExponatAsyncWrapper exponat={exponatInfo} />
         </Suspense>
       </UserWrapper>
     </div>

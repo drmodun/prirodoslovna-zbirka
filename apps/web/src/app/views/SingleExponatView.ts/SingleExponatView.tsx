@@ -14,59 +14,39 @@ import { LoaderIcon } from "react-hot-toast";
 import AudioButton from "components/AudioButton";
 export interface SingleExponatViewProps {
   exponat: ExponatExtendedResponse;
-  generatedDescription?: Promise<string>;
-  audioDescription?: Promise<string | undefined>;
+  generatedDescription?: string;
+  audioDescription?: string;
 }
 
 export const SingleExponatView = (props: SingleExponatViewProps) => {
   const { memberships } = useUser();
-  const [description, setDescription] = useState<string | null>(null);
-  const [audioDescription, setAudioDescription] = useState<string | null>(null);
-
-  const handleDescription = async () => {
-    setDescription(await props.generatedDescription!);
-  };
-
-  const handleAudioDescription = async () => {
-    setAudioDescription((await props.audioDescription!) as string);
-  };
-
-  useEffect(() => {
-    if (props.generatedDescription) {
-      handleDescription();
-    }
-
-    if (props.audioDescription) {
-      handleAudioDescription();
-    }
-  }, []);
 
   return (
     <div className={classes.container}>
-      {props.generatedDescription && (
-        <div className={classes.desc}>
-          <div className={classes.header}>
-            <div className={classes.icon}>
-              <Image src={chatgpt} alt="chatgpt" layout="fill" />
-            </div>
-            <span className={classes.title}>
-              AI generirani kratki opis eksponata
-            </span>
-            {audioDescription ? (
-              <AudioButton src={audioDescription} />
-            ) : (
-              <LoaderIcon />
-            )}
+      <div className={classes.desc}>
+        <div className={classes.header}>
+          <div className={classes.icon}>
+            <Image src={chatgpt} alt="chatgpt" layout="fill" />
           </div>
-          <pre className={classes.text}>
-            {description ? description : "Učitavanje..."}
-          </pre>
-          <span className={classes.warning}>
-            Molimo vas da provjerite točnost informacija, AI postaje sve bolji
-            ali dalje relativno često zna griješiti
+          <span className={classes.title}>
+            AI generirani kratki opis eksponata
           </span>
+          {props.audioDescription ? (
+            <AudioButton src={props.audioDescription} />
+          ) : (
+            <LoaderIcon />
+          )}
         </div>
-      )}
+        <pre className={classes.text}>
+          {props.generatedDescription
+            ? props.generatedDescription
+            : "Učitavanje..."}
+        </pre>
+        <span className={classes.warning}>
+          Molimo vas da provjerite točnost informacija, AI postaje sve bolji ali
+          dalje relativno često zna griješiti
+        </span>
+      </div>
       <div className={classes.posts}>
         {memberships.some(
           (membership) =>
