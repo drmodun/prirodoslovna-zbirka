@@ -18,32 +18,12 @@ import chatgpt from "assets/images/gpt.svg";
 
 export interface PostViewProps {
   post: PostResponseExtended;
-  audio?: Promise<string | undefined>;
-  summary?: Promise<string>;
+  audio?: string;
+  summary?: string;
 }
 
 export const PostView = ({ audio, post, summary }: PostViewProps) => {
-  const [audioDescription, setAudioDescription] = useState<string | null>(null);
-  const [textSummary, setSummary] = useState<string | null>(null);
   const [showSummary, setShowSummary] = useState<boolean>(false);
-
-  const handleAudioDescription = async () => {
-    setAudioDescription((await audio!) as string);
-  };
-
-  const handleSummary = async () => {
-    setSummary((await summary) as string);
-  };
-
-  useEffect(() => {
-    if (audio) {
-      handleAudioDescription();
-    }
-
-    if (summary) {
-      handleSummary();
-    }
-  }, []);
 
   const toggleSummary = () => {
     setShowSummary((prev) => !prev);
@@ -86,8 +66,8 @@ export const PostView = ({ audio, post, summary }: PostViewProps) => {
           title={post.title}
           text={`Pogledajte post ${post.title} na biosfera.trema.hr`}
         />
-        {audioDescription ? (
-          <AudioButton src={audioDescription} />
+        {audio ? (
+          <AudioButton src={audio} />
         ) : (
           <div className={classes.spinnerContainer}>
             <div className={classes.spinner}></div>
@@ -103,7 +83,7 @@ export const PostView = ({ audio, post, summary }: PostViewProps) => {
             <span className={classes.title}>AI generirani sažetak objave</span>
           </div>
           <pre className={classes.text}>
-            {textSummary ? textSummary : "Učitavanje..."}
+            {summary ? summary : "Učitavanje..."}
           </pre>
           <span className={classes.warning}>
             Molimo vas da provjerite točnost informacija, AI postaje sve bolji
