@@ -92,6 +92,8 @@ model User {
   UserOrganisationFollower UserOrganisationFollower[]
   followers                UserFollows[]              @relation("following")
   following                UserFollows[]              @relation("follower")
+  Works                    Work[]                     @relation("author")
+  ApprovedWorks            Work[]                     @relation("approver")
 }
 
 model Exponat {
@@ -208,4 +210,20 @@ model UserFollows {
   followeeId String
 
   @@id([followerId, followeeId])
+}
+
+model Work {
+  id           String   @id @default(uuid())
+  title        String
+  description  String
+  poster       String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @default(now()) @updatedAt
+  presentation String
+  authorId     String
+  isApproved   Boolean  @default(false)
+  approvedBy   String?
+  approver     User?    @relation("approver", fields: [approvedBy], references: [id], onDelete: SetNull)
+  author       User     @relation("author", fields: [authorId], references: [id], onDelete: Cascade)
+  userId       String?
 }
