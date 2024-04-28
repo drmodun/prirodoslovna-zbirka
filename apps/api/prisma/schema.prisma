@@ -131,6 +131,7 @@ model Organisation {
   Exponats                  Exponat[]
   OrganisationUsers         OrganisationUser[]
   UserOrganisationFollowers UserOrganisationFollower[]
+  Work                      Work[]
 }
 
 model Post {
@@ -213,17 +214,21 @@ model UserFollows {
 }
 
 model Work {
-  id           String   @id @default(uuid())
-  title        String
-  description  String
-  poster       String?
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @default(now()) @updatedAt
-  presentation String
-  authorId     String
-  isApproved   Boolean  @default(false)
-  approvedBy   String?
-  approver     User?    @relation("approver", fields: [approvedBy], references: [id], onDelete: SetNull)
-  author       User     @relation("author", fields: [authorId], references: [id], onDelete: Cascade)
-  userId       String?
+  id             String       @id @default(uuid())
+  title          String
+  description    String
+  poster         String?
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @default(now()) @updatedAt
+  document       String
+  presentation   String
+  authorId       String
+  organisationId String
+  organisation   Organisation @relation(fields: [organisationId], references: [id])
+  isApproved     Boolean      @default(false)
+  approvedBy     String?
+  firstPublished DateTime?    @default(now())
+  approver       User?        @relation("approver", fields: [approvedBy], references: [id], onDelete: SetNull)
+  author         User         @relation("author", fields: [authorId], references: [id], onDelete: Cascade)
+  userId         String?
 }
