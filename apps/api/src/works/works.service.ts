@@ -1,9 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { CreateWorkDto } from './dto/create-work.dto';
-import { UpdateWorkDto } from './dto/update-work.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { BlobService } from 'src/blob/blob.service';
-import { WorkQuery } from './dto/works.entity';
+import { CreateWorkDto, UpdateWorkDto, WorkQuery } from './dto/works.entity';
 import {
   PaginationRequest,
   SortingRequest,
@@ -79,6 +77,30 @@ export class WorksService {
   async remove(id: string) {
     const work = await this.prisma.work.delete({
       where: { id },
+    });
+
+    return work;
+  }
+
+  async approve(id: string, approverId: string) {
+    const work = await this.prisma.work.update({
+      where: { id },
+      data: {
+        isApproved: true,
+        approvedBy: approverId,
+      },
+    });
+
+    return work;
+  }
+
+  async disApprove(id: string) {
+    const work = await this.prisma.work.update({
+      where: { id },
+      data: {
+        isApproved: false,
+        approvedBy: null,
+      },
     });
 
     return work;
