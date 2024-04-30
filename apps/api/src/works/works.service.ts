@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Req } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { BlobService } from 'src/blob/blob.service';
 import { CreateWorkDto, UpdateWorkDto, WorkQuery } from './dto/works.entity';
@@ -7,6 +7,7 @@ import {
   SortingRequest,
   worksSortQueryBuilder,
 } from '@biosfera/types';
+import { MemberRole } from '@prisma/client';
 
 @Injectable()
 export class WorksService {
@@ -15,11 +16,28 @@ export class WorksService {
     private readonly blobService: BlobService,
   ) {}
 
+  async checkMembership(userId: string, organisationId: string) {
+    const membership = await this.prisma.organisationUser.findFirst({
+      where: {
+        userId,
+        organisationId,
+        NOT: {
+          role: MemberRole.REQUESTED,
+        },
+      },
+    });
+
+    return membership;
+  }
+
   async create(createWorkDto: CreateWorkDto) {
     const data = createWorkDto;
     const work = await this.prisma.work.create({
       data: {
         ...data,
+      },
+      include: {
+        author: true,
       },
     });
     return work;
@@ -39,6 +57,10 @@ export class WorksService {
         ...(filter?.approvedBy && { approvedBy: filter.approvedBy }),
         ...(approval && { isApproved: approval }),
       },
+      include: {
+        organisation: true,
+        author: true,
+      },
       orderBy: sort,
       skip: (pagination?.page - 1) * pagination?.size,
       take: pagination?.size,
@@ -56,6 +78,7 @@ export class WorksService {
       include: {
         approver: true,
         author: true,
+        organisation: true,
       },
     });
 
@@ -72,6 +95,44 @@ export class WorksService {
     });
 
     return work;
+  }
+
+  async checkIsAdmin(userId: string, organisationId: string) {
+    const membership = await this.prisma.organisationUser.findFirst({
+      where: {
+        userId,
+        organisationId,
+        role: MemberRole.ADMIN,
+      },
+    });
+
+    return membership != null;
+  }
+
+  async checkRights(authorId: string, workId: string) {
+    const work = await this.prisma.work.findFirst({
+      where: {
+        id: workId,
+      },
+    });
+
+    if (work.authorId === authorId) return true;
+
+    const checkSuper = this.prisma.user.findFirst({
+      where: {
+        id: authorId,
+      },
+    });
+
+    const checkAdmin = this.prisma.organisationUser.findFirst({
+      where: {
+        userId: authorId,
+        organisationId: work.organisationId,
+        role: 'ADMIN',
+      },
+    });
+
+    return checkSuper || checkAdmin;
   }
 
   async remove(id: string) {
@@ -94,7 +155,7 @@ export class WorksService {
     return work;
   }
 
-  async disApprove(id: string) {
+  async disapprove(id: string) {
     const work = await this.prisma.work.update({
       where: { id },
       data: {
