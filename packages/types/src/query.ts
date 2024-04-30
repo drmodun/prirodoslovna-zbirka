@@ -141,6 +141,14 @@ export const worksSortQueryBuilder = (request: SortingRequest) => {
       return {
         title: request.direction,
       };
+    case SortingEnum.CREATED_AT:
+      return {
+        createdAt: request.direction,
+      };
+    case SortingEnum.ORGANISATION:
+      return {
+        organisationId: request.direction,
+      };
   }
 };
 

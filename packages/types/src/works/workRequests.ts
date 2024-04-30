@@ -34,6 +34,7 @@ export const getCreateWorkDto = (ApiPropertySwagger?: any) => {
     presentation: string;
 
     authorId: string;
+    organisationId: string;
   }
   return CreateWorkDto;
 };
@@ -53,6 +54,10 @@ export const getWorkQuery = (ApiPropertySwagger?: any) => {
     @IsUUID()
     @ApiProperty()
     approvedBy: string;
+
+    @IsUUID()
+    @ApiProperty()
+    organisationId: string;
   }
   return WorkQueryDto;
 };
