@@ -7,7 +7,7 @@ export interface WorkResponseShort {
   id: string;
   organisationId: string;
   organisationName: string;
-  updatedAt: string;
+  updatedAt: Date;
 }
 
 export interface WorkResponseExtended {
@@ -21,8 +21,8 @@ export interface WorkResponseExtended {
   id: string;
   organisationId: string;
   organisationName: string;
-  updatedAt: string;
-  firstPublicationDate: string;
+  updatedAt: Date;
+  firstPublicationDate: Date;
   approvedById: string;
   approvedByName: string;
 }
