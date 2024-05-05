@@ -88,6 +88,7 @@ export class WorksController {
         organisationName: item.organisation.name,
         createdAt: item.createdAt,
         updatedAt: item.updatedAt,
+        amountOfSaves: item._count.SavedWorks,
         poster: item.poster,
         id: item.id,
       } as WorkResponseShort;
@@ -114,6 +115,7 @@ export class WorksController {
       approvedByName: entity.approver.username,
       auhtorName: entity.author.username,
       authorId: entity.authorId,
+      amountOfSaves: entity._count.SavedWorks,
       document: entity.document,
       description: entity.description,
       firstPublicationDate: entity.createdAt,
@@ -164,5 +166,21 @@ export class WorksController {
     const entity = await this.worksService.remove(id);
 
     if (!entity) throw new BadRequestException('Work not removed');
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
+  @Patch(':id/approve')
+  async approve(@Req() { req }: any, @Param('id') id: string) {
+    const check = await this.worksService.checkRights(req.user.id, id);
+
+    if (!check)
+      throw new UnauthorizedException(
+        'Not enough rights to perform this action',
+      );
+
+    const entity = await this.worksService.approve(id, req.user.id);
+
+    if (!entity) throw new BadRequestException('Work not approved');
   }
 }

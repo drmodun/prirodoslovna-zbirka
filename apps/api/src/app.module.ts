@@ -21,6 +21,7 @@ import { FollowsModule } from './follows/follows.module';
 import { BlobModule } from './blob/blob.module';
 import { EmailModule } from './email/email.module';
 import { WorksModule } from './works/works.module';
+import { SavedWorksModule } from './saved-works/saved-works.module';
 
 @Module({
   imports: [
@@ -48,6 +49,7 @@ import { WorksModule } from './works/works.module';
     BlobModule,
     EmailModule,
     WorksModule,
+    SavedWorksModule,
   ],
   controllers: [AppController],
   providers: [AppService],
