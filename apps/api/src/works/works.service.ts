@@ -1,4 +1,4 @@
-import { Injectable, Req } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { BlobService } from 'src/blob/blob.service';
 import { CreateWorkDto, UpdateWorkDto, WorkQuery } from './dto/works.entity';
@@ -60,6 +60,11 @@ export class WorksService {
       include: {
         organisation: true,
         author: true,
+        _count: {
+          select: {
+            SavedWorks: true,
+          },
+        },
       },
       orderBy: sort,
       skip: (pagination?.page - 1) * pagination?.size,
@@ -79,6 +84,12 @@ export class WorksService {
         approver: true,
         author: true,
         organisation: true,
+
+        _count: {
+          select: {
+            SavedWorks: true,
+          },
+        },
       },
     });
 
@@ -141,6 +152,16 @@ export class WorksService {
     });
 
     return work;
+  }
+
+  async toggleApproval(id: string, approverId: string) {
+    const work = await this.prisma.work.findFirst({
+      where: {
+        id,
+      },
+    });
+
+    return work.isApproved ? this.disapprove(id) : this.approve(id, approverId);
   }
 
   async approve(id: string, approverId: string) {

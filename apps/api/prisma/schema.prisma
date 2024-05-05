@@ -94,6 +94,7 @@ model User {
   following                UserFollows[]              @relation("follower")
   Works                    Work[]                     @relation("author")
   ApprovedWorks            Work[]                     @relation("approver")
+  SavedWorks               SavedWorks[]
 }
 
 model Exponat {
@@ -231,4 +232,15 @@ model Work {
   approver       User?        @relation("approver", fields: [approvedBy], references: [id], onDelete: SetNull)
   author         User         @relation("author", fields: [authorId], references: [id], onDelete: Cascade)
   userId         String?
+  SavedWorks     SavedWorks[]
+}
+
+model SavedWorks {
+  userId    String
+  workId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  work      Work     @relation(fields: [workId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@id([workId, userId])
 }
