@@ -12,10 +12,23 @@ datasource db {
   //directUrl = env("DIRECT_URL") // if using neondb cloud db
 }
 
+enum AttemptStatus {
+  IN_PROGRESS
+  FINISHED
+  PAUSED
+  FAILED
+}
+
 enum Role {
   SUPER
   ADMIN
   USER
+}
+
+enum TimeLimitType {
+  NONE
+  TOTAL
+  PER_QUESTION
 }
 
 enum ExponatKind {
@@ -24,11 +37,24 @@ enum ExponatKind {
   MINERAL
 }
 
+enum QuizDifficulty {
+  EASY
+  MEDIUM
+  HARD
+  UNSET
+}
+
 enum MemberRole {
   OWNER
   ADMIN
   MEMBER
   REQUESTED
+}
+
+enum QuestionType {
+  MULTIPLE_CHOICE
+  TRUE_FALSE
+  FILL_IN_THE_BLANK
 }
 
 enum County {
@@ -92,6 +118,8 @@ model User {
   UserOrganisationFollower UserOrganisationFollower[]
   followers                UserFollows[]              @relation("following")
   following                UserFollows[]              @relation("follower")
+  Attempt                  Attempt[]
+  Answer                   Answer[]
 }
 
 model Exponat {
@@ -129,6 +157,7 @@ model Organisation {
   Exponats                  Exponat[]
   OrganisationUsers         OrganisationUser[]
   UserOrganisationFollowers UserOrganisationFollower[]
+  Quiz                      Quiz[]
 }
 
 model Post {
@@ -208,4 +237,57 @@ model UserFollows {
   followeeId String
 
   @@id([followerId, followeeId])
+}
+
+model Quiz {
+  id             String         @id @default(uuid())
+  title          String
+  questions      Json
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @default(now()) @updatedAt
+  timeLimitTotal Int?
+  organisationId String?
+  organisation   Organisation?  @relation(fields: [organisationId], references: [id], onDelete: Cascade)
+  difficulty     QuizDifficulty
+  timeLimitType  TimeLimitType
+  description    String
+  Question       Question[]
+  Attempt        Attempt[]
+}
+
+model Question {
+  id           String       @id @default(uuid())
+  question     String
+  questionType QuestionType
+  options      String[] //Or just csv string still not sure
+  correct      String
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @default(now()) @updatedAt
+  quizId       String
+  quiz         Quiz         @relation(fields: [quizId], references: [id], onDelete: Cascade)
+  Answer       Answer[]
+}
+
+model Attempt {
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  quizId      String
+  quiz        Quiz     @relation(fields: [quizId], references: [id], onDelete: Cascade)
+  startedAt   DateTime @default(now())
+  continuedAt DateTime @default(now()) @updatedAt
+  currentTime Int      @default(0)
+
+  @@id([userId, quizId])
+}
+
+model Answer {
+  answer          String //have to choose between storing value and correctness only
+  questionId      String
+  userId          String
+  questionOpenned DateTime @default(now())
+  timeSpent       Int
+  User            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  question        Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+
+  @@id([userId, questionId])
 }
