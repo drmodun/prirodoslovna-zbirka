@@ -18,6 +18,15 @@ enum Role {
   USER
 }
 
+enum NotificationType {
+  LIKE
+  FOLLOW
+  POST_ORGANISATION
+  REQUEST
+  POST_USER
+  APPROVAL_UPDATE
+}
+
 enum ExponatKind {
   PROCARIOT
   EUCARIOT
@@ -92,6 +101,7 @@ model User {
   UserOrganisationFollower UserOrganisationFollower[]
   followers                UserFollows[]              @relation("following")
   following                UserFollows[]              @relation("follower")
+  Notifications            Notifications[]
 }
 
 model Exponat {
@@ -208,4 +218,14 @@ model UserFollows {
   followeeId String
 
   @@id([followerId, followeeId])
+}
+
+model Notifications {
+  title            String
+  body             String
+  read             Boolean          @default(false)
+  userId           String
+  user             User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  notificationType NotificationType
+  id               String           @id @default(uuid())
 }

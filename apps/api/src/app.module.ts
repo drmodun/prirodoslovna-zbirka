@@ -20,6 +20,7 @@ import { LikesModule } from './likes/likes.module';
 import { FollowsModule } from './follows/follows.module';
 import { BlobModule } from './blob/blob.module';
 import { EmailModule } from './email/email.module';
+import { NotificationModule } from './notification/notification.module';
 
 @Module({
   imports: [
@@ -46,6 +47,7 @@ import { EmailModule } from './email/email.module';
     FollowsModule,
     BlobModule,
     EmailModule,
+    NotificationModule,
   ],
   controllers: [AppController],
   providers: [AppService],
