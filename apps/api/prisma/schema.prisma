@@ -24,6 +24,17 @@ enum ExponatKind {
   MINERAL
 }
 
+enum SocialPostType {
+  ANNOUNCEMENT
+  EVENT
+  NEWS
+  WORKSHOP
+  EU_PROJECT
+  PROMOTION
+  COLLABORATION
+  OTHER
+}
+
 enum MemberRole {
   OWNER
   ADMIN
@@ -148,15 +159,17 @@ model Post {
 }
 
 model SocialPost {
-  id           String       @id @default(uuid())
-  title        String
-  text         String
-  image        String
-  createdAt    DateTime     @default(now())
-  updatedAt    DateTime     @default(now()) @updatedAt
-  authorId     String       @unique
-  organisation Organisation @relation(fields: [authorId], references: [id], onDelete: Cascade)
-  isApproved   Boolean      @default(true)
+  id             String         @id @default(uuid())
+  title          String
+  text           String
+  mainImage      String
+  images         String[]
+  socialPostType SocialPostType
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @default(now()) @updatedAt
+  authorId       String         @unique
+  organisation   Organisation   @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  isApproved     Boolean        @default(true)
 }
 
 model OrganisationUser {
