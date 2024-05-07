@@ -52,6 +52,55 @@ export const getCreateWorkDto = (ApiPropertySwagger?: any) => {
   return CreateWorkDto;
 };
 
+export const getUpdateWorkDto = (ApiPropertySwagger?: any) => {
+  const ApiProperty = ApiPropertySwagger || function () {};
+
+  class UpdateWorkDto {
+    @IsOptional()
+    @IsString()
+    @MinLength(3)
+    @ApiProperty()
+    title?: string;
+
+    @IsOptional()
+    @IsString()
+    @MinLength(10)
+    @MaxLength(1000)
+    @ApiProperty()
+    description: string;
+
+    @IsOptional()
+    @IsString()
+    @ApiProperty()
+    poster: string;
+
+    @IsOptional()
+    @IsString()
+    @ApiProperty()
+    document: string;
+
+    @IsOptional()
+    @IsString()
+    @ApiProperty()
+    presentation: string;
+
+    @IsOptional()
+    @IsArray()
+    @IsString({ each: true })
+    @ApiProperty()
+    tags: string[];
+
+    @IsOptional()
+    @IsString()
+    @ApiProperty()
+    type: WorkType;
+
+    authorId: string;
+    organisationId: string;
+  }
+  return UpdateWorkDto;
+};
+
 export const getWorkQuery = (ApiPropertySwagger?: any) => {
   const ApiProperty = ApiPropertySwagger || function () {};
 

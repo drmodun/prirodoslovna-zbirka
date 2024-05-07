@@ -2,8 +2,6 @@
 import {
   Directories,
   ExponatExtendedResponse,
-  ExponatKind,
-  ExponatResponseShort,
   SpeciesResponse,
 } from "@biosfera/types";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -25,8 +23,6 @@ import FileUpload from "components/FileUpload";
 import { useUploadFile } from "@/api/useUploadFile";
 import toast from "react-hot-toast";
 import { useUpdateExponat } from "@/api/useUpdateExponat";
-import exp from "constants";
-import { Json } from "@biosfera/types/src/jsonObjects";
 export interface ExponatModalSectionsProps {
   organisationId: string;
   isEdit?: boolean;
