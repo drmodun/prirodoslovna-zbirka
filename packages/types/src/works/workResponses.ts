@@ -9,6 +9,7 @@ export interface WorkResponseShort {
   organisationName: string;
   updatedAt: Date;
   amountOfSaves: number;
+  isApproved?: boolean;
   tags: string[];
   isGbif?: boolean;
   website?: string;
