@@ -10,6 +10,8 @@ export interface WorkResponseShort {
   updatedAt: Date;
   amountOfSaves: number;
   tags: string[];
+  isGbif?: boolean;
+  website?: string;
 }
 
 export interface WorkResponseExtended {
@@ -29,4 +31,30 @@ export interface WorkResponseExtended {
   approvedById: string;
   approvedByName: string;
   tags: string[];
+}
+
+export interface LiteratureResponseGBIF {
+  id: string;
+  title: string;
+  websites: string[];
+  discovered: Date;
+  abstract: string;
+  literatureType: string;
+  keywords: string[];
+  authors: LiteratureAuthor[];
+  publisher: string;
+  published: Date;
+}
+
+export interface LiteratureAuthor {
+  firstName: string;
+  lastName: string;
+}
+
+export interface FullLiteratureResponseGBIF {
+  offset: number;
+  limit: number;
+  endOfRecords: boolean;
+  results: LiteratureResponseGBIF[];
+  count: number;
 }
