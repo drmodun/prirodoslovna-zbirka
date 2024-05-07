@@ -8,7 +8,6 @@ import {
   isString,
   IsOptional,
 } from "class-validator";
-import { ExponatKind } from "../enums";
 import { Json } from "../jsonObjects";
 import { SortType, SortingEnum } from "../query";
 
@@ -132,7 +131,7 @@ export interface ExponatQuery {
 export const getExponatQuery = (ApiPropertySwagger?: any) => {
   const ApiProperty = ApiPropertySwagger || function () {};
 
-    class ExponatQueryDto {
+  class ExponatQueryDto {
     @IsOptional()
     @ApiProperty({ required: false })
     name?: string;
