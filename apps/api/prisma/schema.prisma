@@ -24,6 +24,19 @@ enum ExponatKind {
   MINERAL
 }
 
+enum WorkType {
+  JOURNAL
+  BOOK
+  GENERIC
+  WEB_PAGE
+  THESIS
+  STATUTE
+  CASE
+  BOOK_SECTION
+  MAGAZINE_ARTICLE
+  ENCYCLOPEDIA_ARTICLE
+}
+
 enum MemberRole {
   OWNER
   ADMIN
@@ -234,6 +247,7 @@ model Work {
   userId         String?
   SavedWorks     SavedWorks[]
   tags           String[]
+  type           WorkType     @default(GENERIC)
 }
 
 model SavedWorks {

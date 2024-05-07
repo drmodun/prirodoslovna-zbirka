@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { BlobService } from 'src/blob/blob.service';
 import { CreateWorkDto, UpdateWorkDto, WorkQuery } from './dto/works.entity';
 import {
   PaginationRequest,
@@ -11,10 +10,7 @@ import { MemberRole } from '@prisma/client';
 
 @Injectable()
 export class WorksService {
-  constructor(
-    private readonly prisma: PrismaService,
-    private readonly blobService: BlobService,
-  ) {}
+  constructor(private readonly prisma: PrismaService) {}
 
   async checkMembership(userId: string, organisationId: string) {
     const membership = await this.prisma.organisationUser.findFirst({
@@ -60,6 +56,7 @@ export class WorksService {
         }),
         ...(filter?.tags && { tags: { hasSome: filter.tags } }), //TODO: test
         ...(approval && { isApproved: approval }),
+        ...(filter?.type && { type: filter.type }),
       },
       include: {
         organisation: true,
