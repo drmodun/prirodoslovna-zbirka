@@ -4,6 +4,7 @@ import {
   MaxLength,
   IsUUID,
   isUUID,
+  IsArray,
 } from "class-validator";
 
 export const getCreateWorkDto = (ApiPropertySwagger?: any) => {
@@ -33,6 +34,11 @@ export const getCreateWorkDto = (ApiPropertySwagger?: any) => {
     @ApiProperty()
     presentation: string;
 
+    @IsArray()
+    @IsString({ each: true })
+    @ApiProperty()
+    tags: string[];
+
     authorId: string;
     organisationId: string;
   }
@@ -58,6 +64,11 @@ export const getWorkQuery = (ApiPropertySwagger?: any) => {
     @IsUUID()
     @ApiProperty()
     organisationId: string;
+
+    @IsArray()
+    @IsString({ each: true })
+    @ApiProperty()
+    tags: string[];
   }
   return WorkQueryDto;
 };

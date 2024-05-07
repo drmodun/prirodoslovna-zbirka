@@ -233,6 +233,7 @@ model Work {
   author         User         @relation("author", fields: [authorId], references: [id], onDelete: Cascade)
   userId         String?
   SavedWorks     SavedWorks[]
+  tags           String[]
 }
 
 model SavedWorks {

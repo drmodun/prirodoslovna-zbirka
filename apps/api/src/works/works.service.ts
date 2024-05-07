@@ -55,6 +55,10 @@ export class WorksService {
         ...(filter?.title && { title: filter.title }),
         ...(filter?.authorId && { authorId: filter.authorId }),
         ...(filter?.approvedBy && { approvedBy: filter.approvedBy }),
+        ...(filter?.organisationId && {
+          organisationId: filter.organisationId,
+        }),
+        ...(filter?.tags && { tags: { hasSome: filter.tags } }), //TODO: test
         ...(approval && { isApproved: approval }),
       },
       include: {
