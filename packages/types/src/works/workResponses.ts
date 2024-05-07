@@ -12,6 +12,7 @@ export interface WorkResponseShort {
   tags: string[];
   isGbif?: boolean;
   website?: string;
+  type: string;
 }
 
 export interface WorkResponseExtended {
@@ -31,6 +32,7 @@ export interface WorkResponseExtended {
   approvedById: string;
   approvedByName: string;
   tags: string[];
+  type: string;
 }
 
 export interface LiteratureResponseGBIF {
