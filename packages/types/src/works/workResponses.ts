@@ -9,6 +9,7 @@ export interface WorkResponseShort {
   organisationName: string;
   updatedAt: Date;
   amountOfSaves: number;
+  tags: string[];
 }
 
 export interface WorkResponseExtended {
@@ -27,4 +28,5 @@ export interface WorkResponseExtended {
   firstPublicationDate: Date;
   approvedById: string;
   approvedByName: string;
+  tags: string[];
 }
