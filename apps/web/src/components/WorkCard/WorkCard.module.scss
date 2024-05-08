@@ -71,6 +71,64 @@
       }
     }
 
+    .author {
+      height: vw-calc(50);
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      gap: vw-calc(20);
+
+      img {
+        width: vw-calc(50);
+        height: vw-calc(50);
+        border-radius: 50%;
+        object-fit: cover;
+
+        @media (max-width: 768px) {
+          width: vw-mobile-calc(30);
+          height: vw-mobile-calc(30);
+        }
+      }
+
+      .name {
+        font-size: vw-calc(14);
+        font-weight: 700;
+        transition:
+          color 0.2s ease-in-out,
+          font-size 0.2s ease-in-out;
+
+        @media (max-width: 768px) {
+          font-size: vw-mobile-calc(12);
+        }
+
+        &:hover {
+          cursor: pointer;
+          color: $upload-background;
+          font-size: vw-calc(16);
+
+          @media (max-width: 768px) {
+            font-size: vw-mobile-calc(14);
+          }
+        }
+      }
+
+      @media (max-width: 768px) {
+        height: vw-mobile-calc(30);
+        gap: vw-mobile-calc(10);
+      }
+    }
+
+    .gbifAuthor {
+      height: vw-calc(50);
+      font-size: vw-calc(14);
+      font-weight: 700;
+
+      @media (max-width: 768px) {
+        font-size: vw-mobile-calc(12);
+      }
+    }
+
     .upper {
       display: flex;
       flex-direction: row;

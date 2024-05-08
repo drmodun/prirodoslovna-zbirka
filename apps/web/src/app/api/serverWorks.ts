@@ -31,7 +31,9 @@ export const LiteratureToWorkMapper = (
     description: literature.abstract,
     poster: literature.id,
     authorId: "GBIF",
-    auhtorName: `${literature.authors[0].firstName} ${literature.authors[0].lastName}`,
+    auhtorName: literature.authors
+      .map((author) => `${author.firstName} ${author.lastName}`)
+      .join(", "),
     id: literature.id,
     organisationId: "GBIF",
     organisationName: literature.publisher,
