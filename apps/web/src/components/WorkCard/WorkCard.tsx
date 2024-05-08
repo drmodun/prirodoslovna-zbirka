@@ -6,6 +6,7 @@ import ToggleApprovalButton from "components/ToggleApprovalButton";
 import Link from "next/link";
 import Image from "next/image";
 import RemoveWorkButton from "components/RemoveWorkButton";
+import { getPfpUrl } from "@/utility/static/getPfpUrl";
 
 export interface WorkCardProps {
   work: WorkResponseShort;
@@ -51,6 +52,19 @@ export const WorkCard = ({ work, isAdmin, onDelete }: WorkCardProps) => (
       >
         {work.organisationName}
       </Link>
+      {work.isGbif ? (
+        <span className={classes.gbifAuthor}>{work.auhtorName} - (GBIF)</span>
+      ) : (
+        <div className={classes.author}>
+          <ImageWithFallback
+            src={getPfpUrl(work.authorId)}
+            alt={work.auhtorName}
+          />
+          <Link href={`/user/${work.authorId}`} className={classes.name}>
+            {work.auhtorName}
+          </Link>
+        </div>
+      )}
       <span className={classes.description}>{work.description}</span>
       <div className={classes.tags}>
         {work.tags.map((tag) => (
