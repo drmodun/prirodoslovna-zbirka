@@ -7,8 +7,20 @@ import {
   IsEnum,
   IsOptional,
 } from "class-validator";
-import { WorkType } from "src/enums";
-import { SortType, SortingEnum } from "src/query";
+import { WorkType } from "../enums";
+import { SortType, SortingEnum } from "../query";
+
+export type WorkTypeEnumType =
+  | "JOURNAL"
+  | "BOOK"
+  | "GENERIC"
+  | "WEB_PAGE"
+  | "THESIS"
+  | "STATUTE"
+  | "CASE"
+  | "BOOK_SECTION"
+  | "MAGAZINE_ARTICLE"
+  | "ENCYCLOPEDIA_ARTICLE";
 
 export const getCreateWorkDto = (ApiPropertySwagger?: any) => {
   const ApiProperty = ApiPropertySwagger || function () {};
@@ -44,7 +56,7 @@ export const getCreateWorkDto = (ApiPropertySwagger?: any) => {
 
     @IsString()
     @ApiProperty()
-    type: WorkType;
+    type: WorkTypeEnumType;
 
     authorId: string;
     organisationId: string;
@@ -150,7 +162,7 @@ export const getWorkQuery = (ApiPropertySwagger?: any) => {
 
     @IsOptional()
     @ApiProperty({ required: false })
-    type?: string;
+    type?: WorkTypeEnumType;
   }
   return WorkQueryDto;
 };

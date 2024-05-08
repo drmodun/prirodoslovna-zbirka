@@ -7,6 +7,7 @@ import Link from "next/link";
 import Image from "next/image";
 import RemoveWorkButton from "components/RemoveWorkButton";
 import { getPfpUrl } from "@/utility/static/getPfpUrl";
+import SaveButton from "components/SaveButton";
 
 export interface WorkCardProps {
   work: WorkResponseShort;
@@ -34,7 +35,9 @@ export const WorkCard = ({ work, isAdmin, onDelete }: WorkCardProps) => (
           isHidden={!work.isApproved}
         />
       </QueryClientWrapper>
-    ) : null}
+    ) : (
+      <SaveButton work={work} />
+    )}
 
     <div className={classes.content}>
       <div className={classes.upper}>
