@@ -59,9 +59,11 @@ export const WorkCard = ({ work, isAdmin, onDelete }: WorkCardProps) => (
         <span className={classes.gbifAuthor}>{work.auhtorName} - (GBIF)</span>
       ) : (
         <div className={classes.author}>
-          <ImageWithFallback
+          <Image
+            className={classes.pfp}
             src={getPfpUrl(work.authorId)}
             alt={work.auhtorName}
+            layout="fill"
           />
           <Link href={`/user/${work.authorId}`} className={classes.name}>
             {work.auhtorName}
@@ -70,7 +72,7 @@ export const WorkCard = ({ work, isAdmin, onDelete }: WorkCardProps) => (
       )}
       <span className={classes.description}>{work.description}</span>
       <div className={classes.tags}>
-        {work.tags.map((tag) => (
+        {work?.tags?.map((tag) => (
           <span key={tag} className={classes.tag}>
             {tag}
           </span>

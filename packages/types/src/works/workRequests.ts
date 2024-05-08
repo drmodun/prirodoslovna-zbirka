@@ -145,12 +145,12 @@ export const getWorkQuery = (ApiPropertySwagger?: any) => {
 
     @IsEnum(SortType)
     @ApiProperty({ enum: SortType })
-    direction: SortType;
+    direction?: SortType;
 
     @IsOptional()
     @IsEnum(SortingEnum)
     @ApiProperty({ enum: SortType })
-    attribute: SortingEnum;
+    attribute?: SortingEnum;
 
     @IsOptional()
     @ApiProperty({ required: false })
@@ -169,7 +169,7 @@ export const getWorkQuery = (ApiPropertySwagger?: any) => {
 
 export interface GbifQuery {
   q: string;
-  literatureType: WorkType;
+  literatureType: WorkTypeEnumType;
   publisher: string;
   limit: number;
   offset: number;

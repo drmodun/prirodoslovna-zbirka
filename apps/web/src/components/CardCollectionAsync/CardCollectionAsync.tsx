@@ -4,6 +4,7 @@ import {
   OrganisationResponseShort,
   PostResponse,
   ShortUserResponse,
+  WorkResponseShort,
 } from "@biosfera/types";
 import { ExponatCard } from "components/ExponatCard";
 import classes from "./CardCollectionAsync.module.scss";
@@ -18,6 +19,7 @@ import { useIsInView } from "@/utility/hooks/useIsInView";
 import useUser from "@/utility/context/UserContext";
 import { getPfpUrl } from "@/utility/static/getPfpUrl";
 import OrganisationCard from "components/OrganisationCard";
+import WorkCard from "components/WorkCard";
 
 export interface CardCollectionAsyncProps {
   items: (
@@ -25,9 +27,10 @@ export interface CardCollectionAsyncProps {
     | PostResponse[]
     | ShortUserResponse[]
     | OrganisationResponseShort[]
+    | WorkResponseShort[]
   ) &
     Indexable[];
-  type: "exponat" | "post" | "user" | "organisation";
+  type: "exponat" | "post" | "user" | "organisation" | "work";
   page: number;
   isLoading?: boolean;
   getMore: (query?: any, page?: number) => Promise<any> | (() => void);
@@ -188,6 +191,8 @@ export const CardCollectionAsync: React.FC<CardCollectionAsyncProps> = ({
                   organisation={item as OrganisationResponseShort}
                 />
               );
+            case "work":
+              return <WorkCard work={item as WorkResponseShort} />;
           }
         })}
       </div>
