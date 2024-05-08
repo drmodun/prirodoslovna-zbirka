@@ -5,8 +5,9 @@ import {
   PaginationRequest,
   SortingRequest,
   worksSortQueryBuilder,
+  WorkTypeEnumType,
 } from '@biosfera/types';
-import { MemberRole } from '@prisma/client';
+import { MemberRole, WorkType } from '@prisma/client';
 
 @Injectable()
 export class WorksService {
@@ -30,7 +31,15 @@ export class WorksService {
     const data = createWorkDto;
     const work = await this.prisma.work.create({
       data: {
-        ...data,
+        description: data.description,
+        type: data.type as WorkTypeEnumType,
+        title: data.title,
+        document: data.document,
+        presentation: data.presentation,
+        poster: data.poster,
+        authorId: data.authorId,
+        tags: data.tags,
+        organisationId: data.organisationId,
       },
       include: {
         author: true,
