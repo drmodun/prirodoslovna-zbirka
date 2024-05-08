@@ -15,7 +15,7 @@ export class WorksQuery extends _worksQuery {}
 export const WorkToGbifMapper = (work: WorksQuery): GbifQuery => {
   return {
     q: work.title,
-    literatureType: work.type,
+    literatureType: work.type ?? "GENERIC",
     publisher: work.organisationId,
     limit: work.size ?? 20,
     offset: work.page ? (work.page - 1) * (work.size ?? 20) : 0,
@@ -53,7 +53,8 @@ export const getWorks = async (
     if (
       queryDto.attribute !== SortingEnum.TITLE &&
       queryDto.attribute !== SortingEnum.CREATED_AT &&
-      queryDto.attribute !== SortingEnum.ORGANISATION
+      queryDto.attribute !== SortingEnum.ORGANISATION &&
+      queryDto.attribute
     )
       delete queryDto.attribute;
 

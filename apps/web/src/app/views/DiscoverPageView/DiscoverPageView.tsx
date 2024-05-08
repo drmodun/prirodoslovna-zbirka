@@ -6,6 +6,7 @@ import {
   ExponatResponseShort,
   OrganisationResponseShort,
   PostResponse,
+  WorkResponseShort,
 } from "@biosfera/types";
 import { useEffect, useState } from "react";
 import CardCollectionAsync from "components/CardCollectionAsync";
@@ -14,30 +15,41 @@ import useDiscover from "@/utility/context/DiscoverContext";
 import { useDiscoverOrganisations } from "@/api/useDiscoverOrganisations";
 import { useDiscoverExponats } from "@/api/useDiscoverExponats";
 import { useDiscoverPosts } from "@/api/useDiscoverPosts";
-import { set } from "react-hook-form";
+import { getGbifWorks, getWorks } from "@/api/serverWorks";
 
 export interface DiscoverPageViewProps {
   organisations: OrganisationResponseShort[];
   exponats: ExponatResponseShort[];
   posts: PostResponse[];
+  works: WorkResponseShort[];
+  gbifWorks: WorkResponseShort[];
   initTab: tabType;
   query: any;
 }
 
-const tabs = ["Organizacije", "Eksponati", "Objave"];
-export type tabType = "Organizacije" | "Eksponati" | "Objave";
-export type tabDictionaryType = "organisation" | "exponat" | "post";
+const tabs = ["Organizacije", "Eksponati", "Objave", "Radovi", "Radovi (GBIF)"];
+export type tabType =
+  | "Organizacije"
+  | "Eksponati"
+  | "Objave"
+  | "Radovi"
+  | "Radovi (GBIF)";
+export type tabDictionaryType = "organisation" | "exponat" | "post" | "work";
 
 export const tabDictionary = {
   Organizacije: "organisation",
   Eksponati: "exponat",
   Objave: "post",
+  Radovi: "work",
+  "Radovi (GBIF)": "work",
 };
 
 export const DiscoverPageView = ({
   organisations,
   exponats,
   posts,
+  gbifWorks,
+  works,
   initTab,
   query = { page: 1, size: 20 },
 }: DiscoverPageViewProps) => {
@@ -50,14 +62,22 @@ export const DiscoverPageView = ({
     ExponatResponseShort[]
   >([]);
   const [currentPosts, setCurrentPosts] = useState<PostResponse[]>([]);
+  const [currentWorks, setCurrentWorks] = useState<WorkResponseShort[]>([]);
+  const [currentGbifWorks, setCurrentGbifWorks] = useState<WorkResponseShort[]>(
+    []
+  );
 
   const {
     exponatPage,
     organisationPage,
     postPage,
+    gbifWorkPage,
+    workPage,
     resetPages,
     setOrganisationPage,
     setExponatPage,
+    setWorkPage,
+    setGbifWorkPage,
     setPostPage,
   } = useDiscover();
 
@@ -75,6 +95,29 @@ export const DiscoverPageView = ({
     postPage,
     size
   );
+
+  useEffect(() => {
+    const getMoreWorks = async () => {
+      if (workPage === 1) return;
+      const works = await getWorks(query, workPage);
+      if (!works) handleError();
+      setCurrentWorks((prev) => [...prev, ...(works || [])]);
+    };
+
+    getMoreWorks();
+  }, [workPage]);
+
+  useEffect(() => {
+    const getMoreGbifWorks = async () => {
+      if (gbifWorkPage === 1) return;
+      query.page = gbifWorkPage;
+      const works = await getGbifWorks(query);
+      if (!works) handleError();
+      setCurrentGbifWorks((prev) => [...prev, ...(works || [])]);
+    };
+
+    getMoreGbifWorks();
+  }, [gbifWorkPage]);
 
   useEffect(() => {
     if (currentOrganisationsQuery?.length === 0) handleError();
@@ -120,6 +163,14 @@ export const DiscoverPageView = ({
     setPostPage && setPostPage((prev) => prev + 1);
   };
 
+  const handleWorkSeach = async () => {
+    setWorkPage && setWorkPage((prev) => prev + 1);
+  };
+
+  const handleGbifWorkSearch = async () => {
+    setGbifWorkPage && setGbifWorkPage((prev) => prev + 1);
+  };
+
   return (
     <div className={classes.container}>
       <Tabs activeTab={activeTab} tabs={tabs} onSelect={setActiveTab} />
@@ -132,7 +183,11 @@ export const DiscoverPageView = ({
                 ? organisationPage
                 : activeTab === "Eksponati"
                 ? exponatPage
-                : postPage
+                : activeTab == "Objave"
+                ? postPage
+                : activeTab === "Radovi"
+                ? workPage
+                : gbifWorkPage
             }
             isDiscover
             getMore={
@@ -140,7 +195,11 @@ export const DiscoverPageView = ({
                 ? handleOrganisationSearch
                 : activeTab === "Eksponati"
                 ? handleExponatSearch
-                : handlePostSearch
+                : activeTab === "Objave"
+                ? handlePostSearch
+                : activeTab === "Radovi"
+                ? handleWorkSeach
+                : handleGbifWorkSearch
             }
             params={query}
             onError={handleError}
@@ -150,7 +209,11 @@ export const DiscoverPageView = ({
                 ? currentOrganisations || organisations
                 : activeTab === "Eksponati"
                 ? currentExponats || exponats
-                : currentPosts || posts
+                : activeTab === "Objave"
+                ? currentPosts || posts
+                : activeTab === "Radovi"
+                ? currentWorks || works
+                : currentGbifWorks || gbifWorks
             }
           />
         </UserWrapper>
