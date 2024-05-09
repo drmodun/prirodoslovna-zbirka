@@ -22,12 +22,13 @@ import {
   WorkResponseExtended,
   WorkResponseShort,
 } from '@biosfera/types';
-import { ApiBearerAuth } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { OptionalJwtAuthGuard } from 'src/auth/optional-jwt-auth-guard';
 import { PaginationParams } from 'src/config/pagination';
 import { SortingParams } from 'src/config/sorting';
 
 @Controller('works')
+@ApiTags('works')
 export class WorksController {
   constructor(private readonly worksService: WorksService) {}
 
@@ -35,11 +36,11 @@ export class WorksController {
   @ApiBearerAuth()
   @Post(':organisationId')
   async create(
-    @Req() { req }: any,
+    @Req() req: any,
     @Param('organisationId') organisationId: string,
     @Body() createWorkDto: CreateWorkDto,
   ) {
-    createWorkDto.authorId = req.user.id;
+    createWorkDto.authorId = req?.user?.id;
     createWorkDto.organisationId = organisationId;
 
     const check = await this.worksService.checkMembership(
@@ -58,7 +59,7 @@ export class WorksController {
   @ApiBearerAuth()
   @Get()
   async findAll(
-    @Req() { req }: any,
+    @Req() req: any,
     @PaginationParams() paginationParam?: PaginationRequest,
     @SortingParams([SortingEnum.TITLE, SortingEnum.ORGANISATION])
     sorting?: SortingRequest,
@@ -102,7 +103,7 @@ export class WorksController {
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   @Get(':id')
-  async findOne(@Req() { req }: any, @Param('id') id: string) {
+  async findOne(@Req() req: any, @Param('id') id: string) {
     const entity = await this.worksService.findOne(id);
 
     if (!entity) throw new BadRequestException('Work not found');
@@ -139,7 +140,7 @@ export class WorksController {
   @ApiBearerAuth()
   @Patch(':id')
   async update(
-    @Req() { req }: any,
+    @Req() req: any,
     @Param('id') id: string,
     @Body() updateWorkDto: UpdateWorkDto,
   ) {
@@ -159,7 +160,7 @@ export class WorksController {
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   @Delete(':id')
-  async remove(@Req() { req }: any, @Param('id') id: string) {
+  async remove(@Req() req: any, @Param('id') id: string) {
     const check = await this.worksService.checkRights(req.user.id, id);
 
     if (!check)
@@ -175,7 +176,7 @@ export class WorksController {
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   @Patch(':id/approve')
-  async approve(@Req() { req }: any, @Param('id') id: string) {
+  async approve(@Req() req: any, @Param('id') id: string) {
     const check = await this.worksService.checkRights(req.user.id, id);
 
     if (!check)

@@ -7,8 +7,14 @@ const createWorkRequest = getCreateWorkDto();
 
 export class CreateWorkRequest extends createWorkRequest {}
 
-const postWork = async (data: CreateWorkRequest) =>
-  await api.post<never, WorkResponseExtended>("/works", data);
+const postWork = async (data: {
+  body: CreateWorkRequest;
+  organisationId: string;
+}) =>
+  await api.post<never, WorkResponseExtended>(
+    `/works/${data.organisationId}`,
+    data.body
+  );
 
 export const usePostWork = () => {
   return useMutation(postWork, {
