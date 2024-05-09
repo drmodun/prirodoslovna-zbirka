@@ -81,6 +81,14 @@ export const DiscoverPageView = ({
     setPostPage,
   } = useDiscover();
 
+  useEffect(() => {
+    setCurrentGbifWorks(gbifWorks),
+      setCurrentWorks(works),
+      setCurrentPosts(posts),
+      setCurrentExponats(exponats),
+      setCurrentOrganisations(organisations);
+  }, [gbifWorks, works, posts, exponats, organisations]);
+
   const handleError = () => {
     resetPages && resetPages();
     if (exponatPage === 1 || organisationPage === 1 || postPage === 1) return;
@@ -101,7 +109,9 @@ export const DiscoverPageView = ({
       if (workPage === 1) return;
       const works = await getWorks(query, workPage);
       if (!works) handleError();
-      setCurrentWorks((prev) => [...prev, ...(works || [])]);
+      currentWorks
+        ? setCurrentWorks((prev) => [...prev, ...(works || [])])
+        : setCurrentWorks(works || []);
     };
 
     getMoreWorks();
