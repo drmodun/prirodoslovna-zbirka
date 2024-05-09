@@ -43,6 +43,7 @@ export interface LiteratureResponseGBIF {
   discovered: Date;
   abstract: string;
   literatureType: string;
+  topics: string[];
   keywords: string[];
   authors: LiteratureAuthor[];
   publisher: string;

@@ -120,28 +120,28 @@ export const getWorkQuery = (ApiPropertySwagger?: any) => {
     @IsOptional()
     @IsString()
     @ApiProperty()
-    title: string;
+    title?: string;
 
     @IsOptional()
     @IsUUID()
     @ApiProperty()
-    authorId: string;
+    authorId?: string;
 
     @IsOptional()
     @IsUUID()
     @ApiProperty()
-    approvedBy: string;
+    approvedBy?: string;
 
     @IsOptional()
     @IsUUID()
     @ApiProperty()
-    organisationId: string;
+    organisationId?: string;
 
     @IsOptional()
     @IsArray()
     @IsString({ each: true })
     @ApiProperty()
-    tags: string[];
+    tags?: string[];
 
     @IsEnum(SortType)
     @ApiProperty({ enum: SortType })
@@ -168,10 +168,10 @@ export const getWorkQuery = (ApiPropertySwagger?: any) => {
 };
 
 export interface GbifQuery {
-  q: string;
-  literatureType: WorkTypeEnumType;
-  publisher: string;
-  limit: number;
-  offset: number;
-  topics: string[];
+  q?: string;
+  literatureType?: WorkTypeEnumType;
+  publisher?: string;
+  limit?: number;
+  offset?: number;
+  topics?: string[];
 }

@@ -4,13 +4,14 @@
 .container {
   width: vw-calc(800);
   min-height: vw-calc(400);
-  max-height: vw-calc(600);
   background-color: $secondary-background-color;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
 
   @media (max-width: 768px) {
     width: 100%;
     min-height: vw-mobile-calc(300);
-    max-height: vw-mobile-calc(500);
   }
 
   .image {
@@ -26,8 +27,8 @@
   }
 
   .content {
-    height: vw-calc(300);
     display: flex;
+    width: 100%;
     flex-direction: column;
     padding: vw-calc(20) vw-calc(40);
     justify-content: flex-start;
@@ -35,7 +36,6 @@
     flex-direction: column;
 
     @media (max-width: 768px) {
-      height: vw-mobile-calc(150);
       padding: vw-mobile-calc(10) vw-mobile-calc(20);
     }
 
@@ -94,6 +94,7 @@
       .name {
         font-size: vw-calc(14);
         font-weight: 700;
+        color: $red;
         transition:
           color 0.2s ease-in-out,
           font-size 0.2s ease-in-out;
@@ -120,9 +121,10 @@
     }
 
     .gbifAuthor {
-      height: vw-calc(50);
       font-size: vw-calc(14);
       font-weight: 700;
+      color: $red;
+      display: flex;
 
       @media (max-width: 768px) {
         font-size: vw-mobile-calc(12);
@@ -137,6 +139,8 @@
       align-items: flex-start;
 
       .title {
+        display: flex;
+        max-width: 100%;
         font-size: vw-calc(20);
         font-weight: 700;
         color: $blue;
@@ -148,24 +152,18 @@
           font-size 0.2s ease-in-out;
 
         @media (max-width: 768px) {
-          font-size: vw-mobile-calc(16);
-          margin-bottom: vw-mobile-calc(5);
-          height: vw-mobile-calc(30);
+          font-size: vw-mobile-calc(12);
+          margin-bottom: vw-mobile-calc(15);
+          height: auto;
         }
 
         &:hover {
           cursor: pointer;
           color: $upload-background;
-          font-size: vw-calc(22);
 
           @media (max-width: 768px) {
             font-size: vw-mobile-calc(14);
           }
-        }
-
-        @media (max-width: 768px) {
-          font-size: vw-mobile-calc(14);
-          margin-bottom: vw-mobile-calc(5);
         }
       }
 
@@ -178,7 +176,7 @@
         color: $secondary;
 
         @media (max-width: 768px) {
-          font-size: vw-mobile-calc(12);
+          font-size: vw-mobile-calc(8);
           padding: vw-mobile-calc(3) vw-mobile-calc(6);
           border-radius: vw-mobile-calc(5);
         }
@@ -202,8 +200,9 @@
       font-size: vw-calc(14);
       font-weight: 500;
       color: $secondary;
-      text-align: center;
-      margin-bottom: vw-calc(20);
+      max-width: 100%;
+      text-align: justify;
+      margin: vw-calc(20) 0;
       transition:
         color 0.2s ease-in-out,
         font-size 0.2s ease-in-out;
@@ -211,16 +210,6 @@
       @media (max-width: 768px) {
         font-size: vw-mobile-calc(12);
         margin-bottom: vw-mobile-calc(10);
-      }
-
-      &:hover {
-        cursor: pointer;
-        color: $eucariot-color;
-        font-size: vw-calc(16);
-
-        @media (max-width: 768px) {
-          font-size: vw-mobile-calc(12);
-        }
       }
 
       @media (max-width: 768px) {
@@ -232,7 +221,9 @@
     .tags {
       display: flex;
       flex-direction: row;
-      justify-content: center;
+      justify-content: flex-start;
+      flex-wrap: wrap;
+      width: 100%;
       align-items: center;
       gap: vw-calc(10);
       margin-bottom: vw-calc(20);

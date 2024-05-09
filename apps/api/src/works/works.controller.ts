@@ -64,7 +64,7 @@ export class WorksController {
     sorting?: SortingRequest,
     @Query() query?: WorkQuery,
   ) {
-    const isAdmin = req.user?.role === 'super';
+    const isAdmin = req?.user?.role === 'super';
 
     const check =
       !isAdmin &&

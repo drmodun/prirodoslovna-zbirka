@@ -1,4 +1,5 @@
 import {
+  FullLiteratureResponseGBIF,
   GbifQuery,
   getWorkQuery,
   LiteratureResponseGBIF,
@@ -8,14 +9,15 @@ import {
 } from "@biosfera/types";
 import queryString from "query-string";
 import { getBaseUrl } from "./getUrlServer";
+import { stringCapitaliser } from "@/utility/static/stringCapitaliser";
 
 export const _worksQuery = getWorkQuery();
 export class WorksQuery extends _worksQuery {}
 
-export const WorkToGbifMapper = (work: WorksQuery): GbifQuery => {
+export const WorkToGbifQueryMapper = (work: WorksQuery): GbifQuery => {
   return {
     q: work.title,
-    literatureType: work.type ?? "GENERIC",
+    literatureType: work.type,
     publisher: work.organisationId,
     limit: work.size ?? 20,
     offset: work.page ? (work.page - 1) * (work.size ?? 20) : 0,
@@ -39,8 +41,13 @@ export const LiteratureToWorkMapper = (
     organisationName: literature.publisher,
     updatedAt: literature.published, //TODO: decide what to use here discovered or published
     amountOfSaves: 0,
-    tags: literature.keywords,
+    tags: literature.topics
+      .map((topic) => stringCapitaliser(topic.toLowerCase())) //Format tags
+      .concat(
+        literature.keywords.filter((keyword) => keyword.length < 20) //Remove large not needed keywords
+      ),
     isGbif: true,
+    type: literature.literatureType,
     website: literature.websites[0],
   }) as WorkResponseShort;
 
@@ -74,13 +81,15 @@ export const getGbifWorks = async (
   query: WorksQuery
 ): Promise<WorkResponseShort[] | undefined> => {
   try {
-    const gbifQuery = WorkToGbifMapper(query);
+    const gbifQuery = WorkToGbifQueryMapper(query);
     const search = queryString.stringify(gbifQuery);
     const response = await fetch(
       `https://api.gbif.org/v1/literature/search?${search || ""}`
     );
-    const data = await response.json();
-    return data.map((d: LiteratureResponseGBIF) => LiteratureToWorkMapper(d));
+    const data: FullLiteratureResponseGBIF = await response.json();
+    return data.results.map((d: LiteratureResponseGBIF) =>
+      LiteratureToWorkMapper(d)
+    );
   } catch (error) {
     console.log(error);
   }
