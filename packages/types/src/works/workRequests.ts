@@ -22,6 +22,19 @@ export type WorkTypeEnumType =
   | "MAGAZINE_ARTICLE"
   | "ENCYCLOPEDIA_ARTICLE";
 
+export const workTypeValues: WorkTypeEnumType[] = [
+  "JOURNAL",
+  "BOOK",
+  "GENERIC",
+  "WEB_PAGE",
+  "THESIS",
+  "STATUTE",
+  "CASE",
+  "BOOK_SECTION",
+  "MAGAZINE_ARTICLE",
+  "ENCYCLOPEDIA_ARTICLE",
+];
+
 export const getCreateWorkDto = (ApiPropertySwagger?: any) => {
   const ApiProperty = ApiPropertySwagger || function () {};
 
@@ -37,14 +50,17 @@ export const getCreateWorkDto = (ApiPropertySwagger?: any) => {
     @ApiProperty()
     description: string;
 
+    @IsOptional()
     @IsString()
     @ApiProperty()
     poster: string;
 
+    @IsOptional()
     @IsString()
     @ApiProperty()
     document: string;
 
+    @IsOptional()
     @IsString()
     @ApiProperty()
     presentation: string;
@@ -79,36 +95,36 @@ export const getUpdateWorkDto = (ApiPropertySwagger?: any) => {
     @MinLength(10)
     @MaxLength(1000)
     @ApiProperty()
-    description: string;
+    description?: string;
 
     @IsOptional()
     @IsString()
     @ApiProperty()
-    poster: string;
+    poster?: string;
 
     @IsOptional()
     @IsString()
     @ApiProperty()
-    document: string;
+    document?: string;
 
     @IsOptional()
     @IsString()
     @ApiProperty()
-    presentation: string;
+    presentation?: string;
 
     @IsOptional()
     @IsArray()
     @IsString({ each: true })
     @ApiProperty()
-    tags: string[];
+    tags?: string[];
 
     @IsOptional()
     @IsString()
     @ApiProperty()
-    type: WorkType;
+    type?: WorkTypeEnumType;
 
-    authorId: string;
-    organisationId: string;
+    authorId?: string;
+    organisationId?: string;
   }
   return UpdateWorkDto;
 };

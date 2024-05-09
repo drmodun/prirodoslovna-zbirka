@@ -1,5 +1,11 @@
+"use client";
 import { CreateWorkRequest, usePostWork } from "@/api/usePostWork";
-import { Directories, WorkResponseExtended, WorkType } from "@biosfera/types";
+import {
+  Directories,
+  WorkResponseExtended,
+  WorkType,
+  workTypeValues,
+} from "@biosfera/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { title } from "process";
 import { Field, FieldValues, useForm } from "react-hook-form";
@@ -16,6 +22,7 @@ import { use, useState } from "react";
 import toast from "react-hot-toast";
 import { useUploadFile } from "@/api/useUploadFile";
 import { UpdateWorkRequest, useUpdateWork } from "@/api/useUpdateWork";
+import { useUploadDocument } from "@/api/useUploadDocument";
 
 export interface WorksFormProps {
   isEdit?: boolean;
@@ -35,7 +42,7 @@ export const WorksForm = ({ isEdit, work, organisationId }: WorksFormProps) => {
     tags: z.array(z.string()),
     type: z.enum([
       "",
-      ...(Object.values(WorkType).map((type) => type as string) as string[]),
+      ...(workTypeValues.map((type) => type as string) as string[]),
     ]),
   });
 
@@ -56,7 +63,7 @@ export const WorksForm = ({ isEdit, work, organisationId }: WorksFormProps) => {
   });
 
   const { mutateAsync: createWork } = usePostWork();
-  const { mutateAsync: updadeWork } = useUpdateWork();
+  const { mutateAsync: updateWork } = useUpdateWork();
 
   const [workPoster, setWorkPoster] = useState<File[]>([] as File[]);
   const [workDocument, setWorkDocument] = useState<File[]>([] as File[]);
@@ -65,15 +72,19 @@ export const WorksForm = ({ isEdit, work, organisationId }: WorksFormProps) => {
   );
 
   const { mutateAsync: uploadImage } = useUploadFile();
-  const { mutateAsync: uploadDocument } = useUploadFile();
+  const { mutateAsync: uploadDocument } = useUploadDocument();
 
   const onSubmit = async (data: any) => {
     try {
-      await Promise.all([
+      const [posterUrl, documentUrl, presentationUrl] = await Promise.all([
         handleUploadDocument(),
         handleUploadPoster(),
         handleUploadPresentation(),
       ]);
+
+      data.poster = posterUrl ?? work?.poster;
+      data.document = documentUrl ?? work?.document;
+      data.presentation = presentationUrl ?? work?.presentation;
 
       const object: CreateWorkRequest | UpdateWorkRequest = {
         ...data,
@@ -81,8 +92,11 @@ export const WorksForm = ({ isEdit, work, organisationId }: WorksFormProps) => {
       };
 
       isEdit
-        ? await updadeWork({ id: work!.id, object })
-        : await createWork(object as CreateWorkRequest);
+        ? await updateWork({ id: work!.id, object })
+        : await createWork({
+            body: object as CreateWorkRequest,
+            organisationId,
+          });
 
       setTimeout(() => {
         window.location.href = `/organisation/${organisationId}`;
@@ -106,7 +120,7 @@ export const WorksForm = ({ isEdit, work, organisationId }: WorksFormProps) => {
 
         if (!poster && !isEdit)
           throw new Error("Greška prilikom uploada postera");
-        form.setValue("poster", poster);
+        return poster;
       }
     } catch (error) {
       toast.error("Greška prilikom uploada postera");
@@ -123,7 +137,7 @@ export const WorksForm = ({ isEdit, work, organisationId }: WorksFormProps) => {
 
         if (!document && !isEdit)
           throw new Error("Greška prilikom uploada dokumenta");
-        form.setValue("document", document);
+        return document;
       }
     } catch (error) {
       toast.error("Greška prilikom uploada dokumenta");
@@ -140,7 +154,7 @@ export const WorksForm = ({ isEdit, work, organisationId }: WorksFormProps) => {
 
         if (!presentation && !isEdit)
           throw new Error("Greška prilikom uploada prezentacije");
-        form.setValue("presentation", presentation);
+        return presentation;
       }
     } catch (error) {
       toast.error("Greška prilikom uploada prezentacije");
@@ -165,10 +179,10 @@ export const WorksForm = ({ isEdit, work, organisationId }: WorksFormProps) => {
         name="type"
         form={form}
         label="Tip rada"
-        options={Object.values(WorkType).map((type) => {
+        options={workTypeValues.map((type) => {
           return {
             value: type as string,
-            label: stringCapitaliser((type as string).toLowerCase()),
+            label: stringCapitaliser(String(type).toLowerCase()),
           };
         })}
       />

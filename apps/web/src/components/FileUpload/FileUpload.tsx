@@ -31,7 +31,7 @@ const FileUpload = ({ name, maxFiles = 1, onChange }: FileUploadProps) => {
     accept: {
       "image/*": [".jpg", ".jpeg", ".png"],
       "video/*": [".mp4"],
-      "document/*": [".pdf"],
+      "application/pdf": [  ".pdf", ".PDF"],
     },
     minSize: 0,
     maxSize,
@@ -44,7 +44,6 @@ const FileUpload = ({ name, maxFiles = 1, onChange }: FileUploadProps) => {
       toast.error("Previše datoteka");
       return;
     }
-    files[0].type;
     setFiles((prev) => [...prev, ...acceptedFiles]);
     onChange && onChange((prev: File[]) => [...prev, ...acceptedFiles]);
   }, [acceptedFiles]);
