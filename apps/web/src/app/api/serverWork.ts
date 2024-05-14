@@ -10,7 +10,9 @@ export const getWork = async (id: string) => {
       return null;
     }
 
-    return response.json();
+    const data = await response.json();
+    console.log(data);
+    return data;
   } catch (error) {
     console.log(error);
   }

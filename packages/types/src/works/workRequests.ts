@@ -76,6 +76,7 @@ export const getCreateWorkDto = (ApiPropertySwagger?: any) => {
 
     authorId: string;
     organisationId: string;
+    isApproved?: boolean;
   }
   return CreateWorkDto;
 };
