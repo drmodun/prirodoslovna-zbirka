@@ -16,6 +16,8 @@ const nextConfig = {
     return config;
   },
 
+  crossOrigin: "anonymous",
+
   images: {
     domains: [
       "localhost",

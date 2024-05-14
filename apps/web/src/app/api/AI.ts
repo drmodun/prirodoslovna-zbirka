@@ -124,9 +124,9 @@ export const ttsPrompt = async (
     const request = new FormData();
     request.append("file", file);
 
-    console.log(`${getBaseUrl()}/blobs/audio-${directory}/${id}`);
+    console.log(`${getBaseUrl()}/blobs/audio/audio-${directory}/${id}`);
 
-    const url = await fetch(`${getBaseUrl()}/blobs/audio-${directory}/${id}`, {
+    const url = await fetch(`${getBaseUrl()}/blobs/audio/audio-${directory}/${id}`, {
       method: "POST",
       body: request,
     });

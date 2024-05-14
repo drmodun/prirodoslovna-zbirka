@@ -19,6 +19,7 @@
     height: vw-calc(300);
     object-fit: cover;
     border-radius: vw-calc(25) vw-calc(25) 0 0;
+    position: relative;
 
     @media (max-width: 768px) {
       height: vw-mobile-calc(150);

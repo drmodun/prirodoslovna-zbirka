@@ -135,7 +135,14 @@ export class WorksService {
       where: {
         userId,
         organisationId,
-        role: MemberRole.ADMIN,
+        OR: [
+          {
+            role: MemberRole.ADMIN,
+          },
+          {
+            role: MemberRole.OWNER,
+          },
+        ],
       },
     });
 

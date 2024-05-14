@@ -4,15 +4,20 @@
 .container {
   display: flex;
   flex-direction: column;
-  gap: vw-calc(25);
-  padding: vw-calc(20) vw-calc(200);
+  justify-content: center;
+  align-self: center;
   width: 100%;
-  background-color: $secondary-background-color;
   border-radius: vw-calc(20);
   position: relative;
 
-  @media (max-width: 768px) {
-    padding: vw-mobile-calc(20) vw-mobile-calc(20);
+  &.portrait {
+    height: vw-calc(1040);
+    width: vw-calc(600);
+
+    @media (max-width: 768px) {
+      height: vw-calc(1040);
+      width: 100%;
+    }
   }
 
   .error {
@@ -27,41 +32,53 @@
     }
   }
 
-  &.landscape {
-    width: vw-calc(800);
-    min-height: vw-calc(400);
-
-    @media (max-width: 768px) {
-      width: 100%;
-      min-height: vw-mobile-calc(300);
-    }
-  }
-
-  &.portrait {
-    width: vw-calc(400);
-    min-height: vw-calc(800);
-
-    @media (max-width: 768px) {
-      width: 100%;
-      min-height: vw-mobile-calc(400);
-    }
-  }
-
   .page {
-    width: 100%;
-    height: 100%;
     display: flex;
-    flex-direction: column;
-    gap: vw-calc(10);
-    padding: vw-calc(20);
+    align-items: center;
+    justify-content: center;
+    width: vw-calc(800);
+    height: vw-calc(650);
+    position: relative;
+
+    @media (max-width: 768px) {
+      width: 100%;
+      height: vw-mobile-calc(325);
+    }
+
+    &.portrait {
+      width: vw-calc(650);
+      height: vw-calc(1000);
+
+      @media (max-width: 768px) {
+        width: 100%;
+        height: vw-calc(200);
+      }
+    }
+  }
+
+  .pageNumber {
+    font-size: vw-calc(16);
+    color: $secondary;
+    transition:
+      color 0.2s ease-in-out,
+      font-size 0.2s ease-in-out;
+
+    @media (max-width: 768px) {
+      font-size: vw-mobile-calc(12);
+    }
   }
 
   .buttons {
-    position: absolute;
-    top: vw-calc(20);
     display: flex;
+    padding: 0 vw-calc(20);
     width: 100%;
+    position: relative;
+    top: vw-calc(-100);
     justify-content: space-between;
+    align-items: center;
+    padding: vw-calc(20) vw-calc(40);
+    border-radius: 0 0 vw-calc(20) vw-calc(20);
+    background-color: $secondary-background-color;
 
     .button {
       height: vw-calc(45);
@@ -83,15 +100,11 @@
       }
 
       background-color: $background-color;
-    }
 
-    .page {
-      display: flex;
-      flex-direction: row;
-      font-size: vw-calc(16);
-
-      @media (max-width: 768px) {
-        font-size: vw-mobile-calc(12);
+      &:hover {
+        cursor: pointer;
+        background-color: $secondary;
+        color: $background-color;
       }
     }
   }

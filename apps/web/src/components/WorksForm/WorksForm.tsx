@@ -77,8 +77,8 @@ export const WorksForm = ({ isEdit, work, organisationId }: WorksFormProps) => {
   const onSubmit = async (data: any) => {
     try {
       const [posterUrl, documentUrl, presentationUrl] = await Promise.all([
-        handleUploadDocument(),
         handleUploadPoster(),
+        handleUploadDocument(),
         handleUploadPresentation(),
       ]);
 
