@@ -11,20 +11,25 @@ import ShareButton from "components/ShareButton";
 import QrCodeGenerator from "components/QrCodeButton";
 import DocumentReader from "components/DocumentReader";
 
-export const WorkPage = async ({ params }: { params: any }) => {
+const WorkPage = async ({ params }: { params: any }) => {
   const workInfo: WorkResponseExtended = await getWork(params.workId);
 
   return workInfo ? (
     <div className={classes.container}>
-      <div className={classes.image}>
-        <Image src={workInfo.poster} alt={workInfo.title} />
-      </div>
+      {workInfo.poster && (
+        <div className={classes.image}>
+          <Image src={workInfo.poster} alt={workInfo.title} layout="fill" />
+        </div>
+      )}
 
       <div className={classes.upper}>
         <Link href={`/user/${workInfo.authorId}`} className={classes.author}>
           <ImageWithFallback
             src={getPfpUrl(workInfo.authorId)}
             alt={workInfo.auhtorName}
+            width={100}
+            height={100}
+            className={classes.authorImage}
           />
           <span className={classes.name}>{workInfo.auhtorName}</span>
         </Link>
@@ -43,7 +48,7 @@ export const WorkPage = async ({ params }: { params: any }) => {
         </Link>
 
         <ShareButton text="Podeli rad" title="Podijeli rad" />
-        <QrCodeGenerator name={workInfo.title} />
+        <QrCodeGenerator isIcon name={workInfo.title} />
       </div>
 
       <div className={classes.abstract}>
@@ -69,3 +74,5 @@ export const WorkPage = async ({ params }: { params: any }) => {
     <NotFound />
   );
 };
+
+export default WorkPage;

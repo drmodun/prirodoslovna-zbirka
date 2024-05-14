@@ -234,8 +234,8 @@ model Work {
   poster         String?
   createdAt      DateTime     @default(now())
   updatedAt      DateTime     @default(now()) @updatedAt
-  document       String
-  presentation   String
+  document       String?
+  presentation   String?
   authorId       String
   organisationId String
   organisation   Organisation @relation(fields: [organisationId], references: [id])

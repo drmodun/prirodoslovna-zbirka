@@ -43,12 +43,21 @@ export class WorksController {
     createWorkDto.authorId = req?.user?.id;
     createWorkDto.organisationId = organisationId;
 
-    const check = await this.worksService.checkMembership(
-      req.user.id,
-      organisationId,
-    );
+    if (
+      req?.user?.role === 'super' ||
+      this.worksService.checkIsAdmin(req?.user?.id, organisationId)
+    ) {
+      createWorkDto.isApproved = true;
+    }
 
-    if (check) throw new UnauthorizedException();
+    const check =
+      req?.user.role === 'super' ||
+      (await this.worksService.checkMembership(req.user.id, organisationId));
+
+    if (!check)
+      throw new UnauthorizedException(
+        'Sorry, you cannot post a work to' + organisationId,
+      );
 
     const entity = await this.worksService.create(createWorkDto);
 
@@ -70,7 +79,10 @@ export class WorksController {
     const check =
       !isAdmin &&
       query?.organisationId &&
-      (await this.worksService.checkIsAdmin(req.user.id, query.organisationId));
+      (await this.worksService.checkIsAdmin(
+        req?.user?.id,
+        query.organisationId,
+      ));
 
     const data = await this.worksService.findAll(
       query,
@@ -100,7 +112,7 @@ export class WorksController {
     return mapped;
   }
 
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(OptionalJwtAuthGuard)
   @ApiBearerAuth()
   @Get(':id')
   async findOne(@Req() req: any, @Param('id') id: string) {

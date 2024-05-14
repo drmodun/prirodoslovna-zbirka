@@ -7,7 +7,7 @@ import {
   worksSortQueryBuilder,
   WorkTypeEnumType,
 } from '@biosfera/types';
-import { MemberRole, WorkType } from '@prisma/client';
+import { MemberRole } from '@prisma/client';
 
 @Injectable()
 export class WorksService {
@@ -16,15 +16,15 @@ export class WorksService {
   async checkMembership(userId: string, organisationId: string) {
     const membership = await this.prisma.organisationUser.findFirst({
       where: {
-        userId,
         organisationId,
+        userId,
         NOT: {
           role: MemberRole.REQUESTED,
         },
       },
     });
 
-    return membership;
+    return membership != null;
   }
 
   async create(createWorkDto: CreateWorkDto) {
@@ -76,7 +76,19 @@ export class WorksService {
           },
         },
       },
-      orderBy: sort,
+      orderBy: {
+        ...(sort
+          ? sort
+          : filter.title
+          ? {
+              _relevance: {
+                fields: ['title'],
+                search: filter?.title.split(' ').join(' <-> '),
+                sort: 'desc',
+              },
+            }
+          : null),
+      },
       skip: (pagination?.page - 1) * pagination?.size,
       take: pagination?.size,
     });

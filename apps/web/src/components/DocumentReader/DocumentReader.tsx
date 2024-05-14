@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { Document, Page, pdfjs } from "react-pdf";
-import classes from "./DocumentReader.module.scss";
+import classes from "./Documentreader.module.scss";
 import clsx from "clsx";
 
 pdfjs.GlobalWorkerOptions.workerSrc =
