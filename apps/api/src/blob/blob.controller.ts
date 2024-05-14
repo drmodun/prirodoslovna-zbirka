@@ -59,7 +59,7 @@ export class BlobController {
     else throw new BadRequestException('File upload failed');
   }
 
-  @Post(':directory/pdf')
+  @Post('/pdf/:directory')
   @ApiConsumes('multipart/form-data')
   @ApiBody({
     schema: {
@@ -101,7 +101,7 @@ export class BlobController {
 
   //TODO: if needed add pptx upload possibility, currently because of file size and usage it is much more efficient and simple to use pdf for presentations
 
-  @Post(':directory/:name')
+  @Post('/audio/:directory/:name')
   @ApiConsumes('multipart/form-data')
   @ApiBody({
     schema: {

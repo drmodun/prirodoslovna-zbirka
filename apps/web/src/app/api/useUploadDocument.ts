@@ -13,11 +13,10 @@ const uploadDocument = async (params: DocumentUploadProps) => {
   const data = new FormData();
   data.append("file", params.file);
   const response = await fileApi.postForm(
-    `/blobs/${params.directory}/pdf`,
+    `/blobs/pdf/${params.directory}`,
     data,
     {
       timeout: 15000, //bigger files take more time to upload
-
     }
   );
   return response.data;
@@ -25,6 +24,9 @@ const uploadDocument = async (params: DocumentUploadProps) => {
 
 export const useUploadDocument = () => {
   return useMutation(uploadDocument, {
+    onMutate: () => {
+      toast.loading("Upload dokumenta...");
+    },
     onError: (error) => {
       toast.error("Greška prilikom uploada dokumenta");
     },

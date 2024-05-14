@@ -48,10 +48,11 @@ export class WorksController {
       this.worksService.checkIsAdmin(req?.user?.id, organisationId)
     ) {
       createWorkDto.isApproved = true;
+      createWorkDto.approvedBy = req?.user?.id;
     }
 
     const check =
-      req?.user.role === 'super' ||
+      req?.user?.role === 'super' ||
       (await this.worksService.checkMembership(req.user.id, organisationId));
 
     if (!check)
@@ -120,14 +121,14 @@ export class WorksController {
 
     if (!entity) throw new BadRequestException('Work not found');
 
-    const check = await this.worksService.checkRights(req.user.id, id);
+    const check = await this.worksService.checkRights(req?.user?.id, id);
 
     if (!entity.isApproved && !check)
       throw new UnauthorizedException('Work not approved');
 
     const mapped: WorkResponseExtended = {
       approvedById: entity.approvedBy,
-      approvedByName: entity.approver.username,
+      approvedByName: entity.approver?.username,
       auhtorName: entity.author.username,
       authorId: entity.authorId,
       amountOfSaves: entity._count.SavedWorks,

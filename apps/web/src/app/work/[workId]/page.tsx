@@ -47,8 +47,10 @@ const WorkPage = async ({ params }: { params: any }) => {
           Pogledaj organizaciju
         </Link>
 
-        <ShareButton text="Podeli rad" title="Podijeli rad" />
-        <QrCodeGenerator isIcon name={workInfo.title} />
+        <div className={classes.sharing}>
+          <ShareButton text="Podeli rad" title="Podijeli rad" />
+          <QrCodeGenerator isIcon name={workInfo.title} />
+        </div>
       </div>
 
       <div className={classes.abstract}>
@@ -56,19 +58,21 @@ const WorkPage = async ({ params }: { params: any }) => {
         <span className={classes.description}>{workInfo.description}</span>
       </div>
 
-      {workInfo.document && (
-        <div className={classes.pdfReader}>
-          <span className={classes.name}>Dokument projekta</span>
-          <DocumentReader src={workInfo.document} />
-        </div>
-      )}
+      <div className={classes.documents}>
+        {workInfo.document && (
+          <div className={classes.pdfReader}>
+            <span className={classes.name}>Dokument projekta</span>
+            <DocumentReader src={workInfo.document} />
+          </div>
+        )}
 
-      {workInfo.presentation && (
-        <div className={classes.pdfReader}>
-          <span className={classes.name}>Prezentacija projekta</span>
-          <DocumentReader isLandscape src={workInfo.presentation} />
-        </div>
-      )}
+        {workInfo.presentation && (
+          <div className={classes.pdfReader}>
+            <span className={classes.name}>Prezentacija projekta</span>
+            <DocumentReader isLandscape src={workInfo.presentation} />
+          </div>
+        )}
+      </div>
     </div>
   ) : (
     <NotFound />
