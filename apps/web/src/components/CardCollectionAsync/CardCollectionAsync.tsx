@@ -30,7 +30,7 @@ export interface CardCollectionAsyncProps {
     | WorkResponseShort[]
   ) &
     Indexable[];
-  type: "exponat" | "post" | "user" | "organisation" | "work";
+  type: "exponat" | "post" | "user" | "organisation" | "work" | "literature";
   page: number;
   isLoading?: boolean;
   getMore: (query?: any, page?: number) => Promise<any> | (() => void);
@@ -67,6 +67,7 @@ export const CardCollectionAsync: React.FC<CardCollectionAsyncProps> = ({
 
   const handleScroll = async () => {
     try {
+      console.log("handleScroll", items);
       if (!loading && !failed) {
         setLoading(true);
         setCurrentPage((prev) => prev + 1);
@@ -192,6 +193,8 @@ export const CardCollectionAsync: React.FC<CardCollectionAsyncProps> = ({
                 />
               );
             case "work":
+              return <WorkCard work={item as WorkResponseShort} />;
+            case "literature":
               return <WorkCard work={item as WorkResponseShort} />;
           }
         })}

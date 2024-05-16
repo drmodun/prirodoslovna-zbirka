@@ -7,6 +7,7 @@ import {
   OrganisationResponseShort,
   PostResponse,
   ShortUserResponse,
+  WorkResponseShort,
 } from "@biosfera/types";
 import { useEffect, useState } from "react";
 import { getUsers } from "@/api/serverUsers";
@@ -15,38 +16,64 @@ import { getPosts } from "@/api/serverPosts";
 import { getOrganisations } from "@/api/serverOrganisations";
 import CardCollectionAsync from "components/CardCollectionAsync";
 import { UserWrapper } from "@/utility/wrappers/userWrapper";
-import { Indexable } from "@biosfera/types/src/jsonObjects";
 import { ExponatFilter } from "components/FIlterForm/ExponatFIlterForm";
 import { PostFilter } from "components/FIlterForm/PostFilterForm";
 import { OrganisationFilter } from "components/FIlterForm/OrganisationFilter";
 import { UserFilter } from "components/FIlterForm/UserFilterForm";
+import { getGbifWorks, getWorks } from "@/api/serverWorks";
+import { WorkFilter } from "components/FIlterForm/WorkFilterForm";
 
 export interface SearchPageViewProps {
   users: ShortUserResponse[];
   organisations: OrganisationResponseShort[];
   exponats: ExponatResponseShort[];
   posts: PostResponse[];
+  works: WorkResponseShort[];
+  literature: WorkResponseShort[];
   initTab: tabType;
   query: any;
 }
 
-const tabs = ["Korisnici", "Organizacije", "Eksponati", "Objave"];
-export type tabType = "Korisnici" | "Organizacije" | "Eksponati" | "Objave";
-export type tabDictionaryType = "user" | "organisation" | "exponat" | "post";
+const tabs = [
+  "Korisnici",
+  "Organizacije",
+  "Eksponati",
+  "Objave",
+  "Radovi",
+  "Literatura",
+];
+export type tabType =
+  | "Korisnici"
+  | "Organizacije"
+  | "Eksponati"
+  | "Objave"
+  | "Radovi"
+  | "Literatura";
+export type tabDictionaryType =
+  | "user"
+  | "organisation"
+  | "exponat"
+  | "post"
+  | "work"
+  | "literature";
 
 export const tabDictionary = {
   Korisnici: "user",
   Organizacije: "organisation",
   Eksponati: "exponat",
   Objave: "post",
+  Radovi: "work",
+  Literatura: "literature",
 };
 
 export const SearchPageView = ({
   users,
   organisations,
   exponats,
+  literature,
   posts,
   initTab,
+  works,
   query,
 }: SearchPageViewProps) => {
   const [activeTab, setActiveTab] = useState<tabType>(initTab);
@@ -66,6 +93,8 @@ export const SearchPageView = ({
           <OrganisationFilter searchParams={query} />
         )}
         {activeTab === "Korisnici" && <UserFilter searchParams={query} />}
+        {activeTab === "Radovi" && <WorkFilter searchParams={query} />}
+        {activeTab === "Literatura" && <WorkFilter searchParams={query} />}
         {query && (
           <UserWrapper>
             <CardCollectionAsync
@@ -78,7 +107,11 @@ export const SearchPageView = ({
                   ? getOrganisations
                   : activeTab === "Eksponati"
                   ? getExponats
-                  : getPosts
+                  : activeTab === "Objave"
+                  ? getPosts
+                  : activeTab === "Radovi"
+                  ? getWorks
+                  : getGbifWorks
               }
               params={query}
               items={
@@ -88,7 +121,13 @@ export const SearchPageView = ({
                   ? organisations
                   : activeTab === "Eksponati"
                   ? exponats
-                  : posts
+                  : activeTab === "Objave"
+                  ? posts
+                  : activeTab === "Radovi"
+                  ? works
+                  : activeTab === "Literatura"
+                  ? literature
+                  : []
               }
             />
           </UserWrapper>

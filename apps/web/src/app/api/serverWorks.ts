@@ -4,6 +4,7 @@ import {
   getWorkQuery,
   LiteratureResponseGBIF,
   SortingEnum,
+  Topics,
   WorkResponseExtended,
   WorkResponseShort,
 } from "@biosfera/types";
@@ -18,10 +19,10 @@ export const WorkToGbifQueryMapper = (work: WorksQuery): GbifQuery => {
   return {
     q: work.title,
     literatureType: work.type,
-    publisher: work.organisationId,
+    publisher: [work.organisationId ?? "GBIF"],
     limit: work.size ?? 20,
     offset: work.page ? (work.page - 1) * (work.size ?? 20) : 0,
-    topics: work.tags,
+    topics: work.tags?.map((tag) => Topics[tag as keyof typeof Topics]),
   };
 };
 
@@ -78,10 +79,13 @@ export const getWorks = async (
 };
 
 export const getGbifWorks = async (
-  query: WorksQuery
+  query: WorksQuery | GbifQuery,
+  page?: number
 ): Promise<WorkResponseShort[] | undefined> => {
   try {
-    const gbifQuery = WorkToGbifQueryMapper(query);
+    const gbifQuery: GbifQuery =
+      (query as GbifQuery) || WorkToGbifQueryMapper(query as WorksQuery);
+    if (page) gbifQuery.offset = (page - 1) * (gbifQuery.limit ?? 20);
     const search = queryString.stringify(gbifQuery);
     const response = await fetch(
       `https://api.gbif.org/v1/literature/search?${search || ""}`
