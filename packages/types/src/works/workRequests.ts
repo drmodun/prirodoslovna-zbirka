@@ -7,7 +7,7 @@ import {
   IsEnum,
   IsOptional,
 } from "class-validator";
-import { WorkType } from "../enums";
+import { Topics, WorkType } from "../enums";
 import { SortType, SortingEnum } from "../query";
 
 export type WorkTypeEnumType =
@@ -188,8 +188,10 @@ export const getWorkQuery = (ApiPropertySwagger?: any) => {
 export interface GbifQuery {
   q?: string;
   literatureType?: WorkTypeEnumType;
-  publisher?: string;
+  publisher?: string[];
   limit?: number;
   offset?: number;
-  topics?: string[];
+  topics?: Topics[];
+  year?: number[];
+  source?: string[];
 }

@@ -2,11 +2,13 @@ import { getExponats } from "@/api/serverExponats";
 import { getOrganisations } from "@/api/serverOrganisations";
 import { getPosts } from "@/api/serverPosts";
 import { getUsers } from "@/api/serverUsers";
+import { getGbifWorks, getWorks } from "@/api/serverWorks";
 import {
   SearchPageView,
   tabDictionaryType,
   tabType,
 } from "@/views/SearchPageView/SearchPageView";
+import { GbifQuery } from "@biosfera/types";
 import { Indexable } from "@biosfera/types/src/jsonObjects";
 
 const getTab = (tab: string): tabType => {
@@ -19,6 +21,10 @@ const getTab = (tab: string): tabType => {
       return "Eksponati";
     case "post":
       return "Objave";
+    case "work":
+      return "Radovi";
+    case "literature":
+      return "Literatura";
     default:
       return "Eksponati";
   }
@@ -70,13 +76,31 @@ const SearchPage = async ({
     direction: searchParams?.direction,
   });
 
+  const initWorks = getWorks({
+    title: searchParams?.name || searchParams?.title,
+    tags: searchParams?.tags,
+    type: searchParams?.type,
+    attribute: searchParams?.attribute,
+    direction: searchParams?.direction,
+  });
+
+  const initLiterature = getGbifWorks({
+    q: searchParams?.name || searchParams?.title,
+    publisher: searchParams?.publisher,
+    source: searchParams?.source,
+    topics: searchParams?.topics,
+    year: searchParams?.year,
+    literatureType: searchParams?.literatureType,
+  } as GbifQuery);
+
   const results = await Promise.all([
     initExponats,
     initPosts,
     initOrganisations,
     initUser,
+    initWorks,
+    initLiterature,
   ]);
-
 
   return (
     <div>
@@ -86,6 +110,8 @@ const SearchPage = async ({
         organisations={results[2]}
         query={searchParams}
         initTab={getTab(searchParams?.kind) || ("Eksponati" as tabType)}
+        works={results[4] ?? []}
+        literature={results[5] ?? []}
         users={results[3]}
       />
     </div>
