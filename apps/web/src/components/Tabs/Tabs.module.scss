@@ -58,4 +58,22 @@
     color: white;
     border-color: $blue;
   }
+
+  &.sub {
+    min-width: vw-calc(100);
+    height: vw-calc(40);
+    min-height: none;
+    color: $eucariot-color;
+
+    &:hover {
+      background-color: $background-color;
+      color: $eucariot-color;
+    }
+
+    &.active {
+      background-color: $eucariot-color;
+      border-color: $eucariot-color;
+      color: $background-color;
+    }
+  }
 }

@@ -184,6 +184,48 @@ export class UsersService {
             },
           },
         },
+        SavedWorks: {
+          where: {
+            ...(approval && {
+              work: {
+                isApproved: approval,
+              },
+            }),
+          },
+          include: {
+            work: {
+              include: {
+                organisation: {
+                  select: {
+                    name: true,
+                  },
+                },
+                _count: {
+                  select: {
+                    SavedWorks: true,
+                  },
+                },
+              },
+            },
+          },
+        },
+        Works: {
+          where: {
+            ...(approval && { isApproved: approval }),
+          },
+          include: {
+            organisation: {
+              select: {
+                name: true,
+              },
+            },
+            _count: {
+              select: {
+                SavedWorks: true,
+              },
+            },
+          },
+        },
       },
     });
     return user;

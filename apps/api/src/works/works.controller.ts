@@ -107,6 +107,7 @@ export class WorksController {
         amountOfSaves: item._count.SavedWorks,
         poster: item.poster,
         id: item.id,
+        isApproved: item.isApproved,
       } as WorkResponseShort;
     });
 
@@ -188,7 +189,7 @@ export class WorksController {
 
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
-  @Patch(':id/approve')
+  @Patch(':id/approval')
   async approve(@Req() req: any, @Param('id') id: string) {
     const check = await this.worksService.checkRights(req.user.id, id);
 
@@ -197,7 +198,7 @@ export class WorksController {
         'Not enough rights to perform this action',
       );
 
-    const entity = await this.worksService.approve(id, req.user.id);
+    const entity = await this.worksService.toggleApproval(id, req.user.id);
 
     if (!entity) throw new BadRequestException('Work not approved');
   }

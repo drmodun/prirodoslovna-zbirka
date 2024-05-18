@@ -15,7 +15,8 @@ import useDiscover from "@/utility/context/DiscoverContext";
 import { useDiscoverOrganisations } from "@/api/useDiscoverOrganisations";
 import { useDiscoverExponats } from "@/api/useDiscoverExponats";
 import { useDiscoverPosts } from "@/api/useDiscoverPosts";
-import { getGbifWorks, getWorks } from "@/api/serverWorks";
+import { getWorks } from "@/api/serverWorks";
+import { getGbifWorks } from "@/api/serverLiterature";
 
 export interface DiscoverPageViewProps {
   organisations: OrganisationResponseShort[];

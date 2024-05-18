@@ -40,6 +40,8 @@ export const WorkCard = ({ work, isAdmin, onDelete }: WorkCardProps) => {
           href={
             work.isGbif
               ? "https://www.gbif.org/"
+              : work.isApproved === false
+              ? "/404"
               : `/organisation/${work.organisationId}`
           }
           className={classes.organisation}

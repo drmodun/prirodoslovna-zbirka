@@ -33,6 +33,7 @@ import {
   PaginationRequest,
   SortingEnum,
   SortingRequest,
+  WorkResponseShort,
 } from '@biosfera/types';
 import { UserQuery } from '@biosfera/types';
 import { SortingParams } from '../config/sorting';
@@ -206,6 +207,46 @@ export class UsersController {
           } as OrganisationResponseShort;
         });
 
+      const works: WorkResponseShort[] = item.Works.map((work) => {
+        return {
+          amountOfSaves: work._count.SavedWorks,
+          auhtorName: item.username,
+          authorId: item.id,
+          description: work.description,
+          id: work.id,
+          organisationId: work.organisationId,
+          organisationName: work.organisation.name,
+          poster: work.poster,
+          tags: work.tags,
+          title: work.title,
+          type: work.type,
+          updatedAt: work.updatedAt,
+          isApproved: work.isApproved,
+          isGbif: false,
+        } as WorkResponseShort;
+      });
+
+      const savedWorks: WorkResponseShort[] = item.SavedWorks.map(
+        (connection) => {
+          return {
+            amountOfSaves: connection.work._count.SavedWorks,
+            auhtorName: item.username,
+            authorId: item.id,
+            description: connection.work.description,
+            id: connection.work.id,
+            organisationId: connection.work.organisationId,
+            organisationName: connection.work.organisation.name,
+            poster: connection.work.poster,
+            tags: connection.work.tags,
+            title: connection.work.title,
+            type: connection.work.type,
+            updatedAt: connection.work.updatedAt,
+            isApproved: connection.work.isApproved,
+            isGbif: false,
+          } as WorkResponseShort;
+        },
+      );
+
       const mapped: ExtendedUserResponse = {
         email: item.email,
         firstName: item.firstName,
@@ -217,6 +258,8 @@ export class UsersController {
         updatedAt: item.updatedAt,
         posts: posts,
         location: item.location,
+        savedWorks,
+        works,
         bio: item.bio,
         likedPosts: likedPosts,
         followingCount: item._count.following,
@@ -361,4 +404,3 @@ export class UsersController {
     await this.usersService.resetPassword(activationCode, newPassword);
   }
 }
-

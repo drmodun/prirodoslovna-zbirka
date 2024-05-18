@@ -7,7 +7,7 @@ import {
   worksSortQueryBuilder,
   WorkTypeEnumType,
 } from '@biosfera/types';
-import { MemberRole } from '@prisma/client';
+import { MemberRole, WorkType } from '@prisma/client';
 
 @Injectable()
 export class WorksService {
@@ -65,7 +65,7 @@ export class WorksService {
         }),
         ...(filter?.tags && { tags: { hasSome: filter.tags } }), //TODO: test
         ...(approval && { isApproved: approval }),
-        ...(filter?.type && { type: filter.type }),
+        ...(filter?.type && { type: filter.type as WorkType }),
       },
       include: {
         organisation: true,
