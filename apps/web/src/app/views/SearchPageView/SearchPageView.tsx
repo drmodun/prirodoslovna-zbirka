@@ -20,8 +20,10 @@ import { ExponatFilter } from "components/FIlterForm/ExponatFIlterForm";
 import { PostFilter } from "components/FIlterForm/PostFilterForm";
 import { OrganisationFilter } from "components/FIlterForm/OrganisationFilter";
 import { UserFilter } from "components/FIlterForm/UserFilterForm";
-import { getGbifWorks, getWorks } from "@/api/serverWorks";
+import { getWorks } from "@/api/serverWorks";
+import { getGbifWorks } from "@/api/serverLiterature";
 import { WorkFilter } from "components/FIlterForm/WorkFilterForm";
+import { LiteratureFilter } from "components/FIlterForm/LiteratureFilterForm";
 
 export interface SearchPageViewProps {
   users: ShortUserResponse[];
@@ -94,7 +96,9 @@ export const SearchPageView = ({
         )}
         {activeTab === "Korisnici" && <UserFilter searchParams={query} />}
         {activeTab === "Radovi" && <WorkFilter searchParams={query} />}
-        {activeTab === "Literatura" && <WorkFilter searchParams={query} />}
+        {activeTab === "Literatura" && (
+          <LiteratureFilter searchParams={query} />
+        )}
         {query && (
           <UserWrapper>
             <CardCollectionAsync

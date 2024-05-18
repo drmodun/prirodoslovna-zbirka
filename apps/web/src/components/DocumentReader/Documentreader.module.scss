@@ -11,12 +11,10 @@
   position: relative;
 
   &.portrait {
-    height: vw-calc(1040);
     width: vw-calc(600);
 
     @media (max-width: 768px) {
-      height: vw-calc(1040);
-      width: 100%;
+      width: vw-mobile-calc(340);
     }
   }
 
@@ -36,22 +34,18 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: vw-calc(800);
-    height: vw-calc(650);
     position: relative;
+    height: auto;
 
     @media (max-width: 768px) {
-      width: 100%;
-      height: vw-mobile-calc(325);
+      width: 70%;
     }
 
     &.portrait {
       width: vw-calc(650);
-      height: vw-calc(1000);
 
       @media (max-width: 768px) {
         width: 100%;
-        height: vw-calc(200);
       }
     }
   }
@@ -70,15 +64,18 @@
 
   .buttons {
     display: flex;
-    padding: 0 vw-calc(20);
     width: 100%;
     position: relative;
-    top: vw-calc(-100);
     justify-content: space-between;
     align-items: center;
     padding: vw-calc(20) vw-calc(40);
     border-radius: 0 0 vw-calc(20) vw-calc(20);
     background-color: $secondary-background-color;
+
+    @media (max-width: 768px) {
+      padding: vw-mobile-calc(10) vw-mobile-calc(20);
+      border-radius: 0 0 vw-mobile-calc(10) vw-mobile-calc(10);
+    }
 
     .button {
       height: vw-calc(45);
@@ -97,6 +94,8 @@
       @media (max-width: 768px) {
         height: vw-mobile-calc(20);
         font-size: vw-mobile-calc(10);
+        padding: 0 vw-mobile-calc(10);
+        border-radius: vw-mobile-calc(10);
       }
 
       background-color: $background-color;

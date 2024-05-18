@@ -1,4 +1,4 @@
-import { WorkResponseShort } from "@biosfera/types";
+import { getEnumValue, WorkResponseShort, WorkType } from "@biosfera/types";
 import classes from "./WorkCard.module.scss";
 import { QueryClientWrapper } from "@/utility/wrappers/queryWrapper";
 import ImageWithFallback from "components/ImageWithFallback/ImageWithFallback";
@@ -10,6 +10,7 @@ import { getPfpUrl } from "@/utility/static/getPfpUrl";
 import SaveButton from "components/SaveButton";
 import { useState } from "react";
 import { shortenText } from "@/utility/static/shortenText";
+import { UserWrapper } from "@/utility/wrappers/userWrapper";
 
 export interface WorkCardProps {
   work: WorkResponseShort;
@@ -25,7 +26,8 @@ export const WorkCard = ({ work, isAdmin, onDelete }: WorkCardProps) => {
           <Image src={work.poster} alt={work.title} layout="fill" />
         </div>
       )}
-      {isAdmin ? (
+      <UserWrapper>{!work.isGbif && <SaveButton work={work} />} </UserWrapper>
+      {isAdmin && (
         <QueryClientWrapper>
           <ToggleApprovalButton
             id={work.id}
@@ -38,8 +40,6 @@ export const WorkCard = ({ work, isAdmin, onDelete }: WorkCardProps) => {
             isHidden={!work.isApproved}
           />
         </QueryClientWrapper>
-      ) : (
-        <SaveButton work={work} />
       )}
 
       <div className={classes.content}>
@@ -48,7 +48,7 @@ export const WorkCard = ({ work, isAdmin, onDelete }: WorkCardProps) => {
             <span className={classes.title}>{shortenText(work.title, 20)}</span>
           </Link>
           <div className={classes.type}>
-            <span>{work.type}</span>
+            <span>{getEnumValue(WorkType, work.type)}</span>
           </div>
         </div>
         <div className={classes.divider}></div>

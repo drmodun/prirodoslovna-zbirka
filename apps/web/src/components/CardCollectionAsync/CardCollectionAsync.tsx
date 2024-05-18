@@ -193,7 +193,14 @@ export const CardCollectionAsync: React.FC<CardCollectionAsyncProps> = ({
                 />
               );
             case "work":
-              return <WorkCard work={item as WorkResponseShort} />;
+              return (
+                <WorkCard
+                  work={item as WorkResponseShort}
+                  isAdmin={checkIsAdminForPost(
+                    (item as WorkResponseShort).organisationId
+                  )}
+                />
+              );
             case "literature":
               return <WorkCard work={item as WorkResponseShort} />;
           }

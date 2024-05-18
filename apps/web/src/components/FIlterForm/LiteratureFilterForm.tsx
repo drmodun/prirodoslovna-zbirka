@@ -11,7 +11,9 @@ import ListInput from "components/ListInput";
 import {
   getLiteratureTypesList,
   getTopicsList,
+  getTopicsValues,
 } from "@/utility/static/getEnumLists";
+import { getEnumValue, Topics, WorkType } from "@biosfera/types";
 
 interface Props {
   searchParams?: any;
@@ -22,7 +24,13 @@ export const LiteratureFilter = ({ searchParams }: Props) => {
     q: z.optional(z.string()),
     publisher: z.optional(z.array(z.string())),
     source: z.optional(z.array(z.string())),
-    topics: z.optional(z.enum(["", ...getTopicsList()])),
+    topics: z.optional(
+      z.enum(["", ...getTopicsValues()], {
+        invalid_type_error: `Vrijednost mora biti validna gbif tema poput ${[
+          ...getTopicsValues(),
+        ]}`,
+      })
+    ),
     year: z.optional(z.array(z.number())),
     literatureType: z.optional(z.enum(["", ...getLiteratureTypesList()])),
   });
@@ -33,7 +41,10 @@ export const LiteratureFilter = ({ searchParams }: Props) => {
       q: searchParams?.q || "",
       publisher: searchParams?.publisher || [],
       source: searchParams?.source || [],
-      topics: searchParams?.topics || "",
+      topics:
+        searchParams?.topics?.map((topic: string) => {
+          getEnumValue(Topics, topic);
+        }) || "",
       year: searchParams?.year || [],
       literatureType: searchParams?.literatureType || "",
     } as FieldValues,
@@ -60,7 +71,7 @@ export const LiteratureFilter = ({ searchParams }: Props) => {
           options={[
             { label: "Vrsta literature", value: "" },
             ...getLiteratureTypesList().map((type) => ({
-              label: type,
+              label: getEnumValue(WorkType, type),
               value: type,
             })),
           ]}

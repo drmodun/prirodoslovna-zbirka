@@ -1,9 +1,8 @@
 import { discoverExponats } from "@/api/serverExponats";
 import { discoverOrganisations } from "@/api/serverOrganisations";
 import { discoverPosts } from "@/api/serverPosts";
-import { getGbifWorks, getWorks } from "@/api/serverWorks";
-import { DiscoverWrapper } from "@/utility/wrappers/discoverWrapper";
-import { UserWrapper } from "@/utility/wrappers/userWrapper";
+import { getWorks } from "@/api/serverWorks";
+import { getGbifWorks } from "@/api/serverLiterature";
 import DiscoverPageView from "@/views/DiscoverPageView";
 import { tabType } from "@/views/SearchPageView/SearchPageView";
 
