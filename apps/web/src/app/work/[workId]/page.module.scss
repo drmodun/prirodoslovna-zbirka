@@ -58,7 +58,7 @@
         font-size 0.2s ease-in-out;
 
       @media (max-width: 768px) {
-        font-size: vw-mobile-calc(12);
+        font-size: vw-mobile-calc(6);
       }
 
       &:hover {
@@ -113,6 +113,7 @@
 
       @media (max-width: 768px) {
         height: vw-mobile-calc(20);
+        border-radius: vw-mobile-calc(10);
         font-size: vw-mobile-calc(6);
         padding: 0 vw-mobile-calc(10);
       }

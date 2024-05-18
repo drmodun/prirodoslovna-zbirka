@@ -15,7 +15,7 @@
 
   @media screen and (max-width: 768px) {
     top: vw-mobile-calc(5);
-    right: vw-mobile-calc(25);
+    left: vw-mobile-calc(50);
   }
 
   .removalButton {
@@ -32,8 +32,8 @@
     box-shadow: 0px 0px 10px 0px $dark-red;
 
     @media screen and (max-width: 768px) {
-      width: vw-mobile-calc(25);
-      height: vw-mobile-calc(25);
+      width: vw-mobile-calc(40);
+      height: vw-mobile-calc(40);
     }
 
     img {

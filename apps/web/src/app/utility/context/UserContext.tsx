@@ -24,7 +24,7 @@ import { useGetFollowers } from "@/api/useGetFollowers";
 import { useGetFollowing } from "@/api/useGetFollowing";
 import { useGetFollowedOrganisations } from "@/api/useGetFollowedOrganisations";
 import { set } from "react-hook-form";
-import { useGetSavedWorks } from "@/api/useGetSavedWorks";
+import { useGetMySavedWorks } from "@/api/useGetMySavedWorks";
 
 interface UserContextProps {
   user?: ExtendedUserResponse;
@@ -100,7 +100,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   );
 
   const { data: savedWorksGet, isLoading: savedWorksLoading } =
-    useGetSavedWorks(user?.id);
+    useGetMySavedWorks();
 
   const { data: followedOrganisationGet, isLoading: orgLoading } =
     useGetFollowedOrganisations();
@@ -116,6 +116,13 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
       setFollowedOrganisations(followedOrganisationGet);
     }
   }, [followersGet, followingGet, followedOrganisationGet]);
+
+  useEffect(() => {
+    console.log("savedWorksGet", savedWorksGet);
+    if (savedWorksGet) {
+      setSavedWorks(savedWorksGet);
+    }
+  }, [savedWorksGet]);
 
   const updatePosts = (post: PostResponse) => {
     if (!posts) return;
@@ -255,7 +262,12 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
         updateFollowing,
         updateFollowedOrganisation,
 
-        loading: isLoading || followLoading || followingLoading || orgLoading,
+        loading:
+          isLoading ||
+          followLoading ||
+          followingLoading ||
+          orgLoading ||
+          savedWorksLoading,
       }}
     >
       {children}

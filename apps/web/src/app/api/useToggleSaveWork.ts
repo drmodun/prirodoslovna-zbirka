@@ -9,14 +9,17 @@ export const toggleSaveWork = async (workId: string) => {
 export const useToggleSaveWork = () =>
   useMutation(toggleSaveWork, {
     onMutate: (workId: string) => {
-      toast.loading("Spremanje...");
+      toast.loading("Spremanje...", { id: "saving work" });
       return { workId };
+    },
+    onSettled: (_data, _error, context) => {
+      toast.dismiss("saving work");
     },
     onError: (error: string, _variables, context) => {
       console.log(error);
       toast.error("Greška pri spremanju");
     },
-    onSettled: (_data, _error, context) => {
+    onSuccess: (_data, _error, context) => {
       console.log(context);
       toast.success("Uspješno spremljeno");
     },

@@ -41,10 +41,7 @@ export const LiteratureFilter = ({ searchParams }: Props) => {
       q: searchParams?.q || "",
       publisher: searchParams?.publisher || [],
       source: searchParams?.source || [],
-      topics:
-        searchParams?.topics?.map((topic: string) => {
-          getEnumValue(Topics, topic);
-        }) || "",
+      topics: searchParams?.topics || "",
       year: searchParams?.year || [],
       literatureType: searchParams?.literatureType || "",
     } as FieldValues,
@@ -60,10 +57,36 @@ export const LiteratureFilter = ({ searchParams }: Props) => {
       >
         <h2>Filter literature</h2>
         <Input form={form} attribute="q" question="Naziv" />
-        <ListInput form={form} attribute="topics" question="Teme" />
-        <ListInput form={form} attribute="publisher" question="Izdavač" />
-        <ListInput form={form} attribute="source" question="Izvor" />
-        <ListInput form={form} attribute="year" question="Godina" />
+        <SelectInput
+          name="topics"
+          label="Tema literature"
+          form={form}
+          options={[
+            { label: "Tema literature", value: "" },
+            ...getTopicsList().map((type) => ({
+              label: getEnumValue(Topics, type),
+              value: type,
+            })),
+          ]}
+        />
+        <ListInput
+          form={form}
+          attribute="publisher"
+          question="Izdavač"
+          initValue={searchParams.publisher}
+        />
+        <ListInput
+          form={form}
+          attribute="source"
+          question="Izvor"
+          initValue={searchParams.source}
+        />
+        <ListInput
+          form={form}
+          attribute="year"
+          question="Godina"
+          initValue={searchParams.year}
+        />
         <SelectInput
           name="literatureType"
           label="Vrsta literature"

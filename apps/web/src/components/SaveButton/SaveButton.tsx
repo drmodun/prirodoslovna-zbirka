@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import classes from "./SaveButton.module.scss";
-import saveIcon from "assets/icons/discovery.svg";
+import saveIcon from "assets/icons/save.svg";
 import { useGetMe } from "@/api/useGetMe";
 import useUser from "@/utility/context/UserContext";
 import clsx from "clsx";
@@ -25,6 +25,10 @@ export const SaveButton = ({ work }: SaveButtonProps) => {
   useEffect(() => {
     setIsSaved(savedWorks.find((x) => x.id === work.id) != null);
   }, [savedWorks, loading]);
+
+  useEffect(() => {
+    setIsSaved(savedWorks.find((x) => x.id === work.id) != null);
+  }, []);
 
   const toggleSave = async () => {
     await mutateAsync(work.id);

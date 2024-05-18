@@ -6,7 +6,10 @@ import Image from "next/image";
 import ImageWithFallback from "components/ImageWithFallback/ImageWithFallback";
 import { getPfpUrl } from "@/utility/static/getPfpUrl";
 import Link from "next/link";
-import { dateShortener } from "@/utility/static/dateShortener";
+import {
+  dateShortener,
+  dateShortenerWithoutTime,
+} from "@/utility/static/dateShortener";
 import ShareButton from "components/ShareButton";
 import QrCodeGenerator from "components/QrCodeButton";
 import DocumentReader from "components/DocumentReader";
@@ -35,9 +38,9 @@ const WorkPage = async ({ params }: { params: any }) => {
         </Link>
 
         <span className={classes.updated}>
-          {`${dateShortener(workInfo.firstPublicationDate)} - ${dateShortener(
-            workInfo.updatedAt
-          )}`}
+          {`${dateShortenerWithoutTime(
+            workInfo.firstPublicationDate
+          )} - ${dateShortenerWithoutTime(workInfo.updatedAt)}`}
         </span>
 
         <Link
@@ -48,7 +51,7 @@ const WorkPage = async ({ params }: { params: any }) => {
         </Link>
 
         <div className={classes.sharing}>
-          <ShareButton text="Podeli rad" title="Podijeli rad" />
+          <ShareButton text="Podijeli rad" title="Podijeli rad" />
           <QrCodeGenerator isIcon name={workInfo.title} />
         </div>
       </div>
