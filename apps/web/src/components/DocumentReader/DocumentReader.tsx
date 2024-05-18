@@ -5,6 +5,8 @@ import { Document, Page, pdfjs } from "react-pdf";
 import classes from "./Documentreader.module.scss";
 import clsx from "clsx";
 import { useGetCurrentScreenSize } from "@/utility/hooks/useGetCurrentScreenSize";
+import BaseButton from "components/BaseButton";
+import Link from "next/link";
 
 pdfjs.GlobalWorkerOptions.workerSrc =
   "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
@@ -22,7 +24,7 @@ export const DocumentReader = ({ src, isLandscape }: DocumentReaderProps) => {
 
   const calculatedWidth = () => {
     if (!isLandscape) {
-      return isMobile ? screenSize * (340 / 375) : screenSize * (600 / 1440);
+      return isMobile ? screenSize * (340 / 375) : screenSize * (500 / 1440);
     }
 
     return isMobile ? screenSize * (340 / 360) : screenSize * (1040 / 1440);
@@ -92,6 +94,9 @@ export const DocumentReader = ({ src, isLandscape }: DocumentReaderProps) => {
           Sljedeća stranica
         </button>
       </div>
+      <Link className={classes.link} href={src} target="_blank">
+        <BaseButton text="Otvori cijeli dokument" />
+      </Link>
     </div>
   );
 };

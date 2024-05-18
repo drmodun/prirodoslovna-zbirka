@@ -26,30 +26,14 @@ export const WorkCard = ({ work, isAdmin, onDelete }: WorkCardProps) => {
           <Image src={work.poster} alt={work.title} layout="fill" />
         </div>
       )}
-      <UserWrapper>{!work.isGbif && <SaveButton work={work} />} </UserWrapper>
-      {isAdmin && (
-        <QueryClientWrapper>
-          <ToggleApprovalButton
-            id={work.id}
-            isApproved={work.isApproved}
-            entity="works"
-          />
-          <RemoveWorkButton
-            onRemove={onDelete}
-            workId={work.id} //TODO: add edit button
-            isHidden={!work.isApproved}
-          />
-        </QueryClientWrapper>
-      )}
-
       <div className={classes.content}>
         <div className={classes.upper}>
           <Link href={!work.isGbif ? `/work/${work.id}` : work.website! ?? "#"}>
             <span className={classes.title}>{shortenText(work.title, 20)}</span>
           </Link>
-          <div className={classes.type}>
-            <span>{getEnumValue(WorkType, work.type)}</span>
-          </div>
+          <span className={classes.type}>
+            {getEnumValue(WorkType, work.type)}
+          </span>
         </div>
         <div className={classes.divider}></div>
         <Link
@@ -65,12 +49,13 @@ export const WorkCard = ({ work, isAdmin, onDelete }: WorkCardProps) => {
         </Link>
         {!work.isGbif ? (
           <div className={classes.author}>
-            <Image
-              className={classes.pfp}
-              src={getPfpUrl(work.authorId)}
-              alt={work.auhtorName}
-              layout="fill"
-            />
+            <div className={classes.pfp}>
+              <ImageWithFallback
+                src={getPfpUrl(work.authorId)}
+                alt={work.auhtorName}
+                layout="fill"
+              />
+            </div>
             <Link href={`/user/${work.authorId}`} className={classes.name}>
               {work.auhtorName}
             </Link>
@@ -91,6 +76,27 @@ export const WorkCard = ({ work, isAdmin, onDelete }: WorkCardProps) => {
               {tag}
             </span>
           ))}
+        </div>
+        <div className={classes.buttonRow}>
+          <UserWrapper>
+            {!work.isGbif && <SaveButton work={work} />}
+          </UserWrapper>
+          {isAdmin && (
+            <QueryClientWrapper>
+              <div className={classes.adminRow}>
+                <ToggleApprovalButton
+                  id={work.id}
+                  isApproved={work.isApproved}
+                  entity="works"
+                />
+                <RemoveWorkButton
+                  onRemove={onDelete}
+                  workId={work.id} //TODO: add edit button
+                  isHidden={!work.isApproved}
+                />
+              </div>
+            </QueryClientWrapper>
+          )}
         </div>
       </div>
     </div>

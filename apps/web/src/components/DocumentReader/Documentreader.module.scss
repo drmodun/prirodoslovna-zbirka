@@ -11,7 +11,7 @@
   position: relative;
 
   &.portrait {
-    width: vw-calc(600);
+    width: vw-calc(500);
 
     @media (max-width: 768px) {
       width: vw-mobile-calc(340);
@@ -105,6 +105,15 @@
         background-color: $secondary;
         color: $background-color;
       }
+    }
+  }
+
+  .link {
+    width: 100%;
+    margin-top: vw-calc(20);
+
+    @media (max-width: 768px) {
+      margin-top: vw-mobile-calc(10);
     }
   }
 }
