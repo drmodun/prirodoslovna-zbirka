@@ -1,9 +1,10 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { Document, Page, pdfjs } from "react-pdf";
 import classes from "./Documentreader.module.scss";
 import clsx from "clsx";
+import { useGetCurrentScreenSize } from "@/utility/hooks/useGetCurrentScreenSize";
 
 pdfjs.GlobalWorkerOptions.workerSrc =
   "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
@@ -16,6 +17,22 @@ export interface DocumentReaderProps {
 export const DocumentReader = ({ src, isLandscape }: DocumentReaderProps) => {
   const [numPages, setNumPages] = useState<number>();
   const [pageNumber, setPageNumber] = useState(1);
+
+  const { screenSize, isMobile } = useGetCurrentScreenSize();
+
+  const calculatedWidth = () => {
+    if (!isLandscape) {
+      return isMobile ? screenSize * (340 / 375) : screenSize * (600 / 1440);
+    }
+
+    return isMobile ? screenSize * (340 / 360) : screenSize * (1040 / 1440);
+  };
+
+  const pageWidth = useMemo(calculatedWidth, [
+    screenSize,
+    isMobile,
+    isLandscape,
+  ]);
 
   function onDocumentLoadSuccess({ numPages }: { numPages: number }) {
     setNumPages(numPages);
@@ -61,6 +78,7 @@ export const DocumentReader = ({ src, isLandscape }: DocumentReaderProps) => {
               classes.page,
               isLandscape ? classes.landscape : classes.portrait
             )}
+            width={pageWidth}
             pageNumber={pageNumber}
           />
         </Document>

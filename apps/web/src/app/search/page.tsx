@@ -2,14 +2,10 @@ import { getExponats } from "@/api/serverExponats";
 import { getOrganisations } from "@/api/serverOrganisations";
 import { getPosts } from "@/api/serverPosts";
 import { getUsers } from "@/api/serverUsers";
-import { getGbifWorks, getWorks } from "@/api/serverWorks";
-import {
-  SearchPageView,
-  tabDictionaryType,
-  tabType,
-} from "@/views/SearchPageView/SearchPageView";
+import { getWorks } from "@/api/serverWorks";
+import { getGbifWorks } from "@/api/serverLiterature";
+import { SearchPageView, tabType } from "@/views/SearchPageView/SearchPageView";
 import { GbifQuery } from "@biosfera/types";
-import { Indexable } from "@biosfera/types/src/jsonObjects";
 
 const getTab = (tab: string): tabType => {
   switch (tab) {
@@ -85,7 +81,7 @@ const SearchPage = async ({
   });
 
   const initLiterature = getGbifWorks({
-    q: searchParams?.name || searchParams?.title,
+    q: searchParams?.name || searchParams?.title || searchParams?.q,
     publisher: searchParams?.publisher,
     source: searchParams?.source,
     topics: searchParams?.topics,

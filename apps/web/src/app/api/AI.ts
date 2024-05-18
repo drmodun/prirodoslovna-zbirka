@@ -50,7 +50,7 @@ export const getGPT = async (prompt: string) => {
 export const exponatInfoPrompt = async (exponat: any) => {
   if (!key) return;
 
-  const prompt = `You are a biology expert. Like a teacher, tell me some interesting and essential information about ${exponat}. Write about the characteristics od this species and mention the most important known things. Below the essay list your used sources Keep it structured in one paragraph, at about 200 (+/- 10%) words, the answer has to be written in croatian.`;
+  const prompt = `You are a biology expert. Like a teacher, tell me some interesting and essential information about the ${exponat}. Write about the characteristics od this species and mention the most important known things. Use official sources, possibly query info from GBIF, and list all used sources below (check that links actually exist). Keep it structured in one paragraph, at about 200 (+/- 10%) words, the answer has to be written in croatian.`;
 
   const response = await getGPT(prompt);
   console.log(response.choices[0].message);
@@ -126,10 +126,13 @@ export const ttsPrompt = async (
 
     console.log(`${getBaseUrl()}/blobs/audio/audio-${directory}/${id}`);
 
-    const url = await fetch(`${getBaseUrl()}/blobs/audio/audio-${directory}/${id}`, {
-      method: "POST",
-      body: request,
-    });
+    const url = await fetch(
+      `${getBaseUrl()}/blobs/audio/audio-${directory}/${id}`,
+      {
+        method: "POST",
+        body: request,
+      }
+    );
 
     const data = await url.text();
     console.log(data, "sdad");
