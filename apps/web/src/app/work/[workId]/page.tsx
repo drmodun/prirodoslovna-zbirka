@@ -51,7 +51,7 @@ const WorkPage = async ({ params }: { params: any }) => {
         </Link>
 
         <div className={classes.sharing}>
-          <ShareButton text="Podijeli rad" title="Podijeli rad" />
+          <ShareButton text="Podeli rad" title="Podijeli rad" />
           <QrCodeGenerator isIcon name={workInfo.title} />
         </div>
       </div>

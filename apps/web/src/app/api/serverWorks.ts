@@ -4,6 +4,7 @@ import {
   SortingEnum,
   Topics,
   WorkResponseExtended,
+  WorkType,
 } from "@biosfera/types";
 import queryString from "query-string";
 import { getBaseUrl } from "./getUrlServer";
@@ -14,7 +15,7 @@ export class WorksQuery extends _worksQuery {}
 export const WorkToGbifQueryMapper = (work: WorksQuery): GbifQuery => {
   return {
     q: work.title,
-    literatureType: work.type,
+    literatureType: work.type as WorkType,
     publisher: [work.organisationId ?? "GBIF"],
     limit: work.size ?? 20,
     offset: work.page ? (work.page - 1) * (work.size ?? 20) : 0,
