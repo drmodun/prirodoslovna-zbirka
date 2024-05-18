@@ -10,30 +10,7 @@ import {
 import { Topics, WorkType } from "../enums";
 import { SortType, SortingEnum } from "../query";
 
-export type WorkTypeEnumType =
-  | "JOURNAL"
-  | "BOOK"
-  | "GENERIC"
-  | "WEB_PAGE"
-  | "THESIS"
-  | "STATUTE"
-  | "CASE"
-  | "BOOK_SECTION"
-  | "MAGAZINE_ARTICLE"
-  | "ENCYCLOPEDIA_ARTICLE";
-
-export const workTypeValues: WorkTypeEnumType[] = [
-  "JOURNAL",
-  "BOOK",
-  "GENERIC",
-  "WEB_PAGE",
-  "THESIS",
-  "STATUTE",
-  "CASE",
-  "BOOK_SECTION",
-  "MAGAZINE_ARTICLE",
-  "ENCYCLOPEDIA_ARTICLE",
-];
+export type WorkTypeEnumType = keyof typeof WorkType;
 
 export const getCreateWorkDto = (ApiPropertySwagger?: any) => {
   const ApiProperty = ApiPropertySwagger || function () {};
@@ -187,7 +164,7 @@ export const getWorkQuery = (ApiPropertySwagger?: any) => {
 
 export interface GbifQuery {
   q?: string;
-  literatureType?: WorkTypeEnumType;
+  literatureType?: WorkType;
   publisher?: string[];
   limit?: number;
   offset?: number;
