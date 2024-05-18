@@ -14,11 +14,17 @@ export interface FileUploadProps {
   name: string;
   maxFiles?: number;
   onChange?: Dispatch<SetStateAction<File[]>>;
+  isFullWidth?: boolean;
 }
 
 const maxSize = 5048576;
 
-const FileUpload = ({ name, maxFiles = 1, onChange }: FileUploadProps) => {
+const FileUpload = ({
+  name,
+  isFullWidth,
+  maxFiles = 1,
+  onChange,
+}: FileUploadProps) => {
   const {
     isDragActive,
     getRootProps,
@@ -31,7 +37,7 @@ const FileUpload = ({ name, maxFiles = 1, onChange }: FileUploadProps) => {
     accept: {
       "image/*": [".jpg", ".jpeg", ".png"],
       "video/*": [".mp4"],
-      "application/pdf": [  ".pdf", ".PDF"],
+      "application/pdf": [".pdf", ".PDF"],
     },
     minSize: 0,
     maxSize,
@@ -63,6 +69,7 @@ const FileUpload = ({ name, maxFiles = 1, onChange }: FileUploadProps) => {
         {...getRootProps()}
         className={clsx(
           classes.main,
+          isFullWidth && classes.fullWidth,
           files.length >= maxFiles && classes.disabled
         )}
       >

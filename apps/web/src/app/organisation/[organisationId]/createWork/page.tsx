@@ -7,7 +7,7 @@ const WorkCreate = ({ params }: { params: any }) => (
   <div className={classes.container}>
     <div className={classes.content}>
       <div className={classes.title}>
-        <span>Kreiraj novi projekt</span>
+        <span>Kreiraj novi rad</span>
       </div>
       <div className={classes.form}>
         <QueryClientWrapper>
@@ -15,7 +15,6 @@ const WorkCreate = ({ params }: { params: any }) => (
         </QueryClientWrapper>
       </div>
     </div>
-    <ExponatFormImage />
   </div>
 );
 

@@ -263,7 +263,7 @@ export const CardCollection: React.FC<CardCollectionProps> = ({
                 return (
                   <WorkCard
                     work={item as WorkResponseShort}
-                    isAdmin={checkAdminMembership(item.id)}
+                    isAdmin={checkAdminMembership(item.organisationId)}
                     onDelete={handleDelete}
                   />
                 );

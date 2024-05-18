@@ -94,6 +94,14 @@ export const DiscoverProvider = ({
     if (postPage) {
       setPostPage(parseInt(postPage));
     }
+    const workPage = localStorage.getItem("workPage");
+    if (workPage) {
+      setWorkPage(parseInt(workPage));
+    }
+    const gbifWorkPage = localStorage.getItem("gbifWorkPage");
+    if (gbifWorkPage) {
+      setGbifWorkPage(parseInt(gbifWorkPage));
+    }
   }, []);
 
   return (

@@ -134,11 +134,16 @@ export const OrganisationBody = ({
           )}
           {activeTab === "Radovi" && (
             <UserWrapper>
-              <Link href={`/organisation/${organisationData.id}/createWork`}>
+              <Link
+                className={classes.link}
+                href={`/organisation/${organisationData.id}/createWork`}
+              >
                 <BaseButton text="Napravi rad" isNotSubmit />
               </Link>
               <CardCollection
                 items={works}
+                organisationId={organisationData.id}
+                userId={user?.id}
                 sortBy={[
                   {
                     label: "Ime",

@@ -2,9 +2,9 @@
 import { CreateWorkRequest, usePostWork } from "@/api/usePostWork";
 import {
   Directories,
+  getEnumValue,
   WorkResponseExtended,
   WorkType,
-  workTypeValues,
 } from "@biosfera/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { title } from "process";
@@ -23,6 +23,7 @@ import toast from "react-hot-toast";
 import { useUploadFile } from "@/api/useUploadFile";
 import { UpdateWorkRequest, useUpdateWork } from "@/api/useUpdateWork";
 import { useUploadDocument } from "@/api/useUploadDocument";
+import { getLiteratureTypesList } from "@/utility/static/getEnumLists";
 
 export interface WorksFormProps {
   isEdit?: boolean;
@@ -42,7 +43,9 @@ export const WorksForm = ({ isEdit, work, organisationId }: WorksFormProps) => {
     tags: z.array(z.string()),
     type: z.enum([
       "",
-      ...(workTypeValues.map((type) => type as string) as string[]),
+      ...(getLiteratureTypesList().map(
+        (type: string) => type as string
+      ) as string[]),
     ]),
   });
 
@@ -179,12 +182,10 @@ export const WorksForm = ({ isEdit, work, organisationId }: WorksFormProps) => {
         name="type"
         form={form}
         label="Tip rada"
-        options={workTypeValues.map((type) => {
-          return {
-            value: type as string,
-            label: stringCapitaliser(String(type).toLowerCase()),
-          };
-        })}
+        options={[...getLiteratureTypesList()].map((type) => ({
+          value: type,
+          label: getEnumValue(WorkType, type),
+        }))}
       />
       <ListInput
         attribute="tags"
@@ -195,13 +196,13 @@ export const WorksForm = ({ isEdit, work, organisationId }: WorksFormProps) => {
       {work?.poster ? (
         <BaseButton text="Izmijeni poster" onClick={handleRemovePoster} />
       ) : (
-        <FileUpload onChange={setWorkPoster} name="Poster" />
+        <FileUpload isFullWidth onChange={setWorkPoster} name="Poster" />
       )}
 
       {work?.document ? (
         <BaseButton text="Izmijeni dokument" onClick={handleUploadDocument} />
       ) : (
-        <FileUpload onChange={setWorkDocument} name="Dokument" />
+        <FileUpload isFullWidth onChange={setWorkDocument} name="Dokument" />
       )}
 
       {work?.presentation ? (
@@ -210,7 +211,11 @@ export const WorksForm = ({ isEdit, work, organisationId }: WorksFormProps) => {
           onClick={handleUploadPresentation}
         />
       ) : (
-        <FileUpload onChange={setWorkPresentation} name="Prezentacija" />
+        <FileUpload
+          isFullWidth
+          onChange={setWorkPresentation}
+          name="Prezentacija"
+        />
       )}
 
       <BaseButton text="Pošalji" />
