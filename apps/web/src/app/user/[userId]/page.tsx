@@ -1,7 +1,7 @@
 import classes from "./page.module.scss";
 import { serverGetUser } from "@/api/serverUser";
 import UserCard from "components/UserCard";
-import { ExtendedUserResponse } from "@biosfera/types";
+import { ExtendedUserResponse, WorkResponseExtended, WorkResponseShort } from "@biosfera/types";
 import { UserPageBody } from "components/UserPageBody/UserPageBody";
 import { UserWrapper } from "@/utility/wrappers/userWrapper";
 import NotFound from "@/not-found";
@@ -27,9 +27,11 @@ const UserPage = async ({ params }: { params: any }) => {
           <UserWrapper>
             <UserPageBody
               user={userInfo}
-              savedLiterature={getAllLiterature.filter(
-                (literature) => literature != null // Filter out null values
-              )}
+              savedLiterature={
+                getAllLiterature.filter(
+                  (literature) => literature != null // Filter out null values
+                ) as WorkResponseShort[]
+              }
             />
           </UserWrapper>
         )}
