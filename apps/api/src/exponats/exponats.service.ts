@@ -5,12 +5,12 @@ import {
 } from '@nestjs/common';
 import {
   CreateExponatDto,
+  ExponatQuery,
   ExponatSQL,
   UpdateExponatDto,
 } from './dto/exponats.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import {
-  ExponatQuery,
   PaginationRequest,
   SortingRequest,
   sortExponatQueryBuilderWithComplexFilters,
@@ -106,6 +106,42 @@ export class ExponatsService {
         }),
         ...(filter?.organisationId && {
           organisationId: filter.organisationId,
+        }),
+        ...(filter?.class && {
+          Categorization: {
+            class: filter.class,
+          },
+        }),
+        ...(filter?.family && {
+          Categorization: {
+            family: filter.family,
+          },
+        }),
+        ...(filter?.genus && {
+          Categorization: {
+            genus: filter.genus,
+          },
+        }),
+        ...(filter?.order && {
+          Categorization: {
+            order: filter.order,
+          },
+        }),
+        ...(filter?.kingdom && {
+          Categorization: {
+            kingdom: filter.kingdom,
+          },
+        }),
+
+        ...(filter?.phylum && {
+          Categorization: {
+            phylum: filter.phylum,
+          },
+        }),
+        ...(filter?.species && {
+          Categorization: {
+            species: filter.species,
+          },
         }),
 
         ...(filter.minFavoriteCount && {

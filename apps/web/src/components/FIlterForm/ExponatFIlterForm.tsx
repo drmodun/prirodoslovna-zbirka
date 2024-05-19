@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import classes from "./FilterForm.module.scss";
+import styles from "./FilterForm.module.scss";
 import { z } from "zod";
 import { FieldValues, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -8,6 +8,9 @@ import Input from "components/Input";
 import SelectInput from "components/SelectInput";
 import BaseButton from "components/BaseButton";
 import { error } from "console";
+import Dropdown from "components/Dropdown";
+import { useGetTaxonomyEntities } from "@/api/useGetTaxonomyEntities";
+import { SpeciesResponse, TaxonomyRankGbif } from "@biosfera/types";
 
 interface Props {
   searchParams?: any;
@@ -18,6 +21,13 @@ export const ExponatFilter = ({ searchParams }: Props) => {
     .object({
       name: z.optional(z.string()),
       alternateName: z.optional(z.string()),
+      kingdom: z.optional(z.string()),
+      phylum: z.optional(z.string()),
+      class: z.optional(z.string()),
+      order: z.optional(z.string()),
+      genus: z.optional(z.string()),
+      family: z.optional(z.string()),
+      species: z.optional(z.string()),
       attribute: z.optional(
         z.enum(["name", "createdAt", "postAmount", "favourites"])
       ),
@@ -39,19 +49,81 @@ export const ExponatFilter = ({ searchParams }: Props) => {
       alternateName: searchParams?.search || "",
       attribute: searchParams?.attribute || "Relevantnost",
       direction: searchParams?.direction || "desc",
+      kingdom: searchParams?.kingdom || "",
+      phylum: searchParams?.phylum || "",
+      class: searchParams?.class || "",
+      order: searchParams?.order || "",
+      genus: searchParams?.genus || "",
+      family: searchParams?.family || "",
+      species: searchParams?.species || "",
     } as FieldValues,
   });
 
+  const { data: kingdoms } = useGetTaxonomyEntities(
+    form.watch("kingdom"),
+    "KINGDOM"
+  );
+
+  const { data: phylums } = useGetTaxonomyEntities(
+    form.watch("phylum"),
+    "PHYLUM",
+    kingdoms?.find(
+      (kingdom: SpeciesResponse) =>
+        kingdom.scientificName === form.watch("kingdom")
+    )?.nubKey
+  );
+
+  const { data: classes } = useGetTaxonomyEntities(
+    form.watch("class"),
+    "CLASS",
+    phylums?.find(
+      (phylum: SpeciesResponse) =>
+        phylum.scientificName === form.watch("phylum")
+    )?.nubKey
+  );
+
+  const { data: orders } = useGetTaxonomyEntities(
+    form.watch("order"),
+    "ORDER",
+    classes?.find(
+      (class_: SpeciesResponse) => class_.scientificName === form.watch("class")
+    )?.nubKey
+  );
+
+  const { data: genuses } = useGetTaxonomyEntities(
+    form.watch("genus"),
+    "GENUS",
+    orders?.find(
+      (order: SpeciesResponse) => order.scientificName === form.watch("order")
+    )?.nubKey
+  );
+
+  const { data: families } = useGetTaxonomyEntities(
+    form?.watch("family"),
+    "FAMILY",
+    genuses?.find(
+      (genus: SpeciesResponse) => genus.scientificName === form.watch("genus")
+    )?.nubKey
+  );
+
+  const { data: species } = useGetTaxonomyEntities(
+    form.watch("species"),
+    "SPECIES",
+    families?.find(
+      (family: SpeciesResponse) =>
+        family.scientificName === form.watch("family")
+    )?.nubKey
+  );
+
   //add better ways to filtrate
 
-  const handleFilter = (data: any) => {
-  };
+  const handleFilter = (data: any) => {};
 
   return (
-    <div className={classes.container}>
+    <div className={styles.container}>
       <form
         onSubmit={form.handleSubmit(handleFilter)}
-        className={classes.filter}
+        className={styles.filter}
       >
         <h2>Filter eksponata</h2>
         <Input form={form} attribute="name" question="Naziv" />
@@ -84,9 +156,127 @@ export const ExponatFilter = ({ searchParams }: Props) => {
           ]}
           error={form.formState.errors.direction?.message?.toString()}
         />
+        <Dropdown
+          attribute="kingdom"
+          form={form}
+          options={
+            kingdoms?.map((kingdom: SpeciesResponse) => ({
+              label: kingdom.scientificName,
+              value: kingdom.scientificName,
+            })) || []
+          }
+          initSelected={form.watch("kingdom")}
+          initPlaceholder="Izaberi Kraljevstvo"
+          onSelect={(value) => {
+            form.setValue("kingdom", value);
+            form.setValue("phylum", "");
+            form.setValue("class", "");
+            form.setValue("order", "");
+            form.setValue("genus", "");
+            form.setValue("family", "");
+            form.setValue("species", "");
+          }}
+        />
+        <Dropdown
+          attribute="phylum"
+          form={form}
+          initPlaceholder="Izaberi koljeno"
+          options={
+            phylums?.map((phylum: SpeciesResponse) => ({
+              label: phylum.scientificName,
+              value: phylum.scientificName,
+            })) || []
+          }
+          onSelect={(value) => {
+            form.setValue("phylum", value);
+            form.setValue("class", "");
+            form.setValue("order", "");
+            form.setValue("genus", "");
+            form.setValue("family", "");
+            form.setValue("species", "");
+          }}
+        />
+        <Dropdown
+          attribute="class"
+          form={form}
+          options={
+            classes?.map((class_: SpeciesResponse) => ({
+              label: class_.scientificName,
+              value: class_.scientificName,
+            })) || []
+          }
+          initPlaceholder="Izaberi razred"
+          onSelect={(value) => {
+            form.setValue("class", value);
+            form.setValue("order", "");
+            form.setValue("genus", "");
+            form.setValue("family", "");
+            form.setValue("species", "");
+          }}
+        />
+        <Dropdown
+          attribute="order"
+          form={form}
+          initPlaceholder="Izaberi red"
+          options={
+            orders?.map((order: SpeciesResponse) => ({
+              label: order.scientificName,
+              value: order.scientificName,
+            })) || []
+          }
+          onSelect={(value) => {
+            form.setValue("order", value);
+            form.setValue("genus", "");
+            form.setValue("family", "");
+            form.setValue("species", "");
+          }}
+        />
+        <Dropdown
+          attribute="genus"
+          form={form}
+          initPlaceholder="Izaberi rod"
+          options={
+            genuses?.map((genus: SpeciesResponse) => ({
+              label: genus.scientificName,
+              value: genus.scientificName,
+            })) || []
+          }
+          onSelect={(value) => {
+            form.setValue("genus", value);
+            form.setValue("family", "");
+            form.setValue("species", "");
+          }}
+        />
+        <Dropdown
+          attribute="family"
+          form={form}
+          initPlaceholder="Izaberi porodicu"
+          options={
+            families?.map((family: SpeciesResponse) => ({
+              label: family.scientificName,
+              value: family.scientificName,
+            })) || []
+          }
+          onSelect={(value) => {
+            form.setValue("family", value);
+            form.setValue("species", "");
+          }}
+        />
+        <Dropdown
+          attribute="species"
+          form={form}
+          options={
+            species?.map((specie: SpeciesResponse) => ({
+              label: specie.scientificName,
+              value: specie.scientificName,
+            })) || []
+          }
+          initPlaceholder="Izaberi vrstu"
+          onSelect={(value) => form.setValue("species", value)}
+        />
       </form>
       <Link
-        className={classes.button}
+        className={styles.button}
         href={{
           pathname: "/search",
           query: {
@@ -105,6 +295,27 @@ export const ExponatFilter = ({ searchParams }: Props) => {
               form.watch("attribute") !== "Relevantnost" && {
                 direction: form.watch("direction"),
               }),
+            ...(form.watch("kingdom") && {
+              kingdom: form.watch("kingdom"),
+            }),
+            ...(form.watch("phylum") && {
+              phylum: form.watch("phylum"),
+            }),
+            ...(form.watch("class") && {
+              class: form.watch("class"),
+            }),
+            ...(form.watch("order") && {
+              order: form.watch("order"),
+            }),
+            ...(form.watch("genus") && {
+              genus: form.watch("genus"),
+            }),
+            ...(form.watch("family") && {
+              family: form.watch("family"),
+            }),
+            ...(form.watch("species") && {
+              species: form.watch("species"),
+            }),
           },
         }}
       >
