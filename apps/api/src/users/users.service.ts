@@ -226,6 +226,7 @@ export class UsersService {
             },
           },
         },
+        SavedLiterature: true,
       },
     });
     return user;

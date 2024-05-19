@@ -20,9 +20,10 @@ const tabs = ["O korisniku", "Kreacije", "Reakcije", "Članstva"];
 
 export interface UserPageBodyProps {
   user: ExtendedUserResponse;
+  savedLiterature?: WorkResponseShort[];
 }
 
-export const UserPageBody = ({ user }: UserPageBodyProps) => {
+export const UserPageBody = ({ savedLiterature, user }: UserPageBodyProps) => {
   const [activeTab, setActiveTab] = useState<string>(tabs[0]);
   const [availableTabs, setAvailableTabs] = useState<string[]>(tabs);
   const { user: loggedUser } = useUser();
@@ -90,6 +91,7 @@ export const UserPageBody = ({ user }: UserPageBodyProps) => {
             posts={user.likedPosts}
             userId={user.id}
             initTab="Lajkano"
+            literature={savedLiterature}
           />
         )}
 
@@ -101,22 +103,6 @@ export const UserPageBody = ({ user }: UserPageBodyProps) => {
             userId={user.id}
             initTab="Objave"
           />
-        )}
-
-        {activeTab === "Kapljice" && (
-          <div className={classes.tabContent}>
-            {
-              <CardCollection
-                items={user.likedPosts}
-                sortBy={[
-                  { label: "Abecedno", value: "title" },
-                  { label: "Broj Lajkova", value: "likeScore" },
-                  { label: "Autor", value: "authorName" },
-                ]}
-                type="post"
-              />
-            }
-          </div>
         )}
 
         {activeTab === "Članstva" && (

@@ -258,6 +258,7 @@ export class UsersController {
         updatedAt: item.updatedAt,
         posts: posts,
         location: item.location,
+        savedLiterature: item.SavedLiterature,
         savedWorks,
         works,
         bio: item.bio,

@@ -81,7 +81,7 @@ export const WorkCard = ({ work, isAdmin, onDelete }: WorkCardProps) => {
         </div>
         <div className={classes.buttonRow}>
           <UserWrapper>
-            {!work.isGbif && <SaveButton work={work} />}
+            <SaveButton work={work} />
           </UserWrapper>
           {isAdmin && (
             <QueryClientWrapper>

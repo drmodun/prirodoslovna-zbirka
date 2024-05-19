@@ -22,6 +22,7 @@ import { BlobModule } from './blob/blob.module';
 import { EmailModule } from './email/email.module';
 import { WorksModule } from './works/works.module';
 import { SavedWorksModule } from './saved-works/saved-works.module';
+import { LiteratureModule } from './literature/literature.module';
 
 @Module({
   imports: [
@@ -50,6 +51,7 @@ import { SavedWorksModule } from './saved-works/saved-works.module';
     EmailModule,
     WorksModule,
     SavedWorksModule,
+    LiteratureModule,
   ],
   controllers: [AppController],
   providers: [AppService],
