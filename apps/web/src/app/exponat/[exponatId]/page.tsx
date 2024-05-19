@@ -15,6 +15,7 @@ const ExponatPage = async ({ params }: { params: any }) => {
   const exponatInfo: ExponatExtendedResponse = await serverGetExponat(
     params.exponatId
   );
+  console.log(exponatInfo.categorization?.speciesKey);
 
   return exponatInfo ? (
     <div className={classes.container}>

@@ -108,6 +108,39 @@
   }
 }
 
+.maps {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  .mainMap {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    position: relative;
+    opacity: 0.5;
+
+    @media (max-width: 768px) {
+      width: vw-mobile-calc(256);
+      height: vw-mobile-calc(256);
+    }
+  }
+
+  .occurenceMap {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    @media (max-width: 768px) {
+      width: vw-mobile-calc(256);
+      height: vw-mobile-calc(256);
+    }
+  }
+}
+
 .posts {
   display: flex;
   width: 100%;
