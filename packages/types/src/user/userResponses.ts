@@ -1,7 +1,5 @@
-import {
-  ExponatExtendedResponse,
-  ExponatResponseShort,
-} from "../exponat/exponatResponses";
+import { WorkResponseShort } from "../works/workResponses";
+import { ExponatResponseShort } from "../exponat/exponatResponses";
 import { OrganisationResponseShort } from "../organisation/organisationResponses";
 import { PostResponse } from "../post/postResponse";
 
@@ -22,6 +20,8 @@ export interface ExtendedUserResponse {
   updatedAt: Date;
   hasProfileImage: boolean;
   posts: PostResponse[];
+  works: WorkResponseShort[];
+  savedWorks: WorkResponseShort[];
   favouriteExponats: ExponatResponseShort[];
   memberships: OrganisationResponseShort[];
 }

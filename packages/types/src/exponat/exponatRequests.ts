@@ -8,7 +8,6 @@ import {
   isString,
   IsOptional,
 } from "class-validator";
-import { ExponatKind } from "../enums";
 import { Json } from "../jsonObjects";
 import { SortType, SortingEnum } from "../query";
 

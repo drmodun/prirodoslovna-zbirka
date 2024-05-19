@@ -18,7 +18,7 @@ export const CreationModal = () => {
   const router = useRouter();
 
   const schema = z.object({
-    type: z.enum(["organisation", "exponat", "post"]),
+    type: z.enum(["organisation", "exponat", "post", "work"]),
     organisationId: z.string(),
     exponatId: z.string().optional(),
   });
@@ -65,6 +65,10 @@ export const CreationModal = () => {
       case "post":
         data.exponatId && router.push(`/exponat/${data.exponatId}/createPost`);
         break;
+      case "work":
+        data.organisationId &&
+          router.push(`/organisation/${data.organisationId}/createWork`);
+        break;
     }
   };
 
@@ -85,6 +89,7 @@ export const CreationModal = () => {
             { value: "organisation", label: "Organizacija" },
             { value: "exponat", label: "Eksponat" },
             { value: "post", label: "Objava" },
+            { value: "work", label: "Rad" },
           ]}
         />
         {form.watch("type") !== "organisation" && (

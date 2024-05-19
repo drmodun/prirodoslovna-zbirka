@@ -24,6 +24,29 @@ enum ExponatKind {
   MINERAL
 }
 
+enum WorkType {
+  JOURNAL
+  BOOK
+  GENERIC
+  BOOK_SECTION
+  CONFERENCE_PROCEEDINGS
+  WORKING_PAPER
+  REPORT
+  WEB_PAGE
+  THESIS
+  MAGAZINE_ARTICLE
+  STATUTE
+  PATENT
+  NEWSPAPER_ARTICLE
+  COMPUTER_PROGRAM
+  HEARING
+  TELEVISION_BROADCAST
+  ENCYCLOPEDIA_ARTICLE
+  CASE
+  FILM
+  BILL
+}
+
 enum MemberRole {
   OWNER
   ADMIN
@@ -92,6 +115,9 @@ model User {
   UserOrganisationFollower UserOrganisationFollower[]
   followers                UserFollows[]              @relation("following")
   following                UserFollows[]              @relation("follower")
+  Works                    Work[]                     @relation("author")
+  ApprovedWorks            Work[]                     @relation("approver")
+  SavedWorks               SavedWorks[]
 }
 
 model Exponat {
@@ -129,6 +155,7 @@ model Organisation {
   Exponats                  Exponat[]
   OrganisationUsers         OrganisationUser[]
   UserOrganisationFollowers UserOrganisationFollower[]
+  Work                      Work[]
 }
 
 model Post {
@@ -208,4 +235,37 @@ model UserFollows {
   followeeId String
 
   @@id([followerId, followeeId])
+}
+
+model Work {
+  id             String       @id @default(uuid())
+  title          String
+  description    String
+  poster         String?
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @default(now()) @updatedAt
+  document       String?
+  presentation   String?
+  authorId       String
+  organisationId String
+  organisation   Organisation @relation(fields: [organisationId], references: [id])
+  isApproved     Boolean      @default(false)
+  approvedBy     String?
+  firstPublished DateTime?    @default(now())
+  approver       User?        @relation("approver", fields: [approvedBy], references: [id], onDelete: SetNull)
+  author         User         @relation("author", fields: [authorId], references: [id], onDelete: Cascade)
+  userId         String?
+  SavedWorks     SavedWorks[]
+  tags           String[]
+  type           WorkType     @default(GENERIC)
+}
+
+model SavedWorks {
+  userId    String
+  workId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  work      Work     @relation(fields: [workId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@id([workId, userId])
 }

@@ -59,7 +59,49 @@ export class BlobController {
     else throw new BadRequestException('File upload failed');
   }
 
-  @Post(':directory/:name')
+  @Post('/pdf/:directory')
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        file: {
+          type: 'string',
+          format: 'binary',
+        },
+      },
+    },
+  })
+  @UseInterceptors(FileInterceptor('file'))
+  async pdfUpload(
+    @Param('directory') directory: Directories,
+    @UploadedFile(
+      new ParseFilePipe({
+        validators: [
+          new FileTypeValidator({ fileType: 'application/pdf' }),
+          new MaxFileSizeValidator({ maxSize: 1024 * 1024 * 100 }),
+        ],
+      }),
+    )
+    file: Express.Multer.File,
+  ) {
+    const name = randomUUID();
+
+    const url = await this.blobService.upload(
+      directory,
+      name,
+      file.buffer,
+      file.mimetype,
+    );
+
+    if (url)
+      return `https://biosfera-files.s3.eu-north-1.amazonaws.com/${directory}/${name}`;
+    else throw new BadRequestException('File upload failed');
+  }
+
+  //TODO: if needed add pptx upload possibility, currently because of file size and usage it is much more efficient and simple to use pdf for presentations
+
+  @Post('/audio/:directory/:name')
   @ApiConsumes('multipart/form-data')
   @ApiBody({
     schema: {

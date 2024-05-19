@@ -5,4 +5,5 @@ export enum Directories {
   POST = "post",
   BLOB = "blob",
   CATEGORY = "category",
+  WORK = "work",
 }

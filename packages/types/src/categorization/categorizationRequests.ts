@@ -38,7 +38,7 @@ export const getCreateCategorizationDto = (ApiPropertySwagger?: any) => {
     species: string;
   }
 
-  return CreateCategorizationDto;
+  return  CreateCategorizationDto;
 };
 
 export const getCategorizationQuery = (ApiPropertySwagger?: any) => {

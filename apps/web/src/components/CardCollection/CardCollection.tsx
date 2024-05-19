@@ -4,12 +4,12 @@ import {
   OrganisationResponseShort,
   PostResponse,
   ShortUserResponse,
+  WorkResponseShort,
 } from "@biosfera/types";
 import { ExponatCard } from "components/ExponatCard";
 import classes from "./CardCollection.module.scss";
 import MembershipCard from "components/MembershipCard";
 import { PostCard } from "components/PostCard";
-import placeholder from "assets/images/lion.svg";
 import { useEffect, useRef, useState } from "react";
 import dArrow from "assets/images/d-arrow.svg";
 import Image from "next/image";
@@ -19,6 +19,7 @@ import BaseButton from "components/BaseButton";
 import { useIsInView } from "@/utility/hooks/useIsInView";
 import useUser from "@/utility/context/UserContext";
 import { getPfpUrl } from "@/utility/static/getPfpUrl";
+import WorkCard from "components/WorkCard";
 
 export interface SortOption {
   label: string;
@@ -31,6 +32,7 @@ export interface CardCollectionProps {
     | PostResponse[]
     | ShortUserResponse[]
     | OrganisationResponseShort[]
+    | WorkResponseShort[]
   ) &
     Indexable[];
   type:
@@ -39,7 +41,8 @@ export interface CardCollectionProps {
     | "user"
     | "organisation"
     | "user-member"
-    | "organisation-member";
+    | "organisation-member"
+    | "work";
   sortBy: SortOption[];
   organisationId?: string;
   userId?: string;
@@ -254,6 +257,14 @@ export const CardCollection: React.FC<CardCollectionProps> = ({
                     organisationId={item.id}
                     isAdmin={checkAdminMembership(item.id)}
                     isUser={checkIsAuthor(userId!)}
+                  />
+                );
+              case "work":
+                return (
+                  <WorkCard
+                    work={item as WorkResponseShort}
+                    isAdmin={checkAdminMembership(item.organisationId)}
+                    onDelete={handleDelete}
                   />
                 );
             }

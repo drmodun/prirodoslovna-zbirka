@@ -16,6 +16,7 @@ import {
   OrganisationResponseShort,
   PostResponse,
   ShortUserResponse,
+  WorkResponseShort,
 } from "@biosfera/types";
 import { useQueryClient } from "react-query";
 import { QueryClientWrapper } from "../wrappers/queryWrapper";
@@ -23,6 +24,7 @@ import { useGetFollowers } from "@/api/useGetFollowers";
 import { useGetFollowing } from "@/api/useGetFollowing";
 import { useGetFollowedOrganisations } from "@/api/useGetFollowedOrganisations";
 import { set } from "react-hook-form";
+import { useGetMySavedWorks } from "@/api/useGetMySavedWorks";
 
 interface UserContextProps {
   user?: ExtendedUserResponse;
@@ -35,10 +37,12 @@ interface UserContextProps {
   updateFollowers: (user: ShortUserResponse) => void;
   updateFollowing: (user: ShortUserResponse) => void;
   updateFollowedOrganisation: (organisation: OrganisationResponseShort) => void;
+  updateSavedWorks: (work: WorkResponseShort) => void;
   likedPosts: PostResponse[];
   memberships: OrganisationResponseShort[];
   favouriteExponats: ExponatResponseShort[];
   posts: PostResponse[];
+  savedWorks: WorkResponseShort[];
   followers: ShortUserResponse[];
   following: ShortUserResponse[];
   followedOrganisations: OrganisationResponseShort[];
@@ -53,6 +57,7 @@ const defaultUserContext: UserContextProps = {
   updateMemberships: () => {},
   updateFavourites: () => {},
   updatePosts: () => {},
+  updateSavedWorks: () => {},
   likedPosts: [],
   memberships: [],
   updateFollowedOrganisation: () => {},
@@ -62,6 +67,7 @@ const defaultUserContext: UserContextProps = {
   followedOrganisations: [],
   followers: [],
   following: [],
+  savedWorks: [],
   posts: [],
   loading: false,
 };
@@ -82,6 +88,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
     []
   );
   const [posts, setPosts] = useState<PostResponse[]>([]);
+  const [savedWorks, setSavedWorks] = useState<WorkResponseShort[]>([]);
 
   const { data: user, isLoading } = useGetMe();
 
@@ -91,6 +98,9 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   const { data: followingGet, isLoading: followingLoading } = useGetFollowing(
     user?.id
   );
+
+  const { data: savedWorksGet, isLoading: savedWorksLoading } =
+    useGetMySavedWorks();
 
   const { data: followedOrganisationGet, isLoading: orgLoading } =
     useGetFollowedOrganisations();
@@ -107,6 +117,12 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
     }
   }, [followersGet, followingGet, followedOrganisationGet]);
 
+  useEffect(() => {
+    console.log("savedWorksGet", savedWorksGet);
+    if (savedWorksGet) {
+      setSavedWorks(savedWorksGet);
+    }
+  }, [savedWorksGet]);
 
   const updatePosts = (post: PostResponse) => {
     if (!posts) return;
@@ -180,6 +196,16 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
     setMemberships((prev) => [...prev, organisation]);
   };
 
+  const updateSavedWorks = (work: WorkResponseShort) => {
+    if (!savedWorks) return;
+    const possibleWork = savedWorks.find((w) => w.id === work.id);
+    if (possibleWork) {
+      setSavedWorks((prev) => prev.filter((w) => w.id !== work.id));
+      return;
+    }
+    setSavedWorks((prev) => [...prev, work]);
+  };
+
   const updateLikes = (post: PostResponse) => {
     if (!likedPosts) return;
     const possiblePost = likedPosts.find((p) => p.id === post.id);
@@ -222,10 +248,12 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
         updateLikes,
         updateMemberships,
         updateFavourites,
+        updateSavedWorks,
         updatePosts,
         likedPosts,
         memberships,
         favouriteExponats,
+        savedWorks,
         posts,
         followers,
         following,
@@ -234,7 +262,12 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
         updateFollowing,
         updateFollowedOrganisation,
 
-        loading: isLoading || followLoading || followingLoading || orgLoading,
+        loading:
+          isLoading ||
+          followLoading ||
+          followingLoading ||
+          orgLoading ||
+          savedWorksLoading,
       }}
     >
       {children}

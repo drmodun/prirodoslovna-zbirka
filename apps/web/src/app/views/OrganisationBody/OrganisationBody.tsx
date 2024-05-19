@@ -1,6 +1,10 @@
 "use client";
 
-import { ExponatKind, ExtendedOrganisationResponse } from "@biosfera/types";
+import {
+  ExponatKind,
+  ExtendedOrganisationResponse,
+  WorkResponseShort,
+} from "@biosfera/types";
 import classes from "./OrganisationBody.module.scss";
 import { useEffect, useState } from "react";
 import Tabs from "components/Tabs";
@@ -14,8 +18,11 @@ import { api } from "@/api/shared";
 import { UserWrapper } from "@/utility/wrappers/userWrapper";
 import OrganisationForm from "components/CreateOrganisationForm";
 import DeleteOrganisationButton from "components/DeleteOrganisationButton";
+import BaseButton from "components/BaseButton";
+import Link from "next/link";
 export interface OrganisationBodyProps {
   organisation: ExtendedOrganisationResponse;
+  works: WorkResponseShort[];
 }
 
 export enum Domains {
@@ -29,19 +36,24 @@ const tabs = [
   "Eksponati",
   "Objave",
   "Članovi",
+  "Radovi",
 ];
 
 export const OrganisationBody = ({
   organisation,
-}: {
-  organisation: ExtendedOrganisationResponse;
-}) => {
+  works,
+}: OrganisationBodyProps) => {
   if (!organisation) window.location.href = "/404";
   const { memberships, user } = useUser();
   const [organisationData, setOrganisationData] =
     useState<ExtendedOrganisationResponse>(organisation);
   const [activeTab, setActiveTab] = useState("Početna");
   const [availableTabs, setAvailableTabs] = useState<string[]>(tabs);
+  const [worksData, setWorksData] = useState(works);
+
+  useEffect(() => {
+    setWorksData(works);
+  }, [works]);
 
   const possiblyRefecth = async () => {
     if (
@@ -117,6 +129,36 @@ export const OrganisationBody = ({
                 ]}
                 organisationId={organisationData.id}
                 pageSize={10}
+              />
+            </UserWrapper>
+          )}
+          {activeTab === "Radovi" && (
+            <UserWrapper>
+              <Link
+                className={classes.link}
+                href={`/organisation/${organisationData.id}/createWork`}
+              >
+                <BaseButton text="Napravi rad" isNotSubmit />
+              </Link>
+              <CardCollection
+                items={works}
+                organisationId={organisationData.id}
+                userId={user?.id}
+                sortBy={[
+                  {
+                    label: "Ime",
+                    value: "title",
+                  },
+                  {
+                    label: "Broj spremanja",
+                    value: "amountOfSaves",
+                  },
+                  {
+                    label: "Vrsta",
+                    value: "type",
+                  },
+                ]}
+                type="work"
               />
             </UserWrapper>
           )}
