@@ -1,4 +1,4 @@
-import { IsEnum, IsString } from "class-validator";
+import { IsEnum, IsString, IsOptional } from "class-validator";
 import { SortingEnum, SortType } from "../query";
 
 export const getCreateCategorizationDto = (ApiPropertySwagger?: any) => {
@@ -36,9 +36,13 @@ export const getCreateCategorizationDto = (ApiPropertySwagger?: any) => {
     @IsString()
     @ApiProperty()
     species: string;
+
+    @IsOptional()
+    @ApiProperty()
+    speciesKey: number;
   }
 
-  return  CreateCategorizationDto;
+  return CreateCategorizationDto;
 };
 
 export const getCategorizationQuery = (ApiPropertySwagger?: any) => {

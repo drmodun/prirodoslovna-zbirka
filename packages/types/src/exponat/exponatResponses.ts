@@ -42,6 +42,7 @@ export interface CategorizationResponse {
   kingdom: string;
   phylum: string;
   class: string;
+  speciesKey: string;
   order: string;
   family: string;
   genus: string;

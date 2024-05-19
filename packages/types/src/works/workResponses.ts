@@ -68,3 +68,12 @@ export interface SavedLiteratureResponse {
   literatureId: string;
   createdAt: Date;
 }
+
+export interface MapPossibility {
+  minLat: number;
+  maxLat: number;
+  minLong: number;
+  maxLong: number;
+  total: number;
+  generated: Date;
+}
