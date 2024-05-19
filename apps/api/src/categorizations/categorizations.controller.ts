@@ -75,6 +75,7 @@ export class CategorizationsController {
         family: item.family,
         numberOfExponats: item._count.Exponat,
         id: item.id,
+        speciesKey: item.speciesKey,
         species: item.species,
       } as CategorizationResponseShort;
     });
@@ -110,6 +111,7 @@ export class CategorizationsController {
       id: item.id,
       kingom: item.kingdom,
       phylum: item.phylum,
+      speciesKey: item.speciesKey,
       genus: item.genus,
       numberOfExponats: item._count.Exponat,
       exponats: exponats,
@@ -141,6 +143,7 @@ export class CategorizationsController {
     const mapped = {
       family: item.family,
       id: item.id,
+      speciesKey: item.speciesKey,
       species: item.species,
     } as CategorizationResponseShort;
 

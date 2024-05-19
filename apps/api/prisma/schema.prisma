@@ -88,7 +88,7 @@ model Categorization {
   class      String?
   order      String?
   family     String?
-  speciesKey String?
+  speciesKey Int?
   species    String    @unique
   Exponat    Exponat[]
   //possibly change this to make the categorization applicable to other organisations which will use this exponat

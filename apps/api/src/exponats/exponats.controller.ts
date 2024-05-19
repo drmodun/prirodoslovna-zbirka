@@ -190,6 +190,7 @@ export class ExponatsController {
         phylum: item.Categorization.phylum,
         species: item.Categorization.species,
         id: item.Categorization.id,
+        speciesKey: item.Categorization.speciesKey,
       },
       createdAt: item.createdAt,
       description: item.description,
