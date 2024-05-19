@@ -57,18 +57,17 @@ export const MultipleEntityTypesView = ({
           type="post"
         />
       )}
-      {(tab === "Spremljeno" || tab === "Čitano" || tab === "Radovi") &&
-        works && (
-          <CardCollection
-            items={works}
-            sortBy={[
-              { label: "Abecedno", value: "title" },
-              { label: "Datum Objave", value: "updatedAt" },
-              { label: "Broj sejvanih radova", value: "amountOfSaves" },
-            ]}
-            type="work"
-          />
-        )}
+      {(tab === "Spremljeno" || tab === "Radovi") && works && (
+        <CardCollection
+          items={works}
+          sortBy={[
+            { label: "Abecedno", value: "title" },
+            { label: "Datum Objave", value: "updatedAt" },
+            { label: "Broj sejvanih radova", value: "amountOfSaves" },
+          ]}
+          type="work"
+        />
+      )}
       {(tab === "Eksponati" || tab === "Favoriti") && exponats && (
         <CardCollection
           items={exponats}
@@ -81,7 +80,7 @@ export const MultipleEntityTypesView = ({
           type="exponat"
         />
       )}
-      {tab === "Radovi (GBIF)" && literature && (
+      {(tab === "Čitano" || tab === "Radovi (GBIF)") && literature && (
         <CardCollection
           items={literature}
           sortBy={[

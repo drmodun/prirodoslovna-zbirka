@@ -54,11 +54,28 @@ export const getGbifWorks = async (
         },
       }
     );
-    console.log(`https://api.gbif.org/v1/literature/search?${search || ""}`);
     const data: FullLiteratureResponseGBIF = await response.json();
     return data.results.map((d: LiteratureResponseGBIF) =>
       LiteratureToWorkMapper(d)
     );
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getGbifWork = async (
+  id: string
+): Promise<WorkResponseShort | undefined> => {
+  try {
+    const response = await fetch(`https://api.gbif.org/v1/literature/${id}`, {
+      next: {
+        revalidate: 1 * 60 * 60 * 24 * 7, //weekly revalidation
+      },
+    });
+
+    const data: LiteratureResponseGBIF = await response.json();
+
+    return LiteratureToWorkMapper(data);
   } catch (error) {
     console.log(error);
   }

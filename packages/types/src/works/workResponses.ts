@@ -62,3 +62,9 @@ export interface FullLiteratureResponseGBIF {
   results: LiteratureResponseGBIF[];
   count: number;
 }
+
+export interface SavedLiteratureResponse {
+  userId?: string;
+  literatureId: string;
+  createdAt: Date;
+}

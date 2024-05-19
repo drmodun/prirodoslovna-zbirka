@@ -165,6 +165,7 @@ export class AuthController {
     const mapped: ExtendedUserResponse = {
       email: item.email,
       firstName: item.firstName,
+      savedLiterature: item.SavedLiterature,
       lastName: item.lastName,
       followerCount: item._count.followers,
       id: item.id,

@@ -32,14 +32,16 @@ export const FavouriteButton = ({ exponat }: FavouriteButtonProps) => {
   };
 
   return (
-    <button
-      className={clsx(classes.drop, isFavourite && classes.favourite)}
-      title="like"
-      onClick={toggleFavourite}
-    >
-      <div className={classes.favouriteDrop}>
-        <Image src={favouriteDrop} alt="kapljica za favorite" layout="fill" />
-      </div>
-    </button>
+    !loading && (
+      <button
+        className={clsx(classes.drop, isFavourite && classes.favourite)}
+        title="like"
+        onClick={toggleFavourite}
+      >
+        <div className={classes.favouriteDrop}>
+          <Image src={favouriteDrop} alt="kapljica za favorite" layout="fill" />
+        </div>
+      </button>
+    )
   );
 };
