@@ -23,6 +23,7 @@ const nextConfig = {
       "localhost",
       "dummyimage.com",
       "via.placeholder.com",
+      "api.gbif.org",
       "biosfera-files.s3.eu-north-1.amazonaws.com",
     ],
   },

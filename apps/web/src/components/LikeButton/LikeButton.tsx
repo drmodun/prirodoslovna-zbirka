@@ -23,7 +23,11 @@ export const LikeButton = ({ post }: LikeButtonProps) => {
 
   useEffect(() => {
     setIsLiked(likedPosts.find((x) => x.id === post.id) != null);
-  }, [likedPosts, loading]);
+  }, [likedPosts, loading, post.id]);
+
+  useEffect(() => {
+    setIsLiked(likedPosts.find((x) => x.id === post.id) != null);
+  }, []);
 
   const toggleLike = async () => {
     await mutateAsync(post.id);
@@ -32,14 +36,16 @@ export const LikeButton = ({ post }: LikeButtonProps) => {
   };
 
   return (
-    <button
-      className={clsx(classes.leaf, isLiked && classes.liked)}
-      title="like"
-      onClick={toggleLike}
-    >
-      <div className={classes.likeLeaf}>
-        <Image src={likeLeaf} alt="list za like" layout="fill" />
-      </div>
-    </button>
+    !loading && (
+      <button
+        className={clsx(classes.leaf, isLiked && classes.liked)}
+        title="like"
+        onClick={toggleLike}
+      >
+        <div className={classes.likeLeaf}>
+          <Image src={likeLeaf} alt="list za like" layout="fill" />
+        </div>
+      </button>
+    )
   );
 };

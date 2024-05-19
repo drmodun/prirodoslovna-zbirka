@@ -62,3 +62,18 @@ export interface FullLiteratureResponseGBIF {
   results: LiteratureResponseGBIF[];
   count: number;
 }
+
+export interface SavedLiteratureResponse {
+  userId?: string;
+  literatureId: string;
+  createdAt: Date;
+}
+
+export interface MapPossibility {
+  minLat: number;
+  maxLat: number;
+  minLong: number;
+  maxLong: number;
+  total: number;
+  generated: Date;
+}

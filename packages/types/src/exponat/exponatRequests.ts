@@ -118,16 +118,6 @@ export interface CreateCategorizationRequest {
   species: string;
 }
 
-export interface ExponatQuery {
-  name?: string;
-  authorId?: string;
-  alternateName?: string;
-  createdAt?: Date;
-  minFavoriteCount?: number;
-  maxFavoriteCount?: number;
-  organisationId?: string;
-}
-
 export const getExponatQuery = (ApiPropertySwagger?: any) => {
   const ApiProperty = ApiPropertySwagger || function () {};
 
@@ -156,6 +146,34 @@ export const getExponatQuery = (ApiPropertySwagger?: any) => {
     @IsOptional()
     @ApiProperty({ required: false })
     organisationId?: string;
+
+    @IsOptional()
+    @ApiProperty()
+    genus?: string;
+
+    @IsOptional()
+    @ApiProperty()
+    family?: string;
+
+    @IsOptional()
+    @ApiProperty()
+    kingdom?: string;
+
+    @IsOptional()
+    @ApiProperty()
+    phylum?: string;
+
+    @IsOptional()
+    @ApiProperty()
+    order?: string;
+
+    @IsOptional()
+    @ApiProperty()
+    species?: string;
+
+    @IsOptional()
+    @ApiProperty()
+    class?: string;
 
     @IsOptional()
     @ApiProperty({ enum: SortingEnum, required: false })

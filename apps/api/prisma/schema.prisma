@@ -80,16 +80,17 @@ enum County {
 }
 
 model Categorization {
-  id      String    @id @default(uuid())
-  genus   String
-  kingdom String
-  domain  String
-  phylum  String
-  class   String
-  order   String
-  family  String
-  species String    @unique
-  Exponat Exponat[]
+  id         String    @id @default(uuid())
+  genus      String?
+  kingdom    String?
+  domain     String?
+  phylum     String?
+  class      String?
+  order      String?
+  family     String?
+  speciesKey Int?
+  species    String    @unique
+  Exponat    Exponat[]
   //possibly change this to make the categorization applicable to other organisations which will use this exponat
 }
 
@@ -118,6 +119,7 @@ model User {
   Works                    Work[]                     @relation("author")
   ApprovedWorks            Work[]                     @relation("approver")
   SavedWorks               SavedWorks[]
+  SavedLiterature          SavedLiterature[]
 }
 
 model Exponat {
@@ -258,6 +260,15 @@ model Work {
   SavedWorks     SavedWorks[]
   tags           String[]
   type           WorkType     @default(GENERIC)
+}
+
+model SavedLiterature {
+  userId       String
+  literatureId String
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt    DateTime @default(now())
+
+  @@id([literatureId, userId])
 }
 
 model SavedWorks {

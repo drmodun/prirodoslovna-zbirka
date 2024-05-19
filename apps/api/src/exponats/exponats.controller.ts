@@ -86,7 +86,7 @@ export class ExponatsController {
     @Req() req?: any,
   ) {
     const isAdmin = req.user?.role === 'super';
-
+    console.log(filter);
     const items = await this.exponatsService.findAll(
       filter,
       sorting,
@@ -190,6 +190,7 @@ export class ExponatsController {
         phylum: item.Categorization.phylum,
         species: item.Categorization.species,
         id: item.Categorization.id,
+        speciesKey: item.Categorization.speciesKey,
       },
       createdAt: item.createdAt,
       description: item.description,

@@ -5,12 +5,12 @@ import {
 } from '@nestjs/common';
 import {
   CreateExponatDto,
+  ExponatQuery,
   ExponatSQL,
   UpdateExponatDto,
 } from './dto/exponats.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import {
-  ExponatQuery,
   PaginationRequest,
   SortingRequest,
   sortExponatQueryBuilderWithComplexFilters,
@@ -107,6 +107,77 @@ export class ExponatsService {
         ...(filter?.organisationId && {
           organisationId: filter.organisationId,
         }),
+        ...(filter?.class && {
+          Categorization: {
+            is: {
+              class: {
+                search: filter.class.split(' ').join(' <-> '),
+                mode: 'insensitive',
+              },
+            },
+          },
+        }),
+        ...(filter?.family && {
+          Categorization: {
+            is: {
+              family: {
+                search: filter.family.split(' ').join(' <-> '),
+                mode: 'insensitive',
+              },
+            },
+          },
+        }),
+        ...(filter?.genus && {
+          Categorization: {
+            is: {
+              genus: {
+                search: filter.genus.split(' ').join(' <-> '),
+                mode: 'insensitive',
+              },
+            },
+          },
+        }),
+        ...(filter?.order && {
+          Categorization: {
+            is: {
+              order: {
+                search: filter.order.split(' ').join(' <-> '),
+                mode: 'insensitive',
+              },
+            },
+          },
+        }),
+        ...(filter?.kingdom && {
+          Categorization: {
+            is: {
+              kingdom: {
+                search: filter.kingdom.split(' ').join(' <-> '),
+                mode: 'insensitive',
+              },
+            },
+          },
+        }),
+
+        ...(filter?.phylum && {
+          Categorization: {
+            is: {
+              phylum: {
+                search: filter.phylum.split(' ').join(' <-> '),
+                mode: 'insensitive',
+              },
+            },
+          },
+        }),
+        ...(filter?.species && {
+          Categorization: {
+            is: {
+              species: {
+                search: filter.species.split(' ').join(' <-> '),
+                mode: 'insensitive',
+              },
+            },
+          },
+        }),
 
         ...(filter.minFavoriteCount && {
           _count: {
@@ -138,12 +209,7 @@ export class ExponatsService {
             Posts: true,
           },
         },
-        Categorization: {
-          select: {
-            genus: true,
-            family: true,
-          },
-        },
+        Categorization: true,
         Organisation: {
           select: {
             name: true,

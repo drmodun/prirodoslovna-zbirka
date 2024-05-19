@@ -1,4 +1,4 @@
-import { WorkResponseShort } from "../works/workResponses";
+import { SavedLiteratureResponse, WorkResponseShort } from "../works/workResponses";
 import { ExponatResponseShort } from "../exponat/exponatResponses";
 import { OrganisationResponseShort } from "../organisation/organisationResponses";
 import { PostResponse } from "../post/postResponse";
@@ -16,6 +16,7 @@ export interface ExtendedUserResponse {
   location: string;
   likedPosts: PostResponse[];
   likeCount: number;
+  savedLiterature: SavedLiteratureResponse[];
   createdAt: Date;
   updatedAt: Date;
   hasProfileImage: boolean;

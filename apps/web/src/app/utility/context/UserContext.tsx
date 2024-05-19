@@ -15,16 +15,16 @@ import {
   ExtendedUserResponse,
   OrganisationResponseShort,
   PostResponse,
+  SavedLiteratureResponse,
   ShortUserResponse,
   WorkResponseShort,
 } from "@biosfera/types";
-import { useQueryClient } from "react-query";
-import { QueryClientWrapper } from "../wrappers/queryWrapper";
 import { useGetFollowers } from "@/api/useGetFollowers";
 import { useGetFollowing } from "@/api/useGetFollowing";
 import { useGetFollowedOrganisations } from "@/api/useGetFollowedOrganisations";
 import { set } from "react-hook-form";
 import { useGetMySavedWorks } from "@/api/useGetMySavedWorks";
+import { useGetMySavedLiterature } from "@/api/useGetMySavedLiterature";
 
 interface UserContextProps {
   user?: ExtendedUserResponse;
@@ -44,15 +44,19 @@ interface UserContextProps {
   posts: PostResponse[];
   savedWorks: WorkResponseShort[];
   followers: ShortUserResponse[];
+  savedLiterature: SavedLiteratureResponse[];
   following: ShortUserResponse[];
   followedOrganisations: OrganisationResponseShort[];
   loading: boolean;
+  updateSavedLiterature: (literature: SavedLiteratureResponse) => void;
 }
 
 const defaultUserContext: UserContextProps = {
   user: undefined,
   logout: () => {},
   setUser: () => {},
+  savedLiterature: [],
+  updateSavedLiterature: () => {},
   updateLikes: () => {},
   updateMemberships: () => {},
   updateFavourites: () => {},
@@ -89,6 +93,9 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   );
   const [posts, setPosts] = useState<PostResponse[]>([]);
   const [savedWorks, setSavedWorks] = useState<WorkResponseShort[]>([]);
+  const [savedLiterature, setSavedLiterature] = useState<
+    SavedLiteratureResponse[]
+  >([]);
 
   const { data: user, isLoading } = useGetMe();
 
@@ -98,6 +105,9 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   const { data: followingGet, isLoading: followingLoading } = useGetFollowing(
     user?.id
   );
+
+  const { data: savedLiteratureGet, isLoading: savedLiteratureLoading } =
+    useGetMySavedLiterature();
 
   const { data: savedWorksGet, isLoading: savedWorksLoading } =
     useGetMySavedWorks();
@@ -118,11 +128,13 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   }, [followersGet, followingGet, followedOrganisationGet]);
 
   useEffect(() => {
-    console.log("savedWorksGet", savedWorksGet);
     if (savedWorksGet) {
       setSavedWorks(savedWorksGet);
     }
-  }, [savedWorksGet]);
+    if (savedLiteratureGet) {
+      setSavedLiterature(savedLiteratureGet);
+    }
+  }, [savedWorksGet, savedLiteratureGet]);
 
   const updatePosts = (post: PostResponse) => {
     if (!posts) return;
@@ -196,6 +208,20 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
     setMemberships((prev) => [...prev, organisation]);
   };
 
+  const updateSavedLiterature = (literature: SavedLiteratureResponse) => {
+    if (!savedLiterature) return;
+    const possibleLiterature = savedLiterature.find(
+      (l) => l.literatureId === literature.literatureId
+    );
+    if (possibleLiterature) {
+      setSavedLiterature((prev) =>
+        prev.filter((l) => l.literatureId !== literature.literatureId)
+      );
+      return;
+    }
+    setSavedLiterature((prev) => [...prev, literature]);
+  };
+
   const updateSavedWorks = (work: WorkResponseShort) => {
     if (!savedWorks) return;
     const possibleWork = savedWorks.find((w) => w.id === work.id);
@@ -247,6 +273,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
         setUser: () => {},
         updateLikes,
         updateMemberships,
+        updateSavedLiterature,
         updateFavourites,
         updateSavedWorks,
         updatePosts,
@@ -255,6 +282,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
         favouriteExponats,
         savedWorks,
         posts,
+        savedLiterature,
         followers,
         following,
         followedOrganisations,
@@ -267,6 +295,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
           followLoading ||
           followingLoading ||
           orgLoading ||
+          savedLiteratureLoading ||
           savedWorksLoading,
       }}
     >

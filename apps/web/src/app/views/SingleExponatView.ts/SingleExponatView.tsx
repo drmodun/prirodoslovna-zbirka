@@ -12,10 +12,19 @@ import Image from "next/image";
 import chatgpt from "assets/images/gpt.svg";
 import { LoaderIcon } from "react-hot-toast";
 import AudioButton from "components/AudioButton";
+import defaultMap from "assets/images/default-map.png";
+import { getMap } from "@/api/serverMap";
+import topLeft from "assets/images/topLeft.png";
+import topRight from "assets/images/topRight.png";
+import bottomLeft from "assets/images/bottomLeft.png";
+import bottomRight from "assets/images/bottomRight.png";
+import clsx from "clsx";
 export interface SingleExponatViewProps {
   exponat: ExponatExtendedResponse;
   generatedDescription?: string;
   audioDescription?: string;
+  isMapPossible?: boolean;
+  isCroationMapPossible?: boolean;
 }
 
 export const SingleExponatView = (props: SingleExponatViewProps) => {
@@ -47,6 +56,83 @@ export const SingleExponatView = (props: SingleExponatViewProps) => {
           dalje relativno često zna griješiti
         </span>
       </div>
+      {props.isMapPossible && (
+        <div className={classes.maps}>
+          <div className={classes.mainMap}>
+            <Image src={defaultMap} alt="map" layout="fill" />
+          </div>
+          <div className={classes.occurenceMap}>
+            <div className={classes.mapImage}>
+              <Image
+                className={classes.map}
+                src={`https://api.gbif.org/v2/map/occurrence/density/0/0/0%401x.png?srs=EPSG%3A3857&bin=square&hexPerTile=51&squareSize=16&style=greenHeat.point&taxonKey=${props.exponat.categorization?.speciesKey}`}
+                alt="map"
+                layout="fill"
+              />
+            </div>
+          </div>
+        </div>
+      )}
+      {props.isCroationMapPossible && (
+        <div className={classes.croatianMaps}>
+          <div className={clsx(classes.section, classes.topLeft)}>
+            <div className={classes.mainMap}>
+              <Image src={topLeft} alt="map" layout="fill" />
+            </div>
+            <div className={classes.occurenceMap}>
+              <div className={classes.mapImage}>
+                <Image
+                  src={`https://api.gbif.org/v2/map/occurrence/density/6/34/22%401x.png?srs=EPSG%3A3857&bin=square&hexPerTile=51&squareSize=16&country=HR&style=greenHeat.point&taxonKey=${props.exponat.categorization?.speciesKey}`}
+                  alt="map"
+                  layout="fill"
+                />
+              </div>
+            </div>
+          </div>
+          <div className={clsx(classes.section, classes.topRight)}>
+            <div className={classes.mainMap}>
+              <Image src={topRight} alt="map" layout="fill" />
+            </div>
+            <div className={classes.occurenceMap}>
+              <div className={classes.mainMap}>
+                <Image
+                  src={`https://api.gbif.org/v2/map/occurrence/density/6/35/22%401x.png?srs=EPSG%3A3857&bin=square&hexPerTile=51&country=HR&squareSize=16&style=greenHeat.point&taxonKey=${props.exponat.categorization?.speciesKey}`}
+                  alt="map"
+                  layout="fill"
+                />
+              </div>
+            </div>
+          </div>
+          <div className={clsx(classes.section, classes.bottomLeft)}>
+            <div className={classes.mainMap}>
+              <Image src={bottomLeft} alt="map" layout="fill" />
+            </div>
+            <div className={classes.occurenceMap}>
+              <div className={classes.mainMap}>
+                <Image
+                  src={`https://api.gbif.org/v2/map/occurrence/density/6/34/23%401x.png?srs=EPSG%3A3857&bin=square&hexPerTile=51&country=HR&squareSize=16&style=greenHeat.point&taxonKey=${props.exponat.categorization?.speciesKey}`}
+                  alt="map"
+                  layout="fill"
+                />
+              </div>
+            </div>
+          </div>
+          <div className={clsx(classes.section, classes.bottomRight)}>
+            <div className={classes.mainMap}>
+              <Image src={bottomRight} alt="map" layout="fill" />
+            </div>
+            <div className={classes.occurenceMap}>
+              <div className={classes.mainMap}>
+                <Image
+                  src={`https://api.gbif.org/v2/map/occurrence/density/6/35/23%401x.png?srs=EPSG%3A3857&bin=square&hexPerTile=51&squareSize=16&country=HR&style=greenHeat.point&taxonKey=${props.exponat.categorization?.speciesKey}`}
+                  alt="map"
+                  layout="fill"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
       <div className={classes.posts}>
         {memberships.some(
           (membership) =>
