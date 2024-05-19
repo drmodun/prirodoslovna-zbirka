@@ -75,34 +75,22 @@ export const ExponatFilter = ({ searchParams }: Props) => {
 
   const { data: classes } = useGetTaxonomyEntities(
     form.watch("class"),
-    "CLASS",
-    phylums?.find(
-      (phylum: SpeciesResponse) =>
-        phylum.scientificName === form.watch("phylum")
-    )?.nubKey
+    "CLASS"
   );
 
-  const { data: orders } = useGetTaxonomyEntities(
-    form.watch("order"),
-    "ORDER",
-    classes?.find(
-      (class_: SpeciesResponse) => class_.scientificName === form.watch("class")
-    )?.nubKey
-  );
+  const { data: orders } = useGetTaxonomyEntities(form.watch("order"), "ORDER");
 
   const { data: genuses } = useGetTaxonomyEntities(
     form.watch("genus"),
-    "GENUS",
-    orders?.find(
-      (order: SpeciesResponse) => order.scientificName === form.watch("order")
-    )?.nubKey
+    "GENUS"
   );
 
   const { data: families } = useGetTaxonomyEntities(
     form?.watch("family"),
     "FAMILY",
-    genuses?.find(
-      (genus: SpeciesResponse) => genus.scientificName === form.watch("genus")
+    phylums?.find(
+      (phylum: SpeciesResponse) => phylum.scientificName === form.watch("pylum") //GBIF sources do not seem to have all full slassiications, so it is safer to make a less efficient but more reliable call
+      //TODO: check if this can be fixed
     )?.nubKey
   );
 
@@ -324,3 +312,12 @@ export const ExponatFilter = ({ searchParams }: Props) => {
     </div>
   );
 };
+
+//7/70/45
+//7/69/45
+//7/69/46
+//7/70/47
+//6/35/22
+//6/34/22
+//6/34/23
+//6/35/23

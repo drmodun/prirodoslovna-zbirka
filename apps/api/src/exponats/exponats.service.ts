@@ -109,38 +109,73 @@ export class ExponatsService {
         }),
         ...(filter?.class && {
           Categorization: {
-            class: filter.class,
+            is: {
+              class: {
+                search: filter.class.split(' ').join(' <-> '),
+                mode: 'insensitive',
+              },
+            },
           },
         }),
         ...(filter?.family && {
           Categorization: {
-            family: filter.family,
+            is: {
+              family: {
+                search: filter.family.split(' ').join(' <-> '),
+                mode: 'insensitive',
+              },
+            },
           },
         }),
         ...(filter?.genus && {
           Categorization: {
-            genus: filter.genus,
+            is: {
+              genus: {
+                search: filter.genus.split(' ').join(' <-> '),
+                mode: 'insensitive',
+              },
+            },
           },
         }),
         ...(filter?.order && {
           Categorization: {
-            order: filter.order,
+            is: {
+              order: {
+                search: filter.order.split(' ').join(' <-> '),
+                mode: 'insensitive',
+              },
+            },
           },
         }),
         ...(filter?.kingdom && {
           Categorization: {
-            kingdom: filter.kingdom,
+            is: {
+              kingdom: {
+                search: filter.kingdom.split(' ').join(' <-> '),
+                mode: 'insensitive',
+              },
+            },
           },
         }),
 
         ...(filter?.phylum && {
           Categorization: {
-            phylum: filter.phylum,
+            is: {
+              phylum: {
+                search: filter.phylum.split(' ').join(' <-> '),
+                mode: 'insensitive',
+              },
+            },
           },
         }),
         ...(filter?.species && {
           Categorization: {
-            species: filter.species,
+            is: {
+              species: {
+                search: filter.species.split(' ').join(' <-> '),
+                mode: 'insensitive',
+              },
+            },
           },
         }),
 
@@ -174,12 +209,7 @@ export class ExponatsService {
             Posts: true,
           },
         },
-        Categorization: {
-          select: {
-            genus: true,
-            family: true,
-          },
-        },
+        Categorization: true,
         Organisation: {
           select: {
             name: true,

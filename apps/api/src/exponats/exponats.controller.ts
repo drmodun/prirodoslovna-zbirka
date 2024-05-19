@@ -86,7 +86,7 @@ export class ExponatsController {
     @Req() req?: any,
   ) {
     const isAdmin = req.user?.role === 'super';
-
+    console.log(filter);
     const items = await this.exponatsService.findAll(
       filter,
       sorting,

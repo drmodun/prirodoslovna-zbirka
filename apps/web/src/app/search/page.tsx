@@ -43,6 +43,13 @@ const SearchPage = async ({
     minFavoriteCount: searchParams?.minFavoriteCount,
     organisationId: searchParams?.organisationId,
     page: searchParams?.page,
+    genus: searchParams?.genus,
+    family: searchParams?.family,
+    kingdom: searchParams?.kingdom,
+    phylum: searchParams?.phylum,
+    order: searchParams?.order,
+    species: searchParams?.species,
+    class: searchParams?.class,
   });
 
   const initPosts = getPosts({
