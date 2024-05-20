@@ -6,42 +6,27 @@ import {
   Patch,
   Param,
   Delete,
+  UseGuards,
+  Sse,
+  Req,
 } from '@nestjs/common';
 import { NotificationUsersService } from './notification-users.service';
-import { CreateNotificationUserDto } from './dto/create-notification-user.dto';
-import { UpdateNotificationUserDto } from './dto/update-notification-user.dto';
+import { ApiBearerAuth } from '@nestjs/swagger';
+import { JwtAuthGuard } from 'src/auth/jwt-auth-guard';
 
 @Controller('notification-users')
 export class NotificationUsersController {
   constructor(
     private readonly notificationUsersService: NotificationUsersService,
   ) {}
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
+  @Sse('notification')
+  async subscribeToNotifications(@Req() req: any) {
+    const userId = req.user?.id;
+    const client =
+      this.notificationUsersService.subscribeToNotifications(userId);
 
-  @Post()
-  create(@Body() createNotificationUserDto: CreateNotificationUserDto) {
-    return this.notificationUsersService.create(createNotificationUserDto);
-  }
-
-  @Get()
-  findAll() {
-    return this.notificationUsersService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.notificationUsersService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(
-    @Param('id') id: string,
-    @Body() updateNotificationUserDto: UpdateNotificationUserDto,
-  ) {
-    return this.notificationUsersService.update(+id, updateNotificationUserDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.notificationUsersService.remove(+id);
+    return client.asObservable();
   }
 }

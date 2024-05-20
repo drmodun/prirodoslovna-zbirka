@@ -1,15 +1,30 @@
 import { Injectable } from '@nestjs/common';
 import { CreatePostDto, PostQuery, PostSQL, UpdatePostDto } from './posts.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { sortQueryBuilder } from '@biosfera/types';
+import {
+  getEnumValue,
+  NotificationPromise,
+  NotificationType,
+  sortQueryBuilder,
+} from '@biosfera/types';
 import {
   anonymousPostsDiscover,
   personalizedPostsDiscover,
 } from './rawQueries';
+import { NotificationUsersService } from 'src/notification-users/notification-users.service';
+import { Post } from '@prisma/client';
+import { env } from 'process';
+import { NotificationsService } from 'src/notifications/notifications.service';
+import { FollowsService } from 'src/follows/follows.service';
 
 @Injectable()
 export class PostsService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly notificationService: NotificationsService,
+    private readonly notificationUsersService: NotificationUsersService,
+    private readonly followsService: FollowsService,
+  ) {}
 
   async discover(page: number, size: number, userId?: string) {
     const posts = userId
@@ -189,12 +204,99 @@ export class PostsService {
     });
   }
 
+  async makeApprovalNotification(
+    post: Post,
+    userId: string,
+  ): NotificationPromise {
+    const notificationText = post.isApproved
+      ? `Vaša objava ${post.title} je odobrena`
+      : `Vaša objava ${post.title} je odbijena`;
+
+    const makeNotification = await this.notificationService.create(
+      {
+        text: notificationText,
+        type: getEnumValue(NotificationType, NotificationType.POST_APPROVAL),
+        link: `${env.WEB_URL ?? 'localhost:3000'}/posts/${post.id}`,
+        title: 'Obaveštenje o objavi',
+      },
+      [userId],
+    );
+
+    return makeNotification;
+  }
+
+  makeNewPostNotification = async (
+    posterId: string,
+    postId: string,
+    followerIds: string[],
+  ): NotificationPromise => {
+    const notification = await this.notificationService.create(
+      {
+        text: `Nova objava od korisnika ${posterId}`,
+        type: getEnumValue(
+          NotificationType,
+          NotificationType.POST_BY_FOLLOWED_ACCOUNT,
+        ),
+        link: `${env.WEB_URL ?? 'localhost:3000'}/posts/${postId}`,
+        title: 'Nova objava',
+      },
+      followerIds,
+    );
+
+    await this.prisma.post.update({
+      where: {
+        id: postId,
+      },
+      data: {
+        IsNotificationMade: true,
+      },
+    });
+
+    return notification;
+  };
+
   async toggleApproval(id: string) {
     const post = await this.prisma.post.findUnique({
       where: {
         id,
       },
+      include: {
+        author: {
+          select: {
+            id: true,
+            username: true,
+          },
+        },
+      },
     });
+
+    const makeNotification = await this.makeApprovalNotification(
+      post,
+      post.author.id,
+    );
+    makeNotification.UserNotification.forEach(async (connection) => {
+      this.notificationUsersService.publishNotification(
+        connection.userId,
+        makeNotification,
+      );
+    }); //TODO: think if all admins have to be notified that this has been done
+
+    if (post.isApproved && !post.IsNotificationMade) {
+      const users = await this.followsService.getFollowers(post.author.id);
+
+      const notification = await this.makeNewPostNotification(
+        post.author.username,
+        post.id,
+        users.map((user) => user.followerId),
+      );
+
+      notification.UserNotification.forEach((connection) => {
+        this.notificationUsersService.publishNotification(
+          connection.userId,
+          notification,
+        );
+      });
+    }
 
     return await this.prisma.post.update({
       where: {

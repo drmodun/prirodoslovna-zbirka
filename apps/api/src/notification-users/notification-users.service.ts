@@ -1,26 +1,27 @@
+import { NotificationResponse } from '@biosfera/types';
 import { Injectable } from '@nestjs/common';
-import { CreateNotificationUserDto } from './dto/create-notification-user.dto';
-import { UpdateNotificationUserDto } from './dto/update-notification-user.dto';
+import { EventEmitter2 } from '@nestjs/event-emitter';
+import { Subject } from 'rxjs';
 
 @Injectable()
 export class NotificationUsersService {
-  create(createNotificationUserDto: CreateNotificationUserDto) {
-    return 'This action adds a new notificationUser';
+  private clients: Map<string, Subject<MessageEvent<NotificationResponse>>> =
+    new Map();
+
+  public subscribeToNotifications(userId: string) {
+    const subject = new Subject<MessageEvent<NotificationResponse>>();
+    this.clients.set(userId, subject);
+    return subject;
   }
 
-  findAll() {
-    return `This action returns all notificationUsers`;
+  public publishNotification(userId: string, message: NotificationResponse) {
+    const client = this.clients.get(userId);
+    if (client) {
+      client.next({ data: message } as MessageEvent<NotificationResponse>);
+    }
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} notificationUser`;
-  }
-
-  update(id: number, updateNotificationUserDto: UpdateNotificationUserDto) {
-    return `This action updates a #${id} notificationUser`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} notificationUser`;
+  public removeClient(userId: string) {
+    this.clients.delete(userId);
   }
 }
