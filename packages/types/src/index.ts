@@ -16,4 +16,5 @@ export * from "./categorization/categorizationRequests";
 export * from "./categorization/categorizationResponses";
 export * from "./works/workRequests";
 export * from "./works/workResponses";
+export * from "./notification/response";
 export * from "./directories";
