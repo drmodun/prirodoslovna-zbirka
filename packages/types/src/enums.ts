@@ -171,6 +171,38 @@ export enum TaxonomyRankGbif {
 
 export type TaxonomyGbifType = keyof typeof TaxonomyRankGbif;
 
+export enum NotificationType {
+  POST_APPROVAL = "Promjena odobrenja objave",
+  EXPONAT_APPROVAL = "Promjena odobrenja eksponata",
+  MEMBERSHIP_REQUEST = "Zahtjev za članstvo",
+  MEMBERSHIP_CHANGE = "Promjena članstva",
+  NEW_FOLLOWER = "Novi pratitelj",
+  POST_BY_FOLLOWED_ACCOUNT = "Objava od praćenog računa",
+  EXPONAT_BY_FOLLOWED_ORGANISATION = "Eksponat od praćene organizacije",
+  WORK_BY_FOLLOWED_ORGANISATION = "Rad od praćene organizacije",
+  NEW_SOCIAL_POST = "Nova društvena objava praćene organizacije",
+  POINT_MILESTONE = "Dosegnut prag bodova",
+  OTHER = "Ostalo",
+}
+
+export type NotificationTypeEnumType = keyof typeof NotificationType;
+
+export type NotificationPromise = Promise<
+  {
+    UserNotification: {
+      userId: string;
+    }[];
+  } & {
+    id: string;
+    title: string;
+    text: string;
+    createdAt: Date;
+    link: string;
+    notificationImage: string;
+    type: NotificationTypeEnumType;
+  }
+>;
+
 export const getKeyByValue = (object: any, value: any) => {
   return Object.keys(object).find((key) => object[key] === value);
 };
