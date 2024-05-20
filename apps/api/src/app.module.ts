@@ -23,6 +23,8 @@ import { EmailModule } from './email/email.module';
 import { WorksModule } from './works/works.module';
 import { SavedWorksModule } from './saved-works/saved-works.module';
 import { LiteratureModule } from './literature/literature.module';
+import { NotificationsModule } from './notifications/notifications.module';
+import { NotificationUsersModule } from './notification-users/notification-users.module';
 
 @Module({
   imports: [
@@ -52,6 +54,8 @@ import { LiteratureModule } from './literature/literature.module';
     WorksModule,
     SavedWorksModule,
     LiteratureModule,
+    NotificationsModule,
+    NotificationUsersModule,
   ],
   controllers: [AppController],
   providers: [AppService],
