@@ -3,12 +3,19 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { Role } from '@prisma/client';
+import { Organisation, OrganisationUser, Role, User } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { MemberRoleType } from './members.dto';
+import { NotificationPromise } from '@biosfera/types';
+import { NotificationsService } from 'src/notifications/notifications.service';
+import { NotificationUsersService } from 'src/notification-users/notification-users.service';
 @Injectable()
 export class MembersService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly notificationsService: NotificationsService,
+    private readonly notificationUsersService: NotificationUsersService,
+  ) {}
 
   async hasAdminRights(userId: string, organisationId: string) {
     const userIsAdmin = await this.prisma.user.findFirst({
@@ -62,6 +69,54 @@ export class MembersService {
     return membership;
   }
 
+  async makeMembershipChangeNotification(
+    user: User,
+    organisation: Organisation,
+    status: MemberRoleType,
+  ): NotificationPromise {
+    const notification = await this.notificationsService.create(
+      {
+        title: 'Promjena statusa članstva',
+        text: `Vaš status članstva u organizaciji ${
+          organisation.name
+        } je promijenjen u ${status.toLowerCase()}`,
+        link: `/organisations/${organisation.id}`,
+        notificationImage: organisation.mainImage,
+        type: 'MEMBERSHIP_CHANGE',
+      },
+      [user.id],
+    );
+
+    this.notificationUsersService.publishNotification(user.id, notification);
+
+    return notification;
+  }
+
+  async makeNewMembershipRequestNotification(
+    user: User,
+    organisation: Organisation & { OrganisationUsers: OrganisationUser[] },
+  ): NotificationPromise {
+    const notification = await this.notificationsService.create(
+      {
+        title: 'Zahtjev za članstvo',
+        text: `Korisnik ${user.username} je poslao zahtjev za članstvo u organizaciji ${organisation.name}`,
+        link: `/organisations/${user.id}`,
+        notificationImage: user.id,
+        type: 'MEMBERSHIP_REQUEST',
+      },
+      organisation.OrganisationUsers.map((member) => member.userId),
+    );
+
+    organisation.OrganisationUsers.forEach((member) => {
+      this.notificationUsersService.publishNotification(
+        member.userId,
+        notification,
+      );
+    });
+
+    return notification;
+  }
+
   async addMember(userId: string, organisationId: string) {
     const memberCheck = await this.checkForMember(userId, organisationId);
 
@@ -75,7 +130,17 @@ export class MembersService {
         organisationId,
         role: MemberRoleType.MEMBER,
       },
+      include: {
+        user: true,
+        organisation: true,
+      },
     });
+
+    await this.makeMembershipChangeNotification(
+      membership.user,
+      membership.organisation,
+      MemberRoleType.MEMBER,
+    );
 
     return membership;
   }
@@ -104,10 +169,12 @@ export class MembersService {
 
     if (!memberCheck) return new NotFoundException('Member not found');
 
-    await this.prisma.organisationUser.updateMany({
+    const action = await this.prisma.organisationUser.update({
       where: {
-        userId,
-        organisationId,
+        organisationId_userId: {
+          organisationId,
+          userId,
+        },
         OR: [
           {
             role: MemberRoleType.REQUESTED,
@@ -117,10 +184,20 @@ export class MembersService {
           },
         ],
       },
+      include: {
+        user: true,
+        organisation: true,
+      },
       data: {
         role: newRole,
       },
     });
+
+    await this.makeMembershipChangeNotification(
+      action.user,
+      action.organisation,
+      newRole,
+    );
   }
 
   async makeRequest(userId: string, organisationId: string) {
@@ -133,7 +210,31 @@ export class MembersService {
         userId,
         organisationId,
       },
+      include: {
+        user: true,
+        organisation: {
+          include: {
+            OrganisationUsers: {
+              where: {
+                OR: [
+                  {
+                    role: MemberRoleType.OWNER,
+                  },
+                  {
+                    role: MemberRoleType.ADMIN,
+                  },
+                ],
+              },
+            },
+          },
+        },
+      },
     });
+
+    await this.makeNewMembershipRequestNotification(
+      membership.user,
+      membership.organisation,
+    );
 
     return membership;
   }
@@ -162,15 +263,27 @@ export class MembersService {
 
     if (!memberCheck) return new NotFoundException('Member not found');
 
-    const membership = await this.prisma.organisationUser.updateMany({
+    const membership = await this.prisma.organisationUser.update({
       where: {
-        userId,
-        organisationId,
+        organisationId_userId: {
+          organisationId,
+          userId,
+        },
+      },
+      include: {
+        user: true,
+        organisation: true,
       },
       data: {
         role,
       },
     });
+
+    await this.makeMembershipChangeNotification(
+      membership.user,
+      membership.organisation,
+      role,
+    );
 
     return membership;
   }
@@ -194,15 +307,27 @@ export class MembersService {
       },
     });
 
-    const newMembership = await this.prisma.organisationUser.updateMany({
+    const newMembership = await this.prisma.organisationUser.update({
       where: {
-        userId: newOwnerId,
-        organisationId,
+        organisationId_userId: {
+          organisationId,
+          userId: newOwnerId,
+        },
       },
       data: {
         role: MemberRoleType.OWNER,
       },
+      include: {
+        user: true,
+        organisation: true,
+      },
     });
+
+    await this.makeMembershipChangeNotification(
+      newMembership.user,
+      newMembership.organisation,
+      MemberRoleType.OWNER,
+    );
 
     return { membership, newMembership };
   }
