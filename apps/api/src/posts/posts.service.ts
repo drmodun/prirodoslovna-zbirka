@@ -218,6 +218,7 @@ export class PostsService {
         type: getEnumValue(NotificationType, NotificationType.POST_APPROVAL),
         link: `${env.WEB_URL ?? 'localhost:3000'}/posts/${post.id}`,
         title: 'Obaveštenje o objavi',
+        notificationImage: post.thumbnailImage,
       },
       [userId],
     );
@@ -227,25 +228,30 @@ export class PostsService {
 
   makeNewPostNotification = async (
     posterId: string,
-    postId: string,
+    post: Post,
     followerIds: string[],
   ): NotificationPromise => {
+    const splitText = post.text.split(' ');
     const notification = await this.notificationService.create(
       {
-        text: `Nova objava od korisnika ${posterId}`,
+        text:
+          splitText.length > 20
+            ? `${splitText.slice(0, 20).join(' ')}...`
+            : post.text,
         type: getEnumValue(
           NotificationType,
           NotificationType.POST_BY_FOLLOWED_ACCOUNT,
         ),
-        link: `${env.WEB_URL ?? 'localhost:3000'}/posts/${postId}`,
-        title: 'Nova objava',
+        notificationImage: post.thumbnailImage,
+        link: `${env.WEB_URL ?? 'localhost:3000'}/posts/${post.id}`,
+        title: `Nova objava od korisnika ${posterId}: ${post.title}`,
       },
       followerIds,
     );
 
     await this.prisma.post.update({
       where: {
-        id: postId,
+        id: post.id,
       },
       data: {
         IsNotificationMade: true,
@@ -286,7 +292,7 @@ export class PostsService {
 
       const notification = await this.makeNewPostNotification(
         post.author.username,
-        post.id,
+        post,
         users.map((user) => user.followerId),
       );
 

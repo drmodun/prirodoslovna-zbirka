@@ -182,6 +182,7 @@ export enum NotificationType {
   WORK_BY_FOLLOWED_ORGANISATION = "Rad od praćene organizacije",
   NEW_SOCIAL_POST = "Nova društvena objava praćene organizacije",
   POINT_MILESTONE = "Dosegnut prag bodova",
+  ORGANISATION_APPROVAL = "Promjena odobrenja organizacije",
   OTHER = "Ostalo",
 }
 
