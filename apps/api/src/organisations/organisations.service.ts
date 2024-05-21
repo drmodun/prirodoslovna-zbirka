@@ -16,10 +16,19 @@ import {
   anonymousOrganisationDiscover,
   personalizedOrganisationDiscover,
 } from './rawQueries';
+import { Organisation } from '@prisma/client';
+import { NotificationsController } from 'src/notifications/notifications.controller';
+import { NotificationsService } from 'src/notifications/notifications.service';
+import { NotificationUsersService } from 'src/notification-users/notification-users.service';
+import { env } from 'process';
 
 @Injectable()
 export class OrganisationsService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaServic,
+    private readonly notificationsService: NotificationsService,
+    private readonly notificationUsersService: NotificationUsersService,
+  ) {}
 
   async create(createOrganisationDto: CreateOrganisationDto) {
     return await this.prisma.organisation.create({
@@ -190,12 +199,57 @@ export class OrganisationsService {
     });
   }
 
+  async makeApprovalChangeNotification(
+    organisation: Organisation & {
+      OrganisationUsers: {
+        userId: string;
+      }[];
+    },
+  ) {
+    const allUsers = organisation.OrganisationUsers.map((user) => user.userId);
+    const notification = await this.notificationsService.create(
+      {
+        title: `Organizacija ${organisation.name} je ${
+          organisation.isApproved ? 'odobrena' : 'odbijena'
+        }`,
+        text: `Organizacija ${organisation.name} je ${
+          organisation.isApproved ? 'odobrena' : 'odbijena'
+        }`,
+        type: 'ORGANISATION_APPROVAL',
+        link: `${env.WEB_URL}/organisations/${organisation.id}`,
+        notificationImage: organisation.mainImage,
+      },
+      allUsers,
+    );
+    allUsers.forEach((userId) => {
+      this.notificationUsersService.publishNotification(userId, notification);
+    });
+  }
+
   async changeApprovalStatus(id: string) {
     const current = await this.prisma.organisation.findFirst({
       where: {
         id,
       },
+      include: {
+        OrganisationUsers: {
+          where: {
+            OR: [
+              {
+                role: MemberRoleType.MEMBER,
+              },
+              {
+                role: MemberRoleType.ADMIN,
+              },
+            ],
+          },
+          select: {
+            userId: true,
+          },
+        },
+      },
     });
+
     await this.prisma.organisation.update({
       where: {
         id,
@@ -204,6 +258,8 @@ export class OrganisationsService {
         isApproved: !current.isApproved,
       },
     });
+
+    await this.makeApprovalChangeNotification(current);
   }
 
   async getJoinRequests(organisationId: string) {

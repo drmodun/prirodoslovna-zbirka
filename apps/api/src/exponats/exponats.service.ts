@@ -15,16 +15,22 @@ import {
   SortingRequest,
   sortExponatQueryBuilderWithComplexFilters,
 } from '@biosfera/types';
-import { ExponatKind, Role } from '@prisma/client';
+import { Exponat, ExponatKind, Role } from '@prisma/client';
 import { MemberRoleType } from 'src/members/members.dto';
 import {
   anonymousExponatsDiscover,
   personalizedExponatsDiscover,
 } from './rawQueries';
+import { NotificationsService } from 'src/notifications/notifications.service';
+import { NotificationUsersService } from 'src/notification-users/notification-users.service';
 
 @Injectable()
 export class ExponatsService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly notificationsService: NotificationsService,
+    private readonly notificationUsersService: NotificationUsersService,
+  ) {}
 
   async create(createExponatDto: CreateExponatDto, userId: string) {
     const check = await this.checkForValidity(
@@ -74,6 +80,17 @@ export class ExponatsService {
     });
   }
 
+  async makeNewExponatNotification(exponat: Exponat) {
+    const notification = await this.notificationsService.create(
+      {
+        title: `Novi eksponat organizacije ${}`
+        ExponatId: exponat.id,
+        //TODO
+      },
+      [exponat.organisationId],
+    );
+  }
+
   async discoverExponats(page: number = 1, size: number, userId?: string) {
     const results = userId
       ? await personalizedExponatsDiscover(page, size, userId, this.prisma)
@@ -108,10 +125,10 @@ export class ExponatsService {
           organisationId: filter.organisationId,
         }),
         ...(filter?.class && {
+          search: filter.class.split(' ').join(' <-> '),
           Categorization: {
             is: {
               class: {
-                search: filter.class.split(' ').join(' <-> '),
                 mode: 'insensitive',
               },
             },
