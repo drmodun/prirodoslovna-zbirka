@@ -1,0 +1,15 @@
+version = 1
+
+exclude_patterns = [
+  "**seed.ts",
+  "**/seed.ts"
+]
+
+[[analyzers]]
+name = "javascript"
+
+  [analyzers.meta]
+  environment = ["nodejs"]
+
+[[transformers]]
+name = "prettier"
