@@ -33,7 +33,6 @@ export const SelectInput = ({
           {...register(name)}
           className={classes.select}
           disabled={isDisabled}
-          
         >
           {options.map((option) => (
             <option key={option.value} value={option.value}>

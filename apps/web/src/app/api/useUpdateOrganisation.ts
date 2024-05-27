@@ -15,7 +15,7 @@ export const updateOrganisation = async (params: {
 }) => {
   await api.patch<UpdateOrganisationDto, OrganisationResponseShort>(
     `/organisations/${params.organisationId}`,
-    params.updateOrganisationDto
+    params.updateOrganisationDto,
   );
 };
 
@@ -24,7 +24,7 @@ export const useUpdateOrganisation = () => {
     onError: (error: string) => {
       toast.error(
         "Greška se dogodila tijekom mijenjanja podataka organizacije",
-        { id: "update-organisation" }
+        { id: "update-organisation" },
       );
       console.log(error);
     },

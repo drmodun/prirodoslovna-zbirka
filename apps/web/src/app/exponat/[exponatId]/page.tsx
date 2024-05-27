@@ -10,7 +10,7 @@ import NotFound from "@/not-found";
 
 const ExponatPage = async ({ params }: { params: any }) => {
   const exponatInfo: ExponatExtendedResponse = await serverGetExponat(
-    params.exponatId
+    params.exponatId,
   );
 
   return exponatInfo ? (

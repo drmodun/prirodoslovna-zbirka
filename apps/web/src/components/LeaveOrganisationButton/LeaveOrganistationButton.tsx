@@ -15,7 +15,7 @@ export const LeaveOrganisationButton: React.FC<
 
   const handleLeave = () => {
     const confirm = window.confirm(
-      "Jeste li sigurni da želite napustiti organizaciju?"
+      "Jeste li sigurni da želite napustiti organizaciju?",
     );
     if (!confirm) return;
     mutate(organisationId);

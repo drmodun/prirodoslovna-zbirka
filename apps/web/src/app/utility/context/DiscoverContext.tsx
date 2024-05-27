@@ -23,7 +23,7 @@ const defaultDiscoverContext: DiscoverContextProps = {
 };
 
 const DiscoverContext = createContext<DiscoverContextProps>(
-  defaultDiscoverContext
+  defaultDiscoverContext,
 );
 
 export const DiscoverProvider = ({

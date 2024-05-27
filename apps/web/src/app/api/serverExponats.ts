@@ -38,7 +38,7 @@ export const discoverExponats = async (params: {
     const response = await fetch(
       `${getBaseUrl()}/exponats/discover?page=${params.page}&size=${
         params.size
-      }`
+      }`,
     );
     return response.json();
   } catch (error) {

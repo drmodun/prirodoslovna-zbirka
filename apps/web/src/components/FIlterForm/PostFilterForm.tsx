@@ -19,7 +19,7 @@ export const PostFilter = ({ searchParams }: Props) => {
       userName: z.optional(z.string()),
       postName: z.optional(z.string()),
       attribute: z.optional(
-        z.enum(["title", "createdAt", "postAmount", "favourites"])
+        z.enum(["title", "createdAt", "postAmount", "favourites"]),
       ),
       direction: z.optional(z.enum(["asc", "desc"])),
     })
@@ -42,8 +42,7 @@ export const PostFilter = ({ searchParams }: Props) => {
     } as FieldValues,
   });
 
-  const handleFilter = (data: any) => {
-  };
+  const handleFilter = (data: any) => {};
 
   return (
     <div className={classes.container}>

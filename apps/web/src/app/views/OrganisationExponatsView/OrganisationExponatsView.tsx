@@ -40,7 +40,7 @@ export const OrganisationExponatsView = ({
           onClick={() =>
             !isAdmin &&
             alert(
-              "Kao samo član, možete dodati eksponat ali neće odmah biti vidljiv na stranic već morate pričekati dopuštenje admina"
+              "Kao samo član, možete dodati eksponat ali neće odmah biti vidljiv na stranic već morate pričekati dopuštenje admina",
             )
           }
           href={`/organisation/${organisationId}/createExponat`}
@@ -82,7 +82,7 @@ export const OrganisationExponatsView = ({
           items={exponats
             .filter((exponat) => exponat.exponatKind.toLowerCase() === domain)
             .filter((exponat) =>
-              exponat.name.toLowerCase().includes(searchValue.toLowerCase())
+              exponat.name.toLowerCase().includes(searchValue.toLowerCase()),
             )
             .map((exponat) => exponat)}
           type="exponat"

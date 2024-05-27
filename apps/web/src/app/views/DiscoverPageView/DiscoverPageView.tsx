@@ -73,7 +73,7 @@ export const DiscoverPageView = ({
     useDiscoverExponats(exponatPage, size);
   const { data: currentPostsQuery, isFetching: postLoading } = useDiscoverPosts(
     postPage,
-    size
+    size,
   );
 
   useEffect(() => {
@@ -81,7 +81,7 @@ export const DiscoverPageView = ({
     setCurrentOrganisations((prev) => [
       ...prev,
       ...(currentOrganisationsQuery?.filter(
-        (x) => !prev.some((y) => y.id == x.id)
+        (x) => !prev.some((y) => y.id == x.id),
       ) || []),
     ]);
   }, [currentOrganisationsQuery]);
@@ -91,7 +91,7 @@ export const DiscoverPageView = ({
     setCurrentExponats((prev) => [
       ...prev,
       ...(currentExponatsQuery?.filter(
-        (x) => !prev.some((y) => y.id == x.id)
+        (x) => !prev.some((y) => y.id == x.id),
       ) || []),
     ]);
   }, [currentExponatsQuery]);
@@ -131,16 +131,16 @@ export const DiscoverPageView = ({
               activeTab === "Organizacije"
                 ? organisationPage
                 : activeTab === "Eksponati"
-                ? exponatPage
-                : postPage
+                  ? exponatPage
+                  : postPage
             }
             isDiscover
             getMore={
               activeTab === "Organizacije"
                 ? handleOrganisationSearch
                 : activeTab === "Eksponati"
-                ? handleExponatSearch
-                : handlePostSearch
+                  ? handleExponatSearch
+                  : handlePostSearch
             }
             params={query}
             onError={handleError}
@@ -149,8 +149,8 @@ export const DiscoverPageView = ({
               activeTab === "Organizacije"
                 ? currentOrganisations || organisations
                 : activeTab === "Eksponati"
-                ? currentExponats || exponats
-                : currentPosts || posts
+                  ? currentExponats || exponats
+                  : currentPosts || posts
             }
           />
         </UserWrapper>

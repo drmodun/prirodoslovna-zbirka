@@ -9,18 +9,10 @@ export const RegistrationImage = () => (
       <Image src={lion} alt="lion" layout="fill" />
     </div>
     <div className={classes.bacteria}>
-      <Image
-        src={bacteria}
-        alt="bacteria"
-        layout="fill"
-      />
+      <Image src={bacteria} alt="bacteria" layout="fill" />
     </div>
     <div className={classes.crystal}>
-      <Image
-        src={crystal}
-        alt="crystal"
-        layout="fill"
-      />
+      <Image src={crystal} alt="crystal" layout="fill" />
     </div>
   </div>
 );

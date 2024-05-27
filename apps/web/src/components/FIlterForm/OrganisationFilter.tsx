@@ -43,10 +43,10 @@ export const OrganisationFilter = ({ searchParams }: Props) => {
           "LICKO_SENJSKA",
           "VIROVITICKO_PODRAVSKA",
           "OTHER",
-        ])
+        ]),
       ),
       attribute: z.optional(
-        z.enum(["name", "createdAt", "postAmount", "favourites"])
+        z.enum(["name", "createdAt", "postAmount", "favourites"]),
       ),
       direction: z.optional(z.enum(["asc", "desc"])),
     })
@@ -69,8 +69,7 @@ export const OrganisationFilter = ({ searchParams }: Props) => {
     } as FieldValues,
   });
 
-  const handleFilter = (data: any) => {
-  };
+  const handleFilter = (data: any) => {};
 
   return (
     <div className={classes.container}>

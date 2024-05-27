@@ -43,11 +43,11 @@ export const UserFilter = ({ searchParams }: Props) => {
           "LICKO_SENJSKA",
           "VIROVITICKO_PODRAVSKA",
           "OTHER",
-        ])
+        ]),
       ),
       username: z.optional(z.string()),
       attribute: z.optional(
-        z.enum(["name", "createdAt", "postAmount", "favourites"])
+        z.enum(["name", "createdAt", "postAmount", "favourites"]),
       ),
       direction: z.optional(z.enum(["asc", "desc"])),
     })

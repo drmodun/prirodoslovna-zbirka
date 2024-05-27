@@ -25,7 +25,7 @@ export const useRequestMembership = () => {
           {
             icon: "🔒",
             id: "unauthorized",
-          }
+          },
         );
       } else {
         toast.error("Greška se dogodila, molim vas pokušajte kasnije", {

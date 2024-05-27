@@ -77,7 +77,6 @@ const SearchPage = async ({
     initUser,
   ]);
 
-
   return (
     <div>
       <SearchPageView

@@ -62,7 +62,7 @@ const FileUpload = ({ name, maxFiles = 1, onChange }: FileUploadProps) => {
         {...getRootProps()}
         className={clsx(
           classes.main,
-          files.length >= maxFiles && classes.disabled
+          files.length >= maxFiles && classes.disabled,
         )}
       >
         <input

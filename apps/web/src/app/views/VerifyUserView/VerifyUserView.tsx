@@ -23,8 +23,8 @@ export const VerifyUserView = ({ code }: VerifyUserViewProps) => {
         {isSuccess
           ? "Uspješna verifikacija, preusmjeravanje na prijavu"
           : isError
-          ? "Greška pri verifikaciji"
-          : "Verifickacija korisnika"}
+            ? "Greška pri verifikaciji"
+            : "Verifickacija korisnika"}
       </h1>
     </div>
   );

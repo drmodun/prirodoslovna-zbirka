@@ -48,11 +48,12 @@ export const OrganisationBody = ({
       user?.role?.toLocaleLowerCase() === "super" ||
       memberships.some(
         (x) =>
-          x.id === organisation.id && (x.role === "ADMIN" || x.role === "OWNER")
+          x.id === organisation.id &&
+          (x.role === "ADMIN" || x.role === "OWNER"),
       )
     ) {
       const adminOrg = await api.get<never, ExtendedOrganisationResponse>(
-        `/organisations/${organisation.id}`
+        `/organisations/${organisation.id}`,
       );
       if (adminOrg) setOrganisationData(adminOrg);
       setAvailableTabs((prev) => [...prev.filter((x) => x !== "Edit"), "Edit"]);
@@ -90,7 +91,7 @@ export const OrganisationBody = ({
                 (x) =>
                   (x.id === organisation.id && x.role === "ADMIN") ||
                   x.role === "OWNER" ||
-                  user?.role?.toLowerCase() === "super"
+                  user?.role?.toLowerCase() === "super",
               )}
             />
           )}

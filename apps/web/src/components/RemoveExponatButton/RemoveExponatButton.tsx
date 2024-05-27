@@ -25,7 +25,7 @@ export const RemoveExponatButton: React.FC<RemoveExponatButtonProps> = ({
 
   const handleDelete = () => {
     const confirm = window.confirm(
-      "Jeste li sigurni da želite maknuti eksponat?"
+      "Jeste li sigurni da želite maknuti eksponat?",
     );
     confirm && mutate(exponatId);
 
@@ -33,7 +33,7 @@ export const RemoveExponatButton: React.FC<RemoveExponatButtonProps> = ({
       favouriteExponats.some((x: ExponatResponseShort) => x.id === exponatId)
     ) {
       const favouriteToRemove = favouriteExponats.find(
-        (x: ExponatResponseShort) => x.id === exponatId
+        (x: ExponatResponseShort) => x.id === exponatId,
       );
       updateFavourites(favouriteToRemove!);
     }

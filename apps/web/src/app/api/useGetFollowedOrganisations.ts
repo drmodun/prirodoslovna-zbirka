@@ -8,7 +8,7 @@ const getFollowedOrganisations = async () => {
     return Promise.reject("No token");
   }
   const response = await api.get<never, OrganisationResponseShort[]>(
-    "/favourite-organisations/user"
+    "/favourite-organisations/user",
   );
   return response;
 };
