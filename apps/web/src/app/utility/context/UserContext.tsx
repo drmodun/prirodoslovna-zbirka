@@ -79,17 +79,17 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
     ExponatResponseShort[]
   >([]);
   const [memberships, setMemberships] = useState<OrganisationResponseShort[]>(
-    []
+    [],
   );
   const [posts, setPosts] = useState<PostResponse[]>([]);
 
   const { data: user, isLoading } = useGetMe();
 
   const { data: followersGet, isLoading: followLoading } = useGetFollowers(
-    user?.id
+    user?.id,
   );
   const { data: followingGet, isLoading: followingLoading } = useGetFollowing(
-    user?.id
+    user?.id,
   );
 
   const { data: followedOrganisationGet, isLoading: orgLoading } =
@@ -107,7 +107,6 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
     }
   }, [followersGet, followingGet, followedOrganisationGet]);
 
-
   const updatePosts = (post: PostResponse) => {
     if (!posts) return;
     const possiblePost = posts.find((p) => p.id === post.id);
@@ -121,7 +120,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   const updateFavourites = (exponat: ExponatResponseShort) => {
     if (!favouriteExponats) return;
     const possibleExponat = favouriteExponats.find(
-      (ex) => ex.id === exponat.id
+      (ex) => ex.id === exponat.id,
     );
     if (possibleExponat) {
       setFavouriteExponats((prev) => prev.filter((ex) => ex.id !== exponat.id));
@@ -151,15 +150,15 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   const updateFollowedOrganisation = (
-    organisation: OrganisationResponseShort
+    organisation: OrganisationResponseShort,
   ) => {
     if (!followedOrganisations) return;
     const possibleOrganisation = followedOrganisations.find(
-      (org) => org.id === organisation.id
+      (org) => org.id === organisation.id,
     );
     if (possibleOrganisation) {
       setFollowedOrganisations((prev) =>
-        prev.filter((org) => org.id !== organisation.id)
+        prev.filter((org) => org.id !== organisation.id),
       );
       return;
     }
@@ -169,11 +168,11 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   const updateMemberships = (organisation: OrganisationResponseShort) => {
     if (!memberships) return;
     const possibleOrganisation = memberships.find(
-      (org) => org.id === organisation.id
+      (org) => org.id === organisation.id,
     );
     if (possibleOrganisation) {
       setMemberships((prev) =>
-        prev.filter((org) => org.id !== organisation.id)
+        prev.filter((org) => org.id !== organisation.id),
       );
       return;
     }

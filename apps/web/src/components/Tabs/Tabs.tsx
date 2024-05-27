@@ -6,11 +6,10 @@ export interface TabsProps {
   tabs: string[];
   onSelect: Function;
   activeTab: String;
-  color?: string; 
+  color?: string;
 }
 
 export const Tabs = ({ tabs, activeTab, onSelect }: TabsProps) => {
-
   return (
     <div className={classes.container}>
       {tabs.map((tab, index) => (

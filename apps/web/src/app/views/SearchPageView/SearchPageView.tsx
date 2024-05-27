@@ -75,20 +75,20 @@ export const SearchPageView = ({
                 activeTab === "Korisnici"
                   ? getUsers
                   : activeTab === "Organizacije"
-                  ? getOrganisations
-                  : activeTab === "Eksponati"
-                  ? getExponats
-                  : getPosts
+                    ? getOrganisations
+                    : activeTab === "Eksponati"
+                      ? getExponats
+                      : getPosts
               }
               params={query}
               items={
                 activeTab === "Korisnici"
                   ? users
                   : activeTab === "Organizacije"
-                  ? organisations
-                  : activeTab === "Eksponati"
-                  ? exponats
-                  : posts
+                    ? organisations
+                    : activeTab === "Eksponati"
+                      ? exponats
+                      : posts
               }
             />
           </UserWrapper>

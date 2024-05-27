@@ -7,7 +7,7 @@ export class OrganisationQuery extends _organisationQuery {}
 
 export const getOrganisations = async (
   queryDto: OrganisationQuery,
-  page?: number
+  page?: number,
 ) => {
   try {
     if (page) queryDto.page = page;
@@ -41,7 +41,7 @@ export const discoverOrganisations = async (params: {
     const response = await fetch(
       `${getBaseUrl()}/organisations/discover?page=${params.page}&size=${
         params.size
-      }`
+      }`,
     );
     return response.json();
   } catch (error) {

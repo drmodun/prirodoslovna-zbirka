@@ -19,7 +19,7 @@ const defaultSideMenuContext: SideMenuContextProps = {
 };
 
 export const SideMenuContext = createContext<SideMenuContextProps>(
-  defaultSideMenuContext
+  defaultSideMenuContext,
 );
 
 export const SideMenuProvider = ({

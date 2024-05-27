@@ -11,4 +11,4 @@ export const useCreateCategorization = () => {
       throw new Error("Error creating categorization");
     },
   });
-};  
+};

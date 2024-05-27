@@ -19,7 +19,7 @@ export const ExponatFilter = ({ searchParams }: Props) => {
       name: z.optional(z.string()),
       alternateName: z.optional(z.string()),
       attribute: z.optional(
-        z.enum(["name", "createdAt", "postAmount", "favourites"])
+        z.enum(["name", "createdAt", "postAmount", "favourites"]),
       ),
       direction: z.optional(z.enum(["asc", "desc"])),
     })
@@ -44,8 +44,7 @@ export const ExponatFilter = ({ searchParams }: Props) => {
 
   //add better ways to filtrate
 
-  const handleFilter = (data: any) => {
-  };
+  const handleFilter = (data: any) => {};
 
   return (
     <div className={classes.container}>

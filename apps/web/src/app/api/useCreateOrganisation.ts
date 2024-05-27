@@ -13,7 +13,7 @@ export class CreateOrganisationDto extends _createOrganisationDto {}
 const createOrganisation = (data: CreateOrganisationDto) => {
   return api.post<CreateOrganisationDto, OrganisationResponseShort>(
     `/organisations`,
-    data
+    data,
   );
 };
 

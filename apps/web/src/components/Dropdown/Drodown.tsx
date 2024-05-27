@@ -33,14 +33,14 @@ export const Dropdown: React.FC<DropdownProps> = ({
   const { setValue } = form;
 
   const [searchTerm, setSearchTerm] = useState<string | number>(
-    initSelected || ""
+    initSelected || "",
   );
   const [selected, setSelected] = useState<string | number>(initSelected || "");
   const [visible, setVisible] = useState<boolean>(false);
   const [placeholder, setPlaceholder] = useState<string>(
     options.find((option) => option.value == initSelected)?.label ||
       initPlaceholder ||
-      "Search"
+      "Search",
   );
 
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -100,7 +100,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
           .filter((option) =>
             option.label
               .toLowerCase()
-              .includes(searchTerm.toString().toLowerCase())
+              .includes(searchTerm.toString().toLowerCase()),
           )
           .toSpliced(10)
           .map((option, index) => (

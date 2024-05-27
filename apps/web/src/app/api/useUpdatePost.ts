@@ -12,7 +12,7 @@ export const updatePost = async (params: {
 }) => {
   await api.patch<UpdatePostDto, PostResponse>(
     `/posts/${params.postId}`,
-    params.updatePostDto
+    params.updatePostDto,
   );
 };
 

@@ -18,7 +18,7 @@ export const AdminCheckingWrapper = ({
       (x) =>
         x.id == id &&
         (x.role?.toLocaleLowerCase() === "admin" ||
-          x.role?.toLocaleLowerCase() === "owner")
+          x.role?.toLocaleLowerCase() === "owner"),
     )
     ? children
     : null;

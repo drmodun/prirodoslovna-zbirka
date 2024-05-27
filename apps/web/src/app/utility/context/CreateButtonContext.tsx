@@ -19,7 +19,7 @@ const defaultCreateButtonContext: CreateButtonContextProps = {
 };
 
 const CreateButtonContext = createContext<CreateButtonContextProps>(
-  defaultCreateButtonContext
+  defaultCreateButtonContext,
 );
 
 export const CreateButtonProvider = ({

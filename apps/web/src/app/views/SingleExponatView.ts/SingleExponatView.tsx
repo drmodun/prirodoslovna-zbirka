@@ -17,7 +17,7 @@ export const SingleExponatView = (props: SingleExponatViewProps) => {
       {memberships.some(
         (membership) =>
           membership.id === props.exponat.organizationId &&
-          membership.role?.toLowerCase() !== "requested"
+          membership.role?.toLowerCase() !== "requested",
       ) && (
         <Link
           href={`/exponat/${props.exponat.id}/createPost`}
