@@ -175,6 +175,7 @@ export enum NotificationType {
   POST_APPROVAL = "Promjena odobrenja objave",
   EXPONAT_APPROVAL = "Promjena odobrenja eksponata",
   MEMBERSHIP_REQUEST = "Zahtjev za članstvo",
+  NEW_EXPONAT = "Novi eksponat",
   MEMBERSHIP_CHANGE = "Promjena članstva",
   NEW_FOLLOWER = "Novi pratitelj",
   POST_BY_FOLLOWED_ACCOUNT = "Objava od praćenog računa",
@@ -203,6 +204,20 @@ export type NotificationPromise = Promise<
     type: NotificationTypeEnumType;
   }
 >;
+
+export type NotificationAwaited = {
+  UserNotification: {
+    userId: string;
+  }[];
+} & {
+  id: string;
+  title: string;
+  text: string;
+  createdAt: Date;
+  link: string;
+  notificationImage: string;
+  type: NotificationTypeEnumType;
+};
 
 export const getKeyByValue = (object: any, value: any) => {
   return Object.keys(object).find((key) => object[key] === value);

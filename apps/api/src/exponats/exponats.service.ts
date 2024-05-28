@@ -15,7 +15,7 @@ import {
   SortingRequest,
   sortExponatQueryBuilderWithComplexFilters,
 } from '@biosfera/types';
-import { Exponat, ExponatKind, Role } from '@prisma/client';
+import { Exponat, ExponatKind, Organisation, Role } from '@prisma/client';
 import { MemberRoleType } from 'src/members/members.dto';
 import {
   anonymousExponatsDiscover,
@@ -23,6 +23,7 @@ import {
 } from './rawQueries';
 import { NotificationsService } from 'src/notifications/notifications.service';
 import { NotificationUsersService } from 'src/notification-users/notification-users.service';
+import { env } from 'process';
 
 @Injectable()
 export class ExponatsService {
@@ -80,15 +81,27 @@ export class ExponatsService {
     });
   }
 
-  async makeNewExponatNotification(exponat: Exponat) {
+  async makeNewExponatNotification(
+    exponat: Exponat & {
+      Organisation: Organisation & {
+        OrganisationUsers: {
+          userId: string;
+        }[];
+      };
+    },
+  ) {
     const notification = await this.notificationsService.create(
       {
-        title: `Novi eksponat organizacije ${}`
-        ExponatId: exponat.id,
-        //TODO
+        title: `Novi eksponat organizacije ${exponat.Organisation.name}`,
+        text: `Organizacija ${exponat.Organisation.name} je dodala novi eksponat ${exponat.name}`,
+        link: `${env.WEB_URL}/exponats/${exponat.id}`,
+        type: 'NEW_EXPONAT',
+        notificationImage: exponat.mainImage,
       },
-      [exponat.organisationId],
+      exponat.Organisation.OrganisationUsers.map((user) => user.userId),
     );
+
+    
   }
 
   async discoverExponats(page: number = 1, size: number, userId?: string) {
@@ -361,12 +374,38 @@ export class ExponatsService {
       true,
     );
     if (!check) throw new UnauthorizedException();
+
     const current = await this.prisma.exponat.findFirst({
       where: {
         id,
       },
+      include: {
+        Organisation: {
+          include: {
+            OrganisationUsers: {
+              select: {
+                userId: true,
+              },
+            },
+          },
+        },
+      },
     });
+
     if (!current) throw new NotFoundException();
+
+    if (!current.IsNotificationMade) {
+      await this.makeNewExponatNotification(current);
+      await this.prisma.exponat.update({
+        where: {
+          id,
+        },
+        data: {
+          IsNotificationMade: true,
+        },
+      });
+    }
+
     await this.prisma.exponat.update({
       where: {
         id,

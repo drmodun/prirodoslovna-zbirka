@@ -217,7 +217,7 @@ export class PostsService {
         text: notificationText,
         type: getEnumValue(NotificationType, NotificationType.POST_APPROVAL),
         link: `${env.WEB_URL ?? 'localhost:3000'}/posts/${post.id}`,
-        title: 'Obaveštenje o objavi',
+        title: 'Obavijest o objavi',
         notificationImage: post.thumbnailImage,
       },
       [userId],
