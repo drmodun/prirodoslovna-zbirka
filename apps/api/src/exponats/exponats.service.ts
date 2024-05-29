@@ -24,6 +24,7 @@ import {
 import { NotificationsService } from 'src/notifications/notifications.service';
 import { NotificationUsersService } from 'src/notification-users/notification-users.service';
 import { env } from 'process';
+import e from 'express';
 
 @Injectable()
 export class ExponatsService {
@@ -95,13 +96,18 @@ export class ExponatsService {
         title: `Novi eksponat organizacije ${exponat.Organisation.name}`,
         text: `Organizacija ${exponat.Organisation.name} je dodala novi eksponat ${exponat.name}`,
         link: `${env.WEB_URL}/exponats/${exponat.id}`,
-        type: 'NEW_EXPONAT',
+        type: 'EXPONAT_BY_FOLLOWED_ORGANISATION',
         notificationImage: exponat.mainImage,
       },
       exponat.Organisation.OrganisationUsers.map((user) => user.userId),
     );
 
-    
+    exponat.Organisation.OrganisationUsers.forEach((connection) => {
+      this.notificationUsersService.publishNotification(
+        connection.userId,
+        notification,
+      );
+    });
   }
 
   async discoverExponats(page: number = 1, size: number, userId?: string) {

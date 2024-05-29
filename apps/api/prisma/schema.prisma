@@ -88,7 +88,7 @@ enum NotificationType {
   POST_BY_FOLLOWED_ACCOUNT
   EXPONAT_BY_FOLLOWED_ORGANISATION
   WORK_BY_FOLLOWED_ORGANISATION
-  ORGANISAITON_APPROVAL
+  ORGANISATION_APPROVAL
   NEW_SOCIAL_POST
   POINT_MILESTONE
   OTHER
@@ -110,32 +110,33 @@ model Categorization {
 }
 
 model User {
-  id                       String                     @id @default(uuid())
-  email                    String                     @unique
-  firstName                String
-  bio                      String                     @default("Homo sapiens u biosferi")
-  lastName                 String
-  username                 String
-  password                 String
-  hasProfileImage          Boolean                    @default(false)
-  activationCode           String                     @unique @default(uuid())
-  role                     Role                       @default(USER)
-  createdAt                DateTime                   @default(now())
-  updatedAt                DateTime                   @default(now()) @updatedAt
-  Posts                    Post[]
-  location                 County
-  OrganisationUser         OrganisationUser[]
-  isActivated              Boolean                    @default(false)
-  Likes                    Like[]
-  FavouriteExponats        FavouriteExponat[]
-  UserOrganisationFollower UserOrganisationFollower[]
-  followers                UserFollows[]              @relation("following")
-  following                UserFollows[]              @relation("follower")
-  Works                    Work[]                     @relation("author")
-  ApprovedWorks            Work[]                     @relation("approver")
-  SavedWorks               SavedWorks[]
-  SavedLiterature          SavedLiterature[]
-  UserNotification         UserNotification[]
+  id                          String                     @id @default(uuid())
+  email                       String                     @unique
+  firstName                   String
+  bio                         String                     @default("Homo sapiens u biosferi")
+  lastName                    String
+  username                    String
+  password                    String
+  hasProfileImage             Boolean                    @default(false)
+  activationCode              String                     @unique @default(uuid())
+  role                        Role                       @default(USER)
+  createdAt                   DateTime                   @default(now())
+  updatedAt                   DateTime                   @default(now()) @updatedAt
+  Posts                       Post[]
+  location                    County
+  OrganisationUser            OrganisationUser[]
+  isActivated                 Boolean                    @default(false)
+  Likes                       Like[]
+  FavouriteExponats           FavouriteExponat[]
+  UserOrganisationFollower    UserOrganisationFollower[]
+  followers                   UserFollows[]              @relation("following")
+  following                   UserFollows[]              @relation("follower")
+  Works                       Work[]                     @relation("author")
+  ApprovedWorks               Work[]                     @relation("approver")
+  SavedWorks                  SavedWorks[]
+  SavedLiterature             SavedLiterature[]
+  UserNotification            UserNotification[]
+  IsEmailNotificationsEnabled Boolean                    @default(true)
 }
 
 model Exponat {
