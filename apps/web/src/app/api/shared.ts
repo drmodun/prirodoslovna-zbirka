@@ -14,6 +14,8 @@ export const api = axios.create({
   },
 });
 
+export const token = localStorage.getItem("access_token");
+
 export const fileApi = axios.create({
   baseURL: baseURL,
   timeout: 5000,
