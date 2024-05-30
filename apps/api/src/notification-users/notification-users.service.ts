@@ -1,5 +1,5 @@
 import { NotificationResponse } from '@biosfera/types';
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { Subject } from 'rxjs';
 
 @Injectable()
@@ -14,9 +14,13 @@ export class NotificationUsersService {
   }
 
   public publishNotification(userId: string, message: NotificationResponse) {
-    const client = this.clients.get(userId);
-    if (client) {
-      client.next({ data: message } as MessageEvent<NotificationResponse>);
+    try {
+      const client = this.clients.get(userId);
+      if (client) {
+        client.next({ data: message } as MessageEvent<NotificationResponse>);
+      }
+    } catch (error) {
+      throw new BadRequestException(error);
     }
   }
 
@@ -24,3 +28,5 @@ export class NotificationUsersService {
     this.clients.delete(userId);
   }
 }
+
+//If performance issues are detected, move this to an external service

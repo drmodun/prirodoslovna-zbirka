@@ -10,12 +10,22 @@ export class NotificationUsersController {
   ) {}
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
-  @Sse('notification')
+  @Sse('subscribe')
   async subscribeToNotifications(@Req() req: any) {
     const userId = req.user?.id;
     const client =
       this.notificationUsersService.subscribeToNotifications(userId);
 
     return client.asObservable();
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
+  @Sse('unsubscribe')
+  async unsubscribe(@Req() req: any) {
+    const userId = req.user?.id;
+    this.notificationUsersService.removeClient(userId);
+
+    return;
   }
 }
