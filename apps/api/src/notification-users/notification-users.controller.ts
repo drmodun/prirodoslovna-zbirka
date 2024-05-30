@@ -1,15 +1,4 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
-  UseGuards,
-  Sse,
-  Req,
-} from '@nestjs/common';
+import { Controller, UseGuards, Sse, Req } from '@nestjs/common';
 import { NotificationUsersService } from './notification-users.service';
 import { ApiBearerAuth } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/jwt-auth-guard';
