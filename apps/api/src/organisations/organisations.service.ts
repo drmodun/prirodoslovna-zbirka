@@ -17,7 +17,6 @@ import {
   personalizedOrganisationDiscover,
 } from './rawQueries';
 import { Organisation } from '@prisma/client';
-import { NotificationsController } from 'src/notifications/notifications.controller';
 import { NotificationsService } from 'src/notifications/notifications.service';
 import { NotificationUsersService } from 'src/notification-users/notification-users.service';
 import { env } from 'process';
@@ -25,7 +24,7 @@ import { env } from 'process';
 @Injectable()
 export class OrganisationsService {
   constructor(
-    private readonly prisma: PrismaServic,
+    private readonly prisma: PrismaService,
     private readonly notificationsService: NotificationsService,
     private readonly notificationUsersService: NotificationUsersService,
   ) {}
