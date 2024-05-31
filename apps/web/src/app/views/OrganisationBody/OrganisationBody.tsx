@@ -3,6 +3,7 @@
 import {
   ExponatKind,
   ExtendedOrganisationResponse,
+  MemberRole,
   WorkResponseShort,
 } from "@biosfera/types";
 import classes from "./OrganisationBody.module.scss";
@@ -95,7 +96,9 @@ export const OrganisationBody = ({
           )}
           {activeTab === "Eksponati" && (
             <OrganisationExponatsView
-              isMember={memberships.some((x) => x.id === organisation.id)}
+              isMember={memberships.some(
+                (x) => x.id === organisation.id && x.role !== "REQUESTED"
+              )}
               exponats={organisationData.exponats}
               organisationId={organisation.id}
               isAdmin={memberships.some(

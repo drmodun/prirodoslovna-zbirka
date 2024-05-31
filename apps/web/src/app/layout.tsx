@@ -10,6 +10,7 @@ import { SideMenuWrapper } from "./utility/wrappers/sideMenuWrapper";
 import { DiscoverWrapper } from "./utility/wrappers/discoverWrapper";
 import { CreateWrapper } from "./utility/wrappers/createWrapper";
 import { ReactLenis, useLenis } from "@studio-freight/react-lenis";
+import { NotificationsProvider } from "./utility/context/NotificationContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -29,13 +30,15 @@ export default function RootLayout({
       <body className={inter.className}>
         <DiscoverWrapper>
           <SideMenuWrapper>
-            <Header />
-            <Toaster />
-            <BodyWrapper>
-              <CreateWrapper>{children}</CreateWrapper>
-            </BodyWrapper>
-            <Footer />
-            <SideMenu />
+            <NotificationsProvider>
+              <Header />
+              <Toaster />
+              <BodyWrapper>
+                <CreateWrapper>{children}</CreateWrapper>
+              </BodyWrapper>
+              <Footer />
+              <SideMenu />
+            </NotificationsProvider>
           </SideMenuWrapper>
         </DiscoverWrapper>
       </body>

@@ -25,6 +25,7 @@ import { SavedWorksModule } from './saved-works/saved-works.module';
 import { LiteratureModule } from './literature/literature.module';
 import { NotificationsModule } from './notifications/notifications.module';
 import { NotificationUsersModule } from './notification-users/notification-users.module';
+import { EventEmitterModule } from '@nestjs/event-emitter';
 
 @Module({
   imports: [
@@ -56,6 +57,7 @@ import { NotificationUsersModule } from './notification-users/notification-users
     LiteratureModule,
     NotificationsModule,
     NotificationUsersModule,
+    EventEmitterModule.forRoot(),
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -47,7 +47,7 @@ export class ExponatsService {
 
     if (!check) throw new UnauthorizedException();
 
-    return await this.prisma.exponat.create({
+    const creation = await this.prisma.exponat.create({
       data: {
         alternateName: createExponatDto.alternateName,
         attributes: createExponatDto.attributes,
@@ -79,6 +79,31 @@ export class ExponatsService {
         },
       },
     });
+
+    if (adminCheck) {
+      const organisation = await this.prisma.organisation.findFirst({
+        where: {
+          id: createExponatDto.authorId,
+        },
+        include: {
+          OrganisationUsers: {
+            select: {
+              userId: true,
+            },
+          },
+        },
+      });
+
+      await this.makeNewExponatNotification({
+        ...creation,
+        Organisation: {
+          ...organisation,
+          OrganisationUsers: organisation.OrganisationUsers,
+        },
+      });
+    }
+
+    return creation;
   }
 
   async makeNewExponatNotification(
@@ -94,19 +119,17 @@ export class ExponatsService {
       {
         title: `Novi eksponat organizacije ${exponat.Organisation.name}`,
         text: `Organizacija ${exponat.Organisation.name} je dodala novi eksponat ${exponat.name}`,
-        link: `${env.WEB_URL}/exponats/${exponat.id}`,
+        link: `${env.WEB_URL}/exponat/${exponat.id}`,
         type: 'EXPONAT_BY_FOLLOWED_ORGANISATION',
         notificationImage: exponat.mainImage,
       },
       exponat.Organisation.OrganisationUsers.map((user) => user.userId),
     );
 
-    exponat.Organisation.OrganisationUsers.forEach((connection) => {
-      this.notificationUsersService.publishNotification(
-        connection.userId,
-        notification,
-      );
-    });
+    await this.notificationUsersService.publishManyNotifications(
+      exponat.Organisation.OrganisationUsers.map((user) => user.userId),
+      notification,
+    );
   }
 
   async discoverExponats(page: number = 1, size: number, userId?: string) {
@@ -399,7 +422,7 @@ export class ExponatsService {
 
     if (!current) throw new NotFoundException();
 
-    if (!current.IsNotificationMade) {
+    if (!current.IsNotificationMade && !current.isApproved) {
       await this.makeNewExponatNotification(current);
       await this.prisma.exponat.update({
         where: {

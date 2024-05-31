@@ -2,23 +2,33 @@
 @import "styles/calc.scss";
 
 .container {
-  width: vw-calc(48);
-  height: vw-calc(48);
+  width: vw-calc(32);
+  height: vw-calc(32);
+  top: vw-calc(-6);
   position: relative;
+  border: none;
+  outline: none;
+  background-color: $background-color;
+
+  @media (max-width: 768px) {
+    width: vw-mobile-calc(16);
+    height: vw-mobile-calc(16);
+  }
 
   .notificationAmount {
     position: absolute;
-    top: 0;
     right: 0;
-    width: vw-calc(10);
-    height: vw-calc(10);
+    top: 0;
+    width: vw-calc(16);
+    height: vw-calc(16);
     background-color: $red;
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: vw-calc(12);
-    color: $white;
+    z-index: 2;
+    color: $background-color;
 
     @media (max-width: 768px) {
       width: vw-mobile-calc(8);
@@ -28,8 +38,8 @@
   }
 
   .bell {
-    width: vw-calc(48);
-    height: vw-calc(48);
+    width: vw-calc(32);
+    height: vw-calc(32);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -37,8 +47,8 @@
     position: relative;
 
     @media (max-width: 768px) {
-      width: vw-mobile-calc(30);
-      height: vw-mobile-calc(30);
+      width: vw-mobile-calc(16);
+      height: vw-mobile-calc(16);
     }
   }
 }

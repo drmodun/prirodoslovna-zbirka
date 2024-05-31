@@ -97,10 +97,12 @@ export const CreationModal = () => {
             form={form}
             label="Organizacija"
             name="organisationId"
-            options={memberships.map((membership) => ({
-              value: membership.id,
-              label: membership.name,
-            }))}
+            options={memberships
+              .filter((membership) => membership.role !== "REQUESTED")
+              .map((membership) => ({
+                value: membership.id,
+                label: membership.name,
+              }))}
           />
         )}
         {form.watch("type") === "post" && (

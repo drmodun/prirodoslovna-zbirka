@@ -216,11 +216,16 @@ export class PostsService {
       {
         text: notificationText,
         type: getEnumValue(NotificationType, NotificationType.POST_APPROVAL),
-        link: `${env.WEB_URL ?? 'localhost:3000'}/posts/${post.id}`,
+        link: `${env.WEB_URL ?? 'localhost:3000'}/post/${post.id}`,
         title: 'Obavijest o objavi',
         notificationImage: post.thumbnailImage,
       },
       [userId],
+    );
+
+    await this.notificationUsersService.publishNotification(
+      userId,
+      makeNotification,
     );
 
     return makeNotification;
@@ -276,18 +281,12 @@ export class PostsService {
       },
     });
 
-    const makeNotification = await this.makeApprovalNotification(
-      post,
+    await this.makeApprovalNotification(
+      { ...post, isApproved: !post.isApproved },
       post.author.id,
     );
-    makeNotification.UserNotification.forEach(async (connection) => {
-      this.notificationUsersService.publishNotification(
-        connection.userId,
-        makeNotification,
-      );
-    }); //TODO: think if all admins have to be notified that this has been done
 
-    if (post.isApproved && !post.IsNotificationMade) {
+    if (!post.isApproved && !post.IsNotificationMade) {
       const users = await this.followsService.getFollowers(post.author.id);
 
       const notification = await this.makeNewPostNotification(
@@ -296,12 +295,10 @@ export class PostsService {
         users.map((user) => user.followerId),
       );
 
-      notification.UserNotification.forEach((connection) => {
-        this.notificationUsersService.publishNotification(
-          connection.userId,
-          notification,
-        );
-      });
+      await this.notificationUsersService.publishManyNotifications(
+        users.map((user) => user.followerId),
+        notification,
+      );
     }
 
     return await this.prisma.post.update({

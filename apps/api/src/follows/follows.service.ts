@@ -1,4 +1,3 @@
-import { getEnumValue, NotificationType } from '@biosfera/types';
 import { Injectable } from '@nestjs/common';
 import { NotificationUsersService } from 'src/notification-users/notification-users.service';
 import { NotificationsService } from 'src/notifications/notifications.service';
@@ -19,15 +18,18 @@ export class FollowsService {
     const notification = await this.notificationsService.create(
       {
         title: 'Novi pratitelj',
-        link: `/profile/${follower.id}`,
-        type: getEnumValue(NotificationType, NotificationType.NEW_FOLLOWER),
+        link: `/user/${follower.id}`,
+        type: 'NEW_FOLLOWER',
         notificationImage: follower.id,
         text: `Korisnik ${follower.username} te sada prati`,
       },
       [followeeId],
     );
 
-    this.notificationUsersService.publishNotification(followeeId, notification);
+    await this.notificationUsersService.publishNotification(
+      followeeId,
+      notification,
+    );
   }
 
   async create(followerId: string, followeeId: string) {

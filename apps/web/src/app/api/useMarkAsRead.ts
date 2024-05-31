@@ -3,7 +3,7 @@ import { api } from "./shared";
 import toast from "react-hot-toast";
 
 export const markAsRead = async (id: string) => {
-  await api.put(`/notification-users/${id}/read`);
+  await api.patch(`/notification-users/read/${id}`);
 };
 
 export const useMarkAsRead = () => {
