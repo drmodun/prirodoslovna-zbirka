@@ -24,7 +24,6 @@ import {
 import { NotificationsService } from 'src/notifications/notifications.service';
 import { NotificationUsersService } from 'src/notification-users/notification-users.service';
 import { env } from 'process';
-import e from 'express';
 
 @Injectable()
 export class ExponatsService {
