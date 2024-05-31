@@ -87,7 +87,10 @@ export class MembersService {
       [user.id],
     );
 
-    this.notificationUsersService.publishNotification(user.id, notification);
+    await this.notificationUsersService.publishNotification(
+      user.id,
+      notification,
+    );
 
     return notification;
   }
@@ -107,12 +110,10 @@ export class MembersService {
       organisation.OrganisationUsers.map((member) => member.userId),
     );
 
-    organisation.OrganisationUsers.forEach((member) => {
-      this.notificationUsersService.publishNotification(
-        member.userId,
-        notification,
-      );
-    });
+    await this.notificationUsersService.publishManyNotifications(
+      organisation.OrganisationUsers.map((member) => member.userId),
+      notification,
+    );
 
     return notification;
   }

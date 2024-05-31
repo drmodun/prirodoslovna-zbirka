@@ -1,42 +1,41 @@
 import { NotificationResponse } from '@biosfera/types';
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { Subject } from 'rxjs';
+import { EventEmitter2 } from '@nestjs/event-emitter';
 import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class NotificationUsersService {
-  private clients: Map<string, Subject<MessageEvent<NotificationResponse>>> =
-    new Map();
+  constructor(
+    private eventEmitter: EventEmitter2,
+    private readonly prisma: PrismaService,
+  ) {}
 
-  private readonly prisma: PrismaService;
-
-  constructor(prisma: PrismaService) {
-    this.prisma = prisma;
-  }
-
-  public subscribeToNotifications(userId: string) {
-    const subject = new Subject<MessageEvent<NotificationResponse>>();
-    this.clients.set(userId, subject);
-    return subject;
-  }
-
-  public publishNotification(userId: string, message: NotificationResponse) {
+  public async publishNotification(
+    userId: string,
+    message: NotificationResponse,
+  ) {
+    console.log('Publishing notification to user', userId);
     try {
-      const client = this.clients.get(userId);
-      if (client) {
-        client.next({ data: message } as MessageEvent<NotificationResponse>);
-      }
+      await this.eventEmitter.emitAsync(userId, message);
     } catch (error) {
+      console.error('Error publishing notification', error);
       throw new BadRequestException(error);
     }
   }
 
-  public removeClient(userId: string) {
-    this.clients.delete(userId);
+  public async publishManyNotifications(
+    userIds: string[],
+    message: NotificationResponse,
+  ) {
+    const promises = userIds.map((userId) =>
+      this.publishNotification(userId, message),
+    );
+
+    return await Promise.all(promises);
   }
 
-  public markAsRead(notificationId: string, userId: string) {
-    return this.prisma.userNotification.updateMany({
+  public async markAsRead(notificationId: string, userId: string) {
+    return await this.prisma.userNotification.updateMany({
       where: {
         notificationId,
         userId,
@@ -47,8 +46,8 @@ export class NotificationUsersService {
     });
   }
 
-  public markAllAsRead(userId: string) {
-    return this.prisma.userNotification.updateMany({
+  public async markAllAsRead(userId: string) {
+    return await this.prisma.userNotification.updateMany({
       where: {
         userId,
       },
@@ -58,8 +57,8 @@ export class NotificationUsersService {
     });
   }
 
-  public getAllForUser(userId: string) {
-    return this.prisma.userNotification.findMany({
+  public async getAllForUser(userId: string) {
+    return await this.prisma.userNotification.findMany({
       where: {
         userId,
       },

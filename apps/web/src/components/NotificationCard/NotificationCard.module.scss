@@ -3,9 +3,10 @@
 
 .container {
   display: flex;
-  width: vw-calc(400);
-  min-height: vw-calc(50);
+  width: 100%;
+  min-height: vw-calc(80);
   flex-direction: row;
+  align-items: center;
   gap: vw-calc(15);
   padding: vw-calc(10) vw-calc(20);
   background-color: $background-color;
@@ -13,12 +14,12 @@
   @media (max-width: 768px) {
     gap: vw-mobile-calc(10);
     width: 100%;
-    min-height: vw-mobile-calc(25);
+    min-height: vw-mobile-calc(70);
     padding: vw-mobile-calc(5) vw-mobile-calc(10);
   }
 
-  .read {
-    background-color: $semi-dark;
+  &.read {
+    background-color: $stroke-color;
   }
 
   &:hover {
@@ -26,8 +27,8 @@
   }
 
   .image {
-    width: vw-calc(48);
-    height: vw-calc(48);
+    width: vw-calc(32);
+    height: vw-calc(32);
     position: relative;
     border-radius: 50%;
 
@@ -62,7 +63,7 @@
         font-weight: 600;
 
         @media (max-width: 768px) {
-          font-size: vw-mobile-calc(14);
+          font-size: vw-mobile-calc(12);
         }
       }
 
@@ -81,9 +82,13 @@
     font-size: vw-calc(14);
     color: $text;
     text-align: left;
+    text-wrap: wrap;
+    word-wrap: break-word;
+    margin-bottom: vw-calc(10);
 
     @media (max-width: 768px) {
-      font-size: vw-mobile-calc(12);
+      font-size: vw-mobile-calc(8);
+      margin-bottom: vw-mobile-calc(5);
     }
   }
 }

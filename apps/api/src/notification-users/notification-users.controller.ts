@@ -3,40 +3,34 @@ import {
   UseGuards,
   Sse,
   Req,
-  Delete,
   Get,
   Patch,
   Param,
+  MessageEvent,
 } from '@nestjs/common';
 import { NotificationUsersService } from './notification-users.service';
-import { ApiBearerAuth } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/jwt-auth-guard';
 import { NotificationResponse } from '@biosfera/types';
+import { fromEvent, map, Observable } from 'rxjs';
+import { EventEmitter2 } from '@nestjs/event-emitter';
 
+@ApiTags('notification-users')
 @Controller('notification-users')
 export class NotificationUsersController {
   constructor(
     private readonly notificationUsersService: NotificationUsersService,
+    private eventEmitter: EventEmitter2,
   ) {}
-  @UseGuards(JwtAuthGuard)
-  @ApiBearerAuth()
-  @Sse('subscribe')
-  async subscribeToNotifications(@Req() req: any) {
-    const userId = req.user?.id;
-    const client =
-      this.notificationUsersService.subscribeToNotifications(userId);
-
-    return client.asObservable();
-  }
-
-  @UseGuards(JwtAuthGuard)
-  @ApiBearerAuth()
-  @Delete('unsubscribe')
-  async unsubscribe(@Req() req: any) {
-    const userId = req.user?.id;
-    this.notificationUsersService.removeClient(userId);
-
-    return;
+  @Sse('/subscribe/:userId')
+  async sse(
+    @Param('userId') userId: string,
+  ): Promise<Observable<MessageEvent>> {
+    return fromEvent(this.eventEmitter, userId).pipe(
+      map((payload: MessageEvent) => ({
+        data: JSON.stringify(payload),
+      })),
+    );
   }
 
   @UseGuards(JwtAuthGuard)
@@ -48,7 +42,18 @@ export class NotificationUsersController {
       userId,
     );
 
-    return notifications.map((notification) => notification.notification);
+    return notifications.map((notification) => {
+      return {
+        createdAt: notification.notification.createdAt,
+        id: notification.notificationId,
+        notificationImage: notification.notification.notificationImage,
+        title: notification.notification.title,
+        link: notification.notification.link,
+        read: notification.isRead,
+        text: notification.notification.text ?? '',
+        type: notification.notification.type,
+      } as NotificationResponse;
+    });
   }
 
   @UseGuards(JwtAuthGuard)

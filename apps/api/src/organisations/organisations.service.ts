@@ -220,9 +220,11 @@ export class OrganisationsService {
       },
       allUsers,
     );
-    allUsers.forEach((userId) => {
-      this.notificationUsersService.publishNotification(userId, notification);
-    });
+
+    await this.notificationUsersService.publishManyNotifications(
+      allUsers,
+      notification,
+    );
   }
 
   async changeApprovalStatus(id: string) {

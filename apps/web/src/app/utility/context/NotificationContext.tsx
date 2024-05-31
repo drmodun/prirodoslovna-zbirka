@@ -1,3 +1,5 @@
+"use client";
+
 import { NotificationResponse } from "@biosfera/types";
 import { createContext, useContext, useEffect, useState } from "react";
 import useUser from "./UserContext";
@@ -5,14 +7,17 @@ import { baseURL, token } from "@/api/shared";
 import { fetchEventSource } from "@microsoft/fetch-event-source";
 import { useGetNotifications } from "@/api/useGetNotifications";
 import toast from "react-hot-toast";
+import { NotificationModal } from "components/NotificationModal/NotificationModal";
 
 export const NotificationContext = createContext<{
   notifications: NotificationResponse[];
   isVisibleModal: boolean;
   showModal: () => void;
+  markAsRead: (id: string) => void;
   hideModal: () => void;
 }>({
   notifications: [],
+  markAsRead: () => {},
   isVisibleModal: false,
   showModal: () => {},
   hideModal: () => {},
@@ -29,7 +34,7 @@ export const NotificationsProvider = ({
   const { user } = useUser();
   const [isVisibleModal, setIsVisibleModal] = useState<boolean>(false);
 
-  const { data: initNotifications, isSuccess } = useGetNotifications();
+  const { data: initNotifications, refetch, isSuccess } = useGetNotifications();
 
   useEffect(() => {
     if (initNotifications) {
@@ -40,6 +45,12 @@ export const NotificationsProvider = ({
   const hideModal = () => {
     setIsVisibleModal(false);
   };
+  const markAsRead = (id: string) => {
+    const notificationToMark = notifications.find((n) => n.id === id);
+    if (!notificationToMark) return;
+    notificationToMark.read = true;
+    setNotifications([...notifications]);
+  };
 
   const showModal = () => {
     setIsVisibleModal(true);
@@ -47,48 +58,48 @@ export const NotificationsProvider = ({
 
   useEffect(() => {
     if (!isSuccess) return;
-    const connectToSource = async () => {
-      if (!user) return;
+    const source = new EventSource(
+      `${baseURL}/notification-users/subscribe/${user?.id}`
+    );
 
-      await fetchEventSource(`${baseURL}/notification-users/subscribe`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        onmessage: (event) => {
-          const notification = JSON.parse(event.data);
+    source.onopen = () => {
+      console.log("Connection established");
+    };
 
-          toast.success(`Nova obavijest: ${notification.title}`, {
-            duration: 5000,
-            icon: "🔔",
-          });
-
-          setNotifications((prev) => [notification, ...prev]);
-        },
+    source.onmessage = (event) => {
+      const newNotification = JSON.parse(event.data);
+      setNotifications((prev) => [newNotification, ...prev]);
+      toast.success("Nova obavijest stigla: " + newNotification.title, {
+        icon: "🚀",
       });
     };
-    if (!user) return;
-    connectToSource();
 
     return () => {
-      fetchEventSource(`${baseURL}/notification-users/unsubscribe`, {
-        headers: {
-          METHODS: "DELETE",
-          Authorization: `Bearer ${token}`,
-        },
-        onclose: () => {
-          console.log("closed");
-        },
-      });
+      source.close();
     };
   }, [user, isSuccess]);
 
+  useEffect(() => {
+    if (!user) return;
+    refetch();
+  }, [user, refetch]);
+
   return (
     <NotificationContext.Provider
-      value={{ notifications, isVisibleModal, showModal, hideModal }}
+      value={{
+        notifications,
+        isVisibleModal,
+        showModal,
+        markAsRead,
+        hideModal,
+      }}
     >
       {children}
+      <NotificationModal />
     </NotificationContext.Provider>
   );
 };
 
-export const useNotification = () => useContext(NotificationContext);
+const useNotification = () => useContext(NotificationContext);
+
+export default useNotification;

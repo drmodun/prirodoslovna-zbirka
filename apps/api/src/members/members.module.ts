@@ -3,10 +3,17 @@ import { MembersService } from './members.service';
 import { MembersController } from './members.controller';
 import { PrismaModule } from 'src/prisma/prisma.module';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { NotificationUsersService } from 'src/notification-users/notification-users.service';
+import { NotificationsService } from 'src/notifications/notifications.service';
 
 @Module({
   controllers: [MembersController],
-  providers: [MembersService, PrismaService],
+  providers: [
+    MembersService,
+    PrismaService,
+    NotificationUsersService,
+    NotificationsService,
+  ],
   imports: [PrismaModule],
 })
 export class MembersModule {}
