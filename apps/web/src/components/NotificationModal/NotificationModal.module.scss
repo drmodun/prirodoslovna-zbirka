@@ -1,0 +1,28 @@
+@import "styles/variables.scss";
+@import "styles/calc.scss";
+
+.container {
+  display: flex;
+  width: vw-calc(400);
+  height: vw-calc(1000);
+
+  @media (max-width: 768px) {
+    width: 100%;
+    height: vw-mobile-calc(500);
+  }
+
+  .notifications {
+    display: flex;
+    flex-direction: column;
+    max-height: vw-calc(800);
+    overflow: scroll;
+
+    ::webkit-scrollbar {
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      max-height: vw-mobile-calc(600);
+    }
+  }
+}
