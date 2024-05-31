@@ -137,6 +137,7 @@ model User {
   SavedLiterature             SavedLiterature[]
   UserNotification            UserNotification[]
   IsEmailNotificationsEnabled Boolean                    @default(true)
+  AuthorshipInfo              AuthorshipInfo[]
 }
 
 model Exponat {
@@ -188,7 +189,7 @@ model Post {
   updatedAt          DateTime @default(now()) @updatedAt
   authorId           String
   author             User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
-  isApproved         Boolean  @default(true)
+  isApproved         Boolean  @default(false)
   IsNotificationMade Boolean  @default(false)
   Likes              Like[]
   ExponatId          String?
@@ -310,6 +311,19 @@ model Notification {
   notificationImage String?
   UserNotification  UserNotification[]
   type              NotificationType
+}
+
+model AuthorshipInfo {
+  locationOfOccurence String
+  dateOfOccurence     DateTime
+  authorId            String?
+  author              User?    @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  nonPlatformAuthor   String?
+  identifiedBy        String?
+  deviceName          String?
+  photographer        String?
+  literature          String[]
+  id                  String   @id @default(uuid())
 }
 
 model UserNotification {

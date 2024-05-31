@@ -13,6 +13,7 @@ export const NotificationContext = createContext<{
   notifications: NotificationResponse[];
   isVisibleModal: boolean;
   showModal: () => void;
+  markAllAsRead: () => void;
   markAsRead: (id: string) => void;
   hideModal: () => void;
 }>({
@@ -20,6 +21,7 @@ export const NotificationContext = createContext<{
   markAsRead: () => {},
   isVisibleModal: false,
   showModal: () => {},
+  markAllAsRead: () => {},
   hideModal: () => {},
 });
 
@@ -56,6 +58,11 @@ export const NotificationsProvider = ({
     setIsVisibleModal(true);
   };
 
+  const markAllAsRead = () => {
+    notifications.forEach((n) => (n.read = true));
+    setNotifications([...notifications]);
+  };
+
   useEffect(() => {
     if (!isSuccess) return;
     const source = new EventSource(
@@ -90,6 +97,7 @@ export const NotificationsProvider = ({
         notifications,
         isVisibleModal,
         showModal,
+        markAllAsRead,
         markAsRead,
         hideModal,
       }}

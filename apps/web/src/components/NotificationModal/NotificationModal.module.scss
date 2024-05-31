@@ -4,10 +4,11 @@
 .container {
   display: flex;
   width: 100%;
+  max-height: vw-calc(400);
 
   @media (max-width: 768px) {
     width: 100%;
-    height: vw-mobile-calc(500);
+    height: vw-mobile-calc(375);
   }
 
   .notifications {
@@ -45,7 +46,7 @@
     }
 
     @media (max-width: 768px) {
-      max-height: vw-mobile-calc(600);
+      max-height: vw-mobile-calc(375);
     }
   }
 }
