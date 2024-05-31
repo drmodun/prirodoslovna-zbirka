@@ -1,4 +1,4 @@
-import { Controller, UseGuards, Sse, Req } from '@nestjs/common';
+import { Controller, UseGuards, Sse, Req, Delete } from '@nestjs/common';
 import { NotificationUsersService } from './notification-users.service';
 import { ApiBearerAuth } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/jwt-auth-guard';
@@ -21,7 +21,7 @@ export class NotificationUsersController {
 
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
-  @Sse('unsubscribe')
+  @Delete('unsubscribe')
   async unsubscribe(@Req() req: any) {
     const userId = req.user?.id;
     this.notificationUsersService.removeClient(userId);
