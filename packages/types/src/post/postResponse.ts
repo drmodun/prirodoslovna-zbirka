@@ -1,3 +1,5 @@
+import { AuthorshipInfo } from "src/authorshipInfo/responses";
+
 export interface PostResponse {
   id: string;
   title: string;
@@ -33,5 +35,6 @@ export interface PostResponseExtended {
   organisationId: string;
   updatedAt: Date;
   content: string;
+  authorshipInfo: AuthorshipInfo;
   authorFullName: string;
 }

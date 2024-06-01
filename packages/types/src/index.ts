@@ -18,3 +18,5 @@ export * from "./works/workRequests";
 export * from "./works/workResponses";
 export * from "./notification/response";
 export * from "./directories";
+export * from "./authorshipInfo/requests";
+export * from "./authorshipInfo/responses";

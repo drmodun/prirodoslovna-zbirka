@@ -52,6 +52,10 @@ export const getCreateExponatDto = (ApiPropertySwagger?: any) => {
     @ApiProperty({ require: false })
     categorizationId?: string;
 
+    @IsUUID()
+    @ApiProperty()
+    authorshipInfoId: string;
+    
     authorId?: string;
   }
   return CreateExponatDto;

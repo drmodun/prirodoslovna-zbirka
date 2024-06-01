@@ -26,6 +26,7 @@ import { LiteratureModule } from './literature/literature.module';
 import { NotificationsModule } from './notifications/notifications.module';
 import { NotificationUsersModule } from './notification-users/notification-users.module';
 import { EventEmitterModule } from '@nestjs/event-emitter';
+import { AuthorshipInfoModule } from './authorship-info/authorship-info.module';
 
 @Module({
   imports: [
@@ -58,6 +59,7 @@ import { EventEmitterModule } from '@nestjs/event-emitter';
     NotificationsModule,
     NotificationUsersModule,
     EventEmitterModule.forRoot(),
+    AuthorshipInfoModule,
   ],
   controllers: [AppController],
   providers: [AppService],
