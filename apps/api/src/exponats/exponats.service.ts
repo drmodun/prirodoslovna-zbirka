@@ -68,6 +68,13 @@ export class ExponatsService {
             id: createExponatDto.authorId,
           },
         },
+        ...(createExponatDto.authorshipInfoId && {
+          AuthorshipInfo: {
+            connect: {
+              id: createExponatDto.authorshipInfoId,
+            },
+          },
+        }),
         isApproved: adminCheck,
       },
       include: {

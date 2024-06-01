@@ -15,6 +15,7 @@ import ShareButton from "components/ShareButton";
 import { LoaderIcon } from "react-hot-toast";
 import AudioButton from "components/AudioButton";
 import chatgpt from "assets/images/gpt.svg";
+import AuthorshipTable from "components/AuthorshipTable";
 
 export interface PostViewProps {
   post: PostResponseExtended;
@@ -74,6 +75,7 @@ export const PostView = ({ audio, post, summary }: PostViewProps) => {
           </div>
         )}
       </div>
+      <AuthorshipTable authorshipInfo={post.authorshipInfo} />
       {showSummary && (
         <div className={classes.desc}>
           <div className={classes.header}>

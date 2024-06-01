@@ -1,0 +1,52 @@
+@import "styles/variables.scss";
+@import "styles/calc.scss";
+
+.container {
+  overflow: auto;
+  max-height: vw-calc(600);
+  input[type="date"] {
+    width: 100%;
+    position: relative;
+    height: vw-calc(48);
+    margin-bottom: vw-calc(20);
+    padding: 0 vw-calc(20);
+    border: 1px solid #ccc;
+    border-radius: vw-calc(20);
+    font-size: 1rem;
+    color: #000;
+    background-color: #fff;
+
+    &::-webkit-calendar-picker-indicator {
+      filter: invert(0.5);
+      height: vw-calc(24);
+      display: flex;
+      color: #000;
+      width: vw-calc(48);
+    }
+  }
+
+  &::-webkit-scrollbar {
+    width: vw-calc(10);
+
+    @media (max-width: 768px) {
+      width: vw-mobile-calc(5);
+    }
+  }
+
+  &::-webkit-scrollbar-track {
+    background: $background-color;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: $text;
+    border-radius: vw-calc(10);
+
+    @media (max-width: 768px) {
+      border-radius: vw-mobile-calc(5);
+    }
+
+    &:hover {
+      background: $secondary;
+    }
+  }
+}

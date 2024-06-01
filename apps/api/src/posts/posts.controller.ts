@@ -155,6 +155,7 @@ export class PostsController {
       title: post.title,
       authorFullName: post.author.firstName + ' ' + post.author.lastName,
       content: post.text,
+      authorshipInfo: post.AuthorshipInfo,
       image: post.image,
       updatedAt: post.updatedAt,
       organisationId: post.Exponat.organisationId,

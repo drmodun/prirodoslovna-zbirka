@@ -190,6 +190,7 @@ export class PostsService {
             username: true,
           },
         },
+        AuthorshipInfo: true,
         Exponat: {
           select: {
             name: true,

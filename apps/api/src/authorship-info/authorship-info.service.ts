@@ -1,6 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { CreateAuthorshipInfoDto } from './dto/authorship-info.dto';
-import { UpdateAuthorshipInfoDto } from './dto/update-authorship-info.dto';
+import {
+  CreateAuthorshipInfoDto,
+  UpdateAuthorshipInfoDto,
+} from './dto/authorship-info.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()

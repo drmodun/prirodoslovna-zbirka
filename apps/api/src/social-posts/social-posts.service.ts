@@ -82,6 +82,7 @@ export class SocialPostsService {
       take: pagination?.size,
       include: {
         organisation: true,
+        AuthorshipInfo: true,
       },
     });
 
