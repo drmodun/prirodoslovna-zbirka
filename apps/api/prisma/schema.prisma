@@ -24,6 +24,17 @@ enum ExponatKind {
   MINERAL
 }
 
+enum SocialPostType {
+  STORY
+  EU_PROJECT
+  NEWS
+  EVENT
+  ANNOUNCEMENT
+  WORKSHOP
+  OTHER
+  GUIDE
+}
+
 enum WorkType {
   JOURNAL
   BOOK
@@ -109,6 +120,8 @@ model Categorization {
   //possibly change this to make the categorization applicable to other organisations which will use this exponat
 }
 
+//Warning: this migration breaks prior builds
+
 model User {
   id                          String                     @id @default(uuid())
   email                       String                     @unique
@@ -159,6 +172,8 @@ model Exponat {
   FavouriteExponats  FavouriteExponat[]
   IsNotificationMade Boolean            @default(false) //Made to check wether a notification has already been made
   Posts              Post[]
+  authorshipInfoId   String?            @unique
+  AuthorshipInfo     AuthorshipInfo?    @relation(fields: [authorshipInfoId], references: [id])
 }
 
 model Organisation {
@@ -180,32 +195,37 @@ model Organisation {
 }
 
 model Post {
-  id                 String   @id @default(uuid())
+  id                 String          @id @default(uuid())
   title              String
   image              String
   text               String
   thumbnailImage     String
-  createdAt          DateTime @default(now())
-  updatedAt          DateTime @default(now()) @updatedAt
+  createdAt          DateTime        @default(now())
+  updatedAt          DateTime        @default(now()) @updatedAt
   authorId           String
-  author             User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
-  isApproved         Boolean  @default(false)
-  IsNotificationMade Boolean  @default(false)
+  author             User            @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  isApproved         Boolean         @default(false)
+  IsNotificationMade Boolean         @default(false)
   Likes              Like[]
   ExponatId          String?
-  Exponat            Exponat? @relation(fields: [ExponatId], references: [id], onDelete: Cascade)
+  Exponat            Exponat?        @relation(fields: [ExponatId], references: [id], onDelete: Cascade)
+  authorshipInfoId   String?         @unique
+  AuthorshipInfo     AuthorshipInfo? @relation(fields: [authorshipInfoId], references: [id])
 }
 
 model SocialPost {
-  id           String       @id @default(uuid())
-  title        String
-  text         String
-  image        String
-  createdAt    DateTime     @default(now())
-  updatedAt    DateTime     @default(now()) @updatedAt
-  authorId     String       @unique
-  organisation Organisation @relation(fields: [authorId], references: [id], onDelete: Cascade)
-  isApproved   Boolean      @default(true)
+  id               String          @id @default(uuid())
+  title            String
+  text             String
+  images           String[]
+  createdAt        DateTime        @default(now())
+  updatedAt        DateTime        @default(now()) @updatedAt
+  authorshipInfoId String?         @unique
+  AuthorshipInfo   AuthorshipInfo? @relation(fields: [authorshipInfoId], references: [id])
+  organisationId   String
+  organisation     Organisation    @relation(fields: [organisationId], references: [id], onDelete: Cascade)
+  isApproved       Boolean         @default(true)
+  type             SocialPostType  @default(NEWS)
 }
 
 model OrganisationUser {
@@ -314,17 +334,23 @@ model Notification {
 }
 
 model AuthorshipInfo {
-  locationOfOccurence String
-  dateOfOccurence     DateTime
+  locationOfOccurence String?
+  dateOfOccurence     DateTime?
   authorId            String?
-  author              User?    @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  author              User?       @relation(fields: [authorId], references: [id], onDelete: Cascade)
   nonPlatformAuthor   String?
   identifiedBy        String?
   deviceName          String?
   photographer        String?
   literature          String[]
-  id                  String   @id @default(uuid())
+  id                  String      @id @default(uuid())
+  Post                Post?
+  postId              String?
+  Exponat             Exponat?
+  SocialPost          SocialPost?
 }
+
+//TODO: thik wether identification should be a separate model
 
 model UserNotification {
   userId         String
