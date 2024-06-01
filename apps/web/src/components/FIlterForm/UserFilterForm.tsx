@@ -18,7 +18,6 @@ interface Props {
 export const UserFilter = ({ searchParams }: Props) => {
   const schema = z
     .object({
-      name: z.optional(z.string()),
       location: z.optional(
         z.enum([
           "SPLITSKO_DALMATINSKA",
@@ -63,9 +62,12 @@ export const UserFilter = ({ searchParams }: Props) => {
   const form = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
-      name: searchParams?.name || searchParams?.title || "",
+      username:
+        searchParams?.username ||
+        searchParams?.name ||
+        searchParams?.title ||
+        "",
       location: searchParams?.location,
-      username: searchParams?.username || "",
       attribute: searchParams?.attribute || "Relevantnost",
       direction: searchParams?.direction || "desc",
     } as FieldValues,
@@ -80,7 +82,6 @@ export const UserFilter = ({ searchParams }: Props) => {
         className={classes.filter}
       >
         <h2>Filter korisnika</h2>
-        <Input form={form} attribute="name" question="Naziv" />
         <Input form={form} attribute="username" question="Korisničko ime" />
         <SelectInput
           label="Županija"
@@ -100,7 +101,7 @@ export const UserFilter = ({ searchParams }: Props) => {
           form={form}
           options={[
             { label: "Relevantnost", value: "Relevantnost" },
-            { label: "Naslov", value: "name" },
+            { label: "Ime", value: "username" },
             { label: "Lokacija", value: "location" },
             { label: "Bodovi", value: "points" },
           ]}
@@ -123,9 +124,6 @@ export const UserFilter = ({ searchParams }: Props) => {
           pathname: "/search",
           query: {
             kind: "user",
-            ...(form.watch("name") && {
-              name: form.watch("name"),
-            }),
             ...(form.watch("location") && {
               location: form.watch("location"),
             }),

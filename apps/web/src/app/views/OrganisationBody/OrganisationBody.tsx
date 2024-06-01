@@ -109,10 +109,11 @@ export const OrganisationBody = ({
               )}
             />
           )}
-          {activeTab === "Objave" && (
+          {activeTab === "Objave" && organisation && (
             <CardCollection
               items={organisationData.posts}
               type="post"
+              organisationId={organisationData.id}
               sortBy={[
                 { label: "Abecedno", value: "title" },
                 { label: "Najpopularnije", value: "likeScore" },
@@ -144,7 +145,7 @@ export const OrganisationBody = ({
                 <BaseButton text="Napravi rad" isNotSubmit />
               </Link>
               <CardCollection
-                items={works}
+                items={worksData}
                 organisationId={organisationData.id}
                 userId={user?.id}
                 sortBy={[

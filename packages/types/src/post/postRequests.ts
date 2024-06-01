@@ -36,6 +36,7 @@ export const getCreatePostRequest = (ApiPropertySwagger?: any) => {
     text: string;
 
     authorId: string;
+    isAdmin: boolean;
 
     ExponatId: string;
   }

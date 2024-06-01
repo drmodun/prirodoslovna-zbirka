@@ -8,4 +8,5 @@ export interface AuthorshipInfo {
   literature: string[];
   id: string;
   deviceName?: string;
+  authorName?: string;
 }

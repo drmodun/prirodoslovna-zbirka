@@ -195,7 +195,7 @@ export const CardCollection: React.FC<CardCollectionProps> = ({
                     key={index}
                     post={item as PostResponse}
                     isAdmin={checkIsAdminForPost(
-                      (item as PostResponse).organisationId
+                      organisationId ?? (item as PostResponse).organisationId
                     )}
                     onRemove={handleDelete}
                     isUser={checkIsAuthor((item as PostResponse).authorId)}

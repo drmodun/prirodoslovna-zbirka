@@ -184,6 +184,9 @@ export enum NotificationType {
   POINT_MILESTONE = "Dosegnut prag bodova",
   ORGANISATION_APPROVAL = "Promjena odobrenja organizacije",
   OTHER = "Ostalo",
+  NEW_EXPONAT_REQUEST = "Novi zahtjev za eksponat",
+  NEW_POST_REQUEST = "Novi zahtjev za objavu",
+  NEW_WORK_REQUEST = "Novi zahtjev za rad",
 }
 
 export type NotificationTypeEnumType = keyof typeof NotificationType;

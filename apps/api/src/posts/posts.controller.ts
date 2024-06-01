@@ -57,6 +57,11 @@ export class PostsController {
       organisationId,
     );
 
+    createPostDto.isAdmin = await this.membersService.hasAdminRights(
+      req.user.id,
+      organisationId,
+    );
+
     if (!check) throw new UnauthorizedException('User is not a member');
 
     createPostDto.authorId = req.user.id;
@@ -155,7 +160,10 @@ export class PostsController {
       title: post.title,
       authorFullName: post.author.firstName + ' ' + post.author.lastName,
       content: post.text,
-      authorshipInfo: post.AuthorshipInfo,
+      authorshipInfo: {
+        ...post.AuthorshipInfo,
+        authorName: `${post.AuthorshipInfo?.author?.firstName} ${post.AuthorshipInfo?.author?.lastName}`,
+      },
       image: post.image,
       updatedAt: post.updatedAt,
       organisationId: post.Exponat.organisationId,

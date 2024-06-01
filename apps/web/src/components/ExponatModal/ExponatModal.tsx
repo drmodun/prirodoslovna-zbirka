@@ -6,12 +6,12 @@ import Link from "next/link";
 import ImageWithFallback from "components/ImageWithFallback/ImageWithFallback";
 import QrCodeGenerator from "components/QrCodeButton";
 import ShareButton from "components/ShareButton";
+import { Json } from "@biosfera/types/src/jsonObjects";
 export interface ExponatModalProps {
   exponat: ExponatExtendedResponse;
 }
 
 export const ExponatModal = ({ exponat }: ExponatModalProps) => {
-  exponat.attributes = JSON.parse(exponat.attributes?.toString());
   return (
     <div className={classes.container}>
       <div className={classes.mainImage}>

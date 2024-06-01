@@ -197,7 +197,10 @@ export class ExponatsController {
       favouriteCount: item._count.FavouriteExponats,
       funFacts: item.funFacts,
       mainImage: item.mainImage,
-      authorshipInfo: item.AuthorshipInfo,
+      authorshipInfo: {
+        ...item.AuthorshipInfo,
+        authorName: `${item.AuthorshipInfo?.author?.firstName} ${item.AuthorshipInfo?.author?.lastName}`,
+      },
       organizationId: item.organisationId,
       exponatKind: item.ExponatKind,
       authorshipInfoId: item.authorshipInfoId,

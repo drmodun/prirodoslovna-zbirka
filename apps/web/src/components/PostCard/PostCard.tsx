@@ -28,71 +28,81 @@ export interface PostCardProps {
 export const PostCard = ({
   post,
   isUser,
-  isAdmin,
+  isAdmin = true,
   onRemove,
-}: PostCardProps) => (
-  <div className={classes.container}>
-    <div className={classes.upper}>
-      <UserWrapper>
-        <LikeButton post={post} />
-      </UserWrapper>
-      <div className={classes.image}>
-        <ImageWithFallback
-          src={post.thumbnail}
-          layout="fill"
-          fallbackSrc={defaultPic}
-          alt={post.title}
-        />
-      </div>
-    </div>
-    {(isUser || isAdmin) && (
-      <QueryClientWrapper>
-        {isAdmin && (
-          <ToggleApprovalButton
-            entity="posts"
-            id={post.id}
-            isApproved={post.isApproved}
-          />
-        )}
-        <RemovePostButton
-          isHidden={!post.isApproved && !isUser}
-          postId={post.id}
-          onRemove={onRemove}
-          isAdmin={isAdmin && !isUser}
-        />
-      </QueryClientWrapper>
-    )}
-    <div className={classes.content}>
-      <span className={classes.date}>{dateShortener(post.updatedAt)}</span>
-      <Link href={`/post/${post.id}`}>
-        <span className={classes.title}>{post.title}</span>
-      </Link>
-      <div className={classes.likes}>
+}: PostCardProps) =>
+  post && (
+    <div className={classes.container}>
+      <div className={classes.upper}>
+        <UserWrapper>
+          <LikeButton post={post} />
+        </UserWrapper>
         <div className={classes.image}>
-          <Image src={likeLeaf} alt="like" layout="fill" />
-        </div>
-        <span className={classes.likeCount}>{post.likeScore}</span>
-      </div>
-      <div className={classes.author}>
-        <div className={classes.profile}>
           <ImageWithFallback
-            src={getPfpUrl(post.authorId)}
-            alt={post.authorName}
+            src={post.thumbnail}
             layout="fill"
+            fallbackSrc={defaultPic}
+            alt={post.title}
           />
         </div>
-        <div className={classes.authorInfo}>
-          <Link href={`/user/${post.authorId}`} className={classes.authorName}>
-            {post.authorName}
-          </Link>
-          <Link
-            className={classes.exponatName}
-            href={`/exponat/${post.exponatId}`}
-          >
-            eksponat: {post.exponatName}
-          </Link>
+      </div>
+      {(isUser || isAdmin) && (
+        <QueryClientWrapper>
+          {isAdmin && (
+            <ToggleApprovalButton
+              entity="posts"
+              id={post.id}
+              isApproved={post.isApproved}
+            />
+          )}
+          <RemovePostButton
+            isHidden={!post.isApproved && !isUser}
+            postId={post.id}
+            onRemove={onRemove}
+            isAdmin={isAdmin && !isUser}
+          />
+        </QueryClientWrapper>
+      )}
+      <div className={classes.content}>
+        <span className={classes.date}>{dateShortener(post.updatedAt)}</span>
+        <Link
+          href={
+            post.isApproved === false
+              ? `/post/${post.id}/admin`
+              : `/post/${post.id}`
+          }
+        >
+          <span className={classes.title}>{post.title}</span>
+        </Link>
+        <div className={classes.likes}>
+          <div className={classes.image}>
+            <Image src={likeLeaf} alt="like" layout="fill" />
+          </div>
+          <span className={classes.likeCount}>{post.likeScore}</span>
+        </div>
+        <div className={classes.author}>
+          <div className={classes.profile}>
+            <ImageWithFallback
+              src={getPfpUrl(post.authorId)}
+              alt={post.authorName}
+              layout="fill"
+            />
+          </div>
+          <div className={classes.authorInfo}>
+            <Link
+              href={`/user/${post.authorId}`}
+              className={classes.authorName}
+            >
+              {post.authorName}
+            </Link>
+            <Link
+              className={classes.exponatName}
+              href={`/exponat/${post.exponatId}`}
+            >
+              eksponat: {post.exponatName}
+            </Link>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-);
+  );

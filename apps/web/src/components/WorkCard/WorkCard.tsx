@@ -41,7 +41,7 @@ export const WorkCard = ({ work, isAdmin, onDelete }: WorkCardProps) => {
             work.isGbif
               ? "https://www.gbif.org/"
               : work.isApproved === false
-              ? "/404"
+              ? `/organisation/${work.organisationId}/admin`
               : `/organisation/${work.organisationId}`
           }
           className={classes.organisation}

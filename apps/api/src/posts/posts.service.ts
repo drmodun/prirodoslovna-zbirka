@@ -144,9 +144,48 @@ export class PostsService {
   }
 
   async create(createPostDto: CreatePostDto) {
-    return await this.prisma.post.create({
-      data: createPostDto,
+    const creation = await this.prisma.post.create({
+      data: {
+        ...createPostDto,
+        isApproved: createPostDto.isAdmin,
+      },
     });
+
+    if (createPostDto.isAdmin) {
+      const followerIds = await this.followsService.getFollowers(
+        creation.authorId,
+      );
+      await this.makeNewPostNotification(
+        createPostDto.authorId,
+        creation,
+        followerIds.map((user) => user.followerId),
+      );
+    } else {
+      const exponat = await this.prisma.exponat.findUnique({
+        where: {
+          id: createPostDto.ExponatId,
+        },
+      });
+      const admins = await this.prisma.organisationUser.findMany({
+        where: {
+          organisationId: exponat.organisationId,
+          OR: [
+            {
+              role: 'OWNER',
+            },
+            {
+              role: 'ADMIN',
+            },
+          ],
+        },
+      });
+
+      await this.makeNewPostRequestNotification(
+        creation,
+        creation.authorId,
+        admins.map((admin) => admin.userId),
+      );
+    }
   }
 
   async update(id: string, updatePostDto: UpdatePostDto) {
@@ -190,7 +229,16 @@ export class PostsService {
             username: true,
           },
         },
-        AuthorshipInfo: true,
+        AuthorshipInfo: {
+          include: {
+            author: {
+              select: {
+                firstName: true,
+                lastName: true,
+              },
+            },
+          },
+        },
         Exponat: {
           select: {
             name: true,
@@ -217,7 +265,7 @@ export class PostsService {
     const makeNotification = await this.notificationService.create(
       {
         text: notificationText,
-        type: getEnumValue(NotificationType, NotificationType.POST_APPROVAL),
+        type: 'POST_APPROVAL',
         link: `${env.WEB_URL ?? 'localhost:3000'}/post/${post.id}`,
         title: 'Obavijest o objavi',
         notificationImage: post.thumbnailImage,
@@ -245,10 +293,7 @@ export class PostsService {
           splitText.length > 20
             ? `${splitText.slice(0, 20).join(' ')}...`
             : post.text,
-        type: getEnumValue(
-          NotificationType,
-          NotificationType.POST_BY_FOLLOWED_ACCOUNT,
-        ),
+        type: 'POST_BY_FOLLOWED_ACCOUNT',
         notificationImage: post.thumbnailImage,
         link: `${env.WEB_URL ?? 'localhost:3000'}/posts/${post.id}`,
         title: `Nova objava od korisnika ${posterId}: ${post.title}`,
@@ -267,6 +312,30 @@ export class PostsService {
 
     return notification;
   };
+
+  async makeNewPostRequestNotification(
+    post: Post,
+    userId: string,
+    adminsId: string[],
+  ): NotificationPromise {
+    const notification = await this.notificationService.create(
+      {
+        text: `Novi zahtjev za objavu ${post.title} korisnika`,
+        type: 'NEW_POST_REQUEST',
+        link: `${env.WEB_URL ?? 'localhost:3000'}/post/${post.id}/admin`,
+        title: 'Novi zahtjev za objavu',
+        notificationImage: post.thumbnailImage,
+      },
+      adminsId,
+    );
+
+    await this.notificationUsersService.publishNotification(
+      userId,
+      notification,
+    );
+
+    return notification;
+  }
 
   async toggleApproval(id: string) {
     const post = await this.prisma.post.findUnique({

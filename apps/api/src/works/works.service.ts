@@ -156,7 +156,7 @@ export class WorksService {
       },
     });
 
-    if (work.authorId === authorId) return true;
+    if (work?.authorId === authorId) return true;
 
     const checkSuper = this.prisma.user.findFirst({
       where: {
