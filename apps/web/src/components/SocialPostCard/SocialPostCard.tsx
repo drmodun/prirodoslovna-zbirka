@@ -12,7 +12,7 @@ export interface SocialPostCardProps {
 export const SocialPostCard = ({ post }: SocialPostCardProps) => (
   <div className={classes.container}>
     <Image
-      src={post?.image || "/assets/images/placeholder.svg"}
+      src={"/assets/images/placeholder.svg"}
       alt="post"
       layout="fill"
       className={classes.image}

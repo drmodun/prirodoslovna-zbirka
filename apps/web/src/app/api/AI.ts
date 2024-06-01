@@ -15,9 +15,11 @@ const ttsUrl = `https://texttospeech.googleapis.com/v1/text:synthesize?key=${goo
 
 const s3Path = process.env.S3_PATH;
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
+const openai =
+  key &&
+  new OpenAI({
+    apiKey: process.env.OPENAI_API_KEY,
+  });
 
 const options = {
   headers: {
@@ -30,6 +32,7 @@ const options = {
 //General function to get GPT-3 completions
 
 export const getGPT = async (prompt: string) => {
+  if (!key) return;
   try {
     const response = await fetch(gptUrl, {
       ...options,
@@ -73,7 +76,9 @@ export const whisperPrompt = async (audio: any) => {
 
   try {
     const file = new File([buffer], "input.wav", { type: "audio/wav" });
-    openai.apiKey = key!;
+    if (!key || !openai) return;
+
+    openai.apiKey = key;
 
     const response = await openai.audio.transcriptions.create({
       file: file,

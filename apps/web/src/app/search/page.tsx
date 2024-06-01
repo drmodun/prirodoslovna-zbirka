@@ -71,9 +71,9 @@ const SearchPage = async ({
   });
 
   const initUser = getUsers({
-    name: searchParams?.name || searchParams?.title,
+    username:
+      searchParams?.name || searchParams?.title || searchParams?.username,
     location: searchParams?.location,
-    username: searchParams?.username,
     page: searchParams?.page,
     attribute: searchParams?.attribute,
     direction: searchParams?.direction,

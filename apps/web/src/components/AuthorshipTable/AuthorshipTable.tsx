@@ -15,6 +15,7 @@ export const authTableDict: Indexable = {
   photographer: "Fotograf",
   literature: "Literatura",
   deviceName: "Naziv uređaja",
+  authorName: "Ime autora",
 };
 
 export const AuthorshipTable = ({ authorshipInfo }: AuthorshipTableProps) => (
@@ -23,8 +24,13 @@ export const AuthorshipTable = ({ authorshipInfo }: AuthorshipTableProps) => (
       Object.keys(authorshipInfo).map(
         (key) =>
           key !== "id" &&
-          authorshipInfo[key] &&
-          key !== "authorId" && (
+          authTableDict[key] != null &&
+          !authorshipInfo[key].includes("undefined") &&
+          authorshipInfo[key] != undefined &&
+          key !== "authorId" &&
+          !(
+            key === "authorName" && authorshipInfo.nonPlatformAuthor != null
+          ) && (
             <div key={key} className={classes.tableRow}>
               <span className={classes.tableKey}>{authTableDict[key]}</span>
               <span className={classes.tableValue}>{authorshipInfo[key]}</span>

@@ -108,9 +108,66 @@ export class ExponatsService {
           OrganisationUsers: organisation.OrganisationUsers,
         },
       });
+    } else {
+      const organisation = await this.prisma.organisation.findFirst({
+        where: {
+          id: createExponatDto.authorId,
+        },
+        include: {
+          OrganisationUsers: {
+            where: {
+              OR: [
+                {
+                  role: MemberRoleType.OWNER,
+                },
+                {
+                  role: MemberRoleType.ADMIN,
+                },
+              ],
+            },
+            select: {
+              userId: true,
+            },
+          },
+        },
+      });
+
+      await this.makeNewExponatRequestNotification({
+        ...creation,
+        Organisation: {
+          ...organisation,
+          OrganisationUsers: organisation.OrganisationUsers,
+        },
+      });
     }
 
     return creation;
+  }
+
+  async makeNewExponatRequestNotification(
+    exponat: Exponat & {
+      Organisation: Organisation & {
+        OrganisationUsers: {
+          userId: string;
+        }[];
+      };
+    },
+  ) {
+    const notification = await this.notificationsService.create(
+      {
+        text: `Novi zahtev za eksponat ${exponat.name} (${exponat.alternateName}) organizacije ${exponat.Organisation.name}`,
+        title: `Organizacija ${exponat.Organisation.name} je dobila novi zahtev za eksponat ${exponat.name}`,
+        link: `${env.WEB_URL}/exponat/${exponat.id}/admin`,
+        type: 'NEW_EXPONAT_REQUEST',
+        notificationImage: exponat.mainImage,
+      },
+      exponat.Organisation.OrganisationUsers.map((user) => user.userId),
+    );
+
+    await this.notificationUsersService.publishManyNotifications(
+      exponat.Organisation.OrganisationUsers.map((user) => user.userId),
+      notification,
+    );
   }
 
   async makeNewExponatNotification(
@@ -331,7 +388,16 @@ export class ExponatsService {
             Posts: true,
           },
         },
-        AuthorshipInfo: true,
+        AuthorshipInfo: {
+          include: {
+            author: {
+              select: {
+                firstName: true,
+                lastName: true,
+              },
+            },
+          },
+        },
         Categorization: true,
         Organisation: {
           select: {
