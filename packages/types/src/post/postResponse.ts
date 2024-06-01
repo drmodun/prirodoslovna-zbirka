@@ -1,4 +1,4 @@
-import { AuthorshipInfo } from "src/authorshipInfo/responses";
+import { AuthorshipInfo } from "../authorshipInfo/responses";
 
 export interface PostResponse {
   id: string;

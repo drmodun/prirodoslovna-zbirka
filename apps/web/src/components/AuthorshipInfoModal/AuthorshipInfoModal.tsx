@@ -8,6 +8,8 @@ import Input from "components/Input";
 import ListInput from "components/ListInput";
 import { FieldValues, useForm } from "react-hook-form";
 import { z } from "zod";
+import classes from "./AuthorshipInfoModal.module.scss";
+import { useEffect, useState } from "react";
 
 export enum AuthorshipInfoFields {
   SOCIAL_POST,
@@ -32,6 +34,16 @@ export const AuthorshipInfoModal = ({
 }: AuthorshipInfoModalProps) => {
   const { mutateAsync: uploadAuthorshipInfo } = useUploadAuthorshipInfo();
   const { mutateAsync: updateAuthorshipInfo } = useUpdateAuthorshipInfo();
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    setOpen(isOpen);
+  }, [isOpen]);
+
+  const close = () => {
+    setOpen(false);
+    onClose();
+  };
 
   const schema = z
     .object({
@@ -69,7 +81,8 @@ export const AuthorshipInfoModal = ({
     defaultValues: currentValues as FieldValues,
   });
 
-  const onSubmit = async (data: FieldValues) => {
+  const onSubmit = async (data: any) => {
+    console.log(data);
     const action = currentValues
       ? updateAuthorshipInfo({
           id: currentValues.id,
@@ -78,6 +91,7 @@ export const AuthorshipInfoModal = ({
       : uploadAuthorshipInfo(data);
     const result = await action;
     onSuccess(result.id);
+    close();
   };
 
   return (
@@ -87,7 +101,7 @@ export const AuthorshipInfoModal = ({
       text="Unesite informacije o autorstvu slike"
       deMount={onClose}
     >
-      <form onSubmit={form.handleSubmit(onSubmit)}>
+      <form className={classes.container}>
         <Input
           form={form}
           attribute="locationOfOccurence"
@@ -125,7 +139,11 @@ export const AuthorshipInfoModal = ({
           question="Naziv uređaja"
           error={form.formState.errors.deviceName?.message?.toString()}
         />
-        <BaseButton text="Submit" />
+        <BaseButton
+          isNotSubmit
+          text="Submit"
+          onClick={() => onSubmit(form.getValues())}
+        />
       </form>
     </Modal>
   );

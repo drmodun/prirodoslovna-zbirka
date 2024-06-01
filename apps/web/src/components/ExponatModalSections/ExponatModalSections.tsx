@@ -10,6 +10,7 @@ import likeLeafGreen from "assets/images/like-leaf-green.svg";
 import { stringCapitaliser } from "@/utility/static/stringCapitaliser";
 import { useRef, useState } from "react";
 import clsx from "clsx";
+import AuthorshipTable from "components/AuthorshipTable";
 
 export interface ExponatModalSectionsProps {
   exponat: ExponatExtendedResponse;
@@ -27,6 +28,9 @@ export const ExponatModalSections = ({
         ref={box}
         className={clsx(classes.content, extended && classes.extended)}
       >
+        <div className={classes.section}>
+          <AuthorshipTable authorshipInfo={exponat.authorshipInfo} />
+        </div>
         <div className={classes.section}>
           <div className={classes.title}>
             <div className={classes.image}>

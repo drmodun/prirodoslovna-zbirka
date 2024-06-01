@@ -10,10 +10,8 @@ export const _createAuthorshipInfoDto = getCreateAuthorshipInfoDto();
 
 export class CreateAuthorshipInfoDto extends _createAuthorshipInfoDto {}
 
-export const uploadAuthorshipInfo = async (data: CreateAuthorshipInfoDto) => {
-  const response = await api.post("/authorship-info", data);
-  return response.data;
-};
+export const uploadAuthorshipInfo = async (data: CreateAuthorshipInfoDto) =>
+  await api.post("/authorship-info", data);
 
 export const useUploadAuthorshipInfo = () => {
   return useMutation(uploadAuthorshipInfo, {
