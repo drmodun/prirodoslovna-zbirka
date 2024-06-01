@@ -1,3 +1,4 @@
+import { AuthorshipInfo } from "src/authorshipInfo/responses";
 import { Json } from "../jsonObjects";
 import { PostResponse } from "../post/postResponse";
 
@@ -14,6 +15,7 @@ export interface ExponatExtendedResponse {
   funFacts: string[];
   attributes: Json;
   createdAt: Date;
+  authorshipInfo: AuthorshipInfo;
   updatedAt: Date;
   categorization?: CategorizationResponse;
   posts: PostResponse[];

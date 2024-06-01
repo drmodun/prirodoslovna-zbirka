@@ -52,9 +52,10 @@ export class SocialPostsService {
       data: {
         text: createSocialPostDto.text,
         title: createSocialPostDto.title,
-        authorId: organisationId,
-        image: createSocialPostDto.image,
+        images: [],
         isApproved: true,
+        organisationId: organisationId,
+        authorshipInfoId: createSocialPostDto.authorshipInfoId,
       },
       include: {
         organisation: true,
@@ -95,6 +96,7 @@ export class SocialPostsService {
       },
       include: {
         organisation: true,
+        AuthorshipInfo: true,
       },
     });
 
@@ -167,7 +169,7 @@ export class SocialPostsService {
 
     if (!post) return false;
 
-    const check = await this.checkForValidity(userId, post.authorId);
+    const check = await this.checkForValidity(userId, post.organisationId);
 
     return check;
   }

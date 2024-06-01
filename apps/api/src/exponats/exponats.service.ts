@@ -324,6 +324,7 @@ export class ExponatsService {
             Posts: true,
           },
         },
+        AuthorshipInfo: true,
         Categorization: true,
         Organisation: {
           select: {

@@ -23,6 +23,9 @@ import FileUpload from "components/FileUpload";
 import { useUploadFile } from "@/api/useUploadFile";
 import toast from "react-hot-toast";
 import { useUpdateExponat } from "@/api/useUpdateExponat";
+import AuthorshipInfoModal from "components/AuthorshipInfoModal";
+import AuthorshipButton from "components/AuthorshipButton";
+import { AuthorshipInfoFields } from "components/AuthorshipInfoModal/AuthorshipInfoModal";
 export interface ExponatModalSectionsProps {
   organisationId: string;
   isEdit?: boolean;
@@ -52,6 +55,7 @@ export const ExponatForm = ({
         .min(1, "Mora postojati barem jedan fun fact"),
       exponatKind: z.enum(["EUCARIOT", "PROCARIOT", "MINERAL"]),
       attributes: z.any(),
+      authorshipInfoId: z.string().uuid(),
       mainImage: z.any(),
     })
     .refine(
@@ -135,6 +139,7 @@ export const ExponatForm = ({
       description: formData.description,
       funFacts: formData.funFacts,
       name: formData.name,
+      authorshipInfoId: formData.authorshipInfoId,
       authorId: organisationId,
       ExponatKind: formData.exponatKind,
       mainImage: image,
@@ -225,6 +230,11 @@ export const ExponatForm = ({
       <FileUpload
         name={"Glavna slika eksponata"}
         onChange={setExponatMainImage}
+      />
+      <AuthorshipButton
+        form={form}
+        type={AuthorshipInfoFields.EXPONAT}
+        currentValues={values?.authorshipInfo}
       />
       <AttributeInput
         form={form}

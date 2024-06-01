@@ -123,6 +123,7 @@ export class PostsService {
             hasProfileImage: true,
           },
         },
+        AuthorshipInfo: true,
         Exponat: {
           select: {
             name: true,
