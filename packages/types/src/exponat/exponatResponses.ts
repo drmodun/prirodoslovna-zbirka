@@ -14,6 +14,7 @@ export interface ExponatExtendedResponse {
   organizationName: string;
   funFacts: string[];
   attributes: Json;
+  serialNumber: number;
   createdAt: Date;
   authorshipInfo: AuthorshipInfo;
   authorshipInfoId: string;

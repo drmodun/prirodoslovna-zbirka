@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import QRCode from "react-qr-code";
 import classes from "./QrCodeButton.module.scss";
 import * as htmlToImage from "html-to-image";
@@ -19,7 +19,11 @@ interface QrCodeButtonProps {
 function QrCodeGenerator({ isIcon, name }: QrCodeButtonProps) {
   const qrCodeRef = useRef<HTMLDivElement>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const url = window.location.href;
+  const [url, setUrl] = useState<string>();
+
+  useEffect(() => {
+    setUrl(window.location.href);
+  }, []);
 
   const downloadQRCode = () => {
     htmlToImage
@@ -59,7 +63,7 @@ function QrCodeGenerator({ isIcon, name }: QrCodeButtonProps) {
         title={`QR kod: ${name}`}
       >
         <div className={classes.qrCode} ref={qrCodeRef}>
-          <QRCode value={url} size={500} />
+          <QRCode value={url || ""} size={500} />
         </div>
         <BaseButton text="Preuzmi QR kod" onClick={downloadQRCode}></BaseButton>
       </Modal>
