@@ -60,14 +60,14 @@ export class UsersService {
         ...(sort
           ? sort
           : filter.name
-          ? {
-              _relevance: {
-                fields: ['username'],
-                search: filter?.name.split(' ').join(' <-> '),
-                sort: 'desc',
-              },
-            }
-          : null),
+            ? {
+                _relevance: {
+                  fields: ['username'],
+                  search: filter?.name.split(' ').join(' <-> '),
+                  sort: 'desc',
+                },
+              }
+            : null),
       },
       skip: (pagination?.page - 1) * pagination?.size,
       take: pagination?.size,
