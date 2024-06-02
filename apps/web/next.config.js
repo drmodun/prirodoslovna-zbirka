@@ -22,7 +22,6 @@ const nextConfig = {
         `${process.env.WEB_URL.split("https://")[1]}:3000`,
         `${process.env.WEB_URL.split("http://")[1]}:3000`,
       ],
-      allowedFo,
     },
   },
 
