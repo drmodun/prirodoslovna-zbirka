@@ -43,6 +43,7 @@
     "react-query": "^3.39.3",
     "react-share": "^5.1.0",
     "sass": "^1.75.0",
+    "sharp": "^0.33.4",
     "zod": "^3.22.4"
   },
   "devDependencies": {
