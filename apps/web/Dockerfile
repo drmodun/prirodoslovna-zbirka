@@ -26,7 +26,6 @@ COPY --from=builder /app/out/full/ .
 COPY .gitignore .gitignore
 ENV NODE_OPTIONS=--max_old_space_size=2048
 ENV DOCKER=1
-ARG WEB_URL="http://localhost:3000"
 ENV WEB_URL=$WEB_URL
 RUN yarn turbo run build --scope=web --include-dependencies --no-deps
 
@@ -35,7 +34,5 @@ WORKDIR /app
 COPY --from=sourcer /app/ .
 WORKDIR /app/apps/web/
 EXPOSE 3000
-ARG WEB_URL="http://localhost:3000"
-ENV WEB_URL=$WEB_URL
 ENV DOCKER=1	
 CMD [ "yarn", "start"]
