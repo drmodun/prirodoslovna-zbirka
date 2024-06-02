@@ -29,7 +29,7 @@ export const LiteratureFilter = ({ searchParams }: Props) => {
         invalid_type_error: `Vrijednost mora biti validna gbif tema poput ${[
           ...getTopicsValues(),
         ]}`,
-      })
+      }),
     ),
     year: z.optional(z.array(z.number())),
     literatureType: z.optional(z.enum(["", ...getLiteratureTypesList()])),

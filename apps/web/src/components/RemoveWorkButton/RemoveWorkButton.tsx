@@ -24,7 +24,7 @@ export const RemoveWorkButton: React.FC<RemoveWorkButtonProps> = ({
 
   const handleDelete = () => {
     const confirm = window.confirm(
-      "Jeste li sigurni da želite maknuti projekt?"
+      "Jeste li sigurni da želite maknuti projekt?",
     );
     confirm && mutate(workId);
   };

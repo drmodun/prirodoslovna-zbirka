@@ -37,7 +37,7 @@ export const CreationModal = () => {
   }, [memberships, form, form.watch("type")]);
 
   const { data: availableExponats } = useGetExponatsForOrganisation(
-    form.watch("organisationId")?.toLowerCase()
+    form.watch("organisationId")?.toLowerCase(),
   );
 
   useEffect(() => {

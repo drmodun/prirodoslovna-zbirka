@@ -35,7 +35,7 @@ export const AuthorshipTable = ({ authorshipInfo }: AuthorshipTableProps) => (
               <span className={classes.tableKey}>{authTableDict[key]}</span>
               <span className={classes.tableValue}>{authorshipInfo[key]}</span>
             </div>
-          )
+          ),
       )}
   </div>
 );

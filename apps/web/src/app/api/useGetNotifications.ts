@@ -9,7 +9,7 @@ export const getNotifications = async () => {
   }
 
   const response = await api.get<never, NotificationResponse[]>(
-    "/notification-users"
+    "/notification-users",
   );
   return response;
 };

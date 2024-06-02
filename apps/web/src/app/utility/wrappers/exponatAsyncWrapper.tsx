@@ -38,7 +38,7 @@ export const ExponatAsyncWrapper = async ({
       exponat={exponat}
       isMapPossible={checkMap(mapPossibility as MapPossibility)}
       isCroationMapPossible={checkCroatianMap(
-        croatianMapPossibility as MapPossibility
+        croatianMapPossibility as MapPossibility,
       )}
     />
   );

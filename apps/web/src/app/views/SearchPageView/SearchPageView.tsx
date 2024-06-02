@@ -108,30 +108,30 @@ export const SearchPageView = ({
                 activeTab === "Korisnici"
                   ? getUsers
                   : activeTab === "Organizacije"
-                  ? getOrganisations
-                  : activeTab === "Eksponati"
-                  ? getExponats
-                  : activeTab === "Objave"
-                  ? getPosts
-                  : activeTab === "Radovi"
-                  ? getWorks
-                  : getGbifWorks
+                    ? getOrganisations
+                    : activeTab === "Eksponati"
+                      ? getExponats
+                      : activeTab === "Objave"
+                        ? getPosts
+                        : activeTab === "Radovi"
+                          ? getWorks
+                          : getGbifWorks
               }
               params={query}
               items={
                 activeTab === "Korisnici"
                   ? users
                   : activeTab === "Organizacije"
-                  ? organisations
-                  : activeTab === "Eksponati"
-                  ? exponats
-                  : activeTab === "Objave"
-                  ? posts
-                  : activeTab === "Radovi"
-                  ? works
-                  : activeTab === "Literatura"
-                  ? literature
-                  : []
+                    ? organisations
+                    : activeTab === "Eksponati"
+                      ? exponats
+                      : activeTab === "Objave"
+                        ? posts
+                        : activeTab === "Radovi"
+                          ? works
+                          : activeTab === "Literatura"
+                            ? literature
+                            : []
               }
             />
           </UserWrapper>

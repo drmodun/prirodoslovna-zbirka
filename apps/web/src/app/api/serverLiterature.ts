@@ -12,7 +12,7 @@ import queryString from "query-string";
 import { WorksQuery, WorkToGbifQueryMapper } from "./serverWorks";
 
 export const LiteratureToWorkMapper = (
-  literature: LiteratureResponseGBIF
+  literature: LiteratureResponseGBIF,
 ): WorkResponseShort =>
   ({
     title: literature.title,
@@ -30,7 +30,7 @@ export const LiteratureToWorkMapper = (
     tags: literature.topics
       .map((topic) => getEnumValue(Topics, topic)) //Format tags
       .concat(
-        literature.keywords.filter((keyword) => keyword.length < 20) //Remove large not needed keywords
+        literature.keywords.filter((keyword) => keyword.length < 20), //Remove large not needed keywords
       ),
     isGbif: true,
     type: literature.literatureType,
@@ -39,7 +39,7 @@ export const LiteratureToWorkMapper = (
 
 export const getGbifWorks = async (
   query: WorksQuery | GbifQuery,
-  page?: number
+  page?: number,
 ): Promise<WorkResponseShort[] | undefined> => {
   try {
     const gbifQuery: GbifQuery =
@@ -52,11 +52,11 @@ export const getGbifWorks = async (
         next: {
           revalidate: 1 * 60 * 60 * 24 * 7, //weekly revalidation
         },
-      }
+      },
     );
     const data: FullLiteratureResponseGBIF = await response.json();
     return data.results.map((d: LiteratureResponseGBIF) =>
-      LiteratureToWorkMapper(d)
+      LiteratureToWorkMapper(d),
     );
   } catch (error) {
     console.log(error);
@@ -64,7 +64,7 @@ export const getGbifWorks = async (
 };
 
 export const getGbifWork = async (
-  id: string
+  id: string,
 ): Promise<WorkResponseShort | undefined> => {
   try {
     const response = await fetch(`https://api.gbif.org/v1/literature/${id}`, {

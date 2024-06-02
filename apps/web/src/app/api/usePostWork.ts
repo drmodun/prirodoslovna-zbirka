@@ -13,7 +13,7 @@ const postWork = async (data: {
 }) =>
   await api.post<never, WorkResponseExtended>(
     `/works/${data.organisationId}`,
-    data.body
+    data.body,
   );
 
 export const usePostWork = () => {

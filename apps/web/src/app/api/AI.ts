@@ -97,7 +97,7 @@ export const whisperPrompt = async (audio: any) => {
 export const ttsPrompt = async (
   text: string,
   directory: string,
-  id: string
+  id: string,
 ) => {
   const body = {
     input: { text: text },
@@ -136,7 +136,7 @@ export const ttsPrompt = async (
       {
         method: "POST",
         body: request,
-      }
+      },
     );
 
     const data = await url.text();

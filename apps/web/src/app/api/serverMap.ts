@@ -9,7 +9,7 @@ export const getMapPossibility = async (id: number) => {
       next: {
         revalidate: 1 * 60 * 60 * 24 * 7, // weekly revalidation
       },
-    }
+    },
   );
 
   const data = await request.json();
@@ -23,7 +23,7 @@ export const getCroatianMapPossibility = async (id: number) => {
       next: {
         revalidate: 1 * 60 * 60 * 24 * 7, // weekly revalidation
       },
-    }
+    },
   );
   const data = await request.json();
   return data as MapPossibility;
@@ -36,7 +36,7 @@ export const getMap = async (id: string) => {
       next: {
         revalidate: 1 * 60 * 60 * 24 * 7, // weekly revalidation
       },
-    }
+    },
   );
 
   return mapData;
@@ -49,7 +49,7 @@ export const getCroatianMap = async (id: string) => {
       next: {
         revalidate: 1 * 60 * 60 * 24 * 7, // weekly revalidation
       },
-    }
+    },
   );
 
   return mapData;

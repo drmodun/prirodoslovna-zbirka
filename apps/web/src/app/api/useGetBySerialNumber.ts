@@ -8,6 +8,6 @@ export const getBySerialNumber = async (serialNumber?: number) => {
 
 export const useGetBySerialNumber = (serialNumber?: number) => {
   return useQuery(["exponats-serial", serialNumber], () =>
-    getBySerialNumber(serialNumber)
+    getBySerialNumber(serialNumber),
   );
 };

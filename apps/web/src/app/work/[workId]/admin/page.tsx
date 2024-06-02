@@ -38,7 +38,7 @@ const WorkPage = ({ params }: { params: any }) => {
 
         <span className={classes.updated}>
           {`${dateShortenerWithoutTime(
-            workInfo.firstPublicationDate
+            workInfo.firstPublicationDate,
           )} - ${dateShortenerWithoutTime(workInfo.updatedAt)}`}
         </span>
 

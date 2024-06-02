@@ -18,7 +18,7 @@ export const FavouriteButton = ({ exponat }: FavouriteButtonProps) => {
   const { mutateAsync } = useToggleFavourite();
 
   const [isFavourite, setIsFavourite] = useState(
-    favouriteExponats.find((x) => x.id === exponat.id) != null
+    favouriteExponats.find((x) => x.id === exponat.id) != null,
   );
 
   useEffect(() => {
