@@ -343,14 +343,14 @@ export class ExponatsService {
         ...(sort
           ? sort
           : filter.name
-          ? {
-              _relevance: {
-                fields: ['name'],
-                search: filter?.name.split(' ').join(' <-> '),
-                sort: 'desc',
-              },
-            }
-          : null),
+            ? {
+                _relevance: {
+                  fields: ['name'],
+                  search: filter?.name.split(' ').join(' <-> '),
+                  sort: 'desc',
+                },
+              }
+            : null),
       },
       skip: (pagination?.page - 1) * pagination?.size,
       take: pagination?.size,
@@ -562,5 +562,17 @@ export class ExponatsService {
     if (!post) return null;
 
     return post.ExponatId;
+  }
+
+  async getIdBySerialNumber(serialNumber: number) {
+    const exponat = await this.prisma.exponat.findFirst({
+      where: {
+        serialNumber,
+      },
+    });
+
+    if (!exponat) throw new NotFoundException();
+
+    return exponat.id;
   }
 }

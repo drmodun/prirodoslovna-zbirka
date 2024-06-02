@@ -9,6 +9,7 @@ import {
   Query,
   UseGuards,
   Req,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { ExponatsService } from './exponats.service';
 import {
@@ -237,5 +238,10 @@ export class ExponatsController {
   @Patch(':id/approval')
   async changeApprovalStatus(@Param('id') id: string, @Req() req: any) {
     return await this.exponatsService.changeApprovalStatus(id, req.user.id);
+  }
+
+  @Get('serial/:id')
+  async getSerial(@Param('id', ParseIntPipe) id: number) {
+    return await this.exponatsService.getIdBySerialNumber(id);
   }
 }

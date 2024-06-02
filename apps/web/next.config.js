@@ -1,7 +1,12 @@
 /** @type {import('next').NextConfig} */
 
 const nextConfig = {
-  transpilePackages: ["@biosfera/types"],
+  transpilePackages: [
+    "@biosfera/types",
+    "css-loader",
+    "sass-loader",
+    "style-loader",
+  ],
   env: {
     NEXT_PUBLIC_DOCKER: process?.env?.DOCKER,
     NEXT_PUBLIC_WEB_URL: process?.env?.WEB_URL,
