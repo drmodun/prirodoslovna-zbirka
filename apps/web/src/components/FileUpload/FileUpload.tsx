@@ -70,7 +70,7 @@ const FileUpload = ({
         className={clsx(
           classes.main,
           isFullWidth && classes.fullWidth,
-          files.length >= maxFiles && classes.disabled
+          files.length >= maxFiles && classes.disabled,
         )}
       >
         <input

@@ -29,7 +29,7 @@ export const ExponatFilter = ({ searchParams }: Props) => {
       family: z.optional(z.string()),
       species: z.optional(z.string()),
       attribute: z.optional(
-        z.enum(["name", "createdAt", "postAmount", "favourites"])
+        z.enum(["name", "createdAt", "postAmount", "favourites"]),
       ),
       direction: z.optional(z.enum(["asc", "desc"])),
     })
@@ -61,7 +61,7 @@ export const ExponatFilter = ({ searchParams }: Props) => {
 
   const { data: kingdoms } = useGetTaxonomyEntities(
     form.watch("kingdom"),
-    "KINGDOM"
+    "KINGDOM",
   );
 
   const { data: phylums } = useGetTaxonomyEntities(
@@ -69,29 +69,30 @@ export const ExponatFilter = ({ searchParams }: Props) => {
     "PHYLUM",
     kingdoms?.find(
       (kingdom: SpeciesResponse) =>
-        kingdom.scientificName === form.watch("kingdom")
-    )?.nubKey
+        kingdom.scientificName === form.watch("kingdom"),
+    )?.nubKey,
   );
 
   const { data: classes } = useGetTaxonomyEntities(
     form.watch("class"),
-    "CLASS"
+    "CLASS",
   );
 
   const { data: orders } = useGetTaxonomyEntities(form.watch("order"), "ORDER");
 
   const { data: genuses } = useGetTaxonomyEntities(
     form.watch("genus"),
-    "GENUS"
+    "GENUS",
   );
 
   const { data: families } = useGetTaxonomyEntities(
     form?.watch("family"),
     "FAMILY",
     phylums?.find(
-      (phylum: SpeciesResponse) => phylum.scientificName === form.watch("pylum") //GBIF sources do not seem to have all full slassiications, so it is safer to make a less efficient but more reliable call
+      (phylum: SpeciesResponse) =>
+        phylum.scientificName === form.watch("pylum"), //GBIF sources do not seem to have all full slassiications, so it is safer to make a less efficient but more reliable call
       //TODO: check if this can be fixed
-    )?.nubKey
+    )?.nubKey,
   );
 
   const { data: species } = useGetTaxonomyEntities(
@@ -99,8 +100,8 @@ export const ExponatFilter = ({ searchParams }: Props) => {
     "SPECIES",
     families?.find(
       (family: SpeciesResponse) =>
-        family.scientificName === form.watch("family")
-    )?.nubKey
+        family.scientificName === form.watch("family"),
+    )?.nubKey,
   );
 
   //add better ways to filtrate

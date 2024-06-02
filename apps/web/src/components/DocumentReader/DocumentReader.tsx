@@ -56,7 +56,7 @@ export const DocumentReader = ({ src, isLandscape }: DocumentReaderProps) => {
     <div
       className={clsx(
         classes.container,
-        isLandscape ? classes.landscape : classes.portrait
+        isLandscape ? classes.landscape : classes.portrait,
       )}
     >
       <div className={classes.document}>
@@ -78,7 +78,7 @@ export const DocumentReader = ({ src, isLandscape }: DocumentReaderProps) => {
           <Page
             _className={clsx(
               classes.page,
-              isLandscape ? classes.landscape : classes.portrait
+              isLandscape ? classes.landscape : classes.portrait,
             )}
             width={pageWidth}
             pageNumber={pageNumber}

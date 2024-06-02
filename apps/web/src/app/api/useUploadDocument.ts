@@ -17,7 +17,7 @@ const uploadDocument = async (params: DocumentUploadProps) => {
     data,
     {
       timeout: 15000, //bigger files take more time to upload
-    }
+    },
   );
   return response.data;
 };

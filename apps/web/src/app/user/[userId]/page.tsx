@@ -1,7 +1,11 @@
 import classes from "./page.module.scss";
 import { serverGetUser } from "@/api/serverUser";
 import UserCard from "components/UserCard";
-import { ExtendedUserResponse, WorkResponseExtended, WorkResponseShort } from "@biosfera/types";
+import {
+  ExtendedUserResponse,
+  WorkResponseExtended,
+  WorkResponseShort,
+} from "@biosfera/types";
 import { UserPageBody } from "components/UserPageBody/UserPageBody";
 import { UserWrapper } from "@/utility/wrappers/userWrapper";
 import NotFound from "@/not-found";
@@ -10,8 +14,8 @@ const UserPage = async ({ params }: { params: any }) => {
   const userInfo: ExtendedUserResponse = await serverGetUser(params.userId);
   const getAllLiterature = await Promise.all(
     userInfo.savedLiterature.map((literature) =>
-      getGbifWork(literature.literatureId)
-    )
+      getGbifWork(literature.literatureId),
+    ),
   );
 
   return userInfo ? (
@@ -29,7 +33,7 @@ const UserPage = async ({ params }: { params: any }) => {
               user={userInfo}
               savedLiterature={
                 getAllLiterature.filter(
-                  (literature) => literature != null // Filter out null values
+                  (literature) => literature != null, // Filter out null values
                 ) as WorkResponseShort[]
               }
             />

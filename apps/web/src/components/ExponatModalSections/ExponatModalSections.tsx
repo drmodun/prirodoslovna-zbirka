@@ -24,7 +24,7 @@ export const ExponatModalSections = ({
   const box = useRef<HTMLDivElement>(null);
   const parsed = useMemo(
     () => JSON.parse(exponat.attributes as any) as Indexable,
-    [exponat.attributes]
+    [exponat.attributes],
   );
 
   return (

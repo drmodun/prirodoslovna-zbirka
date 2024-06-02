@@ -31,7 +31,7 @@ export const NotificationsProvider = ({
   children: React.ReactNode;
 }) => {
   const [notifications, setNotifications] = useState<NotificationResponse[]>(
-    []
+    [],
   );
   const { user } = useUser();
   const [isVisibleModal, setIsVisibleModal] = useState<boolean>(false);
@@ -66,7 +66,7 @@ export const NotificationsProvider = ({
   useEffect(() => {
     if (!isSuccess) return;
     const source = new EventSource(
-      `${baseURL}/notification-users/subscribe/${user?.id}`
+      `${baseURL}/notification-users/subscribe/${user?.id}`,
     );
 
     source.onopen = () => {

@@ -27,14 +27,14 @@ export const SaveButton = ({ work }: SaveButtonProps) => {
   const { mutateAsync: toggleSaveLiterature } = useToggleSaveLiterature();
 
   const [isSaved, setIsSaved] = useState(
-    savedWorks.find((x) => x.id === work.id) != null
+    savedWorks.find((x) => x.id === work.id) != null,
   );
 
   useEffect(() => {
     setIsSaved(
       work.isGbif
         ? savedLiterature.find((x) => x.literatureId === work.id) != null
-        : savedWorks.find((x) => x.id === work.id) != null
+        : savedWorks.find((x) => x.id === work.id) != null,
     );
   }, [savedWorks, savedLiterature, loading]);
 
@@ -42,7 +42,7 @@ export const SaveButton = ({ work }: SaveButtonProps) => {
     setIsSaved(
       work.isGbif
         ? savedLiterature.find((x) => x.literatureId === work.id) != null
-        : savedWorks.find((x) => x.id === work.id) != null
+        : savedWorks.find((x) => x.id === work.id) != null,
     );
   }, []);
 

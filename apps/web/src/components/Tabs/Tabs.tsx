@@ -24,7 +24,7 @@ export const Tabs = ({ tabs, activeTab, variant, onSelect }: TabsProps) => {
           className={clsx(
             classes.tab,
             classes[variant as string],
-            activeTab === tab && classes.active
+            activeTab === tab && classes.active,
           )}
         >
           {tab}

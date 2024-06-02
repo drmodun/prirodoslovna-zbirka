@@ -23,9 +23,7 @@ export const SerialButton = () => {
         onClick={open}
         className={classes.serialButton}
       >
-        <figure>
-          #
-        </figure>
+        <figure>#</figure>
       </button>
       <SerialModal isOpen={isOpen} onClose={close} />
     </>

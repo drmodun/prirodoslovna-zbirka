@@ -13,7 +13,7 @@ import { useGetClientExponat } from "@/api/useGetClientExponat";
 
 const ExponatPage = ({ params }: { params: any }) => {
   const { data: exponatInfo, isLoading } = useGetClientExponat(
-    params.exponatId
+    params.exponatId,
   );
 
   console.log(exponatInfo?.attributes);

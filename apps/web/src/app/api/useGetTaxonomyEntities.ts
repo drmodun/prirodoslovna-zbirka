@@ -5,13 +5,13 @@ import { useQuery } from "react-query";
 const getTaxonomyEntities = async (
   search: string,
   rank: TaxonomyGbifType = "SPECIES",
-  higherTaxonId?: number
+  higherTaxonId?: number,
 ) => {
   try {
     const response = await fetch(
       `https://api.gbif.org/v1/species/suggest?rank=${rank}${
         higherTaxonId ? `&higherTaxonKey=${higherTaxonId}` : ""
-      }&q=${search || ""}`
+      }&q=${search || ""}`,
     );
     const data = await response.json();
     console.log(data);
@@ -25,7 +25,7 @@ const getTaxonomyEntities = async (
 export const useGetTaxonomyEntities = (
   search: string,
   rank: TaxonomyGbifType,
-  higherTaxonKey?: number
+  higherTaxonKey?: number,
 ) => {
   return useQuery(
     ["species" + rank + search + higherTaxonKey],
@@ -35,6 +35,6 @@ export const useGetTaxonomyEntities = (
         console.log(error);
         toast.error("Došlo je do greške prilikom dohvaćanja podataka");
       },
-    }
+    },
   );
 };

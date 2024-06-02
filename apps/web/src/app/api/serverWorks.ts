@@ -25,7 +25,7 @@ export const WorkToGbifQueryMapper = (work: WorksQuery): GbifQuery => {
 
 export const getWorks = async (
   queryDto: WorksQuery,
-  page: number = 1
+  page: number = 1,
 ): Promise<WorkResponseExtended[] | undefined> => {
   try {
     if (queryDto.attribute === "name") queryDto.attribute = SortingEnum.TITLE;

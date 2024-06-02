@@ -65,13 +65,13 @@ export const ExponatForm = ({
       {
         message: "Mora postojati barem jedan atribut",
         path: ["attributes"],
-      }
+      },
     );
   const [selectedSpecies, setSelectedSpecies] = useState<string>(
-    values?.alternateName || ""
+    values?.alternateName || "",
   );
   const [exponatMainImage, setExponatMainImage] = useState<File[]>(
-    [] as File[]
+    [] as File[],
   );
 
   const form = useForm({
@@ -193,7 +193,7 @@ export const ExponatForm = ({
             data
               ?.filter(
                 (x: SpeciesResponse) =>
-                  x.rank === "SPECIES" && x.species?.split(" ").length > 1
+                  x.rank === "SPECIES" && x.species?.split(" ").length > 1,
               ) //Check for valid species with two word nomenclature
               .map((species: SpeciesResponse) => ({
                 value: species.species,

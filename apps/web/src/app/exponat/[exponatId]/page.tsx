@@ -13,7 +13,7 @@ import { ExponatAsyncWrapper } from "@/utility/wrappers/exponatAsyncWrapper";
 
 const ExponatPage = async ({ params }: { params: any }) => {
   const exponatInfo: ExponatExtendedResponse = await serverGetExponat(
-    params.exponatId
+    params.exponatId,
   );
   console.log(exponatInfo?.categorization?.speciesKey);
 

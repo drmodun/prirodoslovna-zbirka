@@ -80,7 +80,7 @@ export const CardCollectionAsync: React.FC<CardCollectionAsyncProps> = ({
             ...prev,
             ...items?.filter(
               (item: Indexable) =>
-                !prev.some((prevItem) => prevItem.id === item.id)
+                !prev.some((prevItem) => prevItem.id === item.id),
             ),
           ]);
         setLoading(false);
@@ -125,7 +125,7 @@ export const CardCollectionAsync: React.FC<CardCollectionAsyncProps> = ({
       memberships.some(
         (membership) =>
           membership.id === organisationId &&
-          (membership.role === "ADMIN" || membership.role === "OWNER")
+          (membership.role === "ADMIN" || membership.role === "OWNER"),
       )
     );
   };
@@ -152,7 +152,7 @@ export const CardCollectionAsync: React.FC<CardCollectionAsyncProps> = ({
                   key={index}
                   exponat={item as ExponatResponseShort}
                   isAdmin={checkAdminMembership(
-                    (item as ExponatResponseShort).organizationId
+                    (item as ExponatResponseShort).organizationId,
                   )}
                   onRemove={handleDelete}
                 />
@@ -163,7 +163,7 @@ export const CardCollectionAsync: React.FC<CardCollectionAsyncProps> = ({
                   key={index}
                   post={item as PostResponse}
                   isAdmin={checkIsAdminForPost(
-                    (item as PostResponse).organisationId
+                    (item as PostResponse).organisationId,
                   )}
                   onRemove={handleDelete}
                   isUser={checkIsAuthor((item as PostResponse).authorId)}
@@ -197,7 +197,7 @@ export const CardCollectionAsync: React.FC<CardCollectionAsyncProps> = ({
                 <WorkCard
                   work={item as WorkResponseShort}
                   isAdmin={checkIsAdminForPost(
-                    (item as WorkResponseShort).organisationId
+                    (item as WorkResponseShort).organisationId,
                   )}
                 />
               );
@@ -210,7 +210,7 @@ export const CardCollectionAsync: React.FC<CardCollectionAsyncProps> = ({
       <div
         className={clsx(
           classes.floatingButton,
-          currentPage > 1 && !listInView ? classes.show : classes.hide
+          currentPage > 1 && !listInView ? classes.show : classes.hide,
         )}
       >
         <div
