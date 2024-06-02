@@ -42,6 +42,9 @@ export const ExponatModal = ({ exponat }: ExponatModalProps) => {
       >
         Organizacija eksponata: {exponat.organizationName}
       </Link>
+      <span className={classes.serialNumber}>
+        Serijski broj: {exponat.serialNumber}
+      </span>
       <ExponatModalSections exponat={exponat} />
     </div>
   );

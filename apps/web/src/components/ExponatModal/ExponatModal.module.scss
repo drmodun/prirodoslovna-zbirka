@@ -62,6 +62,25 @@
     }
   }
 
+  .serialNumber {
+    font-size: vw-calc(14);
+    font-weight: 500;
+    width: 100%;
+    color: $semi-dark;
+    text-align: flex-start;
+    margin-bottom: vw-calc(20);
+
+    @media (max-width: 768px) {
+      font-size: vw-mobile-calc(8);
+    }
+
+    &:hover {
+      cursor: pointer;
+      color: $primary;
+      text-decoration: underline;
+    }
+  }
+
   .title {
     display: flex;
     flex-direction: column;

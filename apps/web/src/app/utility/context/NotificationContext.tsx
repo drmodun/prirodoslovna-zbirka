@@ -3,7 +3,7 @@
 import { NotificationResponse } from "@biosfera/types";
 import { createContext, useContext, useEffect, useState } from "react";
 import useUser from "./UserContext";
-import { baseURL, token } from "@/api/shared";
+import { baseURL } from "@/api/shared";
 import { fetchEventSource } from "@microsoft/fetch-event-source";
 import { useGetNotifications } from "@/api/useGetNotifications";
 import toast from "react-hot-toast";

@@ -57,7 +57,9 @@ export const SingleInput = ({
         value={value}
         onChange={handleOnChange}
       />
-      <SpeechToText onText={(text) => onChange(text)} />
+      <div className={classes.speechToText}>
+        <SpeechToText onText={(text) => onChange(text)} />
+      </div>
     </div>
   );
 };

@@ -1,3 +1,5 @@
+"use client";
+
 import axios, { AxiosError, AxiosResponse } from "axios";
 import toast from "react-hot-toast";
 
@@ -13,8 +15,6 @@ export const api = axios.create({
     "Content-Type": "application/json",
   },
 });
-
-export const token = localStorage.getItem("access_token");
 
 export const fileApi = axios.create({
   baseURL: baseURL,

@@ -178,6 +178,7 @@ export class ExponatsController {
     const mapped = {
       alternateName: item.alternateName,
       id: item.id,
+      serialNumber: item.serialNumber,
       title: item.name,
       ...(isAdmin && { isApproved: item.isApproved }),
       attributes: item.attributes,
