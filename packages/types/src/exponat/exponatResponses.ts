@@ -1,3 +1,4 @@
+import { AuthorshipInfo } from "../authorshipInfo/responses";
 import { Json } from "../jsonObjects";
 import { PostResponse } from "../post/postResponse";
 
@@ -13,7 +14,10 @@ export interface ExponatExtendedResponse {
   organizationName: string;
   funFacts: string[];
   attributes: Json;
+  serialNumber: number;
   createdAt: Date;
+  authorshipInfo: AuthorshipInfo;
+  authorshipInfoId: string;
   updatedAt: Date;
   categorization?: CategorizationResponse;
   posts: PostResponse[];
@@ -42,6 +46,7 @@ export interface CategorizationResponse {
   kingdom: string;
   phylum: string;
   class: string;
+  speciesKey: number;
   order: string;
   family: string;
   genus: string;

@@ -1,17 +1,54 @@
 import { Injectable } from '@nestjs/common';
+import { NotificationUsersService } from 'src/notification-users/notification-users.service';
+import { NotificationsService } from 'src/notifications/notifications.service';
 import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class FollowsService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly notificationsService: NotificationsService,
+    private readonly notificationUsersService: NotificationUsersService,
+  ) {}
+
+  async makeNewFollowerNotification(
+    follower: { id: string; username: string },
+    followeeId: string,
+  ) {
+    const notification = await this.notificationsService.create(
+      {
+        title: 'Novi pratitelj',
+        link: `/user/${follower.id}`,
+        type: 'NEW_FOLLOWER',
+        notificationImage: follower.id,
+        text: `Korisnik ${follower.username} te sada prati`,
+      },
+      [followeeId],
+    );
+
+    await this.notificationUsersService.publishNotification(
+      followeeId,
+      notification,
+    );
+  }
 
   async create(followerId: string, followeeId: string) {
-    return this.prisma.userFollows.create({
+    const follow = await this.prisma.userFollows.create({
       data: {
         followerId,
         followeeId,
       },
+      include: {
+        follower: {
+          select: {
+            username: true,
+            id: true,
+          },
+        },
+      },
     });
+
+    await this.makeNewFollowerNotification(follow.follower, followeeId);
   }
 
   async delete(followerId: string, followeeId: string) {

@@ -8,8 +8,10 @@ import list from "assets/images/list.svg";
 import table from "assets/images/table.svg";
 import likeLeafGreen from "assets/images/like-leaf-green.svg";
 import { stringCapitaliser } from "@/utility/static/stringCapitaliser";
-import { useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import clsx from "clsx";
+import AuthorshipTable from "components/AuthorshipTable";
+import { Indexable } from "@biosfera/types/src/jsonObjects";
 
 export interface ExponatModalSectionsProps {
   exponat: ExponatExtendedResponse;
@@ -20,6 +22,10 @@ export const ExponatModalSections = ({
 }: ExponatModalSectionsProps) => {
   const [extended, setExtended] = useState<boolean>(false);
   const box = useRef<HTMLDivElement>(null);
+  const parsed = useMemo(
+    () => JSON.parse(exponat.attributes as any) as Indexable,
+    [exponat.attributes],
+  );
 
   return (
     <div className={clsx(classes.container, extended && classes.extended)}>
@@ -27,6 +33,9 @@ export const ExponatModalSections = ({
         ref={box}
         className={clsx(classes.content, extended && classes.extended)}
       >
+        <div className={classes.section}>
+          <AuthorshipTable authorshipInfo={exponat.authorshipInfo} />
+        </div>
         <div className={classes.section}>
           <div className={classes.title}>
             <div className={classes.image}>
@@ -62,13 +71,13 @@ export const ExponatModalSections = ({
             <span className={classes.titleText}>Tablica</span>
           </div>
           <div className={classes.table}>
-            {Object.keys(exponat.attributes).map((key, index) => (
+            {Object.keys(parsed).map((key, index) => (
               <div className={classes.tableRow} key={index}>
                 <span className={classes.tableKey}>
                   {stringCapitaliser(key)}
                 </span>
                 <span className={classes.tableValue}>
-                  {exponat.attributes[key].toString()}
+                  {parsed[key.toString()]?.toString()}
                 </span>
               </div>
             ))}

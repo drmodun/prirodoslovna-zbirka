@@ -18,7 +18,7 @@ export const Footer = () => (
       </div>
       <div className={classes.links}>
         <a
-          href="https://dumphr-my.sharepoint.com/:w:/g/personal/lovre_tomic_dump_hr/ERCBMQLWj1hMpHv6HzS4458BgoE2rqk_4beVCwRbppiahg?e=G9EzIy"
+          href="https://biosfera-files.s3.eu-north-1.amazonaws.com/Biosfera+-+Nova+tehni%C4%8Dka+dokumentacija.pdf"
           className={classes.link}
         >
           Dokumentacija

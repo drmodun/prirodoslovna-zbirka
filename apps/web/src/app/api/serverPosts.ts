@@ -30,7 +30,7 @@ export const discoverPosts = async (params: { page: number; size: number }) => {
     if (!params.size) params.size = 20;
     if (!params.page) params.page = 1;
     const response = await fetch(
-      `${getBaseUrl()}/posts/discover?page=${params.page}&size=${params.size}`
+      `${getBaseUrl()}/posts/discover?page=${params.page}&size=${params.size}`,
     );
     return response.json();
   } catch (error) {

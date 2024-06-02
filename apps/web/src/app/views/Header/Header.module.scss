@@ -44,6 +44,11 @@
   }
 
   .menu {
-    width: vw-calc(100);
+    width: vw-calc(120);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: vw-calc(20);
   }
 }

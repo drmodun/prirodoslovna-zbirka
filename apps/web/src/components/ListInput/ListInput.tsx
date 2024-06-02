@@ -15,6 +15,7 @@ export interface ListInputProps {
   form: UseFormReturn<FieldValues>;
   error?: string;
   initValue?: string[];
+  isSelect?: boolean;
 }
 
 export const ListInput = ({
@@ -22,6 +23,7 @@ export const ListInput = ({
   attribute,
   form,
   error,
+  isSelect,
   initValue,
 }: ListInputProps) => {
   const { setValue } = form;
@@ -70,7 +72,7 @@ export const ListInput = ({
           </button>
           <SingleInput
             onChange={setNewValue}
-            question="Upišite činjenicu"
+            question="Upišite vrijednost"
             value={newValue}
             image={leaf}
           />

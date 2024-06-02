@@ -204,8 +204,9 @@ export class OrganisationsController {
       return {
         createdAt: post.createdAt,
         id: post.id,
-        image: post.image,
+        images: post.images,
         text: post.text,
+        authorshipInfoId: post.authorshipInfoId,
         updatedAt: post.updatedAt,
         organisationId: item.id,
         organisationName: item.name,

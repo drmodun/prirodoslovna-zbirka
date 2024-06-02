@@ -36,13 +36,197 @@ export enum County {
   BRODSKO_POSAVSKA = "BRODSKO_POSAVSKA",
   ISTARSKA = "ISTARSKA",
   LICKO_SENJSKA = "LICKO_SENJSKA",
-  VIROVITICKO_PODRAVSKA  = "VIROVITICKO_PODRAVSKA",
-  OTHER = "OTHER"
+  VIROVITICKO_PODRAVSKA = "VIROVITICKO_PODRAVSKA",
+  OTHER = "OTHER",
 }
 
 export enum AdminApprovalRequestType {
   ORGANISATION,
   EXPONAT,
   MEMBER,
-  POST
+  POST,
 }
+
+export enum WorkType {
+  JOURNAL = "Časopis",
+  BOOK = "Knjiga",
+  GENERIC = "Rad",
+  BOOK_SECTION = "Sekcija knjige",
+  CONFERENCE_PROCEEDINGS = "Zbornik",
+  WORKING_PAPER = "Paper",
+  REPORT = "Izvještaj",
+  WEB_PAGE = "Web stranica",
+  THESIS = "Disertacija",
+  MAGAZINE_ARTICLE = "Članak u časopisu",
+  STATUTE = "Statut",
+  PATENT = "Patent",
+  NEWSPAPER_ARTICLE = "Članak u novinama",
+  COMPUTER_PROGRAM = "Računalni program",
+  HEARING = "Saslušanje",
+  TELEVISION_BROADCAST = "Televizijska emisija",
+  ENCYCLOPEDIA_ARTICLE = "Članak u enciklopediji",
+  CASE = "Slučaj",
+  FILM = "Film",
+  BILL = "Zakon",
+}
+
+export enum Topics {
+  AGRICULTURE = "Poljoprivreda",
+  BIODIVERSITY_SCIENCE = "Znanost o biološkoj raznolikosti",
+  BIOGEOGRAPHY = "Biogeografija",
+  CITIZEN_SCIENCE = "Građanska znanost",
+  CLIMATE_CHANGE = "Klimatske promjene",
+  CONSERVATION = "Očuvanje",
+  DATA_MANAGEMENT = "Upravljanje podacima",
+  DATA_PAPER = "Podatkovni rad",
+  ECOLOGY = "Ekologija",
+  ECOSYSTEM_SERVICES = "Usluge i održavanje ekosustava",
+  EVOLUTION = "Evolucija",
+  FRESHWATER = "Slatkovodni radovi",
+  HUMAN_HEALTH = "Zdravlje",
+  INVASIVES = "Invazivne vrste",
+  MARINE = "Morski radovi",
+  PHYLOGENETICS = "Filogenetika",
+  SPECIES_DISTRIBUTIONS = "Distribucija vrsta",
+  TAXONOMY = "Taksonomija",
+}
+
+export enum TaxonomyRankGbif {
+  "DOMAIN",
+  "SUPERKINGDOM",
+  "KINGDOM",
+  "SUBKINGDOM",
+  "INFRAKINGDOM",
+  "SUPERPHYLUM",
+  "PHYLUM",
+  "SUBPHYLUM",
+  "INFRAPHYLUM",
+  "SUPERCLASS",
+  "CLASS",
+  "SUBCLASS",
+  "INFRACLASS",
+  "PARVCLASS",
+  "SUPERLEGION",
+  "LEGION",
+  "SUBLEGION",
+  "INFRALEGION",
+  "SUPERCOHORT",
+  "COHORT",
+  "SUBCOHORT",
+  "INFRACOHORT",
+  "MAGNORDER",
+  "SUPERORDER",
+  "GRANDORDER",
+  "ORDER",
+  "SUBORDER",
+  "INFRAORDER",
+  "PARVORDER",
+  "SUPERFAMILY",
+  "FAMILY",
+  "SUBFAMILY",
+  "INFRAFAMILY",
+  "SUPERTRIBE",
+  "TRIBE",
+  "SUBTRIBE",
+  "INFRATRIBE",
+  "SUPRAGENERIC_NAME",
+  "GENUS",
+  "SUBGENUS",
+  "INFRAGENUS",
+  "SECTION",
+  "SUBSECTION",
+  "SERIES",
+  "SUBSERIES",
+  "INFRAGENERIC_NAME",
+  "SPECIES_AGGREGATE",
+  "SPECIES",
+  "INFRASPECIFIC_NAME",
+  "GREX",
+  "SUBSPECIES",
+  "CULTIVAR_GROUP",
+  "CONVARIETY",
+  "INFRASUBSPECIFIC_NAME",
+  "PROLES",
+  "RACE",
+  "NATIO",
+  "ABERRATION",
+  "MORPH",
+  "VARIETY",
+  "SUBVARIETY",
+  "FORM",
+  "SUBFORM",
+  "PATHOVAR",
+  "BIOVAR",
+  "CHEMOVAR",
+  "MORPHOVAR",
+  "PHAGOVAR",
+  "SEROVAR",
+  "CHEMOFORM",
+  "FORMA_SPECIALIS",
+  "CULTIVAR",
+  "STRAIN",
+  "OTHER",
+  "UNRANKED",
+}
+
+export type TaxonomyGbifType = keyof typeof TaxonomyRankGbif;
+
+export enum NotificationType {
+  POST_APPROVAL = "Promjena odobrenja objave",
+  EXPONAT_APPROVAL = "Promjena odobrenja eksponata",
+  MEMBERSHIP_REQUEST = "Zahtjev za članstvo",
+  MEMBERSHIP_CHANGE = "Promjena članstva",
+  NEW_FOLLOWER = "Novi pratitelj",
+  POST_BY_FOLLOWED_ACCOUNT = "Objava od praćenog računa",
+  EXPONAT_BY_FOLLOWED_ORGANISATION = "Eksponat od praćene organizacije",
+  WORK_BY_FOLLOWED_ORGANISATION = "Rad od praćene organizacije",
+  NEW_SOCIAL_POST = "Nova društvena objava praćene organizacije",
+  POINT_MILESTONE = "Dosegnut prag bodova",
+  ORGANISATION_APPROVAL = "Promjena odobrenja organizacije",
+  OTHER = "Ostalo",
+  NEW_EXPONAT_REQUEST = "Novi zahtjev za eksponat",
+  NEW_POST_REQUEST = "Novi zahtjev za objavu",
+  NEW_WORK_REQUEST = "Novi zahtjev za rad",
+}
+
+export type NotificationTypeEnumType = keyof typeof NotificationType;
+
+export type NotificationPromise = Promise<
+  {
+    UserNotification: {
+      userId: string;
+    }[];
+  } & {
+    id: string;
+    title: string;
+    text: string;
+    createdAt: Date;
+    link: string;
+    notificationImage: string;
+    type: NotificationTypeEnumType;
+  }
+>;
+
+export type NotificationAwaited = {
+  UserNotification: {
+    userId: string;
+  }[];
+} & {
+  id: string;
+  title: string;
+  text: string;
+  createdAt: Date;
+  link: string;
+  notificationImage: string;
+  type: NotificationTypeEnumType;
+};
+
+export const getKeyByValue = (object: any, value: any) => {
+  return Object.keys(object).find((key) => object[key] === value);
+};
+
+export const getEnumValue = (enumObject: any, key: any) => {
+  return enumObject[key];
+};
+
+//Not the best functionsbut are very convenient

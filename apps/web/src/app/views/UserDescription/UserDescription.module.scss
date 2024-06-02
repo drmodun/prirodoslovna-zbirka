@@ -44,4 +44,10 @@
       font-size: vw-mobile-calc(6);
     }
   }
+
+  .social {
+    display: flex;
+    flex-direction: row;
+    gap: vw-calc(20);
+  }
 }

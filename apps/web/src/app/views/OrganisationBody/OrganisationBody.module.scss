@@ -3,6 +3,11 @@
 
 .container {
   width: 100%;
+  padding-bottom: vw-calc(50);
+
+  @media (max-width: 768px) {
+    padding-bottom: vw-mobile-calc(20);
+  }
 
   .body {
     width: 100%;
@@ -29,5 +34,14 @@
   .selectedBody {
     width: 100%;
     margin-top: vw-calc(90);
+  }
+
+  .link {
+    display: flex;
+    margin-bottom: vw-calc(20);
+
+    @media (max-width: 768px) {
+      margin-bottom: vw-mobile-calc(10);
+    }
   }
 }

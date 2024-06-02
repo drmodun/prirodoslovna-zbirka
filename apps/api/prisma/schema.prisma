@@ -24,6 +24,40 @@ enum ExponatKind {
   MINERAL
 }
 
+enum SocialPostType {
+  STORY
+  EU_PROJECT
+  NEWS
+  EVENT
+  ANNOUNCEMENT
+  WORKSHOP
+  OTHER
+  GUIDE
+}
+
+enum WorkType {
+  JOURNAL
+  BOOK
+  GENERIC
+  BOOK_SECTION
+  CONFERENCE_PROCEEDINGS
+  WORKING_PAPER
+  REPORT
+  WEB_PAGE
+  THESIS
+  MAGAZINE_ARTICLE
+  STATUTE
+  PATENT
+  NEWSPAPER_ARTICLE
+  COMPUTER_PROGRAM
+  HEARING
+  TELEVISION_BROADCAST
+  ENCYCLOPEDIA_ARTICLE
+  CASE
+  FILM
+  BILL
+}
+
 enum MemberRole {
   OWNER
   ADMIN
@@ -56,62 +90,94 @@ enum County {
   OTHER
 }
 
+enum NotificationType {
+  POST_APPROVAL
+  EXPONAT_APPROVAL
+  MEMBERSHIP_REQUEST
+  MEMBERSHIP_CHANGE
+  NEW_FOLLOWER
+  POST_BY_FOLLOWED_ACCOUNT
+  EXPONAT_BY_FOLLOWED_ORGANISATION
+  WORK_BY_FOLLOWED_ORGANISATION
+  ORGANISATION_APPROVAL
+  NEW_SOCIAL_POST
+  NEW_EXPONAT_REQUEST
+  NEW_POST_REQUEST
+  NEW_WORK_REQUEST
+  POINT_MILESTONE
+  OTHER
+}
+
 model Categorization {
-  id      String    @id @default(uuid())
-  genus   String
-  kingdom String
-  domain  String
-  phylum  String
-  class   String
-  order   String
-  family  String
-  species String    @unique
-  Exponat Exponat[]
+  id         String    @id @default(uuid())
+  genus      String?
+  kingdom    String?
+  domain     String?
+  phylum     String?
+  class      String?
+  order      String?
+  family     String?
+  speciesKey Int?
+  species    String    @unique
+  Exponat    Exponat[]
   //possibly change this to make the categorization applicable to other organisations which will use this exponat
 }
 
+//Warning: this migration breaks prior builds
+
 model User {
-  id                       String                     @id @default(uuid())
-  email                    String                     @unique
-  firstName                String
-  bio                      String                     @default("Homo sapiens u biosferi")
-  lastName                 String
-  username                 String
-  password                 String
-  hasProfileImage          Boolean                    @default(false)
-  activationCode           String                     @unique @default(uuid())
-  role                     Role                       @default(USER)
-  createdAt                DateTime                   @default(now())
-  updatedAt                DateTime                   @default(now()) @updatedAt
-  Posts                    Post[]
-  location                 County
-  OrganisationUser         OrganisationUser[]
-  isActivated              Boolean                    @default(false)
-  Likes                    Like[]
-  FavouriteExponats        FavouriteExponat[]
-  UserOrganisationFollower UserOrganisationFollower[]
-  followers                UserFollows[]              @relation("following")
-  following                UserFollows[]              @relation("follower")
+  id                          String                     @id @default(uuid())
+  email                       String                     @unique
+  firstName                   String
+  bio                         String                     @default("Homo sapiens u biosferi")
+  lastName                    String
+  username                    String
+  password                    String
+  hasProfileImage             Boolean                    @default(false)
+  activationCode              String                     @unique @default(uuid())
+  role                        Role                       @default(USER)
+  createdAt                   DateTime                   @default(now())
+  updatedAt                   DateTime                   @default(now()) @updatedAt
+  Posts                       Post[]
+  location                    County
+  OrganisationUser            OrganisationUser[]
+  isActivated                 Boolean                    @default(false)
+  Likes                       Like[]
+  FavouriteExponats           FavouriteExponat[]
+  UserOrganisationFollower    UserOrganisationFollower[]
+  followers                   UserFollows[]              @relation("following")
+  following                   UserFollows[]              @relation("follower")
+  Works                       Work[]                     @relation("author")
+  ApprovedWorks               Work[]                     @relation("approver")
+  SavedWorks                  SavedWorks[]
+  SavedLiterature             SavedLiterature[]
+  UserNotification            UserNotification[]
+  IsEmailNotificationsEnabled Boolean                    @default(true)
+  AuthorshipInfo              AuthorshipInfo[]
 }
 
 model Exponat {
-  id                String             @id @default(uuid())
-  name              String
-  alternateName     String
-  ExponatKind       ExponatKind
-  description       String
-  isApproved        Boolean            @default(true)
-  funFacts          String[]
-  attributes        Json
-  mainImage         String
-  categorizationId  String?
-  Categorization    Categorization?    @relation(fields: [categorizationId], references: [id], onDelete: Cascade)
-  createdAt         DateTime           @default(now())
-  updatedAt         DateTime           @default(now()) @updatedAt
-  Organisation      Organisation?      @relation(fields: [organisationId], references: [id], onDelete: Cascade)
-  organisationId    String?
-  FavouriteExponats FavouriteExponat[]
-  Posts             Post[]
+  id                 String             @id @default(uuid())
+  name               String
+  alternateName      String
+  ExponatKind        ExponatKind
+  description        String
+  isApproved         Boolean            @default(true)
+  funFacts           String[]
+  attributes         Json
+  mainImage          String
+  categorizationId   String?
+  Categorization     Categorization?    @relation(fields: [categorizationId], references: [id], onDelete: Cascade)
+  createdAt          DateTime           @default(now())
+  updatedAt          DateTime           @default(now()) @updatedAt
+  Organisation       Organisation?      @relation(fields: [organisationId], references: [id], onDelete: Cascade)
+  organisationId     String?
+  FavouriteExponats  FavouriteExponat[]
+  IsNotificationMade Boolean            @default(false) //Made to check wether a notification has already been made
+  Posts              Post[]
+  authorshipInfoId   String?            @unique
+  AuthorshipInfo     AuthorshipInfo?    @relation(fields: [authorshipInfoId], references: [id])
+  serialNumber       Int                @unique @default(autoincrement())
 }
 
 model Organisation {
@@ -129,34 +195,41 @@ model Organisation {
   Exponats                  Exponat[]
   OrganisationUsers         OrganisationUser[]
   UserOrganisationFollowers UserOrganisationFollower[]
+  Work                      Work[]
 }
 
 model Post {
-  id             String   @id @default(uuid())
-  title          String
-  image          String
-  text           String
-  thumbnailImage String
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @default(now()) @updatedAt
-  authorId       String
-  author         User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
-  isApproved     Boolean  @default(true)
-  Likes          Like[]
-  ExponatId      String?
-  Exponat        Exponat? @relation(fields: [ExponatId], references: [id], onDelete: Cascade)
+  id                 String          @id @default(uuid())
+  title              String
+  image              String
+  text               String
+  thumbnailImage     String
+  createdAt          DateTime        @default(now())
+  updatedAt          DateTime        @default(now()) @updatedAt
+  authorId           String
+  author             User            @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  isApproved         Boolean         @default(false)
+  IsNotificationMade Boolean         @default(false)
+  Likes              Like[]
+  ExponatId          String?
+  Exponat            Exponat?        @relation(fields: [ExponatId], references: [id], onDelete: Cascade)
+  authorshipInfoId   String?         @unique
+  AuthorshipInfo     AuthorshipInfo? @relation(fields: [authorshipInfoId], references: [id])
 }
 
 model SocialPost {
-  id           String       @id @default(uuid())
-  title        String
-  text         String
-  image        String
-  createdAt    DateTime     @default(now())
-  updatedAt    DateTime     @default(now()) @updatedAt
-  authorId     String       @unique
-  organisation Organisation @relation(fields: [authorId], references: [id], onDelete: Cascade)
-  isApproved   Boolean      @default(true)
+  id               String          @id @default(uuid())
+  title            String
+  text             String
+  images           String[]
+  createdAt        DateTime        @default(now())
+  updatedAt        DateTime        @default(now()) @updatedAt
+  authorshipInfoId String?         @unique
+  AuthorshipInfo   AuthorshipInfo? @relation(fields: [authorshipInfoId], references: [id])
+  organisationId   String
+  organisation     Organisation    @relation(fields: [organisationId], references: [id], onDelete: Cascade)
+  isApproved       Boolean         @default(true)
+  type             SocialPostType  @default(NEWS)
 }
 
 model OrganisationUser {
@@ -208,4 +281,87 @@ model UserFollows {
   followeeId String
 
   @@id([followerId, followeeId])
+}
+
+model Work {
+  id                 String       @id @default(uuid())
+  title              String
+  description        String
+  poster             String?
+  createdAt          DateTime     @default(now())
+  updatedAt          DateTime     @default(now()) @updatedAt
+  document           String?
+  IsNotificationMade Boolean      @default(false)
+  presentation       String?
+  authorId           String
+  organisationId     String
+  organisation       Organisation @relation(fields: [organisationId], references: [id])
+  isApproved         Boolean      @default(false)
+  approvedBy         String?
+  firstPublished     DateTime?    @default(now())
+  approver           User?        @relation("approver", fields: [approvedBy], references: [id], onDelete: SetNull)
+  author             User         @relation("author", fields: [authorId], references: [id], onDelete: Cascade)
+  userId             String?
+  SavedWorks         SavedWorks[]
+  tags               String[]
+  type               WorkType     @default(GENERIC)
+}
+
+model SavedLiterature {
+  userId       String
+  literatureId String
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt    DateTime @default(now())
+
+  @@id([literatureId, userId])
+}
+
+model SavedWorks {
+  userId    String
+  workId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  work      Work     @relation(fields: [workId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@id([workId, userId])
+}
+
+model Notification {
+  id                String             @id @default(uuid())
+  title             String
+  text              String?
+  createdAt         DateTime           @default(now())
+  link              String?
+  notificationImage String?
+  UserNotification  UserNotification[]
+  type              NotificationType
+}
+
+model AuthorshipInfo {
+  locationOfOccurence String?
+  dateOfOccurence     DateTime?
+  authorId            String?
+  author              User?       @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  nonPlatformAuthor   String?
+  identifiedBy        String?
+  deviceName          String?
+  photographer        String?
+  literature          String[]
+  id                  String      @id @default(uuid())
+  Post                Post?
+  postId              String?
+  Exponat             Exponat?
+  SocialPost          SocialPost?
+}
+
+//TODO: thik wether identification should be a separate model
+
+model UserNotification {
+  userId         String
+  notificationId String
+  user           User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  notification   Notification @relation(fields: [notificationId], references: [id], onDelete: Cascade)
+  isRead         Boolean      @default(false)
+
+  @@id([notificationId, userId])
 }

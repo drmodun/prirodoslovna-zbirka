@@ -9,6 +9,7 @@ import {
   Query,
   UseGuards,
   Req,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { ExponatsService } from './exponats.service';
 import {
@@ -86,7 +87,7 @@ export class ExponatsController {
     @Req() req?: any,
   ) {
     const isAdmin = req.user?.role === 'super';
-
+    console.log(filter);
     const items = await this.exponatsService.findAll(
       filter,
       sorting,
@@ -177,6 +178,7 @@ export class ExponatsController {
     const mapped = {
       alternateName: item.alternateName,
       id: item.id,
+      serialNumber: item.serialNumber,
       title: item.name,
       ...(isAdmin && { isApproved: item.isApproved }),
       attributes: item.attributes,
@@ -190,14 +192,20 @@ export class ExponatsController {
         phylum: item.Categorization.phylum,
         species: item.Categorization.species,
         id: item.Categorization.id,
+        speciesKey: item.Categorization.speciesKey,
       },
       createdAt: item.createdAt,
       description: item.description,
       favouriteCount: item._count.FavouriteExponats,
       funFacts: item.funFacts,
       mainImage: item.mainImage,
+      authorshipInfo: {
+        ...item.AuthorshipInfo,
+        authorName: `${item.AuthorshipInfo?.author?.firstName} ${item.AuthorshipInfo?.author?.lastName}`,
+      },
       organizationId: item.organisationId,
       exponatKind: item.ExponatKind,
+      authorshipInfoId: item.authorshipInfoId,
       organizationName: item.Organisation.name,
       updatedAt: item.updatedAt,
       posts: posts,
@@ -231,5 +239,10 @@ export class ExponatsController {
   @Patch(':id/approval')
   async changeApprovalStatus(@Param('id') id: string, @Req() req: any) {
     return await this.exponatsService.changeApprovalStatus(id, req.user.id);
+  }
+
+  @Get('serial/:id')
+  async getSerial(@Param('id', ParseIntPipe) id: number) {
+    return await this.exponatsService.getIdBySerialNumber(id);
   }
 }

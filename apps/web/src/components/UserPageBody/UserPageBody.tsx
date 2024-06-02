@@ -3,7 +3,7 @@ import Tabs from "components/Tabs";
 import classes from "./UserPageBody.module.scss";
 
 import { useEffect, useState } from "react";
-import { ExtendedUserResponse } from "@biosfera/types";
+import { ExtendedUserResponse, WorkResponseShort } from "@biosfera/types";
 import UserDescription from "@/views/UserDescription";
 import { ExponatCard } from "components/ExponatCard";
 import { PostCard } from "components/PostCard";
@@ -14,14 +14,16 @@ import { UserWrapper } from "@/utility/wrappers/userWrapper";
 import useUser from "@/utility/context/UserContext";
 import EditUserForm from "components/EditUserForm";
 import DeleteUserButton from "components/DeleteUserButton";
+import MultipleEntityTypesView from "@/views/MultipleEntityTypesView";
 
-const tabs = ["O korisniku", "Objave", "Kapljice", "Favoriti", "Organizacije"];
+const tabs = ["O korisniku", "Kreacije", "Reakcije", "Članstva"];
 
 export interface UserPageBodyProps {
   user: ExtendedUserResponse;
+  savedLiterature?: WorkResponseShort[];
 }
 
-export const UserPageBody = ({ user }: UserPageBodyProps) => {
+export const UserPageBody = ({ savedLiterature, user }: UserPageBodyProps) => {
   const [activeTab, setActiveTab] = useState<string>(tabs[0]);
   const [availableTabs, setAvailableTabs] = useState<string[]>(tabs);
   const { user: loggedUser } = useUser();
@@ -74,62 +76,36 @@ export const UserPageBody = ({ user }: UserPageBodyProps) => {
               <UserDescription
                 bio={user.bio || "Nema opisa korisnika"}
                 county={user.location}
+                username={user.username}
                 lastUpdated={user.updatedAt}
               />
             }
           </div>
         )}
 
-        {activeTab === "Favoriti" && (
-          <div className={classes.tabContent}>
-            {
-              <CardCollection
-                items={user.favouriteExponats}
-                sortBy={[
-                  { label: "Abecedno", value: "title" },
-                  { label: "Znanstveno ime", value: "alternateName" },
-                  { label: "Datum Objave", value: "updatedAt" },
-                  { label: "Broj Favorita", value: "Favourite Count" },
-                ]}
-                type="exponat"
-              />
-            }
-          </div>
+        {activeTab === "Reakcije" && (
+          <MultipleEntityTypesView
+            availableTabs={["Lajkano", "Favoriti", "Spremljeno", "Čitano"]}
+            exponats={user.favouriteExponats}
+            works={user.savedWorks}
+            posts={user.likedPosts}
+            userId={user.id}
+            initTab="Lajkano"
+            literature={savedLiterature}
+          />
         )}
 
-        {activeTab === "Objave" && (
-          <div className={classes.tabContent}>
-            {
-              <CardCollection
-                items={user.posts}
-                sortBy={[
-                  { label: "Abecedno", value: "title" },
-                  { label: "Datum Objave", value: "updatedAt" },
-                  { label: "Likeovi", value: "likeScore" },
-                ]}
-                type="post"
-              />
-            }
-          </div>
+        {activeTab === "Kreacije" && (
+          <MultipleEntityTypesView
+            availableTabs={["Objave", "Radovi"]}
+            posts={user.posts}
+            works={user.works}
+            userId={user.id}
+            initTab="Objave"
+          />
         )}
 
-        {activeTab === "Kapljice" && (
-          <div className={classes.tabContent}>
-            {
-              <CardCollection
-                items={user.likedPosts}
-                sortBy={[
-                  { label: "Abecedno", value: "title" },
-                  { label: "Broj Lajkova", value: "likeScore" },
-                  { label: "Autor", value: "authorName" },
-                ]}
-                type="post"
-              />
-            }
-          </div>
-        )}
-
-        {activeTab === "Organizacije" && (
+        {activeTab === "Članstva" && (
           <div className={classes.tabContent}>
             {user.memberships && (
               <CardCollection

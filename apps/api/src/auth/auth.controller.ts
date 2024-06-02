@@ -9,6 +9,7 @@ import {
   ExponatResponseShort,
   OrganisationResponseShort,
   ExtendedUserResponse,
+  WorkResponseShort,
 } from '@biosfera/types';
 import { UsersService } from 'src/users/users.service';
 
@@ -121,9 +122,50 @@ export class AuthController {
       },
     );
 
+    const works: WorkResponseShort[] = item.Works.map((work) => {
+      return {
+        amountOfSaves: work._count.SavedWorks,
+        auhtorName: item.username,
+        authorId: item.id,
+        description: work.description,
+        id: work.id,
+        organisationId: work.organisationId,
+        organisationName: work.organisation.name,
+        poster: work.poster,
+        tags: work.tags,
+        title: work.title,
+        type: work.type,
+        updatedAt: work.updatedAt,
+        isApproved: work.isApproved,
+        isGbif: false,
+      } as WorkResponseShort;
+    });
+
+    const savedWorks: WorkResponseShort[] = item.SavedWorks.map(
+      (connection) => {
+        return {
+          amountOfSaves: connection.work._count.SavedWorks,
+          auhtorName: item.username,
+          authorId: item.id,
+          description: connection.work.description,
+          id: connection.work.id,
+          organisationId: connection.work.organisationId,
+          organisationName: connection.work.organisation.name,
+          poster: connection.work.poster,
+          tags: connection.work.tags,
+          title: connection.work.title,
+          type: connection.work.type,
+          updatedAt: connection.work.updatedAt,
+          isApproved: connection.work.isApproved,
+          isGbif: false,
+        } as WorkResponseShort;
+      },
+    );
+
     const mapped: ExtendedUserResponse = {
       email: item.email,
       firstName: item.firstName,
+      savedLiterature: item.SavedLiterature,
       lastName: item.lastName,
       followerCount: item._count.followers,
       id: item.id,
@@ -133,6 +175,8 @@ export class AuthController {
       username: item.username,
       location: item.location,
       bio: item.bio,
+      savedWorks: savedWorks,
+      works: works,
       likedPosts: likedPosts,
       followingCount: item._count.following,
       hasProfileImage: item.hasProfileImage,

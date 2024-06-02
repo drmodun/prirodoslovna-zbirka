@@ -5,6 +5,7 @@ import logo from "assets/images/FullLogo.svg";
 import useSideMenu from "@/utility/context/SideMenuContext";
 import Hamburger from "components/Hamburger";
 import Link from "next/link";
+import { NotificationBell } from "components/NotificationBell/NotificationBell";
 export const Header = () => {
   const { active, toggleActive } = useSideMenu();
 
@@ -18,6 +19,7 @@ export const Header = () => {
         </div>
       </div>
       <div className={classes.menu}>
+        <NotificationBell></NotificationBell>
         <Hamburger open={active} onToggle={toggleActive} />
       </div>
     </div>

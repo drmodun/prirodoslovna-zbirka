@@ -1,3 +1,5 @@
+"use client";
+
 import axios, { AxiosError, AxiosResponse } from "axios";
 import toast from "react-hot-toast";
 
@@ -37,9 +39,9 @@ api.interceptors.response.use(
   (error: ErrorResponse) => {
     if (error.status === 401) {
       toast.error(
-        error.response.data.message || error.message || "Forbbiden access"
+        error.response.data.message || error.message || "Forbbiden access",
       );
     }
     return Promise.reject(error.response?.data?.message || error.message);
-  }
+  },
 );

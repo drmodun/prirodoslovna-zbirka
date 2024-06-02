@@ -4,12 +4,12 @@ import {
   OrganisationResponseShort,
   PostResponse,
   ShortUserResponse,
+  WorkResponseShort,
 } from "@biosfera/types";
 import { ExponatCard } from "components/ExponatCard";
 import classes from "./CardCollection.module.scss";
 import MembershipCard from "components/MembershipCard";
 import { PostCard } from "components/PostCard";
-import placeholder from "assets/images/lion.svg";
 import { useEffect, useRef, useState } from "react";
 import dArrow from "assets/images/d-arrow.svg";
 import Image from "next/image";
@@ -19,6 +19,7 @@ import BaseButton from "components/BaseButton";
 import { useIsInView } from "@/utility/hooks/useIsInView";
 import useUser from "@/utility/context/UserContext";
 import { getPfpUrl } from "@/utility/static/getPfpUrl";
+import WorkCard from "components/WorkCard";
 
 export interface SortOption {
   label: string;
@@ -31,6 +32,7 @@ export interface CardCollectionProps {
     | PostResponse[]
     | ShortUserResponse[]
     | OrganisationResponseShort[]
+    | WorkResponseShort[]
   ) &
     Indexable[];
   type:
@@ -39,7 +41,8 @@ export interface CardCollectionProps {
     | "user"
     | "organisation"
     | "user-member"
-    | "organisation-member";
+    | "organisation-member"
+    | "work";
   sortBy: SortOption[];
   organisationId?: string;
   userId?: string;
@@ -71,7 +74,7 @@ export const CardCollection: React.FC<CardCollectionProps> = ({
     if (amount <= items.length) {
       setAmount(
         (prev) =>
-          prev + Math.max(Math.min(pageSize || 20, items.length - prev), 0)
+          prev + Math.max(Math.min(pageSize || 20, items.length - prev), 0),
       );
     }
   };
@@ -113,7 +116,7 @@ export const CardCollection: React.FC<CardCollectionProps> = ({
       memberships.some(
         (membership) =>
           membership.id === organisationId &&
-          (membership.role === "ADMIN" || membership.role === "OWNER")
+          (membership.role === "ADMIN" || membership.role === "OWNER"),
       )
     );
   };
@@ -153,7 +156,7 @@ export const CardCollection: React.FC<CardCollectionProps> = ({
             title="direkcija sortiranja"
             className={clsx(
               classes.direction,
-              !isDescending && classes.descending
+              !isDescending && classes.descending,
             )}
             onClick={handleChangeDirection}
           >
@@ -181,7 +184,7 @@ export const CardCollection: React.FC<CardCollectionProps> = ({
                     key={index}
                     exponat={item as ExponatResponseShort}
                     isAdmin={checkAdminMembership(
-                      (item as ExponatResponseShort).organizationId
+                      (item as ExponatResponseShort).organizationId,
                     )}
                     onRemove={handleDelete}
                   />
@@ -192,7 +195,7 @@ export const CardCollection: React.FC<CardCollectionProps> = ({
                     key={index}
                     post={item as PostResponse}
                     isAdmin={checkIsAdminForPost(
-                      (item as PostResponse).organisationId
+                      organisationId ?? (item as PostResponse).organisationId,
                     )}
                     onRemove={handleDelete}
                     isUser={checkIsAuthor((item as PostResponse).authorId)}
@@ -256,6 +259,14 @@ export const CardCollection: React.FC<CardCollectionProps> = ({
                     isUser={checkIsAuthor(userId!)}
                   />
                 );
+              case "work":
+                return (
+                  <WorkCard
+                    work={item as WorkResponseShort}
+                    isAdmin={checkAdminMembership(item.organisationId)}
+                    onDelete={handleDelete}
+                  />
+                );
             }
           })}
       </div>
@@ -263,7 +274,9 @@ export const CardCollection: React.FC<CardCollectionProps> = ({
       <div
         className={clsx(
           classes.floatingButton,
-          amount > (pageSize || 20) && !listInView ? classes.show : classes.hide
+          amount > (pageSize || 20) && !listInView
+            ? classes.show
+            : classes.hide,
         )}
       >
         <div

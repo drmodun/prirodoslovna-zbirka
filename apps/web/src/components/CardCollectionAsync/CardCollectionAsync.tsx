@@ -4,6 +4,7 @@ import {
   OrganisationResponseShort,
   PostResponse,
   ShortUserResponse,
+  WorkResponseShort,
 } from "@biosfera/types";
 import { ExponatCard } from "components/ExponatCard";
 import classes from "./CardCollectionAsync.module.scss";
@@ -18,6 +19,7 @@ import { useIsInView } from "@/utility/hooks/useIsInView";
 import useUser from "@/utility/context/UserContext";
 import { getPfpUrl } from "@/utility/static/getPfpUrl";
 import OrganisationCard from "components/OrganisationCard";
+import WorkCard from "components/WorkCard";
 
 export interface CardCollectionAsyncProps {
   items: (
@@ -25,9 +27,10 @@ export interface CardCollectionAsyncProps {
     | PostResponse[]
     | ShortUserResponse[]
     | OrganisationResponseShort[]
+    | WorkResponseShort[]
   ) &
     Indexable[];
-  type: "exponat" | "post" | "user" | "organisation";
+  type: "exponat" | "post" | "user" | "organisation" | "work" | "literature";
   page: number;
   isLoading?: boolean;
   getMore: (query?: any, page?: number) => Promise<any> | (() => void);
@@ -64,6 +67,7 @@ export const CardCollectionAsync: React.FC<CardCollectionAsyncProps> = ({
 
   const handleScroll = async () => {
     try {
+      console.log("handleScroll", items);
       if (!loading && !failed) {
         setLoading(true);
         setCurrentPage((prev) => prev + 1);
@@ -76,7 +80,7 @@ export const CardCollectionAsync: React.FC<CardCollectionAsyncProps> = ({
             ...prev,
             ...items?.filter(
               (item: Indexable) =>
-                !prev.some((prevItem) => prevItem.id === item.id)
+                !prev.some((prevItem) => prevItem.id === item.id),
             ),
           ]);
         setLoading(false);
@@ -121,7 +125,7 @@ export const CardCollectionAsync: React.FC<CardCollectionAsyncProps> = ({
       memberships.some(
         (membership) =>
           membership.id === organisationId &&
-          (membership.role === "ADMIN" || membership.role === "OWNER")
+          (membership.role === "ADMIN" || membership.role === "OWNER"),
       )
     );
   };
@@ -148,7 +152,7 @@ export const CardCollectionAsync: React.FC<CardCollectionAsyncProps> = ({
                   key={index}
                   exponat={item as ExponatResponseShort}
                   isAdmin={checkAdminMembership(
-                    (item as ExponatResponseShort).organizationId
+                    (item as ExponatResponseShort).organizationId,
                   )}
                   onRemove={handleDelete}
                 />
@@ -159,7 +163,7 @@ export const CardCollectionAsync: React.FC<CardCollectionAsyncProps> = ({
                   key={index}
                   post={item as PostResponse}
                   isAdmin={checkIsAdminForPost(
-                    (item as PostResponse).organisationId
+                    (item as PostResponse).organisationId,
                   )}
                   onRemove={handleDelete}
                   isUser={checkIsAuthor((item as PostResponse).authorId)}
@@ -188,6 +192,17 @@ export const CardCollectionAsync: React.FC<CardCollectionAsyncProps> = ({
                   organisation={item as OrganisationResponseShort}
                 />
               );
+            case "work":
+              return (
+                <WorkCard
+                  work={item as WorkResponseShort}
+                  isAdmin={checkIsAdminForPost(
+                    (item as WorkResponseShort).organisationId,
+                  )}
+                />
+              );
+            case "literature":
+              return <WorkCard work={item as WorkResponseShort} />;
           }
         })}
       </div>
@@ -195,7 +210,7 @@ export const CardCollectionAsync: React.FC<CardCollectionAsyncProps> = ({
       <div
         className={clsx(
           classes.floatingButton,
-          currentPage > 1 && !listInView ? classes.show : classes.hide
+          currentPage > 1 && !listInView ? classes.show : classes.hide,
         )}
       >
         <div

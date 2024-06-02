@@ -1,0 +1,83 @@
+@import "styles/variables.scss";
+@import "styles/calc.scss";
+
+.container {
+  height: vw-calc(45);
+  width: vw-calc(45);
+  background-color: rgba(0, 0, 0, 0.08);
+  transition: 200ms;
+  border: none;
+  border-radius: 100px;
+  box-sizing: border-box;
+  padding: 8px;
+  margin: 0;
+  align-self: start;
+  transition:
+    background-color 0.2s ease-in-out,
+    transform 0.2s ease-in-out;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+    background-color: rgba(0, 0, 0, 0.15);
+  }
+
+  img {
+    width: 80%;
+    height: 80%;
+    object-fit: cover;
+  }
+
+  @media (max-width: 768px) {
+    height: vw-mobile-calc(20);
+    width: vw-mobile-calc(20);
+  }
+}
+
+.sharingRow {
+  display: flex;
+  gap: vw-calc(20);
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+
+  button {
+    transition:
+      filter 0.2s,
+      ease-in-out;
+
+    &:hover {
+      cursor: pointer;
+      filter: brightness(0.9);
+    }
+  }
+
+  .copyToClipboard {
+    width: 64px;
+    height: 64px;
+    background-color: rgba(0, 0, 0, 0.08);
+    transition: 200ms;
+    border: none;
+    border-radius: 100px;
+    box-sizing: border-box;
+    padding: 8px;
+    margin: 0;
+    align-self: start;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    img {
+      width: 80%;
+      height: 80%;
+      object-fit: cover;
+    }
+  }
+
+  @media (max-width: 768px) {
+    gap: vw-mobile-calc(10);
+  }
+}
