@@ -29,9 +29,9 @@ export const SerialModal = ({ isOpen, onClose }: SerialModalProps) => {
   useEffect(() => {
     if (isSuccess) {
       router.push(`/exponat/${data}`);
-      onClose();
+      setSerialNumber(undefined);
     }
-  }, [data, onClose, isSuccess, router]);
+  }, [data, isSuccess, router]);
 
   return (
     <Modal
