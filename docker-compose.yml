@@ -48,6 +48,8 @@ services:
     build:
       dockerfile: ./apps/web/Dockerfile
       target: runner
+      args:
+        - WEB_URL=${WEB_URL:-http://localhost:3000}
     env_file:
       - ./.env
 
