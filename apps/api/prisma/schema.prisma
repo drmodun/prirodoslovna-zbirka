@@ -177,6 +177,7 @@ model Exponat {
   Posts              Post[]
   authorshipInfoId   String?            @unique
   AuthorshipInfo     AuthorshipInfo?    @relation(fields: [authorshipInfoId], references: [id])
+  serialNumber       Int                @unique @default(autoincrement())
 }
 
 model Organisation {
