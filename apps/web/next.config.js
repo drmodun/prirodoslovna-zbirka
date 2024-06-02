@@ -19,13 +19,13 @@ const nextConfig = {
     serverActions: {
       allowedOrigins: [
         `${process?.env?.WEB_URL ?? "localhost"}:3000`,
-        `${process?.env?.WEB_URL.split("https://")[1]}:3000`,
-        `${process?.env?.WEB_URL.split("http://")[1]}:3000`,
+        `${process?.env?.WEB_URL?.split("https://")[1]}:3000`,
+        `${process?.env?.WEB_URL?.split("http://")[1]}:3000`,
       ],
       allowedForwardedHosts: [
         `${process?.env?.WEB_URL ?? "localhost"}:3000`,
-        `${process?.env?.WEB_URL.split("https://")[1]}:3000`,
-        `${process?.env?.WEB_URL.split("http://")[1]}:3000`,
+        `${process?.env?.WEB_URL?.split("https://")[1]}:3000`,
+        `${process?.env?.WEB_URL?.split("http://")[1]}:3000`,
       ],
     },
   },
