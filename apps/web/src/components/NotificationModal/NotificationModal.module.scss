@@ -1,0 +1,52 @@
+@import "styles/variables.scss";
+@import "styles/calc.scss";
+
+.container {
+  display: flex;
+  width: 100%;
+  max-height: vw-calc(400);
+
+  @media (max-width: 768px) {
+    width: 100%;
+    height: vw-mobile-calc(375);
+  }
+
+  .notifications {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    max-height: vw-calc(600);
+    width: 100%;
+    overflow: scroll;
+    color: $primary;
+
+    &::-webkit-scrollbar {
+      width: vw-calc(10);
+
+      @media (max-width: 768px) {
+        width: vw-mobile-calc(5);
+      }
+    }
+
+    &::-webkit-scrollbar-track {
+      background: $background-color;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: $text;
+      border-radius: vw-calc(10);
+
+      @media (max-width: 768px) {
+        border-radius: vw-mobile-calc(5);
+      }
+
+      &:hover {
+        background: $secondary;
+      }
+    }
+
+    @media (max-width: 768px) {
+      max-height: vw-mobile-calc(375);
+    }
+  }
+}

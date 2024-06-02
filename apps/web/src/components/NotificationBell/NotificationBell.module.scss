@@ -1,0 +1,54 @@
+@import "styles/variables.scss";
+@import "styles/calc.scss";
+
+.container {
+  width: vw-calc(32);
+  height: vw-calc(32);
+  top: vw-calc(-6);
+  position: relative;
+  border: none;
+  outline: none;
+  background-color: $background-color;
+
+  @media (max-width: 768px) {
+    width: vw-mobile-calc(16);
+    height: vw-mobile-calc(16);
+  }
+
+  .notificationAmount {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: vw-calc(16);
+    height: vw-calc(16);
+    background-color: $red;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: vw-calc(12);
+    z-index: 2;
+    color: $background-color;
+
+    @media (max-width: 768px) {
+      width: vw-mobile-calc(8);
+      height: vw-mobile-calc(8);
+      font-size: vw-mobile-calc(8);
+    }
+  }
+
+  .bell {
+    width: vw-calc(32);
+    height: vw-calc(32);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+
+    @media (max-width: 768px) {
+      width: vw-mobile-calc(16);
+      height: vw-mobile-calc(16);
+    }
+  }
+}

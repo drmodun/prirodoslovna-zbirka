@@ -4,12 +4,14 @@ import ExponatModalSections from "components/ExponatModalSections";
 import CategorizationCard from "components/CategorizationCard";
 import Link from "next/link";
 import ImageWithFallback from "components/ImageWithFallback/ImageWithFallback";
+import QrCodeGenerator from "components/QrCodeButton";
+import ShareButton from "components/ShareButton";
+import { Json } from "@biosfera/types/src/jsonObjects";
 export interface ExponatModalProps {
   exponat: ExponatExtendedResponse;
 }
 
 export const ExponatModal = ({ exponat }: ExponatModalProps) => {
-  exponat.attributes = JSON.parse(exponat.attributes?.toString());
   return (
     <div className={classes.container}>
       <div className={classes.mainImage}>
@@ -23,6 +25,13 @@ export const ExponatModal = ({ exponat }: ExponatModalProps) => {
         <span className={classes.latinName}>{exponat.alternateName}</span>
         <span className={classes.name}>{exponat.title}</span>
       </div>
+      <div className={classes.actions}>
+        <QrCodeGenerator name={exponat.title} />
+        <ShareButton
+          title={exponat.title}
+          text={`Pogledajte eksponat ${exponat.title} na biosfera.trema.hr`}
+        />
+      </div>
       {!(exponat.exponatKind.toLowerCase() === "mineral") &&
         exponat.categorization && (
           <CategorizationCard categorization={exponat.categorization} />
@@ -33,6 +42,9 @@ export const ExponatModal = ({ exponat }: ExponatModalProps) => {
       >
         Organizacija eksponata: {exponat.organizationName}
       </Link>
+      <span className={classes.serialNumber}>
+        Serijski broj: {exponat.serialNumber}
+      </span>
       <ExponatModalSections exponat={exponat} />
     </div>
   );

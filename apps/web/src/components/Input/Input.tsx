@@ -4,6 +4,7 @@ import classes from "./Input.module.scss";
 import Image from "next/image";
 import clsx from "clsx";
 import ErrorText from "components/Error";
+import SpeechToText from "components/SpeechToText";
 interface InputProps {
   question: string;
   attribute: string;
@@ -39,6 +40,9 @@ export const Input = ({
           disabled={isDisabled}
           placeholder={question}
         />
+        <div className={classes.mic}>
+          <SpeechToText onText={(text) => form.setValue(attribute, text)} />
+        </div>
       </div>
       <ErrorText message={error} />
     </div>

@@ -15,14 +15,16 @@ import {
   ExtendedUserResponse,
   OrganisationResponseShort,
   PostResponse,
+  SavedLiteratureResponse,
   ShortUserResponse,
+  WorkResponseShort,
 } from "@biosfera/types";
-import { useQueryClient } from "react-query";
-import { QueryClientWrapper } from "../wrappers/queryWrapper";
 import { useGetFollowers } from "@/api/useGetFollowers";
 import { useGetFollowing } from "@/api/useGetFollowing";
 import { useGetFollowedOrganisations } from "@/api/useGetFollowedOrganisations";
 import { set } from "react-hook-form";
+import { useGetMySavedWorks } from "@/api/useGetMySavedWorks";
+import { useGetMySavedLiterature } from "@/api/useGetMySavedLiterature";
 
 interface UserContextProps {
   user?: ExtendedUserResponse;
@@ -35,24 +37,31 @@ interface UserContextProps {
   updateFollowers: (user: ShortUserResponse) => void;
   updateFollowing: (user: ShortUserResponse) => void;
   updateFollowedOrganisation: (organisation: OrganisationResponseShort) => void;
+  updateSavedWorks: (work: WorkResponseShort) => void;
   likedPosts: PostResponse[];
   memberships: OrganisationResponseShort[];
   favouriteExponats: ExponatResponseShort[];
   posts: PostResponse[];
+  savedWorks: WorkResponseShort[];
   followers: ShortUserResponse[];
+  savedLiterature: SavedLiteratureResponse[];
   following: ShortUserResponse[];
   followedOrganisations: OrganisationResponseShort[];
   loading: boolean;
+  updateSavedLiterature: (literature: SavedLiteratureResponse) => void;
 }
 
 const defaultUserContext: UserContextProps = {
   user: undefined,
   logout: () => {},
   setUser: () => {},
+  savedLiterature: [],
+  updateSavedLiterature: () => {},
   updateLikes: () => {},
   updateMemberships: () => {},
   updateFavourites: () => {},
   updatePosts: () => {},
+  updateSavedWorks: () => {},
   likedPosts: [],
   memberships: [],
   updateFollowedOrganisation: () => {},
@@ -62,6 +71,7 @@ const defaultUserContext: UserContextProps = {
   followedOrganisations: [],
   followers: [],
   following: [],
+  savedWorks: [],
   posts: [],
   loading: false,
 };
@@ -79,18 +89,28 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
     ExponatResponseShort[]
   >([]);
   const [memberships, setMemberships] = useState<OrganisationResponseShort[]>(
-    []
+    [],
   );
   const [posts, setPosts] = useState<PostResponse[]>([]);
+  const [savedWorks, setSavedWorks] = useState<WorkResponseShort[]>([]);
+  const [savedLiterature, setSavedLiterature] = useState<
+    SavedLiteratureResponse[]
+  >([]);
 
   const { data: user, isLoading } = useGetMe();
 
   const { data: followersGet, isLoading: followLoading } = useGetFollowers(
-    user?.id
+    user?.id,
   );
   const { data: followingGet, isLoading: followingLoading } = useGetFollowing(
-    user?.id
+    user?.id,
   );
+
+  const { data: savedLiteratureGet, isLoading: savedLiteratureLoading } =
+    useGetMySavedLiterature();
+
+  const { data: savedWorksGet, isLoading: savedWorksLoading } =
+    useGetMySavedWorks();
 
   const { data: followedOrganisationGet, isLoading: orgLoading } =
     useGetFollowedOrganisations();
@@ -107,6 +127,14 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
     }
   }, [followersGet, followingGet, followedOrganisationGet]);
 
+  useEffect(() => {
+    if (savedWorksGet) {
+      setSavedWorks(savedWorksGet);
+    }
+    if (savedLiteratureGet) {
+      setSavedLiterature(savedLiteratureGet);
+    }
+  }, [savedWorksGet, savedLiteratureGet]);
 
   const updatePosts = (post: PostResponse) => {
     if (!posts) return;
@@ -121,7 +149,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   const updateFavourites = (exponat: ExponatResponseShort) => {
     if (!favouriteExponats) return;
     const possibleExponat = favouriteExponats.find(
-      (ex) => ex.id === exponat.id
+      (ex) => ex.id === exponat.id,
     );
     if (possibleExponat) {
       setFavouriteExponats((prev) => prev.filter((ex) => ex.id !== exponat.id));
@@ -151,15 +179,15 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   const updateFollowedOrganisation = (
-    organisation: OrganisationResponseShort
+    organisation: OrganisationResponseShort,
   ) => {
     if (!followedOrganisations) return;
     const possibleOrganisation = followedOrganisations.find(
-      (org) => org.id === organisation.id
+      (org) => org.id === organisation.id,
     );
     if (possibleOrganisation) {
       setFollowedOrganisations((prev) =>
-        prev.filter((org) => org.id !== organisation.id)
+        prev.filter((org) => org.id !== organisation.id),
       );
       return;
     }
@@ -169,15 +197,39 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   const updateMemberships = (organisation: OrganisationResponseShort) => {
     if (!memberships) return;
     const possibleOrganisation = memberships.find(
-      (org) => org.id === organisation.id
+      (org) => org.id === organisation.id,
     );
     if (possibleOrganisation) {
       setMemberships((prev) =>
-        prev.filter((org) => org.id !== organisation.id)
+        prev.filter((org) => org.id !== organisation.id),
       );
       return;
     }
     setMemberships((prev) => [...prev, organisation]);
+  };
+
+  const updateSavedLiterature = (literature: SavedLiteratureResponse) => {
+    if (!savedLiterature) return;
+    const possibleLiterature = savedLiterature.find(
+      (l) => l.literatureId === literature.literatureId,
+    );
+    if (possibleLiterature) {
+      setSavedLiterature((prev) =>
+        prev.filter((l) => l.literatureId !== literature.literatureId),
+      );
+      return;
+    }
+    setSavedLiterature((prev) => [...prev, literature]);
+  };
+
+  const updateSavedWorks = (work: WorkResponseShort) => {
+    if (!savedWorks) return;
+    const possibleWork = savedWorks.find((w) => w.id === work.id);
+    if (possibleWork) {
+      setSavedWorks((prev) => prev.filter((w) => w.id !== work.id));
+      return;
+    }
+    setSavedWorks((prev) => [...prev, work]);
   };
 
   const updateLikes = (post: PostResponse) => {
@@ -221,12 +273,16 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
         setUser: () => {},
         updateLikes,
         updateMemberships,
+        updateSavedLiterature,
         updateFavourites,
+        updateSavedWorks,
         updatePosts,
         likedPosts,
         memberships,
         favouriteExponats,
+        savedWorks,
         posts,
+        savedLiterature,
         followers,
         following,
         followedOrganisations,
@@ -234,7 +290,13 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
         updateFollowing,
         updateFollowedOrganisation,
 
-        loading: isLoading || followLoading || followingLoading || orgLoading,
+        loading:
+          isLoading ||
+          followLoading ||
+          followingLoading ||
+          orgLoading ||
+          savedLiteratureLoading ||
+          savedWorksLoading,
       }}
     >
       {children}

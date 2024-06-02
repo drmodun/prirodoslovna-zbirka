@@ -1,15 +1,30 @@
 import { Injectable } from '@nestjs/common';
 import { CreatePostDto, PostQuery, PostSQL, UpdatePostDto } from './posts.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { sortQueryBuilder } from '@biosfera/types';
+import {
+  getEnumValue,
+  NotificationPromise,
+  NotificationType,
+  sortQueryBuilder,
+} from '@biosfera/types';
 import {
   anonymousPostsDiscover,
   personalizedPostsDiscover,
 } from './rawQueries';
+import { NotificationUsersService } from 'src/notification-users/notification-users.service';
+import { Post } from '@prisma/client';
+import { env } from 'process';
+import { NotificationsService } from 'src/notifications/notifications.service';
+import { FollowsService } from 'src/follows/follows.service';
 
 @Injectable()
 export class PostsService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly notificationService: NotificationsService,
+    private readonly notificationUsersService: NotificationUsersService,
+    private readonly followsService: FollowsService,
+  ) {}
 
   async discover(page: number, size: number, userId?: string) {
     const posts = userId
@@ -90,14 +105,14 @@ export class PostsService {
         ...(sort
           ? sort
           : filter.title
-          ? {
-              _relevance: {
-                fields: ['title'],
-                search: filter.title.split(' ').join(' <-> '),
-                sort: 'desc',
-              },
-            }
-          : null),
+            ? {
+                _relevance: {
+                  fields: ['title'],
+                  search: filter.title.split(' ').join(' <-> '),
+                  sort: 'desc',
+                },
+              }
+            : null),
       },
       include: {
         author: {
@@ -108,6 +123,7 @@ export class PostsService {
             hasProfileImage: true,
           },
         },
+        AuthorshipInfo: true,
         Exponat: {
           select: {
             name: true,
@@ -128,9 +144,48 @@ export class PostsService {
   }
 
   async create(createPostDto: CreatePostDto) {
-    return await this.prisma.post.create({
-      data: createPostDto,
+    const creation = await this.prisma.post.create({
+      data: {
+        ...createPostDto,
+        isApproved: createPostDto.isAdmin,
+      },
     });
+
+    if (createPostDto.isAdmin) {
+      const followerIds = await this.followsService.getFollowers(
+        creation.authorId,
+      );
+      await this.makeNewPostNotification(
+        createPostDto.authorId,
+        creation,
+        followerIds.map((user) => user.followerId),
+      );
+    } else {
+      const exponat = await this.prisma.exponat.findUnique({
+        where: {
+          id: createPostDto.ExponatId,
+        },
+      });
+      const admins = await this.prisma.organisationUser.findMany({
+        where: {
+          organisationId: exponat.organisationId,
+          OR: [
+            {
+              role: 'OWNER',
+            },
+            {
+              role: 'ADMIN',
+            },
+          ],
+        },
+      });
+
+      await this.makeNewPostRequestNotification(
+        creation,
+        creation.authorId,
+        admins.map((admin) => admin.userId),
+      );
+    }
   }
 
   async update(id: string, updatePostDto: UpdatePostDto) {
@@ -174,6 +229,16 @@ export class PostsService {
             username: true,
           },
         },
+        AuthorshipInfo: {
+          include: {
+            author: {
+              select: {
+                firstName: true,
+                lastName: true,
+              },
+            },
+          },
+        },
         Exponat: {
           select: {
             name: true,
@@ -189,12 +254,123 @@ export class PostsService {
     });
   }
 
+  async makeApprovalNotification(
+    post: Post,
+    userId: string,
+  ): NotificationPromise {
+    const notificationText = post.isApproved
+      ? `Vaša objava ${post.title} je odobrena`
+      : `Vaša objava ${post.title} je odbijena`;
+
+    const makeNotification = await this.notificationService.create(
+      {
+        text: notificationText,
+        type: 'POST_APPROVAL',
+        link: `${env.WEB_URL ?? 'localhost:3000'}/post/${post.id}`,
+        title: 'Obavijest o objavi',
+        notificationImage: post.thumbnailImage,
+      },
+      [userId],
+    );
+
+    await this.notificationUsersService.publishNotification(
+      userId,
+      makeNotification,
+    );
+
+    return makeNotification;
+  }
+
+  makeNewPostNotification = async (
+    posterId: string,
+    post: Post,
+    followerIds: string[],
+  ): NotificationPromise => {
+    const splitText = post.text.split(' ');
+    const notification = await this.notificationService.create(
+      {
+        text:
+          splitText.length > 20
+            ? `${splitText.slice(0, 20).join(' ')}...`
+            : post.text,
+        type: 'POST_BY_FOLLOWED_ACCOUNT',
+        notificationImage: post.thumbnailImage,
+        link: `${env.WEB_URL ?? 'localhost:3000'}/posts/${post.id}`,
+        title: `Nova objava od korisnika ${posterId}: ${post.title}`,
+      },
+      followerIds,
+    );
+
+    await this.prisma.post.update({
+      where: {
+        id: post.id,
+      },
+      data: {
+        IsNotificationMade: true,
+      },
+    });
+
+    return notification;
+  };
+
+  async makeNewPostRequestNotification(
+    post: Post,
+    userId: string,
+    adminsId: string[],
+  ): NotificationPromise {
+    const notification = await this.notificationService.create(
+      {
+        text: `Novi zahtjev za objavu ${post.title} korisnika`,
+        type: 'NEW_POST_REQUEST',
+        link: `${env.WEB_URL ?? 'localhost:3000'}/post/${post.id}/admin`,
+        title: 'Novi zahtjev za objavu',
+        notificationImage: post.thumbnailImage,
+      },
+      adminsId,
+    );
+
+    await this.notificationUsersService.publishNotification(
+      userId,
+      notification,
+    );
+
+    return notification;
+  }
+
   async toggleApproval(id: string) {
     const post = await this.prisma.post.findUnique({
       where: {
         id,
       },
+      include: {
+        author: {
+          select: {
+            id: true,
+            username: true,
+          },
+        },
+      },
     });
+
+    await this.makeApprovalNotification(
+      { ...post, isApproved: !post.isApproved },
+      post.author.id,
+    );
+
+    if (!post.isApproved && !post.IsNotificationMade) {
+      const users = await this.followsService.getFollowers(post.author.id);
+
+      const notification = await this.makeNewPostNotification(
+        post.author.username,
+        post,
+        users.map((user) => user.followerId),
+      );
+
+      await this.notificationUsersService.publishManyNotifications(
+        users.map((user) => user.followerId),
+        notification,
+      );
+    }
 
     return await this.prisma.post.update({
       where: {

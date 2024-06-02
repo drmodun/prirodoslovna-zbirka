@@ -95,7 +95,8 @@ export const sortQueryBuilder = (request: SortingRequest) => {
       return { alternateName: request.direction };
     case SortingEnum.USERNAME:
       return { username: request.direction };
-    default:  return null;
+    default:
+      return null;
   }
 };
 export interface QueryResponse<T> {
@@ -133,6 +134,24 @@ export const socialPostSortQueryBuilder = (request: SortingRequest) => {
       };
   }
 };
+
+export const worksSortQueryBuilder = (request: SortingRequest) => {
+  switch (request.attribute) {
+    case SortingEnum.TITLE:
+      return {
+        title: request.direction,
+      };
+    case SortingEnum.CREATED_AT:
+      return {
+        createdAt: request.direction,
+      };
+    case SortingEnum.ORGANISATION:
+      return {
+        organisationId: request.direction,
+      };
+  }
+};
+
 export const sortCategorizationQueryBuilderWithComplexFilters = (
   request: SortingRequest
 ) => {

@@ -93,4 +93,25 @@
       font-size: vw-mobile-calc(12);
     }
   }
+
+  .speechToText {
+    height: vw-calc(45);
+    width: vw-calc(45);
+    object-fit: cover;
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 200ms;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+
+    @media (max-width: 768px) {
+      width: vw-mobile-calc(20);
+      height: vw-mobile-calc(20);
+    }
+  }
 }

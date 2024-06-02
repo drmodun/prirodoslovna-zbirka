@@ -5,6 +5,7 @@ import { InputResult } from "@/shared/enums";
 import clsx from "clsx";
 import Link from "next/link";
 import { Indexable } from "@biosfera/types/src/jsonObjects";
+import SpeechToText from "components/SpeechToText";
 interface InputProps {
   question: string;
   value: string;
@@ -56,6 +57,9 @@ export const SingleInput = ({
         value={value}
         onChange={handleOnChange}
       />
+      <div className={classes.speechToText}>
+        <SpeechToText onText={(text) => onChange(text)} />
+      </div>
     </div>
   );
 };

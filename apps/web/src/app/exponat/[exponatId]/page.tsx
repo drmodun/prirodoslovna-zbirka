@@ -7,11 +7,15 @@ import CardCollection from "components/CardCollection";
 import { UserWrapper } from "@/utility/wrappers/userWrapper";
 import SingleExponatView from "@/views/SingleExponatView.ts";
 import NotFound from "@/not-found";
+import { exponatInfoPrompt, ttsPrompt } from "@/api/AI";
+import { Suspense } from "react";
+import { ExponatAsyncWrapper } from "@/utility/wrappers/exponatAsyncWrapper";
 
 const ExponatPage = async ({ params }: { params: any }) => {
   const exponatInfo: ExponatExtendedResponse = await serverGetExponat(
-    params.exponatId
+    params.exponatId,
   );
+  console.log(exponatInfo?.categorization?.speciesKey);
 
   return exponatInfo ? (
     <div className={classes.container}>
@@ -19,7 +23,9 @@ const ExponatPage = async ({ params }: { params: any }) => {
         <ExponatModal exponat={exponatInfo} />
       </div>
       <UserWrapper>
-        <SingleExponatView exponat={exponatInfo} />
+        <Suspense fallback={<SingleExponatView exponat={exponatInfo} />}>
+          <ExponatAsyncWrapper exponat={exponatInfo} />
+        </Suspense>
       </UserWrapper>
     </div>
   ) : (

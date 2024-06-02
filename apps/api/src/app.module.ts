@@ -20,6 +20,13 @@ import { LikesModule } from './likes/likes.module';
 import { FollowsModule } from './follows/follows.module';
 import { BlobModule } from './blob/blob.module';
 import { EmailModule } from './email/email.module';
+import { WorksModule } from './works/works.module';
+import { SavedWorksModule } from './saved-works/saved-works.module';
+import { LiteratureModule } from './literature/literature.module';
+import { NotificationsModule } from './notifications/notifications.module';
+import { NotificationUsersModule } from './notification-users/notification-users.module';
+import { EventEmitterModule } from '@nestjs/event-emitter';
+import { AuthorshipInfoModule } from './authorship-info/authorship-info.module';
 
 @Module({
   imports: [
@@ -46,6 +53,13 @@ import { EmailModule } from './email/email.module';
     FollowsModule,
     BlobModule,
     EmailModule,
+    WorksModule,
+    SavedWorksModule,
+    LiteratureModule,
+    NotificationsModule,
+    NotificationUsersModule,
+    EventEmitterModule.forRoot(),
+    AuthorshipInfoModule,
   ],
   controllers: [AppController],
   providers: [AppService],

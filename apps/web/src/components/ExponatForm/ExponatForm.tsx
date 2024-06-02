@@ -2,8 +2,6 @@
 import {
   Directories,
   ExponatExtendedResponse,
-  ExponatKind,
-  ExponatResponseShort,
   SpeciesResponse,
 } from "@biosfera/types";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -25,8 +23,9 @@ import FileUpload from "components/FileUpload";
 import { useUploadFile } from "@/api/useUploadFile";
 import toast from "react-hot-toast";
 import { useUpdateExponat } from "@/api/useUpdateExponat";
-import exp from "constants";
-import { Json } from "@biosfera/types/src/jsonObjects";
+import AuthorshipInfoModal from "components/AuthorshipInfoModal";
+import AuthorshipButton from "components/AuthorshipButton";
+import { AuthorshipInfoFields } from "components/AuthorshipInfoModal/AuthorshipInfoModal";
 export interface ExponatModalSectionsProps {
   organisationId: string;
   isEdit?: boolean;
@@ -56,6 +55,7 @@ export const ExponatForm = ({
         .min(1, "Mora postojati barem jedan fun fact"),
       exponatKind: z.enum(["EUCARIOT", "PROCARIOT", "MINERAL"]),
       attributes: z.any(),
+      authorshipInfoId: z.string().uuid(),
       mainImage: z.any(),
     })
     .refine(
@@ -65,13 +65,13 @@ export const ExponatForm = ({
       {
         message: "Mora postojati barem jedan atribut",
         path: ["attributes"],
-      }
+      },
     );
   const [selectedSpecies, setSelectedSpecies] = useState<string>(
-    values?.alternateName || ""
+    values?.alternateName || "",
   );
   const [exponatMainImage, setExponatMainImage] = useState<File[]>(
-    [] as File[]
+    [] as File[],
   );
 
   const form = useForm({
@@ -139,6 +139,7 @@ export const ExponatForm = ({
       description: formData.description,
       funFacts: formData.funFacts,
       name: formData.name,
+      authorshipInfoId: formData.authorshipInfoId,
       authorId: organisationId,
       ExponatKind: formData.exponatKind,
       mainImage: image,
@@ -192,7 +193,7 @@ export const ExponatForm = ({
             data
               ?.filter(
                 (x: SpeciesResponse) =>
-                  x.rank === "SPECIES" && x.species?.split(" ").length > 1
+                  x.rank === "SPECIES" && x.species?.split(" ").length > 1,
               ) //Check for valid species with two word nomenclature
               .map((species: SpeciesResponse) => ({
                 value: species.species,
@@ -229,6 +230,11 @@ export const ExponatForm = ({
       <FileUpload
         name={"Glavna slika eksponata"}
         onChange={setExponatMainImage}
+      />
+      <AuthorshipButton
+        form={form}
+        type={AuthorshipInfoFields.EXPONAT}
+        currentValues={values?.authorshipInfo}
       />
       <AttributeInput
         form={form}

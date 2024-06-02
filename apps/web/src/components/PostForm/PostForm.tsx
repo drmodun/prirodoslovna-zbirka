@@ -14,6 +14,8 @@ import { useCreatePost } from "@/api/useCreatePost";
 import BaseButton from "components/BaseButton";
 import { useUpdatePost } from "@/api/useUpdatePost";
 import toast from "react-hot-toast";
+import AuthorshipButton from "components/AuthorshipButton";
+import { AuthorshipInfoFields } from "components/AuthorshipInfoModal/AuthorshipInfoModal";
 
 export interface PostFormProps {
   exponatId: string;
@@ -102,8 +104,15 @@ export const PostForm = ({ exponatId, isEdit, values }: PostFormProps) => {
           <FileUpload onChange={setThumbnail} name="Naslovna slika" />
           <FileUpload onChange={setImage} name="Glavna slika" />
         </div>
+        <AuthorshipButton
+          form={form}
+          type={AuthorshipInfoFields.POST}
+          currentValues={values?.authorshipInfo}
+        />
         <BaseButton text="Napravi objavu" />
       </form>
     </div>
   );
 };
+
+//TODO: fix search on users

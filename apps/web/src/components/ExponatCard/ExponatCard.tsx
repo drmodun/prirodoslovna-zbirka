@@ -56,7 +56,13 @@ export const ExponatCard = ({
         {exponat.organizationName}
       </Link>
       <div className={classes.text}>
-        <Link href={`/exponat/${exponat.id}`}>
+        <Link
+          href={
+            exponat.isApproved === false
+              ? `/exponat/${exponat.id}/admin`
+              : `/exponat/${exponat.id}`
+          }
+        >
           <span className={classes.name}>{exponat.name}</span>
         </Link>
         <span className={classes.alternateName}>{exponat.alternateName}</span>
@@ -71,7 +77,7 @@ export const ExponatCard = ({
         <div
           className={clsx(
             classes.kind,
-            classes[exponat.exponatKind?.toLowerCase()]
+            classes[exponat.exponatKind?.toLowerCase()],
           )}
         >
           {exponat.exponatKind && stringCapitaliser(exponat.exponatKind)}

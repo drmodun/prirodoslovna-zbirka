@@ -18,7 +18,7 @@ export const CreationModal = () => {
   const router = useRouter();
 
   const schema = z.object({
-    type: z.enum(["organisation", "exponat", "post"]),
+    type: z.enum(["organisation", "exponat", "post", "work"]),
     organisationId: z.string(),
     exponatId: z.string().optional(),
   });
@@ -37,7 +37,7 @@ export const CreationModal = () => {
   }, [memberships, form, form.watch("type")]);
 
   const { data: availableExponats } = useGetExponatsForOrganisation(
-    form.watch("organisationId")?.toLowerCase()
+    form.watch("organisationId")?.toLowerCase(),
   );
 
   useEffect(() => {
@@ -65,6 +65,10 @@ export const CreationModal = () => {
       case "post":
         data.exponatId && router.push(`/exponat/${data.exponatId}/createPost`);
         break;
+      case "work":
+        data.organisationId &&
+          router.push(`/organisation/${data.organisationId}/createWork`);
+        break;
     }
   };
 
@@ -85,6 +89,7 @@ export const CreationModal = () => {
             { value: "organisation", label: "Organizacija" },
             { value: "exponat", label: "Eksponat" },
             { value: "post", label: "Objava" },
+            { value: "work", label: "Rad" },
           ]}
         />
         {form.watch("type") !== "organisation" && (
@@ -92,10 +97,12 @@ export const CreationModal = () => {
             form={form}
             label="Organizacija"
             name="organisationId"
-            options={memberships.map((membership) => ({
-              value: membership.id,
-              label: membership.name,
-            }))}
+            options={memberships
+              .filter((membership) => membership.role !== "REQUESTED")
+              .map((membership) => ({
+                value: membership.id,
+                label: membership.name,
+              }))}
           />
         )}
         {form.watch("type") === "post" && (

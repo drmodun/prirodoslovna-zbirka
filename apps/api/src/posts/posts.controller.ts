@@ -57,6 +57,11 @@ export class PostsController {
       organisationId,
     );
 
+    createPostDto.isAdmin = await this.membersService.hasAdminRights(
+      req.user.id,
+      organisationId,
+    );
+
     if (!check) throw new UnauthorizedException('User is not a member');
 
     createPostDto.authorId = req.user.id;
@@ -155,6 +160,10 @@ export class PostsController {
       title: post.title,
       authorFullName: post.author.firstName + ' ' + post.author.lastName,
       content: post.text,
+      authorshipInfo: {
+        ...post.AuthorshipInfo,
+        authorName: `${post.AuthorshipInfo?.author?.firstName} ${post.AuthorshipInfo?.author?.lastName}`,
+      },
       image: post.image,
       updatedAt: post.updatedAt,
       organisationId: post.Exponat.organisationId,
@@ -281,9 +290,8 @@ export class PostsController {
         "You cannot see unapproved posts because you don't have admin rights",
       );
 
-    const posts = await this.postsService.findAllWithoutApproval(
-      organisationId,
-    );
+    const posts =
+      await this.postsService.findAllWithoutApproval(organisationId);
 
     const mapped: PostResponse[] = posts.map((post) => {
       return {

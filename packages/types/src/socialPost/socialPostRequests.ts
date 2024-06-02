@@ -25,6 +25,10 @@ export const getCreateSocialPostDto = (ApiPropertySwagger?: any) => {
     @IsString()
     @ApiProperty()
     image: string;
+
+    @IsUUID()
+    @ApiProperty()
+    authorshipInfoId: string;
   }
   return CreateSocialPostDto;
 };

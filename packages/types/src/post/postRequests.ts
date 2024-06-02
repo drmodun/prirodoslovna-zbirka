@@ -2,6 +2,7 @@ import {
   IsEnum,
   IsOptional,
   IsString,
+  IsUUID,
   MaxLength,
   MinLength,
 } from "class-validator";
@@ -21,6 +22,10 @@ export const getCreatePostRequest = (ApiPropertySwagger?: any) => {
     @IsString()
     image: string;
 
+    @IsUUID()
+    @ApiProperty()
+    authorshipInfoId: string;
+
     @ApiProperty()
     @IsString()
     thumbnailImage: string;
@@ -31,6 +36,7 @@ export const getCreatePostRequest = (ApiPropertySwagger?: any) => {
     text: string;
 
     authorId: string;
+    isAdmin: boolean;
 
     ExponatId: string;
   }

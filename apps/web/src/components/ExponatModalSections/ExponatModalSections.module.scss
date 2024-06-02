@@ -212,13 +212,13 @@
       display: flex;
       flex-direction: row;
       align-items: center;
-      height: vw-calc(40);
+      min-height: vw-calc(40);
       width: 100%;
       border: 1px solid $primary;
       border-bottom: none;
 
       @media (max-width: 768px) {
-        height: vw-mobile-calc(20);
+        min-height: vw-mobile-calc(20);
       }
 
       &:first-child {
