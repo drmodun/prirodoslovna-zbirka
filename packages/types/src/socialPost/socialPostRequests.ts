@@ -23,10 +23,6 @@ export const getCreateSocialPostDto = (ApiPropertySwagger?: any) => {
     @ApiProperty()
     text: string;
 
-    @IsString()
-    @ApiProperty()
-    mainImage: string;
-
     @IsUUID()
     @ApiProperty()
     authorshipInfoId: string;
@@ -37,6 +33,33 @@ export const getCreateSocialPostDto = (ApiPropertySwagger?: any) => {
     images: string[];
   }
   return CreateSocialPostDto;
+};
+
+export const getUpdateSocialPostDto = (ApiPropertySwagger?: any) => {
+  const ApiProperty = ApiPropertySwagger || function () {};
+
+  class UpdateSocialPostDto {
+    @IsString()
+    @MinLength(3)
+    @ApiProperty()
+    title: string;
+
+    @IsString()
+    @MinLength(10)
+    @MaxLength(500)
+    @ApiProperty()
+    text: string;
+
+    @IsUUID()
+    @ApiProperty()
+    authorshipInfoId: string;
+
+    @IsArray()
+    @IsString({ each: true })
+    @ApiProperty()
+    images: string[];
+  }
+  return UpdateSocialPostDto;
 };
 
 export const getSocialPostQuery = (ApiPropertySwagger?: any) => {

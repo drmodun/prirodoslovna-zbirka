@@ -15,6 +15,7 @@ import {
 } from './dto/authorship-info.dto';
 import { ApiBearerAuth } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/jwt-auth-guard';
+import { AuthorshipInfo } from '@biosfera/types';
 
 @Controller('authorship-info')
 export class AuthorshipInfoController {
@@ -32,13 +33,14 @@ export class AuthorshipInfoController {
   }
 
   @Get()
+  //TODO: consider filtering
   async findAll() {
-    return await this.authorshipInfoService.findAll();
+    return (await this.authorshipInfoService.findAll()) as AuthorshipInfo[];
   }
 
   @Get(':id')
   async findOne(@Param('id') id: string) {
-    return await this.authorshipInfoService.findOne(id);
+    return (await this.authorshipInfoService.findOne(id)) as AuthorshipInfo;
   }
 
   @UseGuards(JwtAuthGuard)

@@ -189,7 +189,20 @@ export enum NotificationType {
   NEW_WORK_REQUEST = "Novi zahtjev za rad",
 }
 
+export enum SocialPostType {
+  STORY = "Priča",
+  EU_PROJECT = "EU Projekt",
+  EVENT = "Događaj",
+  OTHER = "Ostalo",
+  GUIDE = "Vodič",
+  NEWS = "Vijesti",
+  ANNOUNCEMENT = "Najava",
+  WORKSHOP = "Radionica",
+}
+
 export type NotificationTypeEnumType = keyof typeof NotificationType;
+
+export type SocialPostTypeEnumType = keyof typeof SocialPostType;
 
 export type NotificationPromise = Promise<
   {

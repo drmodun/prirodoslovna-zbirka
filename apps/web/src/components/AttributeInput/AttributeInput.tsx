@@ -30,6 +30,7 @@ export const AttributeInput = ({
   const [object, setObject] = useState<Json>(initValue || {});
   const [newAttribute, setNewAttribute] = useState<string>("");
   const [newValue, setNewValue] = useState<string>("");
+  
 
   const handleOnChange = () => {
     if (newAttribute === "" || newValue === "") return;
