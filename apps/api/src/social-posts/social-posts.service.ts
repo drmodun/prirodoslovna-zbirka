@@ -82,7 +82,6 @@ export class SocialPostsService {
         title: createSocialPostDto.title,
         images: createSocialPostDto.images,
         isApproved: true,
-        mainImage: createSocialPostDto.mainImage,
         AuthorshipInfo: {
           connect: {
             id: createSocialPostDto.authorshipInfoId,

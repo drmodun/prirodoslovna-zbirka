@@ -15,7 +15,6 @@ import Input from "components/Input";
 import Textarea from "components/Textarea";
 import ListInput from "components/ListInput";
 import SelectInput from "components/SelectInput";
-import { stringCapitaliser } from "@/utility/static/stringCapitaliser";
 import FileUpload from "components/FileUpload";
 import BaseButton from "components/BaseButton";
 import { use, useState } from "react";
@@ -44,7 +43,7 @@ export const WorksForm = ({ isEdit, work, organisationId }: WorksFormProps) => {
     type: z.enum([
       "",
       ...(getLiteratureTypesList().map(
-        (type: string) => type as string,
+        (type: string) => type as string
       ) as string[]),
     ]),
   });
@@ -71,7 +70,7 @@ export const WorksForm = ({ isEdit, work, organisationId }: WorksFormProps) => {
   const [workPoster, setWorkPoster] = useState<File[]>([] as File[]);
   const [workDocument, setWorkDocument] = useState<File[]>([] as File[]);
   const [workPresentation, setWorkPresentation] = useState<File[]>(
-    [] as File[],
+    [] as File[]
   );
 
   const { mutateAsync: uploadImage } = useUploadFile();
