@@ -1,4 +1,5 @@
 import {
+  IsArray,
   IsEnum,
   IsString,
   IsUUID,
@@ -24,11 +25,16 @@ export const getCreateSocialPostDto = (ApiPropertySwagger?: any) => {
 
     @IsString()
     @ApiProperty()
-    image: string;
+    mainImage: string;
 
     @IsUUID()
     @ApiProperty()
     authorshipInfoId: string;
+
+    @IsArray()
+    @IsString({ each: true })
+    @ApiProperty()
+    images: string[];
   }
   return CreateSocialPostDto;
 };
