@@ -221,6 +221,7 @@ model SocialPost {
   id               String          @id @default(uuid())
   title            String
   text             String
+  mainImage        String
   images           String[]
   createdAt        DateTime        @default(now())
   updatedAt        DateTime        @default(now()) @updatedAt

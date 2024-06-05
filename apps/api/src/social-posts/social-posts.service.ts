@@ -5,16 +5,44 @@ import {
   SocialPostQuery,
   UpdateSocialPostDto,
 } from './dto/socialPost.dto';
-import { Role } from '@prisma/client';
+import { Role, SocialPost } from '@prisma/client';
 import {
   PaginationRequest,
   SortingRequest,
   socialPostSortQueryBuilder,
 } from '@biosfera/types';
+import { NotificationsService } from 'src/notifications/notifications.service';
+import { NotificationUsersService } from 'src/notification-users/notification-users.service';
 
 @Injectable()
 export class SocialPostsService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly notificationService: NotificationsService,
+    private readonly notificationUsersService: NotificationUsersService,
+  ) {}
+
+  async makeSocialPostNotification(
+    socialPost: SocialPost & {
+      organisation: {
+        id: string;
+        name: string;
+      };
+    },
+    userIds: string[],
+  ) {
+    const notification = await this.notificationService.create(
+      {
+        title: `Nova najava organizacije ${socialPost.organisation.name}`,
+        link: `/social-posts/${socialPost.id}`,
+        type: 'NEW_SOCIAL_POST',
+        text: `Nova najava organizacije ${socialPost.organisation.name}: ${socialPost.title}`,
+      },
+      userIds,
+    );
+
+    return notification;
+  }
 
   async checkForValidity(userId: string, orgranisationId: string) {
     const connection = await this.prisma.organisationUser.findFirst({
@@ -48,19 +76,48 @@ export class SocialPostsService {
 
     if (!check) throw new UnauthorizedException();
 
-    return await this.prisma.socialPost.create({
+    const socialPost = await this.prisma.socialPost.create({
       data: {
         text: createSocialPostDto.text,
         title: createSocialPostDto.title,
-        images: [],
+        images: createSocialPostDto.images,
         isApproved: true,
-        organisationId: organisationId,
-        authorshipInfoId: createSocialPostDto.authorshipInfoId,
+        mainImage: createSocialPostDto.mainImage,
+        AuthorshipInfo: {
+          connect: {
+            id: createSocialPostDto.authorshipInfoId,
+          },
+        },
+        organisation: {
+          connect: {
+            id: organisationId,
+          },
+        },
       },
       include: {
-        organisation: true,
+        organisation: {
+          include: {
+            UserOrganisationFollowers: {
+              select: {
+                userId: true,
+              },
+            },
+          },
+        },
       },
     });
+
+    const notification = await this.makeSocialPostNotification(
+      socialPost,
+      socialPost.organisation.UserOrganisationFollowers.map((x) => x.userId),
+    );
+
+    await this.notificationUsersService.publishManyNotifications(
+      socialPost.organisation.UserOrganisationFollowers.map((x) => x.userId),
+      notification,
+    );
+
+    return socialPost;
   }
 
   async findAll(
