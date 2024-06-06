@@ -15,6 +15,8 @@ import { useLeaveMembership } from "@/api/useLeaveOrganisation";
 import { useRequestMembership } from "@/api/useRequestMembership";
 import QrCodeGenerator from "components/QrCodeButton";
 import ShareButton from "components/ShareButton";
+import Link from "next/link";
+import BaseButton from "components/BaseButton";
 
 export interface OrganisationHomepageProps {
   organisation: ExtendedOrganisationResponse;
@@ -25,8 +27,8 @@ export const OrganisationHomepage = ({
 }: OrganisationHomepageProps) => {
   const {
     memberships,
-    user,
     followedOrganisations,
+    user,
     updateFollowedOrganisation,
     updateMemberships,
   } = useUser();
@@ -43,7 +45,7 @@ export const OrganisationHomepage = ({
       memberCount: organisation.membersAmount,
     };
     updateFollowedOrganisation(
-      organisationToUpdate as OrganisationResponseShort,
+      organisationToUpdate as OrganisationResponseShort
     );
   };
 
@@ -51,19 +53,19 @@ export const OrganisationHomepage = ({
     const isMember = memberships.some((x) => x.id === organisation.id);
     if (isMember) {
       const confirm = window.confirm(
-        "Jeste li sigurni da želite napustiti organizaciju?",
+        "Jeste li sigurni da želite napustiti organizaciju?"
       );
       if (!confirm) return;
       await leaveOrganisation(organisation.id);
       const memershipToRemove = memberships.find(
-        (x) => x.id === organisation.id,
+        (x) => x.id === organisation.id
       );
       updateMemberships(memershipToRemove!);
       return;
     }
 
     const confirm = window.confirm(
-      "Jeste li sigurni da želite poslati zahtjev za članstvo?",
+      "Jeste li sigurni da želite poslati zahtjev za članstvo?"
     );
     if (!confirm) return;
     await requestMembership(organisation.id);
@@ -92,7 +94,7 @@ export const OrganisationHomepage = ({
                 className={clsx(
                   classes.button,
                   followedOrganisations.some((x) => x.id === organisation.id) &&
-                    classes.unfollow,
+                    classes.unfollow
                 )}
                 onClick={handleToggleFollow}
               >
@@ -110,7 +112,7 @@ export const OrganisationHomepage = ({
                   classes.button,
                   classes.blue,
                   memberships.some((x) => x.id === organisation.id) &&
-                    classes.leave,
+                    classes.leave
                 )}
                 onClick={handleMembership}
               >
@@ -145,6 +147,24 @@ export const OrganisationHomepage = ({
             </div>
           </div>
         </div>
+        {memberships.some(
+          (x) =>
+            (x.id === organisation.id && x.role === "ADMIN") ||
+            x.role === "OWNER" ||
+            user?.role?.toLowerCase() === "super"
+        ) && (
+          <Link href={`/organisation/${organisation.id}/createSocialPost`}>
+            <BaseButton text="Dodaj novu objavu" />
+          </Link>
+        )}
+        {organisation?.socialPosts?.length && (
+          <div className={classes.socialPostWrapper}>
+            <span className={classes.title}>Objave</span>
+            {organisation.socialPosts?.map((post) => (
+              <SocialPostCard key={post.id} post={post} />
+            ))}
+          </div>
+        )}
       </div>
     )
   );

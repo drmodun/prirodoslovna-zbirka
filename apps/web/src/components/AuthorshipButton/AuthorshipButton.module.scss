@@ -1,0 +1,11 @@
+@import "styles/variables";
+@import "styles/calc";
+
+.container {
+  margin: vw-calc(20) 0;
+  display: flex;
+
+  @media screen and (max-width: 768px) {
+    margin: vw-mobile-calc(10) 0;
+  }
+}
