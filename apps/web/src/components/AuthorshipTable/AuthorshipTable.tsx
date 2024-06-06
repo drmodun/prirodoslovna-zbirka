@@ -28,6 +28,7 @@ export const AuthorshipTable = ({ authorshipInfo }: AuthorshipTableProps) => (
           !authorshipInfo[key].includes("undefined") &&
           authorshipInfo[key] != undefined &&
           key !== "authorId" &&
+          authorshipInfo[key] != "" &&
           !(
             key === "authorName" && authorshipInfo.nonPlatformAuthor != null
           ) && (
@@ -35,7 +36,7 @@ export const AuthorshipTable = ({ authorshipInfo }: AuthorshipTableProps) => (
               <span className={classes.tableKey}>{authTableDict[key]}</span>
               <span className={classes.tableValue}>{authorshipInfo[key]}</span>
             </div>
-          ),
+          )
       )}
   </div>
 );

@@ -1,4 +1,4 @@
-import { SocialPostTypeEnumType } from "src/enums";
+import { SocialPostTypeEnumType } from "../enums";
 import { AuthorshipInfo } from "../authorshipInfo/responses";
 export interface ShortSocialPostResponse {
   id: string;

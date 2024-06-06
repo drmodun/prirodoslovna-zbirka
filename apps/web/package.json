@@ -41,6 +41,7 @@
     "react-pdf": "^8.0.2",
     "react-qr-code": "^2.0.12",
     "react-query": "^3.39.3",
+    "react-responsive-carousel": "^3.2.23",
     "react-share": "^5.1.0",
     "sass": "^1.75.0",
     "sharp": "^0.33.4",

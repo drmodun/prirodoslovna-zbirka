@@ -1,7 +1,9 @@
 "use client";
 
 import { useCreateSocialPost } from "@/api/useCreateSocialPost";
+import { useUpdateSocialPost } from "@/api/useUpdateSocialPost";
 import { useUploadFile } from "@/api/useUploadFile";
+import classes from "./SocialPostForm.module.scss";
 import {
   Directories,
   getEnumValue,
@@ -21,10 +23,11 @@ import Textarea from "components/Textarea";
 import { useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import { z } from "zod";
+import toast from "react-hot-toast";
 
 export interface SocialPostFormProps {
   organisationId: string;
-  currentValues: ShortSocialPostResponse;
+  currentValues?: ShortSocialPostResponse;
 }
 
 export const SocialPostForm = ({
@@ -34,6 +37,10 @@ export const SocialPostForm = ({
   const { mutateAsync: uploadImage } = useUploadFile();
 
   const { mutateAsync: createSocialPost } = useCreateSocialPost();
+  const { mutateAsync: updateSocialPost } = useUpdateSocialPost();
+
+  //TODO: see if enforcing adding authorship info is needed
+
   const schema = z.object({
     title: z
       .string()
@@ -43,8 +50,7 @@ export const SocialPostForm = ({
       .string()
       .min(10, "Tekst mora imati više od 10 slova")
       .max(5000, "Tekst mora imati manje od 5000 slova"),
-    images: z.array(z.string()),
-    authorshipInfoId: z.string().uuid(),
+    authorshipInfoId: z.optional(z.string().uuid()),
     type: z
       .enum(["", ...Object.keys(SocialPostType)])
       .default(getEnumValue(SocialPostType, currentValues?.type ?? "STORY")),
@@ -60,30 +66,43 @@ export const SocialPostForm = ({
   });
 
   const onSubmit = async (data: any) => {
-    const confirmation = confirm(
-      "Da li ste sigurni da želite napraviti objavu, odmah će biti vidljiva svim članovima i pratiteljima?"
+    if (images.length && !data.authorshipInfoId)
+      return toast.error("Morate dodati autorske informacije za slike");
+
+    const confirmation = window.confirm(
+      `Jeste li ste sigurni da želite ${
+        currentValues ? "promjeniti" : "napraviti"
+      } objavu, odmah će biti vidljiva svim članovima i pratiteljima?`
     );
+
     if (!confirmation) return;
+
     data.organisationId = organisationId;
-    const imagePromises =
-      !currentValues?.images ||
-      images.map((image) =>
-        uploadImage({
-          file: image,
-          directory: Directories.SOCIAL_POST,
-        })
-      );
-    const imageResults =
-      currentValues?.images || (await Promise.all(imagePromises));
+
+    const imagePromises = !images?.length
+      ? currentValues?.images || []
+      : images.map((image) =>
+          uploadImage({
+            file: image,
+            directory: Directories.SOCIAL_POST,
+          })
+        );
+    const imageResults = !images.length
+      ? currentValues?.images || []
+      : await Promise.all(imagePromises);
+
     data.images = imageResults;
 
-    if (currentValues)
-      await createSocialPost({ ...data, id: currentValues.id });
-    else await createSocialPost(data);
+    if (!currentValues)
+      await createSocialPost({
+        data,
+        organisationId,
+      });
+    else await updateSocialPost({ ...data, id: currentValues?.id });
   };
 
   return (
-    <form onSubmit={form.handleSubmit(onSubmit)}>
+    <form onSubmit={form.handleSubmit(onSubmit)} className={classes.form}>
       <Input
         form={form}
         attribute="title"
@@ -95,12 +114,6 @@ export const SocialPostForm = ({
         attribute="text"
         question="Tekst"
         error={form.formState.errors.text?.message?.toString()}
-      />
-      <Input
-        form={form}
-        attribute="images"
-        question="Slike"
-        error={form.formState.errors.images?.message?.toString()}
       />
       <SelectInput
         form={form}
@@ -120,12 +133,26 @@ export const SocialPostForm = ({
         maxFiles={5}
         onChange={setImages}
       />
+      {form.formState.errors.images?.message && (
+        <p className={classes.error}>
+          {form.formState.errors.images?.message?.toString()}
+        </p>
+      )}
       <AuthorshipButton
         form={form}
         type={AuthorshipInfoFields.SOCIAL_POST}
-        currentValues={currentValues.authorhipInfo}
+        currentValues={currentValues?.authorhipInfo}
       />
-      <BaseButton text="Objavi" />
+      {form.formState.errors.authorshipInfoId?.message && (
+        <p className={classes.error}>
+          {form.formState.errors.authorshipInfoId?.message?.toString()}
+        </p>
+      )}
+      <BaseButton
+        text="Objavi"
+        isNotSubmit={false}
+        onClick={() => console.log("clicked")}
+      />
     </form>
   );
 };

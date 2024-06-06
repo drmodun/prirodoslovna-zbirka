@@ -6,6 +6,7 @@ import {
 import BaseButton from "components/BaseButton";
 import { useState } from "react";
 import { FieldValues, UseFormReturn } from "react-hook-form";
+import classes from "./AuthorshipButton.module.scss";
 
 export interface AuthorshipButtonProps {
   form: UseFormReturn<FieldValues>;
@@ -20,7 +21,7 @@ export const AuthorshipButton = ({
 }: AuthorshipButtonProps) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
-    <>
+    <div className={classes.container}>
       <BaseButton
         onClick={() => setIsOpen(true)}
         text="Dodavanje autorskih informacija"
@@ -33,6 +34,6 @@ export const AuthorshipButton = ({
         currentValues={currentValues}
         onSuccess={(info) => form.setValue("authorshipInfoId", info)}
       />
-    </>
+    </div>
   );
 };

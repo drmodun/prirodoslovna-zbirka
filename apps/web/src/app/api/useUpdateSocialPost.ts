@@ -1,18 +1,19 @@
 import { useMutation } from "react-query";
 import { api } from "./shared";
 import toast from "react-hot-toast";
-import { getCreateSocialPostDto } from "@biosfera/types";
+import { getUpdateSocialPostDto } from "@biosfera/types";
 
-const _updateSocialPostDto = getCreateSocialPostDto();
-export class CreateSocialPostDto extends _updateSocialPostDto {}
+const _updateSocialPostDto = getUpdateSocialPostDto();
+export class UpdateSocialPostDto extends _updateSocialPostDto {}
 
 export const updateSocialPost = async (params: {
-  socialPost: CreateSocialPostDto;
+  socialPost: UpdateSocialPostDto;
   organisationId: string;
+  id: string;
 }) =>
-  await api.post(`/social-posts/${params.organisationId}`, params.socialPost);
+  await api.patch(`/social-posts/${params.organisationId}/${params.id}`, params.socialPost);
 
-export const useCreateSocialPost = () => {
+export const useUpdateSocialPost = () => {
   return useMutation(updateSocialPost, {
     onMutate: () => {
       return { toastId: toast.loading("Kreiranje objave") };

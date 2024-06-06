@@ -239,7 +239,7 @@ export const getKeyByValue = (object: any, value: any) => {
 };
 
 export const getEnumValue = (enumObject: any, key: any) => {
-  return enumObject[key];
+  return enumObject ? enumObject[key] : null;
 };
 
 //Not the best functionsbut are very convenient
