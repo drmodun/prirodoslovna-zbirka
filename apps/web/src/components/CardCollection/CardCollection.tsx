@@ -74,7 +74,7 @@ export const CardCollection: React.FC<CardCollectionProps> = ({
     if (amount <= items.length) {
       setAmount(
         (prev) =>
-          prev + Math.max(Math.min(pageSize || 20, items.length - prev), 0),
+          prev + Math.max(Math.min(pageSize || 20, items.length - prev), 0)
       );
     }
   };
@@ -116,7 +116,7 @@ export const CardCollection: React.FC<CardCollectionProps> = ({
       memberships.some(
         (membership) =>
           membership.id === organisationId &&
-          (membership.role === "ADMIN" || membership.role === "OWNER"),
+          (membership.role === "ADMIN" || membership.role === "OWNER")
       )
     );
   };
@@ -156,7 +156,7 @@ export const CardCollection: React.FC<CardCollectionProps> = ({
             title="direkcija sortiranja"
             className={clsx(
               classes.direction,
-              !isDescending && classes.descending,
+              !isDescending && classes.descending
             )}
             onClick={handleChangeDirection}
           >
@@ -166,7 +166,7 @@ export const CardCollection: React.FC<CardCollectionProps> = ({
       </div>
       <div className={classes.cardContainer}>
         {itemsToShow
-          .toSorted((a, b) => {
+          .sort((a, b) => {
             const first = isDescending ? b : a;
             const second = isDescending ? a : b;
             return isNaN(b[sortByValue])
@@ -184,7 +184,7 @@ export const CardCollection: React.FC<CardCollectionProps> = ({
                     key={index}
                     exponat={item as ExponatResponseShort}
                     isAdmin={checkAdminMembership(
-                      (item as ExponatResponseShort).organizationId,
+                      (item as ExponatResponseShort).organizationId
                     )}
                     onRemove={handleDelete}
                   />
@@ -195,7 +195,7 @@ export const CardCollection: React.FC<CardCollectionProps> = ({
                     key={index}
                     post={item as PostResponse}
                     isAdmin={checkIsAdminForPost(
-                      organisationId ?? (item as PostResponse).organisationId,
+                      organisationId ?? (item as PostResponse).organisationId
                     )}
                     onRemove={handleDelete}
                     isUser={checkIsAuthor((item as PostResponse).authorId)}
@@ -274,9 +274,7 @@ export const CardCollection: React.FC<CardCollectionProps> = ({
       <div
         className={clsx(
           classes.floatingButton,
-          amount > (pageSize || 20) && !listInView
-            ? classes.show
-            : classes.hide,
+          amount > (pageSize || 20) && !listInView ? classes.show : classes.hide
         )}
       >
         <div
