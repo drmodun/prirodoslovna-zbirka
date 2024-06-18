@@ -169,7 +169,7 @@ model Exponat {
   categorizationId   String?
   Categorization     Categorization?    @relation(fields: [categorizationId], references: [id], onDelete: Cascade)
   createdAt          DateTime           @default(now())
-  updatedAt          DateTime           @default(now()) @updatedAt
+  updatedAt          DateTime          @default(now()) @updatedAt
   Organisation       Organisation?      @relation(fields: [organisationId], references: [id], onDelete: Cascade)
   organisationId     String?
   FavouriteExponats  FavouriteExponat[]
