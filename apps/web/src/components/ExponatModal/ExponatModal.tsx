@@ -36,7 +36,7 @@ export const ExponatModal = ({ exponat }: ExponatModalProps) => {
         {exponat?.posts?.length > 0 ? (
           <Carousel showThumbs={false} className={classes.carousel}>
             {[
-              <div className={classes.image}>
+              <div className={classes.image} key={-1}>
                 <ImageWithFallback
                   src={exponat.mainImage}
                   alt="exponat image"

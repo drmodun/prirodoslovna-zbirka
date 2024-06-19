@@ -57,7 +57,11 @@ export const ExponatForm = ({
         .min(1, "Mora postojati barem jedan fun fact"),
       exponatKind: z.enum(["EUCARIOT", "PROCARIOT", "MINERAL"]),
       attributes: z.any(),
-      authorshipInfoId: z.string().uuid(),
+      authorshipInfoId: z
+        .string({
+          required_error: "Mora postojati autor",
+        })
+        .uuid(),
       mainImage: z.any(),
     })
     .refine(
@@ -134,24 +138,26 @@ export const ExponatForm = ({
 
     const image =
       exponatMainImage[0] &&
-      (await uploadImage({
+      uploadImage({
         file: exponatMainImage[0],
         directory: Directories.EXPONAT,
-      }));
+      });
 
     const thirdDimensionalModel =
       thirdDimensionalModelUrl[0] &&
-      (await uploadModel({
+      uploadModel({
         file: thirdDimensionalModelUrl[0],
         directory: Directories.EXPONAT,
-      }));
+      });
 
     const video =
       videoUrl[0] &&
-      (await uploadViddeo({
+      uploadViddeo({
         file: videoUrl[0],
         directory: Directories.EXPONAT,
-      }));
+      });
+
+    const uploads = await Promise.all([image, thirdDimensionalModel, video]);
 
     if (!image && !isEdit) {
       toast.error("Greška prilikom uploada slike");
@@ -166,9 +172,9 @@ export const ExponatForm = ({
       authorshipInfoId: formData.authorshipInfoId,
       authorId: organisationId,
       ExponatKind: formData.exponatKind,
-      mainImage: image,
-      thirdDimensionalModel: thirdDimensionalModel,
-      video: video,
+      mainImage: uploads[0],
+      thirdDimensionalModel: uploads[1],
+      video: uploads[2],
       attributes: JSON.stringify(formData.attributes) as any,
       categorizationId: speciesId || undefined,
     };
@@ -263,12 +269,20 @@ export const ExponatForm = ({
         maxFiles={1}
         fullMaxSize={100000000}
       />
-      <FileUpload name={"Video"} onChange={setVideo} maxFiles={1} />
+      <FileUpload
+        name={"Video"}
+        onChange={setVideo}
+        maxFiles={1}
+        fullMaxSize={100000000}
+      />
       <AuthorshipButton
         form={form}
         type={AuthorshipInfoFields.EXPONAT}
         currentValues={values?.authorshipInfo}
       />
+      <p className={classes.error}>
+        {form.formState.errors.authorshipInfoId?.message?.toString() || ""}
+      </p>
       <AttributeInput
         form={form}
         attribute="attributes"

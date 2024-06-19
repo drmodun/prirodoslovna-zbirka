@@ -2,7 +2,7 @@
 import modelIcon from "assets/icons/model.svg";
 import videoIcon from "assets/icons/video.svg";
 import classes from "./ExtrasExponatButton.module.scss";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Modal from "components/BaseModal";
 import clsx from "clsx";
 import Image from "next/image";
@@ -19,6 +19,10 @@ export const ExtrasExponatButton = ({
   const [isModelOpen, setIsModelOpen] = useState(false);
   const [isVideoOpen, setIsVideoOpen] = useState(false);
 
+  useEffect(() => {
+    import("@google/model-viewer").catch(console.error);
+  }, []);
+
   return (
     <div className={classes.container}>
       {thirdDimensionalModel && (
@@ -33,7 +37,10 @@ export const ExtrasExponatButton = ({
         </div>
       )}
       {video && (
-        <div className={(classes.button, classes.video)}>
+        <div
+          className={clsx(classes.button, classes.video)}
+          onClick={() => setIsVideoOpen(true)}
+        >
           <div className={classes.icon}>
             <Image src={videoIcon} alt="multimedia icon" layout="fill" />
           </div>
@@ -49,7 +56,7 @@ export const ExtrasExponatButton = ({
         <div
           className={classes.modelContainer}
           dangerouslySetInnerHTML={{
-            __html: `<model-viewer src="${thirdDimensionalModel}" alt="A 3D model of an exponat" auto-rotate camera-controls touch-action="pan-y" ></model-viewer>`,
+            __html: `<model-viewer src="${thirdDimensionalModel}" alt="A 3D model of an exponat" auto-rotate camera-controls touch-action="pan-y"  ar-status="not-presenting"></model-viewer>`,
           }}
         ></div>
       </Modal>
