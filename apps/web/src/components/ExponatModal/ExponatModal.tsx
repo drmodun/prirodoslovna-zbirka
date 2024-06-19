@@ -33,18 +33,28 @@ export const ExponatModal = ({ exponat }: ExponatModalProps) => {
   return (
     <div className={classes.container}>
       <div className={classes.mainImage}>
-        <Carousel showThumbs={false} className={classes.carousel}>
-          {[
-            <div className={classes.image}>
-              <ImageWithFallback
-                src={exponat.mainImage}
-                alt="exponat image"
-                layout="fill"
-              />
-            </div>,
-            ...getImages(exponat),
-          ]}
-        </Carousel>
+        {exponat?.posts?.length > 0 ? (
+          <Carousel showThumbs={false} className={classes.carousel}>
+            {[
+              <div className={classes.image}>
+                <ImageWithFallback
+                  src={exponat.mainImage}
+                  alt="exponat image"
+                  layout="fill"
+                />
+              </div>,
+              ...getImages(exponat),
+            ]}
+          </Carousel>
+        ) : (
+          <div className={classes.image}>
+            <ImageWithFallback
+              src={exponat.mainImage}
+              alt="exponat image"
+              layout="fill"
+            />
+          </div>
+        )}
       </div>
       <div className={classes.title}>
         <span className={classes.latinName}>{exponat.alternateName}</span>

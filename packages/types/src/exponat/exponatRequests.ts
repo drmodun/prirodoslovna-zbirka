@@ -57,7 +57,7 @@ export const getCreateExponatDto = (ApiPropertySwagger?: any) => {
     authorshipInfoId: string;
 
     @IsOptional()
-    @IsUUID()
+    @IsString()
     @ApiProperty()
     thirdDimensionalModel?: string;
 
@@ -119,7 +119,7 @@ export const getUpdateExponatDto = (ApiPropertySwagger?: any) => {
     cateogorizationId?: string;
 
     @IsOptional()
-    @IsUUID()
+    @IsString()
     @ApiProperty()
     thirdDimensionalModel?: string;
 

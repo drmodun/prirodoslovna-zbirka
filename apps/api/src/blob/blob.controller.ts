@@ -140,7 +140,7 @@ export class BlobController {
     else throw new BadRequestException('File upload failed');
   }
 
-  @Post('/model/:directory/:name')
+  @Post('/model/:directory')
   @ApiConsumes('multipart/form-data')
   @ApiBody({
     schema: {
@@ -156,17 +156,14 @@ export class BlobController {
   @UseInterceptors(FileInterceptor('file'))
   async modelUpload(
     @Param('directory') directory: Directories,
-    @Param('name') name: string,
     @UploadedFile(
       new ParseFilePipe({
-        validators: [
-          new FileTypeValidator({ fileType: 'model/gltf-binary' }),
-          new MaxFileSizeValidator({ maxSize: 1024 * 1024 * 200 }),
-        ],
+        validators: [new MaxFileSizeValidator({ maxSize: 1024 * 1024 * 200 })],
       }),
     )
     file: Express.Multer.File,
   ) {
+    const name = randomUUID();
     const url = await this.blobService.upload(
       directory,
       name,
@@ -178,7 +175,7 @@ export class BlobController {
     else throw new BadRequestException('File upload failed');
   }
 
-  @Post('/video/:directory/:name')
+  @Post('/video/:directory')
   @ApiConsumes('multipart/form-data')
   @ApiBody({
     schema: {
@@ -194,7 +191,6 @@ export class BlobController {
   @UseInterceptors(FileInterceptor('file'))
   async videoUpload(
     @Param('directory') directory: Directories,
-    @Param('name') name: string,
     @UploadedFile(
       new ParseFilePipe({
         validators: [
@@ -205,6 +201,8 @@ export class BlobController {
     )
     file: Express.Multer.File,
   ) {
+    const name = randomUUID();
+
     const url = await this.blobService.upload(
       directory,
       name,
