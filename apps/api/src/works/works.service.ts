@@ -80,14 +80,14 @@ export class WorksService {
         ...(sort
           ? sort
           : filter.title
-            ? {
-                _relevance: {
-                  fields: ['title'],
-                  search: filter?.title.split(' ').join(' <-> '),
-                  sort: 'desc',
-                },
-              }
-            : null),
+          ? {
+              _relevance: {
+                fields: ['title'],
+                search: filter?.title.split(' ').join(' <-> '),
+                sort: 'desc',
+              },
+            }
+          : null),
       },
       skip: (pagination?.page - 1) * pagination?.size,
       take: pagination?.size,
