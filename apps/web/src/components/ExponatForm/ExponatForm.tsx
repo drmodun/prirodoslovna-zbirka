@@ -167,6 +167,8 @@ export const ExponatForm = ({
       authorId: organisationId,
       ExponatKind: formData.exponatKind,
       mainImage: image,
+      thirdDimensionalModel: thirdDimensionalModel,
+      video: video,
       attributes: JSON.stringify(formData.attributes) as any,
       categorizationId: speciesId || undefined,
     };
@@ -259,6 +261,7 @@ export const ExponatForm = ({
         name={"3D model"}
         onChange={setThirdDimensionalModel}
         maxFiles={1}
+        fullMaxSize={100000000}
       />
       <FileUpload name={"Video"} onChange={setVideo} maxFiles={1} />
       <AuthorshipButton

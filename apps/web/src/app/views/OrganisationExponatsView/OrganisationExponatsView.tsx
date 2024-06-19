@@ -8,7 +8,6 @@ import domainMineral from "assets/images/domain-mineral.svg";
 import domainProcariot from "assets/images/domain-procariot.svg";
 import { useState } from "react";
 import search from "assets/images/search.svg";
-import { ExponatCard } from "components/ExponatCard";
 import SingleInput from "components/SingleInput";
 import CardCollection from "components/CardCollection";
 import useUser from "@/utility/context/UserContext";

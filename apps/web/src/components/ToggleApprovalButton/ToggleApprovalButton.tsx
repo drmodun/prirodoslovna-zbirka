@@ -12,11 +12,13 @@ export interface ToggleApprovalButtonProps {
   id: string;
   entity: string;
   isApproved?: boolean;
+  onToggle?: () => void;
 }
 
 export const ToggleApprovalButton: React.FC<ToggleApprovalButtonProps> = ({
   id,
   entity,
+  onToggle,
   isApproved,
 }) => {
   const [approval, setApproval] = useState<Boolean>(isApproved ?? true);
@@ -31,6 +33,7 @@ export const ToggleApprovalButton: React.FC<ToggleApprovalButtonProps> = ({
 
   useEffect(() => {
     setApproval(isApproved ?? true);
+    onToggle?.();
   }, [isApproved]);
 
   return (

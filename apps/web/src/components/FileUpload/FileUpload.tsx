@@ -15,6 +15,7 @@ export interface FileUploadProps {
   maxFiles?: number;
   onChange?: Dispatch<SetStateAction<File[]>>;
   isFullWidth?: boolean;
+  fullMaxSize?: number;
 }
 
 const maxSize = 5048576;
@@ -22,6 +23,7 @@ const maxSize = 5048576;
 const FileUpload = ({
   name,
   isFullWidth,
+  fullMaxSize = maxSize,
   maxFiles = 1,
   onChange,
 }: FileUploadProps) => {
@@ -38,9 +40,10 @@ const FileUpload = ({
       "image/*": [".jpg", ".jpeg", ".png"],
       "video/*": [".mp4"],
       "application/pdf": [".pdf", ".PDF"],
+      "model/gltf-binary": [".glb"],
     },
     minSize: 0,
-    maxSize,
+    maxSize: fullMaxSize,
   });
 
   const [files, setFiles] = useState(acceptedFiles);
@@ -70,7 +73,7 @@ const FileUpload = ({
         className={clsx(
           classes.main,
           isFullWidth && classes.fullWidth,
-          files.length >= maxFiles && classes.disabled,
+          files.length >= maxFiles && classes.disabled
         )}
       >
         <input
