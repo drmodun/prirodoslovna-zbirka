@@ -8,6 +8,6 @@ export const getAuthorshipInfo = async (authorId?: string) => {
 
 export const useGetAuthorshipInfo = (authorId?: string) => {
   return useQuery(["authorship-info", authorId], () =>
-    getAuthorshipInfo(authorId)
+    getAuthorshipInfo(authorId),
   );
 };

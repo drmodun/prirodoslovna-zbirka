@@ -17,7 +17,7 @@ import dynamic from "next/dynamic";
 
 const ExponatPage = async ({ params }: { params: any }) => {
   const exponatInfo: ExponatExtendedResponse = await serverGetExponat(
-    params.exponatId
+    params.exponatId,
   );
   console.log(exponatInfo?.categorization?.speciesKey);
 

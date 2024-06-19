@@ -72,7 +72,7 @@ export const SocialPostForm = ({
     const confirmation = window.confirm(
       `Jeste li ste sigurni da želite ${
         currentValues ? "promjeniti" : "napraviti"
-      } objavu, odmah će biti vidljiva svim članovima i pratiteljima?`
+      } objavu, odmah će biti vidljiva svim članovima i pratiteljima?`,
     );
 
     if (!confirmation) return;
@@ -85,7 +85,7 @@ export const SocialPostForm = ({
           uploadImage({
             file: image,
             directory: Directories.SOCIAL_POST,
-          })
+          }),
         );
     const imageResults = !images.length
       ? currentValues?.images || []

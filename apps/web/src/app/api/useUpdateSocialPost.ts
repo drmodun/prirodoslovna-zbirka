@@ -11,7 +11,10 @@ export const updateSocialPost = async (params: {
   organisationId: string;
   id: string;
 }) =>
-  await api.patch(`/social-posts/${params.organisationId}/${params.id}`, params.socialPost);
+  await api.patch(
+    `/social-posts/${params.organisationId}/${params.id}`,
+    params.socialPost,
+  );
 
 export const useUpdateSocialPost = () => {
   return useMutation(updateSocialPost, {
