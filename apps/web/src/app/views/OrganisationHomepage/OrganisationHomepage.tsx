@@ -15,6 +15,8 @@ import { useLeaveMembership } from "@/api/useLeaveOrganisation";
 import { useRequestMembership } from "@/api/useRequestMembership";
 import QrCodeGenerator from "components/QrCodeButton";
 import ShareButton from "components/ShareButton";
+import Link from "next/link";
+import BaseButton from "components/BaseButton";
 
 export interface OrganisationHomepageProps {
   organisation: ExtendedOrganisationResponse;
@@ -25,8 +27,8 @@ export const OrganisationHomepage = ({
 }: OrganisationHomepageProps) => {
   const {
     memberships,
-    user,
     followedOrganisations,
+    user,
     updateFollowedOrganisation,
     updateMemberships,
   } = useUser();
@@ -145,6 +147,24 @@ export const OrganisationHomepage = ({
             </div>
           </div>
         </div>
+        {memberships.some(
+          (x) =>
+            (x.id === organisation.id && x.role === "ADMIN") ||
+            x.role === "OWNER" ||
+            user?.role?.toLowerCase() === "super",
+        ) && (
+          <Link href={`/organisation/${organisation.id}/createSocialPost`}>
+            <BaseButton text="Dodaj novu objavu" />
+          </Link>
+        )}
+        {organisation?.socialPosts?.length && (
+          <div className={classes.socialPostWrapper}>
+            <span className={classes.title}>Objave</span>
+            {organisation.socialPosts?.map((post) => (
+              <SocialPostCard key={post.id} post={post} />
+            ))}
+          </div>
+        )}
       </div>
     )
   );

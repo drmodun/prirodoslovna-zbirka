@@ -20,6 +20,8 @@ export interface ExponatExtendedResponse {
   authorshipInfoId: string;
   updatedAt: Date;
   categorization?: CategorizationResponse;
+  thirdDimensionalModel?: string;
+  video?: string;
   posts: PostResponse[];
   favouriteCount: number;
 }

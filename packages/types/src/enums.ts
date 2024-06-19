@@ -189,7 +189,20 @@ export enum NotificationType {
   NEW_WORK_REQUEST = "Novi zahtjev za rad",
 }
 
+export enum SocialPostType {
+  STORY = "Priča",
+  EU_PROJECT = "EU Projekt",
+  EVENT = "Događaj",
+  OTHER = "Ostalo",
+  GUIDE = "Vodič",
+  NEWS = "Vijesti",
+  ANNOUNCEMENT = "Najava",
+  WORKSHOP = "Radionica",
+}
+
 export type NotificationTypeEnumType = keyof typeof NotificationType;
+
+export type SocialPostTypeEnumType = keyof typeof SocialPostType;
 
 export type NotificationPromise = Promise<
   {
@@ -226,7 +239,7 @@ export const getKeyByValue = (object: any, value: any) => {
 };
 
 export const getEnumValue = (enumObject: any, key: any) => {
-  return enumObject[key];
+  return enumObject ? enumObject[key] : null;
 };
 
 //Not the best functionsbut are very convenient
