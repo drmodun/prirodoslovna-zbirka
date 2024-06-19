@@ -10,6 +10,10 @@ import NotFound from "@/not-found";
 import { exponatInfoPrompt, ttsPrompt } from "@/api/AI";
 import { Suspense } from "react";
 import { ExponatAsyncWrapper } from "@/utility/wrappers/exponatAsyncWrapper";
+import BaseButton from "components/BaseButton";
+import ExtrasExponatButton from "components/ExtrasExponatButton";
+import { redirect } from "next/navigation";
+import dynamic from "next/dynamic";
 
 const ExponatPage = async ({ params }: { params: any }) => {
   const exponatInfo: ExponatExtendedResponse = await serverGetExponat(
@@ -17,10 +21,20 @@ const ExponatPage = async ({ params }: { params: any }) => {
   );
   console.log(exponatInfo?.categorization?.speciesKey);
 
-  return exponatInfo ? (
+  if (!exponatInfo) {
+    redirect(`/exponat/${params.exponatId}/admin`);
+  }
+
+  return (
     <div className={classes.container}>
       <div className={classes.modal}>
         <ExponatModal exponat={exponatInfo} />
+        {exponatInfo && (
+          <ExtrasExponatButton
+            thirdDimensionalModel={exponatInfo?.thirdDimensionalModel}
+            video={exponatInfo?.video}
+          />
+        )}
       </div>
       <UserWrapper>
         <Suspense fallback={<SingleExponatView exponat={exponatInfo} />}>
@@ -28,8 +42,6 @@ const ExponatPage = async ({ params }: { params: any }) => {
         </Suspense>
       </UserWrapper>
     </div>
-  ) : (
-    <NotFound />
   );
 };
 

@@ -26,6 +26,8 @@ import { useUpdateExponat } from "@/api/useUpdateExponat";
 import AuthorshipInfoModal from "components/AuthorshipInfoModal";
 import AuthorshipButton from "components/AuthorshipButton";
 import { AuthorshipInfoFields } from "components/AuthorshipInfoModal/AuthorshipInfoModal";
+import { useUploadThreeDimensionalModel } from "@/api/useUploadThreeDimensionalModel";
+import { useUploadVideo } from "@/api/useUploadVideo";
 export interface ExponatModalSectionsProps {
   organisationId: string;
   isEdit?: boolean;
@@ -55,7 +57,11 @@ export const ExponatForm = ({
         .min(1, "Mora postojati barem jedan fun fact"),
       exponatKind: z.enum(["EUCARIOT", "PROCARIOT", "MINERAL"]),
       attributes: z.any(),
-      authorshipInfoId: z.string().uuid(),
+      authorshipInfoId: z
+        .string({
+          required_error: "Mora postojati autor",
+        })
+        .uuid(),
       mainImage: z.any(),
     })
     .refine(
@@ -73,6 +79,12 @@ export const ExponatForm = ({
   const [exponatMainImage, setExponatMainImage] = useState<File[]>(
     [] as File[],
   );
+
+  const [thirdDimensionalModelUrl, setThirdDimensionalModel] = useState<File[]>(
+    [] as File[],
+  );
+
+  const [videoUrl, setVideo] = useState<File[]>([] as File[]);
 
   const form = useForm({
     resolver: zodResolver(schema),
@@ -94,6 +106,8 @@ export const ExponatForm = ({
   const { mutateAsync: createExponat } = useCreateExponat();
   const { mutateAsync: uploadImage } = useUploadFile();
   const { mutateAsync: updateExponat } = useUpdateExponat();
+  const { mutateAsync: uploadModel } = useUploadThreeDimensionalModel();
+  const { mutateAsync: uploadViddeo } = useUploadVideo();
 
   const onSubmit = async (formData: any) => {
     if (exponatMainImage.length === 0 && !isEdit) {
@@ -124,10 +138,26 @@ export const ExponatForm = ({
 
     const image =
       exponatMainImage[0] &&
-      (await uploadImage({
+      uploadImage({
         file: exponatMainImage[0],
         directory: Directories.EXPONAT,
-      }));
+      });
+
+    const thirdDimensionalModel =
+      thirdDimensionalModelUrl[0] &&
+      uploadModel({
+        file: thirdDimensionalModelUrl[0],
+        directory: Directories.EXPONAT,
+      });
+
+    const video =
+      videoUrl[0] &&
+      uploadViddeo({
+        file: videoUrl[0],
+        directory: Directories.EXPONAT,
+      });
+
+    const uploads = await Promise.all([image, thirdDimensionalModel, video]);
 
     if (!image && !isEdit) {
       toast.error("Greška prilikom uploada slike");
@@ -142,7 +172,9 @@ export const ExponatForm = ({
       authorshipInfoId: formData.authorshipInfoId,
       authorId: organisationId,
       ExponatKind: formData.exponatKind,
-      mainImage: image,
+      mainImage: uploads[0],
+      thirdDimensionalModel: uploads[1],
+      video: uploads[2],
       attributes: JSON.stringify(formData.attributes) as any,
       categorizationId: speciesId || undefined,
     };
@@ -231,11 +263,26 @@ export const ExponatForm = ({
         name={"Glavna slika eksponata"}
         onChange={setExponatMainImage}
       />
+      <FileUpload
+        name={"3D model"}
+        onChange={setThirdDimensionalModel}
+        maxFiles={1}
+        fullMaxSize={100000000}
+      />
+      <FileUpload
+        name={"Video"}
+        onChange={setVideo}
+        maxFiles={1}
+        fullMaxSize={100000000}
+      />
       <AuthorshipButton
         form={form}
         type={AuthorshipInfoFields.EXPONAT}
         currentValues={values?.authorshipInfo}
       />
+      <p className={classes.error}>
+        {form.formState.errors.authorshipInfoId?.message?.toString() || ""}
+      </p>
       <AttributeInput
         form={form}
         attribute="attributes"

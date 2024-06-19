@@ -1,4 +1,5 @@
 import {
+  IsArray,
   IsEnum,
   IsString,
   IsUUID,
@@ -22,15 +23,43 @@ export const getCreateSocialPostDto = (ApiPropertySwagger?: any) => {
     @ApiProperty()
     text: string;
 
-    @IsString()
+    @IsUUID()
     @ApiProperty()
-    image: string;
+    authorshipInfoId: string;
+
+    @IsArray()
+    @IsString({ each: true })
+    @ApiProperty()
+    images: string[];
+  }
+  return CreateSocialPostDto;
+};
+
+export const getUpdateSocialPostDto = (ApiPropertySwagger?: any) => {
+  const ApiProperty = ApiPropertySwagger || function () {};
+
+  class UpdateSocialPostDto {
+    @IsString()
+    @MinLength(3)
+    @ApiProperty()
+    title: string;
+
+    @IsString()
+    @MinLength(10)
+    @MaxLength(500)
+    @ApiProperty()
+    text: string;
 
     @IsUUID()
     @ApiProperty()
     authorshipInfoId: string;
+
+    @IsArray()
+    @IsString({ each: true })
+    @ApiProperty()
+    images: string[];
   }
-  return CreateSocialPostDto;
+  return UpdateSocialPostDto;
 };
 
 export const getSocialPostQuery = (ApiPropertySwagger?: any) => {

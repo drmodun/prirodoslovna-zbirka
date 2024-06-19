@@ -57,6 +57,7 @@ export class SocialPostsController {
       organisationMainImage: socialPost.organisation.mainImage,
       organisationName: socialPost.organisation.name,
       title: socialPost.title,
+      type: socialPost.type,
       updatedAt: socialPost.updatedAt,
     };
 
@@ -120,6 +121,7 @@ export class SocialPostsController {
       title: post.title,
       ...(isAdmin && { isApproved: post.isApproved }),
       updatedAt: post.updatedAt,
+      type: post.type,
       isApproved: post.isApproved,
     };
 

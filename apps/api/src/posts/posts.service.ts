@@ -1,12 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { CreatePostDto, PostQuery, PostSQL, UpdatePostDto } from './posts.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
-import {
-  getEnumValue,
-  NotificationPromise,
-  NotificationType,
-  sortQueryBuilder,
-} from '@biosfera/types';
+import { NotificationPromise, sortQueryBuilder } from '@biosfera/types';
 import {
   anonymousPostsDiscover,
   personalizedPostsDiscover,

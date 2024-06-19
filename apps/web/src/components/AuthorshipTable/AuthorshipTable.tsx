@@ -28,6 +28,7 @@ export const AuthorshipTable = ({ authorshipInfo }: AuthorshipTableProps) => (
           !authorshipInfo[key].includes("undefined") &&
           authorshipInfo[key] != undefined &&
           key !== "authorId" &&
+          authorshipInfo[key] != "" &&
           !(
             key === "authorName" && authorshipInfo.nonPlatformAuthor != null
           ) && (

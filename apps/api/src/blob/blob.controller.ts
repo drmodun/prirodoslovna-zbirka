@@ -139,4 +139,78 @@ export class BlobController {
       return `https://biosfera-files.s3.eu-north-1.amazonaws.com/${directory}/${name}`;
     else throw new BadRequestException('File upload failed');
   }
+
+  @Post('/model/:directory')
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        file: {
+          type: 'string',
+          format: 'binary',
+        },
+      },
+    },
+  })
+  @UseInterceptors(FileInterceptor('file'))
+  async modelUpload(
+    @Param('directory') directory: Directories,
+    @UploadedFile(
+      new ParseFilePipe({
+        validators: [new MaxFileSizeValidator({ maxSize: 1024 * 1024 * 200 })],
+      }),
+    )
+    file: Express.Multer.File,
+  ) {
+    const name = randomUUID();
+    const url = await this.blobService.upload(
+      directory,
+      name,
+      file.buffer,
+      file.mimetype,
+    );
+    if (url)
+      return `https://biosfera-files.s3.eu-north-1.amazonaws.com/${directory}/${name}`;
+    else throw new BadRequestException('File upload failed');
+  }
+
+  @Post('/video/:directory')
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        file: {
+          type: 'string',
+          format: 'binary',
+        },
+      },
+    },
+  })
+  @UseInterceptors(FileInterceptor('file'))
+  async videoUpload(
+    @Param('directory') directory: Directories,
+    @UploadedFile(
+      new ParseFilePipe({
+        validators: [
+          new FileTypeValidator({ fileType: 'video/mp4' }),
+          new MaxFileSizeValidator({ maxSize: 1024 * 1024 * 200 }),
+        ],
+      }),
+    )
+    file: Express.Multer.File,
+  ) {
+    const name = randomUUID();
+
+    const url = await this.blobService.upload(
+      directory,
+      name,
+      file.buffer,
+      file.mimetype,
+    );
+    if (url)
+      return `https://biosfera-files.s3.eu-north-1.amazonaws.com/${directory}/${name}`;
+    else throw new BadRequestException('File upload failed');
+  }
 }

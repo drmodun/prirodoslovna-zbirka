@@ -153,6 +153,9 @@ export class OrganisationsService {
               isApproved: approval,
             }),
           },
+          include: {
+            AuthorshipInfo: true,
+          },
         },
         UserOrganisationFollowers: true,
         OrganisationUsers: {

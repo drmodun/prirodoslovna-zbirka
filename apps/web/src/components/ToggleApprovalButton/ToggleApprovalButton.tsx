@@ -12,11 +12,13 @@ export interface ToggleApprovalButtonProps {
   id: string;
   entity: string;
   isApproved?: boolean;
+  onToggle?: () => void;
 }
 
 export const ToggleApprovalButton: React.FC<ToggleApprovalButtonProps> = ({
   id,
   entity,
+  onToggle,
   isApproved,
 }) => {
   const [approval, setApproval] = useState<Boolean>(isApproved ?? true);
@@ -31,6 +33,7 @@ export const ToggleApprovalButton: React.FC<ToggleApprovalButtonProps> = ({
 
   useEffect(() => {
     setApproval(isApproved ?? true);
+    onToggle?.();
   }, [isApproved]);
 
   return (
@@ -39,7 +42,7 @@ export const ToggleApprovalButton: React.FC<ToggleApprovalButtonProps> = ({
       title="Toggle Approval"
       className={clsx(
         classes.toggleButton,
-        approval ? classes.approved : classes.disapproved
+        approval ? classes.approved : classes.disapproved,
       )}
     >
       <div className={classes.image}>

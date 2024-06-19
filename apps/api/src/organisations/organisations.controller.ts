@@ -205,6 +205,8 @@ export class OrganisationsController {
         createdAt: post.createdAt,
         id: post.id,
         images: post.images,
+        type: post.type,
+        authorhipInfo: post.AuthorshipInfo,
         text: post.text,
         authorshipInfoId: post.authorshipInfoId,
         updatedAt: post.updatedAt,
