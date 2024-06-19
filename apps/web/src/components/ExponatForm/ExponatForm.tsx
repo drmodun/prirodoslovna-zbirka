@@ -26,6 +26,8 @@ import { useUpdateExponat } from "@/api/useUpdateExponat";
 import AuthorshipInfoModal from "components/AuthorshipInfoModal";
 import AuthorshipButton from "components/AuthorshipButton";
 import { AuthorshipInfoFields } from "components/AuthorshipInfoModal/AuthorshipInfoModal";
+import { useUploadThreeDimensionalModel } from "@/api/useUploadThreeDimensionalModel";
+import { useUploadVideo } from "@/api/useUploadVideo";
 export interface ExponatModalSectionsProps {
   organisationId: string;
   isEdit?: boolean;
@@ -65,14 +67,20 @@ export const ExponatForm = ({
       {
         message: "Mora postojati barem jedan atribut",
         path: ["attributes"],
-      },
+      }
     );
   const [selectedSpecies, setSelectedSpecies] = useState<string>(
-    values?.alternateName || "",
+    values?.alternateName || ""
   );
   const [exponatMainImage, setExponatMainImage] = useState<File[]>(
-    [] as File[],
+    [] as File[]
   );
+
+  const [thirdDimensionalModelUrl, setThirdDimensionalModel] = useState<File[]>(
+    [] as File[]
+  );
+
+  const [videoUrl, setVideo] = useState<File[]>([] as File[]);
 
   const form = useForm({
     resolver: zodResolver(schema),
@@ -94,6 +102,8 @@ export const ExponatForm = ({
   const { mutateAsync: createExponat } = useCreateExponat();
   const { mutateAsync: uploadImage } = useUploadFile();
   const { mutateAsync: updateExponat } = useUpdateExponat();
+  const { mutateAsync: uploadModel } = useUploadThreeDimensionalModel();
+  const { mutateAsync: uploadViddeo } = useUploadVideo();
 
   const onSubmit = async (formData: any) => {
     if (exponatMainImage.length === 0 && !isEdit) {
@@ -126,6 +136,20 @@ export const ExponatForm = ({
       exponatMainImage[0] &&
       (await uploadImage({
         file: exponatMainImage[0],
+        directory: Directories.EXPONAT,
+      }));
+
+    const thirdDimensionalModel =
+      thirdDimensionalModelUrl[0] &&
+      (await uploadModel({
+        file: thirdDimensionalModelUrl[0],
+        directory: Directories.EXPONAT,
+      }));
+
+    const video =
+      videoUrl[0] &&
+      (await uploadViddeo({
+        file: videoUrl[0],
         directory: Directories.EXPONAT,
       }));
 
@@ -193,7 +217,7 @@ export const ExponatForm = ({
             data
               ?.filter(
                 (x: SpeciesResponse) =>
-                  x.rank === "SPECIES" && x.species?.split(" ").length > 1,
+                  x.rank === "SPECIES" && x.species?.split(" ").length > 1
               ) //Check for valid species with two word nomenclature
               .map((species: SpeciesResponse) => ({
                 value: species.species,
@@ -231,6 +255,12 @@ export const ExponatForm = ({
         name={"Glavna slika eksponata"}
         onChange={setExponatMainImage}
       />
+      <FileUpload
+        name={"3D model"}
+        onChange={setThirdDimensionalModel}
+        maxFiles={1}
+      />
+      <FileUpload name={"Video"} onChange={setVideo} maxFiles={1} />
       <AuthorshipButton
         form={form}
         type={AuthorshipInfoFields.EXPONAT}
