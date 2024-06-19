@@ -38,8 +38,9 @@ export class NotificationUsersController {
   @Get()
   async getNotifications(@Req() req: any): Promise<NotificationResponse[]> {
     const userId = req.user?.id;
-    const notifications =
-      await this.notificationUsersService.getAllForUser(userId);
+    const notifications = await this.notificationUsersService.getAllForUser(
+      userId,
+    );
 
     return notifications.map((notification) => {
       return {
