@@ -14,7 +14,7 @@ import ExtrasExponatButton from "components/ExtrasExponatButton";
 
 const ExponatPage = ({ params }: { params: any }) => {
   const { data: exponatInfo, isLoading } = useGetClientExponat(
-    params.exponatId
+    params.exponatId,
   );
 
   console.log(exponatInfo?.attributes);

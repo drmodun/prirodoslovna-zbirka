@@ -42,7 +42,7 @@ export const ToggleApprovalButton: React.FC<ToggleApprovalButtonProps> = ({
       title="Toggle Approval"
       className={clsx(
         classes.toggleButton,
-        approval ? classes.approved : classes.disapproved
+        approval ? classes.approved : classes.disapproved,
       )}
     >
       <div className={classes.image}>

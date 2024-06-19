@@ -8,7 +8,7 @@ const uploadVideo = async (params: FileUploadProps) => {
   data.append("file", params.file);
   const response = await fileApi.postForm(
     `/blobs/video/${params.directory}`,
-    data
+    data,
   );
   return response.data;
 };

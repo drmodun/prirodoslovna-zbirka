@@ -8,7 +8,7 @@ const uploadModel = async (params: FileUploadProps) => {
   data.append("file", params.file);
   const response = await fileApi.postForm(
     `/blobs/model/${params.directory}`,
-    data
+    data,
   );
   return response.data;
 };

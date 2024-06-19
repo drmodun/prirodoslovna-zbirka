@@ -43,7 +43,7 @@ export const WorksForm = ({ isEdit, work, organisationId }: WorksFormProps) => {
     type: z.enum([
       "",
       ...(getLiteratureTypesList().map(
-        (type: string) => type as string
+        (type: string) => type as string,
       ) as string[]),
     ]),
   });
@@ -70,7 +70,7 @@ export const WorksForm = ({ isEdit, work, organisationId }: WorksFormProps) => {
   const [workPoster, setWorkPoster] = useState<File[]>([] as File[]);
   const [workDocument, setWorkDocument] = useState<File[]>([] as File[]);
   const [workPresentation, setWorkPresentation] = useState<File[]>(
-    [] as File[]
+    [] as File[],
   );
 
   const { mutateAsync: uploadImage } = useUploadFile();
