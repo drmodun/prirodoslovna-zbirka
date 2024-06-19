@@ -209,6 +209,8 @@ export class ExponatsController {
       organizationName: item.Organisation.name,
       updatedAt: item.updatedAt,
       posts: posts,
+      thirdDimensionalModel: item.thirdDimensionalModel,
+      video: item.video,
     } as ExponatExtendedResponse;
 
     return mapped;
