@@ -139,4 +139,80 @@ export class BlobController {
       return `https://biosfera-files.s3.eu-north-1.amazonaws.com/${directory}/${name}`;
     else throw new BadRequestException('File upload failed');
   }
+
+  @Post('/model/:directory/:name')
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        file: {
+          type: 'string',
+          format: 'binary',
+        },
+      },
+    },
+  })
+  @UseInterceptors(FileInterceptor('file'))
+  async modelUpload(
+    @Param('directory') directory: Directories,
+    @Param('name') name: string,
+    @UploadedFile(
+      new ParseFilePipe({
+        validators: [
+          new FileTypeValidator({ fileType: 'model/gltf-binary' }),
+          new MaxFileSizeValidator({ maxSize: 1024 * 1024 * 200 }),
+        ],
+      }),
+    )
+    file: Express.Multer.File,
+  ) {
+    const url = await this.blobService.upload(
+      directory,
+      name,
+      file.buffer,
+      file.mimetype,
+    );
+    if (url)
+      return `https://biosfera-files.s3.eu-north-1.amazonaws.com/${directory}/${name}`;
+    else throw new BadRequestException('File upload failed');
+  }
+
+  @Post('/video/:directory/:name')
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        file: {
+          type: 'string',
+          format: 'binary',
+        },
+      },
+    },
+  })
+  @UseInterceptors(FileInterceptor('file'))
+  async videoUpload(
+    @Param('directory') directory: Directories,
+    @Param('name') name: string,
+    @UploadedFile(
+      new ParseFilePipe({
+        validators: [
+          new FileTypeValidator({ fileType: 'video/mp4' }),
+          new MaxFileSizeValidator({ maxSize: 1024 * 1024 * 200 }),
+        ],
+      }),
+    )
+    file: Express.Multer.File,
+  ) {
+    const url = await this.blobService.upload(
+      directory,
+      name,
+      file.buffer,
+      file.mimetype,
+    );
+    if (url)
+      return `https://biosfera-files.s3.eu-north-1.amazonaws.com/${directory}/${name}`;
+    else throw new BadRequestException('File upload failed');
+  }
 }

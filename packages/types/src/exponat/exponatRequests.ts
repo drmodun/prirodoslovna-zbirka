@@ -55,7 +55,17 @@ export const getCreateExponatDto = (ApiPropertySwagger?: any) => {
     @IsUUID()
     @ApiProperty()
     authorshipInfoId: string;
-    
+
+    @IsOptional()
+    @IsUUID()
+    @ApiProperty()
+    thirdDimensionalModel?: string;
+
+    @IsOptional()
+    @IsString()
+    @ApiProperty()
+    video?: string;
+
     authorId?: string;
   }
   return CreateExponatDto;
@@ -107,6 +117,16 @@ export const getUpdateExponatDto = (ApiPropertySwagger?: any) => {
     @IsUUID()
     @ApiProperty()
     cateogorizationId?: string;
+
+    @IsOptional()
+    @IsUUID()
+    @ApiProperty()
+    thirdDimensionalModel?: string;
+
+    @IsOptional()
+    @IsString()
+    @ApiProperty()
+    video?: string;
   }
   return CreateExponatDto;
 };

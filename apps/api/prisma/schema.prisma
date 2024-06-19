@@ -157,27 +157,29 @@ model User {
 }
 
 model Exponat {
-  id                 String             @id @default(uuid())
-  name               String
-  alternateName      String
-  ExponatKind        ExponatKind
-  description        String
-  isApproved         Boolean            @default(true)
-  funFacts           String[]
-  attributes         Json
-  mainImage          String
-  categorizationId   String?
-  Categorization     Categorization?    @relation(fields: [categorizationId], references: [id], onDelete: Cascade)
-  createdAt          DateTime           @default(now())
-  updatedAt          DateTime          @default(now()) @updatedAt
-  Organisation       Organisation?      @relation(fields: [organisationId], references: [id], onDelete: Cascade)
-  organisationId     String?
-  FavouriteExponats  FavouriteExponat[]
-  IsNotificationMade Boolean            @default(false) //Made to check wether a notification has already been made
-  Posts              Post[]
-  authorshipInfoId   String?            @unique
-  AuthorshipInfo     AuthorshipInfo?    @relation(fields: [authorshipInfoId], references: [id])
-  serialNumber       Int                @unique @default(autoincrement())
+  id                    String             @id @default(uuid())
+  name                  String
+  alternateName         String
+  ExponatKind           ExponatKind
+  description           String
+  isApproved            Boolean            @default(true)
+  funFacts              String[]
+  attributes            Json
+  mainImage             String
+  categorizationId      String?
+  Categorization        Categorization?    @relation(fields: [categorizationId], references: [id], onDelete: Cascade)
+  createdAt             DateTime           @default(now())
+  updatedAt             DateTime           @default(now()) @updatedAt
+  Organisation          Organisation?      @relation(fields: [organisationId], references: [id], onDelete: Cascade)
+  organisationId        String?
+  FavouriteExponats     FavouriteExponat[]
+  IsNotificationMade    Boolean            @default(false) //Made to check wether a notification has already been made
+  Posts                 Post[]
+  authorshipInfoId      String?            @unique
+  AuthorshipInfo        AuthorshipInfo?    @relation(fields: [authorshipInfoId], references: [id])
+  serialNumber          Int                @unique @default(autoincrement())
+  thirdDimensionalModel String?
+  video                 String?
 }
 
 model Organisation {
