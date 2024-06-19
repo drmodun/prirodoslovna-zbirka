@@ -28,10 +28,6 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <script
-          type="module"
-          src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"
-        ></script>
         <DiscoverWrapper>
           <SideMenuWrapper>
             <NotificationsProvider>

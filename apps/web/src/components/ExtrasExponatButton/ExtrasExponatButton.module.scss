@@ -36,7 +36,9 @@
     color: $background-color;
     font-size: vw-calc(14);
     font-weight: 600;
+    transition: background-color 0.3s ease-in-out;
     border-radius: vw-calc(10);
+    cursor: pointer;
 
     @media (max-width: 768px) {
       gap: vw-mobile-calc(10);
@@ -62,10 +64,18 @@
 
     &.model {
       background-color: $eucariot-color;
+
+      &:hover {
+        background-color: $green;
+      }
     }
 
     &.video {
       background-color: $procariot-color;
+
+      &:hover {
+        background-color: $mineral-color;
+      }
     }
   }
 }
