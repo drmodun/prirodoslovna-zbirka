@@ -15,13 +15,14 @@ import {
   TimeLimitTypeEnum,
   TimeLimitTypeEnumType,
 } from "../enums";
-import { getCreateQuestionDto } from "src/question/questionRequests";
+import { getCreateQuestionDto } from "../question/questionRequests";
+import { SortingEnum, SortType } from "../query";
 
 const _createQuestionDto = getCreateQuestionDto();
 
 class CreateQuestionDto extends _createQuestionDto {}
 
-export const getQuizRequests = (ApiPropertySwagger?: any) => {
+export const getCreateQuizRequest = (ApiPropertySwagger?: any) => {
   const ApiProperty = ApiPropertySwagger || function () {};
 
   class CreateQuizDto {
@@ -41,7 +42,7 @@ export const getQuizRequests = (ApiPropertySwagger?: any) => {
 
     @IsEnum(TimeLimitTypeEnum)
     @ApiProperty()
-    quizType: TimeLimitTypeEnumType;
+    timeLimitType: TimeLimitTypeEnumType;
 
     @IsBoolean()
     @ApiProperty()
@@ -135,4 +136,52 @@ export const getUpdateQuizDto = (ApiPropertySwagger?: any) => {
   }
 
   return UpdateQuizDto;
+};
+
+export const getQuizQuery = (ApiPropertySwagger?: any) => {
+  const ApiProperty = ApiPropertySwagger || function () {};
+
+  class QuizQueryDto {
+    @IsOptional()
+    @ApiProperty()
+    title?: string;
+
+    @IsOptional()
+    @ApiProperty()
+    difficulty?: QuizDifficultyType;
+
+    @IsOptional()
+    @ApiProperty()
+    isTest?: boolean;
+
+    @IsOptional()
+    @ApiProperty()
+    isRetakeable?: boolean;
+
+    @IsOptional()
+    @ApiProperty()
+    isAnonymousAllowed?: boolean;
+
+    @IsOptional()
+    @ApiProperty()
+    organisationId?: string;
+
+    @IsOptional()
+    @ApiProperty({ enum: SortingEnum, required: false })
+    attribute?: SortingEnum;
+
+    @IsOptional()
+    @ApiProperty({ enum: SortType, required: false })
+    direction?: SortType;
+
+    @IsOptional()
+    @ApiProperty({ required: false })
+    page?: number;
+
+    @IsOptional()
+    @ApiProperty({ required: false })
+    size?: number;
+  }
+
+  return QuizQueryDto;
 };

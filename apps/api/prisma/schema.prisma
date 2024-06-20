@@ -422,6 +422,7 @@ model Question {
   points       Int          @default(1)
   quiz         Quiz         @relation(fields: [quizId], references: [id], onDelete: Cascade)
   Answer       Answer[]
+  //TODO add tags
 }
 
 model Attempt {
