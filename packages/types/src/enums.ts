@@ -234,6 +234,31 @@ export type NotificationAwaited = {
   type: NotificationTypeEnumType;
 };
 
+export enum QuizDifficulty {
+  EASY = "Lako",
+  MEDIUM = "Srednje",
+  HARD = "Teško",
+  UNSET = "Nije postavljeno",
+}
+
+export type QuizDifficultyType = keyof typeof QuizDifficulty;
+
+export enum QuestionTypeEnum {
+  MULTIPLE_CHOICE = "Višestruki izbor",
+  TRUE_FALSE = "Točno/Netočno",
+  FILL_IN_THE_BLANK = "Popuni praznine",
+}
+
+export type QuestionTypeEnumType = keyof typeof QuestionTypeEnum;
+
+export enum TimeLimitTypeEnum {
+  NONE = "Nema vremenskog ograničenja",
+  TOTAL = "Ukupno vrijeme",
+  PER_QUESTION = "Vrijeme po pitanju",
+}
+
+export type TimeLimitTypeEnumType = keyof typeof TimeLimitTypeEnum;
+
 export const getKeyByValue = (object: any, value: any) => {
   return Object.keys(object).find((key) => object[key] === value);
 };
