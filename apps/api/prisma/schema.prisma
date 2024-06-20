@@ -399,6 +399,7 @@ model Quiz {
   organisation       Organisation?  @relation(fields: [organisationId], references: [id], onDelete: Cascade)
   difficulty         QuizDifficulty
   timeLimitType      TimeLimitType
+  isApproved         Boolean        @default(false)
   coverImage         String?
   description        String
   isTest             Boolean        @default(false)

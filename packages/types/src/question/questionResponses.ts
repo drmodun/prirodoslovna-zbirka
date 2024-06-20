@@ -16,7 +16,7 @@ export interface AnswerDistribution {
 
 export interface QuestionResponseExtended extends QuestionResponse {
   points: number;
-  correctAnswer: string;
+  correctAnswer: string[];
   correctPercentage: number;
   answerDistribution?: AnswerDistribution[];
 }
