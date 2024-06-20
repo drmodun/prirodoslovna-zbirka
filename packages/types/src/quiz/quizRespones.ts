@@ -1,4 +1,5 @@
-import { QuizDifficulty } from "../enums";
+import { QuestionResponse } from "src/question/questionResponses";
+import { QuizDifficulty, QuizDifficultyType } from "../enums";
 
 export interface QuizResponseShort {
   title: string;
@@ -11,6 +12,13 @@ export interface QuizResponseShort {
   organisationName: string;
   organisationMainImage: string;
   isTest: boolean;
-  timeLimitTotal: number;
-  difficulty: QuizDifficulty;
+  timeLimitTotal?: number;
+  difficulty: QuizDifficultyType;
+  isAnonymousAllowed: boolean;
+  updatedAt: Date;
+}
+
+export interface QuizResponseExtended extends QuizResponseShort {
+  averageAttemptScore: number;
+  questions: QuestionResponse[];
 }

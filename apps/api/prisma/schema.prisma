@@ -430,10 +430,10 @@ model Attempt {
   userId    String?
   user      User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
   quizId    String
+  Answer    Answer[]
   quiz      Quiz     @relation(fields: [quizId], references: [id], onDelete: Cascade)
   startedAt DateTime @default(now())
   timeTaken Int
-  Answer    Answer[]
 }
 
 model Answer {
