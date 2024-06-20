@@ -28,6 +28,7 @@ import { NotificationUsersModule } from './notification-users/notification-users
 import { EventEmitterModule } from '@nestjs/event-emitter';
 import { AuthorshipInfoModule } from './authorship-info/authorship-info.module';
 import { QuizzesModule } from './quizzes/quizzes.module';
+import { QuestionsModule } from './questions/questions.module';
 
 @Module({
   imports: [
@@ -62,6 +63,7 @@ import { QuizzesModule } from './quizzes/quizzes.module';
     EventEmitterModule.forRoot(),
     AuthorshipInfoModule,
     QuizzesModule,
+    QuestionsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
