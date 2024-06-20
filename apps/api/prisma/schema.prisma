@@ -18,6 +18,25 @@ enum Role {
   USER
 }
 
+enum TimeLimitType {
+  NONE
+  TOTAL
+  PER_QUESTION
+}
+
+enum QuizDifficulty {
+  EASY
+  MEDIUM
+  HARD
+  UNSET
+}
+
+enum QuestionType {
+  MULTIPLE_CHOICE
+  TRUE_FALSE
+  FILL_IN_THE_BLANK
+}
+
 enum ExponatKind {
   PROCARIOT
   EUCARIOT
@@ -154,6 +173,7 @@ model User {
   UserNotification            UserNotification[]
   IsEmailNotificationsEnabled Boolean                    @default(true)
   AuthorshipInfo              AuthorshipInfo[]
+  Attempt                     Attempt[]
 }
 
 model Exponat {
@@ -198,6 +218,7 @@ model Organisation {
   OrganisationUsers         OrganisationUser[]
   UserOrganisationFollowers UserOrganisationFollower[]
   Work                      Work[]
+  Quiz                      Quiz[]
 }
 
 model Post {
@@ -366,4 +387,58 @@ model UserNotification {
   isRead         Boolean      @default(false)
 
   @@id([notificationId, userId])
+}
+
+model Quiz {
+  id                 String         @id @default(uuid())
+  title              String
+  createdAt          DateTime       @default(now())
+  updatedAt          DateTime       @default(now()) @updatedAt
+  timeLimitTotal     Int?
+  organisationId     String?
+  organisation       Organisation?  @relation(fields: [organisationId], references: [id], onDelete: Cascade)
+  difficulty         QuizDifficulty
+  timeLimitType      TimeLimitType
+  description        String
+  isRetakeable       Boolean        @default(false)
+  isAnonymousAllowed Boolean        @default(false)
+  questions          Question[]
+  attempts           Attempt[]
+}
+
+model Question {
+  id           String       @id @default(uuid())
+  question     String
+  questionType QuestionType
+  options      String[] //Or just csv string still not sure
+  correct      String
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @default(now()) @updatedAt
+  quizId       String
+  timeLimit    Int?
+  quiz         Quiz         @relation(fields: [quizId], references: [id], onDelete: Cascade)
+  Answer       Answer[]
+}
+
+model Attempt {
+  id        String   @id @default(uuid())
+  userId    String?
+  user      User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  quizId    String
+  quiz      Quiz     @relation(fields: [quizId], references: [id], onDelete: Cascade)
+  startedAt DateTime @default(now())
+  timeTaken Int
+  Answer    Answer[]
+}
+
+model Answer {
+  answer          String
+  questionId      String
+  attemptId       String
+  questionOpenned DateTime @default(now())
+  timeTaken       Int
+  attempt         Attempt  @relation(fields: [attemptId], references: [id], onDelete: Cascade)
+  question        Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+
+  @@id([attemptId, questionId])
 }
