@@ -20,6 +20,12 @@ import { AuthGuard } from '@nestjs/passport';
 import { ApiBearerAuth } from '@nestjs/swagger';
 import { ExponatsService } from 'src/exponats/exponats.service';
 import { MembersService } from 'src/members/members.service';
+import {
+  QuestionResponse,
+  QuestionResponseExtended,
+  QuizResponseExtended,
+  QuizResponseShort,
+} from '@biosfera/types';
 @Controller('quizzes')
 export class QuizzesController {
   constructor(
@@ -40,40 +46,103 @@ export class QuizzesController {
       organisation,
     );
 
-
     if (!isValid) throw new UnauthorizedException();
-    return await this.quizzesService.create(createQuizDto);
+    return (await this.quizzesService.create(createQuizDto)) != null;
   }
 
   @Get()
   async findAll(@Query() query: QuizQuery) {
-    return await this.quizzesService.findAll(query);
+    const quizzes = await this.quizzesService.findAll(query);
+
+    const mapped: QuizResponseShort[] = quizzes.map((quiz) => {
+      return {
+        id: quiz.id,
+        title: quiz.title,
+        difficulty: quiz.difficulty,
+        isTest: quiz.isTest,
+        attemptsAmount: quiz._count.attempts,
+        description: quiz.description,
+        organisationMainImage: quiz.organisation.mainImage,
+        organisationName: quiz.organisation.mainImage,
+        questionAmount: quiz._count.questions,
+        timeLimitTotal: quiz.timeLimitTotal,
+        isRetakeable: quiz.isRetakeable,
+        isAnonymousAllowed: quiz.isAnonymousAllowed,
+        coverImage: quiz.coverImage,
+        organisationId: quiz.organisationId,
+        updatedAt: quiz.updatedAt,
+      } as QuizResponseShort;
+    });
+
+    return mapped;
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: ) {
-    return this.quizzesService.findOne(id);
+  async findOne(@Param('id') id: string) {
+    const quiz = await this.quizzesService.findOne(id);
+
+    const questionsMapped: QuestionResponse[] = quiz.questions.map(
+      (question) => {
+        return {
+          id: question.id,
+          questionType: question.questionType,
+          timeLimit: question.timeLimit,
+          options: question.options,
+          question: question.question,
+          image: question.image,
+        } as QuestionResponse;
+      },
+    );
+
+    const mapped: QuizResponseExtended = {
+      attemptsAmount: quiz._count.attempts,
+      averageAttemptScore: 0, //TODO: implement fast calculation function here
+      description: quiz.description,
+      difficulty: quiz.difficulty,
+      isAnonymousAllowed: quiz.isAnonymousAllowed,
+      isRetakeable: quiz.isRetakeable,
+      isTest: quiz.isTest,
+      organisationId: quiz.organisationId,
+      organisationMainImage: quiz.organisation.mainImage,
+      organisationName: quiz.organisation.name,
+      questions: questionsMapped,
+      questionAmount: quiz._count.questions,
+      title: quiz.title,
+      updatedAt: quiz.updatedAt,
+      timeLimitTotal: quiz.timeLimitTotal,
+      coverImage: quiz.coverImage,
+    };
+
+    return mapped;
   }
 
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   @Patch(':organisationId/:id')
-  async update(@Param('id') id: string, @Body() updateQuizDto: UpdateQuizDto, @Req() req: any, @Param('organisationId') organisation: string){
+  async update(
+    @Param('id') id: string,
+    @Body() updateQuizDto: UpdateQuizDto,
+    @Req() req: any,
+    @Param('organisationId') organisation: string,
+  ) {
     const isValid = await this.membersService.hasAdminRights(
       req.user.id,
-      organisation      
+      organisation,
     );
 
-
     if (!isValid) throw new UnauthorizedException();
-   
+
     return await this.quizzesService.update(id, updateQuizDto);
   }
 
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   @Delete(':orgnisationId/:id')
-  async remove(@Param('id') id: string, @Req() req: any, @Param('organisationId') organisation: string) {
+  async remove(
+    @Param('id') id: string,
+    @Req() req: any,
+    @Param('organisationId') organisation: string,
+  ) {
     const isValid = await this.membersService.hasAdminRights(
       req.user.id,
       organisation,

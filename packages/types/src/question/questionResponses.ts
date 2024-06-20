@@ -2,10 +2,21 @@ import { QuestionTypeEnumType } from "../enums";
 
 export interface QuestionResponse {
   id: string;
-  text: string;
+  question: string;
+  image?: string;
   questionType: QuestionTypeEnumType;
   options: string[];
+  timeLimit?: number;
+}
+
+export interface AnswerDistribution {
+  answer: string;
+  amount: number;
+}
+
+export interface QuestionResponseExtended extends QuestionResponse {
+  points: number;
   correctAnswer: string;
-  createdAt: Date;
-  updatedAt: Date;
+  correctPercentage: number;
+  answerDistribution?: AnswerDistribution[];
 }

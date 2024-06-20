@@ -48,6 +48,20 @@ export class QuizzesService {
           [query.attribute]: query.direction || 'asc',
         }),
       },
+      include: {
+        _count: {
+          select: {
+            questions: true,
+            attempts: true,
+          },
+        },
+        organisation: {
+          select: {
+            mainImage: true,
+            name: true,
+          },
+        },
+      },
       skip: query.page - 1 * query.size,
     });
 
@@ -58,6 +72,31 @@ export class QuizzesService {
     const quiz = await this.prisma.quiz.findUnique({
       where: {
         id,
+      },
+      include: {
+        questions: true,
+        _count: {
+          select: {
+            attempts: true,
+            questions: true,
+          },
+        },
+        organisation: {
+          select: {
+            mainImage: true,
+            name: true,
+          },
+        },
+        attempts: {
+          where: {
+            timeTaken: {
+              not: null,
+            },
+          },
+          include: {
+            Answer: true,
+          },
+        },
       },
     });
 
