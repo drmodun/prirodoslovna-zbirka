@@ -399,7 +399,9 @@ model Quiz {
   organisation       Organisation?  @relation(fields: [organisationId], references: [id], onDelete: Cascade)
   difficulty         QuizDifficulty
   timeLimitType      TimeLimitType
+  coverImage         String?
   description        String
+  isTest             Boolean        @default(false)
   isRetakeable       Boolean        @default(false)
   isAnonymousAllowed Boolean        @default(false)
   questions          Question[]
@@ -410,12 +412,14 @@ model Question {
   id           String       @id @default(uuid())
   question     String
   questionType QuestionType
-  options      String[] //Or just csv string still not sure
-  correct      String
+  options      String[]
+  correct      String[]
   createdAt    DateTime     @default(now())
   updatedAt    DateTime     @default(now()) @updatedAt
   quizId       String
+  image        String?
   timeLimit    Int?
+  points       Int          @default(1)
   quiz         Quiz         @relation(fields: [quizId], references: [id], onDelete: Cascade)
   Answer       Answer[]
 }
