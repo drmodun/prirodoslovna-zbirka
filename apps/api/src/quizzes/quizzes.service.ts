@@ -119,11 +119,69 @@ export class QuizzesService {
     return updatedQuiz;
   }
 
+  async toggleApprovalStatus(id: string) {
+    const quiz = await this.prisma.quiz.findUnique({
+      where: {
+        id,
+      },
+    });
+
+    const updatedQuiz = await this.prisma.quiz.update({
+      where: {
+        id,
+      },
+      data: {
+        isApproved: !quiz.isApproved,
+      },
+    });
+
+    return updatedQuiz;
+  }
+
   async remove(id: string) {
     await this.prisma.quiz.delete({
       where: {
         id,
       },
     });
+  }
+
+  async getWaitingForApproval() {
+    const quizzes = await this.prisma.quiz.findMany({
+      where: {
+        isApproved: false,
+      },
+      include: {
+        organisation: true,
+        _count: {
+          select: {
+            questions: true,
+            attempts: true,
+          },
+        },
+      },
+    });
+
+    return quizzes;
+  }
+
+  async getSingleWaitingForApproval(id: string) {
+    const quiz = await this.prisma.quiz.findUnique({
+      where: {
+        id,
+      },
+      include: {
+        organisation: true,
+        _count: {
+          select: {
+            questions: true,
+            attempts: true,
+          },
+        },
+        questions: true,
+      },
+    });
+
+    return quiz;
   }
 }

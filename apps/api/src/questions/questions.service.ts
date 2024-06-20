@@ -10,6 +10,38 @@ import {
 export class QuestionsService {
   constructor(private readonly prisma: PrismaService) {}
 
+  async hasEditPermission(questionId: string, userId: string) {
+    const question = await this.prisma.question.findUnique({
+      where: { id: questionId },
+      select: {
+        quiz: {
+          select: {
+            organisationId: true,
+          },
+        },
+      },
+    });
+
+    if (!question) return false;
+
+    const member = await this.prisma.organisationUser.findFirst({
+      where: {
+        userId,
+        organisationId: question.quiz.organisationId,
+        OR: [
+          {
+            role: 'ADMIN',
+          },
+          {
+            role: 'OWNER',
+          },
+        ],
+      },
+    });
+
+    return member !== null;
+  }
+
   async create(createQuestionDto: CreateQuestionDto) {
     await this.prisma.question.create({
       data: {

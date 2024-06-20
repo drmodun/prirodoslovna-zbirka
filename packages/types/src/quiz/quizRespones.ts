@@ -1,5 +1,5 @@
 import { QuestionResponse } from "../question/questionResponses";
-import { QuizDifficulty, QuizDifficultyType } from "../enums";
+import { QuizDifficultyType } from "../enums";
 
 export interface QuizResponseShort {
   title: string;

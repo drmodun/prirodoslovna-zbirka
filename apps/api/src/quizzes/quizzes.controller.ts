@@ -151,4 +151,104 @@ export class QuizzesController {
     if (!isValid) throw new UnauthorizedException();
     return await this.quizzesService.remove(id);
   }
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
+  @Patch(':organisationId/:id/approval')
+  async toggleApproval(
+    @Param('id') id: string,
+    @Req() req: any,
+    @Param('organisationId') organisation: string,
+  ) {
+    const isValid = await this.membersService.hasAdminRights(
+      req.user.id,
+      organisation,
+    );
+
+    if (!isValid) throw new UnauthorizedException();
+
+    return await this.quizzesService.toggleApprovalStatus(id);
+  }
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
+  @Get(':organisationId/non-approved')
+  async getQuizzesWaitingForApproval(
+    @Param('organisationId') organisation: string,
+    @Req() req: any,
+  ) {
+    const isValid = await this.membersService.hasAdminRights(
+      req.user.id,
+      organisation,
+    );
+    if (!isValid) throw new UnauthorizedException();
+    const quiz = await this.quizzesService.getWaitingForApproval();
+    const mapped = quiz.map((quiz) => {
+      return {
+        id: quiz.id,
+        title: quiz.title,
+        description: quiz.description,
+        coverImage: quiz.coverImage,
+        isRetakeable: quiz.isRetakeable,
+        questionAmount: quiz._count.questions,
+        attemptsAmount: quiz._count.attempts,
+        organisationId: quiz.organisationId,
+        organisationName: quiz.organisation.name,
+        organisationMainImage: quiz.organisation.mainImage,
+        isTest: quiz.isTest,
+        timeLimitTotal: quiz.timeLimitTotal,
+        difficulty: quiz.difficulty,
+        isAnonymousAllowed: quiz.isAnonymousAllowed,
+        updatedAt: quiz.updatedAt,
+      } as QuizResponseShort;
+    });
+    return mapped;
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
+  @Get(':organisationId/non-approved/:id')
+  async getQuizWaitingForApproval(
+    @Param('organisationId') organisation: string,
+    @Req() req: any,
+    @Param('id') id: string,
+  ) {
+    const isValid = await this.membersService.hasAdminRights(
+      req.user.id,
+      organisation,
+    );
+    if (!isValid) throw new UnauthorizedException();
+    const quiz = await this.quizzesService.getSingleWaitingForApproval(id);
+    const questions = quiz.questions.map((question) => {
+      return {
+        id: question.id,
+        question: question.question,
+        questionType: question.questionType,
+        correct: question.correct,
+        options: question.options,
+        image: question.image,
+        points: question.points,
+        timeLimit: question.timeLimit,
+      } as QuestionResponse;
+    });
+    const mapped = {
+      id: quiz.id,
+      title: quiz.title,
+      description: quiz.description,
+      coverImage: quiz.coverImage,
+      isRetakeable: quiz.isRetakeable,
+      questionAmount: quiz._count.questions,
+      attemptsAmount: quiz._count.attempts,
+      organisationId: quiz.organisationId,
+      organisationName: quiz.organisation.name,
+      organisationMainImage: quiz.organisation.mainImage,
+      isTest: quiz.isTest,
+      timeLimitTotal: quiz.timeLimitTotal,
+      difficulty: quiz.difficulty,
+      isAnonymousAllowed: quiz.isAnonymousAllowed,
+      updatedAt: quiz.updatedAt,
+      averageAttemptScore: 0,
+      questions,
+    } as QuizResponseExtended;
+
+    return mapped;
+  }
 }
