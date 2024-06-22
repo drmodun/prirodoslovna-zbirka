@@ -7,6 +7,7 @@ import {
   QuizResponseExtended,
   TimeLimitTypeEnum,
 } from "@biosfera/types";
+import { questionSchema } from "components/QuestionForm/QuestionForm";
 import { z } from "zod";
 
 export interface QuizFormProps {
@@ -28,7 +29,6 @@ export const QuizForm = ({ organisationId, defaultValues }: QuizFormProps) => {
     timeLimitTotal: z.number().optional(),
     difficulty: z.enum(["", ...getDifficultyTypesList()]),
     isAnonymousAllowed: z.boolean(),
-    questions: z.array(
-     
+    questions: z.array(questionSchema),
   });
 };
