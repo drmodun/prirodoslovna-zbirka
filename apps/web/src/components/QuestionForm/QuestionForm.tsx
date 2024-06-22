@@ -19,8 +19,10 @@ export const questionSchema = z.object({
   points: z.number(),
 });
 
+export type questionSchemaType = z.infer<typeof questionSchema>;
+
 export interface QuestionFormProps {
-  defaultValues?: QuestionResponseExtended;
+  defaultValues?: questionSchemaType | QuestionResponseExtended;
   hasTimeLimit?: boolean;
   onSubmit: (data: any) => void;
 }

@@ -1,3 +1,5 @@
+"use client";
+
 import {
   getDifficultyTypesList,
   getTimeLimitTypesList,
@@ -9,10 +11,15 @@ import {
 } from "@biosfera/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import BaseButton from "components/BaseButton";
+import CheckboxInput from "components/CheckboxInput";
 import FileUpload from "components/FileUpload";
 import Input from "components/Input";
-import ListInput from "components/ListInput";
-import { questionSchema } from "components/QuestionForm/QuestionForm";
+import {
+  QuestionForm,
+  questionSchema,
+  questionSchemaType,
+} from "components/QuestionForm/QuestionForm";
+import QuestionInputPreview from "components/QuestionInputPreview";
 import SelectInput from "components/SelectInput";
 import { FieldValues, useForm } from "react-hook-form";
 import { z } from "zod";
@@ -28,9 +35,6 @@ export const QuizForm = ({ organisationId, defaultValues }: QuizFormProps) => {
     description: z.string(),
     coverImage: z.string().optional(),
     isRetakeable: z.boolean(),
-    organisationId: z.string(),
-    organisationName: z.string(),
-    organisationMainImage: z.string(),
     isTest: z.boolean(),
     timeLimitType: z.enum(["", ...getTimeLimitTypesList()]),
     timeLimitTotal: z.number().optional(),
@@ -38,6 +42,22 @@ export const QuizForm = ({ organisationId, defaultValues }: QuizFormProps) => {
     isAnonymousAllowed: z.boolean(),
     questions: z.array(questionSchema),
   });
+
+  const handleDeleteQuestion = (index: number) => {
+    const questions = form.getValues("questions");
+    questions.splice(index, 1);
+    form.setValue("questions", questions);
+  };
+
+  const handleEditQuestion = (data: questionSchemaType, index: number) => {
+    const questions = form.getValues("questions");
+    questions[index] = data;
+    form.setValue("questions", questions); //Test this a lot
+  };
+
+  const hadnleAddQuestion = (data: questionSchemaType) => {
+    form.setValue("questions", [...form.getValues("questions"), data]);
+  };
 
   const form = useForm({
     defaultValues: defaultValues as FieldValues,
@@ -72,7 +92,8 @@ export const QuizForm = ({ organisationId, defaultValues }: QuizFormProps) => {
       <Input
         form={form}
         attribute="timeLimitTotal"
-        question="Ukupno vreme"
+        question="Ukupno vrijeme"
+        isNumber
         error={form.formState.errors.timeLimitTotal?.message?.toString()}
       />
       <SelectInput
@@ -85,7 +106,38 @@ export const QuizForm = ({ organisationId, defaultValues }: QuizFormProps) => {
         }))}
         error={form.formState.errors.difficulty?.message?.toString()}
       />
-      //TODO: implement view of question input
+      <CheckboxInput
+        initValue={form.getValues("isRetakeable")}
+        question="Dozvoljeno ponavljanje"
+        onChange={(e) => form.setValue("isRetakeable", e.target.checked)}
+        error={form.formState.errors.isRetakeable?.message?.toString()}
+      />
+      <CheckboxInput
+        initValue={form.getValues("isAnonymousAllowed")}
+        question="Dozvoljeno anonimno rješavanje"
+        onChange={(e) => form.setValue("isAnonymousAllowed", e.target.checked)}
+        error={form.formState.errors.isAnonymousAllowed?.message?.toString()}
+      />
+      <CheckboxInput
+        initValue={form.getValues("isTest")}
+        question="Kviz je testnog oblika (dozvoljeno vraćanje na pitanja i sva pitanja su odmah vidljiva"
+        onChange={(e) => form.setValue("isTest", e.target.checked)}
+        error={form.formState.errors.isTest?.message?.toString()}
+      />
+
+      {form.watch("questions").map((question: questionSchemaType) => {
+        <QuestionInputPreview
+          question={question}
+          onEdit={handleEditQuestion}
+          index={form.watch("questions").indexOf(question)}
+          onDelete={handleDeleteQuestion}
+        />;
+      })}
+      <span>Dodaj pitanje</span>
+      <QuestionForm
+        hasTimeLimit={form.watch("timeLimitType") === "PER_QUESTION"}
+        onSubmit={hadnleAddQuestion}
+      />
       <BaseButton text="Kreiraj kviz" isNotSubmit={false} />
     </form>
   );
