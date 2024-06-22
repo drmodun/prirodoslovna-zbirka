@@ -106,4 +106,28 @@
       margin-top: vw-mobile-calc(5);
     }
   }
+
+  .points {
+    font-size: vw-calc(16);
+    color: $primary;
+    margin-top: vw-calc(10);
+
+    @media (max-width: 768px) {
+      font-size: vw-mobile-calc(14);
+      margin-top: vw-mobile-calc(5);
+    }
+  }
+
+  .deleteButton {
+    color: $background-color;
+    background-color: $red;
+
+    &:hover {
+      background-color: $dark-red;
+    }
+
+    &.active {
+      background-color: $dark-red;
+    }
+  }
 }

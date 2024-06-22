@@ -1,11 +1,9 @@
 import { UseFormReturn } from "react-hook-form";
 
 export interface CheckboxInputProps {
-  form?: UseFormReturn<any>;
-  attribute?: string;
   question: string;
   initValue: string;
-  error: string;
+  error?: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 

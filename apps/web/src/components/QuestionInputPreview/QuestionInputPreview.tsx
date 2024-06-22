@@ -1,19 +1,50 @@
-import { questionSchema } from "components/QuestionForm/QuestionForm";
+import {
+  QuestionForm,
+  questionSchema,
+  questionSchemaType,
+} from "components/QuestionForm/QuestionForm";
 import { z } from "zod";
 
 export interface QuestionInputPreviewProps {
-  question: z.infer<typeof questionSchema>;
+  question: questionSchemaType;
+  onEdit: (data: questionSchemaType, index: number) => void;
+  onDelete: (id: number) => void;
+  index: number;
 }
 
 import classes from "./QuestionInputPreview.module.scss";
 import Image from "next/image";
+import BaseButton from "components/BaseButton";
+import { useState } from "react";
+import { ButtonColor } from "@/shared/enums";
 
 const optionLabels = ["A", "B", "C", "D", "E", "F"];
 
 export const QuestionInputPreview = ({
   question,
+  onDelete,
+  index,
+  onEdit,
 }: QuestionInputPreviewProps) => {
-  return (
+  const [isEditMode, setIsEditMode] = useState<boolean>(false);
+
+  return isEditMode ? (
+    <>
+      <QuestionForm
+        defaultValues={question}
+        onSubmit={(data) => {
+          setIsEditMode(false);
+          onEdit(data, index);
+        }}
+      />
+      <BaseButton
+        text="Odustani"
+        onClick={() => setIsEditMode(false)}
+        className={classes.deleteButton}
+        isNotSubmit
+      />
+    </>
+  ) : (
     <div className={classes.container}>
       <div className={classes.question}>{question.question}</div>
       {question.image && (
@@ -32,6 +63,19 @@ export const QuestionInputPreview = ({
         </div>
       )}
       <div className={classes.correct}>{question.correct.toString()}</div>
+      <div className={classes.points}>Vrijedi: {question.points}</div>
+      <BaseButton
+        isNotSubmit
+        text="Uredi"
+        initColor={ButtonColor.BLUE}
+        onClick={() => setIsEditMode(true)}
+      />
+      <BaseButton
+        isNotSubmit
+        text="Obriši"
+        className={classes.deleteButton}
+        onClick={() => onDelete(index)}
+      />
     </div>
   );
 };
