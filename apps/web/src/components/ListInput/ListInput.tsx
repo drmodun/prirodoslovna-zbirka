@@ -8,6 +8,7 @@ import SingleInput from "components/SingleInput";
 import leaf from "assets/images/like-leaf-green.svg";
 import plus from "assets/images/plus.svg";
 import ErrorText from "components/Error";
+import { Option, SelectInput } from "components/SelectInput/SelectInput";
 
 export interface ListInputProps {
   question: string;
@@ -16,14 +17,18 @@ export interface ListInputProps {
   error?: string;
   initValue?: string[];
   isSelect?: boolean;
+  options?: Option[];
+  isWithCheckbox?: boolean;
 }
 
 export const ListInput = ({
   question,
   attribute,
   form,
+  isWithCheckbox,
   error,
   isSelect,
+  options,
   initValue,
 }: ListInputProps) => {
   const { setValue } = form;
@@ -70,12 +75,28 @@ export const ListInput = ({
           >
             <Image src={plus} alt="add" layout="fill" />
           </button>
-          <SingleInput
-            onChange={setNewValue}
-            question="Upišite vrijednost"
-            value={newValue}
-            image={leaf}
-          />
+          {isSelect ? (
+            <select
+              name="select"
+              title="Odabir vrijednosti"
+              className={classes.select}
+              value={newValue}
+              onChange={(e) => setNewValue(e.target.value)}
+            >
+              {options?.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </select> //TODO: add styles if needed
+          ) : (
+            <SingleInput
+              onChange={setNewValue}
+              question="Upišite vrijednost"
+              value={newValue}
+              image={leaf}
+            />
+          )}
         </div>
       </div>
       <ErrorText message={error} />
