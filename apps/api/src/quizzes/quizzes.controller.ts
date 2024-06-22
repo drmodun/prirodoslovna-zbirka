@@ -22,7 +22,6 @@ import { ExponatsService } from 'src/exponats/exponats.service';
 import { MembersService } from 'src/members/members.service';
 import {
   QuestionResponse,
-  QuestionResponseExtended,
   QuizResponseExtended,
   QuizResponseShort,
 } from '@biosfera/types';

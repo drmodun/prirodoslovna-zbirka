@@ -173,7 +173,7 @@ export const QuizForm = ({ organisationId, defaultValues }: QuizFormProps) => {
           onEdit={handleEditQuestion}
           index={form.watch("questions").indexOf(question)}
           onDelete={handleDeleteQuestion}
-        />;
+        />; //Test if this creates a new question or not
       })}
       <span>Dodaj pitanje</span>
       <QuestionForm

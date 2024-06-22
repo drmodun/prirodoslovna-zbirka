@@ -9,7 +9,6 @@ export const _getUpdateQuestionsDto = getCreateQuestionDto(ApiProperty);
 
 export class UpdateQuestionDto extends _getUpdateQuestionsDto {}
 
-export class QuestionQuery {
-  @ApiProperty()
-  quizId: string;
-}
+export const _getQuestionQuery = getCreateQuestionDto(ApiProperty);
+
+export class QuestionQuery extends _getQuestionQuery {}

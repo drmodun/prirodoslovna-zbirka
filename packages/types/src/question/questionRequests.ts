@@ -90,3 +90,14 @@ export const getUpdateQuestionDto = (ApiPropertySwagger?: any) => {
   }
   return UpdateQuestionDto;
 };
+
+export const getQuestionQuery = (ApiPropertySwagger?: any) => {
+  const ApiProperty = ApiPropertySwagger || function () {};
+
+  class QuestionQuery {
+    @IsString()
+    @ApiProperty()
+    quizId: string;
+  }
+  return QuestionQuery;
+};
