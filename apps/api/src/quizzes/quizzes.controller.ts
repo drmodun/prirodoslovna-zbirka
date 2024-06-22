@@ -47,7 +47,7 @@ export class QuizzesController {
     );
 
     if (!isValid) throw new UnauthorizedException();
-    return (await this.quizzesService.create(createQuizDto)) != null;
+    await this.quizzesService.create(createQuizDto);
   }
 
   @Get()
@@ -101,6 +101,7 @@ export class QuizzesController {
       difficulty: quiz.difficulty,
       isAnonymousAllowed: quiz.isAnonymousAllowed,
       isRetakeable: quiz.isRetakeable,
+      id: quiz.id,
       isTest: quiz.isTest,
       organisationId: quiz.organisationId,
       organisationMainImage: quiz.organisation.mainImage,

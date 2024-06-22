@@ -5,9 +5,9 @@ const _getCreateQuizDto = getCreateQuizRequest(ApiProperty);
 
 export class CreateQuizDto extends _getCreateQuizDto {}
 
-const _getUpdateQuizDto = getCreateQuizRequest(ApiProperty);
+const _getUpdateQuizRequest = getCreateQuizRequest(ApiProperty);
 
-export class UpdateQuizDto extends _getUpdateQuizDto {}
+export class UpdateQuizDto extends _getUpdateQuizRequest {}
 
 const _getQuizQuery = getQuizQuery(ApiProperty);
 

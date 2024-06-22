@@ -6,6 +6,7 @@ export interface QuizResponseShort {
   description: string;
   coverImage?: string;
   isRetakeable: boolean;
+  id: string;
   questionAmount: number;
   attemptsAmount: number;
   organisationId: string;

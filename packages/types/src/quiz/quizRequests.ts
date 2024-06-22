@@ -77,7 +77,7 @@ export const getCreateQuizRequest = (ApiPropertySwagger?: any) => {
   return CreateQuizDto;
 };
 
-export const getUpdateQuizDto = (ApiPropertySwagger?: any) => {
+export const getUpdateQuizRequest = (ApiPropertySwagger?: any) => {
   const ApiProperty = ApiPropertySwagger || function () {};
 
   class UpdateQuizDto {

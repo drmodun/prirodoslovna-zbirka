@@ -1,10 +1,14 @@
 "use client";
 
+import { useCreateQuiz } from "@/api/useCreateQuiz";
+import { useUpdateQuiz } from "@/api/useUpdateQuiz";
+import { useUploadFile } from "@/api/useUploadFile";
 import {
   getDifficultyTypesList,
   getTimeLimitTypesList,
 } from "@/utility/static/getEnumLists";
 import {
+  Directories,
   getEnumValue,
   QuizResponseExtended,
   TimeLimitTypeEnum,
@@ -21,6 +25,7 @@ import {
 } from "components/QuestionForm/QuestionForm";
 import QuestionInputPreview from "components/QuestionInputPreview";
 import SelectInput from "components/SelectInput";
+import { useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -43,6 +48,12 @@ export const QuizForm = ({ organisationId, defaultValues }: QuizFormProps) => {
     questions: z.array(questionSchema),
   });
 
+  const { mutateAsync: createQuiz, isError: errorOnCreate } = useCreateQuiz();
+  const { mutateAsync: updateQuiz, isError: errorOnUpdate } = useUpdateQuiz();
+  const { mutateAsync: uploadFile } = useUploadFile();
+
+  const [titleImage, setTitleImage] = useState<File[]>([]);
+
   const handleDeleteQuestion = (index: number) => {
     const questions = form.getValues("questions");
     questions.splice(index, 1);
@@ -55,7 +66,7 @@ export const QuizForm = ({ organisationId, defaultValues }: QuizFormProps) => {
     form.setValue("questions", questions); //Test this a lot
   };
 
-  const hadnleAddQuestion = (data: questionSchemaType) => {
+  const handleAddQuestion = (data: questionSchemaType) => {
     form.setValue("questions", [...form.getValues("questions"), data]);
   };
 
@@ -64,8 +75,35 @@ export const QuizForm = ({ organisationId, defaultValues }: QuizFormProps) => {
     resolver: zodResolver(schema),
   });
 
+  const onSubmit = async (data: any) => {
+    if (data.timeLimitTotal) {
+      data.timeLimitTotal *= 1000 * 60;
+    }
+
+    const image = titleImage.length > 0 && titleImage[0];
+    const upload = image
+      ? uploadFile({
+          file: image,
+          directory: Directories.QUIZ,
+        })
+      : Promise.resolve(null);
+    data.image = await upload;
+
+    if (defaultValues) {
+      await updateQuiz({ organisationId, id: defaultValues.id, data });
+    } else {
+      await createQuiz({ organisationId, data });
+    }
+
+    if (errorOnCreate || errorOnUpdate) return;
+
+    setTimeout(() => {
+      window.location.href = `organisation/${organisationId}`;
+    }, 3000);
+  };
+
   return (
-    <form onSubmit={form.handleSubmit((data) => console.log(data))}>
+    <form onSubmit={form.handleSubmit(onSubmit)}>
       <Input
         form={form}
         attribute="title"
@@ -78,7 +116,11 @@ export const QuizForm = ({ organisationId, defaultValues }: QuizFormProps) => {
         question="Opis kviza"
         error={form.formState.errors.description?.message?.toString()}
       />
-      <FileUpload name="Naslovna slika" isFullWidth />
+      <FileUpload
+        onChange={(files) => setTitleImage(files)}
+        name="Naslovna slika"
+        isFullWidth
+      />
       <SelectInput
         form={form}
         name="timeLimitType"
@@ -92,7 +134,7 @@ export const QuizForm = ({ organisationId, defaultValues }: QuizFormProps) => {
       <Input
         form={form}
         attribute="timeLimitTotal"
-        question="Ukupno vrijeme"
+        question="Ukupno vrijeme (u minutama)"
         isNumber
         error={form.formState.errors.timeLimitTotal?.message?.toString()}
       />
@@ -136,7 +178,7 @@ export const QuizForm = ({ organisationId, defaultValues }: QuizFormProps) => {
       <span>Dodaj pitanje</span>
       <QuestionForm
         hasTimeLimit={form.watch("timeLimitType") === "PER_QUESTION"}
-        onSubmit={hadnleAddQuestion}
+        onSubmit={handleAddQuestion}
       />
       <BaseButton text="Kreiraj kviz" isNotSubmit={false} />
     </form>
