@@ -14,7 +14,7 @@ export const updateQuiz = async (params: {
 }) => {
   return await api.patch<UpdateQuizRequest>(
     `/${params.organisationId}/quizzes/${params.id}`,
-    params.data
+    params.data,
   );
 };
 

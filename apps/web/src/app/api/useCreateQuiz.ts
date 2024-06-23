@@ -13,7 +13,7 @@ export const createQuiz = async (params: {
 }) => {
   return await api.post<CreateQuizRequest>(
     `/${params.organisationId}/quizzes`,
-    params.data
+    params.data,
   );
 };
 

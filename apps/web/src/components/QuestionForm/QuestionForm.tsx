@@ -106,11 +106,11 @@ export const QuestionForm = ({
                 return { label: option, value: option };
               })
             : form.getValues("questionType") === "TRUE_FALSE"
-            ? [
-                { label: "Tocno", value: "true" },
-                { label: "Netocno", value: "false" },
-              ]
-            : []
+              ? [
+                  { label: "Tocno", value: "true" },
+                  { label: "Netocno", value: "false" },
+                ]
+              : []
         }
         error={form.formState.errors.correct?.message?.toString()}
       />
