@@ -37,9 +37,16 @@ export const ListInput = ({
 
   const handleOnChange = () => {
     if (newValue === "") return;
+    if (elements.includes(newValue)) return;
     setElements((prev) => [...prev, newValue]);
     setNewValue("");
   };
+
+  useEffect(() => {
+    setElements([]);
+    setNewValue(options?.[0]?.value || "");
+    setValue(attribute, []);
+  }, [isSelect, options]);
 
   const handleDelete = (index: number) => {
     setElements((prev) => prev.filter((_, i) => i !== index));
@@ -47,6 +54,7 @@ export const ListInput = ({
 
   useEffect(() => {
     setValue(attribute, elements);
+    setNewValue(options?.[0]?.value || "");
   }, [elements]);
 
   return (
@@ -79,8 +87,8 @@ export const ListInput = ({
             <select
               name="select"
               title="Odabir vrijednosti"
-              className={classes.select}
               value={newValue}
+              className={classes.select}
               onChange={(e) => setNewValue(e.target.value)}
             >
               {options?.map((option) => (

@@ -3,9 +3,11 @@
 import axios, { AxiosError, AxiosResponse } from "axios";
 import toast from "react-hot-toast";
 
-export const baseURL = process?.env?.NEXT_PUBLIC_WEB_URL
-  ? `${process?.env?.NEXT_PUBLIC_WEB_URL}/api`
-  : "http://localhost:5500";
+export const baseURL =
+  process?.env?.NEXT_PUBLIC_WEB_URL &&
+  process?.env?.NEXT_PUBLIC_WEB_URL !== "http://localhost:3000"
+    ? `${process?.env?.NEXT_PUBLIC_WEB_URL}/api`
+    : "http://localhost:5500";
 
 export const api = axios.create({
   baseURL: baseURL,
@@ -38,9 +40,9 @@ api.interceptors.response.use(
   (error: ErrorResponse) => {
     if (error.status === 401) {
       toast.error(
-        error.response.data.message || error.message || "Forbbiden access",
+        error.response.data.message || error.message || "Forbbiden access"
       );
     }
     return Promise.reject(error.response?.data?.message || error.message);
-  },
+  }
 );
