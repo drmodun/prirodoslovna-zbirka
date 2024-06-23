@@ -100,14 +100,14 @@ export class PostsService {
         ...(sort
           ? sort
           : filter.title
-            ? {
-                _relevance: {
-                  fields: ['title'],
-                  search: filter.title.split(' ').join(' <-> '),
-                  sort: 'desc',
-                },
-              }
-            : null),
+          ? {
+              _relevance: {
+                fields: ['title'],
+                search: filter.title.split(' ').join(' <-> '),
+                sort: 'desc',
+              },
+            }
+          : null),
       },
       include: {
         author: {

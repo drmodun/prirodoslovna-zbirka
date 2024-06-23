@@ -13,12 +13,8 @@ import {
 } from '@nestjs/common';
 import { QuizzesService } from './quizzes.service';
 import { CreateQuizDto, QuizQuery, UpdateQuizDto } from './quizzes.dto';
-import { OrganisationsService } from 'src/organisations/organisations.service';
-import { AuthController } from 'src/auth/auth.controller';
 import { JwtAuthGuard } from 'src/auth/jwt-auth-guard';
-import { AuthGuard } from '@nestjs/passport';
 import { ApiBearerAuth } from '@nestjs/swagger';
-import { ExponatsService } from 'src/exponats/exponats.service';
 import { MembersService } from 'src/members/members.service';
 import {
   QuestionResponse,
