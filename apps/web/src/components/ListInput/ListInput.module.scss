@@ -151,4 +151,27 @@
       }
     }
   }
+
+  .select {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    background-color: $background-color;
+    height: vw-calc(60);
+    border-radius: vw-calc(30);
+    padding: vw-calc(20) vw-calc(20);
+    border: 1px solid $stroke-color;
+    color: $primary;
+    font-size: vw-calc(16);
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+
+    @media (max-width: 768px) {
+      height: vw-mobile-calc(50);
+      border-radius: vw-mobile-calc(25);
+      padding: vw-mobile-calc(10);
+      font-size: vw-mobile-calc(14);
+    }
+  }
 }

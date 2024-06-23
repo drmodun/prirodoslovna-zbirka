@@ -18,7 +18,7 @@ export const NotificationModal = () => {
   };
 
   const sortedNotifs = useMemo(() => {
-    return notifications.toSorted(
+    return notifications.sort(
       (x: NotificationResponse, y: NotificationResponse) =>
         new Date(y.createdAt).getTime() - new Date(x.createdAt).getTime(),
     );

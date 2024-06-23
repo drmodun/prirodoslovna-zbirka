@@ -1,0 +1,31 @@
+@import "styles/variables.scss";
+@import "styles/calc.scss";
+
+.container {
+  height: vw-calc(40);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .checkboxText {
+    font-size: vw-calc(16);
+    color: $primary;
+    margin-right: vw-calc(10);
+  }
+
+  .input {
+    width: vw-calc(40);
+    border-radius: 50%;
+
+    color: $background-color;
+    outline: none;
+    border: none;
+    background-color: $background-color;
+    transition: 200ms;
+
+    &:checked {
+      background-color: $green;
+      color: $background-color;
+    }
+  }
+}
