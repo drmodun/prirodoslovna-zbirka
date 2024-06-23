@@ -1,7 +1,16 @@
+"use client";
+
 import { useUploadFile } from "@/api/useUploadFile";
+import { ButtonColor } from "@/shared/enums";
 import { getQuestionTypesList } from "@/utility/static/getEnumLists";
-import { Directories, QuestionResponseExtended } from "@biosfera/types";
+import {
+  Directories,
+  getEnumValue,
+  QuestionResponseExtended,
+  QuestionTypeEnum,
+} from "@biosfera/types";
 import { zodResolver } from "@hookform/resolvers/zod";
+import BaseButton from "components/BaseButton";
 import FileUpload from "components/FileUpload";
 import Input from "components/Input";
 import ListInput from "components/ListInput";
@@ -60,7 +69,7 @@ export const QuestionForm = ({
   };
 
   return (
-    <form onSubmit={form.handleSubmit(handleSubmit)}>
+    <div onSubmit={form.handleSubmit(handleSubmit)}>
       <Input
         form={form}
         attribute="question"
@@ -79,38 +88,40 @@ export const QuestionForm = ({
         name="questionType"
         label="Tip pitanja"
         options={getQuestionTypesList().map((type) => ({
-          label: type,
+          label: getEnumValue(QuestionTypeEnum, type),
           value: type,
         }))}
         error={form.formState.errors.questionType?.message?.toString()}
       />
-      <ListInput
-        form={form}
-        attribute="options"
-        question="Odgovori"
-        initValue={form.getValues("options")}
-        error={form.formState.errors.options?.message?.toString()}
-      />
+      {form.watch("questionType") === "MULTIPLE_CHOICE" && (
+        <ListInput
+          form={form}
+          attribute="options"
+          question="Odgovori"
+          initValue={form.getValues("options")}
+          error={form.formState.errors.options?.message?.toString()}
+        />
+      )}
       <ListInput
         form={form}
         attribute="correct"
         question="Tocni odgovori"
         initValue={form.getValues("correct")}
         isSelect={
-          form.getValues("questionType") === "MULTIPLE_CHOICE" ||
-          form.getValues("questionType") === "TRUE_FALSE"
+          form.watch("questionType") === "MULTIPLE_CHOICE" ||
+          form.watch("questionType") === "TRUE_FALSE"
         }
         options={
-          form.getValues("questionType") === "MULTIPLE_CHOICE"
-            ? form.getValues("options").map((option: string) => {
+          form.watch("questionType") === "MULTIPLE_CHOICE"
+            ? form.watch("options")?.map((option: string) => {
                 return { label: option, value: option };
               })
-            : form.getValues("questionType") === "TRUE_FALSE"
-              ? [
-                  { label: "Tocno", value: "true" },
-                  { label: "Netocno", value: "false" },
-                ]
-              : []
+            : form.watch("questionType") === "TRUE_FALSE"
+            ? [
+                { label: "Tocno", value: "true" },
+                { label: "Netocno", value: "false" },
+              ]
+            : []
         }
         error={form.formState.errors.correct?.message?.toString()}
       />
@@ -129,6 +140,11 @@ export const QuestionForm = ({
           error={form.formState.errors.timeLimit?.message?.toString()}
         />
       )}
-    </form>
+      <BaseButton
+        text="Dodaj pitanje"
+        onClick={form.handleSubmit(handleSubmit)}
+        initColor={ButtonColor.BLUE}
+      />
+    </div>
   );
 };

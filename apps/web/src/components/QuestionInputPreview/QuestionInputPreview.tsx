@@ -1,9 +1,10 @@
+"use client";
+
 import {
   QuestionForm,
   questionSchema,
   questionSchemaType,
 } from "components/QuestionForm/QuestionForm";
-import { z } from "zod";
 
 export interface QuestionInputPreviewProps {
   question: questionSchemaType;

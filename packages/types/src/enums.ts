@@ -246,7 +246,7 @@ export type QuizDifficultyType = keyof typeof QuizDifficulty;
 export enum QuestionTypeEnum {
   MULTIPLE_CHOICE = "Višestruki izbor",
   TRUE_FALSE = "Točno/Netočno",
-  FILL_IN_THE_BLANK = "Popuni praznine",
+  FILL_IN_THE_BLANK = "Popuni prazninu",
 }
 
 export type QuestionTypeEnumType = keyof typeof QuestionTypeEnum;

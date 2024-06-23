@@ -1,7 +1,7 @@
 @import "styles/variables.scss";
 @import "styles/calc.scss";
 
-span {
+.newQuestion {
   font-size: vw-calc(16);
   color: $primary;
   margin-bottom: vw-calc(10);

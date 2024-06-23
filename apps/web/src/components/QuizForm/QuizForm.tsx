@@ -10,6 +10,7 @@ import {
 import {
   Directories,
   getEnumValue,
+  QuizDifficulty,
   QuizResponseExtended,
   TimeLimitTypeEnum,
 } from "@biosfera/types";
@@ -18,6 +19,7 @@ import BaseButton from "components/BaseButton";
 import CheckboxInput from "components/CheckboxInput";
 import FileUpload from "components/FileUpload";
 import Input from "components/Input";
+import classes from "./QuizForm.module.scss";
 import {
   QuestionForm,
   questionSchema,
@@ -143,7 +145,7 @@ export const QuizForm = ({ organisationId, defaultValues }: QuizFormProps) => {
         name="difficulty"
         label="Težina kviza"
         options={getDifficultyTypesList().map((type) => ({
-          label: type,
+          label: getEnumValue(QuizDifficulty, type),
           value: type,
         }))}
         error={form.formState.errors.difficulty?.message?.toString()}
@@ -167,7 +169,7 @@ export const QuizForm = ({ organisationId, defaultValues }: QuizFormProps) => {
         error={form.formState.errors.isTest?.message?.toString()}
       />
 
-      {form.watch("questions").map((question: questionSchemaType) => {
+      {form.watch("questions")?.map((question: questionSchemaType) => {
         <QuestionInputPreview
           question={question}
           onEdit={handleEditQuestion}
@@ -175,7 +177,7 @@ export const QuizForm = ({ organisationId, defaultValues }: QuizFormProps) => {
           onDelete={handleDeleteQuestion}
         />; //Test if this creates a new question or not
       })}
-      <span>Dodaj pitanje</span>
+      <span className={classes.newQuestion}>Dodaj pitanje</span>
       <QuestionForm
         hasTimeLimit={form.watch("timeLimitType") === "PER_QUESTION"}
         onSubmit={handleAddQuestion}
