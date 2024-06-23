@@ -8,7 +8,6 @@ import {
   MinLength,
   ValidateNested,
 } from "class-validator";
-import { Type } from "class-transformer";
 import {
   QuizDifficulty,
   QuizDifficultyType,
@@ -22,7 +21,7 @@ const _createQuestionDto = getCreateQuestionDto();
 
 class CreateQuestionDto extends _createQuestionDto {}
 
-export const getCreateQuizRequest = (ApiPropertySwagger?: any) => {
+export const getCreateQuizRequest = (ApiPropertySwagger?: any, Type?: any) => {
   const ApiProperty = ApiPropertySwagger || function () {};
 
   class CreateQuizDto {
@@ -77,7 +76,7 @@ export const getCreateQuizRequest = (ApiPropertySwagger?: any) => {
   return CreateQuizDto;
 };
 
-export const getUpdateQuizRequest = (ApiPropertySwagger?: any) => {
+export const getUpdateQuizRequest = (ApiPropertySwagger?: any, Type?: any) => {
   const ApiProperty = ApiPropertySwagger || function () {};
 
   class UpdateQuizDto {
