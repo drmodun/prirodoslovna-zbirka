@@ -14,6 +14,7 @@ import { NotificationsService } from 'src/notifications/notifications.service';
     NotificationUsersService,
     NotificationsService,
   ],
+  exports: [MembersService],
   imports: [PrismaModule],
 })
 export class MembersModule {}

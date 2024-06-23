@@ -17,12 +17,14 @@ import {
 import { getCreateQuestionDto } from "../question/questionRequests";
 import { SortingEnum, SortType } from "../query";
 
-const _createQuestionDto = getCreateQuestionDto();
-
-class CreateQuestionDto extends _createQuestionDto {}
-
-export const getCreateQuizRequest = (ApiPropertySwagger?: any, Type?: any) => {
+export const getCreateQuizRequest = (
+  ApiPropertySwagger?: any,
+  TypeTest?: any,
+  schema?: any
+) => {
   const ApiProperty = ApiPropertySwagger || function () {};
+  const Type = TypeTest || function () {};
+  const CreateQuestionDto = schema || getCreateQuestionDto(ApiProperty);
 
   class CreateQuizDto {
     @IsString()
@@ -67,17 +69,23 @@ export const getCreateQuizRequest = (ApiPropertySwagger?: any, Type?: any) => {
     isAnonymousAllowed?: boolean;
 
     @ValidateNested({ each: true })
-    @Type(() => CreateQuestionDto)
+    @Type(() => schema || CreateQuestionDto)
     @MinLength(1)
     @ApiProperty()
-    questions: CreateQuestionDto[]; //TODO: Test this later
+    questions: any[]; //TODO: Test this later
   }
 
   return CreateQuizDto;
 };
 
-export const getUpdateQuizRequest = (ApiPropertySwagger?: any, Type?: any) => {
+export const getUpdateQuizRequest = (
+  ApiPropertySwagger?: any,
+  TypeTest?: any,
+  schema?: any
+) => {
   const ApiProperty = ApiPropertySwagger || function () {};
+  const Type = TypeTest || function () {};
+  const CreateQuestionDto = getCreateQuestionDto(ApiProperty);
 
   class UpdateQuizDto {
     @IsOptional()
@@ -129,9 +137,9 @@ export const getUpdateQuizRequest = (ApiPropertySwagger?: any, Type?: any) => {
 
     @IsOptional()
     @ValidateNested({ each: true })
-    @Type(() => CreateQuestionDto)
+    @Type(() => schema || CreateQuestionDto)
     @ApiProperty()
-    questions?: CreateQuestionDto[]; //TODO: Test this later
+    questions?: any[]; //TODO: Test this later
   }
 
   return UpdateQuizDto;
