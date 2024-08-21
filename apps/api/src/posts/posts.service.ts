@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { CreatePostDto, PostQuery, PostSQL, UpdatePostDto } from './posts.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { NotificationPromise, sortQueryBuilder } from '@biosfera/types';
+import { NotificationPromise, sortQueryBuilder } from 'biosfera/types';
 import {
   anonymousPostsDiscover,
   personalizedPostsDiscover,
@@ -100,14 +100,14 @@ export class PostsService {
         ...(sort
           ? sort
           : filter.title
-            ? {
-                _relevance: {
-                  fields: ['title'],
-                  search: filter.title.split(' ').join(' <-> '),
-                  sort: 'desc',
-                },
-              }
-            : null),
+          ? {
+              _relevance: {
+                fields: ['title'],
+                search: filter.title.split(' ').join(' <-> '),
+                sort: 'desc',
+              },
+            }
+          : null),
       },
       include: {
         author: {

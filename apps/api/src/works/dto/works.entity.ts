@@ -1,4 +1,4 @@
-import { getCreateWorkDto, getWorkQuery } from '@biosfera/types';
+import { getCreateWorkDto, getWorkQuery } from 'biosfera/types';
 import { ApiProperty, PartialType } from '@nestjs/swagger';
 
 export const _createWorkDto = getCreateWorkDto(ApiProperty);

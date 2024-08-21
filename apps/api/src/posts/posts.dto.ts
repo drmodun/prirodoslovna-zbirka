@@ -1,4 +1,4 @@
-import { getCreatePostRequest, getPostQuery } from '@biosfera/types';
+import { getCreatePostRequest, getPostQuery } from 'biosfera/types';
 import { ApiProperty } from '@nestjs/swagger';
 import { Post } from '@prisma/client';
 

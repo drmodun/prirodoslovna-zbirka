@@ -9,7 +9,7 @@ import {
   PaginationRequest,
   SortingRequest,
   sortCategorizationQueryBuilderWithComplexFilters,
-} from '@biosfera/types';
+} from 'biosfera/types';
 @Injectable()
 export class CategorizationsService {
   constructor(private readonly prisma: PrismaService) {}

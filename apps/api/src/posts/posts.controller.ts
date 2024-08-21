@@ -27,7 +27,7 @@ import {
   PostResponseExtended,
   SortingEnum,
   SortingRequest,
-} from '@biosfera/types';
+} from 'biosfera/types';
 import { SortingParams } from 'src/config/sorting';
 @ApiTags('posts')
 @Controller('posts')
@@ -290,8 +290,9 @@ export class PostsController {
         "You cannot see unapproved posts because you don't have admin rights",
       );
 
-    const posts =
-      await this.postsService.findAllWithoutApproval(organisationId);
+    const posts = await this.postsService.findAllWithoutApproval(
+      organisationId,
+    );
 
     const mapped: PostResponse[] = posts.map((post) => {
       return {

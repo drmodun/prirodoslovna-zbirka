@@ -1,4 +1,4 @@
-import { getCreateOrganisationDto } from '@biosfera/types';
+import { getCreateOrganisationDto } from 'biosfera/types';
 import { ApiProperty } from '@nestjs/swagger';
 import { Organisation } from '@prisma/client';
 

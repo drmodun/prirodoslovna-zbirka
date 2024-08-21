@@ -1,4 +1,4 @@
-import { getCreateQuestionDto } from '@biosfera/types';
+import { getCreateQuestionDto } from 'biosfera/types';
 import { ApiProperty } from '@nestjs/swagger';
 
 export const _getCreateQuestionsDto = getCreateQuestionDto(ApiProperty);

@@ -23,15 +23,15 @@ import {
   ShortUserResponse,
   SortingEnum,
   SortingRequest,
-} from '@biosfera/types';
+} from 'biosfera/types';
 import { SortingParams } from 'src/config/sorting';
-import { OrganisationQuery } from '@biosfera/types';
+import { OrganisationQuery } from 'biosfera/types';
 import {
   ExtendedOrganisationResponse,
   OrganisationResponseShort,
-} from '@biosfera/types';
-import { ExponatResponseShort } from '@biosfera/types';
-import { ShortSocialPostResponse } from '@biosfera/types';
+} from 'biosfera/types';
+import { ExponatResponseShort } from 'biosfera/types';
+import { ShortSocialPostResponse } from 'biosfera/types';
 import { ApiBearerAuth, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { County } from '@prisma/client';
 import { JwtAuthGuard } from 'src/auth/jwt-auth-guard';

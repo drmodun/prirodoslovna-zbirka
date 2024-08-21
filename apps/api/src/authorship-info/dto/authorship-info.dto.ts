@@ -1,7 +1,7 @@
 import {
   getCreateAuthorshipInfoDto,
   getUpdateAuthorshipInfoDto,
-} from '@biosfera/types';
+} from 'biosfera/types';
 import { ApiProperty } from '@nestjs/swagger';
 
 export const _createAuthorshipInfoDto = getCreateAuthorshipInfoDto(ApiProperty);

@@ -5,12 +5,12 @@ import {
   UpdateOrganisationDto,
 } from './dto/organisations.dto';
 import { PrismaService } from '../prisma/prisma.service';
-import { OrganisationQuery } from '@biosfera/types';
+import { OrganisationQuery } from 'biosfera/types';
 import {
   PaginationRequest,
   SortingRequest,
   sortQueryBuilder,
-} from '@biosfera/types';
+} from 'biosfera/types';
 import { MemberRoleType } from 'src/members/members.dto';
 import {
   anonymousOrganisationDiscover,
@@ -85,14 +85,14 @@ export class OrganisationsService {
         ...(sort
           ? sort
           : filter.name
-            ? {
-                _relevance: {
-                  fields: ['name'],
-                  search: filter?.name.split(' ').join(' <-> '),
-                  sort: 'desc',
-                },
-              }
-            : null),
+          ? {
+              _relevance: {
+                fields: ['name'],
+                search: filter?.name.split(' ').join(' <-> '),
+                sort: 'desc',
+              },
+            }
+          : null),
       },
       skip: (pagination?.page - 1) * pagination?.size,
       take: pagination?.size,

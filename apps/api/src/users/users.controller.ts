@@ -34,11 +34,11 @@ import {
   SortingEnum,
   SortingRequest,
   WorkResponseShort,
-} from '@biosfera/types';
-import { UserQuery } from '@biosfera/types';
+} from 'biosfera/types';
+import { UserQuery } from 'biosfera/types';
 import { SortingParams } from '../config/sorting';
-import { ExtendedUserResponse, ShortUserResponse } from '@biosfera/types';
-import { PostResponse } from '@biosfera/types';
+import { ExtendedUserResponse, ShortUserResponse } from 'biosfera/types';
+import { PostResponse } from 'biosfera/types';
 import { JwtAuthGuard } from 'src/auth/jwt-auth-guard';
 import { OptionalJwtAuthGuard } from 'src/auth/optional-jwt-auth-guard';
 import { FileInterceptor } from '@nestjs/platform-express';
@@ -390,8 +390,9 @@ export class UsersController {
 
   @Post('/forgot-password/:email')
   async forgotPassword(@Param('email') email: string) {
-    const forgotPassword =
-      await this.usersService.sendPasswordResetEmail(email);
+    const forgotPassword = await this.usersService.sendPasswordResetEmail(
+      email,
+    );
 
     return forgotPassword;
   }

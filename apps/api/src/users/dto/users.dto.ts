@@ -1,4 +1,4 @@
-import { getRegisterUserDto, getUpateUserDto } from '@biosfera/types';
+import { getRegisterUserDto, getUpateUserDto } from 'biosfera/types';
 import { ApiProperty } from '@nestjs/swagger';
 
 export const _registerUserDto = getRegisterUserDto(ApiProperty);

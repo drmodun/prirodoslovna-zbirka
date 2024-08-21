@@ -11,7 +11,7 @@ import {
 import { NotificationUsersService } from './notification-users.service';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/jwt-auth-guard';
-import { NotificationResponse } from '@biosfera/types';
+import { NotificationResponse } from 'biosfera/types';
 import { fromEvent, map, Observable } from 'rxjs';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 
@@ -38,8 +38,9 @@ export class NotificationUsersController {
   @Get()
   async getNotifications(@Req() req: any): Promise<NotificationResponse[]> {
     const userId = req.user?.id;
-    const notifications =
-      await this.notificationUsersService.getAllForUser(userId);
+    const notifications = await this.notificationUsersService.getAllForUser(
+      userId,
+    );
 
     return notifications.map((notification) => {
       return {

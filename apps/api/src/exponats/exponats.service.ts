@@ -14,7 +14,7 @@ import {
   PaginationRequest,
   SortingRequest,
   sortExponatQueryBuilderWithComplexFilters,
-} from '@biosfera/types';
+} from 'biosfera/types';
 import { Exponat, ExponatKind, Organisation, Role } from '@prisma/client';
 import { MemberRoleType } from 'src/members/members.dto';
 import {
@@ -345,14 +345,14 @@ export class ExponatsService {
         ...(sort
           ? sort
           : filter.name
-            ? {
-                _relevance: {
-                  fields: ['name'],
-                  search: filter?.name.split(' ').join(' <-> '),
-                  sort: 'desc',
-                },
-              }
-            : null),
+          ? {
+              _relevance: {
+                fields: ['name'],
+                search: filter?.name.split(' ').join(' <-> '),
+                sort: 'desc',
+              },
+            }
+          : null),
       },
       skip: (pagination?.page - 1) * pagination?.size,
       take: pagination?.size,

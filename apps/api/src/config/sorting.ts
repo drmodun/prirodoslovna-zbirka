@@ -3,7 +3,7 @@ import {
   createParamDecorator,
   ExecutionContext,
 } from '@nestjs/common';
-import { SortingEnum, SortingRequest, SortType } from '@biosfera/types';
+import { SortingEnum, SortingRequest, SortType } from 'biosfera/types';
 import { Request } from 'express';
 
 export const SortingParams = createParamDecorator(
