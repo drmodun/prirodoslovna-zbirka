@@ -10,7 +10,10 @@ async function bootstrap() {
   app.useGlobalFilters(new PrismaClientExceptionFilter(httpAdapter));
   app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
   app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
-  app.enableCors();
+  app.enableCors({
+    allowedHeaders: '*',
+    origin: '*',
+  });
   const config = new DocumentBuilder()
     .setTitle('Biosfera API')
     .setDescription('Api za aplikaciju biosfere')
@@ -26,5 +29,7 @@ async function bootstrap() {
   };
 
   await app.listen(process.env.API_PORT || 5500);
+
+  console.log(`Application is running on: ${await app.getUrl()}`);
 }
 bootstrap();
