@@ -9,6 +9,7 @@
     "build": "npx dotenv-cli -c -- nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "dev": "npx dotenv-cli ts-node dist/src/main",
+    "start:vercel": "npx dotenv-cli ts-node src/main.ts",
     "start": "npx dotenv-cli prisma migrate deploy && npx dotenv-cli ts-node dist/src/main",
     "start:debug": "nest start --debug --watch",
     "start:prod": "ts-node dist/src/main",
