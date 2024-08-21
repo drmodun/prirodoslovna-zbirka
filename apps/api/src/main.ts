@@ -25,6 +25,6 @@ async function bootstrap() {
     return int ?? this.toString();
   };
 
-  await app.listen(5500);
+  await app.listen(process.env.API_PORT || 5500);
 }
 bootstrap();
