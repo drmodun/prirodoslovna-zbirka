@@ -20,7 +20,7 @@ import {
   QuestionResponse,
   QuizResponseExtended,
   QuizResponseShort,
-} from 'biosfera/types';
+} from '../../../../packages/types';
 @Controller('quizzes')
 export class QuizzesController {
   constructor(

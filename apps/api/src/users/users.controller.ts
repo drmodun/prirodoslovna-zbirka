@@ -34,11 +34,14 @@ import {
   SortingEnum,
   SortingRequest,
   WorkResponseShort,
-} from 'biosfera/types';
-import { UserQuery } from 'biosfera/types';
+} from '../../../../packages/types';
+import { UserQuery } from '../../../../packages/types';
 import { SortingParams } from '../config/sorting';
-import { ExtendedUserResponse, ShortUserResponse } from 'biosfera/types';
-import { PostResponse } from 'biosfera/types';
+import {
+  ExtendedUserResponse,
+  ShortUserResponse,
+} from '../../../../packages/types';
+import { PostResponse } from '../../../../packages/types';
 import { JwtAuthGuard } from 'src/auth/jwt-auth-guard';
 import { OptionalJwtAuthGuard } from 'src/auth/optional-jwt-auth-guard';
 import { FileInterceptor } from '@nestjs/platform-express';

@@ -6,7 +6,7 @@ import {
   SortingRequest,
   worksSortQueryBuilder,
   WorkTypeEnumType,
-} from 'biosfera/types';
+} from '../../../../packages/types';
 import { MemberRole, WorkType } from '@prisma/client';
 
 @Injectable()

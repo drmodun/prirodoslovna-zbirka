@@ -5,12 +5,12 @@ import {
   UpdateOrganisationDto,
 } from './dto/organisations.dto';
 import { PrismaService } from '../prisma/prisma.service';
-import { OrganisationQuery } from 'biosfera/types';
+import { OrganisationQuery } from '../../../../packages/types';
 import {
   PaginationRequest,
   SortingRequest,
   sortQueryBuilder,
-} from 'biosfera/types';
+} from '../../../../packages/types';
 import { MemberRoleType } from 'src/members/members.dto';
 import {
   anonymousOrganisationDiscover,

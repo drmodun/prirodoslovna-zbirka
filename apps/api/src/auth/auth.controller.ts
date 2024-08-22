@@ -10,7 +10,7 @@ import {
   OrganisationResponseShort,
   ExtendedUserResponse,
   WorkResponseShort,
-} from 'biosfera/types';
+} from '../../../../packages/types';
 import { UsersService } from 'src/users/users.service';
 
 @Controller('auth')

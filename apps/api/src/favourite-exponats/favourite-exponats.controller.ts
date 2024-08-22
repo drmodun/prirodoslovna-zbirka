@@ -2,7 +2,10 @@ import { Controller, Get, Patch, Param, UseGuards, Req } from '@nestjs/common';
 import { FavouriteExponatsService } from './favourite-exponats.service';
 import { JwtAuthGuard } from 'src/auth/jwt-auth-guard';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { ExponatResponseShort, ShortUserResponse } from 'biosfera/types';
+import {
+  ExponatResponseShort,
+  ShortUserResponse,
+} from '../../../../packages/types';
 
 @ApiTags('favourite-exponats')
 @Controller('favourite-exponats')

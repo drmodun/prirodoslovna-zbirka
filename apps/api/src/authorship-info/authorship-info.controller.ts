@@ -15,7 +15,7 @@ import {
 } from './dto/authorship-info.dto';
 import { ApiBearerAuth } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/jwt-auth-guard';
-import { AuthorshipInfo } from 'biosfera/types';
+import { AuthorshipInfo } from '../../../../packages/types';
 
 @Controller('authorship-info')
 export class AuthorshipInfoController {

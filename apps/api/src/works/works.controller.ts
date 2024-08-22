@@ -21,7 +21,7 @@ import {
   SortingRequest,
   WorkResponseExtended,
   WorkResponseShort,
-} from 'biosfera/types';
+} from '../../../../packages/types';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { OptionalJwtAuthGuard } from 'src/auth/optional-jwt-auth-guard';
 import { PaginationParams } from 'src/config/pagination';

@@ -23,7 +23,7 @@ import {
   ShortSocialPostResponse,
   SortingEnum,
   SortingRequest,
-} from 'biosfera/types';
+} from '../../../../packages/types';
 import { PaginationParams } from 'src/config/pagination';
 import { SortingParams } from 'src/config/sorting';
 import { OptionalJwtAuthGuard } from 'src/auth/optional-jwt-auth-guard';

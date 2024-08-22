@@ -27,7 +27,7 @@ import {
   PostResponseExtended,
   SortingEnum,
   SortingRequest,
-} from 'biosfera/types';
+} from '../../../../packages/types';
 import { SortingParams } from 'src/config/sorting';
 @ApiTags('posts')
 @Controller('posts')

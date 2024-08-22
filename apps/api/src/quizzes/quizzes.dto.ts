@@ -1,4 +1,4 @@
-import { getCreateQuizRequest, getQuizQuery } from 'biosfera/types';
+import { getCreateQuizRequest, getQuizQuery } from '../../../../packages/types';
 import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 

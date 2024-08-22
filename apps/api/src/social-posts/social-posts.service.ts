@@ -10,7 +10,7 @@ import {
   PaginationRequest,
   SortingRequest,
   socialPostSortQueryBuilder,
-} from 'biosfera/types';
+} from '../../../../packages/types';
 import { NotificationsService } from 'src/notifications/notifications.service';
 import { NotificationUsersService } from 'src/notification-users/notification-users.service';
 

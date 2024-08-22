@@ -1,7 +1,7 @@
 import {
   getCreateCategorizationDto,
   getCategorizationQuery,
-} from 'biosfera/types';
+} from '../../../../../packages/types';
 import { ApiProperty, PartialType } from '@nestjs/swagger';
 
 export const _createCategorizationDto = getCreateCategorizationDto(ApiProperty);

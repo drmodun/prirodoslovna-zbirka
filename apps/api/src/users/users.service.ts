@@ -2,12 +2,12 @@ import { Injectable } from '@nestjs/common';
 import { RegisterUserDto, UpdateUserDto } from './dto/users.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import * as bcrypt from 'bcrypt';
-import { UserQuery } from 'biosfera/types';
+import { UserQuery } from '../../../../packages/types';
 import {
   PaginationRequest,
   SortingRequest,
   sortQueryBuilder,
-} from 'biosfera/types';
+} from '../../../../packages/types';
 import { MemberRoleType } from 'src/members/members.dto';
 import { BlobService } from 'src/blob/blob.service';
 import { EmailService } from 'src/email/email.service';

@@ -1,4 +1,4 @@
-import { NotificationTypeEnumType } from 'biosfera/types';
+import { NotificationTypeEnumType } from '../../../../../packages/types';
 
 export interface CreateNotificationDto {
   title: string;

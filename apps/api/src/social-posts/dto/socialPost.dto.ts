@@ -1,4 +1,7 @@
-import { getCreateSocialPostDto, getSocialPostQuery } from 'biosfera/types';
+import {
+  getCreateSocialPostDto,
+  getSocialPostQuery,
+} from '../../../../../packages/types';
 import { ApiProperty, PartialType } from '@nestjs/swagger';
 
 export const _createSocialPostDto = getCreateSocialPostDto(ApiProperty);

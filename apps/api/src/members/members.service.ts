@@ -6,7 +6,7 @@ import {
 import { Organisation, OrganisationUser, Role, User } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { MemberRoleType } from './members.dto';
-import { NotificationPromise } from 'biosfera/types';
+import { NotificationPromise } from '../../../../packages/types';
 import { NotificationsService } from 'src/notifications/notifications.service';
 import { NotificationUsersService } from 'src/notification-users/notification-users.service';
 @Injectable()
