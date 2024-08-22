@@ -7,7 +7,8 @@
         },
         {
             "src": "/apps/api/src/main.ts",
-            "use": "@vercel/node"
+            "use": "@vercel/node",
+            "config": { "includeFiles": ["/packages/types/src/index.ts"] }
         }
     ],
     "routes": [
