@@ -34,14 +34,11 @@ import {
   SortingEnum,
   SortingRequest,
   WorkResponseShort,
-} from '../../../../packages/types';
-import { UserQuery } from '../../../../packages/types';
+} from '../../types/src';
+import { UserQuery } from '../../types/src';
 import { SortingParams } from '../config/sorting';
-import {
-  ExtendedUserResponse,
-  ShortUserResponse,
-} from '../../../../packages/types';
-import { PostResponse } from '../../../../packages/types';
+import { ExtendedUserResponse, ShortUserResponse } from '../../types/src';
+import { PostResponse } from '../../types/src';
 import { JwtAuthGuard } from 'src/auth/jwt-auth-guard';
 import { OptionalJwtAuthGuard } from 'src/auth/optional-jwt-auth-guard';
 import { FileInterceptor } from '@nestjs/platform-express';

@@ -27,7 +27,7 @@ import {
   PostResponseExtended,
   SortingEnum,
   SortingRequest,
-} from '../../../../packages/types';
+} from '../../types/src';
 import { SortingParams } from 'src/config/sorting';
 @ApiTags('posts')
 @Controller('posts')

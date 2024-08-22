@@ -10,10 +10,7 @@ import {
 import { SavedLiteratureService } from './literature.service';
 import { JwtAuthGuard } from 'src/auth/jwt-auth-guard';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import {
-  ShortUserResponse,
-  SavedLiteratureResponse,
-} from '../../../../packages/types';
+import { ShortUserResponse, SavedLiteratureResponse } from '../../types/src';
 
 @ApiTags('literature')
 @Controller('literature')

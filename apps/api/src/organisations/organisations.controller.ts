@@ -23,15 +23,15 @@ import {
   ShortUserResponse,
   SortingEnum,
   SortingRequest,
-} from '../../../../packages/types';
+} from '../../types/src';
 import { SortingParams } from 'src/config/sorting';
-import { OrganisationQuery } from '../../../../packages/types';
+import { OrganisationQuery } from '../../types/src';
 import {
   ExtendedOrganisationResponse,
   OrganisationResponseShort,
-} from '../../../../packages/types';
-import { ExponatResponseShort } from '../../../../packages/types';
-import { ShortSocialPostResponse } from '../../../../packages/types';
+} from '../../types/src';
+import { ExponatResponseShort } from '../../types/src';
+import { ShortSocialPostResponse } from '../../types/src';
 import { ApiBearerAuth, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { County } from '@prisma/client';
 import { JwtAuthGuard } from 'src/auth/jwt-auth-guard';

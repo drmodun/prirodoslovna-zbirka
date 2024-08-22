@@ -24,7 +24,7 @@ import {
   PostResponse,
   SortingEnum,
   SortingRequest,
-} from '../../../../packages/types';
+} from '../../types/src';
 import { PaginationParams } from 'src/config/pagination';
 import { SortingParams } from 'src/config/sorting';
 import { ApiBearerAuth, ApiQuery, ApiTags } from '@nestjs/swagger';

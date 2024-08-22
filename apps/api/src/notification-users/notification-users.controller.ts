@@ -11,7 +11,7 @@ import {
 import { NotificationUsersService } from './notification-users.service';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/jwt-auth-guard';
-import { NotificationResponse } from '../../../../packages/types';
+import { NotificationResponse } from '../../types/src';
 import { fromEvent, map, Observable } from 'rxjs';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 

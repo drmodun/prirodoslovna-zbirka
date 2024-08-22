@@ -1,4 +1,4 @@
-import { getCreateOrganisationDto } from '../../../../../packages/types';
+import { getCreateOrganisationDto } from '../../../types/src';
 import { ApiProperty } from '@nestjs/swagger';
 import { Organisation } from '@prisma/client';
 

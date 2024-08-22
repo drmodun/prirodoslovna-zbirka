@@ -23,7 +23,7 @@ import {
   ShortSocialPostResponse,
   SortingEnum,
   SortingRequest,
-} from '../../../../packages/types';
+} from '../../types/src';
 import { PaginationParams } from 'src/config/pagination';
 import { SortingParams } from 'src/config/sorting';
 import { OptionalJwtAuthGuard } from 'src/auth/optional-jwt-auth-guard';

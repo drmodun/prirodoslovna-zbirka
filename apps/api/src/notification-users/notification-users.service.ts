@@ -1,4 +1,4 @@
-import { NotificationResponse } from '../../../../packages/types';
+import { NotificationResponse } from '../../types/src';
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 import { PrismaService } from 'src/prisma/prisma.service';

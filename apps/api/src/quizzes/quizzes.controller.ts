@@ -20,7 +20,7 @@ import {
   QuestionResponse,
   QuizResponseExtended,
   QuizResponseShort,
-} from '../../../../packages/types';
+} from '../../types/src';
 @Controller('quizzes')
 export class QuizzesController {
   constructor(

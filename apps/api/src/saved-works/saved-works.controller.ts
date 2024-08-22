@@ -10,10 +10,7 @@ import {
 import { SavedWorksService } from './saved-works.service';
 import { JwtAuthGuard } from 'src/auth/jwt-auth-guard';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import {
-  ShortUserResponse,
-  WorkResponseShort,
-} from '../../../../packages/types';
+import { ShortUserResponse, WorkResponseShort } from '../../types/src';
 
 @ApiTags('saved-works')
 @Controller('saved-works')

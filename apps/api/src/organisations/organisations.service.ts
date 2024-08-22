@@ -5,12 +5,12 @@ import {
   UpdateOrganisationDto,
 } from './dto/organisations.dto';
 import { PrismaService } from '../prisma/prisma.service';
-import { OrganisationQuery } from '../../../../packages/types';
+import { OrganisationQuery } from '../../types/src';
 import {
   PaginationRequest,
   SortingRequest,
   sortQueryBuilder,
-} from '../../../../packages/types';
+} from '../../types/src';
 import { MemberRoleType } from 'src/members/members.dto';
 import {
   anonymousOrganisationDiscover,

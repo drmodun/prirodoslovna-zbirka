@@ -1,7 +1,4 @@
-import {
-  getCreateSocialPostDto,
-  getSocialPostQuery,
-} from '../../../../../packages/types';
+import { getCreateSocialPostDto, getSocialPostQuery } from '../../../types/src';
 import { ApiProperty, PartialType } from '@nestjs/swagger';
 
 export const _createSocialPostDto = getCreateSocialPostDto(ApiProperty);

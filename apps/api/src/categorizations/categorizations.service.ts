@@ -9,7 +9,7 @@ import {
   PaginationRequest,
   SortingRequest,
   sortCategorizationQueryBuilderWithComplexFilters,
-} from '../../../../packages/types';
+} from '../../types/src';
 @Injectable()
 export class CategorizationsService {
   constructor(private readonly prisma: PrismaService) {}

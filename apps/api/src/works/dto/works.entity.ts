@@ -1,4 +1,4 @@
-import { getCreateWorkDto, getWorkQuery } from '../../../../../packages/types';
+import { getCreateWorkDto, getWorkQuery } from '../../../types/src';
 import { ApiProperty, PartialType } from '@nestjs/swagger';
 
 export const _createWorkDto = getCreateWorkDto(ApiProperty);

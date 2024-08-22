@@ -2,10 +2,6 @@
     "version": 2,
     "builds": [
         {
-            "src": "/packages/types/src/index.ts",
-            "use": "@vercel/node"
-        },
-        {
             "src": "/apps/api/src/main.ts",
             "use": "@vercel/node",
             "config": { "includeFiles": ["/packages/types/src/index.ts"] }

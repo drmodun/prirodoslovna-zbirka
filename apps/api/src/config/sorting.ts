@@ -3,11 +3,7 @@ import {
   createParamDecorator,
   ExecutionContext,
 } from '@nestjs/common';
-import {
-  SortingEnum,
-  SortingRequest,
-  SortType,
-} from '../../../../packages/types';
+import { SortingEnum, SortingRequest, SortType } from '../../types/src';
 import { Request } from 'express';
 
 export const SortingParams = createParamDecorator(

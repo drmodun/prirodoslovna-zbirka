@@ -1,4 +1,4 @@
-import { getCreatePostRequest, getPostQuery } from '../../../../packages/types';
+import { getCreatePostRequest, getPostQuery } from '../../types/src';
 import { ApiProperty } from '@nestjs/swagger';
 import { Post } from '@prisma/client';
 

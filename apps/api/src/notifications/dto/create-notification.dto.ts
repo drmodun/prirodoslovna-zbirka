@@ -1,4 +1,4 @@
-import { NotificationTypeEnumType } from '../../../../../packages/types';
+import { NotificationTypeEnumType } from '../../../types/src';
 
 export interface CreateNotificationDto {
   title: string;

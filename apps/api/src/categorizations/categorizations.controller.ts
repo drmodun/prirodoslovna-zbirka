@@ -21,7 +21,7 @@ import {
   PaginationRequest,
   SortingEnum,
   SortingRequest,
-} from '../../../../packages/types';
+} from '../../types/src';
 import { PaginationParams } from 'src/config/pagination';
 import { SortingParams } from 'src/config/sorting';
 import { ApiTags } from '@nestjs/swagger';

@@ -1,7 +1,7 @@
 import {
   getCreateAuthorshipInfoDto,
   getUpdateAuthorshipInfoDto,
-} from '../../../../../packages/types/';
+} from '../../../types/src';
 import { ApiProperty } from '@nestjs/swagger';
 
 export const _createAuthorshipInfoDto = getCreateAuthorshipInfoDto(ApiProperty);

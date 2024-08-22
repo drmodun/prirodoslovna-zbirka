@@ -13,7 +13,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiBody, ApiConsumes, ApiTags } from '@nestjs/swagger';
 import { BlobService } from './blob.service';
 import { randomUUID } from 'crypto';
-import { Directories } from '../../../../packages/types';
+import { Directories } from '../../types/src';
 
 @ApiTags('blobs')
 @Controller('blobs')

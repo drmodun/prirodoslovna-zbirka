@@ -1,7 +1,7 @@
 import {
   getCreateCategorizationDto,
   getCategorizationQuery,
-} from '../../../../../packages/types';
+} from '../../../types/src';
 import { ApiProperty, PartialType } from '@nestjs/swagger';
 
 export const _createCategorizationDto = getCreateCategorizationDto(ApiProperty);

@@ -21,7 +21,7 @@ import {
   SortingRequest,
   WorkResponseExtended,
   WorkResponseShort,
-} from '../../../../packages/types';
+} from '../../types/src';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { OptionalJwtAuthGuard } from 'src/auth/optional-jwt-auth-guard';
 import { PaginationParams } from 'src/config/pagination';

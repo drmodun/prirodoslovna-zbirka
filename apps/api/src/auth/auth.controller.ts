@@ -10,7 +10,7 @@ import {
   OrganisationResponseShort,
   ExtendedUserResponse,
   WorkResponseShort,
-} from '../../../../packages/types';
+} from '../../types/src';
 import { UsersService } from 'src/users/users.service';
 
 @Controller('auth')

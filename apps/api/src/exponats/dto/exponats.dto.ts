@@ -1,7 +1,4 @@
-import {
-  getCreateExponatDto,
-  getExponatQuery,
-} from '../../../../../packages/types';
+import { getCreateExponatDto, getExponatQuery } from '../../../types/src';
 import { ApiProperty, PartialType } from '@nestjs/swagger';
 import { Exponat } from '@prisma/client';
 

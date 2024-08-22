@@ -19,10 +19,7 @@ import {
 } from './questions.dto';
 import { ApiBearerAuth } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/jwt-auth-guard';
-import {
-  QuestionResponse,
-  QuestionResponseExtended,
-} from '../../../../packages/types';
+import { QuestionResponse, QuestionResponseExtended } from '../../types/src';
 
 @Controller('questions')
 export class QuestionsController {

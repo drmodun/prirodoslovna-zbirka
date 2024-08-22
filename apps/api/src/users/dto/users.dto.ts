@@ -1,7 +1,4 @@
-import {
-  getRegisterUserDto,
-  getUpateUserDto,
-} from '../../../../../packages/types';
+import { getRegisterUserDto, getUpateUserDto } from '../../../types/src';
 import { ApiProperty } from '@nestjs/swagger';
 
 export const _registerUserDto = getRegisterUserDto(ApiProperty);

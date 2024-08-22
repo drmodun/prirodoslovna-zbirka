@@ -1,4 +1,4 @@
-import { getCreateQuestionDto } from '../../../../packages/types';
+import { getCreateQuestionDto } from '../../types/src';
 import { ApiProperty } from '@nestjs/swagger';
 
 export const _getCreateQuestionsDto = getCreateQuestionDto(ApiProperty);

@@ -14,7 +14,7 @@ import {
   PaginationRequest,
   SortingRequest,
   sortExponatQueryBuilderWithComplexFilters,
-} from '../../../../packages/types';
+} from '../../types/src';
 import { Exponat, ExponatKind, Organisation, Role } from '@prisma/client';
 import { MemberRoleType } from 'src/members/members.dto';
 import {
