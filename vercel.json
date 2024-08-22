@@ -9,7 +9,7 @@
     ],
     "routes": [
         {
-            "src": "/(.*)",
+            "src": "/apps/api/(.*)",
             "dest": "/apps/api/src/main.ts",
             "methods": ["GET", "POST", "PUT", "PATCH", "DELETE"]
         }
