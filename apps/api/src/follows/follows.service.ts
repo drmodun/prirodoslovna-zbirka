@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { NotificationUsersService } from 'src/notification-users/notification-users.service';
-import { NotificationsService } from 'src/notifications/notifications.service';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { NotificationUsersService } from '../../src/notification-users/notification-users.service';
+import { NotificationsService } from '../../src/notifications/notifications.service';
+import { PrismaService } from '../../src/prisma/prisma.service';
 
 @Injectable()
 export class FollowsService {

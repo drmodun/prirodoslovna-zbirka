@@ -9,20 +9,20 @@ import {
   ExponatSQL,
   UpdateExponatDto,
 } from './dto/exponats.dto';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaService } from '../../src/prisma/prisma.service';
 import {
   PaginationRequest,
   SortingRequest,
   sortExponatQueryBuilderWithComplexFilters,
 } from '../../types/src';
 import { Exponat, ExponatKind, Organisation, Role } from '@prisma/client';
-import { MemberRoleType } from 'src/members/members.dto';
+import { MemberRoleType } from '../../src/members/members.dto';
 import {
   anonymousExponatsDiscover,
   personalizedExponatsDiscover,
 } from './rawQueries';
-import { NotificationsService } from 'src/notifications/notifications.service';
-import { NotificationUsersService } from 'src/notification-users/notification-users.service';
+import { NotificationsService } from '../../src/notifications/notifications.service';
+import { NotificationUsersService } from '../../src/notification-users/notification-users.service';
 import { env } from 'process';
 
 @Injectable()

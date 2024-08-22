@@ -14,13 +14,13 @@ import {
 } from '@nestjs/common';
 import { PostsService } from './posts.service';
 import { CreatePostDto, PostQuery, UpdatePostDto } from './posts.dto';
-import { MembersService } from 'src/members/members.service';
-import { JwtAuthGuard } from 'src/auth/jwt-auth-guard';
+import { MembersService } from '../../src/members/members.service';
+import { JwtAuthGuard } from '../../src/auth/jwt-auth-guard';
 import { ApiBearerAuth, ApiQuery, ApiTags } from '@nestjs/swagger';
-import { OrganisationsService } from 'src/organisations/organisations.service';
-import { ExponatsService } from 'src/exponats/exponats.service';
-import { OptionalJwtAuthGuard } from 'src/auth/optional-jwt-auth-guard';
-import { PaginationParams } from 'src/config/pagination';
+import { OrganisationsService } from '../../src/organisations/organisations.service';
+import { ExponatsService } from '../../src/exponats/exponats.service';
+import { OptionalJwtAuthGuard } from '../../src/auth/optional-jwt-auth-guard';
+import { PaginationParams } from '../../src/config/pagination';
 import {
   PaginationRequest,
   PostResponse,
@@ -28,7 +28,7 @@ import {
   SortingEnum,
   SortingRequest,
 } from '../../types/src';
-import { SortingParams } from 'src/config/sorting';
+import { SortingParams } from '../../src/config/sorting';
 @ApiTags('posts')
 @Controller('posts')
 export class PostsController {

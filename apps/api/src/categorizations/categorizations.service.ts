@@ -4,7 +4,7 @@ import {
   UpdateCategorizationDto,
   CategorizationQuery,
 } from './dto/categorizations.dto';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaService } from '../../src/prisma/prisma.service';
 import {
   PaginationRequest,
   SortingRequest,

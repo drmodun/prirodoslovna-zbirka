@@ -11,7 +11,7 @@ import {
   ExtendedUserResponse,
   WorkResponseShort,
 } from '../../types/src';
-import { UsersService } from 'src/users/users.service';
+import { UsersService } from '../../src/users/users.service';
 
 @Controller('auth')
 @ApiTags('auth')

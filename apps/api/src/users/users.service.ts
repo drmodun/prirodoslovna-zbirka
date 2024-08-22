@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { RegisterUserDto, UpdateUserDto } from './dto/users.dto';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaService } from '../../src/prisma/prisma.service';
 import * as bcrypt from 'bcrypt';
 import { UserQuery } from '../../types/src';
 import {
@@ -8,9 +8,9 @@ import {
   SortingRequest,
   sortQueryBuilder,
 } from '../../types/src';
-import { MemberRoleType } from 'src/members/members.dto';
-import { BlobService } from 'src/blob/blob.service';
-import { EmailService } from 'src/email/email.service';
+import { MemberRoleType } from '../../src/members/members.dto';
+import { BlobService } from '../../src/blob/blob.service';
+import { EmailService } from '../../src/email/email.service';
 import { User } from '@prisma/client';
 
 @Injectable()

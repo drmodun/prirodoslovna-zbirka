@@ -1,16 +1,16 @@
 import { Injectable } from '@nestjs/common';
 import { CreatePostDto, PostQuery, PostSQL, UpdatePostDto } from './posts.dto';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaService } from '../../src/prisma/prisma.service';
 import { NotificationPromise, sortQueryBuilder } from '../../types/src';
 import {
   anonymousPostsDiscover,
   personalizedPostsDiscover,
 } from './rawQueries';
-import { NotificationUsersService } from 'src/notification-users/notification-users.service';
+import { NotificationUsersService } from '../../src/notification-users/notification-users.service';
 import { Post } from '@prisma/client';
 import { env } from 'process';
-import { NotificationsService } from 'src/notifications/notifications.service';
-import { FollowsService } from 'src/follows/follows.service';
+import { NotificationsService } from '../../src/notifications/notifications.service';
+import { FollowsService } from '../../src/follows/follows.service';
 
 @Injectable()
 export class PostsService {

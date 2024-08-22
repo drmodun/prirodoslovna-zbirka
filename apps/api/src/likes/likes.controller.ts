@@ -1,6 +1,6 @@
 import { Controller, Param, Post, Req, UseGuards } from '@nestjs/common';
 import { LikesService } from './likes.service';
-import { JwtAuthGuard } from 'src/auth/jwt-auth-guard';
+import { JwtAuthGuard } from '../../src/auth/jwt-auth-guard';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
 @ApiTags('likes')

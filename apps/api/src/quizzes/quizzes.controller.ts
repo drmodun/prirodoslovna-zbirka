@@ -13,9 +13,9 @@ import {
 } from '@nestjs/common';
 import { QuizzesService } from './quizzes.service';
 import { CreateQuizDto, QuizQuery, UpdateQuizDto } from './quizzes.dto';
-import { JwtAuthGuard } from 'src/auth/jwt-auth-guard';
+import { JwtAuthGuard } from '../../src/auth/jwt-auth-guard';
 import { ApiBearerAuth } from '@nestjs/swagger';
-import { MembersService } from 'src/members/members.service';
+import { MembersService } from '../../src/members/members.service';
 import {
   QuestionResponse,
   QuizResponseExtended,

@@ -11,14 +11,14 @@ import {
   SortingRequest,
   sortQueryBuilder,
 } from '../../types/src';
-import { MemberRoleType } from 'src/members/members.dto';
+import { MemberRoleType } from '../../src/members/members.dto';
 import {
   anonymousOrganisationDiscover,
   personalizedOrganisationDiscover,
 } from './rawQueries';
 import { Organisation } from '@prisma/client';
-import { NotificationsService } from 'src/notifications/notifications.service';
-import { NotificationUsersService } from 'src/notification-users/notification-users.service';
+import { NotificationsService } from '../../src/notifications/notifications.service';
+import { NotificationUsersService } from '../../src/notification-users/notification-users.service';
 import { env } from 'process';
 
 @Injectable()

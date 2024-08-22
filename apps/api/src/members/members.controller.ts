@@ -11,7 +11,7 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { MembersService } from './members.service';
-import { JwtAuthGuard } from 'src/auth/jwt-auth-guard';
+import { JwtAuthGuard } from '../../src/auth/jwt-auth-guard';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { EditMembershipDto, MemberRoleType } from './members.dto';
 @ApiTags('members')

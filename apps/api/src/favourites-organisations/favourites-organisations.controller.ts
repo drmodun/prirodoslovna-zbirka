@@ -1,6 +1,6 @@
 import { Controller, Get, Patch, Param, UseGuards, Req } from '@nestjs/common';
 import { FavouriteOrganisationsService } from './favourites-organisations.service';
-import { JwtAuthGuard } from 'src/auth/jwt-auth-guard';
+import { JwtAuthGuard } from '../../src/auth/jwt-auth-guard';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { OrganisationResponseShort, ShortUserResponse } from '../../types/src';
 

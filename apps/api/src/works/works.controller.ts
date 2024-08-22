@@ -13,7 +13,7 @@ import {
   Query,
 } from '@nestjs/common';
 import { WorksService } from './works.service';
-import { JwtAuthGuard } from 'src/auth/jwt-auth-guard';
+import { JwtAuthGuard } from '../../src/auth/jwt-auth-guard';
 import { CreateWorkDto, UpdateWorkDto, WorkQuery } from './dto/works.entity';
 import {
   PaginationRequest,
@@ -23,9 +23,9 @@ import {
   WorkResponseShort,
 } from '../../types/src';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { OptionalJwtAuthGuard } from 'src/auth/optional-jwt-auth-guard';
-import { PaginationParams } from 'src/config/pagination';
-import { SortingParams } from 'src/config/sorting';
+import { OptionalJwtAuthGuard } from '../../src/auth/optional-jwt-auth-guard';
+import { PaginationParams } from '../../src/config/pagination';
+import { SortingParams } from '../../src/config/sorting';
 
 @Controller('works')
 @ApiTags('works')

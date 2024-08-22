@@ -8,7 +8,7 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { SavedLiteratureService } from './literature.service';
-import { JwtAuthGuard } from 'src/auth/jwt-auth-guard';
+import { JwtAuthGuard } from '../../src/auth/jwt-auth-guard';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { ShortUserResponse, SavedLiteratureResponse } from '../../types/src';
 

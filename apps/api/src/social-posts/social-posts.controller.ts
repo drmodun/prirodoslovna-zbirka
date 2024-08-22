@@ -16,7 +16,7 @@ import {
   SocialPostQuery,
   UpdateSocialPostDto,
 } from './dto/socialPost.dto';
-import { JwtAuthGuard } from 'src/auth/jwt-auth-guard';
+import { JwtAuthGuard } from '../../src/auth/jwt-auth-guard';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import {
   PaginationRequest,
@@ -24,9 +24,9 @@ import {
   SortingEnum,
   SortingRequest,
 } from '../../types/src';
-import { PaginationParams } from 'src/config/pagination';
-import { SortingParams } from 'src/config/sorting';
-import { OptionalJwtAuthGuard } from 'src/auth/optional-jwt-auth-guard';
+import { PaginationParams } from '../../src/config/pagination';
+import { SortingParams } from '../../src/config/sorting';
+import { OptionalJwtAuthGuard } from '../../src/auth/optional-jwt-auth-guard';
 
 @ApiTags('social-posts')
 @Controller('social-posts')

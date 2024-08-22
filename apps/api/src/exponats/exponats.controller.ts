@@ -25,11 +25,11 @@ import {
   SortingEnum,
   SortingRequest,
 } from '../../types/src';
-import { PaginationParams } from 'src/config/pagination';
-import { SortingParams } from 'src/config/sorting';
+import { PaginationParams } from '../../src/config/pagination';
+import { SortingParams } from '../../src/config/sorting';
 import { ApiBearerAuth, ApiQuery, ApiTags } from '@nestjs/swagger';
-import { JwtAuthGuard } from 'src/auth/jwt-auth-guard';
-import { OptionalJwtAuthGuard } from 'src/auth/optional-jwt-auth-guard';
+import { JwtAuthGuard } from '../../src/auth/jwt-auth-guard';
+import { OptionalJwtAuthGuard } from '../../src/auth/optional-jwt-auth-guard';
 
 @ApiTags('exponats')
 @Controller('exponats')

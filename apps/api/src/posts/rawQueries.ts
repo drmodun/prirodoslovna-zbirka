@@ -1,5 +1,5 @@
 import { InternalServerErrorException } from '@nestjs/common';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaService } from '../../src/prisma/prisma.service';
 
 export const anonymousPostsDiscover = async (
   page: number,

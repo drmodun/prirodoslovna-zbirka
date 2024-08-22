@@ -1,7 +1,7 @@
 import { Controller, Get, Param, Post, Req, UseGuards } from '@nestjs/common';
 import { FollowsService } from './follows.service';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { JwtAuthGuard } from 'src/auth/jwt-auth-guard';
+import { JwtAuthGuard } from '../../src/auth/jwt-auth-guard';
 import { ShortUserResponse } from '../../types/src';
 
 @ApiTags('follows')

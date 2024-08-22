@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaService } from '../../src/prisma/prisma.service';
 import { CreateWorkDto, UpdateWorkDto, WorkQuery } from './dto/works.entity';
 import {
   PaginationRequest,

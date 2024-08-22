@@ -16,7 +16,7 @@ import {
   CreateOrganisationDto,
   UpdateOrganisationDto,
 } from './dto/organisations.dto';
-import { PaginationParams } from 'src/config/pagination';
+import { PaginationParams } from '../../src/config/pagination';
 import {
   PaginationRequest,
   PostResponse,
@@ -24,7 +24,7 @@ import {
   SortingEnum,
   SortingRequest,
 } from '../../types/src';
-import { SortingParams } from 'src/config/sorting';
+import { SortingParams } from '../../src/config/sorting';
 import { OrganisationQuery } from '../../types/src';
 import {
   ExtendedOrganisationResponse,
@@ -34,9 +34,9 @@ import { ExponatResponseShort } from '../../types/src';
 import { ShortSocialPostResponse } from '../../types/src';
 import { ApiBearerAuth, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { County } from '@prisma/client';
-import { JwtAuthGuard } from 'src/auth/jwt-auth-guard';
-import { OptionalJwtAuthGuard } from 'src/auth/optional-jwt-auth-guard';
-import { MembersService } from 'src/members/members.service';
+import { JwtAuthGuard } from '../../src/auth/jwt-auth-guard';
+import { OptionalJwtAuthGuard } from '../../src/auth/optional-jwt-auth-guard';
+import { MembersService } from '../../src/members/members.service';
 
 @Controller('organisations')
 @ApiTags('organisations')

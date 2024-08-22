@@ -18,7 +18,7 @@ import {
   UpdateQuestionDto,
 } from './questions.dto';
 import { ApiBearerAuth } from '@nestjs/swagger';
-import { JwtAuthGuard } from 'src/auth/jwt-auth-guard';
+import { JwtAuthGuard } from '../../src/auth/jwt-auth-guard';
 import { QuestionResponse, QuestionResponseExtended } from '../../types/src';
 
 @Controller('questions')

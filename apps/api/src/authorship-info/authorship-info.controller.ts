@@ -14,7 +14,7 @@ import {
   UpdateAuthorshipInfoDto,
 } from './dto/authorship-info.dto';
 import { ApiBearerAuth } from '@nestjs/swagger';
-import { JwtAuthGuard } from 'src/auth/jwt-auth-guard';
+import { JwtAuthGuard } from '../../src/auth/jwt-auth-guard';
 import { AuthorshipInfo } from '../../types/src';
 
 @Controller('authorship-info')

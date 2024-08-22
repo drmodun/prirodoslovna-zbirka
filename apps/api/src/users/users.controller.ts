@@ -26,7 +26,7 @@ import {
   ApiQuery,
   ApiTags,
 } from '@nestjs/swagger';
-import { PaginationParams } from 'src/config/pagination';
+import { PaginationParams } from '../../src/config/pagination';
 import {
   ExponatResponseShort,
   OrganisationResponseShort,
@@ -39,8 +39,8 @@ import { UserQuery } from '../../types/src';
 import { SortingParams } from '../config/sorting';
 import { ExtendedUserResponse, ShortUserResponse } from '../../types/src';
 import { PostResponse } from '../../types/src';
-import { JwtAuthGuard } from 'src/auth/jwt-auth-guard';
-import { OptionalJwtAuthGuard } from 'src/auth/optional-jwt-auth-guard';
+import { JwtAuthGuard } from '../../src/auth/jwt-auth-guard';
+import { OptionalJwtAuthGuard } from '../../src/auth/optional-jwt-auth-guard';
 import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('users')

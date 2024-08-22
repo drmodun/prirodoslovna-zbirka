@@ -1,5 +1,5 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaService } from '../../src/prisma/prisma.service';
 import {
   CreateSocialPostDto,
   SocialPostQuery,
@@ -11,8 +11,8 @@ import {
   SortingRequest,
   socialPostSortQueryBuilder,
 } from '../../types/src';
-import { NotificationsService } from 'src/notifications/notifications.service';
-import { NotificationUsersService } from 'src/notification-users/notification-users.service';
+import { NotificationsService } from '../../src/notifications/notifications.service';
+import { NotificationUsersService } from '../../src/notification-users/notification-users.service';
 
 @Injectable()
 export class SocialPostsService {

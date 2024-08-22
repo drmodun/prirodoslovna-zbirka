@@ -4,11 +4,11 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { Organisation, OrganisationUser, Role, User } from '@prisma/client';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaService } from '../../src/prisma/prisma.service';
 import { MemberRoleType } from './members.dto';
 import { NotificationPromise } from '../../types/src';
-import { NotificationsService } from 'src/notifications/notifications.service';
-import { NotificationUsersService } from 'src/notification-users/notification-users.service';
+import { NotificationsService } from '../../src/notifications/notifications.service';
+import { NotificationUsersService } from '../../src/notification-users/notification-users.service';
 @Injectable()
 export class MembersService {
   constructor(

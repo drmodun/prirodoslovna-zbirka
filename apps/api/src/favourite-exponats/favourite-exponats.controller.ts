@@ -1,6 +1,6 @@
 import { Controller, Get, Patch, Param, UseGuards, Req } from '@nestjs/common';
 import { FavouriteExponatsService } from './favourite-exponats.service';
-import { JwtAuthGuard } from 'src/auth/jwt-auth-guard';
+import { JwtAuthGuard } from '../../src/auth/jwt-auth-guard';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { ExponatResponseShort, ShortUserResponse } from '../../types/src';
 
