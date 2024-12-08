@@ -1,0 +1,21 @@
+version = 1
+
+exclude_patterns = [
+  "*seed.ts",
+  "apps/api/**/seed.ts",
+  "**/seed.ts",
+  "apps/api/prisma/seed.ts"
+]
+
+[[analyzers]]
+name = "javascript"
+
+  [analyzers.meta]
+  plugins = ["react"]
+  environment = [
+    "nodejs",
+    "browser"
+  ]
+
+[[transformers]]
+name = "prettier"
