@@ -50,7 +50,11 @@ export const QuestionInputPreview = ({
       <div className={classes.question}>{question.question}</div>
       {question.image && (
         <div className={classes.image}>
-          <Image layout="fill" src={question.image} alt={question.question} />{" "}
+          <Image
+            layout="fill"
+            src={question.image}
+            alt={question.question}
+          />{" "}
         </div>
       )}
       {question.questionType === "MULTIPLE_CHOICE" && (
