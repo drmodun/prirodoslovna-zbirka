@@ -1,19 +1,28 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "globalDependencies": [".env"],
-  "globalEnv": ["NODE_ENV", "WEB_URL", "NEXT_PUBLIC_API_URL", "NEXT_OUTPUT"],
+  "globalEnv": [
+    "NODE_ENV",
+    "WEB_URL",
+    "NEXT_PUBLIC_API_URL",
+    "NEXT_PUBLIC_FILES_URL",
+    "NEXT_OUTPUT",
+    "FILES_FALLBACK",
+    "AWS_S3_BUCKET",
+    "AWS_S3_URL"
+  ],
   "globalPassThroughEnv": [
     "DATABASE_URL",
     "API_INTERNAL_URL",
     "JWT_SECRET",
     "AWS_ACCESS_KEY_ID",
     "AWS_SECRET_ACCESS_KEY",
-    "AWS_S3_BUCKET",
-    "AWS_S3_URL",
     "S3_PATH",
     "SENDGRID_API_KEY",
     "OPENAI_API_KEY",
-    "GOOGLE_CLOUD_API_KEY"
+    "GOOGLE_CLOUD_API_KEY",
+    "API_PUBLIC_URL",
+    "UPLOAD_DIR"
   ],
   "tasks": {
     "build": {

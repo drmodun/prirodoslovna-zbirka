@@ -1,3 +1,5 @@
+import { filesUrl } from "@/api/getUrlServer";
+
 export const getPfpUrl = (id: string) => {
-  return `https://biosfera-files.s3.eu-north-1.amazonaws.com/user/${id}`;
+  return `${filesUrl}/user/${id}`;
 };
