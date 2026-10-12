@@ -9,6 +9,12 @@ export const publicApiUrl =
   process.env.NEXT_PUBLIC_API_URL ||
   fromWebUrl(process.env.NEXT_PUBLIC_WEB_URL);
 
+// Base address of uploaded files: the S3 bucket, or the API's own storage
+// when S3 is not configured. Resolved in next.config.js, inlined at build time.
+export const filesUrl =
+  process.env.NEXT_PUBLIC_FILES_URL ||
+  "https://biosfera-files.s3.eu-north-1.amazonaws.com";
+
 // Server-side fetches can reach the API on a private address (e.g. the
 // compose service name); API_INTERNAL_URL is read at runtime.
 export const getBaseUrl = () =>
