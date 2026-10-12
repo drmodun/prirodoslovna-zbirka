@@ -23,7 +23,7 @@ export const FavouriteButton = ({ exponat }: FavouriteButtonProps) => {
 
   useEffect(() => {
     setIsFavourite(favouriteExponats.find((x) => x.id === exponat.id) != null);
-  }, [favouriteExponats, loading]);
+  }, [favouriteExponats, loading, exponat.id]);
 
   const toggleFavourite = async () => {
     await mutateAsync(exponat.id);

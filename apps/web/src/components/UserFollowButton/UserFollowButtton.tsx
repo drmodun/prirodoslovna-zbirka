@@ -20,7 +20,7 @@ export const FollowButton = ({ user }: FollowButtonProps) => {
 
   useEffect(() => {
     setIsFollow(following?.find((x) => x.id === user.id) != null);
-  }, [following, loading]);
+  }, [following, loading, user.id]);
 
   const toggleFollow = async () => {
     await mutateAsync(user.id);
