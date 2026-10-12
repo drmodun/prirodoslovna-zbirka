@@ -5,6 +5,14 @@
 #
 # SITE_ADDRESS defaults to plain HTTP on port 80. Set it to a domain
 # (e.g. biosfera.example.com) and Caddy obtains and renews a certificate.
+{
+	# Behind another proxy (production) the client address and scheme arrive in
+	# X-Forwarded-* headers; accept them from private networks only.
+	servers {
+		trusted_proxies static private_ranges
+	}
+}
+
 {$SITE_ADDRESS::80} {
 	encode zstd gzip
 
