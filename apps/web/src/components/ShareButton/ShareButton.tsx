@@ -78,11 +78,7 @@ const ShareButton = ({ text, imageUrl, title }: ShareButtonProps) => {
           <WhatsappShareButton title={title} url={url}>
             <WhatsappIcon size={64} round />
           </WhatsappShareButton>
-          <EmailShareButton
-            subject={title}
-            body={text}
-            url={url}
-          >
+          <EmailShareButton subject={title} body={text} url={url}>
             <EmailIcon size={64} round />
           </EmailShareButton>
           {imageUrl && (
