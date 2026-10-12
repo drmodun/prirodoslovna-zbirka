@@ -62,7 +62,7 @@ export class QuizzesService {
           },
         },
       },
-      skip: query.page - 1 * query.size,
+      skip: (query.page - 1) * query.size,
     });
 
     return quizzes;
