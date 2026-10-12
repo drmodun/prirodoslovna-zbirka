@@ -1,6 +1,8 @@
 import {
   Controller,
+  Get,
   Post,
+  StreamableFile,
   UseInterceptors,
   UploadedFile,
   Param,
@@ -19,6 +21,19 @@ import { Directories } from '@biosfera/types';
 @Controller('blobs')
 export class BlobController {
   constructor(private readonly blobService: BlobService) {}
+
+  // Serves files kept on disk when S3 is not configured.
+  @Get('file/:directory/:name')
+  async file(
+    @Param('directory') directory: string,
+    @Param('name') name: string,
+  ) {
+    const { stream, mimetype } = await this.blobService.readLocal(
+      directory,
+      name,
+    );
+    return new StreamableFile(stream, { type: mimetype });
+  }
 
   @Post(':directory')
   @ApiConsumes('multipart/form-data')
@@ -54,8 +69,7 @@ export class BlobController {
       file.mimetype,
     );
 
-    if (url)
-      return `https://biosfera-files.s3.eu-north-1.amazonaws.com/${directory}/${name}`;
+    if (url) return url;
     else throw new BadRequestException('File upload failed');
   }
 
@@ -94,8 +108,7 @@ export class BlobController {
       file.mimetype,
     );
 
-    if (url)
-      return `https://biosfera-files.s3.eu-north-1.amazonaws.com/${directory}/${name}`;
+    if (url) return url;
     else throw new BadRequestException('File upload failed');
   }
 
@@ -135,8 +148,7 @@ export class BlobController {
       file.mimetype,
     );
 
-    if (url)
-      return `https://biosfera-files.s3.eu-north-1.amazonaws.com/${directory}/${name}`;
+    if (url) return url;
     else throw new BadRequestException('File upload failed');
   }
 
@@ -170,8 +182,7 @@ export class BlobController {
       file.buffer,
       file.mimetype,
     );
-    if (url)
-      return `https://biosfera-files.s3.eu-north-1.amazonaws.com/${directory}/${name}`;
+    if (url) return url;
     else throw new BadRequestException('File upload failed');
   }
 
@@ -209,8 +220,7 @@ export class BlobController {
       file.buffer,
       file.mimetype,
     );
-    if (url)
-      return `https://biosfera-files.s3.eu-north-1.amazonaws.com/${directory}/${name}`;
+    if (url) return url;
     else throw new BadRequestException('File upload failed');
   }
 }
