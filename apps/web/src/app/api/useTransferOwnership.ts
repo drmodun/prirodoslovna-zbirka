@@ -8,7 +8,7 @@ const transferOwnership = async (params: {
   role: string;
 }) => {
   return await api.put(
-    `/members/${params.organisationId}/${params.userId}/transfer`
+    `/members/${params.organisationId}/${params.userId}/transfer`,
   );
 };
 

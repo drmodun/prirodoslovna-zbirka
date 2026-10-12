@@ -1,4 +1,3 @@
-
 export const getBaseUrl = () => {
   return process?.env?.WEB_URL
     ? process.env.DOCKER

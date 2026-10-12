@@ -27,7 +27,7 @@ export const DomainButton = ({
       className={clsx(
         classes.container,
         selected && classes.active,
-        domain && classes[domain]
+        domain && classes[domain],
       )}
       onClick={handleOnClick}
     >

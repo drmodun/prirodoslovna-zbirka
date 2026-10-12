@@ -20,7 +20,7 @@ export const useResetPassword = () => {
         "Uspješno resetiranje lozinke, preusmjeravanje na prijavu",
         {
           id: context?.toastId,
-        }
+        },
       );
       setTimeout(() => {
         window.location.href = "/login";
