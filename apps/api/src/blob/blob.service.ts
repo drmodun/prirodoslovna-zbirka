@@ -18,6 +18,20 @@ const DEFAULT_REGION = 'eu-north-1';
 // Keys are "<directory>/<name>"; neither part may leave the upload directory.
 const SAFE_SEGMENT = /^[\w.-]+$/;
 
+// Accepts a bare host as well as a full address; anything that still is not
+// a URL is ignored so file links fall back to the bucket's own address.
+const toUrl = (value?: string) => {
+  // No value, or a scheme other than http(s) such as s3://.
+  if (!value || /^(?!https?:)[a-z0-9+.-]+:\/\//i.test(value)) return undefined;
+  const withScheme = /^https?:\/\//i.test(value) ? value : `https://${value}`;
+  try {
+    new URL(withScheme);
+    return withScheme.replace(/\/+$/, '');
+  } catch {
+    return undefined;
+  }
+};
+
 @Injectable()
 export class BlobService {
   private readonly logger = new Logger(BlobService.name);
@@ -33,12 +47,11 @@ export class BlobService {
     : !!this.endpoint;
   // Where browsers read the files. AWS_S3_URL overrides, e.g. when the
   // endpoint above is only reachable from inside the network.
-  private url = (
-    process.env.AWS_S3_URL ||
+  private url =
+    toUrl(process.env.AWS_S3_URL) ??
     (this.endpoint
       ? `${this.endpoint}/${this.bucket}`
-      : `https://${this.bucket}.s3.${this.region}.amazonaws.com`)
-  ).replace(/\/+$/, '');
+      : `https://${this.bucket}.s3.${this.region}.amazonaws.com`);
 
   private useS3 =
     !!this.bucket &&

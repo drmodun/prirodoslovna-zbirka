@@ -20,12 +20,27 @@ const useLocalFiles =
   !hasS3 &&
   (process.env.NODE_ENV === "development" ||
     process.env.FILES_FALLBACK === "local");
-const filesUrl = (
-  process.env.NEXT_PUBLIC_FILES_URL ||
+// Accepts a bare host ("files.example.com") as well as a full address, and
+// returns undefined for anything that still is not a URL, so a mistyped
+// setting falls back instead of failing the build.
+const toUrl = (value) => {
+  // No value, or a scheme other than http(s) such as s3://.
+  if (!value || /^(?!https?:)[a-z0-9+.-]+:\/\//i.test(value)) return undefined;
+  const withScheme = /^https?:\/\//i.test(value) ? value : `https://${value}`;
+  try {
+    new URL(withScheme);
+    return withScheme.replace(/\/+$/, "");
+  } catch {
+    console.warn(`Ignoring "${value}": not a valid address for uploaded files`);
+    return undefined;
+  }
+};
+
+const filesUrl =
+  toUrl(process.env.NEXT_PUBLIC_FILES_URL) ||
   (useLocalFiles
     ? `${LOCAL_API_URL}/blobs/file`
-    : process.env.AWS_S3_URL || s3FilesUrl())
-).replace(/\/+$/, "");
+    : toUrl(process.env.AWS_S3_URL) || s3FilesUrl());
 // The image optimizer fetches from the web server, which cannot be assumed to
 // reach a plain-http (local or in-network) address the browser uses.
 const filesAreLocal = !filesUrl.startsWith("https://");
