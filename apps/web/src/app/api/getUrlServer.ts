@@ -1,4 +1,3 @@
-"use server";
 
 export const getBaseUrl = () => {
   return process?.env?.WEB_URL
