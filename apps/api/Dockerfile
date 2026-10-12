@@ -1,33 +1,34 @@
-FROM node:20-alpine AS builder
-RUN apk update
-# Set working directory
+# Build from the repo root: docker build -f apps/api/Dockerfile .
+FROM node:22-bookworm-slim AS base
+# Prisma's query engine needs OpenSSL at runtime.
+RUN apt-get update \
+  && apt-get install -y --no-install-recommends openssl ca-certificates \
+  && rm -rf /var/lib/apt/lists/*
 WORKDIR /app
-RUN yarn global add turbo
+
+# Reduce the monorepo to the api workspace and what it depends on.
+FROM base AS pruner
 COPY . .
-RUN turbo prune --scope=api --docker
+RUN npx --yes turbo@2 prune api --docker
 
-
-# Add lockfile and package.json's of isolated subworkspace
-FROM node:20-alpine AS installer
-RUN apk update
-WORKDIR /app
-COPY --from=builder /app/out/json/ .
-COPY --from=builder /app/out/yarn.lock ./yarn.lock
-COPY --from=builder /app/turbo.json ./turbo.json
-COPY --from=builder /app/apps/api/prisma ./prisma
+FROM base AS builder
+# Manifests and lockfile only, so the install layer survives source edits.
+COPY --from=pruner /app/out/json/ .
 RUN yarn install --frozen-lockfile
+COPY --from=pruner /app/out/full/ .
+RUN yarn turbo run build --filter=api
 
+# One-shot: wipes the database and loads the mock data.
+# docker compose run --rm seed
+FROM builder AS seed
+WORKDIR /app/apps/api
+ENV NODE_ENV=development
+CMD ["yarn", "prisma", "db", "seed"]
 
-FROM node:20-alpine AS sourcer
-WORKDIR /app
-COPY --from=installer /app/ .
-COPY --from=builder /app/out/full/ .
-COPY .gitignore .gitignore
-ENV NODE_OPTIONS=--max_old_space_size=2048
-RUN yarn turbo run build
-FROM node:20-alpine as runner
-WORKDIR /app
-COPY --from=sourcer /app/ .
-WORKDIR /app/apps/api/
+FROM base AS runner
+ENV NODE_ENV=production
+COPY --from=builder --chown=node:node /app/ .
+WORKDIR /app/apps/api
+USER node
 EXPOSE 5500
-CMD ["yarn", "start"]
+CMD ["sh", "-c", "yarn prisma migrate deploy && node dist/main"]
