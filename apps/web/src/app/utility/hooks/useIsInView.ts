@@ -7,10 +7,10 @@ export function useIsInView(ref: React.RefObject<HTMLDivElement>) {
     () =>
       new IntersectionObserver(([entry]) =>
         setIsIntersecting(
-          entry.isIntersecting || ref.current?.getBoundingClientRect().y! > 0
-        )
+          entry.isIntersecting || ref.current?.getBoundingClientRect().y! > 0,
+        ),
       ),
-    [ref.current]
+    [ref.current],
   );
 
   useEffect(() => {

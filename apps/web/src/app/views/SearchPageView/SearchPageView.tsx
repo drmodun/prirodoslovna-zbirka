@@ -52,12 +52,7 @@ export type tabType =
   | "Radovi"
   | "Literatura";
 export type tabDictionaryType =
-  | "user"
-  | "organisation"
-  | "exponat"
-  | "post"
-  | "work"
-  | "literature";
+  "user" | "organisation" | "exponat" | "post" | "work" | "literature";
 
 export const tabDictionary = {
   Korisnici: "user",

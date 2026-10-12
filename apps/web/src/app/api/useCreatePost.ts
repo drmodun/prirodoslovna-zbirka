@@ -10,7 +10,7 @@ export class CreatePostDto extends _createPostDto {}
 const createPost = (params: { post: CreatePostDto; exponatId: string }) => {
   return api.post<CreatePostDto, PostResponse>(
     `/posts/${params.exponatId}`,
-    params.post
+    params.post,
   );
 };
 

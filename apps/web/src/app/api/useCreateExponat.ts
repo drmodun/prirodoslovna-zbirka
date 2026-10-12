@@ -13,7 +13,7 @@ const createExponat = (params: {
 }) => {
   return api.post<CreateExponatDto, ExponatResponseShort>(
     `/exponats/${params.organisationId}`,
-    params.exponat
+    params.exponat,
   );
 };
 

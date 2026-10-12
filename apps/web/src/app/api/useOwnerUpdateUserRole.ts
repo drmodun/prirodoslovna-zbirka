@@ -11,7 +11,7 @@ const ownerUpdateUserRole = async (params: {
     `/members/${params.organisationId}/${params.userId}/owner`,
     {
       role: params.role,
-    }
+    },
   );
 };
 

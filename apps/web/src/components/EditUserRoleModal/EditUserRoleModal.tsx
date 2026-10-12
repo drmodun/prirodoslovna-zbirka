@@ -34,7 +34,7 @@ export const EditUserRoleModal = ({
   const { user, memberships } = useUser();
   const [open, setOpen] = useState(isOpen);
   const [isOwner, setIsOwner] = useState(
-    memberships?.some((m) => m.id === organisationId && m.role === "OWNER")
+    memberships?.some((m) => m.id === organisationId && m.role === "OWNER"),
   );
 
   const schema = z.object({
@@ -50,7 +50,7 @@ export const EditUserRoleModal = ({
 
   const onSubmit = async (data: any) => {
     const confirm = window.confirm(
-      `Jeste li sigurni da želite promijeniti ulogu korisnika?`
+      `Jeste li sigurni da želite promijeniti ulogu korisnika?`,
     );
     if (!confirm) return;
     isOwner
@@ -69,7 +69,7 @@ export const EditUserRoleModal = ({
 
   useEffect(() => {
     setIsOwner(
-      memberships?.some((m) => m.id === organisationId && m.role === "OWNER")
+      memberships?.some((m) => m.id === organisationId && m.role === "OWNER"),
     );
   }, [memberships, organisationId]);
 

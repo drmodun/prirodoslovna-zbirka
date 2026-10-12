@@ -16,7 +16,7 @@ export const RemoveMembershipButton: React.FC<LeaveOrganisationButtonProps> = ({
 
   const handleLeave = () => {
     const confirm = window.confirm(
-      "jeste li sigurni da želite ukinuti ovo članstvo?"
+      "jeste li sigurni da želite ukinuti ovo članstvo?",
     );
     if (!confirm) return;
     mutate({

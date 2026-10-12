@@ -72,7 +72,7 @@ export const Modal: React.FC<ModalProps> = ({
             )}
           </div>
         </div>,
-        document.querySelector("#portal")!
+        document.querySelector("#portal")!,
       )
     : null;
 };

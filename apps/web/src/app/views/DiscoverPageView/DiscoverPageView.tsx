@@ -30,11 +30,7 @@ export interface DiscoverPageViewProps {
 
 const tabs = ["Organizacije", "Eksponati", "Objave", "Radovi", "Radovi (GBIF)"];
 export type tabType =
-  | "Organizacije"
-  | "Eksponati"
-  | "Objave"
-  | "Radovi"
-  | "Radovi (GBIF)";
+  "Organizacije" | "Eksponati" | "Objave" | "Radovi" | "Radovi (GBIF)";
 export type tabDictionaryType = "organisation" | "exponat" | "post" | "work";
 
 export const tabDictionary = {
@@ -83,11 +79,11 @@ export const DiscoverPageView = ({
   } = useDiscover();
 
   useEffect(() => {
-    setCurrentGbifWorks(gbifWorks),
+    (setCurrentGbifWorks(gbifWorks),
       setCurrentWorks(works),
       setCurrentPosts(posts),
       setCurrentExponats(exponats),
-      setCurrentOrganisations(organisations);
+      setCurrentOrganisations(organisations));
   }, [gbifWorks, works, posts, exponats, organisations]);
 
   const handleError = () => {

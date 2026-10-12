@@ -28,7 +28,9 @@ export const WorkCard = ({ work, isAdmin, onDelete }: WorkCardProps) => {
       )}
       <div className={classes.content}>
         <div className={classes.upper}>
-          <Link href={!work.isGbif ? `/work/${work.id}` : work.website! ?? "#"}>
+          <Link
+            href={!work.isGbif ? `/work/${work.id}` : (work.website! ?? "#")}
+          >
             <span className={classes.title}>{shortenText(work.title, 20)}</span>
           </Link>
           <span className={classes.type}>

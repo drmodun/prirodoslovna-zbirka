@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { SignInForm } from "components/SignInForm/SignInForm";
 import GreenDrop from "../GreenDrop/GreenDrop";
 import classes from "./ResetPasswordView.module.scss";
