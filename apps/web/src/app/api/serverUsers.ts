@@ -18,7 +18,9 @@ export const getUsers = async (queryDto: UserQuery, page?: number) => {
     if (queryDto.attribute === "name") queryDto.attribute = "username";
     if ((queryDto as any).title) queryDto.name = (queryDto as any).title;
     const query = buildListQuery(queryDto, SORTABLE, page);
-    const response = await fetch(`${getBaseUrl()}/users?${query}`);
+    const response = await fetch(`${getBaseUrl()}/users?${query}`, {
+      cache: "no-store",
+    });
     return response.json();
   } catch (error) {
     console.log(error);

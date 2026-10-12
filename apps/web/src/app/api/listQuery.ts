@@ -33,6 +33,7 @@ export const fetchDiscover = async (
     const page = params.page || 1;
     const response = await fetch(
       `${getBaseUrl()}/${resource}/discover?page=${page}&size=${size}`,
+      { cache: "no-store" },
     );
     return response.json();
   } catch (error) {

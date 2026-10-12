@@ -11,7 +11,9 @@ export const getPosts = async (queryDto: PostQuery, page?: number) => {
     if (queryDto.attribute === "name") queryDto.attribute = SortingEnum.TITLE;
     if ((queryDto as any).name) queryDto.title = (queryDto as any).name;
     const query = buildListQuery(queryDto, SORTABLE, page);
-    const response = await fetch(`${getBaseUrl()}/posts?${query}`);
+    const response = await fetch(`${getBaseUrl()}/posts?${query}`, {
+      cache: "no-store",
+    });
     return response.json();
   } catch (error) {
     console.log(error);

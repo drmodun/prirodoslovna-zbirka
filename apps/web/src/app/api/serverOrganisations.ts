@@ -13,7 +13,9 @@ export const getOrganisations = async (
   try {
     if ((queryDto as any).title) queryDto.name = (queryDto as any).title;
     const query = buildListQuery(queryDto, SORTABLE, page);
-    const response = await fetch(`${getBaseUrl()}/organisations?${query}`);
+    const response = await fetch(`${getBaseUrl()}/organisations?${query}`, {
+      cache: "no-store",
+    });
     return response.json();
   } catch (error) {
     console.log(error);

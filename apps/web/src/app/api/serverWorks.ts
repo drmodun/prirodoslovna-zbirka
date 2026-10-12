@@ -36,7 +36,9 @@ export const getWorks = async (
   try {
     if (queryDto.attribute === "name") queryDto.attribute = SortingEnum.TITLE;
     const query = buildListQuery(queryDto, SORTABLE, page);
-    const response = await fetch(`${getBaseUrl()}/works?${query}`);
+    const response = await fetch(`${getBaseUrl()}/works?${query}`, {
+      cache: "no-store",
+    });
     return await response.json();
   } catch (error) {
     console.log(error);
