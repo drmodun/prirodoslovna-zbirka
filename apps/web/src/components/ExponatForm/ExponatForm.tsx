@@ -1,13 +1,8 @@
 "use client";
-import {
-  Directories,
-  ExponatExtendedResponse,
-  SpeciesResponse,
-} from "@biosfera/types";
+import { ExponatExtendedResponse, SpeciesResponse } from "@biosfera/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Input from "components/Input";
-import { FieldValues, useForm } from "react-hook-form";
-import { any, z } from "zod";
+import { FieldValues, UseFormReturn, useForm } from "react-hook-form";
 import classes from "./ExponatForm.module.scss";
 import Textarea from "components/Textarea";
 import ListInput from "components/ListInput";
@@ -17,185 +12,93 @@ import BaseButton from "components/BaseButton";
 import Dropdown from "components/Dropdown";
 import { useGetSpecies } from "@/api/useGetSpecies";
 import { useState } from "react";
-import { useReadOrCreateCategorization } from "@/api/useReadOrCreateCategorization";
-import { CreateExponatDto, useCreateExponat } from "@/api/useCreateExponat";
 import FileUpload from "components/FileUpload";
-import { useUploadFile } from "@/api/useUploadFile";
-import toast from "react-hot-toast";
-import { useUpdateExponat } from "@/api/useUpdateExponat";
-import AuthorshipInfoModal from "components/AuthorshipInfoModal";
 import AuthorshipButton from "components/AuthorshipButton";
 import { AuthorshipInfoFields } from "components/AuthorshipInfoModal/AuthorshipInfoModal";
-import { useUploadThreeDimensionalModel } from "@/api/useUploadThreeDimensionalModel";
-import { useUploadVideo } from "@/api/useUploadVideo";
+import { exponatKindOptions, exponatSchema, isMineral } from "./exponatSchema";
+import { useExponatSubmit } from "./useExponatSubmit";
+
 export interface ExponatModalSectionsProps {
   organisationId: string;
   isEdit?: boolean;
   values?: ExponatExtendedResponse;
 }
 
+const LARGE_FILE_MAX_SIZE = 100000000;
+
+//Check for valid species with two word nomenclature
+const toSpeciesOptions = (species?: SpeciesResponse[]) =>
+  species
+    ?.filter((x) => x.rank === "SPECIES" && x.species?.split(" ").length > 1)
+    .map((x) => ({ value: x.species, label: x.species })) || [];
+
+const getDefaultValues = (values?: ExponatExtendedResponse) =>
+  ({
+    ...values,
+    name: values?.title,
+    description: values?.description,
+    funFacts: values?.funFacts,
+    alternateName: values?.alternateName,
+    exponatKind: values?.exponatKind,
+    attributes: JSON.parse(values?.attributes as any),
+  }) as FieldValues;
+
+interface NomenclatureFieldProps {
+  form: UseFormReturn<FieldValues>;
+  species?: SpeciesResponse[];
+  initSelected?: string;
+  onSelect: (species: string) => void;
+}
+
+const NomenclatureField = ({
+  form,
+  species,
+  initSelected,
+  onSelect,
+}: NomenclatureFieldProps) =>
+  isMineral(form.watch("exponatKind")) ? (
+    <Input
+      form={form}
+      attribute="alternateName"
+      question="Nomenklatura"
+      error={form.formState.errors.alternateName?.message?.toString()}
+    />
+  ) : (
+    <Dropdown
+      form={form}
+      attribute="alternateName"
+      initPlaceholder="Znanstvena vrsta eksponata"
+      options={toSpeciesOptions(species)}
+      initSelected={initSelected}
+      onSelect={onSelect}
+    />
+  );
+
 export const ExponatForm = ({
   organisationId,
   isEdit,
   values,
 }: ExponatModalSectionsProps) => {
-  const schema = z
-    .object({
-      name: z
-        .string()
-        .min(5, " Ime mora imati više od 5 slova")
-        .max(100, "Ime mora imati manje od 100 slova"),
-      description: z
-        .string()
-        .min(10, "Opis mora imati više od 10 slova")
-        .max(2000, "Opis mora imati manje od 2000 slova"),
-      alternateName: z
-        .string()
-        .min(2, "Nomenklatura mora imati više od 2 slova"),
-      funFacts: z
-        .array(z.string().min(2, "Mora imati više od 2 slova"))
-        .min(1, "Mora postojati barem jedan fun fact"),
-      exponatKind: z.enum(["EUCARIOT", "PROCARIOT", "MINERAL"]),
-      attributes: z.any(),
-      authorshipInfoId: z
-        .string({
-          required_error: "Mora postojati autor",
-        })
-        .uuid(),
-      mainImage: z.any(),
-    })
-    .refine(
-      (data) => {
-        return Object.keys(data.attributes).length > 0;
-      },
-      {
-        message: "Mora postojati barem jedan atribut",
-        path: ["attributes"],
-      },
-    );
   const [selectedSpecies, setSelectedSpecies] = useState<string>(
     values?.alternateName || "",
   );
-  const [exponatMainImage, setExponatMainImage] = useState<File[]>(
-    [] as File[],
+  const [mainImage, setMainImage] = useState<File[]>([]);
+  const [thirdDimensionalModel, setThirdDimensionalModel] = useState<File[]>(
+    [],
   );
-
-  const [thirdDimensionalModelUrl, setThirdDimensionalModel] = useState<File[]>(
-    [] as File[],
-  );
-
-  const [videoUrl, setVideo] = useState<File[]>([] as File[]);
+  const [video, setVideo] = useState<File[]>([]);
 
   const form = useForm({
-    resolver: zodResolver(schema),
-    ...(isEdit && {
-      defaultValues: {
-        ...values,
-        name: values?.title,
-        description: values?.description,
-        funFacts: values?.funFacts,
-        alternateName: values?.alternateName,
-        exponatKind: values?.exponatKind,
-        attributes: JSON.parse(values?.attributes as any),
-      } as FieldValues,
-    }),
+    resolver: zodResolver(exponatSchema),
+    ...(isEdit && { defaultValues: getDefaultValues(values) }),
   });
+  const { errors } = form.formState;
 
-  const { data, error, isLoading } = useGetSpecies(selectedSpecies);
-  const { mutateAsync } = useReadOrCreateCategorization();
-  const { mutateAsync: createExponat } = useCreateExponat();
-  const { mutateAsync: uploadImage } = useUploadFile();
-  const { mutateAsync: updateExponat } = useUpdateExponat();
-  const { mutateAsync: uploadModel } = useUploadThreeDimensionalModel();
-  const { mutateAsync: uploadViddeo } = useUploadVideo();
+  const { data: species } = useGetSpecies(selectedSpecies);
+  const submit = useExponatSubmit({ organisationId, isEdit, values, species });
 
-  const onSubmit = async (formData: any) => {
-    if (exponatMainImage.length === 0 && !isEdit) {
-      toast.error("Mora postojati glavna slika eksponata");
-      return;
-    }
-
-    const species =
-      formData.exponatKind?.toLowerCase() === "mineral" ||
-      data?.find((x: SpeciesResponse) => x.species === formData.alternateName);
-
-    if (!species && !isEdit) {
-      alert("Nomenklatura nije validna");
-      return;
-    }
-
-    if (formData.exponatKind?.toLowerCase() !== "mineral")
-      species.domain = formData.exponatKind;
-
-    const speciesId =
-      formData.exponatKind?.toLowerCase() !== "mineral" &&
-      (await mutateAsync(species));
-
-    if (!speciesId && formData.exponatKind?.toLowerCase() !== "mineral") {
-      toast.error("Greška prilikom kreiranja kategorizacije");
-      return;
-    }
-
-    const image =
-      exponatMainImage[0] &&
-      uploadImage({
-        file: exponatMainImage[0],
-        directory: Directories.EXPONAT,
-      });
-
-    const thirdDimensionalModel =
-      thirdDimensionalModelUrl[0] &&
-      uploadModel({
-        file: thirdDimensionalModelUrl[0],
-        directory: Directories.EXPONAT,
-      });
-
-    const video =
-      videoUrl[0] &&
-      uploadViddeo({
-        file: videoUrl[0],
-        directory: Directories.EXPONAT,
-      });
-
-    const uploads = await Promise.all([image, thirdDimensionalModel, video]);
-
-    if (!image && !isEdit) {
-      toast.error("Greška prilikom uploada slike");
-      return;
-    }
-
-    const request: CreateExponatDto = {
-      alternateName: formData.alternateName,
-      description: formData.description,
-      funFacts: formData.funFacts,
-      name: formData.name,
-      authorshipInfoId: formData.authorshipInfoId,
-      authorId: organisationId,
-      ExponatKind: formData.exponatKind,
-      mainImage: uploads[0],
-      thirdDimensionalModel: uploads[1],
-      video: uploads[2],
-      attributes: JSON.stringify(formData.attributes) as any,
-      categorizationId: speciesId || undefined,
-    };
-
-    const params = {
-      organisationId,
-      exponat: request,
-    };
-
-    const action = isEdit
-      ? await updateExponat({
-          exponatId: values?.id as string,
-          updateExponatDto: request,
-        })
-      : await createExponat(params);
-    if (action) {
-      setTimeout(() => {
-        window.location.href = `/organisation/${organisationId}`;
-      }, 2000);
-    }
-  };
+  const onSubmit = (formData: any) =>
+    submit(formData, { mainImage, thirdDimensionalModel, video });
 
   return (
     <form onSubmit={form.handleSubmit(onSubmit)} className={classes.form}>
@@ -203,77 +106,49 @@ export const ExponatForm = ({
         form={form}
         attribute="name"
         question="Ime"
-        error={form.formState.errors.name?.message?.toString()}
+        error={errors.name?.message?.toString()}
       />
       <SelectInput
         form={form}
         name="exponatKind"
         label="Vrsta exponata"
-        options={[
-          { value: "EUCARIOT", label: "Eukariot" },
-          { value: "PROCARIOT", label: "Procariot" },
-          { value: "MINERAL", label: "Mineral" },
-        ]}
-        error={form.formState.errors.exponatKind?.message?.toString()}
+        options={exponatKindOptions}
+        error={errors.exponatKind?.message?.toString()}
       />
-      {form.watch("exponatKind")?.toLowerCase() !== "mineral" ? (
-        <Dropdown
-          form={form}
-          attribute="alternateName"
-          initPlaceholder="Znanstvena vrsta eksponata"
-          options={
-            data
-              ?.filter(
-                (x: SpeciesResponse) =>
-                  x.rank === "SPECIES" && x.species?.split(" ").length > 1,
-              ) //Check for valid species with two word nomenclature
-              .map((species: SpeciesResponse) => ({
-                value: species.species,
-                label: species.species,
-              })) || []
-          }
-          initSelected={values?.alternateName}
-          onSelect={setSelectedSpecies}
-        />
-      ) : (
-        <Input
-          form={form}
-          attribute="alternateName"
-          question="Nomenklatura"
-          error={form.formState.errors.alternateName?.message?.toString()}
-        />
-      )}
+      <NomenclatureField
+        form={form}
+        species={species}
+        initSelected={values?.alternateName}
+        onSelect={setSelectedSpecies}
+      />
       <p className={classes.error}>
-        {form.formState.errors.alternateName?.message?.toString() || ""}
+        {errors.alternateName?.message?.toString() || ""}
       </p>
       <Textarea
         form={form}
         attribute="description"
         question="Description"
-        error={form.formState.errors.description?.message?.toString()}
+        error={errors.description?.message?.toString()}
       />
       <ListInput
         form={form}
         attribute="funFacts"
         question="Fun Facts"
         initValue={values?.funFacts}
-        error={form.formState.errors.funFacts?.message?.toString()}
+        error={errors.funFacts?.message?.toString()}
       />
-      <FileUpload
-        name={"Glavna slika eksponata"}
-        onChange={setExponatMainImage}
-      />
+      <FileUpload name={"Glavna slika eksponata"} onChange={setMainImage} />
       <FileUpload
         name={"3D model"}
         onChange={setThirdDimensionalModel}
         maxFiles={1}
-        fullMaxSize={100000000}
+        fullMaxSize={LARGE_FILE_MAX_SIZE}
       />
       <FileUpload
         name={"Video"}
         onChange={setVideo}
         maxFiles={1}
-        fullMaxSize={100000000}
+        fullMaxSize={LARGE_FILE_MAX_SIZE}
       />
       <AuthorshipButton
         form={form}
@@ -281,7 +156,7 @@ export const ExponatForm = ({
         currentValues={values?.authorshipInfo}
       />
       <p className={classes.error}>
-        {form.formState.errors.authorshipInfoId?.message?.toString() || ""}
+        {errors.authorshipInfoId?.message?.toString() || ""}
       </p>
       <AttributeInput
         form={form}
@@ -290,7 +165,7 @@ export const ExponatForm = ({
         initValue={
           values?.attributes ? JSON.parse(values?.attributes as any) : {}
         }
-        error={form.formState.errors.attributes?.message?.toString()}
+        error={errors.attributes?.message?.toString()}
       />
 
       <BaseButton text="Pošalji" />
