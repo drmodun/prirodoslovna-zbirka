@@ -1,6 +1,12 @@
-/** @type {import('next').NextConfig} */
+const path = require("path");
 
+/** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Set by the Dockerfile; `next start` does not serve a standalone build.
+  ...(process.env.NEXT_OUTPUT === "standalone" && {
+    output: "standalone",
+    experimental: { outputFileTracingRoot: path.join(__dirname, "../../") },
+  }),
   transpilePackages: [
     "@biosfera/types",
     "css-loader",

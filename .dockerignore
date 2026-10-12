@@ -2,3 +2,12 @@
 **/.next
 **/dist
 **/.turbo
+.git
+.github
+.env
+.env.*
+!.env.sample
+.repowise
+.claude
+.vscode
+.mcp.json
