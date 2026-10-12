@@ -26,6 +26,10 @@
     },
     "test:ci": {
       "cache": false
+    },
+    "lint:check": {},
+    "type-check": {
+      "dependsOn": ["^build"]
     }
   }
 }
