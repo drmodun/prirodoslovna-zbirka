@@ -9,6 +9,7 @@ import {
   UseGuards,
   Req,
   Query,
+  NotFoundException,
 } from '@nestjs/common';
 import { SocialPostsService } from './social-posts.service';
 import {
@@ -107,6 +108,7 @@ export class SocialPostsController {
         id,
       ));
     const post = await this.socialPostsService.findOne(id, !isAdmin);
+    if (!post) throw new NotFoundException();
 
     const mapped: ShortSocialPostResponse = {
       createdAt: post.createdAt,

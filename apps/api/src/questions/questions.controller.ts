@@ -10,6 +10,7 @@ import {
   Req,
   UnauthorizedException,
   Query,
+  NotFoundException,
 } from '@nestjs/common';
 import { QuestionsService } from './questions.service';
 import {
@@ -64,6 +65,7 @@ export class QuestionsController {
   @Get(':id')
   async findOne(@Param('id') id: string) {
     const question = await this.questionsService.findOne(id);
+    if (!question) throw new NotFoundException();
     const mapped = {
       id: question.id,
       question: question.question,
