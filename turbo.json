@@ -1,7 +1,7 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "globalDependencies": [".env"],
-  "globalEnv": ["NODE_ENV", "WEB_URL", "NEXT_PUBLIC_API_URL"],
+  "globalEnv": ["NODE_ENV", "WEB_URL", "NEXT_PUBLIC_API_URL", "NEXT_OUTPUT"],
   "globalPassThroughEnv": [
     "DATABASE_URL",
     "API_INTERNAL_URL",
@@ -20,15 +20,20 @@
       "dependsOn": ["^build"],
       "outputs": ["dist/**", ".next/**", "!.next/cache/**"]
     },
-    "lint": {},
+    "lint": {
+      "dependsOn": ["^build"]
+    },
     "dev": {
       "cache": false,
-      "persistent": true
+      "persistent": true,
+      "dependsOn": ["^build"]
     },
     "test:ci": {
       "cache": false
     },
-    "lint:check": {},
+    "lint:check": {
+      "dependsOn": ["^build"]
+    },
     "type-check": {
       "dependsOn": ["^build"]
     }
