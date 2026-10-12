@@ -2,7 +2,7 @@
 
 import { createHash } from "crypto";
 import { OpenAI } from "openai";
-import { apiUrl } from "./getUrlServer";
+import { apiFetch } from "./getUrlServer";
 
 // Any OpenAI-compatible API: OpenAI itself, OpenRouter, Groq, Mistral, or a
 // local server such as Ollama or LM Studio.
@@ -180,17 +180,10 @@ export const ttsPrompt = async (
   // The name carries a hash of the text, so an edited post or a regenerated
   // description gets a new recording instead of the stale one.
   const hash = createHash("sha1").update(text).digest("hex").slice(0, 12);
-  const stored = apiUrl([
-    "blobs",
-    "audio",
-    `audio-${directory}`,
-    `${id}-${hash}`,
-  ]);
+  const stored = ["blobs", "audio", `audio-${directory}`, `${id}-${hash}`];
 
   try {
-    const existing = await fetch(stored, {
-      cache: "no-store",
-    });
+    const existing = await apiFetch(stored, { cache: "no-store" });
     if (existing.ok) return await existing.text();
 
     const audio = await synthesise(text);
@@ -202,10 +195,7 @@ export const ttsPrompt = async (
       new File([new Uint8Array(audio)], `${id}.wav`, { type: "audio/wav" }),
     );
 
-    const upload = await fetch(stored, {
-      method: "POST",
-      body: request,
-    });
+    const upload = await apiFetch(stored, { method: "POST", body: request });
     if (!upload.ok) return;
     return await upload.text();
   } catch (error) {

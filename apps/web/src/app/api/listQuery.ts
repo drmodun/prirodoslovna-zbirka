@@ -1,5 +1,5 @@
 import queryString from "query-string";
-import { apiUrl } from "./getUrlServer";
+import { apiFetch } from "./getUrlServer";
 
 const PAGE_SIZE = 20;
 
@@ -31,10 +31,10 @@ export const fetchDiscover = async (
   try {
     const size = params.size || PAGE_SIZE;
     const page = params.page || 1;
-    const response = await fetch(
-      apiUrl([resource, "discover"], queryString.stringify({ page, size })),
-      { cache: "no-store" },
-    );
+    const response = await apiFetch([resource, "discover"], {
+      query: queryString.stringify({ page, size }),
+      cache: "no-store",
+    });
     return response.json();
   } catch (error) {
     console.log(error);

@@ -1,5 +1,5 @@
 import { getExponatQuery } from "@biosfera/types";
-import { apiUrl } from "./getUrlServer";
+import { apiFetch } from "./getUrlServer";
 import { buildListQuery, fetchDiscover } from "./listQuery";
 export const _exponatQuery = getExponatQuery();
 export class ExponatQuery extends _exponatQuery {}
@@ -16,7 +16,8 @@ export const getExponats = async (queryDto: ExponatQuery, number?: number) => {
   try {
     if ((queryDto as any).title) queryDto.name = (queryDto as any).title;
     const query = buildListQuery(queryDto, SORTABLE, number);
-    const response = await fetch(apiUrl(["exponats"], query), {
+    const response = await apiFetch(["exponats"], {
+      query,
       cache: "no-store",
     });
     return response.json();
