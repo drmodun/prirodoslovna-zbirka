@@ -3,12 +3,21 @@ import {
   PutObjectCommand,
   S3Client,
 } from '@aws-sdk/client-s3';
-import { Injectable, InternalServerErrorException } from '@nestjs/common';
+import {
+  Injectable,
+  InternalServerErrorException,
+  ServiceUnavailableException,
+} from '@nestjs/common';
 
 @Injectable()
 export class BlobService {
   private bucket = process.env.AWS_S3_BUCKET;
   private url = process.env.AWS_S3_URL;
+
+  private enabled =
+    !!this.bucket &&
+    !!process.env.AWS_ACCESS_KEY_ID &&
+    !!process.env.AWS_SECRET_ACCESS_KEY;
 
   private client = new S3Client({
     credentials: {
@@ -24,6 +33,7 @@ export class BlobService {
     buffer: Buffer,
     mimetype: string,
   ) {
+    this.assertEnabled();
     const key = `${directory}/${filename}`;
 
     const command = new PutObjectCommand({
@@ -46,6 +56,7 @@ export class BlobService {
   }
 
   async delete(key: string) {
+    this.assertEnabled();
     const command = new DeleteObjectCommand({
       Bucket: this.bucket,
       Key: key,
@@ -57,5 +68,12 @@ export class BlobService {
       console.log(error);
       throw new InternalServerErrorException(error.message);
     }
+  }
+
+  private assertEnabled() {
+    if (!this.enabled)
+      throw new ServiceUnavailableException(
+        'File storage is not configured (AWS_* environment variables)',
+      );
   }
 }
