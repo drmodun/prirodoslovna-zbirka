@@ -9,7 +9,9 @@
     "NEXT_OUTPUT",
     "FILES_FALLBACK",
     "AWS_S3_BUCKET",
-    "AWS_S3_URL"
+    "AWS_S3_URL",
+    "AWS_ENDPOINT_URL_S3",
+    "AWS_REGION"
   ],
   "globalPassThroughEnv": [
     "DATABASE_URL",
@@ -22,7 +24,10 @@
     "OPENAI_API_KEY",
     "GOOGLE_CLOUD_API_KEY",
     "API_PUBLIC_URL",
-    "UPLOAD_DIR"
+    "UPLOAD_DIR",
+    "AWS_S3_FORCE_PATH_STYLE",
+    "SMTP_URL",
+    "MAIL_FROM"
   ],
   "tasks": {
     "build": {

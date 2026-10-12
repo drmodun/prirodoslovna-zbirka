@@ -8,6 +8,11 @@ export interface EnvironmentVariables {
   AWS_SECRET_ACCESS_KEY?: string;
   AWS_S3_BUCKET?: string;
   AWS_S3_URL?: string;
+  AWS_REGION?: string;
+  AWS_ENDPOINT_URL_S3?: string;
+  AWS_S3_FORCE_PATH_STYLE?: string;
+  SMTP_URL?: string;
+  MAIL_FROM?: string;
   SENDGRID_API_KEY?: string;
   API_PUBLIC_URL?: string;
   UPLOAD_DIR?: string;
@@ -23,6 +28,11 @@ export const validationSchemaForEnv = Joi.object<EnvironmentVariables, true>({
   AWS_SECRET_ACCESS_KEY: optional,
   AWS_S3_BUCKET: optional,
   AWS_S3_URL: optional,
+  AWS_REGION: optional,
+  AWS_ENDPOINT_URL_S3: optional,
+  AWS_S3_FORCE_PATH_STYLE: Joi.string().valid('', 'true', 'false').optional(),
+  SMTP_URL: optional,
+  MAIL_FROM: optional,
   SENDGRID_API_KEY: optional,
   API_PUBLIC_URL: optional,
   UPLOAD_DIR: optional,
