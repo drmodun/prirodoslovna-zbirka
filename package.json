@@ -7,16 +7,17 @@
     "packages/*"
   ],
   "scripts": {
-    "build": "npx dotenv-cli turbo run build",
-    "dev": "npx dotenv-cli turbo run dev",
+    "build": "dotenv -- turbo run build",
+    "dev": "dotenv -- turbo run dev",
     "start": "cd apps/api && yarn start",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
+    "dotenv-cli": "^11.0.0",
     "prettier": "^3.0.0",
     "prisma": "^5.1.0",
-    "turbo": "^1.10.16"
+    "turbo": "^2"
   },
   "engines": {
     "node": ">=20.0.0"
