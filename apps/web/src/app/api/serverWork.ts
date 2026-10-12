@@ -1,8 +1,8 @@
-import { apiUrl } from "./getUrlServer";
+import { apiFetch } from "./getUrlServer";
 
 export const getWork = async (id: string) => {
   try {
-    const response = await fetch(apiUrl(["works", id]), {
+    const response = await apiFetch(["works", id], {
       cache: "no-store",
     });
 

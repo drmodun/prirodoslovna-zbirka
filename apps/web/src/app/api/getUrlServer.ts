@@ -12,12 +12,23 @@ export const publicApiUrl =
 // Address of an API endpoint. The host always comes from configuration, and
 // every path part is encoded, so a value taken from a request (an id from the
 // route, say) stays a single segment: "../users" or "//evil.example" cannot
-// steer the request to another endpoint or host. `query` is an already
-// encoded query string.
-export const apiUrl = (segments: (string | number)[], query?: string) =>
+// steer the request to another endpoint or host.
+const apiUrl = (segments: (string | number)[]) =>
   `${getBaseUrl()}/${segments
     .map((segment) => encodeURIComponent(String(segment)))
-    .join("/")}${query ? `?${query}` : ""}`;
+    .join("/")}`;
+
+// The one place server code calls the API from. Callers pass path parts and
+// an encoded query string, never an address, so the request can only go to
+// the configured API host.
+export const apiFetch = (
+  segments: (string | number)[],
+  { query, ...init }: RequestInit & { query?: string } = {},
+) => {
+  const url = new URL(apiUrl(segments));
+  if (query) url.search = query;
+  return fetch(url, init);
+};
 
 // Base address of uploaded files: the S3 bucket, or the API's own storage
 // when S3 is not configured. Resolved in next.config.js, inlined at build time.
