@@ -1,5 +1,5 @@
 import { getOrganisationQuery } from "@biosfera/types";
-import { getBaseUrl } from "./getUrlServer";
+import { apiUrl } from "./getUrlServer";
 import { buildListQuery, fetchDiscover } from "./listQuery";
 export const _organisationQuery = getOrganisationQuery();
 export class OrganisationQuery extends _organisationQuery {}
@@ -13,7 +13,7 @@ export const getOrganisations = async (
   try {
     if ((queryDto as any).title) queryDto.name = (queryDto as any).title;
     const query = buildListQuery(queryDto, SORTABLE, page);
-    const response = await fetch(`${getBaseUrl()}/organisations?${query}`, {
+    const response = await fetch(apiUrl(["organisations"], query), {
       cache: "no-store",
     });
     return response.json();

@@ -1,5 +1,5 @@
 import { getUserQuery } from "@biosfera/types";
-import { getBaseUrl } from "./getUrlServer";
+import { apiUrl } from "./getUrlServer";
 import { buildListQuery } from "./listQuery";
 export const _userQuery = getUserQuery();
 export class UserQuery extends _userQuery {}
@@ -18,7 +18,7 @@ export const getUsers = async (queryDto: UserQuery, page?: number) => {
     if (queryDto.attribute === "name") queryDto.attribute = "username";
     if ((queryDto as any).title) queryDto.name = (queryDto as any).title;
     const query = buildListQuery(queryDto, SORTABLE, page);
-    const response = await fetch(`${getBaseUrl()}/users?${query}`, {
+    const response = await fetch(apiUrl(["users"], query), {
       cache: "no-store",
     });
     return response.json();

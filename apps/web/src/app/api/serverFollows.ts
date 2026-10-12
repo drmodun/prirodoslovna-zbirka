@@ -1,8 +1,8 @@
-import { getBaseUrl } from "./getUrlServer";
+import { apiUrl } from "./getUrlServer";
 
 export const getUserFollowers = async (id: string) => {
   try {
-    const response = await fetch(`${getBaseUrl()}/follows/${id}/followers`, {
+    const response = await fetch(apiUrl(["follows", id, "followers"]), {
       cache: "no-store",
     });
     const data = await response.json();
@@ -14,7 +14,7 @@ export const getUserFollowers = async (id: string) => {
 
 export const getUserFollowing = async (id: string) => {
   try {
-    const response = await fetch(`${getBaseUrl()}/follows/${id}/following`, {
+    const response = await fetch(apiUrl(["follows", id, "following"]), {
       cache: "no-store",
     });
     const data = await response.json();
