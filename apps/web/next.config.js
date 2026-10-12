@@ -8,13 +8,8 @@ const nextConfig = {
     "style-loader",
   ],
   env: {
-    NEXT_PUBLIC_DOCKER: process?.env?.DOCKER,
     NEXT_PUBLIC_WEB_URL: process?.env?.WEB_URL,
   },
-  experimental: {
-    serverActions: true,
-  },
-
   webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
     config.resolve.alias.canvas = false;
     config.resolve.alias.encoding = false;
@@ -24,13 +19,13 @@ const nextConfig = {
   crossOrigin: "anonymous",
 
   images: {
-    domains: [
+    remotePatterns: [
       "localhost",
       "dummyimage.com",
       "via.placeholder.com",
       "api.gbif.org",
       "biosfera-files.s3.eu-north-1.amazonaws.com",
-    ],
+    ].map((hostname) => ({ hostname })),
   },
 };
 
