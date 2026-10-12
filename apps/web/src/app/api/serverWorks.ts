@@ -6,11 +6,17 @@ import {
   WorkResponseExtended,
   WorkType,
 } from "@biosfera/types";
-import queryString from "query-string";
 import { getBaseUrl } from "./getUrlServer";
+import { buildListQuery } from "./listQuery";
 
 export const _worksQuery = getWorkQuery();
 export class WorksQuery extends _worksQuery {}
+
+const SORTABLE: string[] = [
+  SortingEnum.TITLE,
+  SortingEnum.CREATED_AT,
+  SortingEnum.ORGANISATION,
+];
 
 export const WorkToGbifQueryMapper = (work: WorksQuery): GbifQuery => {
   return {
@@ -29,19 +35,7 @@ export const getWorks = async (
 ): Promise<WorkResponseExtended[] | undefined> => {
   try {
     if (queryDto.attribute === "name") queryDto.attribute = SortingEnum.TITLE;
-    if (
-      queryDto.attribute !== SortingEnum.TITLE &&
-      queryDto.attribute !== SortingEnum.CREATED_AT &&
-      queryDto.attribute !== SortingEnum.ORGANISATION &&
-      queryDto.attribute
-    )
-      delete queryDto.attribute;
-
-    if (page) queryDto.page = page;
-    if (!queryDto.page) queryDto.page = 1;
-    queryDto.size = 20;
-
-    const query = queryString.stringify(queryDto);
+    const query = buildListQuery(queryDto, SORTABLE, page);
     const response = await fetch(`${getBaseUrl()}/works?${query}`);
     return await response.json();
   } catch (error) {
