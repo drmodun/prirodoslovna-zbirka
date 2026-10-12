@@ -93,7 +93,7 @@
       "^.+\\.(t|j)s$": [
         "ts-jest",
         {
-          "isolatedModules": true
+          "tsconfig": "<rootDir>/../tsconfig.spec.json"
         }
       ]
     },
@@ -110,6 +110,9 @@
       ".module.ts$",
       ".dto.ts$",
       "main.ts"
+    ],
+    "setupFiles": [
+      "<rootDir>/test-utils/env.setup.ts"
     ]
   }
 }
