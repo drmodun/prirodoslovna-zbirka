@@ -9,6 +9,8 @@ export interface EnvironmentVariables {
   AWS_S3_BUCKET?: string;
   AWS_S3_URL?: string;
   SENDGRID_API_KEY?: string;
+  API_PUBLIC_URL?: string;
+  UPLOAD_DIR?: string;
 }
 
 const optional = Joi.string().allow('').optional();
@@ -22,4 +24,6 @@ export const validationSchemaForEnv = Joi.object<EnvironmentVariables, true>({
   AWS_S3_BUCKET: optional,
   AWS_S3_URL: optional,
   SENDGRID_API_KEY: optional,
+  API_PUBLIC_URL: optional,
+  UPLOAD_DIR: optional,
 });
