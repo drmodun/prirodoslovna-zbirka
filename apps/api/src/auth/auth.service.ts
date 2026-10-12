@@ -41,8 +41,8 @@ export class AuthService {
       user.role === Role.ADMIN
         ? 'admin'
         : user.role === Role.SUPER
-        ? 'super'
-        : 'user';
+          ? 'super'
+          : 'user';
 
     const accessToken = this.jwtService.sign({
       id: user.id,
