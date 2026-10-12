@@ -166,7 +166,7 @@ export const CardCollection: React.FC<CardCollectionProps> = ({
       </div>
       <div className={classes.cardContainer}>
         {itemsToShow
-          .toSorted((a, b) => {
+          .sort((a, b) => {
             const first = isDescending ? b : a;
             const second = isDescending ? a : b;
             return isNaN(b[sortByValue])

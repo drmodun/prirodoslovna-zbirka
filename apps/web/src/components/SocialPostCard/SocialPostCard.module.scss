@@ -2,39 +2,32 @@
 @import "styles/calc";
 
 .container {
-  width: vw-calc(720);
-  height: vw-calc(350);
-
-  background-color: $green;
-  color: $background-color;
+  width: 100%;
+  min-height: vw-calc(350);
+  color: $primary;
+  background-color: $background-color;
   display: flex;
   position: relative;
   flex-direction: column;
   border-radius: vw-calc(20);
   padding: vw-calc(20);
-
-  .image {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: 1;
-    border-radius: vw-calc(20);
-    filter: blur(vw-calc(10));
-  }
+  border: vw-calc(1) solid $primary;
 
   .content {
     display: flex;
     flex-direction: column;
     position: relative;
-    top: vw-calc(50);
+    top: vw-calc(20);
     z-index: 2;
+
+    @media (max-width: 768px) {
+      top: 0;
+    }
   }
 
   .date {
-    color: $background-color;
+    color: $primary;
     font-size: vw-calc(12);
-    margin-bottom: vw-calc(13);
   }
 
   .title {
@@ -76,5 +69,19 @@
       font-size: vw-calc(14);
       font-weight: 600;
     }
+  }
+}
+
+.carousel {
+  width: 100%;
+  display: flex;
+  position: relative;
+
+  img {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 16/9;
+    object-fit: contain;
+    border-radius: vw-calc(10);
   }
 }

@@ -189,7 +189,20 @@ export enum NotificationType {
   NEW_WORK_REQUEST = "Novi zahtjev za rad",
 }
 
+export enum SocialPostType {
+  STORY = "Priča",
+  EU_PROJECT = "EU Projekt",
+  EVENT = "Događaj",
+  OTHER = "Ostalo",
+  GUIDE = "Vodič",
+  NEWS = "Vijesti",
+  ANNOUNCEMENT = "Najava",
+  WORKSHOP = "Radionica",
+}
+
 export type NotificationTypeEnumType = keyof typeof NotificationType;
+
+export type SocialPostTypeEnumType = keyof typeof SocialPostType;
 
 export type NotificationPromise = Promise<
   {
@@ -221,12 +234,37 @@ export type NotificationAwaited = {
   type: NotificationTypeEnumType;
 };
 
+export enum QuizDifficulty {
+  EASY = "Lako",
+  MEDIUM = "Srednje",
+  HARD = "Teško",
+  UNSET = "Nije postavljeno",
+}
+
+export type QuizDifficultyType = keyof typeof QuizDifficulty;
+
+export enum QuestionTypeEnum {
+  MULTIPLE_CHOICE = "Višestruki izbor",
+  TRUE_FALSE = "Točno/Netočno",
+  FILL_IN_THE_BLANK = "Popuni prazninu",
+}
+
+export type QuestionTypeEnumType = keyof typeof QuestionTypeEnum;
+
+export enum TimeLimitTypeEnum {
+  NONE = "Nema vremenskog ograničenja",
+  TOTAL = "Ukupno vrijeme",
+  PER_QUESTION = "Vrijeme po pitanju",
+}
+
+export type TimeLimitTypeEnumType = keyof typeof TimeLimitTypeEnum;
+
 export const getKeyByValue = (object: any, value: any) => {
   return Object.keys(object).find((key) => object[key] === value);
 };
 
 export const getEnumValue = (enumObject: any, key: any) => {
-  return enumObject[key];
+  return enumObject ? enumObject[key] : null;
 };
 
 //Not the best functionsbut are very convenient

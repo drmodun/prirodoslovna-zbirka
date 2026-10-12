@@ -8,6 +8,7 @@ import SingleInput from "components/SingleInput";
 import leaf from "assets/images/like-leaf-green.svg";
 import plus from "assets/images/plus.svg";
 import ErrorText from "components/Error";
+import { Option, SelectInput } from "components/SelectInput/SelectInput";
 
 export interface ListInputProps {
   question: string;
@@ -16,14 +17,18 @@ export interface ListInputProps {
   error?: string;
   initValue?: string[];
   isSelect?: boolean;
+  options?: Option[];
+  isWithCheckbox?: boolean;
 }
 
 export const ListInput = ({
   question,
   attribute,
   form,
+  isWithCheckbox,
   error,
   isSelect,
+  options,
   initValue,
 }: ListInputProps) => {
   const { setValue } = form;
@@ -32,9 +37,16 @@ export const ListInput = ({
 
   const handleOnChange = () => {
     if (newValue === "") return;
+    if (elements.includes(newValue)) return;
     setElements((prev) => [...prev, newValue]);
     setNewValue("");
   };
+
+  useEffect(() => {
+    setElements([]);
+    setNewValue(options?.[0]?.value || "");
+    setValue(attribute, []);
+  }, [isSelect, options]);
 
   const handleDelete = (index: number) => {
     setElements((prev) => prev.filter((_, i) => i !== index));
@@ -42,6 +54,7 @@ export const ListInput = ({
 
   useEffect(() => {
     setValue(attribute, elements);
+    setNewValue(options?.[0]?.value || "");
   }, [elements]);
 
   return (
@@ -70,12 +83,28 @@ export const ListInput = ({
           >
             <Image src={plus} alt="add" layout="fill" />
           </button>
-          <SingleInput
-            onChange={setNewValue}
-            question="Upišite vrijednost"
-            value={newValue}
-            image={leaf}
-          />
+          {isSelect ? (
+            <select
+              name="select"
+              title="Odabir vrijednosti"
+              value={newValue}
+              className={classes.select}
+              onChange={(e) => setNewValue(e.target.value)}
+            >
+              {options?.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </select> //TODO: add styles if needed
+          ) : (
+            <SingleInput
+              onChange={setNewValue}
+              question="Upišite vrijednost"
+              value={newValue}
+              image={leaf}
+            />
+          )}
         </div>
       </div>
       <ErrorText message={error} />
