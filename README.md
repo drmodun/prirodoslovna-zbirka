@@ -18,7 +18,16 @@ yarn dev                   # api na :5500 (swagger na /api), web na :3000
 
 Ostalo: `yarn build`, `yarn lint`, `yarn type-check`, `yarn format`.
 
-S3, SendGrid, OpenAI i Google TTS su opcionalni. Bez SendGrid kljuca aktivacijski mail se samo ispise u log API-ja.
+## Vanjski servisi
+
+Svi su opcionalni; dok kljuc nije postavljen koristi se zamjena. Detalji su u `.env.sample`.
+
+| Servis                                | Kljucevi                                                                    | Bez kljuca                                                                                                  |
+| ------------------------------------- | --------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
+| S3 (datoteke)                         | `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_S3_BUCKET`, `AWS_S3_URL` | API sprema datoteke na disk (`UPLOAD_DIR`, u Dockeru volumen `uploads`) i posluzuje ih na `/blobs/file/...` |
+| SendGrid (mail)                       | `SENDGRID_API_KEY`                                                          | mail s aktivacijskim linkom se ispise u log API-ja                                                          |
+| OpenAI (opisi, sazeci, govor u tekst) | `OPENAI_API_KEY`                                                            | opis s Wikipedije, sazetak od prvih recenica objave, prepoznavanje govora preglednika                       |
+| Google TTS (tekst u govor)            | `GOOGLE_CLOUD_API_KEY`, opcionalno `S3_PATH`                                | preglednik cita tekst (speech synthesis)                                                                    |
 
 ## Docker
 
