@@ -1,0 +1,23 @@
+# One public origin for the whole stack:
+#   /api/*    -> API (prefix stripped)
+#   /files/*  -> the bundled S3 bucket (anonymous reads)
+#   the rest  -> web
+#
+# SITE_ADDRESS defaults to plain HTTP on port 80. Set it to a domain
+# (e.g. biosfera.example.com) and Caddy obtains and renews a certificate.
+{$SITE_ADDRESS::80} {
+	encode zstd gzip
+
+	handle_path /api/* {
+		reverse_proxy api:5500
+	}
+
+	handle_path /files/* {
+		rewrite * /{$AWS_S3_BUCKET:biosfera}{uri}
+		reverse_proxy s3:8333
+	}
+
+	handle {
+		reverse_proxy web:3000
+	}
+}
