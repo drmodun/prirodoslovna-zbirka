@@ -1,9 +1,9 @@
 import { Console } from "console";
-import { getBaseUrl } from "./getUrlServer";
+import { apiUrl } from "./getUrlServer";
 
 export const serverGetExponat = async (id: string) => {
   try {
-    const response = await fetch(`${getBaseUrl()}/exponats/${id}`, {
+    const response = await fetch(apiUrl(["exponats", id]), {
       cache: "no-store",
     });
 

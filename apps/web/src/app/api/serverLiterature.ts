@@ -67,11 +67,14 @@ export const getGbifWork = async (
   id: string,
 ): Promise<WorkResponseShort | undefined> => {
   try {
-    const response = await fetch(`https://api.gbif.org/v1/literature/${id}`, {
-      next: {
-        revalidate: 1 * 60 * 60 * 24 * 7, //weekly revalidation
+    const response = await fetch(
+      `https://api.gbif.org/v1/literature/${encodeURIComponent(id)}`,
+      {
+        next: {
+          revalidate: 1 * 60 * 60 * 24 * 7, //weekly revalidation
+        },
       },
-    });
+    );
 
     const data: LiteratureResponseGBIF = await response.json();
 

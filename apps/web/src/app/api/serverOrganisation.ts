@@ -1,8 +1,8 @@
-import { getBaseUrl } from "./getUrlServer";
+import { apiUrl } from "./getUrlServer";
 
 export const serverGetOrganisation = async (id: string) => {
   try {
-    const response = await fetch(`${getBaseUrl()}/organisations/${id}`, {
+    const response = await fetch(apiUrl(["organisations", id]), {
       cache: "no-store",
     });
     if (response.status === 404) {

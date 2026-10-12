@@ -11,7 +11,7 @@ const getTaxonomyEntities = async (
     const response = await fetch(
       `https://api.gbif.org/v1/species/suggest?rank=${rank}${
         higherTaxonId ? `&higherTaxonKey=${higherTaxonId}` : ""
-      }&q=${search || ""}`,
+      }&q=${encodeURIComponent(search || "")}`,
     );
     const data = await response.json();
     console.log(data);

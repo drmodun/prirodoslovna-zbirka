@@ -1,5 +1,5 @@
 import queryString from "query-string";
-import { getBaseUrl } from "./getUrlServer";
+import { apiUrl } from "./getUrlServer";
 
 const PAGE_SIZE = 20;
 
@@ -32,7 +32,7 @@ export const fetchDiscover = async (
     const size = params.size || PAGE_SIZE;
     const page = params.page || 1;
     const response = await fetch(
-      `${getBaseUrl()}/${resource}/discover?page=${page}&size=${size}`,
+      apiUrl([resource, "discover"], queryString.stringify({ page, size })),
       { cache: "no-store" },
     );
     return response.json();
