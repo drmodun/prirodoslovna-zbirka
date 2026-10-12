@@ -125,7 +125,7 @@ export class SocialPostsService {
     pagination?: PaginationRequest,
     approval?: boolean,
   ) {
-    const sort = sorting && socialPostSortQueryBuilder(sorting);
+    const sort = sorting ? socialPostSortQueryBuilder(sorting) : undefined;
     const posts = this.prisma.socialPost.findMany({
       where: {
         ...(filter?.title && { title: filter.title }),
