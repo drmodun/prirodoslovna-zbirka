@@ -10,6 +10,7 @@ import {
   FileTypeValidator,
   MaxFileSizeValidator,
   BadRequestException,
+  NotFoundException,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiBody, ApiConsumes, ApiTags } from '@nestjs/swagger';
@@ -113,6 +114,17 @@ export class BlobController {
   }
 
   //TODO: if needed add pptx upload possibility, currently because of file size and usage it is much more efficient and simple to use pdf for presentations
+
+  // URL of an existing recording, so the web app synthesises each text once.
+  @Get('/audio/:directory/:name')
+  async findAudio(
+    @Param('directory') directory: string,
+    @Param('name') name: string,
+  ) {
+    const url = await this.blobService.find(directory, name);
+    if (!url) throw new NotFoundException();
+    return url;
+  }
 
   @Post('/audio/:directory/:name')
   @ApiConsumes('multipart/form-data')

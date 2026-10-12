@@ -1,5 +1,6 @@
 import {
   DeleteObjectCommand,
+  HeadObjectCommand,
   PutObjectCommand,
   S3Client,
 } from '@aws-sdk/client-s3';
@@ -130,6 +131,28 @@ export class BlobService {
     } catch (error) {
       console.log(error);
       throw new InternalServerErrorException(error.message);
+    }
+  }
+
+  // Public URL of a stored file, or null when there is none.
+  async find(directory: string, filename: string) {
+    const key = `${directory}/${filename}`;
+
+    if (!this.useS3) {
+      const exists = await fs
+        .access(this.localPath(directory, filename))
+        .then(() => true)
+        .catch(() => false);
+      return exists ? `${this.localUrl}/${key}` : null;
+    }
+
+    try {
+      await this.client.send(
+        new HeadObjectCommand({ Bucket: this.bucket, Key: key }),
+      );
+      return `${this.url}/${key}`;
+    } catch {
+      return null;
     }
   }
 
