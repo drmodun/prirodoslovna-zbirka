@@ -13,11 +13,13 @@ interface InputProps {
   isPassword?: boolean;
   isDisabled?: boolean;
   error?: string;
+  isNumber?: boolean;
 }
 
 export const Input = ({
   question,
   attribute,
+  isNumber,
   form,
   isDisabled,
   image,
@@ -39,6 +41,7 @@ export const Input = ({
           className={classes.input}
           disabled={isDisabled}
           placeholder={question}
+          inputMode={isNumber ? "numeric" : "text"}
         />
         <div className={classes.mic}>
           <SpeechToText onText={(text) => form.setValue(attribute, text)} />

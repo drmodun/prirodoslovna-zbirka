@@ -20,3 +20,7 @@ export * from "./notification/response";
 export * from "./directories";
 export * from "./authorshipInfo/requests";
 export * from "./authorshipInfo/responses";
+export * from "./quiz/quizRequests";
+export * from "./quiz/quizRespones";
+export * from "./question/questionResponses";
+export * from "./question/questionRequests";

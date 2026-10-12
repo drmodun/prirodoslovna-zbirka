@@ -1,5 +1,4 @@
 "use client";
-import { useState } from "react";
 import classes from "./BaseButton.module.scss";
 import clsx from "clsx";
 import { ButtonColor } from "@/shared/enums";
