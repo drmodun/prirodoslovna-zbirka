@@ -17,7 +17,9 @@ export const getExponatsForOrganisation = async (organisationId?: string) => {
 };
 
 export const useGetExponatsForOrganisation = (organisationId?: string) => {
-  return useQuery(["exponats", organisationId], () =>
-    getExponatsForOrganisation(organisationId),
+  return useQuery(
+    ["exponats", organisationId],
+    () => getExponatsForOrganisation(organisationId),
+    { enabled: !!organisationId },
   );
 };
