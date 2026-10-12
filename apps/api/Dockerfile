@@ -1,8 +1,9 @@
 # Build from the repo root: docker build -f apps/api/Dockerfile .
 FROM node:22-bookworm-slim AS base
-# Prisma's query engine needs OpenSSL at runtime.
+# Prisma's query engine needs OpenSSL at runtime. Held to the 3.0 series the
+# engine is built against; patch releases still come through.
 RUN apt-get update \
-  && apt-get install -y --no-install-recommends openssl ca-certificates \
+  && apt-get install -y --no-install-recommends "openssl=3.0.*" \
   && rm -rf /var/lib/apt/lists/*
 WORKDIR /app
 
@@ -23,6 +24,7 @@ RUN yarn turbo run build --filter=api
 FROM builder AS seed
 WORKDIR /app/apps/api
 ENV NODE_ENV=development
+USER node
 CMD ["yarn", "prisma", "db", "seed"]
 
 FROM base AS runner
