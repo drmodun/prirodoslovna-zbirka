@@ -25,10 +25,6 @@ export const LikeButton = ({ post }: LikeButtonProps) => {
     setIsLiked(likedPosts.find((x) => x.id === post.id) != null);
   }, [likedPosts, loading, post.id]);
 
-  useEffect(() => {
-    setIsLiked(likedPosts.find((x) => x.id === post.id) != null);
-  }, []);
-
   const toggleLike = async () => {
     await mutateAsync(post.id);
     updateLikes(post);
