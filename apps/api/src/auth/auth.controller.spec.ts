@@ -47,7 +47,7 @@ describe('AuthController', () => {
       expect(res.posts).toHaveLength(2);
       expect(res.works[0].isApproved).toBe(true);
       expect(res.memberships[0].points).toBe(7);
-      expect(res.favouriteExponats[0].isFavorite).toBe(true);
+      expect(res.favouriteExponats[0]).toMatchObject({ isFavorite: true });
     });
 
     it('only reveals post approval flags to super users', async () => {

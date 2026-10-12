@@ -12,6 +12,7 @@ describe('EmailService', () => {
     for (const k of ['SMTP_URL', 'SENDGRID_API_KEY', 'MAIL_FROM'])
       delete process.env[k];
     Object.assign(process.env, env);
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
     const { EmailService } = require('./email.service');
     return new EmailService();
   }
