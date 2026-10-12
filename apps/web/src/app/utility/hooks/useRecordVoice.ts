@@ -1,12 +1,26 @@
 "use client";
 import { useState, useRef } from "react";
+import toast from "react-hot-toast";
 import { blobToBase64 } from "../static/blobToBase64";
 import { createMediaStream } from "../static/createMediaStream";
-import { whisperPrompt } from "@/api/AI";
+import { isSpeechToTextConfigured, whisperPrompt } from "@/api/AI";
+
+// Asked once per page; the answer cannot change while the server runs.
+let serverTranscribes: Promise<boolean> | undefined;
+const canServerTranscribe = () =>
+  (serverTranscribes ??= isSpeechToTextConfigured().catch(() => false));
+
+const getBrowserRecognition = () =>
+  typeof window === "undefined"
+    ? undefined
+    : (window as any).SpeechRecognition ||
+      (window as any).webkitSpeechRecognition;
+
 export const useRecordVoice = () => {
   const [text, setText] = useState("");
   const [recording, setRecording] = useState(false);
   const mediaRecorder = useRef<MediaRecorder | null>(null);
+  const recognition = useRef<any>(null);
   const isRecording = useRef(false);
   const chunks = useRef([]);
 
@@ -50,9 +64,33 @@ export const useRecordVoice = () => {
     return mediaRecorder.current;
   };
 
+  // Backup when the server has no OPENAI_API_KEY: the browser's own speech
+  // recognition, where it exists (Chromium and Safari).
+  const startBrowserRecognition = () => {
+    const Recognition = getBrowserRecognition();
+    if (!Recognition) {
+      isRecording.current = false;
+      toast.error("Prepoznavanje govora nije dostupno u ovom pregledniku");
+      return;
+    }
+
+    const session = new Recognition();
+    session.lang = "hr-HR";
+    session.onresult = (event: any) => setText(event.results[0][0].transcript);
+    session.onend = () => setRecording(false);
+    session.onerror = () => setRecording(false);
+    recognition.current = session;
+    session.start();
+    setRecording(true);
+  };
+
   const startRecording = async () => {
     isRecording.current = true;
     try {
+      if (!(await canServerTranscribe())) {
+        if (isRecording.current) startBrowserRecognition();
+        return;
+      }
       const recorder = await getMediaRecorder();
       // The button may have been released while the permission prompt was open.
       if (!isRecording.current || recorder.state === "recording") return;
@@ -66,6 +104,8 @@ export const useRecordVoice = () => {
 
   const stopRecording = () => {
     isRecording.current = false;
+    recognition.current?.stop();
+    recognition.current = null;
     if (mediaRecorder.current?.state === "recording") {
       mediaRecorder.current.stop();
       setRecording(false);
