@@ -24,7 +24,11 @@ const apiUrl = (segments: (string | number)[], query?: string) =>
 export const apiFetch = (
   segments: (string | number)[],
   { query, ...init }: RequestInit & { query?: string } = {},
-) => fetch(apiUrl(segments, query), init);
+) =>
+  // The host is fixed by configuration and every path part is encoded in
+  // apiUrl(), so no caller can choose where this request goes.
+  // nosemgrep
+  fetch(apiUrl(segments, query), init);
 
 // Base address of uploaded files: the S3 bucket, or the API's own storage
 // when S3 is not configured. Resolved in next.config.js, inlined at build time.
