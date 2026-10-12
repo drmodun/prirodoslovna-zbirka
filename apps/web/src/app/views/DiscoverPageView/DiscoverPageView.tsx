@@ -30,7 +30,11 @@ export interface DiscoverPageViewProps {
 
 const tabs = ["Organizacije", "Eksponati", "Objave", "Radovi", "Radovi (GBIF)"];
 export type tabType =
-  "Organizacije" | "Eksponati" | "Objave" | "Radovi" | "Radovi (GBIF)";
+  | "Organizacije"
+  | "Eksponati"
+  | "Objave"
+  | "Radovi"
+  | "Radovi (GBIF)";
 export type tabDictionaryType = "organisation" | "exponat" | "post" | "work";
 
 export const tabDictionary = {
