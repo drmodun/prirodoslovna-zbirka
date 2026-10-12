@@ -105,6 +105,10 @@ export const ttsPrompt = async (
     audioConfig: { audioEncoding: "LINEAR16", pitch: 0 },
   };
 
+  // Audio is cached in S3 and synthesised by Google TTS; without both there
+  // is nothing to play.
+  if (!s3Path || !googleKey) return;
+
   const exists = await fetch(`${s3Path}audio-${directory}/${id}`, {
     method: "HEAD",
   });
