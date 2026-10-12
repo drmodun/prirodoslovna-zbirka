@@ -9,7 +9,7 @@ export interface Option {
 }
 
 export interface SelectProps {
-  label: string;
+  label?: string;
   name: string;
   options: Option[];
   form: UseFormReturn<FieldValues>;
@@ -33,7 +33,6 @@ export const SelectInput = ({
           {...register(name)}
           className={classes.select}
           disabled={isDisabled}
-          
         >
           {options.map((option) => (
             <option key={option.value} value={option.value}>
