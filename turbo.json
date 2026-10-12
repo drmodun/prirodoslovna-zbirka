@@ -19,7 +19,6 @@
     "JWT_SECRET",
     "AWS_ACCESS_KEY_ID",
     "AWS_SECRET_ACCESS_KEY",
-    "S3_PATH",
     "SENDGRID_API_KEY",
     "OPENAI_API_KEY",
     "GOOGLE_CLOUD_API_KEY",
@@ -27,7 +26,11 @@
     "UPLOAD_DIR",
     "AWS_S3_FORCE_PATH_STYLE",
     "SMTP_URL",
-    "MAIL_FROM"
+    "MAIL_FROM",
+    "OPENAI_BASE_URL",
+    "OPENAI_MODEL",
+    "OPENAI_TRANSCRIPTION_MODEL",
+    "TTS_URL"
   ],
   "tasks": {
     "build": {
