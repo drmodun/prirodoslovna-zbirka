@@ -64,9 +64,9 @@ export const NotificationsProvider = ({
   };
 
   useEffect(() => {
-    if (!isSuccess) return;
+    if (!isSuccess || !user?.id) return;
     const source = new EventSource(
-      `${baseURL}/notification-users/subscribe/${user?.id}`,
+      `${baseURL}/notification-users/subscribe/${user.id}`,
     );
 
     source.onopen = () => {

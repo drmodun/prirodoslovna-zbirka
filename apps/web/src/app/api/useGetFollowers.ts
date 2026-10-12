@@ -8,5 +8,7 @@ const getFollowers = (userId?: string) =>
     : Promise.reject("No user id");
 
 export const useGetFollowers = (userId?: string) => {
-  return useQuery(["followers", userId], () => getFollowers(userId));
+  return useQuery(["followers", userId], () => getFollowers(userId), {
+    enabled: !!userId,
+  });
 };
