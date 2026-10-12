@@ -11,7 +11,9 @@
     "dev": "dotenv -- turbo run dev",
     "start": "cd apps/api && yarn start",
     "lint": "turbo run lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "lint:check": "turbo run lint:check",
+    "type-check": "turbo run type-check"
   },
   "devDependencies": {
     "dotenv-cli": "^11.0.0",
