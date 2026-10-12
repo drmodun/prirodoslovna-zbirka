@@ -15,7 +15,6 @@ import Input from "components/Input";
 import Textarea from "components/Textarea";
 import ListInput from "components/ListInput";
 import SelectInput from "components/SelectInput";
-import { stringCapitaliser } from "@/utility/static/stringCapitaliser";
 import FileUpload from "components/FileUpload";
 import BaseButton from "components/BaseButton";
 import { use, useState } from "react";

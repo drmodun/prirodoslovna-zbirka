@@ -121,7 +121,7 @@ export const CardCollectionAsync: React.FC<CardCollectionAsyncProps> = ({
 
   const checkAdminMembership = (organisationId: string) => {
     return (
-      user?.role?.toLowerCase() === "super" ||
+      user?.role?.toLowerCase() == "super" ||
       memberships.some(
         (membership) =>
           membership.id === organisationId &&

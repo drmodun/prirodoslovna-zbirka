@@ -53,6 +53,8 @@ export class ExponatsService {
         attributes: createExponatDto.attributes,
         description: createExponatDto.description,
         name: createExponatDto.name,
+        thirdDimensionalModel: createExponatDto.thirdDimensionalModel,
+        video: createExponatDto.video,
         mainImage: createExponatDto.mainImage,
         ...(createExponatDto.categorizationId && {
           Categorization: {
@@ -530,13 +532,14 @@ export class ExponatsService {
       },
     });
 
-    if (!connection) {
-      const checkForSuper = await this.prisma.user.findFirst({
-        where: {
-          id: userId,
-        },
-      });
-      return checkForSuper.role === Role.SUPER;
+    const checkForSuper = await this.prisma.user.findFirst({
+      where: {
+        id: userId,
+      },
+    });
+
+    if (checkForSuper.role === Role.SUPER) {
+      return true;
     }
 
     if (adminOnly) {

@@ -1,0 +1,13 @@
+@import "styles/variables.scss";
+@import "styles/calc.scss";
+
+.newQuestion {
+  font-size: vw-calc(16);
+  color: $primary;
+  margin-bottom: vw-calc(10);
+
+  @media (max-width: 768px) {
+    margin-bottom: vw-mobile-calc(5);
+    font-size: vw-mobile-calc(14);
+  }
+}

@@ -18,6 +18,25 @@ enum Role {
   USER
 }
 
+enum TimeLimitType {
+  NONE
+  TOTAL
+  PER_QUESTION
+}
+
+enum QuizDifficulty {
+  EASY
+  MEDIUM
+  HARD
+  UNSET
+}
+
+enum QuestionType {
+  MULTIPLE_CHOICE
+  TRUE_FALSE
+  FILL_IN_THE_BLANK
+}
+
 enum ExponatKind {
   PROCARIOT
   EUCARIOT
@@ -154,30 +173,33 @@ model User {
   UserNotification            UserNotification[]
   IsEmailNotificationsEnabled Boolean                    @default(true)
   AuthorshipInfo              AuthorshipInfo[]
+  Attempt                     Attempt[]
 }
 
 model Exponat {
-  id                 String             @id @default(uuid())
-  name               String
-  alternateName      String
-  ExponatKind        ExponatKind
-  description        String
-  isApproved         Boolean            @default(true)
-  funFacts           String[]
-  attributes         Json
-  mainImage          String
-  categorizationId   String?
-  Categorization     Categorization?    @relation(fields: [categorizationId], references: [id], onDelete: Cascade)
-  createdAt          DateTime           @default(now())
-  updatedAt          DateTime           @default(now()) @updatedAt
-  Organisation       Organisation?      @relation(fields: [organisationId], references: [id], onDelete: Cascade)
-  organisationId     String?
-  FavouriteExponats  FavouriteExponat[]
-  IsNotificationMade Boolean            @default(false) //Made to check wether a notification has already been made
-  Posts              Post[]
-  authorshipInfoId   String?            @unique
-  AuthorshipInfo     AuthorshipInfo?    @relation(fields: [authorshipInfoId], references: [id])
-  serialNumber       Int                @unique @default(autoincrement())
+  id                    String             @id @default(uuid())
+  name                  String
+  alternateName         String
+  ExponatKind           ExponatKind
+  description           String
+  isApproved            Boolean            @default(true)
+  funFacts              String[]
+  attributes            Json
+  mainImage             String
+  categorizationId      String?
+  Categorization        Categorization?    @relation(fields: [categorizationId], references: [id], onDelete: Cascade)
+  createdAt             DateTime           @default(now())
+  updatedAt             DateTime           @default(now()) @updatedAt
+  Organisation          Organisation?      @relation(fields: [organisationId], references: [id], onDelete: Cascade)
+  organisationId        String?
+  FavouriteExponats     FavouriteExponat[]
+  IsNotificationMade    Boolean            @default(false) //Made to check wether a notification has already been made
+  Posts                 Post[]
+  authorshipInfoId      String?            @unique
+  AuthorshipInfo        AuthorshipInfo?    @relation(fields: [authorshipInfoId], references: [id])
+  serialNumber          Int                @unique @default(autoincrement())
+  thirdDimensionalModel String?
+  video                 String?
 }
 
 model Organisation {
@@ -196,6 +218,7 @@ model Organisation {
   OrganisationUsers         OrganisationUser[]
   UserOrganisationFollowers UserOrganisationFollower[]
   Work                      Work[]
+  Quiz                      Quiz[]
 }
 
 model Post {
@@ -364,4 +387,64 @@ model UserNotification {
   isRead         Boolean      @default(false)
 
   @@id([notificationId, userId])
+}
+
+model Quiz {
+  id                 String         @id @default(uuid())
+  title              String
+  createdAt          DateTime       @default(now())
+  updatedAt          DateTime       @default(now()) @updatedAt
+  timeLimitTotal     Int?
+  organisationId     String?
+  organisation       Organisation?  @relation(fields: [organisationId], references: [id], onDelete: Cascade)
+  difficulty         QuizDifficulty
+  timeLimitType      TimeLimitType
+  isApproved         Boolean        @default(false)
+  coverImage         String?
+  description        String
+  isTest             Boolean        @default(false)
+  isRetakeable       Boolean        @default(false)
+  isAnonymousAllowed Boolean        @default(false)
+  questions          Question[]
+  attempts           Attempt[]
+}
+
+model Question {
+  id           String       @id @default(uuid())
+  question     String
+  questionType QuestionType
+  options      String[]
+  correct      String[]
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @default(now()) @updatedAt
+  quizId       String
+  image        String?
+  timeLimit    Int?
+  points       Int          @default(1)
+  quiz         Quiz         @relation(fields: [quizId], references: [id], onDelete: Cascade)
+  Answer       Answer[]
+  //TODO add tags
+}
+
+model Attempt {
+  id        String   @id @default(uuid())
+  userId    String?
+  user      User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  quizId    String
+  Answer    Answer[]
+  quiz      Quiz     @relation(fields: [quizId], references: [id], onDelete: Cascade)
+  startedAt DateTime @default(now())
+  timeTaken Int
+}
+
+model Answer {
+  answer          String
+  questionId      String
+  attemptId       String
+  questionOpenned DateTime @default(now())
+  timeTaken       Int
+  attempt         Attempt  @relation(fields: [attemptId], references: [id], onDelete: Cascade)
+  question        Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+
+  @@id([attemptId, questionId])
 }

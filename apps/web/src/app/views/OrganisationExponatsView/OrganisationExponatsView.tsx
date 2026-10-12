@@ -8,7 +8,6 @@ import domainMineral from "assets/images/domain-mineral.svg";
 import domainProcariot from "assets/images/domain-procariot.svg";
 import { useState } from "react";
 import search from "assets/images/search.svg";
-import { ExponatCard } from "components/ExponatCard";
 import SingleInput from "components/SingleInput";
 import CardCollection from "components/CardCollection";
 import useUser from "@/utility/context/UserContext";
@@ -40,7 +39,7 @@ export const OrganisationExponatsView = ({
           onClick={() =>
             !isAdmin &&
             alert(
-              "Kao samo član, možete dodati eksponat ali neće odmah biti vidljiv na stranic već morate pričekati dopuštenje admina"
+              "Kao samo član, možete dodati eksponat ali neće odmah biti vidljiv na stranic već morate pričekati dopuštenje admina",
             )
           }
           href={`/organisation/${organisationId}/createExponat`}
@@ -82,7 +81,7 @@ export const OrganisationExponatsView = ({
           items={exponats
             .filter((exponat) => exponat.exponatKind.toLowerCase() === domain)
             .filter((exponat) =>
-              exponat.name.toLowerCase().includes(searchValue.toLowerCase())
+              exponat.name.toLowerCase().includes(searchValue.toLowerCase()),
             )
             .map((exponat) => exponat)}
           type="exponat"
