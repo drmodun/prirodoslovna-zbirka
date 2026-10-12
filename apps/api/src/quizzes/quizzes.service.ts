@@ -88,11 +88,6 @@ export class QuizzesService {
           },
         },
         attempts: {
-          where: {
-            timeTaken: {
-              not: null,
-            },
-          },
           include: {
             Answer: true,
           },
