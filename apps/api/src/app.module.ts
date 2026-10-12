@@ -7,8 +7,6 @@ import { PrismaModule } from './prisma/prisma.module';
 import { OrganisationsModule } from './organisations/organisations.module';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
-import { ServeStaticModule } from '@nestjs/serve-static';
-import { join } from 'path';
 import { ExponatsModule } from './exponats/exponats.module';
 import { FavouritesOrganisationsModule } from './favourites-organisations/favourites-organisations.module';
 import { SocialPostsModule } from './social-posts/social-posts.module';
@@ -32,10 +30,6 @@ import { QuestionsModule } from './questions/questions.module';
 
 @Module({
   imports: [
-    ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', '..', '..', 'web', 'dist'),
-      exclude: ['/api/(.*)'],
-    }),
     ConfigModule.forRoot({
       isGlobal: true,
       validationSchema: validationSchemaForEnv,
