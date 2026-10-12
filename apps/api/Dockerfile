@@ -29,6 +29,9 @@ FROM base AS runner
 ENV NODE_ENV=production
 COPY --from=builder --chown=node:node /app/ .
 WORKDIR /app/apps/api
+# Local file storage, used when S3 is not configured. Created here so a
+# volume mounted on it starts out writable by the node user.
+RUN mkdir uploads && chown node:node uploads
 USER node
 EXPOSE 5500
 CMD ["sh", "-c", "yarn prisma migrate deploy && node dist/main"]

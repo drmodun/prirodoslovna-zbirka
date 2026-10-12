@@ -15,8 +15,17 @@ COPY --from=pruner /app/out/full/ .
 # NEXT_PUBLIC_* values are inlined into the client bundle at build time.
 ARG WEB_URL=http://localhost:3000
 ARG NEXT_PUBLIC_API_URL=http://localhost:5500
+# File storage: see filesUrl in next.config.js.
+ARG NEXT_PUBLIC_FILES_URL=
+ARG AWS_S3_URL=
+ARG AWS_S3_BUCKET=
+ARG FILES_FALLBACK=
 ENV WEB_URL=$WEB_URL \
   NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL \
+  NEXT_PUBLIC_FILES_URL=$NEXT_PUBLIC_FILES_URL \
+  AWS_S3_URL=$AWS_S3_URL \
+  AWS_S3_BUCKET=$AWS_S3_BUCKET \
+  FILES_FALLBACK=$FILES_FALLBACK \
   NEXT_OUTPUT=standalone \
   NEXT_TELEMETRY_DISABLED=1
 RUN yarn turbo run build --filter=web
