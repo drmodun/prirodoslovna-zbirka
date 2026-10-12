@@ -22,6 +22,7 @@ export const SpeechToText = ({ onText }: SpeechToTextProps) => {
 
   return (
     <button
+      type="button"
       title="Započni snimanje"
       onMouseDown={startRecording}
       onMouseUp={stopRecording}
