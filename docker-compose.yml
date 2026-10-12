@@ -32,6 +32,11 @@ services:
       AWS_S3_BUCKET: ${AWS_S3_BUCKET:-}
       AWS_S3_URL: ${AWS_S3_URL:-}
       SENDGRID_API_KEY: ${SENDGRID_API_KEY:-}
+      # Without AWS_* the API keeps uploads in the volume below and serves
+      # them itself at this address.
+      API_PUBLIC_URL: ${NEXT_PUBLIC_API_URL:-http://localhost:5500}
+    volumes:
+      - uploads:/app/apps/api/uploads
     ports:
       - "${API_PORT:-5500}:5500"
     depends_on:
@@ -69,6 +74,10 @@ services:
       args:
         WEB_URL: ${WEB_URL:-http://localhost:3000}
         NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-http://localhost:5500}
+        NEXT_PUBLIC_FILES_URL: ${NEXT_PUBLIC_FILES_URL:-}
+        AWS_S3_URL: ${AWS_S3_URL:-}
+        AWS_S3_BUCKET: ${AWS_S3_BUCKET:-}
+        FILES_FALLBACK: local
     environment:
       WEB_URL: ${WEB_URL:-http://localhost:3000}
       API_INTERNAL_URL: http://api:5500
@@ -93,3 +102,4 @@ services:
 
 volumes:
   db_data:
+  uploads:
