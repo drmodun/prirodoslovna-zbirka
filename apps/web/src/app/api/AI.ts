@@ -1,39 +1,45 @@
 "use server";
 
+import { createHash } from "crypto";
 import { OpenAI } from "openai";
-import { filesUrl, getBaseUrl } from "./getUrlServer";
+import { getBaseUrl } from "./getUrlServer";
 
-const key = process.env.OPENAI_API_KEY;
-const gptUrl = "https://api.openai.com/v1/chat/completions";
-
-const googleKey = process.env.GOOGLE_CLOUD_API_KEY;
-const ttsUrl = `https://texttospeech.googleapis.com/v1/text:synthesize?key=${googleKey}`;
-
-const s3Path = process.env.S3_PATH;
+// Any OpenAI-compatible API: OpenAI itself, OpenRouter, Groq, Mistral, or a
+// local server such as Ollama or LM Studio.
+const ai = {
+  key: process.env.OPENAI_API_KEY,
+  baseUrl: (process.env.OPENAI_BASE_URL || "https://api.openai.com/v1").replace(
+    /\/+$/,
+    "",
+  ),
+  model: process.env.OPENAI_MODEL || "gpt-3.5-turbo-0125",
+  // Empty disables server-side transcription, for providers without one.
+  transcriptionModel: process.env.OPENAI_TRANSCRIPTION_MODEL ?? "whisper-1",
+};
+// Local servers usually need no key, so a custom address is enough.
+const aiEnabled = !!(ai.key || process.env.OPENAI_BASE_URL);
 
 const openai =
-  key &&
-  new OpenAI({
-    apiKey: process.env.OPENAI_API_KEY,
-  });
+  aiEnabled && new OpenAI({ apiKey: ai.key || "none", baseURL: ai.baseUrl });
 
-const options = {
-  headers: {
-    "Content-Type": "application/json",
-    Authorization: `Bearer ${key}`,
-  },
-  method: "POST",
-};
+// Text-to-speech: a Piper HTTP server if TTS_URL is set, else Google Cloud.
+const piperUrl = process.env.TTS_URL?.replace(/\/+$/, "");
+const googleKey = process.env.GOOGLE_CLOUD_API_KEY;
+const googleTtsUrl = `https://texttospeech.googleapis.com/v1/text:synthesize?key=${googleKey}`;
 
-//General function to get GPT-3 completions
+//General function to get chat completions
 
 export const getGPT = async (prompt: string) => {
-  if (!key) return;
+  if (!aiEnabled) return;
   try {
-    const response = await fetch(gptUrl, {
-      ...options,
+    const response = await fetch(`${ai.baseUrl}/chat/completions`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        ...(ai.key && { Authorization: `Bearer ${ai.key}` }),
+      },
       body: JSON.stringify({
-        model: "gpt-3.5-turbo-0125",
+        model: ai.model,
         max_tokens: 2000,
         messages: [{ role: "user", content: prompt }],
       }),
@@ -48,7 +54,7 @@ export const getGPT = async (prompt: string) => {
 
 const WIKIPEDIA_LANGUAGES = ["hr", "en"];
 const NO_DESCRIPTION =
-  "Opis trenutno nije dostupan. Za AI generirani opis potrebno je postaviti OPENAI_API_KEY.";
+  "Opis trenutno nije dostupan. Za AI generirani opis potrebno je postaviti AI servis (OPENAI_API_KEY).";
 
 // Backup for the AI description: the lead paragraph of the Wikipedia article,
 // Croatian first.
@@ -91,7 +97,6 @@ const leadSentences = (content: string) => {
 };
 
 const askGPT = async (prompt: string): Promise<string | undefined> => {
-  if (!key) return;
   const response = await getGPT(prompt);
   return response?.choices?.[0]?.message?.content;
 };
@@ -114,21 +119,19 @@ export const summarisePostPrompt = async (title: string, content: string) => {
 
 // Lets the client pick the browser's own speech recognition when the server
 // cannot transcribe.
-export const isSpeechToTextConfigured = async () => !!key;
+export const isSpeechToTextConfigured = async () =>
+  aiEnabled && !!ai.transcriptionModel;
 
 export const whisperPrompt = async (audio: any) => {
-  const buffer = Buffer.from(audio, "base64");
-  if (!key) return;
+  if (!openai || !ai.transcriptionModel) return;
 
   try {
+    const buffer = Buffer.from(audio, "base64");
     const file = new File([buffer], "input.wav", { type: "audio/wav" });
-    if (!key || !openai) return;
-
-    openai.apiKey = key;
 
     const response = await openai.audio.transcriptions.create({
       file: file,
-      model: "whisper-1",
+      model: ai.transcriptionModel,
       language: "hr",
     });
 
@@ -138,59 +141,68 @@ export const whisperPrompt = async (audio: any) => {
   }
 };
 
+const synthesise = async (text: string): Promise<Buffer | undefined> => {
+  if (piperUrl) {
+    const response = await fetch(`${piperUrl}/synthesize`, {
+      method: "POST",
+      body: JSON.stringify({ text }),
+      headers: { "Content-Type": "application/json" },
+      cache: "no-store",
+    });
+    if (!response.ok) return;
+    return Buffer.from(await response.arrayBuffer());
+  }
+
+  const response = await fetch(googleTtsUrl, {
+    method: "POST",
+    body: JSON.stringify({
+      input: { text: text },
+      voice: { languageCode: "sr-RS", name: "sr-RS-Standard-A" },
+      audioConfig: { audioEncoding: "LINEAR16", pitch: 0 },
+    }),
+    headers: { "Content-Type": "application/json" },
+  });
+  const audio = await response.json();
+  if (!audio.audioContent) return;
+  return Buffer.from(audio.audioContent, "base64");
+};
+
+// Resolves to the URL of a recording of `text`, synthesising and storing it
+// on first request. Undefined when no speech service is configured or it
+// fails; the audio button then reads the text with the browser instead.
 export const ttsPrompt = async (
   text: string,
   directory: string,
   id: string,
 ) => {
-  const body = {
-    input: { text: text },
-    voice: { languageCode: "sr-RS", name: "sr-RS-Standard-A" },
-    audioConfig: { audioEncoding: "LINEAR16", pitch: 0 },
-  };
+  if (!text || !(piperUrl || googleKey)) return;
 
-  // Without a Google key nothing is synthesised here; the audio button reads
-  // the text with the browser's speech synthesis instead.
-  if (!googleKey || !text) return;
-
-  // Synthesised audio is cached in file storage: S3 when configured, else
-  // the API's local storage.
-  const stored = `audio-${directory}/${id}`;
-  try {
-    const exists = await fetch(
-      `${s3Path || `${getBaseUrl()}/blobs/file/`}${stored}`,
-      { method: "HEAD", cache: "no-store" },
-    );
-    if (exists.ok) return `${s3Path || `${filesUrl}/`}${stored}`;
-  } catch (error) {
-    console.log(error);
-  }
+  // The name carries a hash of the text, so an edited post or a regenerated
+  // description gets a new recording instead of the stale one.
+  const hash = createHash("sha1").update(text).digest("hex").slice(0, 12);
+  const stored = `blobs/audio/audio-${directory}/${id}-${hash}`;
 
   try {
-    const response = await fetch(ttsUrl, {
-      method: "POST",
-      body: JSON.stringify(body),
-      headers: {
-        "Content-Type": "application/json",
-      },
+    const existing = await fetch(`${getBaseUrl()}/${stored}`, {
+      cache: "no-store",
     });
+    if (existing.ok) return await existing.text();
 
-    const audio = await response.json();
-    const buffer = Buffer.from(audio.audioContent, "base64");
-    const file = new File([buffer], `${id}.wav`, { type: "audio/wav" });
+    const audio = await synthesise(text);
+    if (!audio) return;
+
     const request = new FormData();
-    request.append("file", file);
-
-    const url = await fetch(
-      `${getBaseUrl()}/blobs/audio/audio-${directory}/${id}`,
-      {
-        method: "POST",
-        body: request,
-      },
+    request.append(
+      "file",
+      new File([new Uint8Array(audio)], `${id}.wav`, { type: "audio/wav" }),
     );
 
-    if (!url.ok) return;
-    return await url.text();
+    const upload = await fetch(`${getBaseUrl()}/${stored}`, {
+      method: "POST",
+      body: request,
+    });
+    if (!upload.ok) return;
+    return await upload.text();
   } catch (error) {
     console.log(error);
   }
