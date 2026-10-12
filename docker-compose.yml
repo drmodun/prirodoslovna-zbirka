@@ -31,6 +31,11 @@ services:
       AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY:-}
       AWS_S3_BUCKET: ${AWS_S3_BUCKET:-}
       AWS_S3_URL: ${AWS_S3_URL:-}
+      AWS_REGION: ${AWS_REGION:-}
+      AWS_ENDPOINT_URL_S3: ${AWS_ENDPOINT_URL_S3:-}
+      AWS_S3_FORCE_PATH_STYLE: ${AWS_S3_FORCE_PATH_STYLE:-}
+      SMTP_URL: ${SMTP_URL:-}
+      MAIL_FROM: ${MAIL_FROM:-}
       SENDGRID_API_KEY: ${SENDGRID_API_KEY:-}
       # Without AWS_* the API keeps uploads in the volume below and serves
       # them itself at this address.
@@ -77,6 +82,8 @@ services:
         NEXT_PUBLIC_FILES_URL: ${NEXT_PUBLIC_FILES_URL:-}
         AWS_S3_URL: ${AWS_S3_URL:-}
         AWS_S3_BUCKET: ${AWS_S3_BUCKET:-}
+        AWS_ENDPOINT_URL_S3: ${AWS_ENDPOINT_URL_S3:-}
+        AWS_REGION: ${AWS_REGION:-}
         FILES_FALLBACK: local
     environment:
       WEB_URL: ${WEB_URL:-http://localhost:3000}
@@ -89,6 +96,14 @@ services:
     depends_on:
       api:
         condition: service_healthy
+
+  # Catches outgoing mail for local testing; inbox at http://localhost:8025.
+  #   SMTP_URL=smtp://mailpit:1025 docker compose --profile mail up -d
+  mailpit:
+    profiles: [mail]
+    image: axllent/mailpit
+    ports:
+      - "${MAILPIT_PORT:-8025}:8025"
 
   reverse-proxy:
     image: nginx:stable
