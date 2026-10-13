@@ -1,0 +1,19 @@
+# Throw-away Postgres for the end-to-end tests. Separate from the dev stack
+# and from the API integration tests: own port, own database, tmpfs storage.
+name: biosfera-e2e
+services:
+  postgres:
+    image: postgres:15
+    ports:
+      - "55434:5432"
+    environment:
+      POSTGRES_DB: biosfera_e2e
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    tmpfs:
+      - /var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d biosfera_e2e"]
+      interval: 2s
+      timeout: 3s
+      retries: 30
