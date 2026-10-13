@@ -82,7 +82,8 @@ export const createExponat = (
       description: "Opis testnog eksponata",
       ExponatKind: "MINERAL",
       funFacts: ["Zanimljivost"],
-      attributes: { tvrdoća: "7" },
+      // the app stores the attributes as a JSON string (see useExponatSubmit)
+      attributes: JSON.stringify({ tvrdoća: "7" }) as never,
       mainImage: "https://example.org/e.png",
       organisationId,
       ...over,
