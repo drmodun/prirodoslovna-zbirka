@@ -293,3 +293,5 @@ describe("ttsPrompt", () => {
     await expect(m.ttsPrompt("a", "post", "1")).resolves.toBeUndefined();
   });
 });
+
+export {};

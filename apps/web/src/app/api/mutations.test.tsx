@@ -549,7 +549,7 @@ describe("upload hooks use the file client with a typed endpoint", () => {
   ])("%s -> %s", async (name, path, url) => {
     form.postForm.mockResolvedValue({ data: "http://files/x" });
     const hook = jest.requireActual(path)[name];
-    const { result } = renderHookWithClient(hook);
+    const { result } = renderHookWithClient(hook as () => any);
     let uploaded: unknown;
     await act(async () => {
       uploaded = await result.current.mutateAsync({
@@ -566,7 +566,7 @@ describe("upload hooks use the file client with a typed endpoint", () => {
   it("reports a failed upload", async () => {
     form.postForm.mockRejectedValue(new Error("network"));
     const { result } = renderHookWithClient(
-      jest.requireActual("./useUploadFile").useUploadFile,
+      jest.requireActual("./useUploadFile").useUploadFile as () => any,
     );
     await act(async () => {
       await result.current

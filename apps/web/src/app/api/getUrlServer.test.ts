@@ -120,3 +120,5 @@ describe("apiFetch", () => {
     expect(fetchMock.mock.calls[0][0]).toBe("http://api.test/exponats/12");
   });
 });
+
+export {};

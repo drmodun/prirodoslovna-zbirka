@@ -219,3 +219,5 @@ describe("useRecordVoice without server transcription", () => {
     expect(FakeRecognition.last.start).toHaveBeenCalled();
   });
 });
+
+export {};

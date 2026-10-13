@@ -163,7 +163,7 @@ describe("CollectionCard", () => {
 });
 
 describe("CardCollection", () => {
-  const items = (...names: string[]) =>
+  const items = (...names: string[]): any =>
     names.map((name, i) => ({
       id: `id-${name}`,
       name,
@@ -210,7 +210,7 @@ describe("CardCollection", () => {
   });
 
   it("numeric attributes sort by value, not alphabetically", async () => {
-    const numbers = [
+    const numbers: any = [
       { id: "a", name: "x", points: 9 },
       { id: "b", name: "x", points: 100 },
       { id: "c", name: "x", points: 25 },
@@ -221,7 +221,7 @@ describe("CardCollection", () => {
   });
 
   it("shows one page and loads more on scroll to the bottom", async () => {
-    const many = Array.from({ length: 5 }, (_, i) => ({
+    const many: any = Array.from({ length: 5 }, (_, i) => ({
       id: `i${i}`,
       name: `n${i}`,
     }));
@@ -275,12 +275,12 @@ describe("CardCollection", () => {
     const given = items("Cc", "Aa", "Bb");
     render(<CardCollection items={given} type="exponat" sortBy={sortBy} />);
     await waitFor(() => expect(ids()).toHaveLength(3));
-    expect(given.map((i) => i.name)).toEqual(["Cc", "Aa", "Bb"]);
+    expect(given.map((i: any) => i.name)).toEqual(["Cc", "Aa", "Bb"]);
   });
 });
 
 describe("CardCollectionAsync", () => {
-  const page = (...ids: string[]) => ids.map((id) => ({ id, name: id }));
+  const page = (...ids: string[]): any => ids.map((id) => ({ id, name: id }));
   const shown = () =>
     screen.getAllByTestId("exponat").map((e) => e.getAttribute("data-id"));
   const scrollToBottom = () => {
