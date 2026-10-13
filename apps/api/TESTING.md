@@ -1,8 +1,8 @@
 # Testing the API
 
-| Layer | Where | What it uses | Command |
-|-------|-------|--------------|---------|
-| Unit | `src/**/*.spec.ts` | Jest, a Proxy-based Prisma mock (`src/test-utils/prisma.mock.ts`) | `yarn test` |
+| Layer       | Where                | What it uses                                                       | Command                 |
+| ----------- | -------------------- | ------------------------------------------------------------------ | ----------------------- |
+| Unit        | `src/**/*.spec.ts`   | Jest, a Proxy-based Prisma mock (`src/test-utils/prisma.mock.ts`)  | `yarn test`             |
 | Integration | `test/*.int-spec.ts` | The real `AppModule` over HTTP (supertest) against a real Postgres | `yarn test:integration` |
 
 ## Unit tests
@@ -55,6 +55,7 @@ fixed the test starts "passing unexpectedly" and fails: remove `.failing` then.
 Highlights (details are in the comment above each test):
 
 **Authorisation**
+
 - `OrganisationsController`: `update`, `remove`, `getRequests` call
   `hasAdminRights` without `await`, so any logged-in user can edit/delete any
   organisation and read its join requests (with emails).
@@ -73,10 +74,11 @@ Highlights (details are in the comment above each test):
 - `GET /users`, favourites/followers lists publish user e-mail addresses.
 
 **Features that cannot work today**
+
 - `POST /posts/:exponatId` always 500s (`isAdmin` leaks into `prisma.post.create`).
 - Creating/updating quizzes and listing/creating questions always fail
   validation (`@MinLength` on arrays, `@IsEnum` on Croatian display labels,
-  update/query DTOs built from the *create* DTOs); questions cannot be edited
+  update/query DTOs built from the _create_ DTOs); questions cannot be edited
   because the quiz id is passed where a question id is expected.
 - `GET /quizzes` without `page`/`size` is a 500 (`skip: NaN`).
 - Exponat filters `minFavoriteCount`/`maxFavoriteCount`/`class` build invalid

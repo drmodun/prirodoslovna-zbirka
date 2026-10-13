@@ -5,6 +5,7 @@
     "test",
     "dist",
     "prisma",
+    "src/test-utils",
     "**/*spec.ts"
   ]
 }
