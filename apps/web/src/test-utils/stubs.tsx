@@ -40,3 +40,10 @@ export const entityStub = (name: string, entityProp: string) => {
   Stub.displayName = `EntityStub(${name})`;
   return Stub;
 };
+
+/** A component that renders nothing but is recognisable by its display name. */
+export const marker = (name: string) => {
+  const Marker = () => null;
+  Marker.displayName = name;
+  return Marker;
+};
