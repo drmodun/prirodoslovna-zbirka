@@ -1,15 +1,32 @@
 {
-  "moduleFileExtensions": ["js", "json", "ts"],
+  "moduleFileExtensions": [
+    "js",
+    "json",
+    "ts"
+  ],
   "rootDir": "..",
-  "roots": ["<rootDir>/test", "<rootDir>/src"],
+  "roots": [
+    "<rootDir>/test",
+    "<rootDir>/src"
+  ],
   "testRegex": "test/.*\\.int-spec\\.ts$",
   "transform": {
-    "^.+\\.(t|j)s$": ["ts-jest", { "tsconfig": "<rootDir>/tsconfig.spec.json" }]
+    "^.+\\.(t|j)s$": [
+      "ts-jest",
+      {
+        "tsconfig": "<rootDir>/tsconfig.spec.json"
+      }
+    ]
   },
-  "moduleNameMapper": { "^src/(.*)$": "<rootDir>/src/$1" },
+  "moduleNameMapper": {
+    "^src/(.*)$": "<rootDir>/src/$1"
+  },
   "globalSetup": "<rootDir>/test/global-setup.ts",
-  "setupFiles": ["<rootDir>/test/helpers/env.ts"],
+  "setupFiles": [
+    "<rootDir>/test/helpers/env.ts"
+  ],
   "testEnvironment": "node",
   "testTimeout": 30000,
-  "maxWorkers": 1
+  "maxWorkers": 1,
+  "globalTeardown": "<rootDir>/test/global-teardown.ts"
 }

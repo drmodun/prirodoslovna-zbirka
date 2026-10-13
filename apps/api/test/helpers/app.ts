@@ -87,8 +87,29 @@ export async function createTestContext(): Promise<TestContext> {
     close: async () => {
       silenced.forEach((spy) => spy.mockRestore());
       await app.close();
+      // PrismaService has no onModuleDestroy hook and is instantiated once per
+      // module that lists it, so app.close() leaves every pool open.
+      await Promise.all(
+        prismaInstances(app).map((instance) => instance.$disconnect()),
+      );
     },
   };
+}
+
+function prismaInstances(app: INestApplication): PrismaService[] {
+  const modules = (
+    app as unknown as { container: NestContainerLike }
+  ).container.getModules();
+  const found = new Set<PrismaService>();
+  for (const module of modules.values())
+    for (const provider of module.providers.values())
+      if (provider.instance instanceof PrismaService)
+        found.add(provider.instance);
+  return [...found];
+}
+
+interface NestContainerLike {
+  getModules(): Map<string, { providers: Map<unknown, { instance: unknown }> }>;
 }
 
 // ---------------------------------------------------------------------------

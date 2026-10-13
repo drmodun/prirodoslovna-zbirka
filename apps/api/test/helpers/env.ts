@@ -4,7 +4,12 @@ export const TEST_DATABASE_URL =
   process.env.TEST_DATABASE_URL ??
   'postgresql://postgres:postgres@localhost:55432/biosfera_test';
 
-process.env.DATABASE_URL = TEST_DATABASE_URL;
+// The application registers PrismaService in ~20 modules, i.e. ~20 separate
+// PrismaClient instances with their own pools. Keep each pool tiny so a whole
+// test application stays far below Postgres' connection limit.
+process.env.DATABASE_URL = `${TEST_DATABASE_URL}${
+  TEST_DATABASE_URL.includes('?') ? '&' : '?'
+}connection_limit=2`;
 process.env.JWT_SECRET = 'integration-test-secret';
 process.env.WEB_URL = 'http://web.test';
 delete process.env.SMTP_URL;
@@ -18,10 +23,5 @@ for (const key of [
 ])
   delete process.env[key];
 
-import { mkdtempSync } from 'fs';
-import { tmpdir } from 'os';
-import { join } from 'path';
-
-// Files uploaded by the tests go to a throw-away directory, never to S3.
-process.env.UPLOAD_DIR ??= mkdtempSync(join(tmpdir(), 'biosfera-int-'));
+// UPLOAD_DIR is created (and removed) by global-setup.ts.
 process.env.API_PUBLIC_URL = 'http://api.test';

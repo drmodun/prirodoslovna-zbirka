@@ -1,4 +1,6 @@
 import { execSync } from 'child_process';
+import { mkdtempSync } from 'fs';
+import { tmpdir } from 'os';
 import { join } from 'path';
 
 /**
@@ -32,4 +34,8 @@ export default async function globalSetup() {
         `Start it with "yarn test:integration:db" (needs Docker) or set TEST_DATABASE_URL.\n${out}`,
     );
   }
+
+  // Uploaded files go to a throw-away directory that is removed afterwards.
+  const uploads = mkdtempSync(join(tmpdir(), 'biosfera-int-'));
+  process.env.UPLOAD_DIR = uploads;
 }
