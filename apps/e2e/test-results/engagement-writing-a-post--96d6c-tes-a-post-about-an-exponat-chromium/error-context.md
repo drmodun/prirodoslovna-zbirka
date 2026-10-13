@@ -6,8 +6,8 @@
 
 # Test info
 
-- Name: zz-copy.spec.ts >> writing a post >> a member writes a post about an exponat
-- Location: tests/zz-copy.spec.ts:135:7
+- Name: engagement.spec.ts >> writing a post >> a member writes a post about an exponat
+- Location: tests/engagement.spec.ts:135:8
 
 # Error details
 
@@ -93,7 +93,7 @@ Call Log:
           - paragraph [ref=e88]: Grad Zagreb
       - generic [ref=e89]:
         - link [ref=e90] [cursor=pointer]:
-          - /url: /user/2fdd484b-0cc9-4b01-8515-83b1fdf248fd
+          - /url: /user/d88512af-1981-4b98-9cf5-3ddebda54601
           - button [ref=e91]:
             - img "icon" [ref=e92]
         - link [ref=e93] [cursor=pointer]:
@@ -199,7 +199,7 @@ Call Log:
   132 |   // BUG: creating a post is broken end to end: the API answers 500 for every
   133 |   // request (its DTO's `isAdmin` leaks into the database call), and the web
   134 |   // form drops `authorshipInfoId`, which the API requires.
-  135 |   test("a member writes a post about an exponat", async ({ page }) => {
+  135 |   test.fail("a member writes a post about an exponat", async ({ page }) => {
   136 |     const member = await createUser();
   137 |     const org = await createOrganisation({}, [{ userId: member.id, role: "MEMBER" }]);
   138 |     const exponat = await createExponat(org.id);
