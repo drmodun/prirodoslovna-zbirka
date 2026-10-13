@@ -39,11 +39,18 @@ jest.mock("react-hot-toast", () => {
 });
 
 beforeEach(() => {
+  // Modals render into <div id="portal"> (see app/layout.tsx).
+  if (!document.querySelector("#portal")) {
+    const portal = document.createElement("div");
+    portal.id = "portal";
+    document.body.appendChild(portal);
+  }
   jest.clearAllMocks();
   localStorage.clear();
   // Hooks and server helpers log errors on purpose; keep the output readable.
   jest.spyOn(console, "log").mockImplementation(() => {});
   jest.spyOn(console, "error").mockImplementation(() => {});
+  jest.spyOn(console, "warn").mockImplementation(() => {});
 });
 
 afterEach(() => {
