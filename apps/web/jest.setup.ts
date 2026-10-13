@@ -38,6 +38,18 @@ jest.mock("react-hot-toast", () => {
   return { __esModule: true, default: toast, toast, Toaster: () => null };
 });
 
+jest.mock("next/navigation", () => {
+  const { mockRouter, routerState } = require("test-utils/router");
+  return {
+    useRouter: () => mockRouter,
+    usePathname: () => routerState.pathname,
+    useSearchParams: () => routerState.search,
+    useParams: () => ({}),
+    notFound: jest.fn(),
+    redirect: jest.fn(),
+  };
+});
+
 beforeEach(() => {
   // Modals render into <div id="portal"> (see app/layout.tsx).
   if (!document.querySelector("#portal")) {
@@ -46,6 +58,7 @@ beforeEach(() => {
     document.body.appendChild(portal);
   }
   jest.clearAllMocks();
+  require("test-utils/router").setLocation("/");
   localStorage.clear();
   // Hooks and server helpers log errors on purpose; keep the output readable.
   jest.spyOn(console, "log").mockImplementation(() => {});
