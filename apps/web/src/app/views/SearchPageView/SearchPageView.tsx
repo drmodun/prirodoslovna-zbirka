@@ -68,15 +68,38 @@ export const tabDictionary = {
   Literatura: "literature",
 };
 
+type ItemsKey = keyof Omit<SearchPageViewProps, "initTab" | "query">;
+
+// Everything that differs between tabs: the filter form shown above the
+// results, the loader for further pages and the prop holding the first page.
+const tabConfig: Record<
+  tabType,
+  {
+    Filter: React.ComponentType<{ searchParams?: any }>;
+    getMore: (query?: any, page?: number) => Promise<any>;
+    items: ItemsKey;
+  }
+> = {
+  Korisnici: { Filter: UserFilter, getMore: getUsers, items: "users" },
+  Organizacije: {
+    Filter: OrganisationFilter,
+    getMore: getOrganisations,
+    items: "organisations",
+  },
+  Eksponati: { Filter: ExponatFilter, getMore: getExponats, items: "exponats" },
+  Objave: { Filter: PostFilter, getMore: getPosts, items: "posts" },
+  Radovi: { Filter: WorkFilter, getMore: getWorks, items: "works" },
+  Literatura: {
+    Filter: LiteratureFilter,
+    getMore: getGbifWorks,
+    items: "literature",
+  },
+};
+
 export const SearchPageView = ({
-  users,
-  organisations,
-  exponats,
-  literature,
-  posts,
   initTab,
-  works,
   query,
+  ...initialItems
 }: SearchPageViewProps) => {
   const [activeTab, setActiveTab] = useState<tabType>(initTab);
   const [page, setPage] = useState<number>(query?.page || 2);
@@ -85,54 +108,21 @@ export const SearchPageView = ({
     setPage(2);
   }, [query, activeTab]);
 
+  const { Filter, getMore, items } = tabConfig[activeTab];
+
   return (
     <div className={classes.container}>
       <Tabs activeTab={activeTab} tabs={tabs} onSelect={setActiveTab} />
       <div className={classes.content}>
-        {activeTab === "Eksponati" && <ExponatFilter searchParams={query} />}
-        {activeTab === "Objave" && <PostFilter searchParams={query} />}
-        {activeTab === "Organizacije" && (
-          <OrganisationFilter searchParams={query} />
-        )}
-        {activeTab === "Korisnici" && <UserFilter searchParams={query} />}
-        {activeTab === "Radovi" && <WorkFilter searchParams={query} />}
-        {activeTab === "Literatura" && (
-          <LiteratureFilter searchParams={query} />
-        )}
+        <Filter searchParams={query} />
         {query && (
           <UserWrapper>
             <CardCollectionAsync
               type={tabDictionary[activeTab] as tabDictionaryType}
               page={page}
-              getMore={
-                activeTab === "Korisnici"
-                  ? getUsers
-                  : activeTab === "Organizacije"
-                    ? getOrganisations
-                    : activeTab === "Eksponati"
-                      ? getExponats
-                      : activeTab === "Objave"
-                        ? getPosts
-                        : activeTab === "Radovi"
-                          ? getWorks
-                          : getGbifWorks
-              }
+              getMore={getMore}
               params={query}
-              items={
-                activeTab === "Korisnici"
-                  ? users
-                  : activeTab === "Organizacije"
-                    ? organisations
-                    : activeTab === "Eksponati"
-                      ? exponats
-                      : activeTab === "Objave"
-                        ? posts
-                        : activeTab === "Radovi"
-                          ? works
-                          : activeTab === "Literatura"
-                            ? literature
-                            : []
-              }
+              items={initialItems[items]}
             />
           </UserWrapper>
         )}

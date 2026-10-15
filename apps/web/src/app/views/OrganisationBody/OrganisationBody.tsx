@@ -1,9 +1,7 @@
 "use client";
 
 import {
-  ExponatKind,
   ExtendedOrganisationResponse,
-  MemberRole,
   WorkResponseShort,
 } from "@biosfera/types";
 import classes from "./OrganisationBody.module.scss";
@@ -40,6 +38,103 @@ const tabs = [
   "Radovi",
 ];
 
+const postSortOptions = [
+  { label: "Abecedno", value: "title" },
+  { label: "Najpopularnije", value: "likeScore" },
+  { label: "Ime autora", value: "authorName" },
+  { label: "Novo", value: "updatedAt" },
+];
+
+const memberSortOptions = [
+  { label: "Abecedno", value: "username" },
+  { label: "Uloga", value: "role" },
+];
+
+const workSortOptions = [
+  { label: "Ime", value: "title" },
+  { label: "Broj spremanja", value: "amountOfSaves" },
+  { label: "Vrsta", value: "type" },
+];
+
+interface TabPanelProps {
+  activeTab: string;
+  organisation: ExtendedOrganisationResponse;
+  works: WorkResponseShort[];
+}
+
+const TabPanel = ({ activeTab, organisation, works }: TabPanelProps) => {
+  const { memberships, user } = useUser();
+
+  switch (activeTab) {
+    case "Početna":
+      return <OrganisationHomepage organisation={organisation} />;
+    case "Edit":
+      return (
+        <UserWrapper>
+          <OrganisationForm isEdit initvalues={organisation} />
+          <DeleteOrganisationButton organisationId={organisation.id} />
+        </UserWrapper>
+      );
+    case "Eksponati":
+      return (
+        <OrganisationExponatsView
+          isMember={memberships.some(
+            (x) => x.id === organisation.id && x.role !== "REQUESTED",
+          )}
+          exponats={organisation.exponats}
+          organisationId={organisation.id}
+          isAdmin={memberships.some(
+            (x) =>
+              (x.id === organisation.id && x.role === "ADMIN") ||
+              x.role === "OWNER" ||
+              user?.role?.toLowerCase() === "super",
+          )}
+        />
+      );
+    case "Objave":
+      return (
+        <CardCollection
+          items={organisation.posts}
+          type="post"
+          organisationId={organisation.id}
+          sortBy={postSortOptions}
+        />
+      );
+    case "Članovi":
+      return (
+        <UserWrapper>
+          <CardCollection
+            items={organisation.members}
+            type="user-member"
+            sortBy={memberSortOptions}
+            organisationId={organisation.id}
+            pageSize={10}
+          />
+        </UserWrapper>
+      );
+    case "Radovi":
+      return (
+        <UserWrapper>
+          <Link
+            className={classes.link}
+            href={`/organisation/${organisation.id}/createWork`}
+          >
+            <BaseButton text="Napravi rad" isNotSubmit />
+          </Link>
+          <CardCollection
+            items={works}
+            organisationId={organisation.id}
+            userId={user?.id}
+            sortBy={workSortOptions}
+            type="work"
+          />
+        </UserWrapper>
+      );
+    default:
+      return null;
+  }
+};
+
 export const OrganisationBody = ({
   organisation,
   works,
@@ -56,21 +151,21 @@ export const OrganisationBody = ({
     setWorksData(works);
   }, [works]);
 
+  const canManage =
+    user?.role?.toLocaleLowerCase() === "super" ||
+    memberships.some(
+      (x) =>
+        x.id === organisation.id && (x.role === "ADMIN" || x.role === "OWNER"),
+    );
+
+  // Admins get the unapproved content too, and an Edit tab.
   const possiblyRefecth = async () => {
-    if (
-      user?.role?.toLocaleLowerCase() === "super" ||
-      memberships.some(
-        (x) =>
-          x.id === organisation.id &&
-          (x.role === "ADMIN" || x.role === "OWNER"),
-      )
-    ) {
-      const adminOrg = await api.get<never, ExtendedOrganisationResponse>(
-        `/organisations/${organisation.id}`,
-      );
-      if (adminOrg) setOrganisationData(adminOrg);
-      setAvailableTabs((prev) => [...prev.filter((x) => x !== "Edit"), "Edit"]);
-    }
+    if (!canManage) return;
+    const adminOrg = await api.get<never, ExtendedOrganisationResponse>(
+      `/organisations/${organisation.id}`,
+    );
+    if (adminOrg) setOrganisationData(adminOrg);
+    setAvailableTabs((prev) => [...prev.filter((x) => x !== "Edit"), "Edit"]);
   };
   useEffect(() => {
     possiblyRefecth();
@@ -86,87 +181,11 @@ export const OrganisationBody = ({
           onSelect={setActiveTab}
         />
         <div className={classes.selectedBody}>
-          {activeTab === "Početna" && (
-            <OrganisationHomepage organisation={organisationData} />
-          )}
-          {activeTab === "Edit" && (
-            <UserWrapper>
-              <OrganisationForm isEdit initvalues={organisationData} />
-              <DeleteOrganisationButton organisationId={organisationData.id} />
-            </UserWrapper>
-          )}
-          {activeTab === "Eksponati" && (
-            <OrganisationExponatsView
-              isMember={memberships.some(
-                (x) => x.id === organisation.id && x.role !== "REQUESTED",
-              )}
-              exponats={organisationData.exponats}
-              organisationId={organisation.id}
-              isAdmin={memberships.some(
-                (x) =>
-                  (x.id === organisation.id && x.role === "ADMIN") ||
-                  x.role === "OWNER" ||
-                  user?.role?.toLowerCase() === "super",
-              )}
-            />
-          )}
-          {activeTab === "Objave" && organisation && (
-            <CardCollection
-              items={organisationData.posts}
-              type="post"
-              organisationId={organisationData.id}
-              sortBy={[
-                { label: "Abecedno", value: "title" },
-                { label: "Najpopularnije", value: "likeScore" },
-                { label: "Ime autora", value: "authorName" },
-                { label: "Novo", value: "updatedAt" },
-              ]}
-            />
-          )}
-          {activeTab === "Članovi" && organisationData.id && (
-            <UserWrapper>
-              <CardCollection
-                items={organisationData.members}
-                type="user-member"
-                sortBy={[
-                  { label: "Abecedno", value: "username" },
-                  { label: "Uloga", value: "role" },
-                ]}
-                organisationId={organisationData.id}
-                pageSize={10}
-              />
-            </UserWrapper>
-          )}
-          {activeTab === "Radovi" && (
-            <UserWrapper>
-              <Link
-                className={classes.link}
-                href={`/organisation/${organisationData.id}/createWork`}
-              >
-                <BaseButton text="Napravi rad" isNotSubmit />
-              </Link>
-              <CardCollection
-                items={worksData}
-                organisationId={organisationData.id}
-                userId={user?.id}
-                sortBy={[
-                  {
-                    label: "Ime",
-                    value: "title",
-                  },
-                  {
-                    label: "Broj spremanja",
-                    value: "amountOfSaves",
-                  },
-                  {
-                    label: "Vrsta",
-                    value: "type",
-                  },
-                ]}
-                type="work"
-              />
-            </UserWrapper>
-          )}
+          <TabPanel
+            activeTab={activeTab}
+            organisation={organisationData}
+            works={worksData}
+          />
         </div>
       </div>
     </div>

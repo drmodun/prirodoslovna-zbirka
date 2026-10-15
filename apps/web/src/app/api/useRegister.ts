@@ -22,7 +22,7 @@ export const useRegister = () => {
     onError: (error: string, _variables, context) => {
       toast.error(
         "Došlo je do greške pri stvaranju računa, moguće je da je taj mail već korišten",
-        { id: context?.toastId }
+        { id: context?.toastId },
       );
     },
   });

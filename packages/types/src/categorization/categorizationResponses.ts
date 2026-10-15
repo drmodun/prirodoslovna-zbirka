@@ -25,7 +25,7 @@ export interface CategorizationExtendedResponse {
 export interface SpeciesResponse {
   kingdom: string;
   phylum: string;
-  class: string;  
+  class: string;
   order: string;
   family: string;
   genus: string;

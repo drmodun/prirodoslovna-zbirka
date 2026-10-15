@@ -26,16 +26,16 @@ export const MembershipFollowButton = ({ object, type }: FollowButtonProps) => {
   const [isFollow, setIsFollow] = useState(
     type === "user"
       ? following.find((x) => x.id === object.id) != null
-      : followedOrganisations.find((x) => x.id === object.id) != null
+      : followedOrganisations.find((x) => x.id === object.id) != null,
   );
 
   useEffect(() => {
     setIsFollow(
       type === "user"
         ? following?.find((x) => x.id === object.id) != null
-        : followedOrganisations?.find((x) => x.id === object.id) != null
+        : followedOrganisations?.find((x) => x.id === object.id) != null,
     );
-  }, [followedOrganisations, loading, following, object]);
+  }, [followedOrganisations, loading, following, object, type]);
 
   const toggleFollow = async () => {
     if (type === "user") {

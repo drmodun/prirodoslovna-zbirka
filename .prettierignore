@@ -1,0 +1,9 @@
+node_modules
+.next
+dist
+.turbo
+.repowise
+.claude
+# Generated fixture data, 230k lines
+apps/api/prisma/seed.ts
+apps/api/prisma/migrations

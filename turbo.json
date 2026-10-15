@@ -1,17 +1,58 @@
 {
-  "pipeline": {
+  "$schema": "https://turbo.build/schema.json",
+  "globalDependencies": [".env"],
+  "globalEnv": [
+    "NODE_ENV",
+    "WEB_URL",
+    "NEXT_PUBLIC_API_URL",
+    "NEXT_PUBLIC_FILES_URL",
+    "NEXT_OUTPUT",
+    "FILES_FALLBACK",
+    "AWS_S3_BUCKET",
+    "AWS_S3_URL",
+    "AWS_ENDPOINT_URL_S3",
+    "AWS_REGION"
+  ],
+  "globalPassThroughEnv": [
+    "DATABASE_URL",
+    "API_INTERNAL_URL",
+    "JWT_SECRET",
+    "AWS_ACCESS_KEY_ID",
+    "AWS_SECRET_ACCESS_KEY",
+    "SENDGRID_API_KEY",
+    "OPENAI_API_KEY",
+    "GOOGLE_CLOUD_API_KEY",
+    "API_PUBLIC_URL",
+    "UPLOAD_DIR",
+    "AWS_S3_FORCE_PATH_STYLE",
+    "SMTP_URL",
+    "MAIL_FROM",
+    "OPENAI_BASE_URL",
+    "OPENAI_MODEL",
+    "OPENAI_TRANSCRIPTION_MODEL",
+    "TTS_URL"
+  ],
+  "tasks": {
     "build": {
       "dependsOn": ["^build"],
-      "outputs": ["dist/**", ".next/**"]
+      "outputs": ["dist/**", ".next/**", "!.next/cache/**"]
     },
     "lint": {
-      "outputs": []
+      "dependsOn": ["^build"]
     },
     "dev": {
-      "cache": false
+      "cache": false,
+      "persistent": true,
+      "dependsOn": ["^build"]
     },
     "test:ci": {
       "cache": false
+    },
+    "lint:check": {
+      "dependsOn": ["^build"]
+    },
+    "type-check": {
+      "dependsOn": ["^build"]
     }
   }
 }

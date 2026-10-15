@@ -16,7 +16,7 @@ export const DeleteUserButton = ({
 
   const handleDelete = async () => {
     const confirm = window.confirm(
-      `Jeste li sigurni da želite obrisati korisnika?`
+      `Jeste li sigurni da želite obrisati korisnika?`,
     );
     if (!confirm) return;
 

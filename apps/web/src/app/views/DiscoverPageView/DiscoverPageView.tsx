@@ -8,7 +8,7 @@ import {
   PostResponse,
   WorkResponseShort,
 } from "@biosfera/types";
-import { useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import CardCollectionAsync from "components/CardCollectionAsync";
 import { UserWrapper } from "@/utility/wrappers/userWrapper";
 import useDiscover from "@/utility/context/DiscoverContext";
@@ -45,6 +45,26 @@ export const tabDictionary = {
   "Radovi (GBIF)": "work",
 };
 
+type WithId = { id: string };
+
+const appendUnique = <T extends WithId>(previous: T[], incoming?: T[]) => [
+  ...previous,
+  ...(incoming?.filter((x) => !previous.some((y) => y.id == x.id)) || []),
+];
+
+// Appends each newly fetched discover page to the list. An empty page means
+// the feed ran out, which is reported through onEmpty.
+const useAppendPage = <T extends WithId>(
+  fetched: T[] | undefined,
+  setList: Dispatch<SetStateAction<T[]>>,
+  onEmpty: () => void,
+) => {
+  useEffect(() => {
+    if (fetched?.length === 0) onEmpty();
+    setList((prev) => appendUnique(prev, fetched));
+  }, [fetched]);
+};
+
 export const DiscoverPageView = ({
   organisations,
   exponats,
@@ -55,7 +75,7 @@ export const DiscoverPageView = ({
   query = { page: 1, size: 20 },
 }: DiscoverPageViewProps) => {
   const [activeTab, setActiveTab] = useState<tabType>(initTab);
-  const [size, setSize] = useState<number>(query.page || 20);
+  const [size] = useState<number>(query.page || 20);
   const [currentOrganisations, setCurrentOrganisations] = useState<
     OrganisationResponseShort[]
   >([]);
@@ -83,11 +103,11 @@ export const DiscoverPageView = ({
   } = useDiscover();
 
   useEffect(() => {
-    setCurrentGbifWorks(gbifWorks),
-      setCurrentWorks(works),
-      setCurrentPosts(posts),
-      setCurrentExponats(exponats),
-      setCurrentOrganisations(organisations);
+    setCurrentGbifWorks(gbifWorks);
+    setCurrentWorks(works);
+    setCurrentPosts(posts);
+    setCurrentExponats(exponats);
+    setCurrentOrganisations(organisations);
   }, [gbifWorks, works, posts, exponats, organisations]);
 
   const handleError = () => {
@@ -104,6 +124,7 @@ export const DiscoverPageView = ({
     postPage,
     size,
   );
+  const isLoading = organisationLoading || exponatsLoading || postLoading;
 
   useEffect(() => {
     const getMoreWorks = async () => {
@@ -130,57 +151,50 @@ export const DiscoverPageView = ({
     getMoreGbifWorks();
   }, [gbifWorkPage]);
 
-  useEffect(() => {
-    if (currentOrganisationsQuery?.length === 0) handleError();
-    setCurrentOrganisations((prev) => [
-      ...prev,
-      ...(currentOrganisationsQuery?.filter(
-        (x) => !prev.some((y) => y.id == x.id),
-      ) || []),
-    ]);
-  }, [currentOrganisationsQuery]);
+  useAppendPage(
+    currentOrganisationsQuery,
+    setCurrentOrganisations,
+    handleError,
+  );
+  useAppendPage(currentExponatsQuery, setCurrentExponats, handleError);
+  useAppendPage(currentPostsQuery, setCurrentPosts, handleError);
 
-  useEffect(() => {
-    if (currentExponatsQuery?.length === 0) handleError();
-    setCurrentExponats((prev) => [
-      ...prev,
-      ...(currentExponatsQuery?.filter(
-        (x) => !prev.some((y) => y.id == x.id),
-      ) || []),
-    ]);
-  }, [currentExponatsQuery]);
+  // The three discover feeds share one loading state, so none of them
+  // advances while another is fetching. Works page independently.
+  const nextPage =
+    (setPage?: Dispatch<SetStateAction<number>>, waitForFeeds = false) =>
+    async () => {
+      if (waitForFeeds && isLoading) return;
+      setPage && setPage((prev) => prev + 1);
+    };
 
-  useEffect(() => {
-    if (currentPostsQuery?.length === 0) handleError();
-    setCurrentPosts((prev) => [
-      ...prev,
-      ...(currentPostsQuery?.filter((x) => !prev.some((y) => y.id == x.id)) ||
-        []),
-    ]);
-  }, [currentPostsQuery]);
-
-  const handleOrganisationSearch = async () => {
-    if (organisationLoading || exponatsLoading || postLoading) return;
-    setOrganisationPage && setOrganisationPage((prev) => prev + 1);
-  };
-
-  const handleExponatSearch = async () => {
-    if (organisationLoading || exponatsLoading || postLoading) return;
-    setExponatPage && setExponatPage((prev) => prev + 1);
-  };
-
-  const handlePostSearch = async () => {
-    if (organisationLoading || exponatsLoading || postLoading) return;
-    setPostPage && setPostPage((prev) => prev + 1);
-  };
-
-  const handleWorkSeach = async () => {
-    setWorkPage && setWorkPage((prev) => prev + 1);
-  };
-
-  const handleGbifWorkSearch = async () => {
-    setGbifWorkPage && setGbifWorkPage((prev) => prev + 1);
-  };
+  const tabState = {
+    Organizacije: {
+      page: organisationPage,
+      getMore: nextPage(setOrganisationPage, true),
+      items: currentOrganisations || organisations,
+    },
+    Eksponati: {
+      page: exponatPage,
+      getMore: nextPage(setExponatPage, true),
+      items: currentExponats || exponats,
+    },
+    Objave: {
+      page: postPage,
+      getMore: nextPage(setPostPage, true),
+      items: currentPosts || posts,
+    },
+    Radovi: {
+      page: workPage,
+      getMore: nextPage(setWorkPage),
+      items: currentWorks || works,
+    },
+    "Radovi (GBIF)": {
+      page: gbifWorkPage,
+      getMore: nextPage(setGbifWorkPage),
+      items: currentGbifWorks || gbifWorks,
+    },
+  }[activeTab];
 
   return (
     <div className={classes.container}>
@@ -189,43 +203,13 @@ export const DiscoverPageView = ({
         <UserWrapper>
           <CardCollectionAsync
             type={tabDictionary[activeTab] as tabDictionaryType}
-            page={
-              activeTab === "Organizacije"
-                ? organisationPage
-                : activeTab === "Eksponati"
-                  ? exponatPage
-                  : activeTab == "Objave"
-                    ? postPage
-                    : activeTab === "Radovi"
-                      ? workPage
-                      : gbifWorkPage
-            }
+            page={tabState.page}
             isDiscover
-            getMore={
-              activeTab === "Organizacije"
-                ? handleOrganisationSearch
-                : activeTab === "Eksponati"
-                  ? handleExponatSearch
-                  : activeTab === "Objave"
-                    ? handlePostSearch
-                    : activeTab === "Radovi"
-                      ? handleWorkSeach
-                      : handleGbifWorkSearch
-            }
+            getMore={tabState.getMore}
             params={query}
             onError={handleError}
-            isLoading={organisationLoading || exponatsLoading || postLoading}
-            items={
-              activeTab === "Organizacije"
-                ? currentOrganisations || organisations
-                : activeTab === "Eksponati"
-                  ? currentExponats || exponats
-                  : activeTab === "Objave"
-                    ? currentPosts || posts
-                    : activeTab === "Radovi"
-                      ? currentWorks || works
-                      : currentGbifWorks || gbifWorks
-            }
+            isLoading={isLoading}
+            items={tabState.items}
           />
         </UserWrapper>
       </div>

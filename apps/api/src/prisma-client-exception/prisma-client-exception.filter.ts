@@ -59,7 +59,9 @@ export class PrismaClientExceptionFilter extends BaseExceptionFilter {
         break;
       }
 
-      case 'P1008' || 'P1009' || 'P1011': {
+      case 'P1008':
+      case 'P1009':
+      case 'P1011': {
         const status = HttpStatus.REQUEST_TIMEOUT;
         response.status(status).json({
           statusCode: status,

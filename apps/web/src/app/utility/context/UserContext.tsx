@@ -5,7 +5,6 @@ import { useGetMe } from "@/api/useGetMe";
 import React, {
   Dispatch,
   createContext,
-  use,
   useContext,
   useEffect,
   useState,
@@ -22,7 +21,6 @@ import {
 import { useGetFollowers } from "@/api/useGetFollowers";
 import { useGetFollowing } from "@/api/useGetFollowing";
 import { useGetFollowedOrganisations } from "@/api/useGetFollowedOrganisations";
-import { set } from "react-hook-form";
 import { useGetMySavedWorks } from "@/api/useGetMySavedWorks";
 import { useGetMySavedLiterature } from "@/api/useGetMySavedLiterature";
 
@@ -78,192 +76,138 @@ const defaultUserContext: UserContextProps = {
 
 export const UserContext = createContext<UserContextProps>(defaultUserContext);
 
+// A list where "updating" an item adds it when absent and removes it when
+// present, e.g. liking and un-liking a post.
+function useToggleList<T>(getKey: (item: T) => unknown) {
+  const [list, setList] = useState<T[]>([]);
+
+  const toggle = (item: T) => {
+    if (!list) return;
+    const key = getKey(item);
+    const exists = list.some((x) => getKey(x) === key);
+    setList((prev) =>
+      exists ? prev.filter((x) => getKey(x) !== key) : [...prev, item],
+    );
+  };
+
+  return [list, setList, toggle] as const;
+}
+
+const byId = (item: { id: string }) => item.id;
+
+// Lists that arrive with the user's own profile.
+const useProfileLists = (user?: ExtendedUserResponse) => {
+  const [likedPosts, setLikedPosts, updateLikes] =
+    useToggleList<PostResponse>(byId);
+  const [favouriteExponats, setFavouriteExponats, updateFavourites] =
+    useToggleList<ExponatResponseShort>(byId);
+  const [memberships, setMemberships, updateMemberships] =
+    useToggleList<OrganisationResponseShort>(byId);
+  const [posts, setPosts, updatePosts] = useToggleList<PostResponse>(byId);
+
+  useEffect(() => {
+    setLikedPosts(user ? user.likedPosts : []);
+    setFavouriteExponats(user ? user.favouriteExponats : []);
+    setMemberships(user ? user.memberships : []);
+    setPosts(user ? user.posts : []);
+  }, [user?.id, setLikedPosts, setFavouriteExponats, setMemberships, setPosts]);
+
+  return {
+    likedPosts,
+    updateLikes,
+    favouriteExponats,
+    updateFavourites,
+    memberships,
+    updateMemberships,
+    posts,
+    updatePosts,
+  };
+};
+
+const useFollowLists = (userId?: string) => {
+  const [followers, setFollowers, updateFollowers] =
+    useToggleList<ShortUserResponse>(byId);
+  const [following, setFollowing, updateFollowing] =
+    useToggleList<ShortUserResponse>(byId);
+  const [
+    followedOrganisations,
+    setFollowedOrganisations,
+    updateFollowedOrganisation,
+  ] = useToggleList<OrganisationResponseShort>(byId);
+
+  const followersQuery = useGetFollowers(userId);
+  const followingQuery = useGetFollowing(userId);
+  const organisationsQuery = useGetFollowedOrganisations();
+
+  useEffect(() => {
+    if (followersQuery.data) setFollowers(followersQuery.data);
+    if (followingQuery.data) setFollowing(followingQuery.data);
+    if (organisationsQuery.data)
+      setFollowedOrganisations(organisationsQuery.data);
+  }, [
+    followersQuery.data,
+    followingQuery.data,
+    organisationsQuery.data,
+    setFollowers,
+    setFollowing,
+    setFollowedOrganisations,
+  ]);
+
+  return {
+    followers,
+    updateFollowers,
+    following,
+    updateFollowing,
+    followedOrganisations,
+    updateFollowedOrganisation,
+    loading:
+      followersQuery.isLoading ||
+      followingQuery.isLoading ||
+      organisationsQuery.isLoading,
+  };
+};
+
+const useSavedLists = () => {
+  const [savedWorks, setSavedWorks, updateSavedWorks] =
+    useToggleList<WorkResponseShort>(byId);
+  const [savedLiterature, setSavedLiterature, updateSavedLiterature] =
+    useToggleList<SavedLiteratureResponse>((l) => l.literatureId);
+
+  const worksQuery = useGetMySavedWorks();
+  const literatureQuery = useGetMySavedLiterature();
+
+  useEffect(() => {
+    if (worksQuery.data) setSavedWorks(worksQuery.data);
+    if (literatureQuery.data) setSavedLiterature(literatureQuery.data);
+  }, [
+    worksQuery.data,
+    literatureQuery.data,
+    setSavedWorks,
+    setSavedLiterature,
+  ]);
+
+  return {
+    savedWorks,
+    updateSavedWorks,
+    savedLiterature,
+    updateSavedLiterature,
+    loading: worksQuery.isLoading || literatureQuery.isLoading,
+  };
+};
+
+const logout = () => {
+  localStorage.removeItem("access_token");
+  localStorage.removeItem("time");
+  setTimeout(() => {
+    window.location.href = "/";
+  }, 1000);
+};
+
 export const UserProvider = ({ children }: { children: React.ReactNode }) => {
-  const [likedPosts, setLikedPosts] = useState<PostResponse[]>([]);
-  const [followers, setFollowers] = useState<ShortUserResponse[]>([]);
-  const [following, setFollowing] = useState<ShortUserResponse[]>([]);
-  const [followedOrganisations, setFollowedOrganisations] = useState<
-    OrganisationResponseShort[]
-  >([]);
-  const [favouriteExponats, setFavouriteExponats] = useState<
-    ExponatResponseShort[]
-  >([]);
-  const [memberships, setMemberships] = useState<OrganisationResponseShort[]>(
-    [],
-  );
-  const [posts, setPosts] = useState<PostResponse[]>([]);
-  const [savedWorks, setSavedWorks] = useState<WorkResponseShort[]>([]);
-  const [savedLiterature, setSavedLiterature] = useState<
-    SavedLiteratureResponse[]
-  >([]);
-
   const { data: user, isLoading } = useGetMe();
-
-  const { data: followersGet, isLoading: followLoading } = useGetFollowers(
-    user?.id,
-  );
-  const { data: followingGet, isLoading: followingLoading } = useGetFollowing(
-    user?.id,
-  );
-
-  const { data: savedLiteratureGet, isLoading: savedLiteratureLoading } =
-    useGetMySavedLiterature();
-
-  const { data: savedWorksGet, isLoading: savedWorksLoading } =
-    useGetMySavedWorks();
-
-  const { data: followedOrganisationGet, isLoading: orgLoading } =
-    useGetFollowedOrganisations();
-
-  useEffect(() => {
-    if (followersGet) {
-      setFollowers(followersGet);
-    }
-    if (followingGet) {
-      setFollowing(followingGet);
-    }
-    if (followedOrganisationGet) {
-      setFollowedOrganisations(followedOrganisationGet);
-    }
-  }, [followersGet, followingGet, followedOrganisationGet]);
-
-  useEffect(() => {
-    if (savedWorksGet) {
-      setSavedWorks(savedWorksGet);
-    }
-    if (savedLiteratureGet) {
-      setSavedLiterature(savedLiteratureGet);
-    }
-  }, [savedWorksGet, savedLiteratureGet]);
-
-  const updatePosts = (post: PostResponse) => {
-    if (!posts) return;
-    const possiblePost = posts.find((p) => p.id === post.id);
-    if (possiblePost) {
-      setPosts((prev) => prev.filter((p) => p.id !== post.id));
-      return;
-    }
-    setPosts((prev) => [...prev, post]);
-  };
-
-  const updateFavourites = (exponat: ExponatResponseShort) => {
-    if (!favouriteExponats) return;
-    const possibleExponat = favouriteExponats.find(
-      (ex) => ex.id === exponat.id,
-    );
-    if (possibleExponat) {
-      setFavouriteExponats((prev) => prev.filter((ex) => ex.id !== exponat.id));
-      return;
-    }
-    setFavouriteExponats((prev) => [...prev, exponat]);
-  };
-
-  const updateFollowers = (user: ShortUserResponse) => {
-    if (!followers) return;
-    const possibleUser = followers.find((u) => u.id === user.id);
-    if (possibleUser) {
-      setFollowers((prev) => prev.filter((u) => u.id !== user.id));
-      return;
-    }
-    setFollowers((prev) => [...prev, user]);
-  };
-
-  const updateFollowing = (user: ShortUserResponse) => {
-    if (!following) return;
-    const possibleUser = following.find((u) => u.id === user.id);
-    if (possibleUser) {
-      setFollowing((prev) => prev.filter((u) => u.id !== user.id));
-      return;
-    }
-    setFollowing((prev) => [...prev, user]);
-  };
-
-  const updateFollowedOrganisation = (
-    organisation: OrganisationResponseShort,
-  ) => {
-    if (!followedOrganisations) return;
-    const possibleOrganisation = followedOrganisations.find(
-      (org) => org.id === organisation.id,
-    );
-    if (possibleOrganisation) {
-      setFollowedOrganisations((prev) =>
-        prev.filter((org) => org.id !== organisation.id),
-      );
-      return;
-    }
-    setFollowedOrganisations((prev) => [...prev, organisation]);
-  };
-
-  const updateMemberships = (organisation: OrganisationResponseShort) => {
-    if (!memberships) return;
-    const possibleOrganisation = memberships.find(
-      (org) => org.id === organisation.id,
-    );
-    if (possibleOrganisation) {
-      setMemberships((prev) =>
-        prev.filter((org) => org.id !== organisation.id),
-      );
-      return;
-    }
-    setMemberships((prev) => [...prev, organisation]);
-  };
-
-  const updateSavedLiterature = (literature: SavedLiteratureResponse) => {
-    if (!savedLiterature) return;
-    const possibleLiterature = savedLiterature.find(
-      (l) => l.literatureId === literature.literatureId,
-    );
-    if (possibleLiterature) {
-      setSavedLiterature((prev) =>
-        prev.filter((l) => l.literatureId !== literature.literatureId),
-      );
-      return;
-    }
-    setSavedLiterature((prev) => [...prev, literature]);
-  };
-
-  const updateSavedWorks = (work: WorkResponseShort) => {
-    if (!savedWorks) return;
-    const possibleWork = savedWorks.find((w) => w.id === work.id);
-    if (possibleWork) {
-      setSavedWorks((prev) => prev.filter((w) => w.id !== work.id));
-      return;
-    }
-    setSavedWorks((prev) => [...prev, work]);
-  };
-
-  const updateLikes = (post: PostResponse) => {
-    if (!likedPosts) return;
-    const possiblePost = likedPosts.find((p) => p.id === post.id);
-    if (possiblePost) {
-      setLikedPosts((prev) => prev.filter((p) => p.id !== post.id));
-      return;
-    }
-    setLikedPosts((prev) => [...prev, post]);
-  };
-
-  const logout = () => {
-    localStorage.removeItem("access_token");
-    localStorage.removeItem("time");
-    setTimeout(() => {
-      window.location.href = "/";
-    }, 1000);
-  };
-
-  useEffect(() => {
-    if (user) {
-      setLikedPosts(user.likedPosts);
-      setFavouriteExponats(user.favouriteExponats);
-      setMemberships(user.memberships);
-      setPosts(user.posts);
-    }
-    if (!user) {
-      setLikedPosts([]);
-      setFavouriteExponats([]);
-      setMemberships([]);
-      setPosts([]);
-    }
-  }, [user?.id]);
+  const profile = useProfileLists(user);
+  const { loading: followsLoading, ...follows } = useFollowLists(user?.id);
+  const { loading: savedLoading, ...saved } = useSavedLists();
 
   return (
     <UserContext.Provider
@@ -271,32 +215,10 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
         user,
         logout,
         setUser: () => {},
-        updateLikes,
-        updateMemberships,
-        updateSavedLiterature,
-        updateFavourites,
-        updateSavedWorks,
-        updatePosts,
-        likedPosts,
-        memberships,
-        favouriteExponats,
-        savedWorks,
-        posts,
-        savedLiterature,
-        followers,
-        following,
-        followedOrganisations,
-        updateFollowers,
-        updateFollowing,
-        updateFollowedOrganisation,
-
-        loading:
-          isLoading ||
-          followLoading ||
-          followingLoading ||
-          orgLoading ||
-          savedLiteratureLoading ||
-          savedWorksLoading,
+        ...profile,
+        ...follows,
+        ...saved,
+        loading: isLoading || followsLoading || savedLoading,
       }}
     >
       {children}

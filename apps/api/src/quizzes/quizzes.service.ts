@@ -62,7 +62,7 @@ export class QuizzesService {
           },
         },
       },
-      skip: query.page - 1 * query.size,
+      skip: (query.page - 1) * query.size,
     });
 
     return quizzes;
@@ -88,11 +88,6 @@ export class QuizzesService {
           },
         },
         attempts: {
-          where: {
-            timeTaken: {
-              not: null,
-            },
-          },
           include: {
             Answer: true,
           },

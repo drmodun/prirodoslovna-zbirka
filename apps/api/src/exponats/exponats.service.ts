@@ -24,6 +24,7 @@ import {
 import { NotificationsService } from 'src/notifications/notifications.service';
 import { NotificationUsersService } from 'src/notification-users/notification-users.service';
 import { env } from 'process';
+import { buildExponatOrderBy, buildExponatWhere } from './exponats.query';
 
 @Injectable()
 export class ExponatsService {
@@ -215,117 +216,7 @@ export class ExponatsService {
   ) {
     const sort = sorting && sortExponatQueryBuilderWithComplexFilters(sorting);
     return await this.prisma.exponat.findMany({
-      where: {
-        ...(filter?.name && {
-          name: {
-            search: filter.name.split(' ').join(' | '),
-            mode: 'insensitive',
-          },
-        }),
-        ...(filter?.alternateName && {
-          alternateName: {
-            search: filter.alternateName.split(' ').join(' | '),
-            mode: 'insensitive',
-          },
-        }),
-        ...(filter?.organisationId && {
-          organisationId: filter.organisationId,
-        }),
-        ...(filter?.class && {
-          search: filter.class.split(' ').join(' <-> '),
-          Categorization: {
-            is: {
-              class: {
-                mode: 'insensitive',
-              },
-            },
-          },
-        }),
-        ...(filter?.family && {
-          Categorization: {
-            is: {
-              family: {
-                search: filter.family.split(' ').join(' <-> '),
-                mode: 'insensitive',
-              },
-            },
-          },
-        }),
-        ...(filter?.genus && {
-          Categorization: {
-            is: {
-              genus: {
-                search: filter.genus.split(' ').join(' <-> '),
-                mode: 'insensitive',
-              },
-            },
-          },
-        }),
-        ...(filter?.order && {
-          Categorization: {
-            is: {
-              order: {
-                search: filter.order.split(' ').join(' <-> '),
-                mode: 'insensitive',
-              },
-            },
-          },
-        }),
-        ...(filter?.kingdom && {
-          Categorization: {
-            is: {
-              kingdom: {
-                search: filter.kingdom.split(' ').join(' <-> '),
-                mode: 'insensitive',
-              },
-            },
-          },
-        }),
-
-        ...(filter?.phylum && {
-          Categorization: {
-            is: {
-              phylum: {
-                search: filter.phylum.split(' ').join(' <-> '),
-                mode: 'insensitive',
-              },
-            },
-          },
-        }),
-        ...(filter?.species && {
-          Categorization: {
-            is: {
-              species: {
-                search: filter.species.split(' ').join(' <-> '),
-                mode: 'insensitive',
-              },
-            },
-          },
-        }),
-
-        ...(filter.minFavoriteCount && {
-          _count: {
-            FavouriteExponats: {
-              gte: filter.minFavoriteCount,
-            },
-          },
-        }),
-        ...(filter.maxFavoriteCount && {
-          _count: {
-            FavouriteExponats: {
-              lte: filter.maxFavoriteCount,
-            },
-          },
-        }),
-        ...(filter.createdAt && {
-          createdAt: {
-            gte: filter.createdAt,
-          },
-        }),
-        ...(approval && {
-          isApproved: approval,
-        }),
-      },
+      where: buildExponatWhere(filter, approval),
       include: {
         _count: {
           select: {
@@ -341,19 +232,7 @@ export class ExponatsService {
           },
         },
       },
-      orderBy: {
-        ...(sort
-          ? sort
-          : filter.name
-            ? {
-                _relevance: {
-                  fields: ['name'],
-                  search: filter?.name.split(' ').join(' <-> '),
-                  sort: 'desc',
-                },
-              }
-            : null),
-      },
+      orderBy: buildExponatOrderBy(filter, sort),
       skip: (pagination?.page - 1) * pagination?.size,
       take: pagination?.size,
     });

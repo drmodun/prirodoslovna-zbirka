@@ -67,8 +67,8 @@ export const PostView = ({ audio, post, summary }: PostViewProps) => {
           title={post.title}
           text={`Pogledajte post ${post.title} na biosfera.trema.hr`}
         />
-        {audio ? (
-          <AudioButton src={audio} />
+        {audio || post.content ? (
+          <AudioButton src={audio} text={`${post.title}. ${post.content}`} />
         ) : (
           <div className={classes.spinnerContainer}>
             <div className={classes.spinner}></div>

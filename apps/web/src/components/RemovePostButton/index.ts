@@ -1,3 +1,3 @@
 import { RemovePostButton } from "./RemovePostButton";
 
-export default RemovePostButton
+export default RemovePostButton;

@@ -27,7 +27,7 @@ export const RemovePostButton: React.FC<RemovePostButtonProps> = ({
 
   const handleDelete = () => {
     const confirm = window.confirm(
-      "Jeste li sigurni da želite maknuti objavu?"
+      "Jeste li sigurni da želite maknuti objavu?",
     );
     confirm && mutate(postId);
 
@@ -38,7 +38,7 @@ export const RemovePostButton: React.FC<RemovePostButtonProps> = ({
 
     if (likedPosts.some((x: PostResponse) => x.id === postId)) {
       const likeToRemove = likedPosts.find(
-        (x: PostResponse) => x.id === postId
+        (x: PostResponse) => x.id === postId,
       );
       updateLikes(likeToRemove!);
     }

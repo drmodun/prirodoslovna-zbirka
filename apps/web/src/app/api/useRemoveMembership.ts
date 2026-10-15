@@ -7,7 +7,7 @@ const removeMembership = async (params: {
   userId: string;
 }) => {
   return api.delete(
-    `/members/${params.organisationId}/${params.userId}/remove`
+    `/members/${params.organisationId}/${params.userId}/remove`,
   );
 };
 

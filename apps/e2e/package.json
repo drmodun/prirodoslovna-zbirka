@@ -1,0 +1,21 @@
+{
+  "name": "e2e",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:ui": "playwright test --ui",
+    "db": "docker compose -f docker-compose.e2e.yml up -d --wait",
+    "db:down": "docker compose -f docker-compose.e2e.yml down",
+    "build:stack": "node support/build-stack.mjs",
+    "type-check": "tsc --noEmit",
+    "lint:check": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.64.0",
+    "@prisma/client": "^5.1.0",
+    "@types/node": "^20.4.5",
+    "typescript": "^5.1.6"
+  }
+}

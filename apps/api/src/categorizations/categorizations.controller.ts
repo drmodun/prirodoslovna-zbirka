@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
   Query,
+  NotFoundException,
 } from '@nestjs/common';
 import { CategorizationsService } from './categorizations.service';
 import {
@@ -86,6 +87,7 @@ export class CategorizationsController {
   @Get(':id')
   async findOne(@Param('id') id: string) {
     const item = await this.categorizationsService.findOne(id);
+    if (!item) throw new NotFoundException();
 
     const exponats: ExponatResponseShort[] = item.Exponat.map((exponat) => {
       return {

@@ -40,8 +40,11 @@ export const SingleExponatView = (props: SingleExponatViewProps) => {
           <span className={classes.title}>
             AI generirani kratki opis eksponata
           </span>
-          {props.audioDescription ? (
-            <AudioButton src={props.audioDescription} />
+          {props.audioDescription || props.generatedDescription ? (
+            <AudioButton
+              src={props.audioDescription}
+              text={props.generatedDescription}
+            />
           ) : (
             <LoaderIcon />
           )}

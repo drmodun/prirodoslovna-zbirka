@@ -1,41 +1,47 @@
-FROM node:20-alpine AS builder
-RUN apk update
-# Set working directory
+# Build from the repo root: docker build -f apps/web/Dockerfile .
+FROM node:22-bookworm-slim AS base
 WORKDIR /app
-RUN yarn global add turbo
+
+# Reduce the monorepo to the web workspace and what it depends on.
+FROM base AS pruner
 COPY . .
-# Only Take packages that are needed to compile this app
-RUN turbo prune --scope=web --docker
+RUN npx --yes turbo@2 prune web --docker
 
-# Add lockfile and package.json's of isolated subworkspace
-FROM node:20-alpine AS installer
-RUN apk update
-RUN apk add --no-cache libc6-compat
-WORKDIR /app
-COPY --from=builder /app/out/json/ .
-COPY --from=builder /app/out/yarn.lock ./yarn.lock
-COPY --from=builder /app/turbo.json ./turbo.json
+FROM base AS builder
+# Manifests and lockfile only, so the install layer survives source edits.
+COPY --from=pruner /app/out/json/ .
 RUN yarn install --frozen-lockfile
+COPY --from=pruner /app/out/full/ .
+# NEXT_PUBLIC_* values are inlined into the client bundle at build time.
+ARG WEB_URL=http://localhost:3000
+ARG NEXT_PUBLIC_API_URL=http://localhost:5500
+# File storage: see filesUrl in next.config.js.
+ARG NEXT_PUBLIC_FILES_URL=
+ARG AWS_S3_URL=
+ARG AWS_S3_BUCKET=
+ARG AWS_ENDPOINT_URL_S3=
+ARG AWS_REGION=
+ARG FILES_FALLBACK=
+ENV WEB_URL=$WEB_URL \
+  NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL \
+  NEXT_PUBLIC_FILES_URL=$NEXT_PUBLIC_FILES_URL \
+  AWS_S3_URL=$AWS_S3_URL \
+  AWS_S3_BUCKET=$AWS_S3_BUCKET \
+  AWS_ENDPOINT_URL_S3=$AWS_ENDPOINT_URL_S3 \
+  AWS_REGION=$AWS_REGION \
+  FILES_FALLBACK=$FILES_FALLBACK \
+  NEXT_OUTPUT=standalone \
+  NEXT_TELEMETRY_DISABLED=1
+RUN yarn turbo run build --filter=web
 
-
-FROM node:20-alpine AS sourcer
-RUN apk update
-WORKDIR /app
-COPY --from=installer /app/ .
-COPY --from=builder /app/out/full/ .
-COPY .gitignore .gitignore
-ENV NODE_OPTIONS=--max_old_space_size=2048
-ENV DOCKER=1
-ARG WEB_URL="http://localhost:3000"
-ENV WEB_URL=$WEB_URL
-RUN yarn turbo run build --scope=web --include-dependencies --no-deps
-
-FROM node:20-alpine as runner
-WORKDIR /app
-COPY --from=sourcer /app/ .
-WORKDIR /app/apps/web/
+FROM base AS runner
+ENV NODE_ENV=production \
+  NEXT_TELEMETRY_DISABLED=1 \
+  HOSTNAME=0.0.0.0 \
+  PORT=3000
+COPY --from=builder --chown=node:node /app/apps/web/.next/standalone ./
+COPY --from=builder --chown=node:node /app/apps/web/.next/static ./apps/web/.next/static
+COPY --from=builder --chown=node:node /app/apps/web/public ./apps/web/public
+USER node
 EXPOSE 3000
-ARG WEB_URL="http://localhost:3000"
-ENV WEB_URL=$WEB_URL
-ENV DOCKER=1	
-CMD [ "yarn", "start"]
+CMD ["node", "apps/web/server.js"]

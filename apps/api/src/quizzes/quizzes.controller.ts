@@ -10,6 +10,7 @@ import {
   Req,
   UnauthorizedException,
   Query,
+  NotFoundException,
 } from '@nestjs/common';
 import { QuizzesService } from './quizzes.service';
 import { CreateQuizDto, QuizQuery, UpdateQuizDto } from './quizzes.dto';
@@ -75,6 +76,7 @@ export class QuizzesController {
   @Get(':id')
   async findOne(@Param('id') id: string) {
     const quiz = await this.quizzesService.findOne(id);
+    if (!quiz) throw new NotFoundException();
 
     const questionsMapped: QuestionResponse[] = quiz.questions.map(
       (question) => {
@@ -213,6 +215,7 @@ export class QuizzesController {
     );
     if (!isValid) throw new UnauthorizedException();
     const quiz = await this.quizzesService.getSingleWaitingForApproval(id);
+    if (!quiz) throw new NotFoundException();
     const questions = quiz.questions.map((question) => {
       return {
         id: question.id,

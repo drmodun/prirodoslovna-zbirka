@@ -1,8 +1,8 @@
-import { getBaseUrl } from "./getUrlServer";
+import { apiFetch } from "./getUrlServer";
 
 export const serverGetUser = async (id: string) => {
   try {
-    const response = await fetch(`${getBaseUrl()}/users/${id}`, {
+    const response = await apiFetch(["users", id], {
       cache: "no-store",
     }); //user data cannot be cached since it is proably the most dynamic one, possibly do this with manual revalidation later
 

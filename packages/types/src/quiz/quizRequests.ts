@@ -20,7 +20,7 @@ import { SortingEnum, SortType } from "../query";
 export const getCreateQuizRequest = (
   ApiPropertySwagger?: any,
   TypeTest?: any,
-  schema?: any
+  schema?: any,
 ) => {
   const ApiProperty = ApiPropertySwagger || function () {};
   const Type = TypeTest || function () {};
@@ -81,7 +81,7 @@ export const getCreateQuizRequest = (
 export const getUpdateQuizRequest = (
   ApiPropertySwagger?: any,
   TypeTest?: any,
-  schema?: any
+  schema?: any,
 ) => {
   const ApiProperty = ApiPropertySwagger || function () {};
   const Type = TypeTest || function () {};
