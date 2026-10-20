@@ -19,6 +19,6 @@ export const useCardPermissions = (): CardPermissions => {
           membership.id === organisationId &&
           (membership.role === "ADMIN" || membership.role === "OWNER"),
       ),
-    isCurrentUser: (userId) => userId === user?.id,
+    isCurrentUser: (userId) => !!user?.id && userId === user.id,
   };
 };

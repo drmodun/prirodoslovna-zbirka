@@ -86,7 +86,7 @@ export const CardCollectionAsync: React.FC<CardCollectionAsyncProps> = ({
   useEffect(() => {
     setItemsToShow(items);
     setCurrentPage(page || 2);
-    setLoading(false);
+    setLoading(isLoading);
     setFailed(false);
   }, [page, type, items]);
 

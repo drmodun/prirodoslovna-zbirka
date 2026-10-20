@@ -56,6 +56,9 @@ export const useExponatSubmit = ({
 
     if (mineral) return undefined;
 
+    // Editing without a new suggestion keeps the stored categorization.
+    if (!match) return values?.categorization?.id;
+
     const categorization = match as any;
     categorization.domain = formData.exponatKind;
     const speciesId = await readOrCreateCategorization(categorization);

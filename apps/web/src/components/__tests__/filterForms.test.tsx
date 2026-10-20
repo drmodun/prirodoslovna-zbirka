@@ -81,10 +81,7 @@ describe("refineSortPair", () => {
     expect(refineSortPair(data)).toBe(expected);
   });
 
-  // BUG: the refinement returns `undefined` for every valid input, and zod
-  // treats a falsy result as "invalid". Pressing Enter in a filter form
-  // therefore always reports "Smjer i atribut samo mogu biti oboje odabrani...".
-  it.failing.each([[{ attribute: "name", direction: "asc" }], [{}]])(
+  it.each([[{ attribute: "name", direction: "asc" }], [{}]])(
     "accepts a complete or empty pair (%j)",
     (data) => {
       expect(refineSortPair(data)).toBe(true);

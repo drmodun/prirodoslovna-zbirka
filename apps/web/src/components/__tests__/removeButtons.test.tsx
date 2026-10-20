@@ -93,21 +93,17 @@ describe("RemovePostButton", () => {
     expect(ctx.updateLikes).toHaveBeenCalledWith({ id: "p1" });
   });
 
-  // BUG: the shared lists are updated even when the user pressed "Cancel".
-  it.failing(
-    "keeps the post in the user's lists when the user cancels",
-    async () => {
-      confirm(false);
-      const ctx = setUserContext({
-        posts: [{ id: "p1" }],
-        likedPosts: [{ id: "p1" }],
-      });
-      render(<RemovePostButton postId="p1" />);
-      await userEvent.click(screen.getByTitle("Delete Post"));
-      expect(ctx.updatePosts).not.toHaveBeenCalled();
-      expect(ctx.updateLikes).not.toHaveBeenCalled();
-    },
-  );
+  it("keeps the post in the user's lists when the user cancels", async () => {
+    confirm(false);
+    const ctx = setUserContext({
+      posts: [{ id: "p1" }],
+      likedPosts: [{ id: "p1" }],
+    });
+    render(<RemovePostButton postId="p1" />);
+    await userEvent.click(screen.getByTitle("Delete Post"));
+    expect(ctx.updatePosts).not.toHaveBeenCalled();
+    expect(ctx.updateLikes).not.toHaveBeenCalled();
+  });
 
   it("calls onRemove once the deletion succeeded", () => {
     state.removePost.isSuccess = true;
@@ -169,8 +165,7 @@ describe("RemoveExponatButton", () => {
     expect(state.removeExponat.mutate).not.toHaveBeenCalled();
   });
 
-  // BUG: same as RemovePostButton: favourites are changed even after "Cancel".
-  it.failing("keeps the favourite when the user cancels", async () => {
+  it("keeps the favourite when the user cancels", async () => {
     confirm(false);
     const ctx = setUserContext({ favouriteExponats: [{ id: "e1" }] });
     render(<RemoveExponatButton exponatId="e1" />);

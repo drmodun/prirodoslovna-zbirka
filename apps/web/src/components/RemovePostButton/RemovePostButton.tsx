@@ -29,7 +29,8 @@ export const RemovePostButton: React.FC<RemovePostButtonProps> = ({
     const confirm = window.confirm(
       "Jeste li sigurni da želite maknuti objavu?",
     );
-    confirm && mutate(postId);
+    if (!confirm) return;
+    mutate(postId);
 
     if (posts.some((x: PostResponse) => x.id === postId)) {
       const postToRemove = posts.find((x: PostResponse) => x.id === postId);

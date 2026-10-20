@@ -248,23 +248,17 @@ describe("useExponatSubmit", () => {
     expect(api.image.mutateAsync).not.toHaveBeenCalled();
   });
 
-  // BUG: when editing, an unknown nomenclature is let through (no alert), but the
-  // code then does `match.domain = ...` on `undefined` and throws, so the edit
-  // cannot be saved unless the species suggestions happen to contain the name.
-  it.failing(
-    "editing saves an exponat whose nomenclature is not in the suggestion list",
-    async () => {
-      const submit = submitter({
-        isEdit: true,
-        values: { id: "e1" },
-        species: [],
-      });
-      await act(async () => {
-        await submit(valid(), files({ mainImage: [] }));
-      });
-      expect(api.update.mutateAsync).toHaveBeenCalled();
-    },
-  );
+  it("editing saves an exponat whose nomenclature is not in the suggestion list", async () => {
+    const submit = submitter({
+      isEdit: true,
+      values: { id: "e1" },
+      species: [],
+    });
+    await act(async () => {
+      await submit(valid(), files({ mainImage: [] }));
+    });
+    expect(api.update.mutateAsync).toHaveBeenCalled();
+  });
 
   it("goes back to the organisation page after saving", async () => {
     const hrefs: string[] = [];

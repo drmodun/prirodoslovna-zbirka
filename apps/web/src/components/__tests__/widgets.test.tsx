@@ -424,10 +424,7 @@ describe("permission wrappers", () => {
       expect(p.isCurrentUser("u2")).toBe(false);
     });
 
-    // BUG: `userId === user?.id` is true when both are undefined, so a logged out
-    // visitor counts as "the current user" for any item without an owner id
-    // (e.g. MembershipCard then offers "leave organisation").
-    it.failing("nobody is the current user when logged out", () => {
+    it("nobody is the current user when logged out", () => {
       setUserContext();
       expect(permissions().isCurrentUser(undefined)).toBe(false);
     });

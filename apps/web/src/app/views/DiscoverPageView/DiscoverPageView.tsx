@@ -75,7 +75,7 @@ export const DiscoverPageView = ({
   query = { page: 1, size: 20 },
 }: DiscoverPageViewProps) => {
   const [activeTab, setActiveTab] = useState<tabType>(initTab);
-  const [size] = useState<number>(query.page || 20);
+  const [size] = useState<number>(query.size || 20);
   const [currentOrganisations, setCurrentOrganisations] = useState<
     OrganisationResponseShort[]
   >([]);

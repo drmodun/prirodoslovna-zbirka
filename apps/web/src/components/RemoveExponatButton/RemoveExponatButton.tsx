@@ -27,7 +27,8 @@ export const RemoveExponatButton: React.FC<RemoveExponatButtonProps> = ({
     const confirm = window.confirm(
       "Jeste li sigurni da želite maknuti eksponat?",
     );
-    confirm && mutate(exponatId);
+    if (!confirm) return;
+    mutate(exponatId);
 
     if (
       favouriteExponats.some((x: ExponatResponseShort) => x.id === exponatId)

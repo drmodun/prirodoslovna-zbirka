@@ -51,7 +51,7 @@ export const SocialPostCard = ({ post }: SocialPostCardProps) => (
     </div>
     <div className={classes.content}>
       <span className={classes.type}>
-        {getEnumValue(post.type, SocialPostType) || "Objava"}
+        {getEnumValue(SocialPostType, post.type) || "Objava"}
       </span>
       <span className={classes.title}>{post.title}</span>
       <span className={classes.text}>{post.text}</span>

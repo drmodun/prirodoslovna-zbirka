@@ -1,26 +1,30 @@
 import { County } from "@biosfera/types";
 
-export const makeCountyName = (county: string) => {
-  if (!Object.keys(County).includes(county)) return county;
-  if (county === "OTHER") return "Ostalo";
-  if (county === "GRAD_ZAGREB") return "Grad Zagreb";
-  if (!county) return "Nepoznato";
-  const addHiphen = county.replace("_", "-").toLowerCase();
-  const capitalize = addHiphen.charAt(0).toUpperCase() + addHiphen.slice(1);
-  let final = capitalize + " županija";
-
-  for (let i = 0; i < final.length; i++) {
-    if (final[i] === "c") {
-      final = final.slice(0, i) + "č" + final.slice(i + 1);
-    }
-
-    if (final[i] === "z" && final[i - 1] !== "-") {
-      final = final.slice(0, i) + "ž" + final.slice(i + 1);
-    }
-  }
-
-  if (county === "SIBENSKO_KNINSKA") return "Š" + final.slice(1);
-  if (county === "MEDIMURSKA") return final.slice(0, 2) + "đ" + final.slice(3);
-
-  return final;
+const COUNTY_NAMES: Record<keyof typeof County, string> = {
+  SPLITSKO_DALMATINSKA: "Splitsko-dalmatinska županija",
+  DUBROVACKO_NERETVANSKA: "Dubrovačko-neretvanska županija",
+  SIBENSKO_KNINSKA: "Šibensko-kninska županija",
+  ZADARSKA: "Zadarska županija",
+  ZAGREBACKA: "Zagrebačka županija",
+  KARLOVACKA: "Karlovačka županija",
+  VARAZDINSKA: "Varaždinska županija",
+  KOPRIVNICKO_KRIZEVACKA: "Koprivničko-križevačka županija",
+  KRAPINSKO_ZAGORSKA: "Krapinsko-zagorska županija",
+  MEDIMURSKA: "Međimurska županija",
+  OSIJECKO_BARANJSKA: "Osječko-baranjska županija",
+  POZESKO_SLAVONSKA: "Požeško-slavonska županija",
+  PRIMORSKO_GORANSKA: "Primorsko-goranska županija",
+  SISACKO_MOSLAVACKA: "Sisačko-moslavačka županija",
+  VUKOVARSKO_SRIJEMSKA: "Vukovarsko-srijemska županija",
+  GRAD_ZAGREB: "Grad Zagreb",
+  BJELOVARSKO_BILOGORSKA: "Bjelovarsko-bilogorska županija",
+  BRODSKO_POSAVSKA: "Brodsko-posavska županija",
+  ISTARSKA: "Istarska županija",
+  LICKO_SENJSKA: "Ličko-senjska županija",
+  VIROVITICKO_PODRAVSKA: "Virovitičko-podravska županija",
+  OTHER: "Ostalo",
 };
+
+// The Croatian name of a county key; anything else is returned as it is.
+export const makeCountyName = (county: string) =>
+  COUNTY_NAMES[county as keyof typeof County] ?? county;

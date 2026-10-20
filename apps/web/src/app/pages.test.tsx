@@ -1,5 +1,5 @@
 import React from "react";
-import { redirect } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 
 // ---- data layer ----------------------------------------------------------
 const mockData = {
@@ -380,13 +380,11 @@ describe("UserPage", () => {
     expect(named(tree, "UserPageBody").savedLiterature).toEqual([{ id: "l1" }]);
   });
 
-  // BUG: the saved literature is mapped *before* the null check, so an unknown
-  // user (serverGetUser -> null) throws a TypeError (HTTP 500) instead of
-  // rendering the "not found" page the component already has.
-  it.failing("renders the not found page for an unknown user", async () => {
+  it("answers 404 for an unknown user", async () => {
     mockData.user.mockResolvedValue(null);
     const tree = await UserPage({ params: { userId: "nope" } });
-    expect(find(tree, "NotFound")).toBeTruthy();
+    expect(notFound).toHaveBeenCalled();
+    expect(find(tree, "UserCard")).toBeUndefined();
   });
 });
 
@@ -408,17 +406,12 @@ describe("OrganisationPage", () => {
     expect(named(tree, "OrganisationBody").works).toEqual([]);
   });
 
-  // BUG: a missing or unapproved organisation (serverGetOrganisation -> null)
-  // is handed to OrganisationBody, which cannot render it, instead of showing
-  // a not found page.
-  it.failing(
-    "does not render the organisation body for an unknown organisation",
-    async () => {
-      mockData.organisation.mockResolvedValue(null);
-      const tree = await OrganisationPage({
-        params: { organisationId: "nope" },
-      });
-      expect(find(tree, "OrganisationBody")).toBeUndefined();
-    },
-  );
+  it("answers 404 for an unknown organisation", async () => {
+    mockData.organisation.mockResolvedValue(null);
+    const tree = await OrganisationPage({
+      params: { organisationId: "nope" },
+    });
+    expect(notFound).toHaveBeenCalled();
+    expect(find(tree, "OrganisationBody")).toBeUndefined();
+  });
 });
