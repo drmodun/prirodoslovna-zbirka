@@ -131,8 +131,9 @@ export class PostsService {
           },
         },
       },
-      skip: (filter?.page - 1) * filter?.size,
-      take: filter?.size,
+      ...(filter?.page && filter?.size
+        ? { skip: (filter.page - 1) * filter.size, take: filter.size }
+        : {}),
     });
 
     return posts;
@@ -201,7 +202,7 @@ export class PostsService {
       },
     });
 
-    return post.authorId === userId;
+    return post?.authorId === userId;
   }
 
   async remove(id: string) {

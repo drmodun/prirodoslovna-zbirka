@@ -29,6 +29,7 @@ import {
   SortingRequest,
 } from '@biosfera/types';
 import { SortingParams } from 'src/config/sorting';
+import { isModerator } from 'src/auth/roles';
 @ApiTags('posts')
 @Controller('posts')
 export class PostsController {
@@ -86,7 +87,7 @@ export class PostsController {
     filter.page = paginationParam?.page;
     filter.size = paginationParam?.size;
 
-    if (req.user?.role === 'super') filter.isAdmin = true;
+    if (isModerator(req.user)) filter.isAdmin = true;
 
     const posts = await this.postsService.findAll(filter);
 
@@ -145,8 +146,22 @@ export class PostsController {
   @ApiBearerAuth()
   @Get(':id')
   async findOne(@Param('id') id: string, @Req() req?: any) {
-    const check =
-      req.user && (await this.membersService.hasAdminRights(req.user?.id, id));
+    // Pending posts are visible to their author and the organisation's
+    // moderators.
+    let check = false;
+    if (req.user?.id) {
+      const exponat = await this.exponatsService.findExponatByPostId(id);
+      const organisationId =
+        exponat &&
+        (await this.organisationsService.findOrganisationByExponatId(exponat));
+      check =
+        (await this.postsService.checkValidity(id, req.user.id)) ||
+        (organisationId &&
+          (await this.membersService.hasModerationRights(
+            req.user.id,
+            organisationId,
+          )));
+    }
 
     const post = await this.postsService.findOne(id, !check);
 
@@ -183,12 +198,12 @@ export class PostsController {
     const organisationId =
       await this.organisationsService.findOrganisationByExponatId(exponat);
     const check = await this.postsService.checkValidity(id, req.user.id);
-    const admin = await this.membersService.hasAdminRights(
+    const admin = await this.membersService.hasModerationRights(
       req.user.id,
       organisationId,
     );
 
-    if (!check && !admin && !(req.user.role === 'super'))
+    if (!check && !admin && !isModerator(req.user))
       throw new UnauthorizedException(
         "You cannot update this post because it is not yours and you don't have admin rights",
       );
@@ -204,12 +219,12 @@ export class PostsController {
     const organisationId =
       await this.organisationsService.findOrganisationByExponatId(exponat);
     const check = await this.postsService.checkValidity(id, req.user.id);
-    const admin = await this.membersService.hasAdminRights(
+    const admin = await this.membersService.hasModerationRights(
       req.user.id,
       organisationId,
     );
 
-    if (!check && !admin && !(req.user.role === 'super'))
+    if (!check && !admin && !isModerator(req.user))
       throw new UnauthorizedException(
         "You cannot delete this post because it is not yours and you don't have admin rights",
       );
@@ -225,12 +240,12 @@ export class PostsController {
     const organisationId =
       await this.organisationsService.findOrganisationByExponatId(exponat);
     // Moderation: being the author is not enough.
-    const admin = await this.membersService.hasAdminRights(
+    const admin = await this.membersService.hasModerationRights(
       req.user.id,
       organisationId,
     );
 
-    if (!admin && !(req.user.role === 'super'))
+    if (!admin && !isModerator(req.user))
       throw new UnauthorizedException(
         "You cannot approve or disapprove this post because you don't have admin rights",
       );
@@ -240,13 +255,13 @@ export class PostsController {
 
   @UseGuards(OptionalJwtAuthGuard)
   @ApiBearerAuth()
-  @Get('/:organisationId')
+  @Get('organisation/:organisationId')
   async findAllByOrganisation(
     @Param('organisationId') organisationId: string,
     @Req() req?: any,
   ) {
-    const adminCheck = await this.membersService.hasAdminRights(
-      req.user.id,
+    const adminCheck = await this.membersService.hasModerationRights(
+      req.user?.id,
       organisationId,
     );
 
@@ -280,12 +295,12 @@ export class PostsController {
     @Param('organisationId') organisationId: string,
     @Req() req: any,
   ) {
-    const adminCheck = await this.membersService.hasAdminRights(
+    const adminCheck = await this.membersService.hasModerationRights(
       req.user.id,
       organisationId,
     );
 
-    if (!adminCheck && !(req.user.role === 'super'))
+    if (!adminCheck && !isModerator(req.user))
       throw new UnauthorizedException(
         "You cannot see unapproved posts because you don't have admin rights",
       );

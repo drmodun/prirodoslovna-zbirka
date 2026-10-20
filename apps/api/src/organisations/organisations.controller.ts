@@ -37,6 +37,7 @@ import { County } from '@prisma/client';
 import { JwtAuthGuard } from 'src/auth/jwt-auth-guard';
 import { OptionalJwtAuthGuard } from 'src/auth/optional-jwt-auth-guard';
 import { MembersService } from 'src/members/members.service';
+import { isModerator } from 'src/auth/roles';
 
 @Controller('organisations')
 @ApiTags('organisations')
@@ -102,7 +103,7 @@ export class OrganisationsController {
     @Query() filter?: OrganisationQuery,
     @Req() req?: any,
   ) {
-    const isAdmin = req?.user?.role === 'super';
+    const isAdmin = isModerator(req?.user);
     const items = await this.organisationsService.findAllShort(
       filter,
       sorting,
@@ -175,7 +176,7 @@ export class OrganisationsController {
   @Get(':id')
   async findOne(@Param('id') id: string, @Req() req?: any) {
     const isAdmin =
-      req?.user?.role === 'super' ||
+      isModerator(req?.user) ||
       (req.user &&
         (await this.membersService.hasAdminRights(req.user?.id, id)));
 
@@ -327,9 +328,9 @@ export class OrganisationsController {
   @ApiBearerAuth()
   @Patch(':id/approval')
   async changeApprovalStatus(@Param('id') id: string, @Req() req?: any) {
-    if (req?.user?.role !== 'super')
+    if (!isModerator(req?.user))
       throw new UnauthorizedException(
-        'Only super users can approve organisations',
+        'Only platform moderators can approve organisations',
       );
 
     return await this.organisationsService.changeApprovalStatus(id);

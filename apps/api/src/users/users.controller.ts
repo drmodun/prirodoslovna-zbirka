@@ -18,7 +18,11 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
-import { RegisterUserDto, UpdateUserDto } from './dto/users.dto';
+import {
+  RegisterUserDto,
+  ResetPasswordDto,
+  UpdateUserDto,
+} from './dto/users.dto';
 import {
   ApiBearerAuth,
   ApiBody,
@@ -42,6 +46,7 @@ import { PostResponse } from '@biosfera/types';
 import { JwtAuthGuard } from 'src/auth/jwt-auth-guard';
 import { OptionalJwtAuthGuard } from 'src/auth/optional-jwt-auth-guard';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { isModerator, isSuperUser } from 'src/auth/roles';
 
 @Controller('users')
 @ApiTags('users')
@@ -129,7 +134,7 @@ export class UsersController {
   @ApiBearerAuth()
   @Get(':id')
   async findOne(@Param('id') id: string, @Req() req: any) {
-    const isAdmin = req.user?.role === 'super';
+    const isAdmin = isModerator(req.user);
     try {
       const item = await this.usersService.findOne(id, !isAdmin);
 
@@ -248,7 +253,9 @@ export class UsersController {
 
       const mapped: ExtendedUserResponse = {
         // Only the user themself and super users see the address.
-        ...((isAdmin || req.user?.id === id) && { email: item.email }),
+        ...((isSuperUser(req.user) || req.user?.id === id) && {
+          email: item.email,
+        }),
         firstName: item.firstName,
         lastName: item.lastName,
         username: item.username,
@@ -333,7 +340,7 @@ export class UsersController {
     @Body() updateUserDto: UpdateUserDto,
     @Req() req: any,
   ) {
-    if (req.user.role !== 'super') {
+    if (!isSuperUser(req.user)) {
       throw new UnauthorizedException();
     }
 
@@ -344,7 +351,7 @@ export class UsersController {
   @ApiBearerAuth()
   @Delete(':id')
   async adminDelete(@Param('id') id: string, @Req() req: any) {
-    if (req.user.role !== 'super') {
+    if (!isSuperUser(req.user)) {
       throw new UnauthorizedException();
     }
 
@@ -355,7 +362,7 @@ export class UsersController {
   @ApiBearerAuth()
   @Get(':id/requests')
   async getRequests(@Param('id') id: string, @Req() req?: any) {
-    if (req.user.role !== 'super') {
+    if (!isSuperUser(req.user)) {
       throw new UnauthorizedException();
     }
 
@@ -390,17 +397,14 @@ export class UsersController {
 
   @Post('/forgot-password/:email')
   async forgotPassword(@Param('email') email: string) {
-    const forgotPassword =
-      await this.usersService.sendPasswordResetEmail(email);
-
-    return forgotPassword;
+    await this.usersService.sendPasswordResetEmail(email);
   }
 
-  @Post('/reset-password/:activationCode')
+  @Post('/reset-password/:token')
   async resetPassword(
-    @Param('activationCode') activationCode: string,
-    @Body() { newPassword }: { newPassword: string },
+    @Param('token') token: string,
+    @Body() { newPassword }: ResetPasswordDto,
   ) {
-    await this.usersService.resetPassword(activationCode, newPassword);
+    await this.usersService.resetPassword(token, newPassword);
   }
 }

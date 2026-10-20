@@ -44,6 +44,11 @@ Notes:
 - `PrismaService` is registered in ~20 modules (one `PrismaClient` and pool
   each), so the harness caps each pool with `connection_limit=2` and
   disconnects every instance on close.
+- `EventEmitterModule.forRoot()` creates one emitter when `AppModule` is
+  loaded, so two apps booted in one Jest process share it. Pass
+  `createTestContext({ separateProcess: true })` to give an app its own
+  emitter, e.g. to stand in for a second API instance (the cross-instance
+  notification test does this).
 
 ## Known bugs are encoded as `it.failing`
 

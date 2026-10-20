@@ -34,16 +34,18 @@ endpoints create or delete that row.
 **User**: `email` (unique), `username`, `firstName`, `lastName`, `bio`
 (defaults to "Homo sapiens u biosferi"), `location` (a Croatian `County`),
 `password` (bcrypt hash), `hasProfileImage`, `isActivated`,
-`IsEmailNotificationsEnabled`, and a platform `role`:
+`isEmailNotificationsEnabled`, and a platform `role`:
 
 | `Role`  | Meaning |
 | ------- | ------- |
 | `USER`  | Everyone, by default |
-| `ADMIN` | Exists in the schema and the token, but no endpoint checks it today |
+| `ADMIN` | Platform moderator: reviews, approves, edits and deletes content in every organisation and approves organisations, but cannot manage users or memberships |
 | `SUPER` | Platform administrator: bypasses organisation checks, sees unapproved content, manages users |
 
-`activationCode` (a UUID) is used twice: in the activation link and in the
-password reset link.
+`activationCode` (a UUID) is the activation link. Password resets use a
+separate, single-use token: only its SHA-256 hash is stored in
+`passwordResetToken`, with `passwordResetExpiresAt` one hour after the
+request.
 
 **Organisation**: `name`, `email` (unique), `websiteUrl`, `description`,
 `mainImage`, `location`, `isApproved` (default `true`).
@@ -117,8 +119,11 @@ followers, new content by followed accounts, point milestones, …).
 `isTest`, `isRetakeable`, `isAnonymousAllowed`, `isApproved`),
 **Question** (`questionType`: `MULTIPLE_CHOICE`, `TRUE_FALSE`,
 `FILL_IN_THE_BLANK`; `options[]`, `correct[]`, `points`, optional time limit
-and image), **Attempt** and **Answer**. The tables exist; the feature does
-not work end to end yet ([Quizzes](/docs/features/quizzes/)).
+and image), **Attempt** (`userId`, null for anonymous attempts;
+`startedAt`, `submittedAt` (null while running), server-measured `timeTaken`
+in milliseconds, `score`, `maxScore`) and **Answer** (one per attempt and
+question: the given `answer` as a JSON array, `isCorrect`, `points`, the
+client-reported `timeTaken` in seconds). See [Quizzes](/docs/features/quizzes/).
 
 ## Conventions and quirks
 

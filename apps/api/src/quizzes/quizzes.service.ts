@@ -61,7 +61,8 @@ export class QuizzesService {
         _count: {
           select: {
             questions: true,
-            attempts: true,
+            // Only finished attempts count.
+            attempts: { where: { submittedAt: { not: null } } },
           },
         },
         organisation: {
@@ -87,7 +88,8 @@ export class QuizzesService {
         questions: true,
         _count: {
           select: {
-            attempts: true,
+            // Only finished attempts count.
+            attempts: { where: { submittedAt: { not: null } } },
             questions: true,
           },
         },
@@ -97,15 +99,19 @@ export class QuizzesService {
             name: true,
           },
         },
-        attempts: {
-          include: {
-            Answer: true,
-          },
-        },
       },
     });
 
     return quiz;
+  }
+
+  // Average points of the finished attempts.
+  async averageScore(quizId: string) {
+    const { _avg } = await this.prisma.attempt.aggregate({
+      where: { quizId, submittedAt: { not: null } },
+      _avg: { score: true },
+    });
+    return Math.round((_avg.score ?? 0) * 100) / 100;
   }
 
   // Quizzes are only changed through the organisation they belong to.
@@ -174,7 +180,8 @@ export class QuizzesService {
         _count: {
           select: {
             questions: true,
-            attempts: true,
+            // Only finished attempts count.
+            attempts: { where: { submittedAt: { not: null } } },
           },
         },
       },
@@ -194,7 +201,8 @@ export class QuizzesService {
         _count: {
           select: {
             questions: true,
-            attempts: true,
+            // Only finished attempts count.
+            attempts: { where: { submittedAt: { not: null } } },
           },
         },
         questions: true,

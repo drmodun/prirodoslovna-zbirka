@@ -73,7 +73,7 @@ export const CollectionCard = (props: CollectionCardProps) => {
       return (
         <ExponatCard
           exponat={item as ExponatResponseShort}
-          isAdmin={permissions.isOrganisationAdmin(
+          isAdmin={permissions.canModerate(
             (item as ExponatResponseShort).organizationId,
           )}
           onRemove={onRemove}
@@ -83,7 +83,7 @@ export const CollectionCard = (props: CollectionCardProps) => {
       return (
         <PostCard
           post={item as PostResponse}
-          isAdmin={permissions.isOrganisationAdmin(
+          isAdmin={permissions.canModerate(
             organisationId ?? (item as PostResponse).organisationId,
           )}
           onRemove={onRemove}
@@ -120,7 +120,7 @@ export const CollectionCard = (props: CollectionCardProps) => {
       return (
         <WorkCard
           work={item as WorkResponseShort}
-          isAdmin={permissions.isOrganisationAdmin(item.organisationId)}
+          isAdmin={permissions.canModerate(item.organisationId)}
           onDelete={props.onRemoveWork}
         />
       );

@@ -1,17 +1,12 @@
 import { Module } from '@nestjs/common';
 import { SocialPostsService } from './social-posts.service';
 import { SocialPostsController } from './social-posts.controller';
-import { PrismaService } from 'src/prisma/prisma.service';
-import { NotificationsService } from 'src/notifications/notifications.service';
-import { NotificationUsersService } from 'src/notification-users/notification-users.service';
+import { NotificationsModule } from 'src/notifications/notifications.module';
+import { NotificationUsersModule } from 'src/notification-users/notification-users.module';
 
 @Module({
+  imports: [NotificationsModule, NotificationUsersModule],
   controllers: [SocialPostsController],
-  providers: [
-    SocialPostsService,
-    PrismaService,
-    NotificationsService,
-    NotificationUsersService,
-  ],
+  providers: [SocialPostsService],
 })
 export class SocialPostsModule {}

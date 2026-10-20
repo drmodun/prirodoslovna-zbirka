@@ -8,6 +8,7 @@ import {
   WorkTypeEnumType,
 } from '@biosfera/types';
 import { MemberRole, WorkType } from '@prisma/client';
+import { isModeratorRole } from 'src/auth/roles';
 
 @Injectable()
 export class WorksService {
@@ -153,7 +154,8 @@ export class WorksService {
     return membership != null;
   }
 
-  // The author, a super user, or an admin / owner of the work's organisation.
+  // The author, a platform moderator, or an admin / owner of the work's
+  // organisation.
   // With moderation set, being the author is not enough (approving).
   async checkRights(userId: string, workId: string, moderation = false) {
     const work = await this.prisma.work.findFirst({
@@ -172,7 +174,7 @@ export class WorksService {
       },
     });
 
-    if (user?.role === 'SUPER') return true;
+    if (isModeratorRole(user?.role)) return true;
 
     return await this.checkIsAdmin(userId, work.organisationId);
   }

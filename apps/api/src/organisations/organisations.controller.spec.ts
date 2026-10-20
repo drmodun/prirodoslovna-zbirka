@@ -307,18 +307,21 @@ describe('OrganisationsController', () => {
       expect(guards?.length).toBeGreaterThan(0);
     });
 
-    it('approval toggle refuses everyone but super users', async () => {
+    it('approval toggle refuses everyone but platform moderators', async () => {
       await expect(
         controller.changeApprovalStatus('o1', req),
       ).rejects.toBeInstanceOf(UnauthorizedException);
       expect(svc.changeApprovalStatus).not.toHaveBeenCalled();
     });
 
-    it('approval toggle delegates to the service for super users', async () => {
-      await controller.changeApprovalStatus('o1', {
-        user: { id: 'me', role: 'super' },
-      });
-      expect(svc.changeApprovalStatus).toHaveBeenCalledWith('o1');
-    });
+    it.each(['super', 'admin'])(
+      'approval toggle delegates to the service for role %s',
+      async (role) => {
+        await controller.changeApprovalStatus('o1', {
+          user: { id: 'me', role },
+        });
+        expect(svc.changeApprovalStatus).toHaveBeenCalledWith('o1');
+      },
+    );
   });
 });

@@ -19,6 +19,7 @@ import OrganisationForm from "components/CreateOrganisationForm";
 import DeleteOrganisationButton from "components/DeleteOrganisationButton";
 import BaseButton from "components/BaseButton";
 import Link from "next/link";
+import { isModeratorRole, isSuperRole } from "@/utility/static/roles";
 export interface OrganisationBodyProps {
   organisation: ExtendedOrganisationResponse;
   works: WorkResponseShort[];
@@ -83,12 +84,14 @@ const TabPanel = ({ activeTab, organisation, works }: TabPanelProps) => {
           )}
           exponats={organisation.exponats}
           organisationId={organisation.id}
-          isAdmin={memberships.some(
-            (x) =>
-              (x.id === organisation.id && x.role === "ADMIN") ||
-              x.role === "OWNER" ||
-              user?.role?.toLowerCase() === "super",
-          )}
+          isAdmin={
+            isSuperRole(user?.role) ||
+            memberships.some(
+              (x) =>
+                x.id === organisation.id &&
+                (x.role === "ADMIN" || x.role === "OWNER"),
+            )
+          }
         />
       );
     case "Objave":
@@ -151,21 +154,24 @@ export const OrganisationBody = ({
     setWorksData(works);
   }, [works]);
 
-  const canManage =
-    user?.role?.toLocaleLowerCase() === "super" ||
+  const isOrganisationAdmin =
+    isSuperRole(user?.role) ||
     memberships.some(
       (x) =>
         x.id === organisation.id && (x.role === "ADMIN" || x.role === "OWNER"),
     );
+  const canModerate = isOrganisationAdmin || isModeratorRole(user?.role);
 
-  // Admins get the unapproved content too, and an Edit tab.
+  // Moderators get the unapproved content too; organisation admins also get
+  // an Edit tab.
   const possiblyRefecth = async () => {
-    if (!canManage) return;
+    if (!canModerate) return;
     const adminOrg = await api.get<never, ExtendedOrganisationResponse>(
       `/organisations/${organisation.id}`,
     );
     if (adminOrg) setOrganisationData(adminOrg);
-    setAvailableTabs((prev) => [...prev.filter((x) => x !== "Edit"), "Edit"]);
+    if (isOrganisationAdmin)
+      setAvailableTabs((prev) => [...prev.filter((x) => x !== "Edit"), "Edit"]);
   };
   useEffect(() => {
     possiblyRefecth();

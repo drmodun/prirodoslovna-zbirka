@@ -417,6 +417,24 @@ describe("permission wrappers", () => {
       expect(p.isOrganisationAdmin(undefined)).toBe(false);
     });
 
+    it("platform moderators moderate content but not memberships", () => {
+      setUserContext({ user: { id: "u1", role: "ADMIN" } });
+      const p = permissions();
+      expect(p.isSuper).toBe(false);
+      expect(p.canModerate("anything")).toBe(true);
+      expect(p.isOrganisationAdmin("anything")).toBe(false);
+    });
+
+    it("organisation admins moderate only their organisations", () => {
+      setUserContext({
+        user: { id: "u1", role: "USER" },
+        memberships: [{ id: "o1", role: "ADMIN" }],
+      });
+      const p = permissions();
+      expect(p.canModerate("o1")).toBe(true);
+      expect(p.canModerate("o2")).toBe(false);
+    });
+
     it("recognises the current user", () => {
       setUserContext({ user: { id: "u1", role: "USER" } });
       const p = permissions();

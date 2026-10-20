@@ -1,6 +1,11 @@
 import * as bcrypt from 'bcrypt';
 import { SortingEnum, SortType } from '@biosfera/types';
-import { UsersService } from './users.service';
+import { BadRequestException } from '@nestjs/common';
+import {
+  hashResetToken,
+  PASSWORD_RESET_TTL_MS,
+  UsersService,
+} from './users.service';
 import { createPrismaMock } from 'src/test-utils/prisma.mock';
 
 describe('UsersService', () => {
@@ -214,10 +219,10 @@ describe('UsersService', () => {
 
     it('falls back to localhost when WEB_URL is unset', async () => {
       delete process.env.WEB_URL;
-      prisma.user.findUniqueOrThrow.mockResolvedValue({ activationCode: 'k' });
+      prisma.user.findUnique.mockResolvedValue({ id: 'u1' });
       await service.sendPasswordResetEmail('a@b.c');
-      expect(email.sendMail.mock.calls[0][2]).toContain(
-        'http://localhost:3000/resetPassword/k',
+      expect(email.sendMail.mock.calls[0][2]).toMatch(
+        /http:\/\/localhost:3000\/resetPassword\/[0-9a-f]{64}/,
       );
     });
   });
@@ -230,19 +235,67 @@ describe('UsersService', () => {
     });
   });
 
-  it('sendPasswordResetEmail fails for unknown emails without sending', async () => {
-    prisma.user.findUniqueOrThrow.mockRejectedValue(new Error('nf'));
-    await expect(service.sendPasswordResetEmail('no@x')).rejects.toThrow('nf');
-    expect(email.sendMail).not.toHaveBeenCalled();
-  });
+  describe('password reset', () => {
+    it('answers unknown emails silently, without sending anything', async () => {
+      prisma.user.findUnique.mockResolvedValue(null);
+      await expect(
+        service.sendPasswordResetEmail('no@x'),
+      ).resolves.toBeUndefined();
+      expect(email.sendMail).not.toHaveBeenCalled();
+      expect(prisma.user.update).not.toHaveBeenCalled();
+    });
 
-  it('resetPassword stores a bcrypt hash, never the plain password', async () => {
-    await service.resetPassword('code', 'brand-new');
-    const arg = prisma.user.update.mock.calls[0][0];
-    expect(arg.where).toEqual({ activationCode: 'code' });
-    expect(arg.data.password).not.toBe('brand-new');
-    await expect(bcrypt.compare('brand-new', arg.data.password)).resolves.toBe(
-      true,
-    );
+    it('stores only a hash of the emailed token, with an expiry', async () => {
+      prisma.user.findUnique.mockResolvedValue({ id: 'u1' });
+      const before = Date.now();
+      await service.sendPasswordResetEmail('a@b.c');
+
+      const token = email.sendMail.mock.calls[0][2].match(
+        /resetPassword\/([0-9a-f]{64})/,
+      )[1];
+      const { where, data } = prisma.user.update.mock.calls[0][0];
+      expect(where).toEqual({ id: 'u1' });
+      expect(data.passwordResetToken).toBe(hashResetToken(token));
+      expect(data.passwordResetToken).not.toBe(token);
+      expect(data.passwordResetExpiresAt.getTime()).toBeGreaterThanOrEqual(
+        before + PASSWORD_RESET_TTL_MS,
+      );
+    });
+
+    it('stores a bcrypt hash and clears the token', async () => {
+      prisma.user.findUnique.mockResolvedValue({
+        id: 'u1',
+        passwordResetExpiresAt: new Date(Date.now() + 1000),
+      });
+      await service.resetPassword('tok', 'brand-new');
+
+      expect(prisma.user.findUnique).toHaveBeenCalledWith({
+        where: { passwordResetToken: hashResetToken('tok') },
+      });
+      const arg = prisma.user.update.mock.calls[0][0];
+      expect(arg.where).toEqual({ id: 'u1' });
+      expect(arg.data.passwordResetToken).toBeNull();
+      expect(arg.data.passwordResetExpiresAt).toBeNull();
+      expect(arg.data.password).not.toBe('brand-new');
+      await expect(
+        bcrypt.compare('brand-new', arg.data.password),
+      ).resolves.toBe(true);
+    });
+
+    it('rejects unknown and expired tokens', async () => {
+      prisma.user.findUnique.mockResolvedValueOnce(null);
+      await expect(service.resetPassword('nope', 'pw')).rejects.toBeInstanceOf(
+        BadRequestException,
+      );
+
+      prisma.user.findUnique.mockResolvedValueOnce({
+        id: 'u1',
+        passwordResetExpiresAt: new Date(Date.now() - 1000),
+      });
+      await expect(service.resetPassword('old', 'pw')).rejects.toBeInstanceOf(
+        BadRequestException,
+      );
+      expect(prisma.user.update).not.toHaveBeenCalled();
+    });
   });
 });

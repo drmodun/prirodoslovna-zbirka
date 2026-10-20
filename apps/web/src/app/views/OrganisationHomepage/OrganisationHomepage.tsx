@@ -17,6 +17,7 @@ import QrCodeGenerator from "components/QrCodeButton";
 import ShareButton from "components/ShareButton";
 import Link from "next/link";
 import BaseButton from "components/BaseButton";
+import { isSuperRole } from "@/utility/static/roles";
 
 export interface OrganisationHomepageProps {
   organisation: ExtendedOrganisationResponse;
@@ -147,12 +148,12 @@ export const OrganisationHomepage = ({
             </div>
           </div>
         </div>
-        {memberships.some(
-          (x) =>
-            (x.id === organisation.id && x.role === "ADMIN") ||
-            x.role === "OWNER" ||
-            user?.role?.toLowerCase() === "super",
-        ) && (
+        {(isSuperRole(user?.role) ||
+          memberships.some(
+            (x) =>
+              x.id === organisation.id &&
+              (x.role === "ADMIN" || x.role === "OWNER"),
+          )) && (
           <Link href={`/organisation/${organisation.id}/createSocialPost`}>
             <BaseButton text="Dodaj novu objavu" />
           </Link>

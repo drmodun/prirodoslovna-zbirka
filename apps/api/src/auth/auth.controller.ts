@@ -12,6 +12,7 @@ import {
   WorkResponseShort,
 } from '@biosfera/types';
 import { UsersService } from 'src/users/users.service';
+import { isModerator } from './roles';
 
 @Controller('auth')
 @ApiTags('auth')
@@ -44,7 +45,7 @@ export class AuthController {
   @ApiBearerAuth()
   @Get('detailed')
   async detailed(@Req() { user }) {
-    const isAdmin = user?.role === 'super';
+    const isAdmin = isModerator(user);
     const item = await this.usersService.findOne(user.id, false);
 
     const posts: PostResponse[] = item.Posts.map((post) => {

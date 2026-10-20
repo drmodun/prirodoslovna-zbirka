@@ -87,12 +87,29 @@ describe('QuizzesService', () => {
     });
   });
 
-  it('findOne loads questions, counts and attempts', async () => {
+  it('findOne loads questions and counts only finished attempts', async () => {
     await service.findOne('q');
     const arg = prisma.quiz.findUnique.mock.calls[0][0];
     expect(arg.where).toEqual({ id: 'q' });
     expect(arg.include.questions).toBe(true);
-    expect(arg.include.attempts.include.Answer).toBe(true);
+    expect(arg.include.attempts).toBeUndefined();
+    expect(arg.include._count.select.attempts).toEqual({
+      where: { submittedAt: { not: null } },
+    });
+  });
+
+  it('averageScore averages the finished attempts, rounded to 2 places', async () => {
+    prisma.attempt.aggregate.mockResolvedValue({ _avg: { score: 7 / 3 } });
+    await expect(service.averageScore('q')).resolves.toBe(2.33);
+    expect(prisma.attempt.aggregate).toHaveBeenCalledWith({
+      where: { quizId: 'q', submittedAt: { not: null } },
+      _avg: { score: true },
+    });
+  });
+
+  it('averageScore is 0 without attempts', async () => {
+    prisma.attempt.aggregate.mockResolvedValue({ _avg: { score: null } });
+    await expect(service.averageScore('q')).resolves.toBe(0);
   });
 
   it('update replaces scalar fields and creates the given questions', async () => {

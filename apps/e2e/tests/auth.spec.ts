@@ -1,5 +1,5 @@
 import type { Page } from "@playwright/test";
-import { createUser, prisma } from "../support/db";
+import { createPasswordResetToken, createUser, prisma } from "../support/db";
 import { expect, loginAs, PASSWORD, test } from "../support/fixtures";
 
 const NEW_USER = {
@@ -135,8 +135,9 @@ test.describe("password reset", () => {
   test("the link from the reset e-mail lets the user choose a new password", async ({ page }) => {
     const user = await createUser();
     const NEW_PASSWORD = "N3w!Passw0rd-xyz";
+    const token = await createPasswordResetToken(user.id);
 
-    await page.goto(`/resetPassword/${user.activationCode}`);
+    await page.goto(`/resetPassword/${token}`);
     await page.getByPlaceholder("Nova lozinka").fill(NEW_PASSWORD);
     await page.getByPlaceholder("Potvrdi lozinku").fill(NEW_PASSWORD);
     await page.getByRole("button", { name: "Resetiraj lozinku" }).click();
@@ -154,7 +155,7 @@ test.describe("password reset", () => {
 
   test("mismatching passwords are rejected before anything is sent", async ({ page }) => {
     const user = await createUser();
-    await page.goto(`/resetPassword/${user.activationCode}`);
+    await page.goto(`/resetPassword/${await createPasswordResetToken(user.id)}`);
     await page.getByPlaceholder("Nova lozinka").fill("N3w!Passw0rd-xyz");
     await page.getByPlaceholder("Potvrdi lozinku").fill("Different1!Pass");
     await page.getByRole("button", { name: "Resetiraj lozinku" }).click();

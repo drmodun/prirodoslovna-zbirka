@@ -73,6 +73,43 @@ describe('MembersService', () => {
       },
     );
 
+    it.each([
+      ['SUPER', null, true],
+      ['ADMIN', null, true],
+      ['USER', 'OWNER', true],
+      ['USER', 'ADMIN', true],
+      ['USER', 'MEMBER', false],
+      ['USER', null, false],
+    ])(
+      'hasModerationRights(global=%s, member=%s) = %s',
+      async (globalRole, memberRole, expected) => {
+        setup(globalRole, memberRole);
+        await expect(service.hasModerationRights('u1', 'o1')).resolves.toBe(
+          expected,
+        );
+      },
+    );
+
+    it('a platform ADMIN gets no organisation admin or owner rights', async () => {
+      setup('ADMIN', null);
+      await expect(service.hasAdminRights('u1', 'o1')).resolves.toBe(false);
+      await expect(service.hasOwnerRights('u1', 'o1')).resolves.toBe(false);
+    });
+
+    it('a missing user id never passes (findFirst would match any user)', async () => {
+      setup('SUPER', 'OWNER');
+      await expect(service.hasAdminRights(undefined, 'o1')).resolves.toBe(
+        false,
+      );
+      await expect(service.hasOwnerRights(undefined, 'o1')).resolves.toBe(
+        false,
+      );
+      await expect(service.hasModerationRights(undefined, 'o1')).resolves.toBe(
+        false,
+      );
+      expect(prisma.user.findFirst).not.toHaveBeenCalled();
+    });
+
     it('SUPER users short-circuit without a membership lookup', async () => {
       setup('SUPER', null);
       await service.hasAdminRights('u1', 'o1');

@@ -13,11 +13,11 @@ posts and quizzes; users take part through **membership**.
 Any logged-in user can create an organisation at `/createOrganisation`
 (`POST /organisations`). The creator becomes its `OWNER`. New organisations
 are approved by default (`isApproved = true`); `PATCH /organisations/:id/approval`
-toggles that (super users only) and notifies the members
+toggles that (platform moderators: `SUPER` and `ADMIN`) and notifies the members
 (`ORGANISATION_APPROVAL`).
 
 Unapproved organisations are hidden from lists and discovery for everyone but
-super users.
+platform moderators.
 
 ## Joining
 

@@ -11,6 +11,7 @@ import useUser from "@/utility/context/UserContext";
 import EditUserForm from "components/EditUserForm";
 import DeleteUserButton from "components/DeleteUserButton";
 import MultipleEntityTypesView from "@/views/MultipleEntityTypesView";
+import { isSuperRole } from "@/utility/static/roles";
 
 const tabs = ["O korisniku", "Kreacije", "Reakcije", "Članstva"];
 
@@ -26,10 +27,7 @@ export const UserPageBody = ({ savedLiterature, user }: UserPageBodyProps) => {
 
   useEffect(() => {
     if (availableTabs.includes("Uredi")) return;
-    if (
-      user.id === loggedUser?.id ||
-      loggedUser?.role?.toLowerCase() === "super"
-    ) {
+    if (user.id === loggedUser?.id || isSuperRole(loggedUser?.role)) {
       setAvailableTabs((prev) => [
         "Uredi",
         ...prev.filter((tab) => tab !== "O korisniku" && tab !== "Uredi"),
@@ -56,11 +54,11 @@ export const UserPageBody = ({ savedLiterature, user }: UserPageBodyProps) => {
             <div className={classes.editForm}>
               <span className={classes.title}>Uredi Profil</span>
               <EditUserForm
-                isSuper={loggedUser?.role?.toLowerCase() === "super"}
+                isSuper={isSuperRole(loggedUser?.role)}
                 user={user}
               />
               <DeleteUserButton
-                isSuper={loggedUser?.role?.toLowerCase() === "super"}
+                isSuper={isSuperRole(loggedUser?.role)}
                 userId={user.id}
               />
             </div>

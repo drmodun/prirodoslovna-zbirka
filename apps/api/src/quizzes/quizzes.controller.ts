@@ -37,6 +37,7 @@ export class QuizzesController {
     @Param('organisationId') organisation: string,
     @Req() req: any,
   ) {
+    // Creating is not moderation, so platform moderators do not pass.
     const isValid = await this.membersService.hasAdminRights(
       req.user.id,
       organisation,
@@ -94,7 +95,7 @@ export class QuizzesController {
 
     const mapped: QuizResponseExtended = {
       attemptsAmount: quiz._count.attempts,
-      averageAttemptScore: 0, //TODO: implement fast calculation function here
+      averageAttemptScore: await this.quizzesService.averageScore(quiz.id),
       description: quiz.description,
       difficulty: quiz.difficulty,
       isAnonymousAllowed: quiz.isAnonymousAllowed,
@@ -124,7 +125,7 @@ export class QuizzesController {
     @Req() req: any,
     @Param('organisationId') organisation: string,
   ) {
-    const isValid = await this.membersService.hasAdminRights(
+    const isValid = await this.membersService.hasModerationRights(
       req.user.id,
       organisation,
     );
@@ -144,7 +145,7 @@ export class QuizzesController {
     @Req() req: any,
     @Param('organisationId') organisation: string,
   ) {
-    const isValid = await this.membersService.hasAdminRights(
+    const isValid = await this.membersService.hasModerationRights(
       req.user.id,
       organisation,
     );
@@ -162,7 +163,7 @@ export class QuizzesController {
     @Req() req: any,
     @Param('organisationId') organisation: string,
   ) {
-    const isValid = await this.membersService.hasAdminRights(
+    const isValid = await this.membersService.hasModerationRights(
       req.user.id,
       organisation,
     );
@@ -180,7 +181,7 @@ export class QuizzesController {
     @Param('organisationId') organisation: string,
     @Req() req: any,
   ) {
-    const isValid = await this.membersService.hasAdminRights(
+    const isValid = await this.membersService.hasModerationRights(
       req.user.id,
       organisation,
     );
@@ -216,7 +217,7 @@ export class QuizzesController {
     @Req() req: any,
     @Param('id') id: string,
   ) {
-    const isValid = await this.membersService.hasAdminRights(
+    const isValid = await this.membersService.hasModerationRights(
       req.user.id,
       organisation,
     );
@@ -254,7 +255,7 @@ export class QuizzesController {
       difficulty: quiz.difficulty,
       isAnonymousAllowed: quiz.isAnonymousAllowed,
       updatedAt: quiz.updatedAt,
-      averageAttemptScore: 0,
+      averageAttemptScore: await this.quizzesService.averageScore(quiz.id),
       questions,
     } as QuizResponseExtended;
 

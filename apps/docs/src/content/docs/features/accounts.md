@@ -34,21 +34,25 @@ password.
 
 1. `/resetPassword` (the "forgot password" form) calls
    `POST /users/forgot-password/:email`.
-2. The API mails `${WEB_URL}/resetPassword/<activationCode>`.
-3. The page posts `{ newPassword }` to `POST /users/reset-password/:activationCode`.
+2. The API creates a random token (32 bytes, hex), stores its SHA-256 hash
+   and an expiry one hour ahead on the user (`passwordResetToken`,
+   `passwordResetExpiresAt`), and mails `${WEB_URL}/resetPassword/<token>`.
+   Requesting again replaces the previous link.
+3. The page posts `{ newPassword }` to `POST /users/reset-password/:token`.
+   The new password has to be as strong as at registration. A valid token
+   sets the password and is cleared, so every link works once. Unknown,
+   used and expired tokens answer `400`.
 
-:::caution
-The reset link reuses the account's `activationCode`, which never changes.
-A reset link therefore keeps working after it has been used, and a leaked
-activation link is also a reset link. Requesting a reset for an unknown
-address answers `404`, which reveals whether an account exists.
-:::
+Unknown addresses get the same `201` as known ones and no mail is sent, so
+the endpoint does not reveal which addresses have an account. The activation
+link cannot be used to reset a password.
 
 ## Profiles
 
 - `GET /users/:id`: public profile with posts, memberships, favourite
   exponats and follower counts. The e-mail address is only included for the
-  user themself and super users, who also see unapproved posts. User lists
+  user themself and super users. Platform moderators (`SUPER`, `ADMIN`) also
+  see unapproved posts. User lists
   (search, followers, favourites, saves) never include e-mail addresses.
 - `PATCH /users`: edit your own profile. `PATCH /users/pfp`: upload a profile
   picture (stored under `user/<id>`, sets `hasProfileImage`).

@@ -200,16 +200,22 @@ describe('auth & user registration (integration)', () => {
   });
 
   describe('password reset', () => {
+    const requestReset = async (email: string) => {
+      await ctx.http().post(`/users/forgot-password/${email}`).expect(201);
+      const match = ctx.mails
+        .at(-1)
+        .text.match(/\/resetPassword\/([0-9a-f]{64})/);
+      expect(match).not.toBeNull();
+      return match[1];
+    };
+
     it('emails a reset link and lets the user choose a new password', async () => {
       const user = await createUser(ctx);
-      await ctx.http().post(`/users/forgot-password/${user.email}`).expect(201);
-      expect(ctx.mails[0].text).toContain(
-        `/resetPassword/${user.activationCode}`,
-      );
+      const token = await requestReset(user.email);
 
       await ctx
         .http()
-        .post(`/users/reset-password/${user.activationCode}`)
+        .post(`/users/reset-password/${token}`)
         .send({ newPassword: 'N3w!Passw0rd-xyz' })
         .expect(201);
 
@@ -225,9 +231,61 @@ describe('auth & user registration (integration)', () => {
         .expect(201);
     });
 
-    it('forgot-password for an unknown email is an error and sends nothing', async () => {
-      const res = await ctx.http().post('/users/forgot-password/ghost@test.hr');
-      expect(res.status).toBeGreaterThanOrEqual(400);
+    it('a reset link works only once', async () => {
+      const user = await createUser(ctx);
+      const token = await requestReset(user.email);
+
+      await ctx
+        .http()
+        .post(`/users/reset-password/${token}`)
+        .send({ newPassword: 'N3w!Passw0rd-xyz' })
+        .expect(201);
+      await ctx
+        .http()
+        .post(`/users/reset-password/${token}`)
+        .send({ newPassword: 'An0ther!Passw0rd' })
+        .expect(400);
+    });
+
+    it('an expired reset link is rejected', async () => {
+      const user = await createUser(ctx);
+      const token = await requestReset(user.email);
+      await ctx.prisma.user.update({
+        where: { id: user.id },
+        data: { passwordResetExpiresAt: new Date(Date.now() - 1000) },
+      });
+
+      await ctx
+        .http()
+        .post(`/users/reset-password/${token}`)
+        .send({ newPassword: 'N3w!Passw0rd-xyz' })
+        .expect(400);
+    });
+
+    it('the activation code cannot reset the password', async () => {
+      const user = await createUser(ctx);
+      await requestReset(user.email);
+
+      await ctx
+        .http()
+        .post(`/users/reset-password/${user.activationCode}`)
+        .send({ newPassword: 'N3w!Passw0rd-xyz' })
+        .expect(400);
+    });
+
+    it('rejects a weak new password', async () => {
+      const user = await createUser(ctx);
+      const token = await requestReset(user.email);
+
+      await ctx
+        .http()
+        .post(`/users/reset-password/${token}`)
+        .send({ newPassword: 'weak' })
+        .expect(400);
+    });
+
+    it('forgot-password for an unknown email looks the same and sends nothing', async () => {
+      await ctx.http().post('/users/forgot-password/ghost@test.hr').expect(201);
       expect(ctx.mails).toHaveLength(0);
     });
   });

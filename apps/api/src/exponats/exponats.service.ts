@@ -29,6 +29,7 @@ import {
   buildExponatWhere,
   needsFavouriteCounts,
 } from './exponats.query';
+import { isModeratorRole } from 'src/auth/roles';
 
 @Injectable()
 export class ExponatsService {
@@ -39,15 +40,19 @@ export class ExponatsService {
   ) {}
 
   async create(createExponatDto: CreateExponatDto, userId: string) {
+    // Creating is not moderation: platform moderators need a membership.
     const check = await this.checkForValidity(
       userId,
       createExponatDto.authorId,
+      false,
+      false,
     );
 
     const adminCheck = await this.checkForValidity(
       userId,
       createExponatDto.authorId,
       true,
+      false,
     );
 
     if (!check) throw new UnauthorizedException();
@@ -413,6 +418,7 @@ export class ExponatsService {
     userId: string,
     organisationId: string,
     adminOnly: boolean = false,
+    allowModerators: boolean = true,
   ) {
     const connection = await this.prisma.organisationUser.findFirst({
       where: {
@@ -427,7 +433,10 @@ export class ExponatsService {
       },
     });
 
-    if (checkForSuper?.role === Role.SUPER) {
+    if (
+      checkForSuper?.role === Role.SUPER ||
+      (allowModerators && isModeratorRole(checkForSuper?.role))
+    ) {
       return true;
     }
 

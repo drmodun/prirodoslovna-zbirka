@@ -12,6 +12,7 @@ import {
   getTopicsValues,
 } from "./getEnumLists";
 import { getPfpUrl } from "./getPfpUrl";
+import { isModeratorRole, isSuperRole } from "./roles";
 import { shortenText } from "./shortenText";
 import { stringCapitaliser } from "./stringCapitaliser";
 
@@ -158,5 +159,18 @@ describe("createMediaStream", () => {
     const callback = jest.fn();
     createMediaStream({}, false, callback);
     expect(callback).not.toHaveBeenCalled();
+  });
+});
+
+describe("roles", () => {
+  it.each([
+    ["SUPER", true, true],
+    ["super", true, true],
+    ["ADMIN", false, true],
+    ["USER", false, false],
+    [undefined, false, false],
+  ])("%s: super=%s, moderator=%s", (role, isSuper, isModerator) => {
+    expect(isSuperRole(role)).toBe(isSuper);
+    expect(isModeratorRole(role)).toBe(isModerator);
   });
 });

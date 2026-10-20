@@ -13,6 +13,7 @@ import {
 } from '@biosfera/types';
 import { NotificationsService } from 'src/notifications/notifications.service';
 import { NotificationUsersService } from 'src/notification-users/notification-users.service';
+import { isModeratorRole } from 'src/auth/roles';
 
 @Injectable()
 export class SocialPostsService {
@@ -44,7 +45,13 @@ export class SocialPostsService {
     return notification;
   }
 
-  async checkForValidity(userId: string, orgranisationId: string) {
+  // Organisation admins and owner, SUPER, and (unless creating) platform
+  // moderators.
+  async checkForValidity(
+    userId: string,
+    orgranisationId: string,
+    allowModerators = true,
+  ) {
     const connection = await this.prisma.organisationUser.findFirst({
       where: {
         userId,
@@ -59,7 +66,10 @@ export class SocialPostsService {
         },
       });
 
-      if (checkIsSuper?.role !== Role.SUPER) throw new UnauthorizedException();
+      const passes =
+        checkIsSuper?.role === Role.SUPER ||
+        (allowModerators && isModeratorRole(checkIsSuper?.role));
+      if (!passes) throw new UnauthorizedException();
 
       return true;
     }
@@ -75,7 +85,7 @@ export class SocialPostsService {
     organisationId: string,
     userId: string,
   ) {
-    const check = await this.checkForValidity(userId, organisationId);
+    const check = await this.checkForValidity(userId, organisationId, false);
 
     if (!check) throw new UnauthorizedException();
 

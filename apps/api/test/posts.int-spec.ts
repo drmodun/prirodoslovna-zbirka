@@ -266,6 +266,30 @@ describe('posts, likes & follows (integration)', () => {
       await ctx.http().get(`/posts/${hidden.id}`).expect(404);
     });
 
+    it('an unapproved post opens for its author and the organisation admins only', async () => {
+      const author = await setup('MEMBER');
+      const hidden = await createPost(author.user.id, author.exponat.id, {
+        isApproved: false,
+      });
+      const admin = await createSession(ctx);
+      await ctx.prisma.organisationUser.create({
+        data: {
+          userId: admin.user.id,
+          organisationId: author.org.id,
+          role: 'ADMIN',
+        },
+      });
+      const stranger = await createSession(ctx);
+
+      await ctx.http().get(`/posts/${hidden.id}`).set(author.auth).expect(200);
+      await ctx.http().get(`/posts/${hidden.id}`).set(admin.auth).expect(200);
+      await ctx
+        .http()
+        .get(`/posts/${hidden.id}`)
+        .set(stranger.auth)
+        .expect(404);
+    });
+
     it('GET /posts/discover executes the ranking SQL (anonymous and personal)', async () => {
       const { user, auth, exponat } = await setup('MEMBER');
       const other = await createSession(ctx);
@@ -294,6 +318,28 @@ describe('posts, likes & follows (integration)', () => {
         .expect(200);
       // own and already liked posts are pushed down the ranking
       expect(personal.body[0].title).toBe('Fresh post');
+    });
+
+    it('GET /posts/organisation/:organisationId lists the organisation posts', async () => {
+      const admin = await setup('ADMIN');
+      await createPost(admin.user.id, admin.exponat.id, { title: 'Public' });
+      await createPost(admin.user.id, admin.exponat.id, {
+        title: 'Pending post',
+        isApproved: false,
+      });
+
+      const anon = await ctx
+        .http()
+        .get(`/posts/organisation/${admin.org.id}`)
+        .expect(200);
+      expect(anon.body.map((p: any) => p.title)).toEqual(['Public']);
+
+      const asAdmin = await ctx
+        .http()
+        .get(`/posts/organisation/${admin.org.id}`)
+        .set(admin.auth)
+        .expect(200);
+      expect(asAdmin.body).toHaveLength(2);
     });
 
     it('GET /posts/:organisationId/hidden is limited to organisation admins', async () => {
@@ -480,6 +526,20 @@ describe('posts, likes & follows (integration)', () => {
   });
 
   describe('follows', () => {
+    it('mails the notification unless the user turned e-mails off', async () => {
+      const a = await createSession(ctx);
+      const b = await createSession(ctx);
+      const c = await createSession(ctx, {
+        isEmailNotificationsEnabled: false,
+      });
+
+      await ctx.http().post(`/follows/${b.user.id}`).set(a.auth).expect(201);
+      await ctx.http().post(`/follows/${c.user.id}`).set(a.auth).expect(201);
+
+      const notified = ctx.mails.filter((m) => m.subject === 'Novi pratitelj');
+      expect(notified.map((m) => m.to)).toEqual([b.user.email]);
+    });
+
     it('follow, list followers/following, unfollow', async () => {
       const a = await createSession(ctx);
       const b = await createSession(ctx);

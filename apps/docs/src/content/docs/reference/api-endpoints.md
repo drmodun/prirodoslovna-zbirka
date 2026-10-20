@@ -40,8 +40,8 @@ Paths are relative to the API root (behind the proxy, prefix them with
 | `DELETE` | `/users/:id` | JWT | Super: delete a user |
 | `GET` | `/users/:id/requests` | JWT | Super: a user's join requests |
 | `POST` | `/users/verify/:activationCode` | — | Activate account |
-| `POST` | `/users/forgot-password/:email` | — | Send reset mail |
-| `POST` | `/users/reset-password/:activationCode` | — | `{ newPassword }` |
+| `POST` | `/users/forgot-password/:email` | — | Send a reset mail (same answer for unknown addresses) |
+| `POST` | `/users/reset-password/:token` | — | `{ newPassword }`; the token is single-use and expires after an hour |
 | `POST` | `/follows/:userId` | JWT | Toggle following a user |
 | `GET` | `/follows/:userId/followers` | — | Followers |
 | `GET` | `/follows/:userId/following` | — | Following |
@@ -57,7 +57,7 @@ Paths are relative to the API root (behind the proxy, prefix them with
 | `GET` | `/organisations/:id/requests` | JWT | Join requests (admins) |
 | `PATCH` | `/organisations/:id` | JWT | Edit (admins) |
 | `DELETE` | `/organisations/:id` | JWT | Delete (admins) |
-| `PATCH` | `/organisations/:id/approval` | JWT | Super: toggle approval |
+| `PATCH` | `/organisations/:id/approval` | JWT | Platform moderators: toggle approval |
 | `POST` | `/members/:organisationId` | JWT | Ask to join |
 | `DELETE` | `/members/:organisationId/leave` | JWT | Leave |
 | `PATCH` | `/members/:organisationId/:userId` | JWT | Admins: set role (not `OWNER`) |
@@ -88,8 +88,8 @@ Paths are relative to the API root (behind the proxy, prefix them with
 | `GET` | `/categorizations` | — | List |
 | `GET` | `/categorizations/:id` | — | One, with its exponats |
 | `GET` | `/categorizations/name/:name` | — | Find by species name |
-| `PATCH` | `/categorizations/:id` | JWT | Super: edit |
-| `DELETE` | `/categorizations/:id` | JWT | Super: delete |
+| `PATCH` | `/categorizations/:id` | JWT | Platform moderators: edit |
+| `DELETE` | `/categorizations/:id` | JWT | Platform moderators: delete |
 | `POST` | `/authorship-info` | JWT | Create field data |
 | `GET` | `/authorship-info` | — | List |
 | `GET` | `/authorship-info/:id` | — | One |
@@ -106,7 +106,7 @@ Paths are relative to the API root (behind the proxy, prefix them with
 | `PATCH` | `/posts/:id` | JWT | Edit (author, admins) |
 | `DELETE` | `/posts/:id` | JWT | Delete (author, admins) |
 | `PATCH` | `/posts/:id/approval` | JWT | Toggle approval (admins) |
-| `GET` | `/posts/:organisationId` | opt. | An organisation's posts |
+| `GET` | `/posts/organisation/:organisationId` | opt. | Posts of one organisation |
 | `GET` | `/posts/:organisationId/hidden` | JWT | Pending posts (admins) |
 | `POST` | `/likes/:postId` | JWT | Toggle like |
 | `POST` | `/social-posts/:organizationId` | JWT | Create (admins, owner) |
@@ -147,6 +147,6 @@ Paths are relative to the API root (behind the proxy, prefix them with
 | `POST` | `/blobs/video/:directory` | JWT | Upload an MP4 (200 MB) |
 | `GET` | `/blobs/file/:directory/:name` | — | Stream a locally stored file |
 
-## Quizzes
+## Quizzes and attempts
 
 See [Quizzes](/docs/features/quizzes/#endpoints).

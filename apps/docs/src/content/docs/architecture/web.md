@@ -37,7 +37,7 @@ Import aliases: `@/…` points to `src/app/…`, `components/…` to `src/compon
 | `/search` | Search with tabs for exponats, posts, organisations, users, works and GBIF literature |
 | `/login`, `/register` | Sign in, sign up |
 | `/activateUser/[activationCode]` | Account activation from the email link |
-| `/resetPassword/[activationCode]` | New password from the email link |
+| `/resetPassword/[token]` | New password from the email link |
 | `/user/[userId]` | Profile: posts, favourites, memberships, saved works |
 | `/follows/[userId]` | Followers / following |
 | `/createOrganisation` | New organisation form |
@@ -111,10 +111,17 @@ DiscoverWrapper → SideMenuWrapper → NotificationsProvider → Header, BodyWr
 `utility/wrappers` holds components that render their children only for the
 right people, using `UserContext`:
 
-- `AdminCheckingWrapper id={organisationId}`: super users, or organisation
-  `ADMIN` / `OWNER`.
-- `RightCheckingWrapper author={userId}`: super users, or the author
+- `AdminCheckingWrapper id={organisationId}`: platform moderators (`SUPER`,
+  `ADMIN`), or organisation `ADMIN` / `OWNER` (the exponat edit page).
+- `RightCheckingWrapper author={userId}`: platform moderators, or the author
   themselves (edit and delete buttons).
+- `useCardPermissions()` on cards: `canModerate(organisationId)` for content
+  (exponats, posts, works; includes platform moderators) and
+  `isOrganisationAdmin(organisationId)` for membership cards (organisation
+  admins and `SUPER` only).
+
+`isSuperRole` / `isModeratorRole` in `utility/static/roles.ts` read the
+platform role.
 
 `UserWrapper` is not a gate: it provides the react-query client and the
 `UserProvider` to the client parts of a page.

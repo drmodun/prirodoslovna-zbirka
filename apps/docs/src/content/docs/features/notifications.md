@@ -16,7 +16,11 @@ service (e.g. PostsService.toggleApproval)
   │ 1. NotificationsService.create(dto, userIds)
   │      → one Notification row + one UserNotification row per recipient
   │ 2. NotificationUsersService.publishManyNotifications(userIds, notification)
-  │      → EventEmitter2.emitAsync(userId, notification) for each recipient
+  │      → NotificationBusService.publish(userId, notification) for each recipient
+  │      → SELECT pg_notify('user_notifications', { userId, message })
+  ▼
+Postgres delivers the NOTIFY to every API instance that LISTENs (this one too)
+  │ NotificationBusService → EventEmitter2.emit(userId, notification), locally
   ▼
 GET /notification-users/subscribe/:userId   (SSE, @Sse, JwtAuthGuard + OwnStreamGuard)
   │ fromEvent(eventEmitter, userId) → { data: JSON.stringify(notification) }
@@ -24,12 +28,27 @@ GET /notification-users/subscribe/:userId   (SSE, @Sse, JwtAuthGuard + OwnStream
 NotificationContext (fetch-event-source) → prepended to the list, toast "Nova obavijest stigla: …"
 ```
 
-The event bus is the in-process `@nestjs/event-emitter`, keyed by user id.
-This keeps the setup simple, but it means live delivery only works with a
-**single API instance**: an event emitted on one replica never reaches a
-browser connected to another. The stored notification is still there on the
-next page load. The service carries a comment to move this to an external
-service if it ever becomes a bottleneck.
+Live delivery works with **any number of API instances** and needs no extra
+infrastructure: each instance (`NotificationBusService`, a global provider)
+keeps one dedicated Postgres connection that `LISTEN`s on the
+`user_notifications` channel. Publishing sends a `NOTIFY`; Postgres hands it
+to every listening instance, and each one re-emits it on its in-process
+`@nestjs/event-emitter`, keyed by user id, where the SSE streams of the
+browsers connected to *that* instance pick it up.
+
+Details:
+
+- The listener connects with `DATABASE_URL`, minus Prisma-only parameters
+  such as `schema` or `connection_limit` (`sslmode` is kept). It does not go
+  through PgBouncer-style transaction pooling, which does not support
+  `LISTEN`; point it at Postgres directly in such setups.
+- If the listener connection drops, the instance reconnects every 5 seconds.
+  Until then, and if a `NOTIFY` fails, notifications are emitted locally
+  only, so browsers on the same instance still get them.
+- Postgres limits a `NOTIFY` payload to 8000 bytes; larger notifications are
+  delivered locally only. Notification texts are far below that.
+- Either way the notification is stored, so it shows up everywhere on the
+  next page load.
 
 The stream needs the subscriber's own login: native `EventSource` cannot send
 an `Authorization` header, so the web app subscribes with
@@ -77,6 +96,10 @@ the rest.
 
 ## Email
 
-`User.IsEmailNotificationsEnabled` exists, but notifications are not mailed
-today. The only emails are account activation and password reset.
+Besides account activation and password reset, every notification is also
+mailed to activated users whose `isEmailNotificationsEnabled` is on (the
+default). The mail carries the title, text and a link under `WEB_URL`. Users
+change the setting with `PATCH /users/:id`. A notification sent to many users looks up all recipients in one query.
+Mailing is best effort: a failure
+is logged and never fails the action that caused the notification.
 

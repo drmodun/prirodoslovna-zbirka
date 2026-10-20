@@ -33,7 +33,7 @@ exponat's organisation.
 ### Review
 
 `PATCH /posts/:id/approval` toggles approval; it needs organisation admin
-rights or a super user, being the author is not enough. The author is told either way
+rights or a platform moderator, being the author is not enough. The author is told either way
 (`POST_APPROVAL`, "odobrena" / "odbijena"). The first time a post is
 approved, the author's followers are notified too; `IsNotificationMade`
 keeps that from happening twice.
@@ -56,7 +56,9 @@ favourites and the organisation's and author's followers, rank posts in
 [discovery](/docs/features/discovery-and-search/).
 
 Editing and deleting (`PATCH` / `DELETE /posts/:id`) is allowed for the
-author, organisation admins and super users.
+author, organisation admins and platform moderators. `GET /posts/:id` shows a
+pending post to its author, the organisation's admins and platform
+moderators, and answers `404` to everyone else.
 
 ## Social posts
 
@@ -89,6 +91,6 @@ Social posts are published on creation. Admins can hide one again with
 `DELETE /social-posts/:org/:id`; all three only reach that organisation's
 posts.
 
-`GET /social-posts` lists approved posts (super users see all), with `title`
+`GET /social-posts` lists approved posts (platform moderators see all), with `title`
 and `authorId` (the authorship author) filters and the usual pagination and
 sorting.

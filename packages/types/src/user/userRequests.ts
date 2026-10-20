@@ -79,6 +79,11 @@ export const getUpateUserDto = (ApiPropertySwagger?: any) => {
     @IsBoolean()
     @ApiProperty()
     hasProfileImage: boolean;
+
+    @IsOptional()
+    @IsBoolean()
+    @ApiProperty({ required: false })
+    isEmailNotificationsEnabled?: boolean;
   }
 
   return UpdateUserDto;

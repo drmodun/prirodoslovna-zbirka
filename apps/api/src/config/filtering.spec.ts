@@ -56,21 +56,24 @@ describe('FilteringParams', () => {
     expect(() => run('name:gt:x', 'name')).toThrow(BadRequestException);
   });
 
-  // KNOWN INCONSISTENCY (characterisation): the format regex admits
-  // eq/neq/like/nlike/nin/isnotnull, but FilterRule contains
-  // equals/not/search/notIn/..., so these always fail the second check.
-  // Only gt, gte, lt, lte, in and isnull can currently get through.
-  // FilteringParams is not used by any controller yet.
-  it.each([
-    'name:eq:x',
-    'name:neq:x',
-    'name:like:x',
-    'name:nin:x',
-    'name:isnotnull',
-  ])(
-    'rejects rules that pass the regex but are not FilterRule members: %p',
+  it.each(['equals', 'search', 'contains', 'not', 'notIn', 'startsWith'])(
+    'accepts every FilterRule name: %p',
+    (rule) => {
+      expect(run(`name:${rule}:x`)).toMatchObject({ rule, value: 'x' });
+    },
+  );
+
+  it.each(['name:eq:x', 'name:neq:x', 'name:like:x', 'name:isnotnull'])(
+    'rejects rules that are not FilterRule members: %p',
     (filter) => {
       expect(() => run(filter)).toThrow(/Invalid filter rule/);
+    },
+  );
+
+  it.each(['name:isnull:x', 'name:equals'])(
+    'rejects a value on isnull and a missing value elsewhere: %p',
+    (filter) => {
+      expect(() => run(filter)).toThrow(BadRequestException);
     },
   );
 });

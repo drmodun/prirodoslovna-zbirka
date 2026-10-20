@@ -30,6 +30,7 @@ import { PaginationParams } from 'src/config/pagination';
 import { SortingParams } from 'src/config/sorting';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/jwt-auth-guard';
+import { isModerator } from 'src/auth/roles';
 
 @ApiTags('categorizations')
 @Controller('categorizations')
@@ -129,7 +130,7 @@ export class CategorizationsController {
   }
 
   // Categorizations are shared by every organisation's exponats, so only
-  // super users may change or delete one.
+  // platform moderators may change or delete one.
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   @Patch(':id')
@@ -138,7 +139,7 @@ export class CategorizationsController {
     @Body() updateCategorizationDto: UpdateCategorizationDto,
     @Req() req?: any,
   ) {
-    if (req?.user?.role !== 'super') throw new UnauthorizedException();
+    if (!isModerator(req?.user)) throw new UnauthorizedException();
 
     return await this.categorizationsService.update(
       id,
@@ -150,7 +151,7 @@ export class CategorizationsController {
   @ApiBearerAuth()
   @Delete(':id')
   async remove(@Param('id') id: string, @Req() req?: any) {
-    if (req?.user?.role !== 'super') throw new UnauthorizedException();
+    if (!isModerator(req?.user)) throw new UnauthorizedException();
 
     return await this.categorizationsService.remove(id);
   }

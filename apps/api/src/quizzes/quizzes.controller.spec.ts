@@ -34,7 +34,7 @@ const quiz = (over: any = {}) => ({
 
 describe('QuizzesController', () => {
   let svc: Record<string, jest.Mock>;
-  let members: { hasAdminRights: jest.Mock };
+  let members: { hasModerationRights: jest.Mock; hasAdminRights: jest.Mock };
   let controller: QuizzesController;
   const req = { user: { id: 'me' } };
 
@@ -49,14 +49,14 @@ describe('QuizzesController', () => {
       getWaitingForApproval: jest.fn(),
       getSingleWaitingForApproval: jest.fn(),
       belongsTo: jest.fn(),
+      averageScore: jest.fn().mockResolvedValue(0),
     };
-    members = { hasAdminRights: jest.fn() };
+    members = { hasModerationRights: jest.fn(), hasAdminRights: jest.fn() };
     controller = new QuizzesController(svc as any, members as any);
   });
 
   describe('admin gated routes', () => {
     const calls: [string, () => Promise<unknown>, string][] = [
-      ['create', () => controller.create({} as any, 'o1', req), 'create'],
       ['update', () => controller.update('q1', {} as any, req, 'o1'), 'update'],
       ['remove', () => controller.remove('q1', req, 'o1'), 'remove'],
       [
@@ -77,16 +77,16 @@ describe('QuizzesController', () => {
     ];
 
     it.each(calls)('%s rejects non admins', async (_n, call, method) => {
-      members.hasAdminRights.mockResolvedValue(false);
+      members.hasModerationRights.mockResolvedValue(false);
       await expect(call()).rejects.toBeInstanceOf(UnauthorizedException);
       expect(svc[method]).not.toHaveBeenCalled();
-      expect(members.hasAdminRights).toHaveBeenCalledWith('me', 'o1');
+      expect(members.hasModerationRights).toHaveBeenCalledWith('me', 'o1');
     });
 
     it.each(calls)(
       '%s calls the service for admins',
       async (_n, call, method) => {
-        members.hasAdminRights.mockResolvedValue(true);
+        members.hasModerationRights.mockResolvedValue(true);
         svc.belongsTo.mockResolvedValue(true);
         svc[method].mockResolvedValue(quiz());
         svc.getWaitingForApproval.mockResolvedValue([quiz()]);
@@ -137,18 +137,36 @@ describe('QuizzesController', () => {
   });
 
   it('the admin view of a pending quiz does include the correct answers', async () => {
-    members.hasAdminRights.mockResolvedValue(true);
+    members.hasModerationRights.mockResolvedValue(true);
     svc.getSingleWaitingForApproval.mockResolvedValue(quiz());
     const res = await controller.getQuizWaitingForApproval('o1', req, 'q1');
     expect(res.questions[0]).toMatchObject({ correct: ['a'], points: 5 });
   });
 
   it('getSingleWaitingForApproval 404s for unknown quizzes', async () => {
-    members.hasAdminRights.mockResolvedValue(true);
+    members.hasModerationRights.mockResolvedValue(true);
     svc.getSingleWaitingForApproval.mockResolvedValue(null);
     await expect(
       controller.getQuizWaitingForApproval('o1', req, 'q1'),
     ).rejects.toBeInstanceOf(NotFoundException);
+  });
+
+  describe('create', () => {
+    it('needs organisation admin rights; moderation rights are not enough', async () => {
+      members.hasAdminRights.mockResolvedValue(false);
+      members.hasModerationRights.mockResolvedValue(true);
+      await expect(
+        controller.create({} as any, 'o1', req),
+      ).rejects.toBeInstanceOf(UnauthorizedException);
+      expect(members.hasAdminRights).toHaveBeenCalledWith('me', 'o1');
+      expect(svc.create).not.toHaveBeenCalled();
+    });
+
+    it('calls the service for organisation admins', async () => {
+      members.hasAdminRights.mockResolvedValue(true);
+      await controller.create({} as any, 'o1', req);
+      expect(svc.create).toHaveBeenCalled();
+    });
   });
 
   it('create pins the quiz to the organisation that was authorised', async () => {
@@ -173,7 +191,7 @@ describe('QuizzesController', () => {
   ] as const)(
     '%s 404s for quizzes of another organisation',
     async (_n, call) => {
-      members.hasAdminRights.mockResolvedValue(true);
+      members.hasModerationRights.mockResolvedValue(true);
       svc.belongsTo.mockResolvedValue(false);
       await expect(call()).rejects.toBeInstanceOf(NotFoundException);
     },

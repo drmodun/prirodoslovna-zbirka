@@ -24,3 +24,5 @@ export * from "./quiz/quizRequests";
 export * from "./quiz/quizRespones";
 export * from "./question/questionResponses";
 export * from "./question/questionRequests";
+export * from "./attempt/attemptRequests";
+export * from "./attempt/attemptResponses";

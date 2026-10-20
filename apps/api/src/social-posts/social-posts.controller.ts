@@ -28,6 +28,7 @@ import {
 import { PaginationParams } from 'src/config/pagination';
 import { SortingParams } from 'src/config/sorting';
 import { OptionalJwtAuthGuard } from 'src/auth/optional-jwt-auth-guard';
+import { isModerator } from 'src/auth/roles';
 
 @ApiTags('social-posts')
 @Controller('social-posts')
@@ -75,12 +76,12 @@ export class SocialPostsController {
     @Query() filter?: SocialPostQuery,
     @Req() req?: any,
   ) {
-    // Only super users get unapproved posts in the public list.
+    // Only platform moderators get unapproved posts in the public list.
     const posts = await this.socialPostsService.findAll(
       filter,
       sorting,
       paginationParam,
-      req?.user?.role !== 'super',
+      !isModerator(req?.user),
     );
 
     const mapped = posts.map((post) => {

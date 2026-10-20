@@ -5,12 +5,13 @@ import {
   QuestionQuery,
   UpdateQuestionDto,
 } from './questions.dto';
+import { isModeratorRole } from 'src/auth/roles';
 
 @Injectable()
 export class QuestionsService {
   constructor(private readonly prisma: PrismaService) {}
 
-  // Admins and owners of the quiz's organisation, and super users.
+  // Admins and owners of the quiz's organisation, and platform moderators.
   async hasQuizEditPermission(quizId: string, userId: string) {
     const quiz = await this.prisma.quiz.findUnique({
       where: { id: quizId },
@@ -20,7 +21,7 @@ export class QuestionsService {
     if (!quiz) return false;
 
     const user = await this.prisma.user.findFirst({ where: { id: userId } });
-    if (user?.role === 'SUPER') return true;
+    if (isModeratorRole(user?.role)) return true;
 
     const member = await this.prisma.organisationUser.findFirst({
       where: {

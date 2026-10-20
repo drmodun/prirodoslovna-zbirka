@@ -92,6 +92,14 @@ describe('UsersController', () => {
       expect(res.likedPosts[0]).toHaveProperty('isApproved', true);
     });
 
+    it('platform moderators see pending content but not the e-mail', async () => {
+      svc.findOne.mockResolvedValue(fullUserItem());
+      const res = await controller.findOne('u1', as('admin'));
+      expect(svc.findOne).toHaveBeenCalledWith('u1', false);
+      expect(res.posts[0]).toHaveProperty('isApproved', false);
+      expect(res).not.toHaveProperty('email');
+    });
+
     it('hides isApproved from regular visitors', async () => {
       svc.findOne.mockResolvedValue(fullUserItem());
       const res = await controller.findOne('u1', as('user'));
@@ -187,9 +195,10 @@ describe('UsersController', () => {
   });
 
   it('verify / forgot / reset delegate to the service', async () => {
-    svc.sendPasswordResetEmail.mockResolvedValue('sent');
+    svc.sendPasswordResetEmail.mockResolvedValue(undefined);
     await controller.verifyUser('code');
-    await expect(controller.forgotPassword('a@b.c')).resolves.toBe('sent');
+    await expect(controller.forgotPassword('a@b.c')).resolves.toBeUndefined();
+    expect(svc.sendPasswordResetEmail).toHaveBeenCalledWith('a@b.c');
     await controller.resetPassword('code', { newPassword: 'pw' });
     expect(svc.verifyUser).toHaveBeenCalledWith('code');
     expect(svc.resetPassword).toHaveBeenCalledWith('code', 'pw');

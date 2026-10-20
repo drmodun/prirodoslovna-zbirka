@@ -4,7 +4,8 @@ import { createPrismaMock } from 'src/test-utils/prisma.mock';
 
 describe('NotificationUsersService', () => {
   let prisma: ReturnType<typeof createPrismaMock>;
-  let emitter: { emitAsync: jest.Mock };
+  let bus: { publish: jest.Mock };
+  let email: { sendMail: jest.Mock };
   let service: NotificationUsersService;
   const msg = { id: 'n' } as any;
 
@@ -12,18 +13,51 @@ describe('NotificationUsersService', () => {
     jest.spyOn(console, 'log').mockImplementation();
     jest.spyOn(console, 'error').mockImplementation();
     prisma = createPrismaMock();
-    emitter = { emitAsync: jest.fn().mockResolvedValue([]) };
-    service = new NotificationUsersService(emitter as any, prisma as any);
+    bus = { publish: jest.fn().mockResolvedValue(undefined) };
+    email = { sendMail: jest.fn().mockResolvedValue(undefined) };
+    prisma.user.findMany.mockResolvedValue([{ id: 'u1', email: 'a@b.c' }]);
+    service = new NotificationUsersService(
+      bus as any,
+      prisma as any,
+      email as any,
+    );
   });
   afterEach(() => jest.restoreAllMocks());
 
-  it('publishes on the user-id channel', async () => {
+  it('publishes to the user through the bus', async () => {
     await service.publishNotification('u1', msg);
-    expect(emitter.emitAsync).toHaveBeenCalledWith('u1', msg);
+    expect(bus.publish).toHaveBeenCalledWith('u1', msg);
   });
 
-  it('wraps emitter failures in BadRequestException', async () => {
-    emitter.emitAsync.mockRejectedValue(new Error('boom'));
+  it('mails the notification when the user has the setting on', async () => {
+    await service.publishNotification('u1', { ...msg, title: 'T', text: 'x' });
+    expect(email.sendMail).toHaveBeenCalledWith('a@b.c', 'T', 'x');
+  });
+
+  it('does not mail users who turned the setting off', async () => {
+    prisma.user.findMany.mockResolvedValue([]);
+    await service.publishNotification('u1', msg);
+    expect(email.sendMail).not.toHaveBeenCalled();
+  });
+
+  it('looks up all recipients of a fan-out in one query', async () => {
+    await service.publishManyNotifications(['a', 'b'], msg);
+    expect(prisma.user.findMany).toHaveBeenCalledTimes(1);
+    expect(prisma.user.findMany.mock.calls[0][0].where).toMatchObject({
+      id: { in: ['a', 'b'] },
+      isEmailNotificationsEnabled: true,
+    });
+  });
+
+  it('does not fail the notification when mailing fails', async () => {
+    email.sendMail.mockRejectedValue(new Error('smtp down'));
+    await expect(
+      service.publishNotification('u1', msg),
+    ).resolves.toBeUndefined();
+  });
+
+  it('wraps bus failures in BadRequestException', async () => {
+    bus.publish.mockRejectedValue(new Error('boom'));
     await expect(service.publishNotification('u1', msg)).rejects.toBeInstanceOf(
       BadRequestException,
     );
@@ -31,11 +65,7 @@ describe('NotificationUsersService', () => {
 
   it('publishManyNotifications fans out to every user', async () => {
     await service.publishManyNotifications(['a', 'b', 'c'], msg);
-    expect(emitter.emitAsync.mock.calls.map((c) => c[0])).toEqual([
-      'a',
-      'b',
-      'c',
-    ]);
+    expect(bus.publish.mock.calls.map((c) => c[0])).toEqual(['a', 'b', 'c']);
   });
 
   it('markAsRead only touches the given notification for the user', async () => {

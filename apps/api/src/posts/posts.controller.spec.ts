@@ -44,7 +44,11 @@ describe('PostsController', () => {
       checkValidity: jest.fn(),
       findAllWithoutApproval: jest.fn(),
     };
-    members = { checkForMember: jest.fn(), hasAdminRights: jest.fn() };
+    members = {
+      checkForMember: jest.fn(),
+      hasAdminRights: jest.fn(),
+      hasModerationRights: jest.fn(),
+    };
     orgs = { findOrganisationByExponatId: jest.fn() };
     exponats = { findExponatByPostId: jest.fn() };
     controller = new PostsController(
@@ -168,6 +172,37 @@ describe('PostsController', () => {
       });
       expect(res.authorshipInfo.authorName).toBe('A B');
     });
+
+    it('shows a pending post to moderators of its organisation', async () => {
+      posts.findOne.mockResolvedValue(dbPost());
+      exponats.findExponatByPostId.mockResolvedValue('e1');
+      orgs.findOrganisationByExponatId.mockResolvedValue('o1');
+      posts.checkValidity.mockResolvedValue(false);
+      members.hasModerationRights.mockResolvedValue(true);
+      await controller.findOne('p1', user());
+      expect(members.hasModerationRights).toHaveBeenCalledWith('me', 'o1');
+      expect(posts.findOne).toHaveBeenCalledWith('p1', false);
+    });
+
+    it('shows a pending post to its author', async () => {
+      posts.findOne.mockResolvedValue(dbPost());
+      exponats.findExponatByPostId.mockResolvedValue('e1');
+      orgs.findOrganisationByExponatId.mockResolvedValue('o1');
+      posts.checkValidity.mockResolvedValue(true);
+      members.hasModerationRights.mockResolvedValue(false);
+      await controller.findOne('p1', user());
+      expect(posts.findOne).toHaveBeenCalledWith('p1', false);
+    });
+
+    it('hides pending posts from other users', async () => {
+      posts.findOne.mockResolvedValue(dbPost());
+      exponats.findExponatByPostId.mockResolvedValue('e1');
+      orgs.findOrganisationByExponatId.mockResolvedValue('o1');
+      posts.checkValidity.mockResolvedValue(false);
+      members.hasModerationRights.mockResolvedValue(false);
+      await controller.findOne('p1', user());
+      expect(posts.findOne).toHaveBeenCalledWith('p1', true);
+    });
   });
 
   describe.each([
@@ -186,7 +221,7 @@ describe('PostsController', () => {
 
     it('rejects users who are neither author, admin nor super', async () => {
       posts.checkValidity.mockResolvedValue(false);
-      members.hasAdminRights.mockResolvedValue(false);
+      members.hasModerationRights.mockResolvedValue(false);
       await expect(call(controller, user())).rejects.toBeInstanceOf(
         UnauthorizedException,
       );
@@ -195,16 +230,23 @@ describe('PostsController', () => {
 
     it('allows organisation admins', async () => {
       posts.checkValidity.mockResolvedValue(false);
-      members.hasAdminRights.mockResolvedValue(true);
+      members.hasModerationRights.mockResolvedValue(true);
       await call(controller, user());
-      expect(members.hasAdminRights).toHaveBeenCalledWith('me', 'o1');
+      expect(members.hasModerationRights).toHaveBeenCalledWith('me', 'o1');
       expect(posts[serviceMethod]).toHaveBeenCalled();
     });
 
     it('allows super users', async () => {
       posts.checkValidity.mockResolvedValue(false);
-      members.hasAdminRights.mockResolvedValue(false);
+      members.hasModerationRights.mockResolvedValue(false);
       await call(controller, user('super'));
+      expect(posts[serviceMethod]).toHaveBeenCalled();
+    });
+
+    it('allows platform moderators (ADMIN)', async () => {
+      posts.checkValidity.mockResolvedValue(false);
+      members.hasModerationRights.mockResolvedValue(false);
+      await call(controller, user('admin'));
       expect(posts[serviceMethod]).toHaveBeenCalled();
     });
   });
@@ -213,7 +255,7 @@ describe('PostsController', () => {
     exponats.findExponatByPostId.mockResolvedValue('e1');
     orgs.findOrganisationByExponatId.mockResolvedValue('o1');
     posts.checkValidity.mockResolvedValue(true);
-    members.hasAdminRights.mockResolvedValue(false);
+    members.hasModerationRights.mockResolvedValue(false);
     await controller.update('p1', { title: 'n' } as any, user());
     await controller.remove('p1', user());
     expect(posts.update).toHaveBeenCalledWith('p1', { title: 'n' });
@@ -224,7 +266,7 @@ describe('PostsController', () => {
     exponats.findExponatByPostId.mockResolvedValue('e1');
     orgs.findOrganisationByExponatId.mockResolvedValue('o1');
     posts.checkValidity.mockResolvedValue(true); // is the author
-    members.hasAdminRights.mockResolvedValue(false);
+    members.hasModerationRights.mockResolvedValue(false);
     await expect(
       controller.toggleApproval('p1', user()),
     ).rejects.toBeInstanceOf(UnauthorizedException);
@@ -233,7 +275,7 @@ describe('PostsController', () => {
 
   describe('findAllNotApproved', () => {
     it('rejects non admins', async () => {
-      members.hasAdminRights.mockResolvedValue(false);
+      members.hasModerationRights.mockResolvedValue(false);
       await expect(
         controller.findAllNotApproved('o1', user()),
       ).rejects.toBeInstanceOf(UnauthorizedException);
@@ -241,7 +283,7 @@ describe('PostsController', () => {
     });
 
     it('lists pending posts for admins with the approval flag', async () => {
-      members.hasAdminRights.mockResolvedValue(true);
+      members.hasModerationRights.mockResolvedValue(true);
       posts.findAllWithoutApproval.mockResolvedValue([
         dbPost({ isApproved: false }),
       ]);
@@ -253,7 +295,7 @@ describe('PostsController', () => {
     });
 
     it('lets super users through without membership', async () => {
-      members.hasAdminRights.mockResolvedValue(false);
+      members.hasModerationRights.mockResolvedValue(false);
       posts.findAllWithoutApproval.mockResolvedValue([]);
       await expect(
         controller.findAllNotApproved('o1', user('super')),
@@ -262,7 +304,7 @@ describe('PostsController', () => {
   });
 
   it('findAllByOrganisation passes the admin flag to the service', async () => {
-    members.hasAdminRights.mockResolvedValue(true);
+    members.hasModerationRights.mockResolvedValue(true);
     posts.findAll.mockResolvedValue([dbPost()]);
     const res = await controller.findAllByOrganisation('o1', user());
     expect(posts.findAll).toHaveBeenCalledWith({

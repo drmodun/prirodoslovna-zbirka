@@ -59,18 +59,23 @@ and, where needed, DTOs built from `@biosfera/types` factories.
 | `NotificationUsersModule` | `/notification-users` | Per-user inbox, read state, live SSE stream |
 | `BlobModule` | `/blobs` | Uploads (images, PDFs, audio, 3D models, video) and local file serving |
 | `EmailModule` | — | SMTP / SendGrid / log transport |
-| `QuizzesModule`, `QuestionsModule` | `/quizzes`, `/questions` | Quizzes (not functional yet, see [Quizzes](/docs/features/quizzes/)) |
-| `PrismaModule` | — | `PrismaService`, the database client |
+| `QuizzesModule`, `QuestionsModule` | `/quizzes`, `/questions` | Quizzes and their questions, see [Quizzes](/docs/features/quizzes/) |
+| `AttemptsModule` | `/attempts` | Taking quizzes: attempts, server-side scoring, results |
+| `NotificationBusModule` | — | Global; fans live notifications out to every API instance over Postgres `LISTEN` / `NOTIFY` |
+| `PrismaModule` | — | Global; the one shared `PrismaService`, the database client |
 
-`EventEmitterModule` is used as an in-process pub/sub for live notifications;
-see [Notifications](/docs/features/notifications/).
+Live notifications travel between instances over Postgres `LISTEN` /
+`NOTIFY` and are handed to the SSE streams through the in-process
+`EventEmitterModule`; see [Notifications](/docs/features/notifications/).
 
-:::note[One Prisma client per module]
-`PrismaService` is listed as a provider in about 20 modules rather than
-exported once, so each gets its own `PrismaClient` and connection pool. In
-production this multiplies connections; the integration harness caps each
-pool with `connection_limit=2`.
-:::
+`PrismaModule` and `EmailModule` are global, so every module shares one
+`PrismaClient` (one connection pool) and one `EmailService`. Modules do not
+list them as providers.
+Services shared between modules (`MembersService`, `NotificationsService`,
+`NotificationUsersService`, `OrganisationsService`, `FollowsService`,
+`ExponatsService`, `BlobService`) are exported by their own module and
+imported by the modules that need them, never listed as providers again, so
+each exists once per process.
 
 The full route table is in [API endpoints](/docs/reference/api-endpoints/).
 
@@ -107,8 +112,9 @@ exponats: `name`, `alternateName`, taxonomy ranks such as `genus` or
 `family`, `organisationId`, favourite-count bounds…). Text filters use
 Postgres full-text search through Prisma's `fullTextSearch` preview feature:
 words are OR-ed for names (`a | b`) and treated as a phrase for taxonomy
-(`a <-> b`). A generic `FilteringParams` decorator (`?filter=field:rule:value`)
-exists but is not used by any endpoint.
+(`a <-> b`). A generic `FilteringParams` decorator (`?filter=field:rule:value`, rules as
+in `FilterRule`, `isnull` without a value) exists but is not used by any
+endpoint.
 
 ## Errors
 

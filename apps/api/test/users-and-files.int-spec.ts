@@ -328,6 +328,54 @@ describe('users, notifications & file uploads (integration)', () => {
       expect(received.join('')).toContain('NEW_FOLLOWER');
     });
 
+    it('reaches a browser connected to another API instance', async () => {
+      // A second, independent app on the same database stands in for another
+      // replica: the follow happens on ctx, the browser listens on other.
+      const other = await createTestContext({ separateProcess: true });
+      try {
+        const a = await createSession(ctx);
+        const b = await createSession(ctx);
+        await other.app.listen(0);
+        const { port } = other.app.getHttpServer().address() as AddressInfo;
+
+        const received = await new Promise<string>((resolve, reject) => {
+          let body = '';
+          const req = http.get(
+            `http://127.0.0.1:${port}/notification-users/subscribe/${a.user.id}`,
+            { headers: a.auth },
+            (res) => {
+              res.setEncoding('utf8');
+              res.on('data', (c) => {
+                body += c;
+                if (body.includes('NEW_FOLLOWER')) {
+                  req.destroy();
+                  resolve(body);
+                }
+              });
+            },
+          );
+          req.on('error', (e: NodeJS.ErrnoException) =>
+            e.code === 'ECONNRESET' ? undefined : reject(e),
+          );
+          setTimeout(() => {
+            ctx
+              .http()
+              .post(`/follows/${a.user.id}`)
+              .set(b.auth)
+              .then(undefined, reject);
+          }, 200);
+          setTimeout(() => {
+            req.destroy();
+            reject(new Error('no SSE event received'));
+          }, 8000);
+        });
+
+        expect(received).toContain('NEW_FOLLOWER');
+      } finally {
+        await other.close();
+      }
+    });
+
     it("the stream needs the subscriber's own login", async () => {
       const a = await createSession(ctx);
       const b = await createSession(ctx);

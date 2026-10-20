@@ -26,6 +26,7 @@ import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { OptionalJwtAuthGuard } from 'src/auth/optional-jwt-auth-guard';
 import { PaginationParams } from 'src/config/pagination';
 import { SortingParams } from 'src/config/sorting';
+import { isModerator, isSuperUser } from 'src/auth/roles';
 
 @Controller('works')
 @ApiTags('works')
@@ -44,7 +45,7 @@ export class WorksController {
     createWorkDto.organisationId = organisationId;
 
     if (
-      req?.user?.role === 'super' ||
+      isSuperUser(req?.user) ||
       (await this.worksService.checkIsAdmin(req?.user?.id, organisationId))
     ) {
       createWorkDto.isApproved = true;
@@ -52,7 +53,7 @@ export class WorksController {
     }
 
     const check =
-      req?.user?.role === 'super' ||
+      isSuperUser(req?.user) ||
       (await this.worksService.checkMembership(req.user.id, organisationId));
 
     if (!check)
@@ -75,7 +76,7 @@ export class WorksController {
     sorting?: SortingRequest,
     @Query() query?: WorkQuery,
   ) {
-    const isAdmin = req?.user?.role === 'super';
+    const isAdmin = isModerator(req?.user);
 
     const check =
       !isAdmin &&

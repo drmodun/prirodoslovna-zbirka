@@ -9,6 +9,7 @@ import { MemberRoleType } from './members.dto';
 import { NotificationPromise } from '@biosfera/types';
 import { NotificationsService } from 'src/notifications/notifications.service';
 import { NotificationUsersService } from 'src/notification-users/notification-users.service';
+import { isModeratorRole } from 'src/auth/roles';
 @Injectable()
 export class MembersService {
   constructor(
@@ -18,6 +19,9 @@ export class MembersService {
   ) {}
 
   async hasAdminRights(userId: string, organisationId: string) {
+    // findFirst with an undefined id would match any user.
+    if (!userId) return false;
+
     const userIsAdmin = await this.prisma.user.findFirst({
       where: {
         id: userId,
@@ -39,7 +43,26 @@ export class MembersService {
     );
   }
 
+  // Organisation admins and owner, and platform moderators (SUPER, ADMIN).
+  // Used for content checks; organisation and membership changes use
+  // hasAdminRights / hasOwnerRights, which only let SUPER through.
+  async hasModerationRights(userId: string, organisationId: string) {
+    if (!userId) return false;
+
+    const user = await this.prisma.user.findFirst({
+      where: {
+        id: userId,
+      },
+    });
+
+    if (isModeratorRole(user?.role)) return true;
+
+    return await this.hasAdminRights(userId, organisationId);
+  }
+
   async hasOwnerRights(userId: string, organisationId: string) {
+    if (!userId) return false;
+
     const userIsAdmin = await this.prisma.user.findFirst({
       where: {
         id: userId,

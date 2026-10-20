@@ -4,6 +4,7 @@ import {
   ValidationPipe,
 } from '@nestjs/common';
 import { HttpAdapterHost, Reflector } from '@nestjs/core';
+import { EventEmitter2 } from '@nestjs/event-emitter';
 import { Test } from '@nestjs/testing';
 import * as bcrypt from 'bcrypt';
 import { randomUUID } from 'crypto';
@@ -37,7 +38,18 @@ export interface TestContext {
  *
  * NOTE: keep in sync with the bootstrap in src/main.ts.
  */
-export async function createTestContext(): Promise<TestContext> {
+export interface TestContextOptions {
+  /**
+   * Give this app its own event emitter. EventEmitterModule.forRoot() creates
+   * one emitter when AppModule is loaded, so apps booted in the same process
+   * share it unless this is set; use it to stand in for another API instance.
+   */
+  separateProcess?: boolean;
+}
+
+export async function createTestContext(
+  options: TestContextOptions = {},
+): Promise<TestContext> {
   const mails: SentMail[] = [];
   // The exception filter and notification service log every handled error;
   // keep the test output readable.
@@ -46,14 +58,18 @@ export async function createTestContext(): Promise<TestContext> {
     jest.spyOn(console, 'log').mockImplementation(),
   ];
 
-  const moduleRef = await Test.createTestingModule({ imports: [AppModule] })
+  let builder = Test.createTestingModule({ imports: [AppModule] })
     .overrideProvider(EmailService)
     .useValue({
       sendMail: async (to: string, subject: string, text: string) => {
         mails.push({ to, subject, text });
       },
-    })
-    .compile();
+    });
+  if (options.separateProcess)
+    builder = builder
+      .overrideProvider(EventEmitter2)
+      .useValue(new EventEmitter2());
+  const moduleRef = await builder.compile();
 
   const app = moduleRef.createNestApplication();
   const { httpAdapter } = app.get(HttpAdapterHost);
@@ -128,6 +144,7 @@ export async function createUser(
   over: Partial<{
     role: Role;
     isActivated: boolean;
+    isEmailNotificationsEnabled: boolean;
     email: string;
     username: string;
     firstName: string;

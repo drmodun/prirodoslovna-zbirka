@@ -24,9 +24,11 @@ import { LiteratureModule } from './literature/literature.module';
 import { NotificationsModule } from './notifications/notifications.module';
 import { NotificationUsersModule } from './notification-users/notification-users.module';
 import { EventEmitterModule } from '@nestjs/event-emitter';
+import { NotificationBusModule } from './notification-bus/notification-bus.module';
 import { AuthorshipInfoModule } from './authorship-info/authorship-info.module';
 import { QuizzesModule } from './quizzes/quizzes.module';
 import { QuestionsModule } from './questions/questions.module';
+import { AttemptsModule } from './attempts/attempts.module';
 
 @Module({
   imports: [
@@ -55,9 +57,11 @@ import { QuestionsModule } from './questions/questions.module';
     NotificationsModule,
     NotificationUsersModule,
     EventEmitterModule.forRoot(),
+    NotificationBusModule,
     AuthorshipInfoModule,
     QuizzesModule,
     QuestionsModule,
+    AttemptsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

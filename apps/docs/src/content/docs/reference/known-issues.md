@@ -1,6 +1,6 @@
 ---
 title: Known issues
-description: Limitations that are still open, and the bugs that were fixed on the known-issues branch.
+description: Limitations that are still open, and the bugs that were fixed on the known-issues and open-issues branches.
 sidebar:
   order: 3
 ---
@@ -19,36 +19,62 @@ grep -rn "test.fail" apps/e2e/tests
 ```
 
 **There are none at the moment.** Every pinned bug was fixed on the
-`fix/known-issues` branch (summary below).
+`fix/known-issues` and `fix/open-issues` branches (summaries below).
 
 ## Still open
 
 These are known, but no test pins them, because they are design limits rather
 than wrong behaviour, or need a schema change.
 
-- **Password reset links never expire.** The reset link reuses the account's
-  `activationCode`, which never changes, so a used reset link (or the
-  activation link) keeps working. `POST /users/forgot-password/:email` also
-  answers `404` for unknown addresses, which reveals whether an account exists.
-  A proper fix needs a separate, expiring reset token column.
-- **Live notifications need a single API instance.** The stream uses the
-  in-process event emitter, so a notification emitted on one replica never
-  reaches a browser connected to another. Stored notifications still show up
-  on the next page load.
-- **One Prisma client per module.** `PrismaService` is provided in about 20
-  modules, each with its own connection pool.
-- **The platform `ADMIN` role does nothing.** It is put into the token, but no
-  check looks for it.
-- **Email notification preference is unused.** `User.IsEmailNotificationsEnabled`
-  exists; notifications are never mailed.
 - **The text-to-speech upload endpoint is unauthenticated** by design: the web
   server writes recordings to it while rendering pages for anonymous
   visitors. It only accepts recording names (`audio-<dir>/<id>-<hash>`) and
   never replaces a file, see [File storage](/docs/architecture/file-storage/).
-- **`FilteringParams`** (`?filter=field:rule:value`) is implemented but not
-  used by any endpoint, and its pattern and `FilterRule` disagree on rule
-  names.
-- **Quiz attempts** are in the schema but have no endpoints yet.
+- **No page for taking a quiz.** The attempt API exists (see
+  [Quizzes](/docs/features/quizzes/#taking-a-quiz)), but the web app has no
+  page that uses it yet.
+
+## Fixed on `fix/open-issues`
+
+- **One shared Prisma client.** `PrismaModule` is global and no module
+  provides `PrismaService` itself, so there is one connection pool; the same
+  goes for `EmailService`. Shared services are exported and imported instead
+  of being provided again in every module.
+- **E-mail notifications work.** Notifications are mailed to activated users
+  with `isEmailNotificationsEnabled`, which can be changed through
+  `PATCH /users/:id`.
+- **`FilteringParams` is consistent.** Its pattern now accepts exactly the
+  `FilterRule` names. It is still not used by an endpoint.
+- **The posts-by-organisation route is reachable** at
+  `GET /posts/organisation/:organisationId`.
+- **Password reset links expire and work once.** The reset link carries its
+  own random token (only a SHA-256 hash is stored, in the new
+  `passwordResetToken` column), valid for an hour and cleared when used. The
+  activation link no longer resets passwords, and `forgot-password` answers
+  the same for unknown addresses. The new password must be as strong as at
+  registration.
+- **Live notifications work with several API instances.** Notifications are
+  published with Postgres `NOTIFY`, and every instance `LISTEN`s and passes
+  them on to its own SSE streams. No new infrastructure is needed (see
+  [Notifications](/docs/features/notifications/)).
+- **The platform `ADMIN` role is a content moderator.** It reviews,
+  approves, edits and deletes content in every organisation and approves
+  organisations, but cannot create content for an organisation, manage
+  members or organisation details, manage accounts or see e-mail addresses
+  (see [Roles and permissions](/docs/reference/roles-and-permissions/)). The
+  web app shows moderation controls to it accordingly.
+- **Quizzes can be taken through the API.** Users and, where allowed,
+  anonymous visitors start and submit attempts. The server scores them,
+  enforces time limits and retake rules, and organisation admins get results
+  and per-question statistics. `attemptsAmount` and `averageAttemptScore`
+  are real now.
+- `GET /posts/:id` checked moderation rights against the post id instead of
+  its organisation, so organisation admins and the author got `404` for a
+  pending post.
+- In the web app, owners of _any_ organisation saw the admin controls for
+  exponats and the "new announcement" button on every organisation (an
+  operator-precedence slip). The organisation Edit tab is shown to
+  organisation admins only, no longer to everyone who may moderate.
 
 ## Fixed on `fix/known-issues`
 

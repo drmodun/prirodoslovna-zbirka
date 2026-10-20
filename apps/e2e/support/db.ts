@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import { randomUUID } from "node:crypto";
+import { createHash, randomBytes, randomUUID } from "node:crypto";
 import { DATABASE_URL, assertSafeDatabase } from "./env";
 
 assertSafeDatabase();
@@ -49,6 +49,25 @@ export const createUser = (
       ...over,
     },
   });
+};
+
+/**
+ * Issues a password reset link the way `POST /users/forgot-password` does:
+ * the user gets the token, the database only its SHA-256 hash.
+ */
+export const createPasswordResetToken = async (
+  userId: string,
+  expiresAt = new Date(Date.now() + 60 * 60 * 1000),
+) => {
+  const token = randomBytes(32).toString("hex");
+  await prisma.user.update({
+    where: { id: userId },
+    data: {
+      passwordResetToken: createHash("sha256").update(token).digest("hex"),
+      passwordResetExpiresAt: expiresAt,
+    },
+  });
+  return token;
 };
 
 export const createOrganisation = (
