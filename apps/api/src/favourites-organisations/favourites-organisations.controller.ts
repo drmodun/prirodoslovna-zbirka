@@ -46,7 +46,6 @@ export class FavouriteOrgranisationsController {
 
     const mapped = users.map((connection) => {
       return {
-        email: connection.user.email,
         id: connection.userId,
         lastName: connection.user.lastName,
         firstName: connection.user.firstName,

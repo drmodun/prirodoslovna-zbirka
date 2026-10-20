@@ -226,7 +226,8 @@ export class OrganisationsController {
         firstName: member.user.firstName,
         lastName: member.user.lastName,
         role: member.role,
-        email: member.user.email,
+        // Contact details are for the organisation's admins only.
+        ...(isAdmin && { email: member.user.email }),
         followerCount: member.user._count.followers,
         avatar: member.user.hasProfileImage,
         username: member.user.username,

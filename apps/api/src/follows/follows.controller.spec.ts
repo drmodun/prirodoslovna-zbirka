@@ -35,7 +35,6 @@ describe('FollowsController', () => {
     await expect(controller.getFollowers('u')).resolves.toEqual([
       {
         id: 'f1',
-        email: 'e',
         firstName: 'A',
         lastName: 'B',
         location: 'ZAGREB',

@@ -1,3 +1,5 @@
+import { UnauthorizedException } from '@nestjs/common';
+import { OwnStreamGuard } from './own-stream.guard';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 import { firstValueFrom } from 'rxjs';
 import { NotificationUsersController } from './notification-users.controller';
@@ -73,10 +75,31 @@ describe('NotificationUsersController', () => {
     expect(svc.markAsRead).toHaveBeenCalledWith('n1', 'me');
   });
 
-  // SECURITY: the SSE stream for any user id can be opened without
-  // authentication, so anyone who knows (or guesses) a user id receives that
-  // user's notifications in real time.
-  it.failing('sse subscription requires authentication', () => {
+  describe('OwnStreamGuard', () => {
+    const context = (userId: string, user?: { id: string }) =>
+      ({
+        switchToHttp: () => ({
+          getRequest: () => ({ user, params: { userId } }),
+        }),
+      }) as any;
+
+    it("refuses someone else's stream", () => {
+      expect(() =>
+        new OwnStreamGuard().canActivate(context('u1', { id: 'other' })),
+      ).toThrow(UnauthorizedException);
+      expect(() => new OwnStreamGuard().canActivate(context('u1'))).toThrow(
+        UnauthorizedException,
+      );
+    });
+
+    it('lets users follow their own stream', () => {
+      expect(
+        new OwnStreamGuard().canActivate(context('u1', { id: 'u1' })),
+      ).toBe(true);
+    });
+  });
+
+  it('sse subscription requires authentication', () => {
     const guards = Reflect.getMetadata(
       '__guards__',
       NotificationUsersController.prototype.sse,

@@ -269,9 +269,9 @@ describe('OrganisationsController', () => {
 
     it('update refuses non admins', async () => {
       members.hasAdminRights.mockResolvedValue(false);
-      await expect(controller.update('o1', {} as any, req)).rejects.toBeInstanceOf(
-        UnauthorizedException,
-      );
+      await expect(
+        controller.update('o1', {} as any, req),
+      ).rejects.toBeInstanceOf(UnauthorizedException);
       expect(svc.update).not.toHaveBeenCalled();
     });
 

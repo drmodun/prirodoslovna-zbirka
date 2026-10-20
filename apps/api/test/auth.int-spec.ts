@@ -47,9 +47,7 @@ describe('auth & user registration (integration)', () => {
       );
     });
 
-    // BUG: `bio` is documented and treated by the web form as optional, but
-    // the DTO uses @IsString() without @IsOptional(), so omitting it is a 400.
-    it.failing('registers a user who leaves the optional bio out', async () => {
+    it('registers a user who leaves the optional bio out', async () => {
       const { bio, ...withoutBio } = registration();
       void bio;
       await ctx.http().post('/users').send(withoutBio).expect(201);

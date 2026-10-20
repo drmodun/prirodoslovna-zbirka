@@ -57,7 +57,6 @@ describe('LiteratureController', () => {
     await expect(controller.findAllForWork('l')).resolves.toEqual([
       {
         id: 'u',
-        email: 'e',
         firstName: 'A',
         lastName: 'B',
         username: 'ab',

@@ -45,7 +45,7 @@ const UserCard = ({
   const user = item as ShortUserResponse & Indexable;
   return (
     <MembershipCard
-      description={user.email}
+      description={user.email ?? user.username}
       type="user"
       image={
         isMember

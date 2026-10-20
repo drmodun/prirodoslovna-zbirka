@@ -86,9 +86,7 @@ describe('SocialPostsService', () => {
       actor('ADMIN');
       prisma.socialPost.create.mockResolvedValue(created);
       await service.create({ ...dto, type: 'EVENT' }, 'o', 'u');
-      expect(prisma.socialPost.create.mock.calls[0][0].data.type).toBe(
-        'EVENT',
-      );
+      expect(prisma.socialPost.create.mock.calls[0][0].data.type).toBe('EVENT');
     });
 
     it('creates an approved post and notifies the organisation followers', async () => {

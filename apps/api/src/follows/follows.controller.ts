@@ -23,7 +23,6 @@ export class FollowsController {
 
     const mapped: ShortUserResponse[] = followers.map((user) => {
       return {
-        email: user.follower.email,
         firstName: user.follower.firstName,
         lastName: user.follower.lastName,
         location: user.follower.location,
@@ -44,7 +43,6 @@ export class FollowsController {
 
     const mapped: ShortUserResponse[] = following.map((user) => {
       return {
-        email: user.followee.email,
         username: user.followee.username,
         firstName: user.followee.firstName,
         lastName: user.followee.lastName,

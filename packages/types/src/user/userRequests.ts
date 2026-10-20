@@ -28,6 +28,7 @@ export const getRegisterUserDto = (ApiPropertySwagger?: any) => {
     @ApiProperty()
     username: string;
 
+    @IsOptional()
     @IsString()
     @ApiProperty({ required: false })
     bio?: string;
@@ -66,6 +67,7 @@ export const getUpateUserDto = (ApiPropertySwagger?: any) => {
     @ApiProperty()
     username: string;
 
+    @IsOptional()
     @IsString()
     @ApiProperty({ required: false })
     bio?: string;

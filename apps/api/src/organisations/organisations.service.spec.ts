@@ -171,16 +171,11 @@ describe('OrganisationsService', () => {
       expect(where).toEqual({ OR: [{ role: 'MEMBER' }, { role: 'ADMIN' }] });
     });
 
-    it(
-      'announces "odobrena" when an unapproved organisation becomes approved',
-      async () => {
-        prisma.organisation.findFirst.mockResolvedValue(current(false));
-        await service.changeApprovalStatus('o1');
-        expect(notifications.create.mock.calls[0][0].title).toContain(
-          'odobrena',
-        );
-      },
-    );
+    it('announces "odobrena" when an unapproved organisation becomes approved', async () => {
+      prisma.organisation.findFirst.mockResolvedValue(current(false));
+      await service.changeApprovalStatus('o1');
+      expect(notifications.create.mock.calls[0][0].title).toContain('odobrena');
+    });
   });
 
   it('getJoinRequests lists REQUESTED memberships with minimal user data', async () => {

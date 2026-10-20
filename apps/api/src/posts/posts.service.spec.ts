@@ -117,18 +117,15 @@ describe('PostsService', () => {
       });
     });
 
-    it(
-      'filters by the exponats of an organisation on ExponatId',
-      async () => {
-        await service.findAll({ organisationId: 'o1' } as any);
-        expect(prisma.exponat.findMany.mock.calls[0][0].where).toEqual({
-          organisationId: 'o1',
-        });
-        expect(prisma.post.findMany.mock.calls[0][0].where.ExponatId).toEqual({
-          in: ['e1', 'e2'],
-        });
-      },
-    );
+    it('filters by the exponats of an organisation on ExponatId', async () => {
+      await service.findAll({ organisationId: 'o1' } as any);
+      expect(prisma.exponat.findMany.mock.calls[0][0].where).toEqual({
+        organisationId: 'o1',
+      });
+      expect(prisma.post.findMany.mock.calls[0][0].where.ExponatId).toEqual({
+        in: ['e1', 'e2'],
+      });
+    });
   });
 
   describe('create', () => {
