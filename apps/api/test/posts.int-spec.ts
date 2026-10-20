@@ -89,94 +89,97 @@ describe('posts, likes & follows (integration)', () => {
       expect(await ctx.prisma.post.count()).toBe(0);
     });
 
-    it(
-      'a member’s post is unapproved and asks the admins for review',
-      async () => {
-        const member = await setup('MEMBER');
-        const admin = await createSession(ctx);
-        await ctx.prisma.organisationUser.create({
-          data: {
-            userId: admin.user.id,
-            organisationId: member.org.id,
-            role: 'ADMIN',
-          },
-        });
+    it('a member’s post is unapproved and asks the admins for review', async () => {
+      const member = await setup('MEMBER');
+      const admin = await createSession(ctx);
+      await ctx.prisma.organisationUser.create({
+        data: {
+          userId: admin.user.id,
+          organisationId: member.org.id,
+          role: 'ADMIN',
+        },
+      });
 
-        const res = await ctx
-          .http()
-          .post(`/posts/${member.exponat.id}`)
-          .set(member.auth)
-          .send(await postBody(member.user.id));
-        expect(res.status).toBe(201);
+      const res = await ctx
+        .http()
+        .post(`/posts/${member.exponat.id}`)
+        .set(member.auth)
+        .send(await postBody(member.user.id));
+      expect(res.status).toBe(201);
 
-        const stored = await ctx.prisma.post.findFirstOrThrow();
-        expect(stored).toMatchObject({
-          authorId: member.user.id,
-          isApproved: false,
-        });
+      const stored = await ctx.prisma.post.findFirstOrThrow();
+      expect(stored).toMatchObject({
+        authorId: member.user.id,
+        isApproved: false,
+      });
 
-        const notes = await ctx
-          .http()
-          .get('/notification-users')
-          .set(admin.auth)
-          .expect(200);
-        expect(notes.body.map((n: any) => n.type)).toContain(
-          'NEW_POST_REQUEST',
-        );
-      },
-    );
+      const notes = await ctx
+        .http()
+        .get('/notification-users')
+        .set(admin.auth)
+        .expect(200);
+      expect(notes.body.map((n: any) => n.type)).toContain('NEW_POST_REQUEST');
+    });
 
-    it(
-      'an admin’s post is approved immediately and followers are notified',
-      async () => {
-        const admin = await setup('ADMIN');
-        const follower = await createSession(ctx);
-        await ctx.prisma.userFollows.create({
-          data: { followerId: follower.user.id, followeeId: admin.user.id },
-        });
+    it('an admin’s post is approved immediately and followers are notified', async () => {
+      const admin = await setup('ADMIN');
+      const follower = await createSession(ctx);
+      await ctx.prisma.userFollows.create({
+        data: { followerId: follower.user.id, followeeId: admin.user.id },
+      });
 
-        await ctx
-          .http()
-          .post(`/posts/${admin.exponat.id}`)
-          .set(admin.auth)
-          .send(await postBody(admin.user.id))
-          .expect(201);
+      await ctx
+        .http()
+        .post(`/posts/${admin.exponat.id}`)
+        .set(admin.auth)
+        .send(await postBody(admin.user.id))
+        .expect(201);
 
-        expect(await ctx.prisma.post.findFirstOrThrow()).toMatchObject({
+      expect(await ctx.prisma.post.findFirstOrThrow()).toMatchObject({
+        isApproved: true,
+        IsNotificationMade: true,
+      });
+      const notes = await ctx
+        .http()
+        .get('/notification-users')
+        .set(follower.auth)
+        .expect(200);
+      expect(notes.body.map((n: any) => n.type)).toContain(
+        'POST_BY_FOLLOWED_ACCOUNT',
+      );
+    });
+
+    it('cannot spoof the author or approval through the body', async () => {
+      const member = await setup('MEMBER');
+      const victim = await createSession(ctx);
+      await ctx
+        .http()
+        .post(`/posts/${member.exponat.id}`)
+        .set(member.auth)
+        .send({
+          ...(await postBody(member.user.id)),
+          authorId: victim.user.id,
           isApproved: true,
-          IsNotificationMade: true,
+          isAdmin: true,
         });
-        const notes = await ctx
-          .http()
-          .get('/notification-users')
-          .set(follower.auth)
-          .expect(200);
-        expect(notes.body.map((n: any) => n.type)).toContain(
-          'POST_BY_FOLLOWED_ACCOUNT',
-        );
-      },
-    );
+      const stored = await ctx.prisma.post.findFirstOrThrow();
+      expect(stored.authorId).toBe(member.user.id);
+      expect(stored.isApproved).toBe(false);
+    });
 
-    it(
-      'cannot spoof the author or approval through the body',
-      async () => {
-        const member = await setup('MEMBER');
-        const victim = await createSession(ctx);
-        await ctx
-          .http()
-          .post(`/posts/${member.exponat.id}`)
-          .set(member.auth)
-          .send({
-            ...(await postBody(member.user.id)),
-            authorId: victim.user.id,
-            isApproved: true,
-            isAdmin: true,
-          });
-        const stored = await ctx.prisma.post.findFirstOrThrow();
-        expect(stored.authorId).toBe(member.user.id);
-        expect(stored.isApproved).toBe(false);
-      },
-    );
+    it('authorship information is optional', async () => {
+      const { auth, user, exponat } = await setup('ADMIN');
+      const { authorshipInfoId, ...withoutAuthorship } = await postBody(
+        user.id,
+      );
+      void authorshipInfoId;
+      await ctx
+        .http()
+        .post(`/posts/${exponat.id}`)
+        .set(auth)
+        .send(withoutAuthorship)
+        .expect(201);
+    });
 
     it('validates the payload', async () => {
       const { auth, user, exponat } = await setup('MEMBER');

@@ -102,10 +102,7 @@ test.describe("organisation page", () => {
     await expect(page.getByText("Neodobrena organizacija")).toHaveCount(0);
   });
 
-  // BUG: for an unknown or unapproved organisation the page hands `null` to
-  // OrganisationBody, which touches `window` while rendering on the server, so
-  // visitors get a server error instead of a 404.
-  test.fail("an unknown organisation answers with 404", async ({ page }) => {
+  test("an unknown organisation answers with 404", async ({ page }) => {
     const response = await page.goto("/organisation/00000000-0000-0000-0000-000000000000");
     expect(response?.status()).toBe(404);
   });

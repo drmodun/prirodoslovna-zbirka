@@ -116,9 +116,7 @@ test.describe("signing in", () => {
     expect(await page.evaluate(() => localStorage.getItem("access_token"))).toBeNull();
   });
 
-  // BUG: the menu button's accessible name is set through a misspelt attribute
-  // (`awia-label`), so screen readers announce an unnamed button.
-  test.fail("the menu button has an accessible name", async ({ page }) => {
+  test("the menu button has an accessible name", async ({ page }) => {
     await page.goto("/discover");
     await expect(page.getByRole("button", { name: /menu/i })).toBeVisible();
   });
