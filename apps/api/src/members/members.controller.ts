@@ -53,7 +53,7 @@ export class MembersController {
     @Body() editMembershipDto: EditMembershipDto,
   ) {
     if (editMembershipDto.role === MemberRoleType.OWNER)
-      return new UnauthorizedException("You can't make a member an owner");
+      throw new UnauthorizedException("You can't make a member an owner");
 
     const authorId = req.user.id;
     const check = await this.membersService.hasAdminRights(
@@ -61,7 +61,7 @@ export class MembersController {
       organisationId,
     );
 
-    if (!check) return new UnauthorizedException("You don't have admin rights");
+    if (!check) throw new UnauthorizedException("You don't have admin rights");
 
     await this.membersService.editMemberRole(
       userId,
@@ -85,7 +85,7 @@ export class MembersController {
       organisationId,
     );
 
-    if (!check) return new UnauthorizedException("You don't have owner rights");
+    if (!check) throw new UnauthorizedException("You don't have owner rights");
 
     await this.membersService.ownerEditMemberRole(
       userId,
@@ -108,7 +108,7 @@ export class MembersController {
       organisationId,
     );
 
-    if (!check) return new UnauthorizedException("You don't have owner rights");
+    if (!check) throw new UnauthorizedException("You don't have owner rights");
 
     await this.membersService.transferOwnership(
       authorId,
@@ -131,7 +131,7 @@ export class MembersController {
       organisationId,
     );
 
-    if (!check) return new UnauthorizedException("You don't have admin rights");
+    if (!check) throw new UnauthorizedException("You don't have admin rights");
 
     await this.membersService.addMember(userId, organisationId);
   }
@@ -150,7 +150,7 @@ export class MembersController {
       organisationId,
     );
 
-    if (!check) return new UnauthorizedException("You don't have admin rights");
+    if (!check) throw new UnauthorizedException("You don't have admin rights");
 
     await this.membersService.removeMember(userId, organisationId);
   }

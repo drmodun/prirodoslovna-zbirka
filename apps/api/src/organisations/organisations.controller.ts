@@ -285,8 +285,8 @@ export class OrganisationsController {
   @ApiBearerAuth()
   @Get(':id/requests')
   async getRequests(@Param('id') id: string, @Req() req?: any) {
-    const check = this.membersService.hasAdminRights(req.user.id, id);
-    if (!check) return new UnauthorizedException("You don't have admin rights");
+    const check = await this.membersService.hasAdminRights(req.user.id, id);
+    if (!check) throw new UnauthorizedException("You don't have admin rights");
     return await this.organisationsService.getJoinRequests(id);
   }
 
@@ -298,10 +298,10 @@ export class OrganisationsController {
     @Body() updateOrganisationDto: UpdateOrganisationDto,
     @Req() req?: any,
   ) {
-    const check = this.membersService.hasAdminRights(req.user.id, id);
+    const check = await this.membersService.hasAdminRights(req.user.id, id);
 
     if (!check)
-      return new UnauthorizedException(
+      throw new UnauthorizedException(
         "You don't have admin rights for this organisation",
       );
 
@@ -312,18 +312,25 @@ export class OrganisationsController {
   @ApiBearerAuth()
   @Delete(':id')
   async remove(@Param('id') id: string, @Req() req?: any) {
-    const check = this.membersService.hasAdminRights(req.user.id, id);
+    const check = await this.membersService.hasAdminRights(req.user.id, id);
 
     if (!check)
-      return new UnauthorizedException(
+      throw new UnauthorizedException(
         "You don't have admin rights for this organisation",
       );
 
     return await this.organisationsService.remove(id);
   }
 
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @Patch(':id/approval')
-  async changeApprovalStatus(@Param('id') id: string) {
+  async changeApprovalStatus(@Param('id') id: string, @Req() req?: any) {
+    if (req?.user?.role !== 'super')
+      throw new UnauthorizedException(
+        'Only super users can approve organisations',
+      );
+
     return await this.organisationsService.changeApprovalStatus(id);
   }
 }

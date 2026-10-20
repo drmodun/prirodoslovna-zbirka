@@ -263,7 +263,10 @@ export class OrganisationsService {
       },
     });
 
-    await this.makeApprovalChangeNotification(current);
+    await this.makeApprovalChangeNotification({
+      ...current,
+      isApproved: !current.isApproved,
+    });
   }
 
   async getJoinRequests(organisationId: string) {

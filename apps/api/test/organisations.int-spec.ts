@@ -312,10 +312,7 @@ describe('organisations & members (integration)', () => {
         .patch(`/members/${org.id}/${other.user.id}`)
         .set(member.auth)
         .send({ role: 'ADMIN' });
-      // NOTE: the controller *returns* the UnauthorizedException instead of
-      // throwing it, so clients see HTTP 200 with an error-shaped body.
-      expect(res.status).toBe(200);
-      expect(res.body).toMatchObject({ status: 401 });
+      expect(res.status).toBe(401);
       expect(
         (
           await ctx.prisma.organisationUser.findFirstOrThrow({
@@ -325,21 +322,18 @@ describe('organisations & members (integration)', () => {
       ).toBe('REQUESTED');
     });
 
-    it.failing(
-      'denied membership changes answer with a 401/403 status code',
-      async () => {
-        const member = await createSession(ctx);
-        const org = await createOrganisation(ctx, {}, [
-          { userId: member.user.id, role: 'MEMBER' },
-        ]);
-        const res = await ctx
-          .http()
-          .patch(`/members/${org.id}/${member.user.id}`)
-          .set(member.auth)
-          .send({ role: 'ADMIN' });
-        expect([401, 403]).toContain(res.status);
-      },
-    );
+    it('denied membership changes answer with a 401/403 status code', async () => {
+      const member = await createSession(ctx);
+      const org = await createOrganisation(ctx, {}, [
+        { userId: member.user.id, role: 'MEMBER' },
+      ]);
+      const res = await ctx
+        .http()
+        .patch(`/members/${org.id}/${member.user.id}`)
+        .set(member.auth)
+        .send({ role: 'ADMIN' });
+      expect([401, 403]).toContain(res.status);
+    });
 
     it('admins cannot promote anyone to OWNER, only the owner can (transfer)', async () => {
       const owner = await createSession(ctx);
@@ -354,7 +348,7 @@ describe('organisations & members (integration)', () => {
         .patch(`/members/${org.id}/${admin.user.id}`)
         .set(admin.auth)
         .send({ role: 'OWNER' })
-        .expect(200);
+        .expect(401);
       expect(
         (
           await ctx.prisma.organisationUser.findFirstOrThrow({
@@ -438,60 +432,51 @@ describe('organisations & members (integration)', () => {
       ).toBe('New name here');
     });
 
-    it.failing(
-      'a stranger cannot update someone else’s organisation',
-      async () => {
-        const stranger = await createSession(ctx);
-        const org = await createOrganisation(ctx, { name: 'Original name' });
-        const res = await ctx
-          .http()
-          .patch(`/organisations/${org.id}`)
-          .set(stranger.auth)
-          .send(payload({ name: 'Hijacked name', email: org.email }));
-        expect([401, 403]).toContain(res.status);
-        expect(
-          (
-            await ctx.prisma.organisation.findUniqueOrThrow({
-              where: { id: org.id },
-            })
-          ).name,
-        ).toBe('Original name');
-      },
-    );
+    it('a stranger cannot update someone else’s organisation', async () => {
+      const stranger = await createSession(ctx);
+      const org = await createOrganisation(ctx, { name: 'Original name' });
+      const res = await ctx
+        .http()
+        .patch(`/organisations/${org.id}`)
+        .set(stranger.auth)
+        .send(payload({ name: 'Hijacked name', email: org.email }));
+      expect([401, 403]).toContain(res.status);
+      expect(
+        (
+          await ctx.prisma.organisation.findUniqueOrThrow({
+            where: { id: org.id },
+          })
+        ).name,
+      ).toBe('Original name');
+    });
 
-    it.failing(
-      'a stranger cannot delete someone else’s organisation',
-      async () => {
-        const stranger = await createSession(ctx);
-        const org = await createOrganisation(ctx);
-        await ctx.http().delete(`/organisations/${org.id}`).set(stranger.auth);
-        expect(
-          await ctx.prisma.organisation.count({ where: { id: org.id } }),
-        ).toBe(1);
-      },
-    );
+    it('a stranger cannot delete someone else’s organisation', async () => {
+      const stranger = await createSession(ctx);
+      const org = await createOrganisation(ctx);
+      await ctx.http().delete(`/organisations/${org.id}`).set(stranger.auth);
+      expect(
+        await ctx.prisma.organisation.count({ where: { id: org.id } }),
+      ).toBe(1);
+    });
 
-    it.failing(
-      'a stranger cannot read the join requests (with emails) of an organisation',
-      async () => {
-        const stranger = await createSession(ctx);
-        const applicant = await createSession(ctx);
-        const org = await createOrganisation(ctx, {}, [
-          { userId: applicant.user.id, role: 'REQUESTED' },
-        ]);
-        const res = await ctx
-          .http()
-          .get(`/organisations/${org.id}/requests`)
-          .set(stranger.auth);
-        expect(res.body).not.toEqual([
-          expect.objectContaining({
-            user: expect.objectContaining({ email: applicant.user.email }),
-          }),
-        ]);
-      },
-    );
+    it('a stranger cannot read the join requests (with emails) of an organisation', async () => {
+      const stranger = await createSession(ctx);
+      const applicant = await createSession(ctx);
+      const org = await createOrganisation(ctx, {}, [
+        { userId: applicant.user.id, role: 'REQUESTED' },
+      ]);
+      const res = await ctx
+        .http()
+        .get(`/organisations/${org.id}/requests`)
+        .set(stranger.auth);
+      expect(res.body).not.toEqual([
+        expect.objectContaining({
+          user: expect.objectContaining({ email: applicant.user.email }),
+        }),
+      ]);
+    });
 
-    it.failing('approval can only be toggled by a super user', async () => {
+    it('approval can only be toggled by a super user', async () => {
       const org = await createOrganisation(ctx, { isApproved: false });
       await ctx.http().patch(`/organisations/${org.id}/approval`);
       expect(
@@ -504,11 +489,16 @@ describe('organisations & members (integration)', () => {
     });
 
     it('toggling approval flips the flag and notifies the members', async () => {
+      const superUser = await createSession(ctx, { role: 'SUPER' });
       const member = await createSession(ctx);
       const org = await createOrganisation(ctx, { isApproved: false }, [
         { userId: member.user.id, role: 'MEMBER' },
       ]);
-      await ctx.http().patch(`/organisations/${org.id}/approval`).expect(200);
+      await ctx
+        .http()
+        .patch(`/organisations/${org.id}/approval`)
+        .set(superUser.auth)
+        .expect(200);
       expect(
         (
           await ctx.prisma.organisation.findUniqueOrThrow({

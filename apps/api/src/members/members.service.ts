@@ -123,7 +123,7 @@ export class MembersService {
 
     if (memberCheck) return;
 
-    if (memberCheck) return new BadRequestException('Already a member');
+    if (memberCheck) throw new BadRequestException('Already a member');
 
     const membership = await this.prisma.organisationUser.create({
       data: {
@@ -149,7 +149,7 @@ export class MembersService {
   async removeMember(userId: string, organisationId: string) {
     const memberCheck = await this.checkForMember(userId, organisationId);
 
-    if (!memberCheck) return new NotFoundException('Member not found');
+    if (!memberCheck) throw new NotFoundException('Member not found');
 
     const membership = await this.prisma.organisationUser.deleteMany({
       where: {
@@ -168,7 +168,7 @@ export class MembersService {
   ) {
     const memberCheck = await this.checkForMember(userId, organisationId);
 
-    if (!memberCheck) return new NotFoundException('Member not found');
+    if (!memberCheck) throw new NotFoundException('Member not found');
 
     const action = await this.prisma.organisationUser.update({
       where: {
@@ -204,7 +204,7 @@ export class MembersService {
   async makeRequest(userId: string, organisationId: string) {
     const memberCheck = await this.checkForMember(userId, organisationId);
 
-    if (memberCheck) return new BadRequestException('Already a member');
+    if (memberCheck) throw new BadRequestException('Already a member');
 
     const membership = await this.prisma.organisationUser.create({
       data: {
@@ -243,7 +243,7 @@ export class MembersService {
   async leaveOrganisation(userId: string, organisationId: string) {
     const memberCheck = await this.checkForMember(userId, organisationId);
 
-    if (!memberCheck) return new NotFoundException('You are not a member');
+    if (!memberCheck) throw new NotFoundException('You are not a member');
 
     const membership = await this.prisma.organisationUser.deleteMany({
       where: {
@@ -262,7 +262,7 @@ export class MembersService {
   ) {
     const memberCheck = await this.checkForMember(userId, organisationId);
 
-    if (!memberCheck) return new NotFoundException('Member not found');
+    if (!memberCheck) throw new NotFoundException('Member not found');
 
     const membership = await this.prisma.organisationUser.update({
       where: {
@@ -296,7 +296,7 @@ export class MembersService {
   ) {
     const memberCheck = await this.checkForMember(newOwnerId, organisationId);
 
-    if (!memberCheck) return new NotFoundException('Member not found');
+    if (!memberCheck) throw new NotFoundException('Member not found');
 
     const membership = await this.prisma.organisationUser.updateMany({
       where: {

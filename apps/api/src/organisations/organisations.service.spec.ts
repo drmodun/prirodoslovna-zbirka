@@ -171,9 +171,7 @@ describe('OrganisationsService', () => {
       expect(where).toEqual({ OR: [{ role: 'MEMBER' }, { role: 'ADMIN' }] });
     });
 
-    // The notification text is built from the *pre-update* snapshot, so an
-    // organisation that has just been approved is announced as rejected.
-    it.failing(
+    it(
       'announces "odobrena" when an unapproved organisation becomes approved',
       async () => {
         prisma.organisation.findFirst.mockResolvedValue(current(false));
