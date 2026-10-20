@@ -225,10 +225,7 @@ describe("ListInput", () => {
     await waitFor(() => expect(form.getValues("facts")).toEqual(["b"]));
   });
 
-  // BUG: an effect that depends on [isSelect, options] runs on mount and calls
-  // setElements([]), discarding `initValue`, so edit forms cannot show the
-  // values that are already stored.
-  it.failing("starts with the initial values", () => {
+  it("starts with the initial values", () => {
     mount({ initValue: ["a", "b"] });
     expect(screen.getByText("a")).toBeInTheDocument();
     expect(screen.getByText("b")).toBeInTheDocument();

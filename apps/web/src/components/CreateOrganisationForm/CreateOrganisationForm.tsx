@@ -42,7 +42,7 @@ export const OrganisationForm = ({
     description: z
       .string()
       .min(2, "Opis mora imati najmanje 2 slova")
-      .max(200, "Opis mora imati najviše 100 slova"),
+      .max(200, "Opis mora imati najviše 200 slova"),
     location: z.enum([
       "SPLITSKO_DALMATINSKA",
       "DUBROVACKO_NERETVANSKA",

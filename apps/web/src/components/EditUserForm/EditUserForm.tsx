@@ -103,7 +103,9 @@ export const EditUserForm = ({
 
   const onSubmit = async (data: any) => {
     profilePicture[0] && (await uploadImage(profilePicture[0]));
-    data.hasProfileImage = hasProfilePic && profilePicture.length > 0;
+    // A new picture sets the flag; otherwise it stays as it is, unless the
+    // user removed the current picture.
+    data.hasProfileImage = profilePicture.length > 0 || !!hasProfilePic;
     isSuper
       ? await adminEditUserInfo({
           userId: user.id,
@@ -159,6 +161,7 @@ export const EditUserForm = ({
           ) : (
             <BaseButton
               text="Uklonite profilnu sliku"
+              isNotSubmit
               onClick={() => setHasProfilePic(false)}
             ></BaseButton>
           ))}

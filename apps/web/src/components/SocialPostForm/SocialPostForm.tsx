@@ -98,7 +98,14 @@ export const SocialPostForm = ({
         data,
         organisationId,
       });
-    else await updateSocialPost({ ...data, id: currentValues?.id });
+    else {
+      const { organisationId: _organisation, ...socialPost } = data;
+      await updateSocialPost({
+        socialPost,
+        organisationId,
+        id: currentValues.id,
+      });
+    }
   };
 
   return (

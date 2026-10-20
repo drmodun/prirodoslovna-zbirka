@@ -3,7 +3,7 @@ import { FieldValues, UseFormReturn } from "react-hook-form";
 import classes from "./ListInput.module.scss";
 import dash from "assets/images/dash.svg";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import SingleInput from "components/SingleInput";
 import leaf from "assets/images/like-leaf-green.svg";
 import plus from "assets/images/plus.svg";
@@ -42,11 +42,20 @@ export const ListInput = ({
     setNewValue("");
   };
 
+  // Switching between free text and a list of options starts over, but the
+  // first render keeps initValue. Options are compared by value, since
+  // callers often build a new array on every render.
+  const optionsKey = options?.map((option) => option.value).join("\u0000");
+  const mounted = useRef(false);
   useEffect(() => {
+    if (!mounted.current) {
+      mounted.current = true;
+      return;
+    }
     setElements([]);
     setNewValue(options?.[0]?.value || "");
     setValue(attribute, []);
-  }, [isSelect, options]);
+  }, [isSelect, optionsKey]);
 
   const handleDelete = (index: number) => {
     setElements((prev) => prev.filter((_, i) => i !== index));
