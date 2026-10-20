@@ -29,11 +29,11 @@ export const anonymousPostsDiscover = async (
             ) uofl on uofl."organisationId" = e."organisationId"
             left join "User" u on p."authorId" = u.id
             left join (
-             select "followerId", COUNT(*) as "amountOfAuthorFollowers"
+             select "followeeId", COUNT(*) as "amountOfAuthorFollowers"
             from "UserFollows" uff  
-            group by "followerId"
-            ) usf on usf."followerId" = p."authorId"
-            where e."isApproved" = true
+            group by "followeeId"
+            ) usf on usf."followeeId" = p."authorId"
+            where e."isApproved" = true and p."isApproved" = true
             ORDER BY ("points") desc, e."name" ASC 
             limit ${size}
             offset (${size}*(${page}-1))
@@ -55,7 +55,6 @@ export const personalizedPostsDiscover = async (
         (coalesce ("amountOfLikes", 0) + coalesce ("amountOfExponatFavourites" / 2, 0) + coalesce ("amountOfOrganisationFollowers" / 4, 0) + coalesce ("amountOfAuthorFollowers" / 2, 0)
          + (case when exists ( select 1 from "Like" li where li."userId" = ${userId} and li."postId" = p.id) then -1000 else 0 end) 
          + (case when exists (select 1 from "Like" li where li."userId" != ${userId} and li."postId" = p.id) then 15 else 0 end) 
-         + (case when exists ( select 1 from "FavouriteExponat" fe where fe."ExponatId" = fe."ExponatId" and fe."userId" = ${userId}) then 15 else 0 end)
          + (case when p."authorId" = ${userId} then -1000 else 0 end)
          + (case when exists (select 1 from "UserFollows" usrf where usrf."followerId" = ${userId} and usrf."followeeId" = p."authorId") then 30 else 0 end)
          + (case when exists (select 1 from "FavouriteExponat" fe where fe."userId" = ${userId} and fe."ExponatId" = p."ExponatId") then 15 else 0 end)
@@ -82,11 +81,11 @@ export const personalizedPostsDiscover = async (
             ) uofl on uofl."organisationId" = e."organisationId"
             left join "User" u on p."authorId" = u.id
             left join (
-             select "followerId", COUNT(*) as "amountOfAuthorFollowers"
+             select "followeeId", COUNT(*) as "amountOfAuthorFollowers"
             from "UserFollows" uff  
-            group by "followerId"
-            ) usf on usf."followerId" = p."authorId"
-            where e."isApproved" = true
+            group by "followeeId"
+            ) usf on usf."followeeId" = p."authorId"
+            where e."isApproved" = true and p."isApproved" = true
             ORDER BY ("points") desc, e."name" ASC 
             limit ${size}
             offset (${size}*(${page}-1))

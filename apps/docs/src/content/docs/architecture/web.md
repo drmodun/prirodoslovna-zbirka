@@ -49,6 +49,9 @@ Import aliases: `@/…` points to `src/app/…`, `components/…` to `src/compon
 
 ### The `/admin` variants
 
+Unknown users and organisations call Next's `notFound()`, so they answer
+`404` with the not-found page.
+
 Public pages render on the server **without** the visitor's token, so the
 API hides anything unapproved. When the server fetch comes back empty, the
 exponat, post and work pages redirect to their `/admin` variant, which fetches
@@ -92,9 +95,10 @@ DiscoverWrapper → SideMenuWrapper → NotificationsProvider → Header, BodyWr
   exposes those lists plus `update…` functions that toggle an item in or out,
   so like / favourite / follow buttons update instantly. `logout` clears the
   token.
-- **`NotificationContext`** loads `GET /notification-users` and opens an
-  `EventSource` on `/notification-users/subscribe/:userId` for live updates;
-  see [Notifications](/docs/features/notifications/).
+- **`NotificationContext`** loads `GET /notification-users` and subscribes to
+  `/notification-users/subscribe/:userId` with `fetch-event-source` (which,
+  unlike `EventSource`, can send the token) for live updates; see
+  [Notifications](/docs/features/notifications/).
 - **`DiscoverContext`** keeps the page number of each infinite-scrolling
   discover list.
 - **`SideMenuContext`**, **`CreateButtonContext`**: UI state for the side menu

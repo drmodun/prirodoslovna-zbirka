@@ -26,6 +26,7 @@ export const refineSortPair = (data: {
   if (data.attribute && !data.direction) {
     return false;
   }
+  return true;
 };
 
 // Query for the /search link: the filled-in fields, plus the sort pair unless

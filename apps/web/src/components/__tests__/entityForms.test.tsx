@@ -156,21 +156,17 @@ describe("OrganisationForm", () => {
     expect(api.createOrganisation.mutateAsync).not.toHaveBeenCalled();
   });
 
-  // BUG: the description limit is 200 characters but the message says 100.
-  it.failing(
-    "names the real description limit in its error message",
-    async () => {
-      render(<OrganisationForm />);
-      await fillValid();
-      const field = screen.getByPlaceholderText("Description");
-      await userEvent.clear(field);
-      await userEvent.type(field, "x".repeat(201), { delay: null });
-      await userEvent.click(
-        screen.getByRole("button", { name: "Stvori organizaciju" }),
-      );
-      expect(await screen.findByText(/najviše 200 slova/)).toBeInTheDocument();
-    },
-  );
+  it("names the real description limit in its error message", async () => {
+    render(<OrganisationForm />);
+    await fillValid();
+    const field = screen.getByPlaceholderText("Description");
+    await userEvent.clear(field);
+    await userEvent.type(field, "x".repeat(201), { delay: null });
+    await userEvent.click(
+      screen.getByRole("button", { name: "Stvori organizaciju" }),
+    );
+    expect(await screen.findByText(/najviše 200 slova/)).toBeInTheDocument();
+  });
 
   describe("editing", () => {
     const organisation = {
@@ -325,24 +321,18 @@ describe("EditUserForm", () => {
     );
   });
 
-  // BUG: `hasProfileImage = hasProfilePic && profilePicture.length > 0`, so
-  // saving any other change while keeping the current picture sets the flag
-  // to false and the user loses their profile picture.
-  it.failing(
-    "keeps the profile picture when only other fields are edited",
-    async () => {
-      render(<EditUserForm user={user({ hasProfileImage: true })} />);
-      await userEvent.clear(screen.getByPlaceholderText("Opis"));
-      await userEvent.type(screen.getByPlaceholderText("Opis"), "Novi opis");
-      await userEvent.click(
-        screen.getByRole("button", { name: "Spremi promjene" }),
-      );
-      await waitFor(() => expect(api.editUser.mutateAsync).toHaveBeenCalled());
-      expect(api.editUser.mutateAsync.mock.calls[0][0].hasProfileImage).toBe(
-        true,
-      );
-    },
-  );
+  it("keeps the profile picture when only other fields are edited", async () => {
+    render(<EditUserForm user={user({ hasProfileImage: true })} />);
+    await userEvent.clear(screen.getByPlaceholderText("Opis"));
+    await userEvent.type(screen.getByPlaceholderText("Opis"), "Novi opis");
+    await userEvent.click(
+      screen.getByRole("button", { name: "Spremi promjene" }),
+    );
+    await waitFor(() => expect(api.editUser.mutateAsync).toHaveBeenCalled());
+    expect(api.editUser.mutateAsync.mock.calls[0][0].hasProfileImage).toBe(
+      true,
+    );
+  });
 });
 
 describe("NotificationBell", () => {

@@ -113,7 +113,7 @@ describe('MembersService', () => {
       expect(notifications.create).toHaveBeenCalledWith(
         expect.objectContaining({
           type: 'MEMBERSHIP_CHANGE',
-          link: '/organisations/o1',
+          link: '/organisation/o1',
           text: expect.stringContaining('member'),
         }),
         ['u1'],
@@ -125,10 +125,11 @@ describe('MembersService', () => {
   });
 
   describe('makeRequest', () => {
-    it('returns (not throws) BadRequestException for existing members', async () => {
+    it('throws BadRequestException for existing members', async () => {
       prisma.organisationUser.findFirst.mockResolvedValue({ id: 'm' });
-      const result = await service.makeRequest('u1', 'o1');
-      expect(result).toBeInstanceOf(BadRequestException);
+      await expect(service.makeRequest('u1', 'o1')).rejects.toBeInstanceOf(
+        BadRequestException,
+      );
       expect(prisma.organisationUser.create).not.toHaveBeenCalled();
     });
 
@@ -164,11 +165,11 @@ describe('MembersService', () => {
     ['removeMember', 'Member not found'],
     ['leaveOrganisation', 'You are not a member'],
   ] as const)('%s', (method, message) => {
-    it('returns NotFoundException when there is no membership', async () => {
+    it('throws NotFoundException when there is no membership', async () => {
       prisma.organisationUser.findFirst.mockResolvedValue(null);
-      const result = await service[method]('u1', 'o1');
-      expect(result).toBeInstanceOf(NotFoundException);
-      expect((result as NotFoundException).message).toBe(message);
+      const call = service[method]('u1', 'o1');
+      await expect(call).rejects.toBeInstanceOf(NotFoundException);
+      await expect(call).rejects.toThrow(message);
       expect(prisma.organisationUser.deleteMany).not.toHaveBeenCalled();
     });
 
@@ -183,11 +184,11 @@ describe('MembersService', () => {
   });
 
   describe('editMemberRole', () => {
-    it('returns NotFoundException for non members', async () => {
+    it('throws NotFoundException for non members', async () => {
       prisma.organisationUser.findFirst.mockResolvedValue(null);
       await expect(
         service.editMemberRole('u1', 'o1', MemberRoleType.ADMIN),
-      ).resolves.toBeInstanceOf(NotFoundException);
+      ).rejects.toBeInstanceOf(NotFoundException);
       expect(prisma.organisationUser.update).not.toHaveBeenCalled();
     });
 
@@ -210,11 +211,11 @@ describe('MembersService', () => {
   });
 
   describe('ownerEditMemberRole', () => {
-    it('returns NotFoundException for non members', async () => {
+    it('throws NotFoundException for non members', async () => {
       prisma.organisationUser.findFirst.mockResolvedValue(null);
       await expect(
         service.ownerEditMemberRole('u1', 'o1', MemberRoleType.ADMIN),
-      ).resolves.toBeInstanceOf(NotFoundException);
+      ).rejects.toBeInstanceOf(NotFoundException);
     });
 
     it('updates any role and notifies', async () => {
@@ -241,7 +242,7 @@ describe('MembersService', () => {
       prisma.organisationUser.findFirst.mockResolvedValue(null);
       await expect(
         service.transferOwnership('old', 'o1', 'new'),
-      ).resolves.toBeInstanceOf(NotFoundException);
+      ).rejects.toBeInstanceOf(NotFoundException);
       expect(prisma.organisationUser.updateMany).not.toHaveBeenCalled();
       expect(prisma.organisationUser.update).not.toHaveBeenCalled();
     });

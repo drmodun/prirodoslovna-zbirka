@@ -197,7 +197,7 @@ const useSavedLists = () => {
 
 const logout = () => {
   localStorage.removeItem("access_token");
-  localStorage.removeItem("time");
+  localStorage.removeItem("loggedTime");
   setTimeout(() => {
     window.location.href = "/";
   }, 1000);

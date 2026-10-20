@@ -31,20 +31,22 @@ describe('MembersController', () => {
 
   describe('editMembershipStatus', () => {
     it('refuses to grant OWNER without consulting permissions', async () => {
-      const result = await controller.editMembershipStatus(req, 'o1', 'u2', {
-        role: MemberRoleType.OWNER,
-      });
-      expect(result).toBeInstanceOf(UnauthorizedException);
+      await expect(
+        controller.editMembershipStatus(req, 'o1', 'u2', {
+          role: MemberRoleType.OWNER,
+        }),
+      ).rejects.toBeInstanceOf(UnauthorizedException);
       expect(svc.hasAdminRights).not.toHaveBeenCalled();
       expect(svc.editMemberRole).not.toHaveBeenCalled();
     });
 
     it('does nothing for non admins', async () => {
       svc.hasAdminRights.mockResolvedValue(false);
-      const result = await controller.editMembershipStatus(req, 'o1', 'u2', {
-        role: MemberRoleType.ADMIN,
-      });
-      expect(result).toBeInstanceOf(UnauthorizedException);
+      await expect(
+        controller.editMembershipStatus(req, 'o1', 'u2', {
+          role: MemberRoleType.ADMIN,
+        }),
+      ).rejects.toBeInstanceOf(UnauthorizedException);
       expect(svc.editMemberRole).not.toHaveBeenCalled();
     });
 
@@ -71,9 +73,7 @@ describe('MembersController', () => {
 
     it(`is gated by ${permission}`, async () => {
       svc[permission].mockResolvedValue(false);
-      const result = await call();
-      // NOTE: the controller *returns* the exception (HTTP 200), it does not throw.
-      expect(result).toBeInstanceOf(UnauthorizedException);
+      await expect(call()).rejects.toBeInstanceOf(UnauthorizedException);
       expect(svc[serviceMethod]).not.toHaveBeenCalled();
     });
 

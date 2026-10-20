@@ -20,7 +20,7 @@ export const Hamburger: React.FC<HamburgerProps> = ({
   <button
     type="button"
     onClick={onToggle}
-    awia-label="Toggle menu"
+    aria-label="Toggle menu"
     className={cx(styles.container, { [styles.open]: open })}
   >
     <span className={styles.label}>

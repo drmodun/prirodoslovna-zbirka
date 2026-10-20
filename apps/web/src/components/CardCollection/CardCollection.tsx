@@ -167,7 +167,7 @@ export const CardCollection: React.FC<CardCollectionProps> = ({
         anchor={list}
       />
       <div className={classes.cardContainer}>
-        {itemsToShow
+        {[...itemsToShow]
           .sort(compareBy(sortByValue, isDescending))
           .slice(0, Math.min(amount, items.length))
           .map((item, index) => (

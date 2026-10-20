@@ -56,7 +56,6 @@ describe('FavouriteExponatsController', () => {
     await expect(controller.findAllForExponat('e1')).resolves.toEqual([
       {
         id: 'u1',
-        email: 'e',
         firstName: 'A',
         lastName: 'B',
         postCount: 2,

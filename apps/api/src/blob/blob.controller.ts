@@ -10,13 +10,20 @@ import {
   FileTypeValidator,
   MaxFileSizeValidator,
   BadRequestException,
+  ConflictException,
   NotFoundException,
+  UseGuards,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { ApiBody, ApiConsumes, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody, ApiConsumes, ApiTags } from '@nestjs/swagger';
+import { JwtAuthGuard } from 'src/auth/jwt-auth-guard';
 import { BlobService } from './blob.service';
 import { randomUUID } from 'crypto';
 import { Directories } from '@biosfera/types';
+
+// Recordings made by the web server: audio-<directory>/<id>-<12 hex chars>.
+const AUDIO_DIRECTORY = /^audio-[a-z-]+$/;
+const AUDIO_NAME = /^[\w-]+-[0-9a-f]{12}$/;
 
 @ApiTags('blobs')
 @Controller('blobs')
@@ -36,6 +43,8 @@ export class BlobController {
     return new StreamableFile(stream, { type: mimetype });
   }
 
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @Post(':directory')
   @ApiConsumes('multipart/form-data')
   @ApiBody({
@@ -74,6 +83,8 @@ export class BlobController {
     else throw new BadRequestException('File upload failed');
   }
 
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @Post('/pdf/:directory')
   @ApiConsumes('multipart/form-data')
   @ApiBody({
@@ -153,6 +164,14 @@ export class BlobController {
     )
     file: Express.Multer.File,
   ) {
+    // The web server stores text-to-speech recordings here while rendering
+    // pages for anyone, so there is no user to authenticate. Instead the
+    // endpoint only takes recording names and never replaces a file.
+    if (!AUDIO_DIRECTORY.test(directory) || !AUDIO_NAME.test(name))
+      throw new BadRequestException('Invalid recording name');
+    if (await this.blobService.find(directory, name))
+      throw new ConflictException('Recording already exists');
+
     const url = await this.blobService.upload(
       directory,
       name,
@@ -164,6 +183,8 @@ export class BlobController {
     else throw new BadRequestException('File upload failed');
   }
 
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @Post('/model/:directory')
   @ApiConsumes('multipart/form-data')
   @ApiBody({
@@ -198,6 +219,8 @@ export class BlobController {
     else throw new BadRequestException('File upload failed');
   }
 
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @Post('/video/:directory')
   @ApiConsumes('multipart/form-data')
   @ApiBody({

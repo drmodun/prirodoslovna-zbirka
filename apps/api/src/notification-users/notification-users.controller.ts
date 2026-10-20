@@ -11,6 +11,7 @@ import {
 import { NotificationUsersService } from './notification-users.service';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/jwt-auth-guard';
+import { OwnStreamGuard } from './own-stream.guard';
 import { NotificationResponse } from '@biosfera/types';
 import { fromEvent, map, Observable } from 'rxjs';
 import { EventEmitter2 } from '@nestjs/event-emitter';
@@ -22,6 +23,9 @@ export class NotificationUsersController {
     private readonly notificationUsersService: NotificationUsersService,
     private eventEmitter: EventEmitter2,
   ) {}
+  // Browsers subscribe with fetch-event-source, which can send the token.
+  @UseGuards(JwtAuthGuard, OwnStreamGuard)
+  @ApiBearerAuth()
   @Sse('/subscribe/:userId')
   async sse(
     @Param('userId') userId: string,

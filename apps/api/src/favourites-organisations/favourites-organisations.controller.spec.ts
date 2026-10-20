@@ -62,7 +62,6 @@ describe('FavouriteOrgranisationsController', () => {
     await expect(controller.findAllForOrgranisation('o1')).resolves.toEqual([
       {
         id: 'u1',
-        email: 'e',
         firstName: 'A',
         lastName: 'B',
         postCount: 2,

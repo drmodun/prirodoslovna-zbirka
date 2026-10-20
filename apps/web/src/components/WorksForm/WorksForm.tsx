@@ -144,9 +144,14 @@ export const WorksForm = ({ isEdit, work, organisationId }: WorksFormProps) => {
     }
   };
 
-  const handleRemovePoster = () => {
-    form.setValue("poster", null);
-  };
+  // Stored files are kept unless the author chooses to replace one.
+  const [replacing, setReplacing] = useState({
+    poster: false,
+    document: false,
+    presentation: false,
+  });
+  const replace = (file: keyof typeof replacing) => () =>
+    setReplacing((current) => ({ ...current, [file]: true }));
 
   return (
     <form className={classes.form} onSubmit={form.handleSubmit(onSubmit)}>
@@ -172,24 +177,34 @@ export const WorksForm = ({ isEdit, work, organisationId }: WorksFormProps) => {
         attribute="tags"
         form={form}
         question="Tagovi"
+        initValue={work?.tags}
         error={errors.tags?.message?.toString()}
       />
-      {work?.poster ? (
-        <BaseButton text="Izmijeni poster" onClick={handleRemovePoster} />
+      {work?.poster && !replacing.poster ? (
+        <BaseButton
+          text="Izmijeni poster"
+          isNotSubmit
+          onClick={replace("poster")}
+        />
       ) : (
         <FileUpload isFullWidth onChange={setWorkPoster} name="Poster" />
       )}
 
-      {work?.document ? (
-        <BaseButton text="Izmijeni dokument" onClick={handleUploadDocument} />
+      {work?.document && !replacing.document ? (
+        <BaseButton
+          text="Izmijeni dokument"
+          isNotSubmit
+          onClick={replace("document")}
+        />
       ) : (
         <FileUpload isFullWidth onChange={setWorkDocument} name="Dokument" />
       )}
 
-      {work?.presentation ? (
+      {work?.presentation && !replacing.presentation ? (
         <BaseButton
           text="Izmijeni prezentaciju"
-          onClick={handleUploadPresentation}
+          isNotSubmit
+          onClick={replace("presentation")}
         />
       ) : (
         <FileUpload

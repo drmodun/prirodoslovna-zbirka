@@ -129,10 +129,7 @@ test.describe("notifications", () => {
 });
 
 test.describe("writing a post", () => {
-  // BUG: creating a post is broken end to end: the API answers 500 for every
-  // request (its DTO's `isAdmin` leaks into the database call), and the web
-  // form drops `authorshipInfoId`, which the API requires.
-  test.fail("a member writes a post about an exponat", async ({ page }) => {
+  test("a member writes a post about an exponat", async ({ page }) => {
     const member = await createUser();
     const org = await createOrganisation({}, [{ userId: member.id, role: "MEMBER" }]);
     const exponat = await createExponat(org.id);

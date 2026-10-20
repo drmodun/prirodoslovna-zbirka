@@ -74,9 +74,7 @@ describe("makeCountyName", () => {
     }
   });
 
-  // BUG: only "c" and "z" are converted to diacritics, so "š" is lost in
-  // Požeško-slavonska.
-  it.failing("spells Požeško-slavonska županija correctly", () => {
+  it("spells Požeško-slavonska županija correctly", () => {
     expect(makeCountyName("POZESKO_SLAVONSKA")).toBe(
       "Požeško-slavonska županija",
     );

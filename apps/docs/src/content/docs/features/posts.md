@@ -10,7 +10,7 @@ There are two kinds of post, owned by different things.
 | | Post | Social post |
 | - | ---- | ----------- |
 | Belongs to | An exponat (and through it an organisation) | An organisation |
-| Written by | Any member of the organisation | Organisation admins |
+| Written by | Any member of the organisation | Organisation admins and the owner |
 | Purpose | A student's article about a specimen | News, events, workshops, EU projects, guides… |
 | Starts as | Pending, unless the author is an admin | Published |
 | Route | `/post/[id]` | Shown on the organisation page |
@@ -20,7 +20,7 @@ There are two kinds of post, owned by different things.
 ### Writing
 
 `/exponat/[id]/createPost` uses `PostForm`: title, rich text, an image and a
-thumbnail, and optional authorship info. It posts to
+thumbnail, and optional authorship info (validated as an id when given). It posts to
 `POST /posts/:exponatId`. The API checks that the author is a member of the
 exponat's organisation.
 
@@ -29,15 +29,11 @@ exponat's organisation.
 - **Members** create a pending post; the organisation's admins and owner are
   notified (`NEW_POST_REQUEST`).
 
-:::caution[Current behaviour]
-Creating a post through the API currently fails with a 500, and the web form
-drops `authorshipInfoId`. Both are pinned as expected failures by the tests;
-see [Known issues](/docs/reference/known-issues/).
-:::
 
 ### Review
 
-`PATCH /posts/:id/approval` toggles approval. The author is told either way
+`PATCH /posts/:id/approval` toggles approval; it needs organisation admin
+rights or a super user, being the author is not enough. The author is told either way
 (`POST_APPROVAL`, "odobrena" / "odbijena"). The first time a post is
 approved, the author's followers are notified too; `IsNotificationMade`
 keeps that from happening twice.
@@ -66,8 +62,8 @@ author, organisation admins and super users.
 
 Created at `/organisation/[id]/createSocialPost` (`SocialPostForm`) with
 `POST /social-posts/:organisationId`: title, text, images and optional
-authorship info. Only organisation `ADMIN`s (and super users) may post. The
-organisation's followers are notified (`NEW_SOCIAL_POST`).
+authorship info. Only organisation admins and the owner (and super users)
+may post. The organisation's followers are notified (`NEW_SOCIAL_POST`).
 
 Each social post has a `type`, shown with its Croatian label from
 `@biosfera/types`:
@@ -83,14 +79,16 @@ Each social post has a `type`, shown with its Croatian label from
 | `GUIDE` | Vodič |
 | `OTHER` | Ostalo |
 
-:::note[Current behaviour]
-The form lets you pick a type, but the API's create DTO has no `type`
-property, so the global `ValidationPipe({ whitelist: true })` strips it and
-every social post is stored as `NEWS`.
-:::
+
+The type is validated against the keys above and stored; editing can change
+it.
 
 Social posts are published on creation. Admins can hide one again with
-`PATCH /social-posts/:org/:id/approval`.
+`PATCH /social-posts/:org/:id/approval`, edit it with
+`PATCH /social-posts/:org/:id` and delete it with
+`DELETE /social-posts/:org/:id`; all three only reach that organisation's
+posts.
 
-`GET /social-posts` lists them, with `title` and `authorId` filters and the
-usual pagination and sorting.
+`GET /social-posts` lists approved posts (super users see all), with `title`
+and `authorId` (the authorship author) filters and the usual pagination and
+sorting.

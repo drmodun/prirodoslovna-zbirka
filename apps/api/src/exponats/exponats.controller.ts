@@ -1,4 +1,5 @@
 import {
+  UnauthorizedException,
   Controller,
   Get,
   Post,
@@ -231,8 +232,17 @@ export class ExponatsController {
     );
   }
 
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @Delete(':id')
-  async remove(@Param('id') id: string) {
+  async remove(@Param('id') id: string, @Req() req: any) {
+    const allowed = await this.exponatsService.checkUserRole(req.user.id, id);
+
+    if (!allowed)
+      throw new UnauthorizedException(
+        'Only organisation admins can delete an exponat',
+      );
+
     return await this.exponatsService.remove(id);
   }
 

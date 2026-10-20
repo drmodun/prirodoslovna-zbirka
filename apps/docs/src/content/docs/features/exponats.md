@@ -44,12 +44,16 @@ Whether the exponat is published straight away depends on who adds it:
 | Organisation `ADMIN` / `OWNER`, or a `SUPER` user | `true` | The organisation's members (`EXPONAT_BY_FOLLOWED_ORGANISATION`) |
 | Any other member | `false` | The organisation's admins and owner (`NEW_EXPONAT_REQUEST`), with a link to `/exponat/:id/admin` |
 
-Admins approve or reject with `PATCH /exponats/:id/approval` (the
+Users who are not members get `401`. Admins approve or reject with
+`PATCH /exponats/:id/approval` (the
 `ToggleApprovalButton` on the admin page). Unapproved exponats are left out
 of lists, search and discovery, and the public page redirects to the
 `/admin` variant (see [Web app](/docs/architecture/web/#the-admin-variants)).
 
-Editing (`/exponat/[id]/edit`, `PATCH /exponats/:id`) uses the same form.
+Editing (`/exponat/[id]/edit`, `PATCH /exponats/:id`) uses the same form;
+a name that is not in the GBIF suggestions keeps the stored categorization.
+Editing and deleting (`DELETE /exponats/:id`) need admin rights in the
+organisation.
 
 ## The exponat page
 
@@ -91,10 +95,8 @@ lists who favourited an exponat. Favourite counts feed the
 
 - `name`, `alternateName`: full-text, any of the words.
 - `kingdom`, `phylum`, `class`, `order`, `family`, `genus`, `species`:
-  full-text phrase match on the categorization. When several are given, only
-  the most specific one applies.
-- `organisationId`, `minFavoriteCount`, `maxFavoriteCount` (a maximum wins
-  over a minimum).
-
-Some of these filters currently fail; see
-[Known issues](/docs/reference/known-issues/#features-that-cannot-work-today).
+  full-text phrase match on the categorization; every given rank must match.
+- `organisationId`.
+- `minFavoriteCount`, `maxFavoriteCount`, which can be combined. Prisma cannot
+  filter on a relation count, so the service first groups the favourites by
+  exponat and turns the bounds into an id filter (`exponats.query.ts`).

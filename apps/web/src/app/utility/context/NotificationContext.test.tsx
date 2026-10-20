@@ -19,15 +19,18 @@ jest.mock("components/NotificationModal/NotificationModal", () => ({
   NotificationModal: () => <div data-testid="modal" />,
 }));
 
-class FakeEventSource {
-  static instances: FakeEventSource[] = [];
-  onopen?: () => void;
-  onmessage?: (e: { data: string }) => void;
-  close = jest.fn();
-  constructor(public url: string) {
-    FakeEventSource.instances.push(this);
-  }
-}
+// Each subscription made through fetch-event-source.
+const streams: {
+  url: string;
+  init: any;
+  push: (data: string) => void;
+}[] = [];
+jest.mock("@microsoft/fetch-event-source", () => ({
+  fetchEventSource: (url: string, init: any) => {
+    streams.push({ url, init, push: (data) => init.onmessage({ data }) });
+    return new Promise(() => {});
+  },
+}));
 
 let ctx: ReturnType<typeof useNotification>;
 const Probe = () => {
@@ -53,8 +56,8 @@ const note = (id: string, read = false) =>
   ({ id, title: `T${id}`, read }) as any;
 
 beforeEach(() => {
-  FakeEventSource.instances = [];
-  (global as any).EventSource = FakeEventSource;
+  streams.length = 0;
+  localStorage.setItem("access_token", "token");
   mocks.user = undefined;
   mocks.query = { data: undefined, refetch: jest.fn(), isSuccess: false };
 });
@@ -101,20 +104,31 @@ describe("NotificationsProvider", () => {
   describe("live updates", () => {
     it("does not subscribe without a user or before the first fetch succeeded", () => {
       mount();
-      expect(FakeEventSource.instances).toHaveLength(0);
+      expect(streams).toHaveLength(0);
       mocks.user = { id: "u1" };
       mount();
-      expect(FakeEventSource.instances).toHaveLength(0);
+      expect(streams).toHaveLength(0);
+    });
+
+    it("does not subscribe without a stored token", () => {
+      localStorage.removeItem("access_token");
+      mocks.user = { id: "u1" };
+      mocks.query.isSuccess = true;
+      mount();
+      expect(streams).toHaveLength(0);
     });
 
     it("subscribes to the user's stream and refetches once logged in", () => {
       mocks.user = { id: "u1" };
       mocks.query.isSuccess = true;
       mount();
-      expect(FakeEventSource.instances).toHaveLength(1);
-      expect(FakeEventSource.instances[0].url).toBe(
+      expect(streams).toHaveLength(1);
+      expect(streams[0].url).toBe(
         "http://api.test/notification-users/subscribe/u1",
       );
+      expect(streams[0].init.headers).toEqual({
+        Authorization: "Bearer token",
+      });
       expect(mocks.query.refetch).toHaveBeenCalled();
     });
 
@@ -123,11 +137,7 @@ describe("NotificationsProvider", () => {
       mocks.query.isSuccess = true;
       mocks.query.data = [note("1")];
       mount();
-      act(() =>
-        FakeEventSource.instances[0].onmessage!({
-          data: JSON.stringify(note("2")),
-        }),
-      );
+      act(() => streams[0].push(JSON.stringify(note("2"))));
       await waitFor(() =>
         expect(screen.getAllByRole("listitem")).toHaveLength(2),
       );
@@ -138,12 +148,12 @@ describe("NotificationsProvider", () => {
       );
     });
 
-    it("closes the stream on unmount", () => {
+    it("aborts the stream on unmount", () => {
       mocks.user = { id: "u1" };
       mocks.query.isSuccess = true;
       const { unmount } = mount();
       unmount();
-      expect(FakeEventSource.instances[0].close).toHaveBeenCalled();
+      expect(streams[0].init.signal.aborted).toBe(true);
     });
   });
 });

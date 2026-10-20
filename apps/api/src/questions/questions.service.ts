@@ -10,24 +10,22 @@ import {
 export class QuestionsService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async hasEditPermission(questionId: string, userId: string) {
-    const question = await this.prisma.question.findUnique({
-      where: { id: questionId },
-      select: {
-        quiz: {
-          select: {
-            organisationId: true,
-          },
-        },
-      },
+  // Admins and owners of the quiz's organisation, and super users.
+  async hasQuizEditPermission(quizId: string, userId: string) {
+    const quiz = await this.prisma.quiz.findUnique({
+      where: { id: quizId },
+      select: { organisationId: true },
     });
 
-    if (!question) return false;
+    if (!quiz) return false;
+
+    const user = await this.prisma.user.findFirst({ where: { id: userId } });
+    if (user?.role === 'SUPER') return true;
 
     const member = await this.prisma.organisationUser.findFirst({
       where: {
         userId,
-        organisationId: question.quiz.organisationId,
+        organisationId: quiz.organisationId,
         OR: [
           {
             role: 'ADMIN',
@@ -40,6 +38,18 @@ export class QuestionsService {
     });
 
     return member !== null;
+  }
+
+  // As above, for a question that must belong to the given quiz.
+  async hasEditPermission(questionId: string, userId: string, quizId?: string) {
+    const question = await this.prisma.question.findUnique({
+      where: { id: questionId },
+      select: { quizId: true },
+    });
+
+    if (!question || (quizId && question.quizId !== quizId)) return false;
+
+    return await this.hasQuizEditPermission(question.quizId, userId);
   }
 
   async create(createQuestionDto: CreateQuestionDto) {

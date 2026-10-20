@@ -7,11 +7,12 @@ const anyWord = (value: string) => value.split(' ').join(' | ');
 const phrase = (value: string) => value.split(' ').join(' <-> ');
 
 const TAXONOMY_RANKS = [
-  'family',
-  'genus',
-  'order',
   'kingdom',
   'phylum',
+  'class',
+  'order',
+  'family',
+  'genus',
   'species',
 ] as const;
 
@@ -27,47 +28,80 @@ const textFilters = (filter?: ExponatQuery): Prisma.ExponatWhereInput => ({
   }),
 });
 
-// Every rank writes the same Categorization key, so when several are given
-// only the last one in TAXONOMY_RANKS order applies.
-const taxonomyFilter = (filter?: ExponatQuery) => {
-  let where: Record<string, unknown> = {};
+// Every given rank must match, each as a phrase.
+const taxonomyFilter = (filter?: ExponatQuery): Prisma.ExponatWhereInput => {
+  const ranks = TAXONOMY_RANKS.filter((rank) => filter?.[rank]);
+  if (!ranks.length) return {};
 
-  if (filter?.class)
-    where = {
-      search: phrase(filter.class),
-      Categorization: { is: { class: { mode: 'insensitive' } } },
-    };
+  return {
+    Categorization: {
+      is: Object.fromEntries(
+        ranks.map((rank) => [
+          rank,
+          { search: phrase(filter[rank]), mode: 'insensitive' },
+        ]),
+      ),
+    },
+  };
+};
 
-  for (const rank of TAXONOMY_RANKS) {
-    if (!filter?.[rank]) continue;
-    where = {
-      ...where,
-      Categorization: {
-        is: { [rank]: { search: phrase(filter[rank]), mode: 'insensitive' } },
+export interface FavouriteCount {
+  ExponatId: string;
+  _count: { _all: number };
+}
+
+// Prisma cannot filter on a relation count, so the caller looks up how often
+// each exponat was favourited (exponatFavouriteCounts) and this turns the
+// bounds into an id filter. Exponats nobody favourited have a count of 0.
+export const favouriteCountFilter = (
+  filter: ExponatQuery,
+  counts?: FavouriteCount[],
+): Prisma.ExponatWhereInput => {
+  const min = Number(filter?.minFavoriteCount) || 0;
+  const max =
+    filter?.maxFavoriteCount !== undefined && filter.maxFavoriteCount !== null
+      ? Number(filter.maxFavoriteCount)
+      : undefined;
+  if (!counts || (!min && max === undefined)) return {};
+
+  const outside = (count: number) =>
+    count < min || (max !== undefined && count > max);
+
+  // With a positive minimum only favourited exponats can match.
+  if (min > 0)
+    return {
+      id: {
+        in: counts
+          .filter(({ _count }) => !outside(_count._all))
+          .map(({ ExponatId }) => ExponatId),
       },
     };
-  }
 
-  return where;
+  return {
+    id: {
+      notIn: counts
+        .filter(({ _count }) => outside(_count._all))
+        .map(({ ExponatId }) => ExponatId),
+    },
+  };
 };
 
-// A maximum replaces a minimum when both are given.
-const favouriteCountFilter = (filter: ExponatQuery) => {
-  if (filter.maxFavoriteCount)
-    return { _count: { FavouriteExponats: { lte: filter.maxFavoriteCount } } };
-  if (filter.minFavoriteCount)
-    return { _count: { FavouriteExponats: { gte: filter.minFavoriteCount } } };
-  return {};
-};
+export const needsFavouriteCounts = (filter?: ExponatQuery) =>
+  !!filter &&
+  ((filter.minFavoriteCount !== undefined &&
+    filter.minFavoriteCount !== null) ||
+    (filter.maxFavoriteCount !== undefined &&
+      filter.maxFavoriteCount !== null));
 
 export const buildExponatWhere = (
   filter?: ExponatQuery,
   approval?: boolean,
+  favouriteCounts?: FavouriteCount[],
 ): Prisma.ExponatWhereInput => ({
   ...textFilters(filter),
   ...(filter?.organisationId && { organisationId: filter.organisationId }),
   ...taxonomyFilter(filter),
-  ...favouriteCountFilter(filter),
+  ...favouriteCountFilter(filter, favouriteCounts),
   ...(filter.createdAt && { createdAt: { gte: filter.createdAt } }),
   ...(approval && { isApproved: approval }),
 });

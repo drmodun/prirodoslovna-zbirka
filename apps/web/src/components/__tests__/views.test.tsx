@@ -275,10 +275,7 @@ describe("DiscoverPageView", () => {
     });
   });
 
-  // BUG: the page size is initialised from `query.page` instead of
-  // `query.size`, so the default query ({ page: 1, size: 20 }) makes every
-  // discover request ask for pages of ONE item.
-  it.failing("requests discover pages of the size from the query", () => {
+  it("requests discover pages of the size from the query", () => {
     render(<DiscoverPageView {...props()} />);
     expect(mockUseOrgs).toHaveBeenCalledWith(1, 20);
   });

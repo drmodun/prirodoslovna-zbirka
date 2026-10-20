@@ -24,7 +24,11 @@ import {
 import { NotificationsService } from 'src/notifications/notifications.service';
 import { NotificationUsersService } from 'src/notification-users/notification-users.service';
 import { env } from 'process';
-import { buildExponatOrderBy, buildExponatWhere } from './exponats.query';
+import {
+  buildExponatOrderBy,
+  buildExponatWhere,
+  needsFavouriteCounts,
+} from './exponats.query';
 
 @Injectable()
 export class ExponatsService {
@@ -215,8 +219,14 @@ export class ExponatsService {
     approval?: boolean,
   ) {
     const sort = sorting && sortExponatQueryBuilderWithComplexFilters(sorting);
+    const favouriteCounts = needsFavouriteCounts(filter)
+      ? await this.prisma.favouriteExponat.groupBy({
+          by: ['ExponatId'],
+          _count: { _all: true },
+        })
+      : undefined;
     return await this.prisma.exponat.findMany({
-      where: buildExponatWhere(filter, approval),
+      where: buildExponatWhere(filter, approval, favouriteCounts),
       include: {
         _count: {
           select: {
@@ -417,9 +427,12 @@ export class ExponatsService {
       },
     });
 
-    if (checkForSuper.role === Role.SUPER) {
+    if (checkForSuper?.role === Role.SUPER) {
       return true;
     }
+
+    if (!connection || connection.role === MemberRoleType.REQUESTED)
+      return false;
 
     if (adminOnly) {
       return (

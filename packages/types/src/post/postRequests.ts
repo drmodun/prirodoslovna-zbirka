@@ -22,9 +22,11 @@ export const getCreatePostRequest = (ApiPropertySwagger?: any) => {
     @IsString()
     image: string;
 
+    // Optional, as in the web form; validated when given.
+    @IsOptional()
     @IsUUID()
-    @ApiProperty()
-    authorshipInfoId: string;
+    @ApiProperty({ required: false })
+    authorshipInfoId?: string;
 
     @ApiProperty()
     @IsString()

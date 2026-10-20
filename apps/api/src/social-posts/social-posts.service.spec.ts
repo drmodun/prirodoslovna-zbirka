@@ -51,9 +51,7 @@ describe('SocialPostsService', () => {
       );
     });
 
-    // Organisation OWNERs are the highest organisation role but are rejected,
-    // because the check compares against ADMIN only.
-    it.failing('allows organisation OWNERs', async () => {
+    it('allows organisation OWNERs', async () => {
       actor('OWNER');
       await expect(service.checkForValidity('u', 'o')).resolves.toBe(true);
     });
@@ -84,6 +82,13 @@ describe('SocialPostsService', () => {
       expect(prisma.socialPost.create).not.toHaveBeenCalled();
     });
 
+    it('stores the chosen type', async () => {
+      actor('ADMIN');
+      prisma.socialPost.create.mockResolvedValue(created);
+      await service.create({ ...dto, type: 'EVENT' }, 'o', 'u');
+      expect(prisma.socialPost.create.mock.calls[0][0].data.type).toBe('EVENT');
+    });
+
     it('creates an approved post and notifies the organisation followers', async () => {
       actor('ADMIN');
       prisma.socialPost.create.mockResolvedValue(created);
@@ -99,7 +104,7 @@ describe('SocialPostsService', () => {
       expect(notifications.create).toHaveBeenCalledWith(
         expect.objectContaining({
           type: 'NEW_SOCIAL_POST',
-          link: '/social-posts/s1',
+          link: '/organisation/o1',
         }),
         ['f1', 'f2'],
       );
@@ -132,9 +137,7 @@ describe('SocialPostsService', () => {
       ).toBeUndefined();
     });
 
-    // BUG: the authorId filter writes to `title` (copy/paste) so it both
-    // searches the wrong column and clobbers an explicit title filter.
-    it.failing('does not let authorId overwrite the title filter', async () => {
+    it('does not let authorId overwrite the title filter', async () => {
       await service.findAll({ title: 'T', authorId: 'a' } as any);
       expect(prisma.socialPost.findMany.mock.calls[0][0].where.title).toBe('T');
     });
@@ -172,12 +175,13 @@ describe('SocialPostsService', () => {
       actor('ADMIN');
       await service.update({ title: 'n' } as any, 's', 'u', 'o');
       await service.remove('s', 'o', 'u');
+      // Scoped to the organisation the rights were checked for.
       expect(prisma.socialPost.update).toHaveBeenCalledWith({
-        where: { id: 's' },
+        where: { id: 's', organisationId: 'o' },
         data: { title: 'n' },
       });
       expect(prisma.socialPost.deleteMany).toHaveBeenCalledWith({
-        where: { id: 's' },
+        where: { id: 's', organisationId: 'o' },
       });
     });
 

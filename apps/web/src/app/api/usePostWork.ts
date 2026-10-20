@@ -21,7 +21,7 @@ export const usePostWork = () => {
     onMutate: () => {
       return { toastId: toast.loading("Izrada projekta") };
     },
-    onSuccess: ({}, _variables, context) => {
+    onSuccess: (_data, _variables, context) => {
       toast.success("Projekt uspješno napravljen", { id: context?.toastId });
     },
     onError: (error: string, _variables, context) => {

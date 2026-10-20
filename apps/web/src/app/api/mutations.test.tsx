@@ -360,10 +360,7 @@ describe("hooks that misbehave", () => {
     expect(http.delete).toHaveBeenCalledWith("/works/w1");
   });
 
-  // BUG: removeWork returns nothing, and onSuccess destructures its first
-  // argument (`({}, _vars, ctx) =>`), which throws for `undefined`. The delete
-  // went through, but the mutation is reported as failed.
-  it.failing(
+  it(
     "useRemoveWork reports success after a successful delete",
     async () => {
       http.delete.mockResolvedValue({});
@@ -392,10 +389,7 @@ describe("hooks that misbehave", () => {
 });
 
 describe("quiz hooks", () => {
-  // BUG: the API routes are POST /quizzes/:organisationId and
-  // PATCH /quizzes/:organisationId/:id, but the client puts the organisation
-  // first (`/:organisationId/quizzes`), which no controller serves (404).
-  it.failing("useCreateQuiz posts to /quizzes/:organisationId", async () => {
+  it("useCreateQuiz posts to /quizzes/:organisationId", async () => {
     http.post.mockResolvedValue({});
     const { result } = renderHookWithClient(useCreateQuiz);
     await act(async () => {
@@ -407,7 +401,7 @@ describe("quiz hooks", () => {
     expect(http.post.mock.calls[0][0]).toBe("/quizzes/o1");
   });
 
-  it.failing("useUpdateQuiz patches /quizzes/:organisationId/:id", async () => {
+  it("useUpdateQuiz patches /quizzes/:organisationId/:id", async () => {
     http.patch.mockResolvedValue({});
     const { result } = renderHookWithClient(useUpdateQuiz);
     await act(async () => {

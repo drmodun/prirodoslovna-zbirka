@@ -62,12 +62,47 @@ describe('BlobController', () => {
     });
   });
 
-  it('namedAudioUpload keeps the client supplied name', async () => {
-    svc.upload.mockResolvedValue('http://x/audio/clip');
-    await expect(
-      controller.namedAudioUpload('audio' as any, 'clip', file('audio/mpeg')),
-    ).resolves.toBe('http://x/audio/clip');
-    expect(svc.upload.mock.calls[0].slice(0, 2)).toEqual(['audio', 'clip']);
+  describe('namedAudioUpload', () => {
+    const name = 'e1-0123456789ab';
+
+    it('keeps the recording name', async () => {
+      svc.find.mockResolvedValue(null);
+      svc.upload.mockResolvedValue('http://x/audio-exponat/' + name);
+      await expect(
+        controller.namedAudioUpload(
+          'audio-exponat' as any,
+          name,
+          file('audio/mpeg'),
+        ),
+      ).resolves.toBe('http://x/audio-exponat/' + name);
+      expect(svc.upload.mock.calls[0].slice(0, 2)).toEqual([
+        'audio-exponat',
+        name,
+      ]);
+    });
+
+    it.each([
+      ['exponat', name],
+      ['audio-exponat', 'clip'],
+      ['audio-exponat', '../' + name],
+    ])('refuses %p / %p', async (directory, clip) => {
+      await expect(
+        controller.namedAudioUpload(directory as any, clip, file('audio/mpeg')),
+      ).rejects.toMatchObject({ status: 400 });
+      expect(svc.upload).not.toHaveBeenCalled();
+    });
+
+    it('never replaces an existing recording', async () => {
+      svc.find.mockResolvedValue('http://x/existing');
+      await expect(
+        controller.namedAudioUpload(
+          'audio-exponat' as any,
+          name,
+          file('audio/mpeg'),
+        ),
+      ).rejects.toMatchObject({ status: 409 });
+      expect(svc.upload).not.toHaveBeenCalled();
+    });
   });
 
   it('findAudio returns the URL or 404s', async () => {
@@ -80,19 +115,16 @@ describe('BlobController', () => {
     });
   });
 
-  // SECURITY: every upload endpoint is anonymous and the model endpoint has no
-  // content-type validation, so anyone can store up to 200MB of arbitrary data.
-  it.failing.each([
-    'upload',
-    'pdfUpload',
-    'namedAudioUpload',
-    'modelUpload',
-    'videoUpload',
-  ] as const)('%s requires authentication', (method) => {
-    const guards = Reflect.getMetadata(
-      '__guards__',
-      BlobController.prototype[method],
-    );
-    expect(guards?.length).toBeGreaterThan(0);
-  });
+  // namedAudioUpload is written by the web server for anonymous visitors and
+  // is restricted by name instead (see above).
+  it.each(['upload', 'pdfUpload', 'modelUpload', 'videoUpload'] as const)(
+    '%s requires authentication',
+    (method) => {
+      const guards = Reflect.getMetadata(
+        '__guards__',
+        BlobController.prototype[method],
+      );
+      expect(guards?.length).toBeGreaterThan(0);
+    },
+  );
 });

@@ -135,9 +135,7 @@ describe('ExponatsService', () => {
       expect(data.AuthorshipInfo).toEqual({ connect: { id: 'ai1' } });
     });
 
-    // A non member who is not SUPER makes `connection` null in the admin
-    // check, which blows up with a TypeError (HTTP 500) instead of a 401.
-    it.failing('rejects a non member with UnauthorizedException', async () => {
+    it('rejects a non member with UnauthorizedException', async () => {
       actor('USER', null);
       await expect(service.create(dto(), 'me')).rejects.toBeInstanceOf(
         UnauthorizedException,
@@ -254,16 +252,13 @@ describe('ExponatsService', () => {
       });
     });
 
-    it.failing(
-      '401s (not 500) for users who are not members at all',
-      async () => {
-        prisma.exponat.findFirst.mockResolvedValue({ organisationId: 'o1' });
-        actor('USER', null);
-        await expect(
-          service.update('e', {} as any, 'u'),
-        ).rejects.toBeInstanceOf(UnauthorizedException);
-      },
-    );
+    it('401s (not 500) for users who are not members at all', async () => {
+      prisma.exponat.findFirst.mockResolvedValue({ organisationId: 'o1' });
+      actor('USER', null);
+      await expect(service.update('e', {} as any, 'u')).rejects.toBeInstanceOf(
+        UnauthorizedException,
+      );
+    });
   });
 
   it('remove deletes by id', async () => {

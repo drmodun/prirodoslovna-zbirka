@@ -42,6 +42,29 @@ describe('social posts, works, authorship & saved items (integration)', () => {
       });
     });
 
+    it('stores the place and the date of the find', async () => {
+      const { auth } = await createSession(ctx);
+      const res = await ctx
+        .http()
+        .post('/authorship-info')
+        .set(auth)
+        .send({ locationOfOccurrence: 'Papuk', dateOfOccurrence: '2024-05-01' })
+        .expect(201);
+      expect(res.body).toMatchObject({ locationOfOccurrence: 'Papuk' });
+      const stored = await ctx.prisma.authorshipInfo.findUniqueOrThrow({
+        where: { id: res.body.id },
+      });
+      expect(stored.dateOfOccurrence?.toISOString()).toBe(
+        '2024-05-01T00:00:00.000Z',
+      );
+      await ctx
+        .http()
+        .post('/authorship-info')
+        .set(auth)
+        .send({ dateOfOccurrence: 'yesterday' })
+        .expect(400);
+    });
+
     it('is publicly readable', async () => {
       const { user } = await createSession(ctx);
       const info = await createAuthorshipInfo(ctx, user.id);
@@ -133,7 +156,7 @@ describe('social posts, works, authorship & saved items (integration)', () => {
         .expect(401);
     });
 
-    it.failing('organisation owners can publish announcements', async () => {
+    it('organisation owners can publish announcements', async () => {
       const owner = await member('OWNER');
       const info = await createAuthorshipInfo(ctx, owner.user.id);
       await ctx
@@ -201,25 +224,22 @@ describe('social posts, works, authorship & saved items (integration)', () => {
         .expect(200);
     });
 
-    it.failing(
-      'the public list does not leak unapproved announcements',
-      async () => {
-        const admin = await member('ADMIN');
-        const info = await createAuthorshipInfo(ctx, admin.user.id);
-        await ctx.prisma.socialPost.create({
-          data: {
-            title: 'Secret draft',
-            text: 'Not meant for the public yet',
-            images: [],
-            organisationId: admin.org.id,
-            authorshipInfoId: info.id,
-            isApproved: false,
-          },
-        });
-        const list = await ctx.http().get('/social-posts').expect(200);
-        expect(list.body).toEqual([]);
-      },
-    );
+    it('the public list does not leak unapproved announcements', async () => {
+      const admin = await member('ADMIN');
+      const info = await createAuthorshipInfo(ctx, admin.user.id);
+      await ctx.prisma.socialPost.create({
+        data: {
+          title: 'Secret draft',
+          text: 'Not meant for the public yet',
+          images: [],
+          organisationId: admin.org.id,
+          authorshipInfoId: info.id,
+          isApproved: false,
+        },
+      });
+      const list = await ctx.http().get('/social-posts').expect(200);
+      expect(list.body).toEqual([]);
+    });
 
     it('admins can edit announcements; plain members cannot', async () => {
       const admin = await member('ADMIN');
@@ -263,7 +283,7 @@ describe('social posts, works, authorship & saved items (integration)', () => {
         .expect(401);
     });
 
-    it.failing('admins can delete announcements (authenticated)', async () => {
+    it('admins can delete announcements (authenticated)', async () => {
       const admin = await member('ADMIN');
       const info = await createAuthorshipInfo(ctx, admin.user.id);
       const post = await ctx.prisma.socialPost.create({
@@ -319,26 +339,19 @@ describe('social posts, works, authorship & saved items (integration)', () => {
       expect((await ctx.prisma.work.findFirstOrThrow()).isApproved).toBe(false);
     });
 
-    // BUG: the controller marks works of admins as approved, but
-    // WorksService.create whitelists its columns and drops isApproved and
-    // approvedBy, so nothing is ever auto approved. (The un-awaited
-    // `checkIsAdmin` in the controller is therefore currently harmless.)
-    it.failing(
-      'a work submitted by an organisation admin is auto approved',
-      async () => {
-        const admin = await member('ADMIN');
-        await ctx
-          .http()
-          .post(`/works/${admin.org.id}`)
-          .set(admin.auth)
-          .send(work())
-          .expect(201);
-        expect(await ctx.prisma.work.findFirstOrThrow()).toMatchObject({
-          isApproved: true,
-          approvedBy: admin.user.id,
-        });
-      },
-    );
+    it('a work submitted by an organisation admin is auto approved', async () => {
+      const admin = await member('ADMIN');
+      await ctx
+        .http()
+        .post(`/works/${admin.org.id}`)
+        .set(admin.auth)
+        .send(work())
+        .expect(201);
+      expect(await ctx.prisma.work.findFirstOrThrow()).toMatchObject({
+        isApproved: true,
+        approvedBy: admin.user.id,
+      });
+    });
 
     it('pending requests and strangers are rejected (401)', async () => {
       const pending = await member('REQUESTED');
@@ -421,13 +434,10 @@ describe('social posts, works, authorship & saved items (integration)', () => {
           organisationId: plain.org.id,
         },
       });
-      await ctx.http().get(`/works/${w.id}`).expect(400);
+      await ctx.http().get(`/works/${w.id}`).expect(401);
     });
 
-    // BUG: GET /works/:id loads the work with the default `approval = true`,
-    // so a pending work is "not found" even for its author or an admin and the
-    // rights check that follows can never grant access.
-    it.failing('the author can open their own pending work', async () => {
+    it('the author can open their own pending work', async () => {
       const plain = await member('MEMBER');
       const w = await ctx.prisma.work.create({
         data: {
@@ -441,24 +451,21 @@ describe('social posts, works, authorship & saved items (integration)', () => {
       await ctx.http().get(`/works/${w.id}`).set(plain.auth).expect(200);
     });
 
-    it.failing(
-      'a stranger cannot edit or delete someone else’s work',
-      async () => {
-        const plain = await member('MEMBER');
-        const stranger = await createSession(ctx);
-        const w = await ctx.prisma.work.create({
-          data: {
-            title: 'Not yours',
-            description: 'A description',
-            tags: [],
-            authorId: plain.user.id,
-            organisationId: plain.org.id,
-          },
-        });
-        await ctx.http().delete(`/works/${w.id}`).set(stranger.auth);
-        expect(await ctx.prisma.work.count({ where: { id: w.id } })).toBe(1);
-      },
-    );
+    it('a stranger cannot edit or delete someone else’s work', async () => {
+      const plain = await member('MEMBER');
+      const stranger = await createSession(ctx);
+      const w = await ctx.prisma.work.create({
+        data: {
+          title: 'Not yours',
+          description: 'A description',
+          tags: [],
+          authorId: plain.user.id,
+          organisationId: plain.org.id,
+        },
+      });
+      await ctx.http().delete(`/works/${w.id}`).set(stranger.auth);
+      expect(await ctx.prisma.work.count({ where: { id: w.id } })).toBe(1);
+    });
 
     it('the author can edit and delete their work', async () => {
       const plain = await member('MEMBER');

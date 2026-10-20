@@ -105,8 +105,8 @@ A test that describes the **intended** behaviour of something broken is
 written as `it.failing(...)` (Jest) or `test.fail(...)` (Playwright). The
 suite stays green; once the bug is fixed the test reports "passed
 unexpectedly" and fails, and you remove the marker. This keeps the list of
-known bugs executable. The current list is on
-[Known issues](/docs/reference/known-issues/).
+known bugs executable. There are none at the moment; what is still open but
+not pinned is on [Known issues](/docs/reference/known-issues/).
 
 ## The docs site
 

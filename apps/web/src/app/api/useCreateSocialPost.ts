@@ -16,7 +16,7 @@ export const useCreateSocialPost = () => {
     onMutate: () => {
       return { toastId: toast.loading("Kreiranje objave") };
     },
-    onSuccess: ({}, _variables, context) => {
+    onSuccess: (_data, _variables, context) => {
       toast.success("Objava uspješno kreirana", { id: context?.toastId });
       setTimeout(() => {
         window.history.back();

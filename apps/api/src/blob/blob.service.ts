@@ -15,7 +15,8 @@ import { createReadStream, promises as fs } from 'fs';
 import { join, resolve } from 'path';
 
 const DEFAULT_REGION = 'eu-north-1';
-// Keys are "<directory>/<name>"; neither part may leave the upload directory.
+// Keys are "<directory>/<name>"; neither part may leave the upload directory,
+// so "." and ".." are refused as well.
 const SAFE_SEGMENT = /^[\w.-]+$/;
 
 // Accepts a bare host as well as a full address; anything that still is not
@@ -183,7 +184,9 @@ export class BlobService {
   }
 
   private localPath(directory: string, filename: string) {
-    if (!SAFE_SEGMENT.test(directory) || !SAFE_SEGMENT.test(filename))
+    const safe = (segment: string) =>
+      SAFE_SEGMENT.test(segment) && segment !== '.' && segment !== '..';
+    if (!safe(directory) || !safe(filename))
       throw new BadRequestException('Invalid file name');
     if (filename.endsWith('.type'))
       throw new BadRequestException('Invalid file name');

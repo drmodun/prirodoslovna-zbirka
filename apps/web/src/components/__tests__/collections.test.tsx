@@ -268,10 +268,7 @@ describe("CardCollection", () => {
     await waitFor(() => expect(ids()).toEqual(["id-Aa"]));
   });
 
-  // BUG: the list is sorted in place (`itemsToShow.sort(...)`) and
-  // itemsToShow starts out as the very array passed in, so rendering reorders
-  // the parent's `items` prop.
-  it.failing("does not reorder the array it was given", async () => {
+  it("does not reorder the array it was given", async () => {
     const given = items("Cc", "Aa", "Bb");
     render(<CardCollection items={given} type="exponat" sortBy={sortBy} />);
     await waitFor(() => expect(ids()).toHaveLength(3));
@@ -406,10 +403,7 @@ describe("CardCollectionAsync", () => {
     );
   });
 
-  // BUG: the effect that resets the list when `items` changes also calls
-  // setLoading(false) on mount, overriding the `isLoading` prop, so a
-  // collection that is rendered while loading never shows its spinner.
-  it.failing("honours isLoading on first render", () => {
+  it("honours isLoading on first render", () => {
     render(
       <CardCollectionAsync
         items={page("a")}

@@ -206,9 +206,7 @@ describe("UserProvider", () => {
       });
     });
 
-    // BUG: login stores `loggedTime`, but logout clears a key called `time`, so
-    // the login timestamp is never removed.
-    it.failing("also clears the stored login time", () => {
+    it("also clears the stored login time", () => {
       jest.useFakeTimers();
       localStorage.setItem("loggedTime", "2024-01-01");
       mount();

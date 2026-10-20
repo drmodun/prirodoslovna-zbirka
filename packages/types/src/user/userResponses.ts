@@ -10,7 +10,8 @@ export interface ExtendedUserResponse {
   id: string;
   firstName: string;
   lastName: string;
-  email: string;
+  // Present for the user themself and for super users.
+  email?: string;
   role?: string;
   bio: string;
   followerCount: number;
@@ -34,7 +35,8 @@ export interface ShortUserResponse {
   id: string;
   firstName: string;
   lastName: string;
-  email: string;
+  // Only on responses meant for the user themself or organisation admins.
+  email?: string;
   avatar?: boolean;
   role?: string;
   followerCount: number;

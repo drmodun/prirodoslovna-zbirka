@@ -148,9 +148,7 @@ describe("QuizForm", () => {
       expect(hrefs[0]).toContain("organisation/o1");
     });
 
-    // BUG: the address is "organisation/o1" without a leading slash, so it is
-    // resolved relative to the current page instead of the site root.
-    it.failing("navigates to an absolute address", async () => {
+    it("navigates to an absolute address", async () => {
       await save();
       expect(hrefs[0]).toBe("/organisation/o1");
     });
@@ -169,32 +167,39 @@ describe("QuizForm", () => {
     expect(api.create.mutateAsync).not.toHaveBeenCalled();
   });
 
-  // BUG: the `questions.map(...)` callback has braces but no `return`, so the
-  // QuestionInputPreview of each question is never rendered: authors cannot
-  // see, edit or delete the questions they have added.
-  it.failing("lists the questions that were added", () => {
+  it("lists the questions that were added", () => {
     render(<QuizForm organisationId="o1" defaultValues={quiz()} />);
     expect(screen.getByText("Koja je boja lisice?")).toBeInTheDocument();
   });
 
-  // BUG: the three checkboxes are required booleans with no default, so a new
-  // quiz (no defaultValues) fails validation until each one has been toggled.
-  it.failing(
-    "a new quiz can be created without touching every checkbox",
-    async () => {
-      render(<QuizForm organisationId="o1" />);
-      await userEvent.type(
-        screen.getByPlaceholderText("Naziv kviza"),
-        "Novi kviz",
-      );
-      await userEvent.type(
-        screen.getByPlaceholderText("Opis kviza"),
-        "Opis novog kviza",
-      );
-      await userEvent.click(
-        screen.getByRole("button", { name: "Kreiraj kviz" }),
-      );
-      await waitFor(() => expect(api.create.mutateAsync).toHaveBeenCalled());
-    },
-  );
+  // The checkboxes, the time limit and the difficulty have defaults; only a
+  // question is required.
+  it("a new quiz can be created without touching every checkbox", async () => {
+    render(<QuizForm organisationId="o1" />);
+    await userEvent.type(
+      screen.getByPlaceholderText("Naziv kviza"),
+      "Novi kviz",
+    );
+    await userEvent.type(
+      screen.getByPlaceholderText("Opis kviza"),
+      "Opis novog kviza",
+    );
+    await userEvent.type(
+      screen.getByPlaceholderText("Pitanje"),
+      "Je li lisica sisavac?",
+    );
+    const questionType = screen
+      .getByRole("option", { name: "Točno/Netočno" })
+      .closest("select") as HTMLSelectElement;
+    await userEvent.selectOptions(questionType, "TRUE_FALSE");
+    await userEvent.type(screen.getByPlaceholderText("Broj bodova"), "1");
+    await userEvent.click(
+      screen.getByRole("button", { name: "Dodaj pitanje" }),
+    );
+    expect(
+      await screen.findByText("Je li lisica sisavac?"),
+    ).toBeInTheDocument();
+    await userEvent.click(screen.getByRole("button", { name: "Kreiraj kviz" }));
+    await waitFor(() => expect(api.create.mutateAsync).toHaveBeenCalled());
+  });
 });

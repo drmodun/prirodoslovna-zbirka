@@ -135,11 +135,7 @@ describe('BlobService', () => {
         });
       });
 
-      // BUG: SAFE_SEGMENT (/^[\w.-]+$/) allows segments made only of dots, so
-      // directory=".." resolves to the parent of the upload directory and
-      // name=".." resolves to the directory itself. The guard has to reject
-      // "." and ".." explicitly.
-      it.failing.each([
+      it.each([
         ['..', 'passwd'],
         ['user', '..'],
         ['.', 'x'],

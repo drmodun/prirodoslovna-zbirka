@@ -65,24 +65,27 @@ export const NotificationsProvider = ({
 
   useEffect(() => {
     if (!isSuccess || !user?.id) return;
-    const source = new EventSource(
-      `${baseURL}/notification-users/subscribe/${user.id}`,
-    );
+    // The stream needs the login token, which EventSource cannot send.
+    const token = localStorage.getItem("access_token");
+    if (!token) return;
+    const controller = new AbortController();
 
-    source.onopen = () => {
-      console.log("Connection established");
-    };
-
-    source.onmessage = (event) => {
-      const newNotification = JSON.parse(event.data);
-      setNotifications((prev) => [newNotification, ...prev]);
-      toast.success("Nova obavijest stigla: " + newNotification.title, {
-        icon: "🚀",
-      });
-    };
+    fetchEventSource(`${baseURL}/notification-users/subscribe/${user.id}`, {
+      headers: { Authorization: `Bearer ${token}` },
+      signal: controller.signal,
+      openWhenHidden: true,
+      onmessage: (event) => {
+        if (!event.data) return;
+        const newNotification = JSON.parse(event.data);
+        setNotifications((prev) => [newNotification, ...prev]);
+        toast.success("Nova obavijest stigla: " + newNotification.title, {
+          icon: "🚀",
+        });
+      },
+    }).catch(() => {});
 
     return () => {
-      source.close();
+      controller.abort();
     };
   }, [user, isSuccess]);
 

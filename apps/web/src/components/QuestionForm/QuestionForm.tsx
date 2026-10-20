@@ -19,15 +19,29 @@ import { useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import { z } from "zod";
 
+// Inputs hand over text; empty means "not given".
+export const optionalNumber = z.preprocess(
+  (value) =>
+    value === "" || value === null || value === undefined
+      ? undefined
+      : Number(value),
+  z.number().optional(),
+);
+
 export const questionSchema = z.object({
-  id: z.string(),
-  question: z.string(),
+  id: z.string().optional(),
+  question: z.string().min(5, "Pitanje mora imati barem 5 znakova"),
   image: z.string().optional(),
-  questionType: z.enum(["", ...getQuestionTypesList()]),
-  options: z.array(z.string()),
-  correct: z.array(z.string()),
-  timeLimit: z.number().optional(),
-  points: z.number(),
+  questionType: z.enum(getQuestionTypesList() as [string, ...string[]], {
+    errorMap: () => ({ message: "Odaberite tip pitanja" }),
+  }),
+  options: z.array(z.string()).default([]),
+  correct: z.array(z.string()).default([]),
+  timeLimit: optionalNumber,
+  points: z.preprocess(
+    (value) => (value === "" ? undefined : Number(value)),
+    z.number({ invalid_type_error: "Unesite broj bodova" }),
+  ),
 });
 
 export type questionSchemaType = z.infer<typeof questionSchema>;
@@ -63,7 +77,8 @@ export const QuestionForm = ({
         file: image,
         directory: Directories.QUESTION,
       });
-      data.image = response.url;
+      // The upload resolves with the file's URL.
+      data.image = response;
     }
     onSubmit(data);
   };

@@ -267,30 +267,27 @@ describe('OrganisationsController', () => {
       expect(svc.remove).toHaveBeenCalledWith('o1');
     });
 
-    // SECURITY BUG: `hasAdminRights` is not awaited, so the Promise is always
-    // truthy and the guard clause never triggers. Any authenticated user can
-    // update/delete any organisation and read its join requests (with emails).
-    // These tests assert the *intended* behaviour; `it.failing` keeps the
-    // suite green until the missing `await` is added, then they must be
-    // switched to plain `it`.
-    it.failing('update refuses non admins', async () => {
+    it('update refuses non admins', async () => {
       members.hasAdminRights.mockResolvedValue(false);
-      const res = await controller.update('o1', {} as any, req);
-      expect(res).toBeInstanceOf(UnauthorizedException);
+      await expect(
+        controller.update('o1', {} as any, req),
+      ).rejects.toBeInstanceOf(UnauthorizedException);
       expect(svc.update).not.toHaveBeenCalled();
     });
 
-    it.failing('remove refuses non admins', async () => {
+    it('remove refuses non admins', async () => {
       members.hasAdminRights.mockResolvedValue(false);
-      const res = await controller.remove('o1', req);
-      expect(res).toBeInstanceOf(UnauthorizedException);
+      await expect(controller.remove('o1', req)).rejects.toBeInstanceOf(
+        UnauthorizedException,
+      );
       expect(svc.remove).not.toHaveBeenCalled();
     });
 
-    it.failing('getRequests refuses non admins', async () => {
+    it('getRequests refuses non admins', async () => {
       members.hasAdminRights.mockResolvedValue(false);
-      const res = await controller.getRequests('o1', req);
-      expect(res).toBeInstanceOf(UnauthorizedException);
+      await expect(controller.getRequests('o1', req)).rejects.toBeInstanceOf(
+        UnauthorizedException,
+      );
       expect(svc.getJoinRequests).not.toHaveBeenCalled();
     });
 
@@ -302,9 +299,7 @@ describe('OrganisationsController', () => {
       ]);
     });
 
-    // SECURITY BUG: `PATCH :id/approval` has no guard, so anyone (even
-    // unauthenticated) can toggle an organisation's approval.
-    it.failing('approval toggle is protected by an auth guard', () => {
+    it('approval toggle is protected by an auth guard', () => {
       const guards = Reflect.getMetadata(
         '__guards__',
         OrganisationsController.prototype.changeApprovalStatus,
@@ -312,8 +307,17 @@ describe('OrganisationsController', () => {
       expect(guards?.length).toBeGreaterThan(0);
     });
 
-    it('approval toggle delegates to the service', async () => {
-      await controller.changeApprovalStatus('o1');
+    it('approval toggle refuses everyone but super users', async () => {
+      await expect(
+        controller.changeApprovalStatus('o1', req),
+      ).rejects.toBeInstanceOf(UnauthorizedException);
+      expect(svc.changeApprovalStatus).not.toHaveBeenCalled();
+    });
+
+    it('approval toggle delegates to the service for super users', async () => {
+      await controller.changeApprovalStatus('o1', {
+        user: { id: 'me', role: 'super' },
+      });
       expect(svc.changeApprovalStatus).toHaveBeenCalledWith('o1');
     });
   });

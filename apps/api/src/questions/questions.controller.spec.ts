@@ -21,6 +21,7 @@ describe('QuestionsController', () => {
   beforeEach(() => {
     svc = {
       hasEditPermission: jest.fn(),
+      hasQuizEditPermission: jest.fn(),
       create: jest.fn(),
       findAll: jest.fn(),
       findOne: jest.fn(),
@@ -41,6 +42,7 @@ describe('QuestionsController', () => {
       '%s rejects users without edit permission',
       async (_n, call, method) => {
         svc.hasEditPermission.mockResolvedValue(false);
+        svc.hasQuizEditPermission.mockResolvedValue(false);
         await expect(call()).rejects.toBeInstanceOf(UnauthorizedException);
         expect(svc[method]).not.toHaveBeenCalled();
       },
@@ -50,13 +52,14 @@ describe('QuestionsController', () => {
       '%s delegates for users with permission',
       async (_n, call, method) => {
         svc.hasEditPermission.mockResolvedValue(true);
+        svc.hasQuizEditPermission.mockResolvedValue(true);
         await call();
         expect(svc[method]).toHaveBeenCalled();
       },
     );
 
     it('create pins the question to the quiz in the URL', async () => {
-      svc.hasEditPermission.mockResolvedValue(true);
+      svc.hasQuizEditPermission.mockResolvedValue(true);
       const dto: any = { quizId: 'spoofed' };
       await controller.create(dto, 'q1', req);
       expect(svc.create).toHaveBeenCalledWith(
@@ -65,17 +68,17 @@ describe('QuestionsController', () => {
     });
   });
 
-  // BUG: `hasEditPermission` is documented/implemented to look a *question*
-  // up by id, but the controller passes the *quiz* id from the URL. The
-  // lookup can never find a question, so editing is always denied.
-  it.failing(
-    'checks edit permission against a question id, not the quiz id',
-    async () => {
-      svc.hasEditPermission.mockResolvedValue(true);
-      await controller.update('x1', {} as any, req, 'q1');
-      expect(svc.hasEditPermission).toHaveBeenCalledWith('x1', 'me');
-    },
-  );
+  it('checks edit permission against a question id, within its quiz', async () => {
+    svc.hasEditPermission.mockResolvedValue(true);
+    await controller.update('x1', {} as any, req, 'q1');
+    expect(svc.hasEditPermission).toHaveBeenCalledWith('x1', 'me', 'q1');
+  });
+
+  it('create checks the rights on the quiz', async () => {
+    svc.hasQuizEditPermission.mockResolvedValue(true);
+    await controller.create({} as any, 'q1', req);
+    expect(svc.hasQuizEditPermission).toHaveBeenCalledWith('q1', 'me');
+  });
 
   it('findAll maps questions', async () => {
     svc.findAll.mockResolvedValue([question()]);
@@ -83,16 +86,11 @@ describe('QuestionsController', () => {
     expect(res).toMatchObject({ id: 'x1', points: 5 });
   });
 
-  // DESIGN/SECURITY: the public listing includes the `correct` answers, so
-  // quiz answers can be read by anyone before taking a quiz.
-  it.failing(
-    'findAll does not expose the correct answers publicly',
-    async () => {
-      svc.findAll.mockResolvedValue([question()]);
-      const [res] = await controller.findAll({} as any);
-      expect(res).not.toHaveProperty('correct');
-    },
-  );
+  it('findAll does not expose the correct answers publicly', async () => {
+    svc.findAll.mockResolvedValue([question()]);
+    const [res] = await controller.findAll({} as any);
+    expect(res).not.toHaveProperty('correct');
+  });
 
   it('findOne 404s for unknown questions and maps known ones', async () => {
     svc.findOne.mockResolvedValueOnce(null).mockResolvedValueOnce(question());
@@ -101,9 +99,12 @@ describe('QuestionsController', () => {
     );
     await expect(controller.findOne('x1')).resolves.toMatchObject({
       id: 'x1',
-      correctAnswer: ['a'],
       correctPercentage: 0,
       answerDistribution: [],
     });
+    svc.findOne.mockResolvedValue(question());
+    const one: any = await controller.findOne('x1');
+    expect(one).not.toHaveProperty('correct');
+    expect(one).not.toHaveProperty('correctAnswer');
   });
 });

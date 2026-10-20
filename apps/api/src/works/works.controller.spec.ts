@@ -85,20 +85,15 @@ describe('WorksController', () => {
       ).rejects.toBeInstanceOf(BadRequestException);
     });
 
-    // SECURITY/MODERATION BUG: `checkIsAdmin` is not awaited so the Promise is
-    // always truthy and every member's work is auto-approved.
-    it.failing(
-      'plain members do not get their works auto approved',
-      async () => {
-        svc.checkMembership.mockResolvedValue(true);
-        svc.checkIsAdmin.mockResolvedValue(false);
-        svc.create.mockResolvedValue({ id: 'w' });
-        await controller.create(req(), 'o1', {} as any);
-        const dto = svc.create.mock.calls[0][0];
-        expect(dto.isApproved).toBeUndefined();
-        expect(dto.approvedBy).toBeUndefined();
-      },
-    );
+    it('plain members do not get their works auto approved', async () => {
+      svc.checkMembership.mockResolvedValue(true);
+      svc.checkIsAdmin.mockResolvedValue(false);
+      svc.create.mockResolvedValue({ id: 'w' });
+      await controller.create(req(), 'o1', {} as any);
+      const dto = svc.create.mock.calls[0][0];
+      expect(dto.isApproved).toBeUndefined();
+      expect(dto.approvedBy).toBeUndefined();
+    });
   });
 
   describe('findAll', () => {

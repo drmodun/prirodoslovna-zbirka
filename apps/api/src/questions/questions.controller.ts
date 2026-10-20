@@ -34,7 +34,7 @@ export class QuestionsController {
     @Param('quizId') quizId: string,
     @Req() req: any,
   ) {
-    const isAllowed = await this.questionsService.hasEditPermission(
+    const isAllowed = await this.questionsService.hasQuizEditPermission(
       quizId,
       req.user.id,
     );
@@ -43,6 +43,8 @@ export class QuestionsController {
     return await this.questionsService.create(createQuestionDto);
   }
 
+  // Public: the correct answers stay hidden until a quiz is taken. Admins
+  // read them through the quiz review endpoints.
   @Get()
   async findAll(@Query() query: QuestionQuery) {
     const questions = await this.questionsService.findAll(query);
@@ -51,7 +53,6 @@ export class QuestionsController {
         id: question.id,
         question: question.question,
         questionType: question.questionType,
-        correct: question.correct,
         options: question.options,
         image: question.image,
         points: question.points,
@@ -70,12 +71,10 @@ export class QuestionsController {
       id: question.id,
       question: question.question,
       questionType: question.questionType,
-      correct: question.correct,
       options: question.options,
       image: question.image,
       points: question.points,
       timeLimit: question.timeLimit,
-      correctAnswer: question.correct,
       correctPercentage: 0,
       answerDistribution: [], //TODO: implement after quiz answer functionality
     } as QuestionResponseExtended;
@@ -92,8 +91,9 @@ export class QuestionsController {
     @Param('quizId') quizId: string,
   ) {
     const isAllowed = await this.questionsService.hasEditPermission(
-      quizId,
+      id,
       req.user.id,
+      quizId,
     );
     if (!isAllowed) throw new UnauthorizedException();
     return await this.questionsService.update(id, updateQuestionDto);
@@ -108,8 +108,9 @@ export class QuestionsController {
     @Param('quizId') quizId: string,
   ) {
     const isAllowed = await this.questionsService.hasEditPermission(
-      quizId,
+      id,
       req.user.id,
+      quizId,
     );
     if (!isAllowed) throw new UnauthorizedException();
     return this.questionsService.remove(id);

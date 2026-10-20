@@ -84,7 +84,6 @@ export class UsersController {
 
     const mapped: ShortUserResponse[] = users.map((user) => {
       return {
-        email: user.email,
         firstName: user.firstName,
         lastName: user.lastName,
         location: user.location,
@@ -248,7 +247,8 @@ export class UsersController {
       );
 
       const mapped: ExtendedUserResponse = {
-        email: item.email,
+        // Only the user themself and super users see the address.
+        ...((isAdmin || req.user?.id === id) && { email: item.email }),
         firstName: item.firstName,
         lastName: item.lastName,
         username: item.username,

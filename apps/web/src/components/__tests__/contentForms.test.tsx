@@ -86,30 +86,21 @@ describe("PostForm (create)", () => {
     });
   });
 
-  // BUG: the zod schema only lists title and text, and the resolver returns the
-  // *parsed* values, so `authorshipInfoId` (set by AuthorshipButton) is
-  // stripped before submit. The API requires it (@IsUUID), so every new post
-  // from this form is rejected.
-  it.failing(
-    "sends the authorship information chosen for the post",
-    async () => {
-      const { container } = render(<PostForm exponatId="e1" />);
-      await fill();
-      const [thumbnail, main] = uploads(container);
-      await userEvent.upload(thumbnail, image("thumb.png"));
-      await userEvent.upload(main, image("main.png"));
-      await userEvent.click(screen.getByText("set authorship"));
-      await userEvent.click(
-        screen.getByRole("button", { name: "Napravi objavu" }),
-      );
-      await waitFor(() =>
-        expect(api.createPost.mutateAsync).toHaveBeenCalled(),
-      );
-      expect(
-        api.createPost.mutateAsync.mock.calls[0][0].post.authorshipInfoId,
-      ).toBe("ai-1");
-    },
-  );
+  it("sends the authorship information chosen for the post", async () => {
+    const { container } = render(<PostForm exponatId="e1" />);
+    await fill();
+    const [thumbnail, main] = uploads(container);
+    await userEvent.upload(thumbnail, image("thumb.png"));
+    await userEvent.upload(main, image("main.png"));
+    await userEvent.click(screen.getByText("set authorship"));
+    await userEvent.click(
+      screen.getByRole("button", { name: "Napravi objavu" }),
+    );
+    await waitFor(() => expect(api.createPost.mutateAsync).toHaveBeenCalled());
+    expect(
+      api.createPost.mutateAsync.mock.calls[0][0].post.authorshipInfoId,
+    ).toBe("ai-1");
+  });
 
   it("insists on both pictures when creating", async () => {
     const { container } = render(<PostForm exponatId="e1" />);
@@ -258,10 +249,7 @@ describe("QuestionForm", () => {
     ).toBeInTheDocument();
   });
 
-  // BUG: the "points" and "timeLimit" inputs are plain text inputs without
-  // valueAsNumber, so react-hook-form hands zod a string while the schema says
-  // z.number(): a question with a points value can never be submitted.
-  it.failing("submits the question with its points", async () => {
+  it("submits the question with its points", async () => {
     const onSubmit = jest.fn();
     render(
       <QuestionForm
@@ -277,9 +265,7 @@ describe("QuestionForm", () => {
     expect(onSubmit.mock.calls[0][0].points).toBe(5);
   });
 
-  // BUG: the schema has no minimum for `question` and allows the empty
-  // question type, so a completely empty question can be submitted.
-  it.failing("does not submit a question without text or type", async () => {
+  it("does not submit a question without text or type", async () => {
     const onSubmit = jest.fn();
     render(
       <QuestionForm
@@ -294,10 +280,7 @@ describe("QuestionForm", () => {
     expect(onSubmit).not.toHaveBeenCalled();
   });
 
-  // BUG: the upload hook resolves with the file's URL (a string), but the form
-  // reads `response.url`, which is undefined, so an uploaded question image is
-  // silently dropped.
-  it.failing("keeps the uploaded question image", async () => {
+  it("keeps the uploaded question image", async () => {
     const onSubmit = jest.fn();
     api.upload.mutateAsync.mockResolvedValue("http://files/q.png");
     const { container } = render(

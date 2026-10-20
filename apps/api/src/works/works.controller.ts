@@ -45,7 +45,7 @@ export class WorksController {
 
     if (
       req?.user?.role === 'super' ||
-      this.worksService.checkIsAdmin(req?.user?.id, organisationId)
+      (await this.worksService.checkIsAdmin(req?.user?.id, organisationId))
     ) {
       createWorkDto.isApproved = true;
       createWorkDto.approvedBy = req?.user?.id;
@@ -118,11 +118,14 @@ export class WorksController {
   @ApiBearerAuth()
   @Get(':id')
   async findOne(@Req() req: any, @Param('id') id: string) {
-    const entity = await this.worksService.findOne(id);
+    // Pending works are loaded too; who may see them is decided below.
+    const entity = await this.worksService.findOne(id, false);
 
     if (!entity) throw new BadRequestException('Work not found');
 
-    const check = await this.worksService.checkRights(req?.user?.id, id);
+    const check =
+      !entity.isApproved &&
+      (await this.worksService.checkRights(req?.user?.id, id));
 
     if (!entity.isApproved && !check)
       throw new UnauthorizedException('Work not approved');
@@ -158,7 +161,6 @@ export class WorksController {
     @Param('id') id: string,
     @Body() updateWorkDto: UpdateWorkDto,
   ) {
-    updateWorkDto.authorId = req.user.id;
     const authorCheck = await this.worksService.checkRights(req.user.id, id);
 
     if (!authorCheck)
@@ -191,7 +193,7 @@ export class WorksController {
   @ApiBearerAuth()
   @Patch(':id/approval')
   async approve(@Req() req: any, @Param('id') id: string) {
-    const check = await this.worksService.checkRights(req.user.id, id);
+    const check = await this.worksService.checkRights(req.user.id, id, true);
 
     if (!check)
       throw new UnauthorizedException(

@@ -37,10 +37,7 @@ test.describe("browsing the collection", () => {
     await expect(page.getByRole("link", { name: "Kako nastaje kvarc" })).toBeVisible();
   });
 
-  // BUG: the discover query for posts only checks that the *exponat* is
-  // approved (`where e."isApproved" = true`), never the post itself, so posts
-  // that are waiting for moderation are shown to every visitor.
-  test.fail("discover does not list posts that are waiting for approval", async ({ page }) => {
+  test("discover does not list posts that are waiting for approval", async ({ page }) => {
     const author = await createUser();
     const org = await createOrganisation({}, [{ userId: author.id, role: "MEMBER" }]);
     const exponat = await createExponat(org.id);
@@ -143,9 +140,7 @@ test.describe("user profile", () => {
     await expect(page.getByText("Moja prva objava").first()).toBeVisible();
   });
 
-  // BUG: the user page maps `savedLiterature` before checking the user exists,
-  // so an unknown profile is a server error instead of a "not found" page.
-  test.fail("an unknown profile shows the not found page", async ({ page }) => {
+  test("an unknown profile shows the not found page", async ({ page }) => {
     const response = await page.goto("/user/00000000-0000-0000-0000-000000000000");
     expect(response?.status()).toBe(404);
   });

@@ -1,12 +1,15 @@
 import {
   IsArray,
   IsEnum,
+  IsIn,
+  IsOptional,
   IsString,
   IsUUID,
   MaxLength,
   MinLength,
 } from "class-validator";
 import { SortType, SortingEnum } from "../query";
+import { SocialPostType, SocialPostTypeEnumType } from "../enums";
 
 export const getCreateSocialPostDto = (ApiPropertySwagger?: any) => {
   const ApiProperty = ApiPropertySwagger || function () {};
@@ -31,6 +34,11 @@ export const getCreateSocialPostDto = (ApiPropertySwagger?: any) => {
     @IsString({ each: true })
     @ApiProperty()
     images: string[];
+
+    @IsOptional()
+    @IsIn(Object.keys(SocialPostType))
+    @ApiProperty({ enum: Object.keys(SocialPostType), required: false })
+    type?: SocialPostTypeEnumType;
   }
   return CreateSocialPostDto;
 };
@@ -58,6 +66,11 @@ export const getUpdateSocialPostDto = (ApiPropertySwagger?: any) => {
     @IsString({ each: true })
     @ApiProperty()
     images: string[];
+
+    @IsOptional()
+    @IsIn(Object.keys(SocialPostType))
+    @ApiProperty({ enum: Object.keys(SocialPostType), required: false })
+    type?: SocialPostTypeEnumType;
   }
   return UpdateSocialPostDto;
 };

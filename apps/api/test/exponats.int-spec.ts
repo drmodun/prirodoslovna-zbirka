@@ -127,20 +127,17 @@ describe('exponats & categorizations (integration)', () => {
           .expect(400);
     });
 
-    it.failing(
-      'a user who is not a member of the organisation is rejected with 401',
-      async () => {
-        const outsider = await createSession(ctx);
-        const org = await createOrganisation(ctx);
-        const info = await createAuthorshipInfo(ctx, outsider.user.id);
-        const res = await ctx
-          .http()
-          .post(`/exponats/${org.id}`)
-          .set(outsider.auth)
-          .send(body(info.id));
-        expect(res.status).toBe(401);
-      },
-    );
+    it('a user who is not a member of the organisation is rejected with 401', async () => {
+      const outsider = await createSession(ctx);
+      const org = await createOrganisation(ctx);
+      const info = await createAuthorshipInfo(ctx, outsider.user.id);
+      const res = await ctx
+        .http()
+        .post(`/exponats/${org.id}`)
+        .set(outsider.auth)
+        .send(body(info.id));
+      expect(res.status).toBe(401);
+    });
   });
 
   describe('reading', () => {
@@ -182,9 +179,7 @@ describe('exponats & categorizations (integration)', () => {
       expect(byOrg.body.map((e: any) => e.name)).toEqual(['Sivi vuk']);
     });
 
-    // BUG: min/maxFavoriteCount generate `where: { _count: ... }`, which is not a
-    // valid Prisma filter, so the endpoint answers 500 whenever they are used.
-    it.failing('filters by minimum favourite count', async () => {
+    it('filters by minimum favourite count', async () => {
       const org = await createOrganisation(ctx);
       const fox = await createExponat(ctx, org.id, { name: 'Crvena lisica' });
       await createExponat(ctx, org.id, { name: 'Sivi vuk' });
@@ -229,9 +224,7 @@ describe('exponats & categorizations (integration)', () => {
       expect(res.body.map((e: any) => e.name)).toEqual(['Fox exponat']);
     });
 
-    // BUG (see unit test): the `class` branch of the taxonomy filter builds an
-    // invalid Prisma query, so the endpoint answers 500 instead of filtering.
-    it.failing('filters by class', async () => {
+    it('filters by class', async () => {
       await ctx
         .http()
         .get('/exponats')
@@ -401,7 +394,7 @@ describe('exponats & categorizations (integration)', () => {
         .expect(401);
     });
 
-    it.failing('DELETE /exponats/:id requires authentication', async () => {
+    it('DELETE /exponats/:id requires authentication', async () => {
       const org = await createOrganisation(ctx);
       const e = await createExponat(ctx, org.id);
       await ctx.http().delete(`/exponats/${e.id}`);
@@ -423,9 +416,11 @@ describe('exponats & categorizations (integration)', () => {
     });
 
     it('CRUD round trip', async () => {
+      const { auth } = await createSession(ctx, { role: 'SUPER' });
       const created = await ctx
         .http()
         .post('/categorizations')
+        .set(auth)
         .send(species())
         .expect(201);
       expect(created.body).toMatchObject({
@@ -444,6 +439,7 @@ describe('exponats & categorizations (integration)', () => {
       await ctx
         .http()
         .patch(`/categorizations/${created.body.id}`)
+        .set(auth)
         .send({ genus: 'Canis' })
         .expect(200);
       const one = await ctx
@@ -455,13 +451,25 @@ describe('exponats & categorizations (integration)', () => {
       await ctx
         .http()
         .delete(`/categorizations/${created.body.id}`)
+        .set(auth)
         .expect(200);
       await ctx.http().get(`/categorizations/${created.body.id}`).expect(404);
     });
 
     it('species is unique (409) and lookups by name work', async () => {
-      await ctx.http().post('/categorizations').send(species()).expect(201);
-      await ctx.http().post('/categorizations').send(species()).expect(409);
+      const { auth } = await createSession(ctx);
+      await ctx
+        .http()
+        .post('/categorizations')
+        .set(auth)
+        .send(species())
+        .expect(201);
+      await ctx
+        .http()
+        .post('/categorizations')
+        .set(auth)
+        .send(species())
+        .expect(409);
       const byName = await ctx
         .http()
         .get('/categorizations/name/Vulpes')
@@ -490,8 +498,20 @@ describe('exponats & categorizations (integration)', () => {
       ]);
     });
 
-    it.failing('write endpoints require authentication', async () => {
+    it('write endpoints require authentication', async () => {
       await ctx.http().post('/categorizations').send(species()).expect(401);
+      const { auth } = await createSession(ctx);
+      const created = await ctx
+        .http()
+        .post('/categorizations')
+        .set(auth)
+        .send(species())
+        .expect(201);
+      await ctx
+        .http()
+        .delete(`/categorizations/${created.body.id}`)
+        .set(auth)
+        .expect(401);
     });
   });
 });

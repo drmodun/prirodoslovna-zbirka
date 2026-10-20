@@ -79,10 +79,7 @@ test.describe("adding an exponat", () => {
     await expect(page.getByText("bezbojan")).toBeVisible();
   });
 
-  // BUG: the authorship dialog names its location field "locationOfOccurence"
-  // (one r) and the API/DTO expects "locationOfOccurrence", and the date picker
-  // value has no matching validator on the API, so neither is stored.
-  test.fail("the authorship dialog saves the place and the date", async ({ page }) => {
+  test("the authorship dialog saves the place and the date", async ({ page }) => {
     const admin = await createUser();
     const org = await createOrganisation({}, [{ userId: admin.id, role: "ADMIN" }]);
     await loginAs(page, admin);
@@ -91,8 +88,8 @@ test.describe("adding an exponat", () => {
 
     const info = await prisma.authorshipInfo.findFirstOrThrow();
     expect(info.photographer).toBe("Ivo Ivić");
-    expect(info.locationOfOccurence).toBe("Papuk");
-    expect(info.dateOfOccurence).not.toBeNull();
+    expect(info.locationOfOccurrence).toBe("Papuk");
+    expect(info.dateOfOccurrence).not.toBeNull();
   });
 
   test("an incomplete form shows what is missing and saves nothing", async ({ page }) => {

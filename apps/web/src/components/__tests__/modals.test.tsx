@@ -409,8 +409,7 @@ describe("NotificationModal", () => {
     expect(screen.queryByText("Obavijesti")).toBeNull();
   });
 
-  // The list is sorted in place, which reorders the context's own array.
-  it.failing("does not reorder the notifications held by the context", () => {
+  it("does not reorder the notifications held by the context", () => {
     mockNotifications.notifications = [
       note("1", "Najstarija", "2024-01-01T10:00:00Z"),
       note("2", "Najnovija", "2024-03-01T10:00:00Z"),

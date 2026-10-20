@@ -11,7 +11,7 @@ export const useRemoveWork = () => {
     onMutate: () => {
       return { toastId: toast.loading("Brisanje projekta") };
     },
-    onSuccess: ({}, _variables, context) => {
+    onSuccess: (_data, _variables, context) => {
       toast.success("Projekt uspješno obrisan", { id: context?.toastId });
     },
     onError: (error: string, _variables, context) => {

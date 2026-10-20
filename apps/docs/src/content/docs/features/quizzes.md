@@ -1,65 +1,73 @@
 ---
 title: Quizzes
-description: The quiz feature's design, and why it does not work yet.
+description: Quizzes and questions, how they are created and reviewed, and what is still missing.
 sidebar:
   order: 9
 ---
 
-Quizzes are meant to let organisations test students on their collection.
-The data model, API modules, web form and route exist, but the feature
-**does not work end to end today**. Treat this page as a map for whoever
-finishes it.
+Quizzes let organisations test students on their collection. Creating,
+reviewing and reading quizzes works; **taking** one does not exist yet
+(attempts and answers are in the schema, but there are no endpoints or pages
+for them).
 
-## Intended design
+## Creating a quiz
 
-- An organisation admin creates a quiz at `/organisation/[id]/createQuiz`
-  (`QuizForm`, `QuestionForm`): title, description, cover image,
-  `difficulty` (`EASY`, `MEDIUM`, `HARD`, `UNSET`), a time limit that is
-  `NONE`, `TOTAL` or `PER_QUESTION`, and the flags `isTest`, `isRetakeable`
-  and `isAnonymousAllowed`.
-- Questions are `MULTIPLE_CHOICE`, `TRUE_FALSE` or `FILL_IN_THE_BLANK`, with
-  `options[]`, `correct[]`, `points` (default 1), an optional image and an
-  optional per-question time limit.
-- Quizzes start unapproved; admins review them at
-  `GET /quizzes/:organisationId/non-approved` and approve with
-  `PATCH /quizzes/:organisationId/:id/approval`.
-- Taking a quiz creates an `Attempt` (optionally anonymous) with one
-  `Answer` per question, each with the time it took.
+Organisation admins and the owner create a quiz at
+`/organisation/[id]/createQuiz` (`QuizForm`): title, description, cover image,
+`difficulty` (`EASY`, `MEDIUM`, `HARD`, `UNSET`), a time limit that is `NONE`,
+`TOTAL` (minutes, sent as milliseconds) or `PER_QUESTION`, and the flags
+`isTest`, `isRetakeable` and `isAnonymousAllowed`. The checkboxes default to
+off, the time limit to `NONE` and the difficulty to `UNSET`.
+
+Questions are added below the form (`QuestionForm`) and listed with
+`QuestionInputPreview`, where they can be edited or removed. A question has
+text (5+ characters), a type (`MULTIPLE_CHOICE`, `TRUE_FALSE`,
+`FILL_IN_THE_BLANK`), `options[]` (multiple choice only), `correct[]`,
+`points`, an optional image and, for `PER_QUESTION` quizzes, a time limit in
+seconds. A quiz needs at least one question.
+
+The API validates enums by **key** (`MULTIPLE_CHOICE`), the value the
+database stores; the Croatian labels are only for display.
+
+Quizzes are always created for the organisation in the URL and start
+unapproved.
+
+## Review
+
+Admins list their organisation's pending quizzes at
+`GET /quizzes/:organisationId/non-approved`, open one (with the correct
+answers) at `GET /quizzes/:organisationId/non-approved/:id`, and approve with
+`PATCH /quizzes/:organisationId/:id/approval`. Updating, deleting and
+approving only reach quizzes of the organisation in the URL; another
+organisation's quiz answers `404`.
+
+## Reading
+
+`GET /quizzes` lists approved quizzes, 10 per page by default, filtered by
+`title` (full text), `difficulty`, `organisationId` and the boolean flags
+(`?isTest=true`). `GET /quizzes/:id` returns a quiz with its questions, but
+without correct answers or points; the public question endpoints
+(`GET /questions?quizId=…`, `GET /questions/:id`) leave the answers out too.
 
 ## Endpoints
 
-| Method | Route | Notes |
-| ------ | ----- | ----- |
-| `POST` | `/quizzes/:organisationId` | Create |
-| `GET` | `/quizzes` | List (needs `page` and `size`) |
-| `GET` | `/quizzes/:id` | One quiz with questions |
-| `PATCH` | `/quizzes/:organisationId/:id` | Update |
-| `DELETE` | `/quizzes/:orgnisationId/:id` | Delete (note the typo in the parameter) |
-| `PATCH` | `/quizzes/:organisationId/:id/approval` | Toggle approval |
-| `GET` | `/quizzes/:organisationId/non-approved[/:id]` | Review queue |
-| `POST` | `/questions/:quizId` | Add a question |
-| `GET` | `/questions`, `/questions/:id` | List, one |
-| `PATCH`, `DELETE` | `/questions/:quizId/:id` | Edit, remove |
+| Method | Route | Who |
+| ------ | ----- | --- |
+| `POST` | `/quizzes/:organisationId` | Admins |
+| `GET` | `/quizzes`, `/quizzes/:id` | Everyone |
+| `PATCH` | `/quizzes/:organisationId/:id` | Admins |
+| `DELETE` | `/quizzes/:organisationId/:id` | Admins |
+| `PATCH` | `/quizzes/:organisationId/:id/approval` | Admins |
+| `GET` | `/quizzes/:organisationId/non-approved[/:id]` | Admins |
+| `POST` | `/questions/:quizId` | Admins of the quiz's organisation |
+| `GET` | `/questions`, `/questions/:id` | Everyone |
+| `PATCH`, `DELETE` | `/questions/:quizId/:id` | Admins; the question must belong to the quiz |
 
-There are no attempt or answer endpoints yet.
+"Admins" means organisation admins and the owner; super users pass every
+check.
 
-## What is broken
+## Still missing
 
-From the API and web test suites (each is an `it.failing` test):
-
-- Creating and updating quizzes, and listing or creating questions, always
-  fail validation: `@MinLength` is applied to arrays, `@IsEnum` checks
-  against the Croatian display labels instead of the keys, and the
-  update/query DTOs are built from the create DTOs.
-- `GET /quizzes` without `page` and `size` is a 500 (`skip: NaN`).
-- Questions cannot be edited: the quiz id is passed where the question id is
-  expected.
-- Any organisation admin can approve or delete another organisation's quiz.
-- The quiz list returns the organisation's image as its name.
-- In the web app, `useCreateQuiz` / `useUpdateQuiz` call `/:org/quizzes`
-  instead of `/quizzes/:org`, `QuizForm` never renders the questions you add,
-  and `QuestionForm` drops uploaded images and cannot submit `points`
-  (string vs number).
-
-Fixing a bug turns its `it.failing` test red ("passed unexpectedly"); remove
-`.failing` then. See [Testing](/docs/contributing/testing/#known-bugs-as-expected-failures).
+- Taking a quiz: attempts, answers, scoring (`averageAttemptScore` is always
+  0 and `answerDistribution` empty).
+- A quiz page in the web app; quizzes are only created and edited there.

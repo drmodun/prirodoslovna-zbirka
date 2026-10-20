@@ -62,14 +62,11 @@ describe('users, notifications & file uploads (integration)', () => {
       await ctx.http().get('/users').expect(200);
     });
 
-    it.failing(
-      'does not publish every user’s email address to anonymous visitors',
-      async () => {
-        await createUser(ctx, { email: 'private@test.hr' });
-        const res = await ctx.http().get('/users').expect(200);
-        expect(JSON.stringify(res.body)).not.toContain('private@test.hr');
-      },
-    );
+    it('does not publish every user’s email address to anonymous visitors', async () => {
+      await createUser(ctx, { email: 'private@test.hr' });
+      const res = await ctx.http().get('/users').expect(200);
+      expect(JSON.stringify(res.body)).not.toContain('private@test.hr');
+    });
   });
 
   describe('GET /users/:id', () => {
@@ -302,6 +299,7 @@ describe('users, notifications & file uploads (integration)', () => {
         const chunks: string[] = [];
         const req = http.get(
           `http://127.0.0.1:${port}/notification-users/subscribe/${a.user.id}`,
+          { headers: a.auth },
           (res) => {
             res.setEncoding('utf8');
             res.on('data', (c) => {
@@ -329,6 +327,20 @@ describe('users, notifications & file uploads (integration)', () => {
 
       expect(received.join('')).toContain('NEW_FOLLOWER');
     });
+
+    it("the stream needs the subscriber's own login", async () => {
+      const a = await createSession(ctx);
+      const b = await createSession(ctx);
+      await ctx
+        .http()
+        .get(`/notification-users/subscribe/${a.user.id}`)
+        .expect(401);
+      await ctx
+        .http()
+        .get(`/notification-users/subscribe/${a.user.id}`)
+        .set(b.auth)
+        .expect(401);
+    });
   });
 
   describe('file uploads (local storage)', () => {
@@ -353,9 +365,11 @@ describe('users, notifications & file uploads (integration)', () => {
     ]);
 
     it('stores an image and serves it back with its content type', async () => {
+      const { auth } = await createSession(ctx);
       const up = await ctx
         .http()
         .post('/blobs/exponat')
+        .set(auth)
         .attach('file', png, {
           filename: 'pixel.png',
           contentType: 'image/png',
@@ -381,9 +395,11 @@ describe('users, notifications & file uploads (integration)', () => {
     });
 
     it('rejects non images on the image endpoint', async () => {
+      const { auth } = await createSession(ctx);
       await ctx
         .http()
         .post('/blobs/exponat')
+        .set(auth)
         .attach('file', Buffer.from('plain text'), {
           filename: 'a.txt',
           contentType: 'text/plain',
@@ -392,9 +408,11 @@ describe('users, notifications & file uploads (integration)', () => {
     });
 
     it('accepts pdfs, audio and video on their endpoints and rejects the wrong type', async () => {
+      const { auth } = await createSession(ctx);
       await ctx
         .http()
         .post('/blobs/pdf/work')
+        .set(auth)
         .attach('file', pdf, {
           filename: 'a.pdf',
           contentType: 'application/pdf',
@@ -403,11 +421,13 @@ describe('users, notifications & file uploads (integration)', () => {
       await ctx
         .http()
         .post('/blobs/pdf/work')
+        .set(auth)
         .attach('file', png, { filename: 'a.png', contentType: 'image/png' })
         .expect(400);
       await ctx
         .http()
         .post('/blobs/video/exponat')
+        .set(auth)
         .attach('file', mp4, {
           filename: 'a.mp4',
           contentType: 'video/mp4',
@@ -416,10 +436,11 @@ describe('users, notifications & file uploads (integration)', () => {
     });
 
     it('named audio uploads can be looked up again', async () => {
-      await ctx.http().get('/blobs/audio/exponat/clip1').expect(404);
+      const clip = 'e1-0123456789ab';
+      await ctx.http().get(`/blobs/audio/audio-exponat/${clip}`).expect(404);
       await ctx
         .http()
-        .post('/blobs/audio/exponat/clip1')
+        .post(`/blobs/audio/audio-exponat/${clip}`)
         .attach('file', mp3, {
           filename: 'a.mp3',
           contentType: 'audio/mpeg',
@@ -427,9 +448,22 @@ describe('users, notifications & file uploads (integration)', () => {
         .expect(201);
       const found = await ctx
         .http()
-        .get('/blobs/audio/exponat/clip1')
+        .get(`/blobs/audio/audio-exponat/${clip}`)
         .expect(200);
-      expect(found.text).toBe('http://api.test/blobs/file/exponat/clip1');
+      expect(found.text).toBe(
+        `http://api.test/blobs/file/audio-exponat/${clip}`,
+      );
+      // A recording is never replaced, and only recording names are taken.
+      await ctx
+        .http()
+        .post(`/blobs/audio/audio-exponat/${clip}`)
+        .attach('file', mp3, { filename: 'a.mp3', contentType: 'audio/mpeg' })
+        .expect(409);
+      await ctx
+        .http()
+        .post('/blobs/audio/exponat/clip1')
+        .attach('file', mp3, { filename: 'a.mp3', contentType: 'audio/mpeg' })
+        .expect(400);
     });
 
     it('rejects path traversal in the local file route', async () => {
@@ -453,7 +487,7 @@ describe('users, notifications & file uploads (integration)', () => {
       ).toBe(true);
     });
 
-    it.failing('uploads require authentication', async () => {
+    it('uploads require authentication', async () => {
       await ctx
         .http()
         .post('/blobs/exponat')

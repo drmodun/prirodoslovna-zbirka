@@ -47,7 +47,11 @@ export const AuthorshipInfoModal = ({
 
   const schema = z
     .object({
-      dateOfOccurrence: z.optional(z.date()),
+      // The date picker gives "YYYY-MM-DD", or "" when left empty.
+      dateOfOccurrence: z.preprocess(
+        (value) => (value ? new Date(value as string) : undefined),
+        z.date().optional(),
+      ),
       locationOfOccurrence: z.optional(z.string()),
       nonPlatformAuthor: z.optional(z.string()),
       identifiedBy: z.optional(z.string()),
@@ -73,6 +77,8 @@ export const AuthorshipInfoModal = ({
             data.locationOfOccurrence !== undefined &&
             data.photographer !== undefined
           );
+        default:
+          return true;
       }
     });
 
@@ -104,7 +110,7 @@ export const AuthorshipInfoModal = ({
       <form className={classes.container}>
         <Input
           form={form}
-          attribute="locationOfOccurence"
+          attribute="locationOfOccurrence"
           question="Mjesto pronalaska"
           error={form.formState.errors.locationOfOccurrence?.message?.toString()}
         />

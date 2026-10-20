@@ -52,6 +52,19 @@ describe("api client", () => {
     expect(seen?.headers?.Authorization).toBe("Bearer tok");
   });
 
+  it("sends the stored token with uploads too", async () => {
+    localStorage.setItem("access_token", "tok");
+    const fileAdapter = fileApi.defaults.adapter;
+    let seen: AxiosRequestConfig | undefined;
+    fileApi.defaults.adapter = async (config: any) => {
+      seen = config;
+      return respondWith({ status: 201, data: "url" })(config);
+    };
+    await fileApi.post("/blobs/exponat", new FormData());
+    fileApi.defaults.adapter = fileAdapter;
+    expect(seen?.headers?.Authorization).toBe("Bearer tok");
+  });
+
   it("sends no Authorization header without a token", async () => {
     let seen: AxiosRequestConfig | undefined;
     api.defaults.adapter = async (config: any) => {

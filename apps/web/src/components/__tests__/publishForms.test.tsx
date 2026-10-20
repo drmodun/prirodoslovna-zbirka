@@ -216,29 +216,23 @@ describe("SocialPostForm", () => {
       });
     });
 
-    // BUG: useUpdateSocialPost expects { socialPost, organisationId, id }, but the
-    // form passes the form data spread at the top level, so `socialPost` is
-    // undefined and the PATCH is sent without a body (nothing is saved).
-    it.failing(
-      "sends the edited fields as the `socialPost` of the update",
-      async () => {
-        render(<SocialPostForm organisationId="o1" currentValues={current} />);
-        await userEvent.clear(screen.getByPlaceholderText("Naslov"));
-        await userEvent.type(
-          screen.getByPlaceholderText("Naslov"),
-          "Nova najava",
-        );
-        await submit();
-        await waitFor(() =>
-          expect(api.updateSocialPost.mutateAsync).toHaveBeenCalled(),
-        );
-        expect(
-          api.updateSocialPost.mutateAsync.mock.calls[0][0].socialPost,
-        ).toMatchObject({
-          title: "Nova najava",
-        });
-      },
-    );
+    it("sends the edited fields as the `socialPost` of the update", async () => {
+      render(<SocialPostForm organisationId="o1" currentValues={current} />);
+      await userEvent.clear(screen.getByPlaceholderText("Naslov"));
+      await userEvent.type(
+        screen.getByPlaceholderText("Naslov"),
+        "Nova najava",
+      );
+      await submit();
+      await waitFor(() =>
+        expect(api.updateSocialPost.mutateAsync).toHaveBeenCalled(),
+      );
+      expect(
+        api.updateSocialPost.mutateAsync.mock.calls[0][0].socialPost,
+      ).toMatchObject({
+        title: "Nova najava",
+      });
+    });
   });
 });
 
@@ -383,11 +377,7 @@ describe("WorksForm", () => {
       expect(fileInputs(container)).toHaveLength(1); // only the presentation is missing
     });
 
-    // BUG: "Izmijeni poster" only clears the form value; the button stays (the
-    // stored poster is still on `work`) and the upload field never appears, so
-    // the poster can not be replaced. "Izmijeni dokument" and "... prezentaciju"
-    // are wired to the *upload* handler and do nothing useful either.
-    it.failing("lets the author replace a stored poster", async () => {
+    it("lets the author replace a stored poster", async () => {
       const { container } = render(
         <WorksForm organisationId="o1" isEdit work={work} />,
       );
@@ -397,9 +387,7 @@ describe("WorksForm", () => {
       expect(fileInputs(container)).toHaveLength(2);
     });
 
-    // BUG: the tags ListInput is not given `initValue`, so an edited work
-    // starts with no tags and saving removes the ones it had.
-    it.failing("starts with the stored tags", () => {
+    it("starts with the stored tags", () => {
       render(<WorksForm organisationId="o1" isEdit work={work} />);
       expect(screen.getByText("flora")).toBeInTheDocument();
       expect(screen.getByText("jadran")).toBeInTheDocument();

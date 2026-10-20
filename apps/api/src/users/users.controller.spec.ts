@@ -50,7 +50,6 @@ describe('UsersController', () => {
     expect(svc.findAll).toHaveBeenCalledWith({ name: 'x' }, undefined, page);
     expect(result).toEqual([
       {
-        email: 'e',
         firstName: 'f',
         lastName: 'l',
         location: 'ZAGREB',

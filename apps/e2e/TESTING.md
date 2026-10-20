@@ -46,20 +46,11 @@ PW_WS_ENDPOINT=ws://127.0.0.1:3200/ yarn workspace e2e test
 
 A test that describes the intended behaviour of something broken is marked
 `test.fail(...)`: the suite stays green, and once the bug is fixed the test
-"passes unexpectedly" and fails: remove `.fail` then. Currently:
-
-- Discover lists posts that are still waiting for approval (SQL checks the
-  exponat's approval, not the post's).
-- Creating a post through the UI does not work (API 500 and a dropped
-  `authorshipInfoId`).
-- The authorship dialog loses the place and the date (field-name typo
-  `locationOfOccurence`, no DTO validator for the date).
-- Unknown users and organisations produce a server error instead of a 404.
-- The menu button has no accessible name (`awia-label` typo).
+"passes unexpectedly" and fails: remove `.fail` then. There are none at the
+moment.
 
 ## Not covered
 
 Anything that needs external services (GBIF species search, OpenAI, speech
-synthesis, S3), the 3D model viewer and QR/share widgets, quizzes (the feature
-is broken in both the API and the web app, see the API and web `TESTING.md`)
-and the works (publications) forms.
+synthesis, S3), the 3D model viewer and QR/share widgets, quizzes and the works
+(publications) forms.

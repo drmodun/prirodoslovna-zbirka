@@ -5,7 +5,7 @@ import {
   SocialPostQuery,
   UpdateSocialPostDto,
 } from './dto/socialPost.dto';
-import { Role, SocialPost } from '@prisma/client';
+import { MemberRole, Role, SocialPost } from '@prisma/client';
 import {
   PaginationRequest,
   SortingRequest,
@@ -34,7 +34,7 @@ export class SocialPostsService {
     const notification = await this.notificationService.create(
       {
         title: `Nova najava organizacije ${socialPost.organisation.name}`,
-        link: `/social-posts/${socialPost.id}`,
+        link: `/organisation/${socialPost.organisation.id}`,
         type: 'NEW_SOCIAL_POST',
         text: `Nova najava organizacije ${socialPost.organisation.name}: ${socialPost.title}`,
       },
@@ -59,12 +59,15 @@ export class SocialPostsService {
         },
       });
 
-      if (checkIsSuper.role !== Role.SUPER) throw new UnauthorizedException();
+      if (checkIsSuper?.role !== Role.SUPER) throw new UnauthorizedException();
 
       return true;
     }
 
-    return connection?.role === Role.ADMIN;
+    return (
+      connection?.role === MemberRole.ADMIN ||
+      connection?.role === MemberRole.OWNER
+    );
   }
 
   async create(
@@ -81,6 +84,7 @@ export class SocialPostsService {
         text: createSocialPostDto.text,
         title: createSocialPostDto.title,
         images: createSocialPostDto.images,
+        ...(createSocialPostDto.type && { type: createSocialPostDto.type }),
         isApproved: true,
         AuthorshipInfo: {
           connect: {
@@ -129,7 +133,9 @@ export class SocialPostsService {
     const posts = this.prisma.socialPost.findMany({
       where: {
         ...(filter?.title && { title: filter.title }),
-        ...(filter?.authorId && { title: filter.authorId }),
+        ...(filter?.authorId && {
+          AuthorshipInfo: { is: { authorId: filter.authorId } },
+        }),
         ...(approval && { isApproved: approval }),
       },
 
@@ -173,6 +179,7 @@ export class SocialPostsService {
     return await this.prisma.socialPost.update({
       where: {
         id,
+        organisationId,
       },
       data: updateSocialPostDto,
     });
@@ -186,6 +193,7 @@ export class SocialPostsService {
     return await this.prisma.socialPost.deleteMany({
       where: {
         id,
+        organisationId,
       },
     });
   }

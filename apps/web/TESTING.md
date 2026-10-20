@@ -50,27 +50,11 @@ in `src/components/__tests__/`. Shared helpers are in `src/test-utils/`.
 Tests that describe the intended behaviour of something that is currently
 broken use `it.failing`. The suite stays green, and once a bug is fixed the
 test fails with "passes unexpectedly": remove `.failing` then.
-`grep -rn "it.failing" src` lists them. Examples:
+`grep -rn "it.failing" src` lists them.
 
-- **Wrong requests**: `useCreateQuiz`/`useUpdateQuiz` call `/:org/quizzes`
-  (the API serves `/quizzes/:org`); `SocialPostForm` sends the update without
-  its `socialPost` body.
-- **Data loss**: `EditUserForm` clears `hasProfileImage` on any save without a
-  new picture; `PostForm` strips `authorshipInfoId`; `ListInput` ignores
-  `initValue` (edit forms lose their tags); `QuestionForm` drops uploaded images
-  (`response.url`) and can never submit `points` (string vs `z.number()`).
-- **Crashes**: `UserPage` dereferences a missing user before its null check;
-  `useExponatSubmit` throws when editing with an unknown nomenclature;
-  `OrganisationPage` renders `OrganisationBody` with `null`.
-- **UI permissions**: `PostCard` defaults `isAdmin` to `true`; `isCurrentUser`
-  is `true` for logged-out visitors when the id is `undefined`.
-- **Smaller**: shared filter `refineSortPair` rejects every valid input,
-  `SocialPostCard` swaps `getEnumValue` arguments (always "Objava"),
-  `DiscoverPageView` takes its page size from `query.page`, removing a post or
-  exponat updates shared state even when the confirm dialog is cancelled,
-  `useRemoveWork` reports an error after a successful delete,
-  `QuizForm` never renders the added questions, `CardCollection` sorts its
-  `items` prop in place.
+There are none at the moment; the ones this suite used to pin (wrong quiz
+URLs, edit forms losing data, crashing pages, permission defaults, ...) were
+fixed on the `fix/known-issues` branch.
 
 ## Not covered (yet)
 

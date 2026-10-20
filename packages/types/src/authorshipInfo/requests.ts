@@ -1,4 +1,4 @@
-import { IsOptional, IsString, IsUUID } from "class-validator";
+import { IsDateString, IsOptional, IsString, IsUUID } from "class-validator";
 
 export const getCreateAuthorshipInfoDto = (ApiPropertySwagger?: any) => {
   const ApiProperty = ApiPropertySwagger || function () {};
@@ -9,6 +9,9 @@ export const getCreateAuthorshipInfoDto = (ApiPropertySwagger?: any) => {
     @ApiProperty()
     locationOfOccurrence?: string;
 
+    @IsOptional()
+    @IsDateString()
+    @ApiProperty({ required: false })
     dateOfOccurrence?: Date;
 
     @IsOptional()
@@ -47,6 +50,7 @@ export const getUpdateAuthorshipInfoDto = (ApiPropertySwagger?: any) => {
     locationOfOccurrence?: string;
 
     @IsOptional()
+    @IsDateString()
     dateOfOccurrence?: Date;
 
     @IsOptional()

@@ -222,17 +222,11 @@ describe("PostCard", () => {
     expect(screen.queryByTestId("remove-post")).toBeNull();
   });
 
-  // BUG: `isAdmin` defaults to true, so a PostCard rendered without the prop
-  // (as lists of other people's posts do) offers approval and removal buttons
-  // to every visitor. The API rejects the calls, but the controls are shown.
-  it.failing(
-    "does not show moderation controls unless told the viewer is an admin",
-    () => {
-      render(<PostCard post={post()} />);
-      expect(screen.queryByTestId("approval")).toBeNull();
-      expect(screen.queryByTestId("remove-post")).toBeNull();
-    },
-  );
+  it("does not show moderation controls unless told the viewer is an admin", () => {
+    render(<PostCard post={post()} />);
+    expect(screen.queryByTestId("approval")).toBeNull();
+    expect(screen.queryByTestId("remove-post")).toBeNull();
+  });
 });
 
 describe("OrganisationCard", () => {
@@ -414,10 +408,7 @@ describe("SocialPostCard", () => {
     expect(screen.getByTestId("authorship")).toBeInTheDocument();
   });
 
-  // BUG: getEnumValue(post.type, SocialPostType) has its arguments swapped
-  // (it should be getEnumValue(SocialPostType, post.type)), so every post is
-  // labelled with the "Objava" fallback instead of its type.
-  it.failing("labels the post with its type", () => {
+  it("labels the post with its type", () => {
     render(<SocialPostCard post={post({ type: "NEWS" })} />);
     expect(screen.getByText("Vijesti")).toBeInTheDocument();
   });

@@ -89,98 +89,97 @@ describe('posts, likes & follows (integration)', () => {
       expect(await ctx.prisma.post.count()).toBe(0);
     });
 
-    // BUG: PostsController sets `dto.isAdmin` and PostsService spreads the whole
-    // dto into `prisma.post.create`, but `isAdmin` is not a Post column, so Prisma
-    // rejects every creation with a validation error (HTTP 500). The three tests
-    // below describe the intended behaviour and switch to plain `it` once fixed.
-    it.failing(
-      'a member’s post is unapproved and asks the admins for review',
-      async () => {
-        const member = await setup('MEMBER');
-        const admin = await createSession(ctx);
-        await ctx.prisma.organisationUser.create({
-          data: {
-            userId: admin.user.id,
-            organisationId: member.org.id,
-            role: 'ADMIN',
-          },
-        });
+    it('a member’s post is unapproved and asks the admins for review', async () => {
+      const member = await setup('MEMBER');
+      const admin = await createSession(ctx);
+      await ctx.prisma.organisationUser.create({
+        data: {
+          userId: admin.user.id,
+          organisationId: member.org.id,
+          role: 'ADMIN',
+        },
+      });
 
-        const res = await ctx
-          .http()
-          .post(`/posts/${member.exponat.id}`)
-          .set(member.auth)
-          .send(await postBody(member.user.id));
-        expect(res.status).toBe(201);
+      const res = await ctx
+        .http()
+        .post(`/posts/${member.exponat.id}`)
+        .set(member.auth)
+        .send(await postBody(member.user.id));
+      expect(res.status).toBe(201);
 
-        const stored = await ctx.prisma.post.findFirstOrThrow();
-        expect(stored).toMatchObject({
-          authorId: member.user.id,
-          isApproved: false,
-        });
+      const stored = await ctx.prisma.post.findFirstOrThrow();
+      expect(stored).toMatchObject({
+        authorId: member.user.id,
+        isApproved: false,
+      });
 
-        const notes = await ctx
-          .http()
-          .get('/notification-users')
-          .set(admin.auth)
-          .expect(200);
-        expect(notes.body.map((n: any) => n.type)).toContain(
-          'NEW_POST_REQUEST',
-        );
-      },
-    );
+      const notes = await ctx
+        .http()
+        .get('/notification-users')
+        .set(admin.auth)
+        .expect(200);
+      expect(notes.body.map((n: any) => n.type)).toContain('NEW_POST_REQUEST');
+    });
 
-    it.failing(
-      'an admin’s post is approved immediately and followers are notified',
-      async () => {
-        const admin = await setup('ADMIN');
-        const follower = await createSession(ctx);
-        await ctx.prisma.userFollows.create({
-          data: { followerId: follower.user.id, followeeId: admin.user.id },
-        });
+    it('an admin’s post is approved immediately and followers are notified', async () => {
+      const admin = await setup('ADMIN');
+      const follower = await createSession(ctx);
+      await ctx.prisma.userFollows.create({
+        data: { followerId: follower.user.id, followeeId: admin.user.id },
+      });
 
-        await ctx
-          .http()
-          .post(`/posts/${admin.exponat.id}`)
-          .set(admin.auth)
-          .send(await postBody(admin.user.id))
-          .expect(201);
+      await ctx
+        .http()
+        .post(`/posts/${admin.exponat.id}`)
+        .set(admin.auth)
+        .send(await postBody(admin.user.id))
+        .expect(201);
 
-        expect(await ctx.prisma.post.findFirstOrThrow()).toMatchObject({
+      expect(await ctx.prisma.post.findFirstOrThrow()).toMatchObject({
+        isApproved: true,
+        IsNotificationMade: true,
+      });
+      const notes = await ctx
+        .http()
+        .get('/notification-users')
+        .set(follower.auth)
+        .expect(200);
+      expect(notes.body.map((n: any) => n.type)).toContain(
+        'POST_BY_FOLLOWED_ACCOUNT',
+      );
+    });
+
+    it('cannot spoof the author or approval through the body', async () => {
+      const member = await setup('MEMBER');
+      const victim = await createSession(ctx);
+      await ctx
+        .http()
+        .post(`/posts/${member.exponat.id}`)
+        .set(member.auth)
+        .send({
+          ...(await postBody(member.user.id)),
+          authorId: victim.user.id,
           isApproved: true,
-          IsNotificationMade: true,
+          isAdmin: true,
         });
-        const notes = await ctx
-          .http()
-          .get('/notification-users')
-          .set(follower.auth)
-          .expect(200);
-        expect(notes.body.map((n: any) => n.type)).toContain(
-          'POST_BY_FOLLOWED_ACCOUNT',
-        );
-      },
-    );
+      const stored = await ctx.prisma.post.findFirstOrThrow();
+      expect(stored.authorId).toBe(member.user.id);
+      expect(stored.isApproved).toBe(false);
+    });
 
-    it.failing(
-      'cannot spoof the author or approval through the body',
-      async () => {
-        const member = await setup('MEMBER');
-        const victim = await createSession(ctx);
-        await ctx
-          .http()
-          .post(`/posts/${member.exponat.id}`)
-          .set(member.auth)
-          .send({
-            ...(await postBody(member.user.id)),
-            authorId: victim.user.id,
-            isApproved: true,
-            isAdmin: true,
-          });
-        const stored = await ctx.prisma.post.findFirstOrThrow();
-        expect(stored.authorId).toBe(member.user.id);
-        expect(stored.isApproved).toBe(false);
-      },
-    );
+    it('authorship information is optional', async () => {
+      const { auth, user, exponat } = await setup('ADMIN');
+      const { authorshipInfoId, ...withoutAuthorship } = await postBody(
+        user.id,
+      );
+      void authorshipInfoId;
+      await ctx
+        .http()
+        .post(`/posts/${exponat.id}`)
+        .set(auth)
+        .send(withoutAuthorship)
+        .expect(201);
+    });
 
     it('validates the payload', async () => {
       const { auth, user, exponat } = await setup('MEMBER');
@@ -239,8 +238,7 @@ describe('posts, likes & follows (integration)', () => {
       expect(res.body).toHaveLength(1);
     });
 
-    // BUG: the organisation filter queries `exponatId` instead of `ExponatId`.
-    it.failing('filters posts by organisation', async () => {
+    it('filters posts by organisation', async () => {
       const a = await setup('MEMBER');
       const b = await setup('MEMBER');
       await createPost(a.user.id, a.exponat.id, { title: 'In organisation A' });
@@ -447,9 +445,7 @@ describe('posts, likes & follows (integration)', () => {
         .expect(401);
     });
 
-    // SECURITY BUG: the author passes the "author or admin" check, so a member
-    // can approve their own post and bypass moderation.
-    it.failing('authors cannot approve their own post', async () => {
+    it('authors cannot approve their own post', async () => {
       const member = await setup('MEMBER');
       const post = await createPost(member.user.id, member.exponat.id, {
         isApproved: false,
