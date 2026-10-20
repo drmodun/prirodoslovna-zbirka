@@ -53,7 +53,7 @@ export const SocialPostForm = ({
     authorshipInfoId: z.optional(z.string().uuid()),
     type: z
       .enum(["", ...Object.keys(SocialPostType)])
-      .default(getEnumValue(SocialPostType, currentValues?.type ?? "STORY")),
+      .default(currentValues?.type ?? "STORY"),
   });
 
   const [images, setImages] = useState<File[]>([]);

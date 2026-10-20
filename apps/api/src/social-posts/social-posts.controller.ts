@@ -65,17 +65,22 @@ export class SocialPostsController {
     return mapped;
   }
 
+  @UseGuards(OptionalJwtAuthGuard)
+  @ApiBearerAuth()
   @Get()
   async findAll(
     @PaginationParams() paginationParam?: PaginationRequest,
     @SortingParams([SortingEnum.TITLE, SortingEnum.ORGANISATION])
     sorting?: SortingRequest,
     @Query() filter?: SocialPostQuery,
+    @Req() req?: any,
   ) {
+    // Only super users get unapproved posts in the public list.
     const posts = await this.socialPostsService.findAll(
       filter,
       sorting,
       paginationParam,
+      req?.user?.role !== 'super',
     );
 
     const mapped = posts.map((post) => {
@@ -149,6 +154,8 @@ export class SocialPostsController {
     return socialPost !== null;
   }
 
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @Delete(':organizationId/:id')
   async remove(
     @Param('organizationId') organisationId: string,
@@ -157,8 +164,8 @@ export class SocialPostsController {
   ) {
     const socialPost = await this.socialPostsService.remove(
       id,
-      req.user.id,
       organisationId,
+      req.user.id,
     );
 
     return socialPost !== null;

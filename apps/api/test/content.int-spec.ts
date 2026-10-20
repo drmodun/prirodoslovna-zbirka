@@ -133,7 +133,7 @@ describe('social posts, works, authorship & saved items (integration)', () => {
         .expect(401);
     });
 
-    it.failing('organisation owners can publish announcements', async () => {
+    it('organisation owners can publish announcements', async () => {
       const owner = await member('OWNER');
       const info = await createAuthorshipInfo(ctx, owner.user.id);
       await ctx
@@ -201,25 +201,22 @@ describe('social posts, works, authorship & saved items (integration)', () => {
         .expect(200);
     });
 
-    it.failing(
-      'the public list does not leak unapproved announcements',
-      async () => {
-        const admin = await member('ADMIN');
-        const info = await createAuthorshipInfo(ctx, admin.user.id);
-        await ctx.prisma.socialPost.create({
-          data: {
-            title: 'Secret draft',
-            text: 'Not meant for the public yet',
-            images: [],
-            organisationId: admin.org.id,
-            authorshipInfoId: info.id,
-            isApproved: false,
-          },
-        });
-        const list = await ctx.http().get('/social-posts').expect(200);
-        expect(list.body).toEqual([]);
-      },
-    );
+    it('the public list does not leak unapproved announcements', async () => {
+      const admin = await member('ADMIN');
+      const info = await createAuthorshipInfo(ctx, admin.user.id);
+      await ctx.prisma.socialPost.create({
+        data: {
+          title: 'Secret draft',
+          text: 'Not meant for the public yet',
+          images: [],
+          organisationId: admin.org.id,
+          authorshipInfoId: info.id,
+          isApproved: false,
+        },
+      });
+      const list = await ctx.http().get('/social-posts').expect(200);
+      expect(list.body).toEqual([]);
+    });
 
     it('admins can edit announcements; plain members cannot', async () => {
       const admin = await member('ADMIN');
@@ -263,7 +260,7 @@ describe('social posts, works, authorship & saved items (integration)', () => {
         .expect(401);
     });
 
-    it.failing('admins can delete announcements (authenticated)', async () => {
+    it('admins can delete announcements (authenticated)', async () => {
       const admin = await member('ADMIN');
       const info = await createAuthorshipInfo(ctx, admin.user.id);
       const post = await ctx.prisma.socialPost.create({

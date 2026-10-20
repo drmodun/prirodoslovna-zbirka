@@ -62,9 +62,7 @@ describe('SocialPostsController', () => {
     });
   });
 
-  // Anyone (including anonymous users) can call GET /social-posts, but the
-  // controller never passes `approval`, so unapproved posts leak publicly.
-  it.failing('findAll only lists approved posts to the public', async () => {
+  it('findAll only lists approved posts to the public', async () => {
     svc.findAll.mockResolvedValue([]);
     await controller.findAll(undefined, undefined, {} as any);
     expect(svc.findAll.mock.calls[0][3]).toBe(true);
@@ -108,21 +106,13 @@ describe('SocialPostsController', () => {
     expect(svc.changeApprovalStatus).toHaveBeenCalledWith('s1', 'me', 'o1');
   });
 
-  // BUG: the controller calls `remove(id, userId, organisationId)` but the
-  // service signature is `remove(id, organisationId, userId)`, so the
-  // permission check runs with the arguments swapped.
-  it.failing(
-    'remove passes organisationId and userId in the order the service expects',
-    async () => {
-      svc.remove.mockResolvedValue({});
-      await controller.remove('o1', 's1', req);
-      expect(svc.remove).toHaveBeenCalledWith('s1', 'o1', 'me');
-    },
-  );
+  it('remove passes organisationId and userId in the order the service expects', async () => {
+    svc.remove.mockResolvedValue({});
+    await controller.remove('o1', 's1', req);
+    expect(svc.remove).toHaveBeenCalledWith('s1', 'o1', 'me');
+  });
 
-  // BUG: DELETE has no JwtAuthGuard, so `req.user` is undefined and the call
-  // crashes with a TypeError (500) instead of returning 401.
-  it.failing('delete is protected by an auth guard', () => {
+  it('delete is protected by an auth guard', () => {
     const guards = Reflect.getMetadata(
       '__guards__',
       SocialPostsController.prototype.remove,
