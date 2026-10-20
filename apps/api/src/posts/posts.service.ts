@@ -292,7 +292,7 @@ export class PostsService {
             : post.text,
         type: 'POST_BY_FOLLOWED_ACCOUNT',
         notificationImage: post.thumbnailImage,
-        link: `${env.WEB_URL ?? 'localhost:3000'}/posts/${post.id}`,
+        link: `${env.WEB_URL ?? 'localhost:3000'}/post/${post.id}`,
         title: `Nova objava od korisnika ${posterId}: ${post.title}`,
       },
       followerIds,

@@ -113,7 +113,7 @@ describe('MembersService', () => {
       expect(notifications.create).toHaveBeenCalledWith(
         expect.objectContaining({
           type: 'MEMBERSHIP_CHANGE',
-          link: '/organisations/o1',
+          link: '/organisation/o1',
           text: expect.stringContaining('member'),
         }),
         ['u1'],

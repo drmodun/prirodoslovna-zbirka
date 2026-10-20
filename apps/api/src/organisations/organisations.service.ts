@@ -218,7 +218,7 @@ export class OrganisationsService {
           organisation.isApproved ? 'odobrena' : 'odbijena'
         }`,
         type: 'ORGANISATION_APPROVAL',
-        link: `${env.WEB_URL}/organisations/${organisation.id}`,
+        link: `${env.WEB_URL}/organisation/${organisation.id}`,
         notificationImage: organisation.mainImage,
       },
       allUsers,

@@ -104,7 +104,7 @@ describe('SocialPostsService', () => {
       expect(notifications.create).toHaveBeenCalledWith(
         expect.objectContaining({
           type: 'NEW_SOCIAL_POST',
-          link: '/social-posts/s1',
+          link: '/organisation/o1',
         }),
         ['f1', 'f2'],
       );

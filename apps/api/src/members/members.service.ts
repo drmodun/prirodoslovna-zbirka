@@ -80,7 +80,7 @@ export class MembersService {
         text: `Vaš status članstva u organizaciji ${
           organisation.name
         } je promijenjen u ${status.toLowerCase()}`,
-        link: `/organisations/${organisation.id}`,
+        link: `/organisation/${organisation.id}`,
         notificationImage: organisation.mainImage,
         type: 'MEMBERSHIP_CHANGE',
       },
@@ -103,8 +103,8 @@ export class MembersService {
       {
         title: 'Zahtjev za članstvo',
         text: `Korisnik ${user.username} je poslao zahtjev za članstvo u organizaciji ${organisation.name}`,
-        link: `/organisations/${user.id}`,
-        notificationImage: user.id,
+        link: `/organisation/${organisation.id}`,
+        notificationImage: organisation.mainImage,
         type: 'MEMBERSHIP_REQUEST',
       },
       organisation.OrganisationUsers.map((member) => member.userId),
