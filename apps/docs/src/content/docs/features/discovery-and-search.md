@@ -14,9 +14,10 @@ the bottom (`useOnScrollToBottom`).
 
 The first three come from dedicated endpoints that rank with raw SQL
 (`rawQueries.ts` in each module). Every query scores rows with **points**,
-orders by points (ties by name) and pages with `LIMIT` / `OFFSET`. The
-exponat and post queries skip unapproved exponats; the organisation queries
-do not filter on approval. All values are bound as query parameters.
+orders by points (ties by name) and pages with `LIMIT` / `OFFSET`. Only
+approved content is ranked: approved organisations, approved exponats, and
+approved posts on approved exponats. All values are bound as query
+parameters.
 
 When the request carries a token, a **personalised** variant adds points for
 things related to what you already like and follow, and pushes down things
@@ -55,7 +56,7 @@ you have already seen.
 | ------ | ------ |
 | Each follower | +1 |
 | Each exponat | +⅕ |
-| Each membership row whose role is not `MEMBER` (the owner, admins and open requests) | +⅕ |
+| Each member (any role except `REQUESTED`) | +⅕ |
 | Each post on its exponats | +⅒ |
 | Each favourite of its exponats | +⅒ |
 | *Personalised:* you already follow it | −1 000 |
@@ -64,11 +65,6 @@ you have already seen.
 Fractions are integer divisions in SQL, so they only add up in whole steps
 (five exponats give one point).
 
-:::note[Known differences from intent]
-The post queries check the **exponat's** approval, not the post's, so pending
-posts can appear in discover; "author followers" counts the people the author
-follows. Both are tracked in [Known issues](/docs/reference/known-issues/).
-:::
 
 ## Search
 

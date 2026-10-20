@@ -8,7 +8,8 @@ sidebar:
 ## Registration and activation
 
 1. `/register` posts the form to `POST /users`. The password is hashed with
-   bcrypt (10 rounds); `location` is a Croatian county (`County` enum).
+   bcrypt (10 rounds); `location` is a Croatian county (`County` enum); `bio`
+   is optional and defaults to "Homo sapiens u biosferi".
 2. The API emails an activation link,
    `${WEB_URL}/activateUser/<activationCode>`, and returns the new user's id.
 3. Opening the link calls `POST /users/verify/:activationCode`, which sets
@@ -46,7 +47,9 @@ address answers `404`, which reveals whether an account exists.
 ## Profiles
 
 - `GET /users/:id`: public profile with posts, memberships, favourite
-  exponats and follower counts. Super users also see unapproved posts.
+  exponats and follower counts. The e-mail address is only included for the
+  user themself and super users, who also see unapproved posts. User lists
+  (search, followers, favourites, saves) never include e-mail addresses.
 - `PATCH /users`: edit your own profile. `PATCH /users/pfp`: upload a profile
   picture (stored under `user/<id>`, sets `hasProfileImage`).
 - `DELETE /users`: delete your own account (cascades to everything you own).

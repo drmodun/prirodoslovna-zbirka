@@ -117,6 +117,6 @@ Most failures are thrown as Nest HTTP exceptions (`BadRequestException`,
 `{ statusCode, message, error }`. Raw discover queries wrap database errors
 in a `500`.
 
-Some membership operations **return** an exception instead of throwing it,
-which yields HTTP 200 with an error-shaped body; check the body as well as
-the status when calling `/members`.
+Server-sent event routes are the exception to "check inside the handler":
+Nest sends their headers before the handler runs, so rights checks for them
+have to be guards (see `OwnStreamGuard` in `notification-users`).

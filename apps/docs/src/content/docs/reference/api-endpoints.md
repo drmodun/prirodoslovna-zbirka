@@ -29,8 +29,8 @@ Paths are relative to the API root (behind the proxy, prefix them with
 | `POST` | `/auth/login` | — | `{ email, password }` → `{ access_token }` |
 | `GET` | `/auth/me` | JWT | Token payload |
 | `GET` | `/auth/detailed` | JWT | Extended current user (memberships, likes, favourites, posts) |
-| `POST` | `/users` | — | Register; sends the activation mail |
-| `GET` | `/users` | — | List / search users |
+| `POST` | `/users` | — | Register (bio optional); sends the activation mail |
+| `GET` | `/users` | — | List / search users (no e-mail addresses) |
 | `GET` | `/users/requests` | JWT | Your pending join requests |
 | `GET` | `/users/:id` | opt. | Profile |
 | `PATCH` | `/users` | JWT | Edit yourself |
@@ -57,7 +57,7 @@ Paths are relative to the API root (behind the proxy, prefix them with
 | `GET` | `/organisations/:id/requests` | JWT | Join requests (admins) |
 | `PATCH` | `/organisations/:id` | JWT | Edit (admins) |
 | `DELETE` | `/organisations/:id` | JWT | Delete (admins) |
-| `PATCH` | `/organisations/:id/approval` | — | Toggle approval |
+| `PATCH` | `/organisations/:id/approval` | JWT | Super: toggle approval |
 | `POST` | `/members/:organisationId` | JWT | Ask to join |
 | `DELETE` | `/members/:organisationId/leave` | JWT | Leave |
 | `PATCH` | `/members/:organisationId/:userId` | JWT | Admins: set role (not `OWNER`) |
@@ -77,19 +77,19 @@ Paths are relative to the API root (behind the proxy, prefix them with
 | `GET` | `/exponats` | opt. | List / search / filter |
 | `POST` | `/exponats/:organisationId` | JWT | Create (members) |
 | `GET` | `/exponats/:id` | opt. | One exponat with posts |
-| `PATCH` | `/exponats/:id` | JWT | Edit |
-| `DELETE` | `/exponats/:id` | — | Delete |
+| `PATCH` | `/exponats/:id` | JWT | Edit (admins) |
+| `DELETE` | `/exponats/:id` | JWT | Delete (admins) |
 | `PATCH` | `/exponats/:id/approval` | JWT | Toggle approval |
 | `GET` | `/exponats/serial/:id` | — | Find by serial number |
 | `PATCH` | `/favourite-exponats/:exponatId` | JWT | Toggle favourite |
 | `GET` | `/favourite-exponats/user` | JWT | Your favourites |
 | `GET` | `/favourite-exponats/:exponatId` | — | Who favourited it |
-| `POST` | `/categorizations` | — | Create a taxonomy record |
+| `POST` | `/categorizations` | JWT | Create a taxonomy record |
 | `GET` | `/categorizations` | — | List |
 | `GET` | `/categorizations/:id` | — | One, with its exponats |
 | `GET` | `/categorizations/name/:name` | — | Find by species name |
-| `PATCH` | `/categorizations/:id` | — | Edit |
-| `DELETE` | `/categorizations/:id` | — | Delete |
+| `PATCH` | `/categorizations/:id` | JWT | Super: edit |
+| `DELETE` | `/categorizations/:id` | JWT | Super: delete |
 | `POST` | `/authorship-info` | JWT | Create field data |
 | `GET` | `/authorship-info` | — | List |
 | `GET` | `/authorship-info/:id` | — | One |
@@ -105,22 +105,22 @@ Paths are relative to the API root (behind the proxy, prefix them with
 | `GET` | `/posts/:id` | opt. | One post |
 | `PATCH` | `/posts/:id` | JWT | Edit (author, admins) |
 | `DELETE` | `/posts/:id` | JWT | Delete (author, admins) |
-| `PATCH` | `/posts/:id/approval` | JWT | Toggle approval |
+| `PATCH` | `/posts/:id/approval` | JWT | Toggle approval (admins) |
 | `GET` | `/posts/:organisationId` | opt. | An organisation's posts |
 | `GET` | `/posts/:organisationId/hidden` | JWT | Pending posts (admins) |
 | `POST` | `/likes/:postId` | JWT | Toggle like |
-| `POST` | `/social-posts/:organizationId` | JWT | Create (admins) |
-| `GET` | `/social-posts` | — | List |
+| `POST` | `/social-posts/:organizationId` | JWT | Create (admins, owner) |
+| `GET` | `/social-posts` | opt. | List (approved; super users see all) |
 | `GET` | `/social-posts/:id` | opt. | One |
-| `PATCH` | `/social-posts/:organizationId/:id` | JWT | Edit |
-| `DELETE` | `/social-posts/:organizationId/:id` | — | Delete |
+| `PATCH` | `/social-posts/:organizationId/:id` | JWT | Edit (admins, owner) |
+| `DELETE` | `/social-posts/:organizationId/:id` | JWT | Delete (admins, owner) |
 | `PATCH` | `/social-posts/:organizationId/:id/approval` | JWT | Toggle approval |
 | `POST` | `/works/:organisationId` | JWT | Create (members) |
 | `GET` | `/works` | opt. | List / search |
 | `GET` | `/works/:id` | opt. | One |
-| `PATCH` | `/works/:id` | JWT | Edit |
-| `DELETE` | `/works/:id` | JWT | Delete |
-| `PATCH` | `/works/:id/approval` | JWT | Toggle approval |
+| `PATCH` | `/works/:id` | JWT | Edit (author, admins) |
+| `DELETE` | `/works/:id` | JWT | Delete (author, admins) |
+| `PATCH` | `/works/:id/approval` | JWT | Toggle approval (admins) |
 | `PATCH` | `/saved-works/:workId` | JWT | Toggle bookmark |
 | `GET` | `/saved-works/me` | JWT | Your saved works |
 | `GET` | `/saved-works/user/:userId` | — | A user's saved works |
@@ -137,17 +137,16 @@ Paths are relative to the API root (behind the proxy, prefix them with
 | `GET` | `/notification-users` | JWT | Your notifications |
 | `PATCH` | `/notification-users/read/all` | JWT | Mark all read |
 | `PATCH` | `/notification-users/read/:id` | JWT | Mark one read |
-| `SSE` | `/notification-users/subscribe/:userId` | — | Live stream |
+| `SSE` | `/notification-users/subscribe/:userId` | JWT | Your own live stream |
 | `POST` | `/notifications` | — | Create a notification with no recipients |
-| `POST` | `/blobs/:directory` | — | Upload an image (10 MB) |
-| `POST` | `/blobs/pdf/:directory` | — | Upload a PDF (100 MB) |
-| `POST` | `/blobs/audio/:directory/:name` | — | Upload audio under a name (100 MB) |
+| `POST` | `/blobs/:directory` | JWT | Upload an image (10 MB) |
+| `POST` | `/blobs/pdf/:directory` | JWT | Upload a PDF (100 MB) |
+| `POST` | `/blobs/audio/:directory/:name` | — | Store a text-to-speech recording (100 MB, see File storage) |
 | `GET` | `/blobs/audio/:directory/:name` | — | URL of a stored recording |
-| `POST` | `/blobs/model/:directory` | — | Upload a 3D model (200 MB) |
-| `POST` | `/blobs/video/:directory` | — | Upload an MP4 (200 MB) |
+| `POST` | `/blobs/model/:directory` | JWT | Upload a 3D model (200 MB) |
+| `POST` | `/blobs/video/:directory` | JWT | Upload an MP4 (200 MB) |
 | `GET` | `/blobs/file/:directory/:name` | — | Stream a locally stored file |
 
 ## Quizzes
 
-See [Quizzes](/docs/features/quizzes/#endpoints); the feature is not
-functional yet.
+See [Quizzes](/docs/features/quizzes/#endpoints).

@@ -13,7 +13,8 @@ posts and quizzes; users take part through **membership**.
 Any logged-in user can create an organisation at `/createOrganisation`
 (`POST /organisations`). The creator becomes its `OWNER`. New organisations
 are approved by default (`isApproved = true`); `PATCH /organisations/:id/approval`
-toggles that and notifies the members (`ORGANISATION_APPROVAL`).
+toggles that (super users only) and notifies the members
+(`ORGANISATION_APPROVAL`).
 
 Unapproved organisations are hidden from lists and discovery for everyone but
 super users.
@@ -73,9 +74,3 @@ posts, works and members. Admin-only actions (creating content, the members
 table with role controls, deleting the organisation) are wrapped in
 `AdminCheckingWrapper`.
 
-:::caution[Current behaviour]
-Several organisation endpoints do not enforce what the table above says:
-any logged-in user can currently edit or delete an organisation and read its
-join requests, and the approval toggle has no guard at all. See
-[Known issues](/docs/reference/known-issues/#authorisation).
-:::

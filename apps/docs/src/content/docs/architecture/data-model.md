@@ -80,7 +80,7 @@ password reset link.
 `speciesKey`. Exponats of the same species share a row.
 
 **AuthorshipInfo**: field data attached one-to-one to an exponat, post or
-social post: `locationOfOccurence`, `dateOfOccurence`, `identifiedBy`,
+social post: `locationOfOccurrence`, `dateOfOccurrence`, `identifiedBy`,
 `photographer`, `deviceName`, `literature` (string array), and either a
 platform `authorId` or a free-text `nonPlatformAuthor`.
 
@@ -124,6 +124,9 @@ not work end to end yet ([Quizzes](/docs/features/quizzes/)).
 
 - Ids are UUID strings (`@default(uuid())`), except `Exponat.serialNumber`.
 - `createdAt` / `updatedAt` on most models, with `@updatedAt`.
+- `AuthorshipInfo.locationOfOccurrence` / `dateOfOccurrence` are mapped with
+  `@map` onto the original, misspelled columns `locationOfOccurence` /
+  `dateOfOccurence`; use the correct spelling everywhere except raw SQL.
 - Relation field casing is inconsistent (`ExponatId`, `Exponat`, `IsNotificationMade`
   next to camelCase fields). Raw SQL has to quote them: `p."ExponatId"`.
 - Deleting a user, organisation or exponat cascades to the rows that depend

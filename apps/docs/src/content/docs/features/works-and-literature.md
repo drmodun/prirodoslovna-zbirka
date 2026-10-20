@@ -22,17 +22,12 @@ Only members who are not merely `REQUESTED` (and super users) can post works.
 
 ### Review
 
-New works start unapproved and stay off lists until an admin approves them
-with `PATCH /works/:id/approval`, which records `approvedBy`. Toggling again
-clears approval. `/work/[id]/admin` is the review page.
-
-:::note[Current behaviour]
-`WorksController.create` works out an "auto-approve" flag for admins, but
-`WorksService.create` never writes `isApproved`, so every new work, even an
-admin's, starts pending. The approval check (`checkRights`) also returns
-un-awaited promises, which makes it pass for anyone; see
-[Known issues](/docs/reference/known-issues/#authorisation).
-:::
+Works by organisation admins and owners (and super users) are approved on
+creation, with the author recorded as `approvedBy`. Other members' works
+start unapproved and stay off lists until an admin approves them with
+`PATCH /works/:id/approval`; being the author is not enough. Toggling again
+clears approval. The author can still open a pending work; `/work/[id]/admin`
+is the review page.
 
 ### Saving
 
