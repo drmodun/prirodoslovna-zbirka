@@ -35,53 +35,65 @@ describe('buildExponatWhere', () => {
     });
   });
 
-  it.each(['family', 'genus', 'order', 'kingdom', 'phylum', 'species'])(
-    'filters by taxonomy rank %s using a phrase search',
-    (rank) => {
-      expect(buildExponatWhere({ [rank]: 'canis lupus' } as any)).toEqual({
-        Categorization: {
-          is: { [rank]: { search: 'canis <-> lupus', mode: 'insensitive' } },
-        },
-      });
-    },
-  );
+  it.each([
+    'family',
+    'genus',
+    'order',
+    'kingdom',
+    'phylum',
+    'species',
+    'class',
+  ])('filters by taxonomy rank %s using a phrase search', (rank) => {
+    expect(buildExponatWhere({ [rank]: 'canis lupus' } as any)).toEqual({
+      Categorization: {
+        is: { [rank]: { search: 'canis <-> lupus', mode: 'insensitive' } },
+      },
+    });
+  });
 
-  it('only the last rank in rank order applies when several are given', () => {
+  it('combines several ranks', () => {
     const where: any = buildExponatWhere({
       family: 'f',
       species: 's',
     } as any);
     expect(where.Categorization.is).toEqual({
+      family: { search: 'f', mode: 'insensitive' },
       species: { search: 's', mode: 'insensitive' },
     });
   });
 
   describe('favourite count', () => {
-    it('min -> gte', () => {
-      expect(buildExponatWhere({ minFavoriteCount: 3 } as any)).toEqual({
-        _count: { FavouriteExponats: { gte: 3 } },
-      });
-    });
-    it('max -> lte', () => {
-      expect(buildExponatWhere({ maxFavoriteCount: 9 } as any)).toEqual({
-        _count: { FavouriteExponats: { lte: 9 } },
-      });
-    });
-    it('max wins over min when both are present', () => {
-      expect(
-        buildExponatWhere({ minFavoriteCount: 1, maxFavoriteCount: 9 } as any),
-      ).toEqual({ _count: { FavouriteExponats: { lte: 9 } } });
-    });
-  });
+    const counts = [
+      { ExponatId: 'none', _count: { _all: 0 } },
+      { ExponatId: 'one', _count: { _all: 1 } },
+      { ExponatId: 'five', _count: { _all: 5 } },
+    ];
 
-  // BUG: the `class` branch writes a top-level `search` key (not a valid
-  // Exponat column) and a class condition with no `search` term, so the
-  // generated query would be rejected by Prisma / never filter by class.
-  it.failing('filters by class with a phrase search like other ranks', () => {
-    expect(buildExponatWhere({ class: 'mammalia' } as any)).toEqual({
-      Categorization: {
-        is: { class: { search: 'mammalia', mode: 'insensitive' } },
-      },
+    it('is ignored without counts or bounds', () => {
+      expect(buildExponatWhere({ minFavoriteCount: 3 } as any)).toEqual({});
+      expect(buildExponatWhere({} as any, undefined, counts)).toEqual({});
+    });
+
+    it('a minimum keeps the exponats with at least that many', () => {
+      expect(
+        buildExponatWhere({ minFavoriteCount: '2' } as any, undefined, counts),
+      ).toEqual({ id: { in: ['five'] } });
+    });
+
+    it('a maximum leaves out the exponats with more', () => {
+      expect(
+        buildExponatWhere({ maxFavoriteCount: 1 } as any, undefined, counts),
+      ).toEqual({ id: { notIn: ['five'] } });
+    });
+
+    it('applies both bounds together', () => {
+      expect(
+        buildExponatWhere(
+          { minFavoriteCount: 1, maxFavoriteCount: 4 } as any,
+          undefined,
+          counts,
+        ),
+      ).toEqual({ id: { in: ['one'] } });
     });
   });
 

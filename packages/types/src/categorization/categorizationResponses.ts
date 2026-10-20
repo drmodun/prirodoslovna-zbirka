@@ -16,7 +16,7 @@ export interface CategorizationExtendedResponse {
   class?: string;
   phylum?: string;
   numberOfExponats: number;
-  kingom?: string;
+  kingdom?: string;
   species?: string;
   speciesKey?: number;
   exponats: ExponatResponseShort[];

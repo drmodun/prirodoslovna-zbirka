@@ -1,3 +1,4 @@
+import { UnauthorizedException } from '@nestjs/common';
 import { ExponatsController } from './exponats.controller';
 
 const date = new Date('2024-03-03T00:00:00Z');
@@ -184,9 +185,7 @@ describe('ExponatsController', () => {
     await expect(controller.getSerial(12)).resolves.toBe('e1');
   });
 
-  // SECURITY BUG: `DELETE /exponats/:id` has no guard and no ownership check,
-  // so anyone can delete any exponat.
-  it.failing('delete is protected by an auth guard', () => {
+  it('delete is protected by an auth guard', () => {
     const guards = Reflect.getMetadata(
       '__guards__',
       ExponatsController.prototype.remove,
@@ -194,8 +193,18 @@ describe('ExponatsController', () => {
     expect(guards?.length).toBeGreaterThan(0);
   });
 
-  it('remove delegates to the service', async () => {
-    await controller.remove('e1');
+  it('remove delegates to the service for organisation admins', async () => {
+    svc.checkUserRole.mockResolvedValue(true);
+    await controller.remove('e1', { user: { id: 'me' } });
+    expect(svc.checkUserRole).toHaveBeenCalledWith('me', 'e1');
     expect(svc.remove).toHaveBeenCalledWith('e1');
+  });
+
+  it('remove refuses everyone else', async () => {
+    svc.checkUserRole.mockResolvedValue(false);
+    await expect(
+      controller.remove('e1', { user: { id: 'me' } }),
+    ).rejects.toBeInstanceOf(UnauthorizedException);
+    expect(svc.remove).not.toHaveBeenCalled();
   });
 });

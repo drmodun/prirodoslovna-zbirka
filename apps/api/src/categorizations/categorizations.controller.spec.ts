@@ -1,3 +1,4 @@
+import { UnauthorizedException } from '@nestjs/common';
 import { NotFoundException } from '@nestjs/common';
 import { CategorizationsController } from './categorizations.controller';
 
@@ -103,14 +104,11 @@ describe('CategorizationsController', () => {
       });
     });
 
-    it.failing(
-      'exposes the kingdom under the documented `kingdom` key',
-      async () => {
-        svc.findOne.mockResolvedValue(item);
-        const res: any = await controller.findOne('c');
-        expect(res.kingdom).toBe('Animalia'); // currently emitted as `kingom`
-      },
-    );
+    it('exposes the kingdom under the documented `kingdom` key', async () => {
+      svc.findOne.mockResolvedValue(item);
+      const res: any = await controller.findOne('c');
+      expect(res.kingdom).toBe('Animalia');
+    });
   });
 
   it('findByName maps the short response', async () => {
@@ -129,15 +127,27 @@ describe('CategorizationsController', () => {
     });
   });
 
-  it('update / remove delegate', async () => {
-    await controller.update('c', { genus: 'g' } as any);
-    await controller.remove('c');
+  it('update / remove delegate for super users', async () => {
+    const req = { user: { id: 'me', role: 'super' } };
+    await controller.update('c', { genus: 'g' } as any, req);
+    await controller.remove('c', req);
     expect(svc.update).toHaveBeenCalledWith('c', { genus: 'g' });
     expect(svc.remove).toHaveBeenCalledWith('c');
   });
 
-  // SECURITY: every write endpoint of this controller is unauthenticated.
-  it.failing.each(['create', 'update', 'remove'] as const)(
+  it('update / remove refuse everyone else', async () => {
+    const req = { user: { id: 'me', role: 'user' } };
+    await expect(controller.update('c', {} as any, req)).rejects.toBeInstanceOf(
+      UnauthorizedException,
+    );
+    await expect(controller.remove('c', req)).rejects.toBeInstanceOf(
+      UnauthorizedException,
+    );
+    expect(svc.update).not.toHaveBeenCalled();
+    expect(svc.remove).not.toHaveBeenCalled();
+  });
+
+  it.each(['create', 'update', 'remove'] as const)(
     '%s requires authentication',
     (method) => {
       const guards = Reflect.getMetadata(
