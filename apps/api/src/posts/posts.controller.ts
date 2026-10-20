@@ -224,15 +224,15 @@ export class PostsController {
     const exponat = await this.exponatsService.findExponatByPostId(id);
     const organisationId =
       await this.organisationsService.findOrganisationByExponatId(exponat);
-    const check = await this.postsService.checkValidity(id, req.user.id);
+    // Moderation: being the author is not enough.
     const admin = await this.membersService.hasAdminRights(
       req.user.id,
       organisationId,
     );
 
-    if (!check && !admin && !(req.user.role === 'super'))
+    if (!admin && !(req.user.role === 'super'))
       throw new UnauthorizedException(
-        "You cannot approve or disapprove this post because it is not yours and you don't have admin rights",
+        "You cannot approve or disapprove this post because you don't have admin rights",
       );
 
     return await this.postsService.toggleApproval(id);

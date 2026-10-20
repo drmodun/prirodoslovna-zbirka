@@ -89,11 +89,7 @@ describe('posts, likes & follows (integration)', () => {
       expect(await ctx.prisma.post.count()).toBe(0);
     });
 
-    // BUG: PostsController sets `dto.isAdmin` and PostsService spreads the whole
-    // dto into `prisma.post.create`, but `isAdmin` is not a Post column, so Prisma
-    // rejects every creation with a validation error (HTTP 500). The three tests
-    // below describe the intended behaviour and switch to plain `it` once fixed.
-    it.failing(
+    it(
       'a member’s post is unapproved and asks the admins for review',
       async () => {
         const member = await setup('MEMBER');
@@ -130,7 +126,7 @@ describe('posts, likes & follows (integration)', () => {
       },
     );
 
-    it.failing(
+    it(
       'an admin’s post is approved immediately and followers are notified',
       async () => {
         const admin = await setup('ADMIN');
@@ -161,7 +157,7 @@ describe('posts, likes & follows (integration)', () => {
       },
     );
 
-    it.failing(
+    it(
       'cannot spoof the author or approval through the body',
       async () => {
         const member = await setup('MEMBER');
@@ -239,8 +235,7 @@ describe('posts, likes & follows (integration)', () => {
       expect(res.body).toHaveLength(1);
     });
 
-    // BUG: the organisation filter queries `exponatId` instead of `ExponatId`.
-    it.failing('filters posts by organisation', async () => {
+    it('filters posts by organisation', async () => {
       const a = await setup('MEMBER');
       const b = await setup('MEMBER');
       await createPost(a.user.id, a.exponat.id, { title: 'In organisation A' });
@@ -447,9 +442,7 @@ describe('posts, likes & follows (integration)', () => {
         .expect(401);
     });
 
-    // SECURITY BUG: the author passes the "author or admin" check, so a member
-    // can approve their own post and bypass moderation.
-    it.failing('authors cannot approve their own post', async () => {
+    it('authors cannot approve their own post', async () => {
       const member = await setup('MEMBER');
       const post = await createPost(member.user.id, member.exponat.id, {
         isApproved: false,

@@ -86,7 +86,7 @@ export class PostsService {
         }),
         ...(filter?.userId && { authorId: filter.userId }),
         ...(filter?.organisationId && {
-          exponatId: {
+          ExponatId: {
             in: exponatIds.map((exponat) => exponat.id),
           },
         }),
@@ -139,10 +139,12 @@ export class PostsService {
   }
 
   async create(createPostDto: CreatePostDto) {
+    // isAdmin is decided by the controller and is not a Post column.
+    const { isAdmin, ...post } = createPostDto;
     const creation = await this.prisma.post.create({
       data: {
-        ...createPostDto,
-        isApproved: createPostDto.isAdmin,
+        ...post,
+        isApproved: !!isAdmin,
       },
     });
 

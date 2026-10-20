@@ -220,10 +220,7 @@ describe('PostsController', () => {
     expect(posts.remove).toHaveBeenCalledWith('p1');
   });
 
-  // SECURITY BUG: the approval endpoint reuses the "author or admin" check, so
-  // the author of an unapproved post can approve their own post and bypass
-  // moderation. Approval must be limited to organisation admins / super users.
-  it.failing('plain authors cannot approve their own post', async () => {
+  it('plain authors cannot approve their own post', async () => {
     exponats.findExponatByPostId.mockResolvedValue('e1');
     orgs.findOrganisationByExponatId.mockResolvedValue('o1');
     posts.checkValidity.mockResolvedValue(true); // is the author
