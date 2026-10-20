@@ -62,14 +62,11 @@ describe('users, notifications & file uploads (integration)', () => {
       await ctx.http().get('/users').expect(200);
     });
 
-    it(
-      'does not publish every user’s email address to anonymous visitors',
-      async () => {
-        await createUser(ctx, { email: 'private@test.hr' });
-        const res = await ctx.http().get('/users').expect(200);
-        expect(JSON.stringify(res.body)).not.toContain('private@test.hr');
-      },
-    );
+    it('does not publish every user’s email address to anonymous visitors', async () => {
+      await createUser(ctx, { email: 'private@test.hr' });
+      const res = await ctx.http().get('/users').expect(200);
+      expect(JSON.stringify(res.body)).not.toContain('private@test.hr');
+    });
   });
 
   describe('GET /users/:id', () => {
