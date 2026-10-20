@@ -361,20 +361,21 @@ model Notification {
 }
 
 model AuthorshipInfo {
-  locationOfOccurence String?
-  dateOfOccurence     DateTime?
-  authorId            String?
-  author              User?       @relation(fields: [authorId], references: [id], onDelete: Cascade)
-  nonPlatformAuthor   String?
-  identifiedBy        String?
-  deviceName          String?
-  photographer        String?
-  literature          String[]
-  id                  String      @id @default(uuid())
-  Post                Post?
-  postId              String?
-  Exponat             Exponat?
-  SocialPost          SocialPost?
+  // The columns keep their original (misspelled) names.
+  locationOfOccurrence String?     @map("locationOfOccurence")
+  dateOfOccurrence     DateTime?   @map("dateOfOccurence")
+  authorId             String?
+  author               User?       @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  nonPlatformAuthor    String?
+  identifiedBy         String?
+  deviceName           String?
+  photographer         String?
+  literature           String[]
+  id                   String      @id @default(uuid())
+  Post                 Post?
+  postId               String?
+  Exponat              Exponat?
+  SocialPost           SocialPost?
 }
 
 //TODO: thik wether identification should be a separate model

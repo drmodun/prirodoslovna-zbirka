@@ -42,6 +42,29 @@ describe('social posts, works, authorship & saved items (integration)', () => {
       });
     });
 
+    it('stores the place and the date of the find', async () => {
+      const { auth } = await createSession(ctx);
+      const res = await ctx
+        .http()
+        .post('/authorship-info')
+        .set(auth)
+        .send({ locationOfOccurrence: 'Papuk', dateOfOccurrence: '2024-05-01' })
+        .expect(201);
+      expect(res.body).toMatchObject({ locationOfOccurrence: 'Papuk' });
+      const stored = await ctx.prisma.authorshipInfo.findUniqueOrThrow({
+        where: { id: res.body.id },
+      });
+      expect(stored.dateOfOccurrence?.toISOString()).toBe(
+        '2024-05-01T00:00:00.000Z',
+      );
+      await ctx
+        .http()
+        .post('/authorship-info')
+        .set(auth)
+        .send({ dateOfOccurrence: 'yesterday' })
+        .expect(400);
+    });
+
     it('is publicly readable', async () => {
       const { user } = await createSession(ctx);
       const info = await createAuthorshipInfo(ctx, user.id);
