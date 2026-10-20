@@ -48,6 +48,7 @@ describe('QuizzesController', () => {
       toggleApprovalStatus: jest.fn(),
       getWaitingForApproval: jest.fn(),
       getSingleWaitingForApproval: jest.fn(),
+      belongsTo: jest.fn(),
     };
     members = { hasAdminRights: jest.fn() };
     controller = new QuizzesController(svc as any, members as any);
@@ -86,6 +87,7 @@ describe('QuizzesController', () => {
       '%s calls the service for admins',
       async (_n, call, method) => {
         members.hasAdminRights.mockResolvedValue(true);
+        svc.belongsTo.mockResolvedValue(true);
         svc[method].mockResolvedValue(quiz());
         svc.getWaitingForApproval.mockResolvedValue([quiz()]);
         await call();
@@ -105,14 +107,11 @@ describe('QuizzesController', () => {
     });
   });
 
-  it.failing(
-    'findAll reports the organisation name (not its image) as organisationName',
-    async () => {
-      svc.findAll.mockResolvedValue([quiz()]);
-      const [res] = await controller.findAll({} as any);
-      expect(res.organisationName).toBe('Org');
-    },
-  );
+  it('findAll reports the organisation name (not its image) as organisationName', async () => {
+    svc.findAll.mockResolvedValue([quiz()]);
+    const [res] = await controller.findAll({} as any);
+    expect(res.organisationName).toBe('Org');
+  });
 
   describe('findOne', () => {
     it('404s for unknown quizzes', async () => {
@@ -152,27 +151,31 @@ describe('QuizzesController', () => {
     ).rejects.toBeInstanceOf(NotFoundException);
   });
 
-  // BUG: admin rights are checked against the organisation in the URL while
-  // the quiz is created for `createQuizDto.organisationId`, so an admin of one
-  // organisation can create quizzes for another by lying in the body.
-  it.failing(
-    'create pins the quiz to the organisation that was authorised',
-    async () => {
-      members.hasAdminRights.mockResolvedValue(true);
-      const dto: any = { organisationId: 'someone-elses-org' };
-      await controller.create(dto, 'o1', req);
-      expect(svc.create.mock.calls[0][0].organisationId).toBe('o1');
-    },
-  );
+  it('create pins the quiz to the organisation that was authorised', async () => {
+    members.hasAdminRights.mockResolvedValue(true);
+    const dto: any = { organisationId: 'someone-elses-org' };
+    await controller.create(dto, 'o1', req);
+    expect(svc.create.mock.calls[0][1]).toBe('o1');
+  });
 
-  // BUG: the DELETE route is declared as ':orgnisationId/:id' (typo) while the
-  // handler reads @Param('organisationId'), which is therefore always
-  // undefined, and Prisma treats `organisationId: undefined` as "no filter".
-  it.failing('delete route exposes the organisationId path parameter', () => {
+  it('delete route exposes the organisationId path parameter', () => {
     const path = Reflect.getMetadata(
       PATH_METADATA,
       QuizzesController.prototype.remove,
     );
     expect(path).toContain(':organisationId');
   });
+
+  it.each([
+    ['update', () => controller.update('q1', {} as any, req, 'o1')],
+    ['remove', () => controller.remove('q1', req, 'o1')],
+    ['toggleApproval', () => controller.toggleApproval('q1', req, 'o1')],
+  ] as const)(
+    '%s 404s for quizzes of another organisation',
+    async (_n, call) => {
+      members.hasAdminRights.mockResolvedValue(true);
+      svc.belongsTo.mockResolvedValue(false);
+      await expect(call()).rejects.toBeInstanceOf(NotFoundException);
+    },
+  );
 });

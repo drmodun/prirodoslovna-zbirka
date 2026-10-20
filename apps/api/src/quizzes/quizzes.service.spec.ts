@@ -36,18 +36,38 @@ describe('QuizzesService', () => {
         organisationId: 'o1',
       } as any);
       expect(prisma.quiz.findMany.mock.calls[0][0].where).toEqual({
+        isApproved: true,
         title: { search: 'bears | and | wolves', mode: 'insensitive' },
         difficulty: 'EASY',
-        category: true,
+        isTest: true,
         isRetakeable: true,
         isAnonymousAllowed: true,
         organisationId: 'o1',
       });
     });
 
-    it('has an empty where clause without filters', async () => {
+    it('reads the flags from query strings', async () => {
+      await service.findAll({ isTest: 'false', isRetakeable: 'true' } as any);
+      expect(prisma.quiz.findMany.mock.calls[0][0].where).toMatchObject({
+        isTest: false,
+        isRetakeable: true,
+      });
+    });
+
+    it('only lists approved quizzes unless asked otherwise', async () => {
       await service.findAll({} as any);
-      expect(prisma.quiz.findMany.mock.calls[0][0].where).toEqual({});
+      await service.findAll({} as any, false);
+      expect(prisma.quiz.findMany.mock.calls[0][0].where).toEqual({
+        isApproved: true,
+      });
+      expect(prisma.quiz.findMany.mock.calls[1][0].where).toEqual({});
+    });
+
+    it('pages 10 at a time by default', async () => {
+      await service.findAll({} as any);
+      const arg = prisma.quiz.findMany.mock.calls[0][0];
+      expect(arg.skip).toBe(0);
+      expect(arg.take).toBe(10);
     });
 
     it('orders by the requested attribute, defaulting to asc', async () => {
@@ -111,9 +131,9 @@ describe('QuizzesService', () => {
   });
 
   it('getSingleWaitingForApproval includes the questions', async () => {
-    await service.getSingleWaitingForApproval('q');
-    const arg = prisma.quiz.findUnique.mock.calls[0][0];
-    expect(arg.where).toEqual({ id: 'q' });
+    await service.getSingleWaitingForApproval('q', 'o');
+    const arg = prisma.quiz.findFirst.mock.calls[0][0];
+    expect(arg.where).toEqual({ id: 'q', organisationId: 'o' });
     expect(arg.include.questions).toBe(true);
   });
 });

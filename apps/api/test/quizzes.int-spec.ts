@@ -31,12 +31,6 @@ describe('quizzes & questions (integration)', () => {
     ...over,
   });
 
-  // The DTO validates enum *values* (Croatian labels) instead of the keys the
-  // database uses (see the BUG note in "creating quizzes"). Sending the label
-  // is the only way to get past validation and reach the permission checks.
-  const questionWithLabel = () =>
-    questionData({ questionType: 'Višestruki izbor' as never });
-
   async function createQuiz(
     organisationId: string,
     over: Record<string, unknown> = {},
@@ -87,37 +81,25 @@ describe('quizzes & questions (integration)', () => {
       expect(await ctx.prisma.quiz.count()).toBe(0);
     });
 
-    // BUG: creation can never succeed. The DTO decorates `questions` with
-    // @MinLength(1) (a string validator), and @IsEnum(QuestionTypeEnum /
-    // TimeLimitTypeEnum / QuizDifficulty) validates the Croatian display
-    // *values* while the types and Prisma use the *keys* (MULTIPLE_CHOICE, ...).
-    // The cross-organisation check in QuizzesController.create (URL vs body
-    // organisationId) is covered by the unit tests until creation works.
-    it.failing(
-      'an organisation admin can create a quiz with questions',
-      async () => {
-        const admin = await member('ADMIN');
-        await ctx
-          .http()
-          .post(`/quizzes/${admin.org.id}`)
-          .set(admin.auth)
-          .send(quizBody())
-          .expect(201);
-        const stored = await ctx.prisma.quiz.findFirstOrThrow({
-          include: { questions: true },
-        });
-        expect(stored.questions).toHaveLength(1);
-      },
-    );
+    it('an organisation admin can create a quiz with questions', async () => {
+      const admin = await member('ADMIN');
+      await ctx
+        .http()
+        .post(`/quizzes/${admin.org.id}`)
+        .set(admin.auth)
+        .send(quizBody())
+        .expect(201);
+      const stored = await ctx.prisma.quiz.findFirstOrThrow({
+        include: { questions: true },
+      });
+      expect(stored.questions).toHaveLength(1);
+    });
   });
 
   describe('reading quizzes', () => {
     const paging = { page: 1, size: 10 };
 
-    // BUG: findAll computes `skip: (page - 1) * size` straight from the query
-    // string, which is NaN when the parameters are omitted, so the plain
-    // `GET /quizzes` answers 500.
-    it.failing('lists quizzes without paging parameters', async () => {
+    it('lists quizzes without paging parameters', async () => {
       const { org } = await member('OWNER');
       await createQuiz(org.id);
       await ctx.http().get('/quizzes').expect(200);
@@ -173,22 +155,19 @@ describe('quizzes & questions (integration)', () => {
         .expect(404);
     });
 
-    it.failing('the public list only contains approved quizzes', async () => {
+    it('the public list only contains approved quizzes', async () => {
       const { org } = await member('OWNER');
       await createQuiz(org.id, { title: 'Skriveni kviz', isApproved: false });
       const res = await ctx.http().get('/quizzes').query(paging).expect(200);
       expect(res.body).toEqual([]);
     });
 
-    it.failing(
-      'the list reports the organisation name (not its image URL)',
-      async () => {
-        const { org } = await member('OWNER');
-        await createQuiz(org.id);
-        const res = await ctx.http().get('/quizzes').query(paging).expect(200);
-        expect(res.body[0].organisationName).toBe(org.name);
-      },
-    );
+    it('the list reports the organisation name (not its image URL)', async () => {
+      const { org } = await member('OWNER');
+      await createQuiz(org.id);
+      const res = await ctx.http().get('/quizzes').query(paging).expect(200);
+      expect(res.body[0].organisationName).toBe(org.name);
+    });
   });
 
   describe('moderation', () => {
@@ -236,10 +215,7 @@ describe('quizzes & questions (integration)', () => {
       ).toBe(true);
     });
 
-    // BUG: UpdateQuizDto is built from getCreateQuizRequest, so *every* field is
-    // required (and the broken `questions` validator applies), meaning no quiz
-    // can be updated, and validation fails (400) before permissions are checked.
-    it.failing('admins can update the title of their quiz', async () => {
+    it('admins can update the title of their quiz', async () => {
       const admin = await member('ADMIN');
       const quiz = await createQuiz(admin.org.id);
       await ctx
@@ -264,39 +240,30 @@ describe('quizzes & questions (integration)', () => {
         .expect(401);
     });
 
-    it.failing(
-      'an admin of another organisation cannot approve a foreign quiz',
-      async () => {
-        const owner = await member('ADMIN');
-        const intruder = await member('ADMIN');
-        const quiz = await createQuiz(owner.org.id, { isApproved: false });
-        await ctx
-          .http()
-          .patch(`/quizzes/${intruder.org.id}/${quiz.id}/approval`)
-          .set(intruder.auth);
-        expect(
-          (await ctx.prisma.quiz.findUniqueOrThrow({ where: { id: quiz.id } }))
-            .isApproved,
-        ).toBe(false);
-      },
-    );
+    it('an admin of another organisation cannot approve a foreign quiz', async () => {
+      const owner = await member('ADMIN');
+      const intruder = await member('ADMIN');
+      const quiz = await createQuiz(owner.org.id, { isApproved: false });
+      await ctx
+        .http()
+        .patch(`/quizzes/${intruder.org.id}/${quiz.id}/approval`)
+        .set(intruder.auth);
+      expect(
+        (await ctx.prisma.quiz.findUniqueOrThrow({ where: { id: quiz.id } }))
+          .isApproved,
+      ).toBe(false);
+    });
 
-    // BUG: the route is declared as ':orgnisationId/:id' (typo) so the handler's
-    // organisation id is undefined and `hasAdminRights` matches *any* membership
-    // of the user, letting an admin of one organisation delete another's quiz.
-    it.failing(
-      'an admin of another organisation cannot delete a foreign quiz',
-      async () => {
-        const owner = await member('ADMIN');
-        const intruder = await member('ADMIN');
-        const quiz = await createQuiz(owner.org.id);
-        await ctx
-          .http()
-          .delete(`/quizzes/${owner.org.id}/${quiz.id}`)
-          .set(intruder.auth);
-        expect(await ctx.prisma.quiz.count({ where: { id: quiz.id } })).toBe(1);
-      },
-    );
+    it('an admin of another organisation cannot delete a foreign quiz', async () => {
+      const owner = await member('ADMIN');
+      const intruder = await member('ADMIN');
+      const quiz = await createQuiz(owner.org.id);
+      await ctx
+        .http()
+        .delete(`/quizzes/${owner.org.id}/${quiz.id}`)
+        .set(intruder.auth);
+      expect(await ctx.prisma.quiz.count({ where: { id: quiz.id } })).toBe(1);
+    });
   });
 
   describe('questions', () => {
@@ -314,10 +281,7 @@ describe('quizzes & questions (integration)', () => {
         .expect(404);
     });
 
-    // BUG: QuestionQuery is built from getCreateQuestionDto, so a plain
-    // `GET /questions?quizId=...` is rejected (400) unless a complete question
-    // is supplied as the query string.
-    it.failing('lists the questions of a quiz', async () => {
+    it('lists the questions of a quiz', async () => {
       const { org } = await member('OWNER');
       const quiz = await createQuiz(org.id);
       const list = await ctx
@@ -328,42 +292,30 @@ describe('quizzes & questions (integration)', () => {
       expect(list.body).toHaveLength(2);
     });
 
-    it.failing(
-      'the public question endpoints do not expose the correct answers',
-      async () => {
-        const { org } = await member('OWNER');
-        const quiz = await createQuiz(org.id);
-        const question = await ctx.prisma.question.findFirstOrThrow({
-          where: { quizId: quiz.id },
-        });
-        const one = await ctx
-          .http()
-          .get(`/questions/${question.id}`)
-          .expect(200);
-        expect(one.body).not.toHaveProperty('correct');
-        expect(one.body).not.toHaveProperty('correctAnswer');
-      },
-    );
+    it('the public question endpoints do not expose the correct answers', async () => {
+      const { org } = await member('OWNER');
+      const quiz = await createQuiz(org.id);
+      const question = await ctx.prisma.question.findFirstOrThrow({
+        where: { quizId: quiz.id },
+      });
+      const one = await ctx.http().get(`/questions/${question.id}`).expect(200);
+      expect(one.body).not.toHaveProperty('correct');
+      expect(one.body).not.toHaveProperty('correctAnswer');
+    });
 
-    // BUG: the controller passes the *quiz* id to `hasEditPermission`, which looks
-    // a *question* up by id, so nobody (not even the owner) can ever add, edit or
-    // remove questions. (The label is used so the request gets past validation.)
-    it.failing(
-      'an organisation admin can add a question to their quiz',
-      async () => {
-        const admin = await member('ADMIN');
-        const quiz = await createQuiz(admin.org.id);
-        await ctx
-          .http()
-          .post(`/questions/${quiz.id}`)
-          .set(admin.auth)
-          .send(questionWithLabel())
-          .expect(201);
-        expect(
-          await ctx.prisma.question.count({ where: { quizId: quiz.id } }),
-        ).toBe(3);
-      },
-    );
+    it('an organisation admin can add a question to their quiz', async () => {
+      const admin = await member('ADMIN');
+      const quiz = await createQuiz(admin.org.id);
+      await ctx
+        .http()
+        .post(`/questions/${quiz.id}`)
+        .set(admin.auth)
+        .send(questionData())
+        .expect(201);
+      expect(
+        await ctx.prisma.question.count({ where: { quizId: quiz.id } }),
+      ).toBe(3);
+    });
 
     it('anonymous users and strangers cannot add questions', async () => {
       const admin = await member('ADMIN');
@@ -372,13 +324,13 @@ describe('quizzes & questions (integration)', () => {
       await ctx
         .http()
         .post(`/questions/${quiz.id}`)
-        .send(questionWithLabel())
+        .send(questionData())
         .expect(401);
       await ctx
         .http()
         .post(`/questions/${quiz.id}`)
         .set(stranger.auth)
-        .send(questionWithLabel())
+        .send(questionData())
         .expect(401);
       expect(
         await ctx.prisma.question.count({ where: { quizId: quiz.id } }),

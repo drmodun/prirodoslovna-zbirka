@@ -5,12 +5,14 @@ import { CreateQuizDto, QuizQuery, UpdateQuizDto } from './quizzes.dto';
 @Injectable()
 export class QuizzesService {
   constructor(private readonly prisma: PrismaService) {}
-  async create(createQuizDto: CreateQuizDto) {
+  async create(createQuizDto: CreateQuizDto, organisationId?: string) {
+    const { questions, ...quiz } = createQuizDto;
     const createdQuiz = await this.prisma.quiz.create({
       data: {
-        ...createQuizDto,
+        ...quiz,
+        ...(organisationId && { organisationId }),
         questions: {
-          create: createQuizDto.questions,
+          create: questions,
         },
       },
     });
@@ -18,9 +20,22 @@ export class QuizzesService {
     return createdQuiz;
   }
 
-  async findAll(query: QuizQuery) {
+  // Query strings arrive as text: "true" / "false" and numbers.
+  private static flag(value: unknown) {
+    return value === undefined ? undefined : String(value) === 'true';
+  }
+
+  async findAll(query: QuizQuery, approval = true) {
+    const page = Number(query.page) > 0 ? Number(query.page) : 1;
+    const size =
+      Number(query.size) > 0 ? Math.min(Number(query.size), 100) : 10;
+    const isTest = QuizzesService.flag(query.isTest);
+    const isRetakeable = QuizzesService.flag(query.isRetakeable);
+    const isAnonymousAllowed = QuizzesService.flag(query.isAnonymousAllowed);
+
     const quizzes = await this.prisma.quiz.findMany({
       where: {
+        ...(approval && { isApproved: true }),
         ...(query.title && {
           title: {
             search: query.title.split(' ').join(' | '),
@@ -30,15 +45,9 @@ export class QuizzesService {
         ...(query.difficulty && {
           difficulty: query.difficulty,
         }),
-        ...(query.isTest && {
-          category: query.isTest,
-        }),
-        ...(query.isRetakeable && {
-          isRetakeable: query.isRetakeable,
-        }),
-        ...(query.isAnonymousAllowed && {
-          isAnonymousAllowed: query.isAnonymousAllowed,
-        }),
+        ...(isTest !== undefined && { isTest }),
+        ...(isRetakeable !== undefined && { isRetakeable }),
+        ...(isAnonymousAllowed !== undefined && { isAnonymousAllowed }),
         ...(query.organisationId && {
           organisationId: query.organisationId,
         }),
@@ -62,7 +71,8 @@ export class QuizzesService {
           },
         },
       },
-      skip: (query.page - 1) * query.size,
+      skip: (page - 1) * size,
+      take: size,
     });
 
     return quizzes;
@@ -98,16 +108,28 @@ export class QuizzesService {
     return quiz;
   }
 
+  // Quizzes are only changed through the organisation they belong to.
+  async belongsTo(id: string, organisationId: string) {
+    const quiz = await this.prisma.quiz.findFirst({
+      where: { id, organisationId },
+      select: { id: true },
+    });
+    return !!quiz;
+  }
+
   async update(id: string, updateQuizDto: UpdateQuizDto) {
+    const { questions, ...quiz } = updateQuizDto;
     const updatedQuiz = await this.prisma.quiz.update({
       where: {
         id,
       },
       data: {
-        ...updateQuizDto,
-        questions: {
-          create: updateQuizDto.questions,
-        },
+        ...quiz,
+        ...(questions?.length && {
+          questions: {
+            create: questions,
+          },
+        }),
       },
     });
 
@@ -141,10 +163,11 @@ export class QuizzesService {
     });
   }
 
-  async getWaitingForApproval() {
+  async getWaitingForApproval(organisationId?: string) {
     const quizzes = await this.prisma.quiz.findMany({
       where: {
         isApproved: false,
+        ...(organisationId && { organisationId }),
       },
       include: {
         organisation: true,
@@ -160,10 +183,11 @@ export class QuizzesService {
     return quizzes;
   }
 
-  async getSingleWaitingForApproval(id: string) {
-    const quiz = await this.prisma.quiz.findUnique({
+  async getSingleWaitingForApproval(id: string, organisationId?: string) {
+    const quiz = await this.prisma.quiz.findFirst({
       where: {
         id,
+        ...(organisationId && { organisationId }),
       },
       include: {
         organisation: true,

@@ -1,4 +1,8 @@
-import { getCreateQuizRequest, getQuizQuery } from '@biosfera/types';
+import {
+  getCreateQuizRequest,
+  getQuizQuery,
+  getUpdateQuizRequest,
+} from '@biosfera/types';
 import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 
@@ -6,7 +10,7 @@ const _getCreateQuizDto = getCreateQuizRequest(ApiProperty, Type);
 
 export class CreateQuizDto extends _getCreateQuizDto {}
 
-const _getUpdateQuizRequest = getCreateQuizRequest(ApiProperty, Type);
+const _getUpdateQuizRequest = getUpdateQuizRequest(ApiProperty, Type);
 
 export class UpdateQuizDto extends _getUpdateQuizRequest {}
 
