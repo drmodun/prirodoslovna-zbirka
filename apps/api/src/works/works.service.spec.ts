@@ -25,7 +25,7 @@ describe('WorksService', () => {
     },
   );
 
-  it('create whitelists the persisted fields', async () => {
+  it('create whitelists the persisted fields, keeping a granted approval', async () => {
     prisma.work.create.mockResolvedValue({ id: 'w' });
     await service.create({
       description: 'd',
@@ -51,6 +51,8 @@ describe('WorksService', () => {
       authorId: 'a',
       tags: ['x'],
       organisationId: 'o',
+      isApproved: true,
+      approvedBy: 'someone',
     });
   });
 
@@ -142,24 +144,18 @@ describe('WorksService', () => {
       await expect(service.checkRights('u', 'w')).resolves.toBe(true);
     });
 
-    // SECURITY BUG: `checkSuper` / `checkAdmin` are Promises that are never
-    // awaited, and the user lookup is not constrained to role SUPER, so the
-    // method returns a (truthy) Promise for every non-author.
-    it.failing(
-      'denies a user who is neither author, admin nor super',
-      async () => {
-        prisma.work.findFirst.mockResolvedValue({
-          authorId: 'author',
-          organisationId: 'o',
-        });
-        prisma.user.findFirst.mockResolvedValue({ id: 'u', role: 'USER' });
-        prisma.organisationUser.findFirst.mockResolvedValue(null);
-        const result = await service.checkRights('u', 'w');
-        expect(result).toBeFalsy();
-      },
-    );
+    it('denies a user who is neither author, admin nor super', async () => {
+      prisma.work.findFirst.mockResolvedValue({
+        authorId: 'author',
+        organisationId: 'o',
+      });
+      prisma.user.findFirst.mockResolvedValue({ id: 'u', role: 'USER' });
+      prisma.organisationUser.findFirst.mockResolvedValue(null);
+      const result = await service.checkRights('u', 'w');
+      expect(result).toBeFalsy();
+    });
 
-    it.failing('grants organisation admins', async () => {
+    it('grants organisation admins', async () => {
       prisma.work.findFirst.mockResolvedValue({
         authorId: 'author',
         organisationId: 'o',

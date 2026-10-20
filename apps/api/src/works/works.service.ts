@@ -40,6 +40,10 @@ export class WorksService {
         authorId: data.authorId,
         tags: data.tags,
         organisationId: data.organisationId,
+        ...(data.isApproved && {
+          isApproved: true,
+          approvedBy: data.approvedBy,
+        }),
       },
       include: {
         author: true,
@@ -149,30 +153,28 @@ export class WorksService {
     return membership != null;
   }
 
-  async checkRights(authorId: string, workId: string) {
+  // The author, a super user, or an admin / owner of the work's organisation.
+  // With moderation set, being the author is not enough (approving).
+  async checkRights(userId: string, workId: string, moderation = false) {
     const work = await this.prisma.work.findFirst({
       where: {
         id: workId,
       },
     });
 
-    if (work?.authorId === authorId) return true;
+    if (!work || !userId) return false;
 
-    const checkSuper = this.prisma.user.findFirst({
+    if (!moderation && work.authorId === userId) return true;
+
+    const user = await this.prisma.user.findFirst({
       where: {
-        id: authorId,
+        id: userId,
       },
     });
 
-    const checkAdmin = this.prisma.organisationUser.findFirst({
-      where: {
-        userId: authorId,
-        organisationId: work.organisationId,
-        role: 'ADMIN',
-      },
-    });
+    if (user?.role === 'SUPER') return true;
 
-    return checkSuper || checkAdmin;
+    return await this.checkIsAdmin(userId, work.organisationId);
   }
 
   async remove(id: string) {

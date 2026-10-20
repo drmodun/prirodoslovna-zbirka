@@ -319,26 +319,19 @@ describe('social posts, works, authorship & saved items (integration)', () => {
       expect((await ctx.prisma.work.findFirstOrThrow()).isApproved).toBe(false);
     });
 
-    // BUG: the controller marks works of admins as approved, but
-    // WorksService.create whitelists its columns and drops isApproved and
-    // approvedBy, so nothing is ever auto approved. (The un-awaited
-    // `checkIsAdmin` in the controller is therefore currently harmless.)
-    it.failing(
-      'a work submitted by an organisation admin is auto approved',
-      async () => {
-        const admin = await member('ADMIN');
-        await ctx
-          .http()
-          .post(`/works/${admin.org.id}`)
-          .set(admin.auth)
-          .send(work())
-          .expect(201);
-        expect(await ctx.prisma.work.findFirstOrThrow()).toMatchObject({
-          isApproved: true,
-          approvedBy: admin.user.id,
-        });
-      },
-    );
+    it('a work submitted by an organisation admin is auto approved', async () => {
+      const admin = await member('ADMIN');
+      await ctx
+        .http()
+        .post(`/works/${admin.org.id}`)
+        .set(admin.auth)
+        .send(work())
+        .expect(201);
+      expect(await ctx.prisma.work.findFirstOrThrow()).toMatchObject({
+        isApproved: true,
+        approvedBy: admin.user.id,
+      });
+    });
 
     it('pending requests and strangers are rejected (401)', async () => {
       const pending = await member('REQUESTED');
@@ -421,13 +414,10 @@ describe('social posts, works, authorship & saved items (integration)', () => {
           organisationId: plain.org.id,
         },
       });
-      await ctx.http().get(`/works/${w.id}`).expect(400);
+      await ctx.http().get(`/works/${w.id}`).expect(401);
     });
 
-    // BUG: GET /works/:id loads the work with the default `approval = true`,
-    // so a pending work is "not found" even for its author or an admin and the
-    // rights check that follows can never grant access.
-    it.failing('the author can open their own pending work', async () => {
+    it('the author can open their own pending work', async () => {
       const plain = await member('MEMBER');
       const w = await ctx.prisma.work.create({
         data: {
@@ -441,24 +431,21 @@ describe('social posts, works, authorship & saved items (integration)', () => {
       await ctx.http().get(`/works/${w.id}`).set(plain.auth).expect(200);
     });
 
-    it.failing(
-      'a stranger cannot edit or delete someone else’s work',
-      async () => {
-        const plain = await member('MEMBER');
-        const stranger = await createSession(ctx);
-        const w = await ctx.prisma.work.create({
-          data: {
-            title: 'Not yours',
-            description: 'A description',
-            tags: [],
-            authorId: plain.user.id,
-            organisationId: plain.org.id,
-          },
-        });
-        await ctx.http().delete(`/works/${w.id}`).set(stranger.auth);
-        expect(await ctx.prisma.work.count({ where: { id: w.id } })).toBe(1);
-      },
-    );
+    it('a stranger cannot edit or delete someone else’s work', async () => {
+      const plain = await member('MEMBER');
+      const stranger = await createSession(ctx);
+      const w = await ctx.prisma.work.create({
+        data: {
+          title: 'Not yours',
+          description: 'A description',
+          tags: [],
+          authorId: plain.user.id,
+          organisationId: plain.org.id,
+        },
+      });
+      await ctx.http().delete(`/works/${w.id}`).set(stranger.auth);
+      expect(await ctx.prisma.work.count({ where: { id: w.id } })).toBe(1);
+    });
 
     it('the author can edit and delete their work', async () => {
       const plain = await member('MEMBER');
