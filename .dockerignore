@@ -3,6 +3,7 @@
 **/dist
 **/uploads
 **/.turbo
+**/.astro
 .git
 .github
 .env

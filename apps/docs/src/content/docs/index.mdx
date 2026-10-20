@@ -1,0 +1,75 @@
+---
+title: Biosfera
+description: Developer and operator documentation for Biosfera, a social platform for school natural history collections.
+template: splash
+hero:
+  tagline: A social platform where schools publish their natural history collections, and students write about them.
+  actions:
+    - text: Run it locally
+      link: /docs/getting-started/local-development/
+      icon: right-arrow
+    - text: How it fits together
+      link: /docs/architecture/overview/
+      icon: open-book
+      variant: minimal
+---
+
+import { Card, CardGrid, LinkCard } from "@astrojs/starlight/components";
+
+Biosfera (repository `prirodoslovna-zbirka`, "natural history collection") was
+built primarily for III. gimnazija Split and the Infokup competition.
+Organisations (usually schools) catalogue **exponats**: specimens of
+prokaryotes, eukaryotes and minerals. Their members write **posts** about
+them, publish **works** (papers, posters, presentations) and **social posts**
+(news, events, workshops), and everyone else follows, likes, saves and
+discovers.
+
+The user interface is in Croatian. These docs are for the people who run,
+change and test it.
+
+<CardGrid>
+  <Card title="Two apps, one types package" icon="seti:typescript">
+    A NestJS API on Postgres (Prisma) and a Next.js 14 app-router frontend,
+    sharing DTOs and enums through `@biosfera/types`. Yarn workspaces and
+    Turborepo hold it together.
+  </Card>
+  <Card title="Runs without any accounts" icon="rocket">
+    Every external service (S3, mail, AI, text to speech) has a built-in
+    fallback. `docker compose up` brings up the whole stack, these docs
+    included.
+  </Card>
+  <Card title="Moderation built in" icon="approve-check">
+    Organisation roles decide what is published straight away and what waits
+    for an admin. Notifications reach people live over server-sent events.
+  </Card>
+  <Card title="Three layers of tests" icon="list-format">
+    Jest unit tests in both apps, API integration tests against a real
+    Postgres, and Playwright end-to-end flows. Known bugs are pinned as
+    expected failures.
+  </Card>
+</CardGrid>
+
+## Where to go next
+
+<CardGrid>
+  <LinkCard
+    title="Docker Compose"
+    href="/docs/getting-started/docker/"
+    description="The whole stack on one address, with seeded mock data."
+  />
+  <LinkCard
+    title="Configuration"
+    href="/docs/getting-started/configuration/"
+    description="Every environment variable, what reads it and what happens when it is empty."
+  />
+  <LinkCard
+    title="Roles and permissions"
+    href="/docs/reference/roles-and-permissions/"
+    description="Who can create, approve and delete what."
+  />
+  <LinkCard
+    title="Known issues"
+    href="/docs/reference/known-issues/"
+    description="Behaviour the test suites pin down as broken today."
+  />
+</CardGrid>

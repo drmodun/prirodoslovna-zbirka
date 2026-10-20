@@ -36,6 +36,9 @@ yarn-error.log*
 
 # turbo
 .turbo
+
+# astro
+.astro
 # Playwright
 apps/e2e/test-results/
 apps/e2e/playwright-report/

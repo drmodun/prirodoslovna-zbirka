@@ -16,6 +16,11 @@ services:
     ports:
       - "${API_PORT:-5500}:5500"
 
+  # The docs are served under /docs: http://localhost:4321/docs
+  docs:
+    ports:
+      - "${DOCS_PORT:-4321}:80"
+
   postgres:
     ports:
       - "${POSTGRES_PORT:-5433}:5432"

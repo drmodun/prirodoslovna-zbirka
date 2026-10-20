@@ -13,10 +13,14 @@ cp .env.sample .env        # upisat DATABASE_URL i JWT_SECRET
 yarn install
 yarn workspace api migrate # primijeni migracije
 yarn workspace api seed    # opcionalno: mock podaci (brise postojece!)
-yarn dev                   # api na :5500 (swagger na /api), web na :3000
+yarn dev                   # api na :5500 (swagger na /api), web na :3000, dokumentacija na :4321/docs
 ```
 
 Ostalo: `yarn build`, `yarn lint`, `yarn type-check`, `yarn format`.
+
+## Dokumentacija
+
+Detaljna dokumentacija (arhitektura, konfiguracija, funkcionalnosti, API, testovi, poznati bugovi) je Astro Starlight stranica u `apps/docs`: `yarn workspace docs dev` pa http://localhost:4321/docs, a u Dockeru na http://localhost/docs.
 
 ## Vanjski servisi
 
@@ -40,15 +44,15 @@ docker compose run --rm seed   # mock podaci (brise postojece!)
 
 Sto se pokrece:
 
-- `reverse-proxy` (Caddy): jedna adresa za sve. `/api/*` ide na API, `/files/*` na bucket, ostalo na web
-- `web`, `api`, `postgres`
+- `reverse-proxy` (Caddy): jedna adresa za sve. `/api/*` ide na API, `/files/*` na bucket, `/docs/*` na dokumentaciju, ostalo na web
+- `web`, `api`, `postgres`, `docs` (staticna dokumentacija)
 - `s3` (SeaweedFS): S3-kompatibilna pohrana datoteka, zamjenjiva pravim S3-em ili drugim servisom
 - `piper`: tekst u govor, srpski glas (`PIPER_VOICE`)
 - `mailpit` (samo uz `--profile mail`): hvata mailove za probu, `SMTP_URL=smtp://mailpit:1025`, poruke na http://localhost:8025
 
 Datoteke: `docker-compose.yml` je zajednicka osnova bez objavljenih portova, `docker-compose.override.yml` (ucitava se sam) objavljuje portove za lokalni rad.
 
-Direktni portovi: web 3000, api 5500 (swagger na `/api`), postgres 5433; mijenjaju se preko `WEB_PORT`, `API_PORT`, `POSTGRES_PORT`, `PROXY_PORT`, `PROXY_TLS_PORT`.
+Direktni portovi: web 3000, api 5500 (swagger na `/api`), dokumentacija 4321 (na `/docs`), postgres 5433; mijenjaju se preko `WEB_PORT`, `API_PORT`, `DOCS_PORT`, `POSTGRES_PORT`, `PROXY_PORT`, `PROXY_TLS_PORT`.
 
 Seed dodaje i korisnika za razvoj: `dev@biosfera.local` / `biosfera123` (SUPER, vlasnik prve organizacije).
 

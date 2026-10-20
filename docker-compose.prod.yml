@@ -45,6 +45,9 @@ services:
   web:
     restart: unless-stopped
 
+  docs:
+    restart: unless-stopped
+
   # The seed wipes every table. Not something to reach for here.
   seed:
     entrypoint: ["sh", "-c", "echo 'The seed is disabled in production: it deletes all data.'; exit 1"]

@@ -2,6 +2,7 @@ node_modules
 .next
 dist
 .turbo
+.astro
 .repowise
 .claude
 # Generated fixture data, 230k lines

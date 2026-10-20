@@ -13,7 +13,7 @@ jobs:
 
     strategy:
       matrix:
-        app: [api, web]
+        app: [api, web, docs]
 
     permissions:
       contents: read

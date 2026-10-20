@@ -9,8 +9,8 @@
 #     -f docker-compose.yml -f docker-compose.prod.yml up -d --build
 #
 # This file publishes no ports; the two files above decide how the stack is
-# reached. Values in the env file override the defaults below. The web image
-# bakes PUBLIC_URL in, so rebuild it after changing that.
+# reached. Values in the env file override the defaults below. The web and
+# docs images bake PUBLIC_URL in, so rebuild them after changing that.
 #
 # S3 variables use ${VAR-default}: leaving one out selects the bundled store,
 # setting it to nothing (AWS_ENDPOINT_URL_S3=) really clears it.
@@ -161,6 +161,15 @@ services:
       api:
         condition: service_healthy
 
+  # This documentation site (apps/docs), static, at /docs behind the proxy.
+  docs:
+    build:
+      context: .
+      dockerfile: apps/docs/Dockerfile
+      target: runner
+      args:
+        PUBLIC_URL: ${PUBLIC_URL:-http://localhost}
+
   # Catches outgoing mail for local testing; inbox at http://localhost:8025.
   #   SMTP_URL=smtp://mailpit:1025 docker compose --profile mail up -d
   mailpit:
@@ -180,6 +189,7 @@ services:
       - api
       - web
       - s3
+      - docs
 
 volumes:
   db_data:
