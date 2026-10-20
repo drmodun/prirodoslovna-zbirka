@@ -15,7 +15,7 @@ export const useResetPassword = () => {
     onMutate: () => {
       return { toastId: toast.loading("Resetting password...") };
     },
-    onSuccess: ({}, _variables, context) => {
+    onSuccess: (_data, _variables, context) => {
       toast.success(
         "Uspješno resetiranje lozinke, preusmjeravanje na prijavu",
         {

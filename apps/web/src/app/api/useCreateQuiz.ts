@@ -12,7 +12,7 @@ export const createQuiz = async (params: {
   organisationId: string;
 }) => {
   return await api.post<CreateQuizRequest>(
-    `/${params.organisationId}/quizzes`,
+    `/quizzes/${params.organisationId}`,
     params.data,
   );
 };
@@ -22,7 +22,7 @@ export const useCreateQuiz = () => {
     onMutate: () => {
       return { toastId: toast.loading("Izrada kviza") };
     },
-    onSuccess: ({}, _variables, context) => {
+    onSuccess: (_data, _variables, context) => {
       toast.success("Kviz uspješno napravljen", { id: context?.toastId });
     },
     onError: (error: string, _variables, context) => {

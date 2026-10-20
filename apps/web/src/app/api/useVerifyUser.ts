@@ -10,7 +10,7 @@ export const useVerifyUser = () => {
     onMutate: () => {
       return { toastId: toast.loading("Verifying user...") };
     },
-    onSuccess: ({}, _variables, context) => {
+    onSuccess: (_data, _variables, context) => {
       toast.success("Uspješna verifikacija, preusmjeravanje na prijavu", {
         id: context?.toastId,
       });

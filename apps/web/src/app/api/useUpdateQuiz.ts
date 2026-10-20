@@ -13,7 +13,7 @@ export const updateQuiz = async (params: {
   id: string;
 }) => {
   return await api.patch<UpdateQuizRequest>(
-    `/${params.organisationId}/quizzes/${params.id}`,
+    `/quizzes/${params.organisationId}/${params.id}`,
     params.data,
   );
 };
@@ -23,7 +23,7 @@ export const useUpdateQuiz = () => {
     onMutate: () => {
       return { toastId: toast.loading("Izrada kviza") };
     },
-    onSuccess: ({}, _variables, context) => {
+    onSuccess: (_data, _variables, context) => {
       toast.success("Kviz uspješno nadograđen", { id: context?.toastId });
     },
     //Test quiz edit capabilities

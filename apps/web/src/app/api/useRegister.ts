@@ -16,7 +16,7 @@ export const useRegister = () => {
     onMutate: () => {
       return { toastId: toast.loading("Register in...") };
     },
-    onSuccess: ({}, _variables, context) => {
+    onSuccess: (_data, _variables, context) => {
       toast.success("Uspješno registrirani", { id: context?.toastId });
     },
     onError: (error: string, _variables, context) => {

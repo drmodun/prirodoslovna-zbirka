@@ -30,6 +30,8 @@ export const PostForm = ({ exponatId, isEdit, values }: PostFormProps) => {
       .string()
       .min(10, "Tekst mora imati najmanje 10 znakova")
       .max(20000, "Tekst mora imati najviše 20000 znakova"),
+    // Set by the AuthorshipButton; the resolver drops keys it does not know.
+    authorshipInfoId: z.string().optional(),
   });
 
   const { mutateAsync: uploadFile } = useUploadFile();
