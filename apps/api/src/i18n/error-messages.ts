@@ -60,6 +60,12 @@ const EXACT: Record<string, string> = {
   // Notifications
   'You can only follow your own stream': 'Možete pratiti samo svoje obavijesti',
   'Unknown notification message': 'Nepoznata obavijest',
+  // Database
+  'Already exists': 'Već postoji',
+  'A related record does not exist': 'Povezani zapis ne postoji',
+  'The records are not connected': 'Zapisi nisu povezani',
+  'The database did not respond in time':
+    'Baza podataka nije odgovorila na vrijeme',
   // Queries
   'Invalid pagination params': 'Neispravni parametri stranica',
   'Invalid pagination params: Max size is 100':
@@ -70,6 +76,7 @@ const EXACT: Record<string, string> = {
 
 // Messages with a value in them, including class-validator's.
 const PATTERNS: [RegExp, (...groups: string[]) => string][] = [
+  [/^Already exists: (.+)$/, (fields) => `Već postoji: ${fields}`],
   [
     /^Sorry, you cannot post a work to(.*)$/,
     (id) => `Ne možete objaviti rad u organizaciji${id}`,

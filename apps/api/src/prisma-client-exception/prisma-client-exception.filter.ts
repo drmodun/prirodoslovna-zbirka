@@ -3,78 +3,68 @@
 import { ArgumentsHost, Catch, HttpStatus } from '@nestjs/common';
 import { BaseExceptionFilter } from '@nestjs/core';
 import { Prisma } from '@prisma/client';
-import { Response } from 'express';
+import { Request, Response } from 'express';
+import { translateErrorMessage } from 'src/i18n/error-messages';
+import { requestLanguage } from 'src/i18n/request-language';
+
+// Prisma's own messages name tables, queries and code locations, so users get
+// a fixed message in their language instead; the original is only logged.
+const RESPONSES: Record<string, { status: HttpStatus; message: string }> = {
+  P2002: { status: HttpStatus.CONFLICT, message: 'Already exists' },
+  P2025: { status: HttpStatus.NOT_FOUND, message: 'Not Found' },
+  P2003: {
+    status: HttpStatus.BAD_REQUEST,
+    message: 'A related record does not exist',
+  },
+  P2016: { status: HttpStatus.BAD_REQUEST, message: 'Bad Request' },
+  P2017: {
+    status: HttpStatus.BAD_REQUEST,
+    message: 'The records are not connected',
+  },
+  P1008: {
+    status: HttpStatus.REQUEST_TIMEOUT,
+    message: 'The database did not respond in time',
+  },
+  P1009: {
+    status: HttpStatus.REQUEST_TIMEOUT,
+    message: 'The database did not respond in time',
+  },
+  P1011: {
+    status: HttpStatus.REQUEST_TIMEOUT,
+    message: 'The database did not respond in time',
+  },
+};
+
+// The fields of a unique constraint, e.g. ['email'] -> "Already exists: email".
+const uniqueFields = (exception: Prisma.PrismaClientKnownRequestError) => {
+  const target = exception.meta?.target;
+  if (Array.isArray(target)) return target.join(', ');
+  return typeof target === 'string' ? target : undefined;
+};
 
 @Catch(Prisma.PrismaClientKnownRequestError)
 export class PrismaClientExceptionFilter extends BaseExceptionFilter {
   catch(exception: Prisma.PrismaClientKnownRequestError, host: ArgumentsHost) {
     console.error(exception.message);
-    const ctx = host.switchToHttp();
-    const response = ctx.getResponse<Response>();
-    const message = exception.message.replace(/\n/g, '');
-
-    switch (exception.code) {
-      case 'P2002': {
-        const status = HttpStatus.CONFLICT;
-        response.status(status).json({
-          statusCode: status,
-          message: message,
-        });
-        break;
-      }
-
-      case 'P2025': {
-        const status = HttpStatus.NOT_FOUND;
-        response.status(status).json({
-          statusCode: status,
-          message: message,
-        });
-        break;
-      }
-
-      case 'P2003': {
-        const status = HttpStatus.BAD_REQUEST;
-        response.status(status).json({
-          statusCode: status,
-          message: message,
-        });
-        break;
-      }
-
-      case 'P2016': {
-        const status = HttpStatus.BAD_REQUEST;
-        response.status(status).json({
-          statusCode: status,
-          message: message,
-        });
-        break;
-      }
-
-      case 'P2017': {
-        const status = HttpStatus.BAD_REQUEST;
-        response.status(status).json({
-          statusCode: status,
-          message: message,
-        });
-        break;
-      }
-
-      case 'P1008':
-      case 'P1009':
-      case 'P1011': {
-        const status = HttpStatus.REQUEST_TIMEOUT;
-        response.status(status).json({
-          statusCode: status,
-          message: message,
-        });
-        break;
-      }
-
-      default:
-        // default 500 error code
-        console.error(exception);
-        super.catch(exception, host);
-        break;
+    const known = RESPONSES[exception.code];
+    if (!known) {
+      // default 500 error code
+      console.error(exception);
+      return super.catch(exception, host);
     }
+
+    const ctx = host.switchToHttp();
+    const request = ctx.getRequest<Request>();
+    const language = requestLanguage(request?.headers?.['accept-language']);
+    const fields = exception.code === 'P2002' && uniqueFields(exception);
+    const message = fields ? `${known.message}: ${fields}` : known.message;
+
+    ctx
+      .getResponse<Response>()
+      .status(known.status)
+      .json({
+        statusCode: known.status,
+        message: translateErrorMessage(message, language),
+      });
   }
 }
