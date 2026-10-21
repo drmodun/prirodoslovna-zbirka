@@ -45,10 +45,7 @@ export const NotificationModal = () => {
           )}
         </div>
       </div>
-      <BaseButton
-        text={t("markAllAsRead")}
-        onClick={handleMarkAllAsRead}
-      />
+      <BaseButton text={t("markAllAsRead")} onClick={handleMarkAllAsRead} />
     </Modal>
   );
 };

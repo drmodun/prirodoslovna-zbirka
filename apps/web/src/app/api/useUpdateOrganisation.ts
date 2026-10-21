@@ -24,10 +24,7 @@ export const useUpdateOrganisation = () => {
   const t = useTranslations("Toasts");
   return useMutation(updateOrganisation, {
     onError: (error: string) => {
-      toast.error(
-        t("organisationUpdateFailed"),
-        { id: "update-organisation" },
-      );
+      toast.error(t("organisationUpdateFailed"), { id: "update-organisation" });
       console.log(error);
     },
     onSuccess: () => {

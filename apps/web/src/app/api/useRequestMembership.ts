@@ -22,13 +22,10 @@ export const useRequestMembership = () => {
         error.includes("Unauthorized") ||
         error.includes("You")
       ) {
-        toast.error(
-          t("mustBeLoggedInToRequestMembership"),
-          {
-            icon: "🔒",
-            id: "unauthorized",
-          },
-        );
+        toast.error(t("mustBeLoggedInToRequestMembership"), {
+          icon: "🔒",
+          id: "unauthorized",
+        });
       } else {
         toast.error(t("genericError"), {
           icon: "🚨",

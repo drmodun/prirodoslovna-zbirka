@@ -39,10 +39,7 @@ export const OrganisationForm = ({
   const tValidation = useTranslations("Validation");
   const countyName = useCountyName();
   const schema = z.object({
-    name: z
-      .string()
-      .min(2, t("nameMin"))
-      .max(100, t("nameMax")),
+    name: z.string().min(2, t("nameMin")).max(100, t("nameMax")),
     description: z
       .string()
       .min(2, t("descriptionMin"))
@@ -168,10 +165,7 @@ export const OrganisationForm = ({
         error={form.formState.errors.email?.message?.toString()}
       />
 
-      <FileUpload
-        name={t("mainImage")}
-        onChange={setImage}
-      />
+      <FileUpload name={t("mainImage")} onChange={setImage} />
 
       <div className={classes.buttons}>
         <BaseButton text={isEdit ? t("edit") : t("create")} />

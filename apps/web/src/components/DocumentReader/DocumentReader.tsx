@@ -66,9 +66,7 @@ export const DocumentReader = ({ src, isLandscape }: DocumentReaderProps) => {
           rotate={!isLandscape ? 90 : 0}
           file={src}
           onLoadSuccess={onDocumentLoadSuccess}
-          noData={
-            <span className={classes.error}>{t("loadFailed")}</span>
-          }
+          noData={<span className={classes.error}>{t("loadFailed")}</span>}
           loading={
             <div className={classes.spinnerContainer}>
               <div className={classes.spinner}></div>

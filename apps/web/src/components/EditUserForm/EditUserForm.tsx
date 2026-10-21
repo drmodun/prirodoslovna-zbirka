@@ -41,14 +41,8 @@ export const EditUserForm = ({
   const countyName = useCountyName();
   const { user: loggedUser } = useUser();
   const schema = z.object({
-    firstName: z
-      .string()
-      .min(2, t("firstNameMin"))
-      .max(100, t("firstNameMax")),
-    lastName: z
-      .string()
-      .min(2, t("lastNameMin"))
-      .max(100, t("lastNameMax")),
+    firstName: z.string().min(2, t("firstNameMin")).max(100, t("firstNameMax")),
+    lastName: z.string().min(2, t("lastNameMin")).max(100, t("lastNameMax")),
     location: z.enum([
       "SPLITSKO_DALMATINSKA",
       "DUBROVACKO_NERETVANSKA",

@@ -360,18 +360,15 @@ describe("hooks that misbehave", () => {
     expect(http.delete).toHaveBeenCalledWith("/works/w1");
   });
 
-  it(
-    "useRemoveWork reports success after a successful delete",
-    async () => {
-      http.delete.mockResolvedValue({});
-      const { result } = renderHookWithClient(useRemoveWork);
-      await act(async () => {
-        await result.current.mutateAsync("w1").catch(() => {});
-      });
-      expect(toast.success).toHaveBeenCalled();
-      expect(toast.error).not.toHaveBeenCalled();
-    },
-  );
+  it("useRemoveWork reports success after a successful delete", async () => {
+    http.delete.mockResolvedValue({});
+    const { result } = renderHookWithClient(useRemoveWork);
+    await act(async () => {
+      await result.current.mutateAsync("w1").catch(() => {});
+    });
+    expect(toast.success).toHaveBeenCalled();
+    expect(toast.error).not.toHaveBeenCalled();
+  });
 
   // useCreateCategorization throws from onError instead of telling the user,
   // so a failure produces an unhandled error and no toast.

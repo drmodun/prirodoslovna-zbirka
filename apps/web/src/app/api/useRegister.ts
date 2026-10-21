@@ -22,10 +22,7 @@ export const useRegister = () => {
       toast.success(t("registered"), { id: context?.toastId });
     },
     onError: (error: string, _variables, context) => {
-      toast.error(
-        t("registerFailed"),
-        { id: context?.toastId },
-      );
+      toast.error(t("registerFailed"), { id: context?.toastId });
     },
   });
 };

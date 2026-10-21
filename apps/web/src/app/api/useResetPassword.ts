@@ -18,12 +18,9 @@ export const useResetPassword = () => {
       return { toastId: toast.loading(t("resettingPassword")) };
     },
     onSuccess: (_data, _variables, context) => {
-      toast.success(
-        t("passwordReset"),
-        {
-          id: context?.toastId,
-        },
-      );
+      toast.success(t("passwordReset"), {
+        id: context?.toastId,
+      });
       setTimeout(() => {
         window.location.href = "/login";
       }, 2000);
