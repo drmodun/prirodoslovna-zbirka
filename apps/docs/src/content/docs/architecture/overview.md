@@ -56,7 +56,8 @@ prirodoslovna-zbirka/
 
 - **Enums** mirroring the Prisma enums (`Role`, `MemberRole`, `ExponatKind`,
   `County`, `NotificationType`, `WorkType`, …) plus Croatian display labels
-  and `getEnumValue` helpers.
+  and `getEnumValue` helpers. The web app labels enums from its own messages
+  instead (see [Translations](/docs/architecture/web/#translations)).
 - **DTO factories** such as `getCreateExponatDto(ApiProperty?)`. Each returns
   a `class-validator`-decorated class. The API passes Swagger's
   `ApiProperty` so the class is documented; the web app calls it without one

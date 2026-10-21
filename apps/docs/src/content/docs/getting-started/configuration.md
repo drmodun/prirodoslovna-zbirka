@@ -98,7 +98,7 @@ key needed).
 | `OPENAI_TRANSCRIPTION_MODEL` | `whisper-1`. Set it to an empty value for providers without transcription |
 
 **Fallbacks**: exponat descriptions come from the Wikipedia lead paragraph
-(Croatian, then English); post summaries are the opening sentences of the
+(in the reader's language first, then the other one); post summaries are the opening sentences of the
 post; voice input uses the browser's speech recognition.
 
 ## Text to speech

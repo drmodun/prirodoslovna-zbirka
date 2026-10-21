@@ -12,6 +12,9 @@ sidebar:
    is optional and defaults to "Homo sapiens u biosferi".
 2. The API emails an activation link,
    `${WEB_URL}/activateUser/<activationCode>`, and returns the new user's id.
+   The form also sends the interface language (`EN` or `HR`); it is stored
+   as the user's `language` and the activation and password reset mails are
+   written in it.
 3. Opening the link calls `POST /users/verify/:activationCode`, which sets
    `isActivated = true`.
 4. Only activated users can log in.

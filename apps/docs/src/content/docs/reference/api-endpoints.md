@@ -29,12 +29,13 @@ Paths are relative to the API root (behind the proxy, prefix them with
 | `POST` | `/auth/login` | — | `{ email, password }` → `{ access_token }` |
 | `GET` | `/auth/me` | JWT | Token payload |
 | `GET` | `/auth/detailed` | JWT | Extended current user (memberships, likes, favourites, posts) |
-| `POST` | `/users` | — | Register (bio optional); sends the activation mail |
+| `POST` | `/users` | — | Register (bio and `language` optional); sends the activation mail |
 | `GET` | `/users` | — | List / search users (no e-mail addresses) |
 | `GET` | `/users/requests` | JWT | Your pending join requests |
 | `GET` | `/users/:id` | opt. | Profile |
 | `PATCH` | `/users` | JWT | Edit yourself |
 | `PATCH` | `/users/pfp` | JWT | Upload profile picture (multipart `file`) |
+| `PATCH` | `/users/language` | JWT | `{ language: "EN" \| "HR" }`: interface language of yourself |
 | `DELETE` | `/users` | JWT | Delete yourself |
 | `PATCH` | `/users/:id` | JWT | Super: edit a user |
 | `DELETE` | `/users/:id` | JWT | Super: delete a user |

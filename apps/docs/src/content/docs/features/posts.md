@@ -47,7 +47,7 @@ Admins list pending posts of their organisation with
 exponats, a `Suspense` boundary streams in:
 
 - a **summary** from `summarisePostPrompt`, about a fifth to a third of the
-  post's length, in Croatian; without an AI service, the opening sentences
+  post's length, in the reader's language; without an AI service, the opening sentences
   of the post;
 - an **audio** version of the title and text (`ttsPrompt`).
 
@@ -67,8 +67,8 @@ Created at `/organisation/[id]/createSocialPost` (`SocialPostForm`) with
 authorship info. Only organisation admins and the owner (and super users)
 may post. The organisation's followers are notified (`NEW_SOCIAL_POST`).
 
-Each social post has a `type`, shown with its Croatian label from
-`@biosfera/types`:
+Each social post has a `type`, shown with its label from the web app's
+messages (`Enums.SocialPostType`):
 
 | `SocialPostType` | Label |
 | ---------------- | ----- |

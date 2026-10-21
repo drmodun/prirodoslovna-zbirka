@@ -89,7 +89,14 @@ one follows its `link`.
 `EXPONAT_APPROVAL`, `WORK_BY_FOLLOWED_ORGANISATION`, `NEW_WORK_REQUEST`,
 `POINT_MILESTONE` and `OTHER` exist in the enum but nothing sends them yet.
 
-Texts are Croatian and built in the service that sends them. Links point at
+Each notification is stored as a `messageKey` (such as `newFollower`) and
+its `params` (`{ username }`). `src/notifications/notification-messages.ts`
+holds the English and Croatian templates; the API renders them in the
+reader's saved `language` for the list (`GET /notification-users`), the live
+stream and the e-mail, so a reader who switches language sees older
+notifications in the new language too. `title` and `text` keep an English
+copy; rows from before message keys existed are shown with the text they were
+stored with. Links point at
 web routes (`/exponat/…`, `/post/…`, `/organisation/…`, `/user/…`): absolute
 (`${WEB_URL}/…`) for exponats, posts and organisation approval, relative for
 the rest.

@@ -6,7 +6,8 @@ sidebar:
 ---
 
 The frontend (`apps/web`) is a Next.js 14 app using the **app router**, React
-18, MUI / Joy UI components and SCSS modules. The UI text is Croatian.
+18, MUI / Joy UI components and SCSS modules. The UI is in English (the
+default) and Croatian, see [Translations](#translations).
 
 ## Layout of `src/`
 
@@ -22,6 +23,7 @@ src/
 │   │   └── wrappers/     Providers and permission gates
 │   └── shared/           Frontend-only enums and interfaces
 ├── components/           ~75 reusable components, one folder each
+├── i18n/                 Locales, the locale cookie and next-intl request config
 ├── assets/, styles/
 └── test-utils/           Jest helpers
 ```
@@ -146,3 +148,40 @@ web server cannot be assumed to reach an address meant for the browser. See
 
 The Docker image is built with `output: "standalone"` (`NEXT_OUTPUT`); plain
 `next start` is used otherwise.
+
+## Translations
+
+The UI text lives in `apps/web/messages/en.json` and `messages/hr.json`, read
+through [next-intl](https://next-intl.dev) (v3) without locale routing: URLs
+carry no `/en` or `/hr` prefix.
+
+- **Locale**: the `NEXT_LOCALE` cookie, `en` when it is missing or unknown.
+  `src/i18n/request.ts` reads it on every server render; the root layout puts
+  the messages in a `NextIntlClientProvider` and sets `<html lang>`.
+- **Switching**: `LanguageToggle` (on the landing page, in the side menu, and
+  in the "Edit" tab of the user's own profile) uses `useChangeLocale`, which
+  writes the cookie and calls `router.refresh()`. For a logged in user it
+  also saves the choice with `PATCH /users/language`.
+- **Saved preference**: `/auth/detailed` returns the user's `language`, and
+  `LocaleSync` (in the layout) switches the cookie to it after login, so the
+  choice follows the user to other browsers. New accounts get the language
+  they registered in. Account mails (activation, password reset) are written
+  in that language too.
+- **Using it**: `useTranslations("Namespace")` in client and synchronous
+  server components, `await getTranslations("Namespace")` in async server
+  components and server actions. Form schemas that need messages are built
+  inside the component, or by a factory that takes `t`
+  (`createExponatSchema(t)`).
+- **Enums** are stored and sent by key (`JOURNAL`, `SPLITSKO_DALMATINSKA`);
+  their labels are the `Enums.*`, `Counties`, `ExponatKinds` and
+  `MemberRoles` messages (`useCountyName()` for counties). Tab ids in views
+  are still the Croatian names, `components/Tabs/useTabLabel.ts` maps them to
+  the `Tabs` messages.
+- **AI**: descriptions and summaries are asked for in the reader's language,
+  and the Wikipedia fallback, voice input and read-aloud follow it too.
+
+To add text, add the same key to both files; `src/i18n/messages.test.ts`
+fails when the two files have different keys or ICU arguments. Jest renders
+components in Croatian (the messages from `hr.json`) through a `next-intl`
+mock in `jest.setup.ts`; `setTestLocale("en")` from `test-utils/intl`
+switches a test to English.

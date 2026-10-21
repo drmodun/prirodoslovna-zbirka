@@ -62,7 +62,7 @@ names, taxonomy, attributes, fun facts, authorship table, posts) renders
 first; a `Suspense` boundary then streams in the slower extras:
 
 - **Description**: generated per view by `exponatInfoPrompt(alternateName)`,
-  a ~200-word Croatian text from the configured AI model, or the Wikipedia
+  a ~200-word text in the reader's language from the configured AI model, or the Wikipedia
   lead paragraph when no AI service is set up. It is not stored on the
   exponat.
 - **Listen**: the description read aloud (`ttsPrompt`), recorded once per

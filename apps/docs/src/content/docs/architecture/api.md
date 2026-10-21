@@ -12,25 +12,29 @@ health check).
 
 ## Bootstrap
 
-`src/main.ts` sets up, in order:
+`src/main.ts` calls `configureApp` (`src/app.setup.ts`) and then sets up the
+rest. In order:
 
-1. `PrismaClientExceptionFilter`: maps known Prisma errors to HTTP
+1. `LocalisedExceptionFilter`: answers HTTP exceptions in Croatian when the
+   request's `Accept-Language` starts with `hr` (the web app sends its
+   interface language with every request), see [Errors](#errors).
+2. `PrismaClientExceptionFilter`: maps known Prisma errors to HTTP
    statuses: unique-constraint violations (`P2002`) to `409`, missing records
    (`P2025`) to `404`, broken relations (`P2003`, `P2016`, `P2017`) to `400`,
    and connection timeouts (`P1008`, `P1009`, `P1011`) to `408`.
-2. `ValidationPipe({ whitelist: true })`: every body and query DTO is
+3. `ValidationPipe({ whitelist: true })`: every body and query DTO is
    validated with `class-validator`, and properties without decorators are
    stripped.
-3. `ClassSerializerInterceptor`: applies `class-transformer` rules to class
+4. `ClassSerializerInterceptor`: applies `class-transformer` rules to class
    instances in responses. No entity uses `@Exclude` today; controllers
    build their response objects field by field instead.
-4. `enableCors()` with defaults: any origin.
-5. Swagger with bearer auth.
-6. A `BigInt.prototype.toJSON` shim, because the raw discover queries return
+5. `enableCors()` with defaults: any origin.
+6. Swagger with bearer auth.
+7. A `BigInt.prototype.toJSON` shim, because the raw discover queries return
    `COUNT(*)` as `bigint`.
 
-The API integration harness (`apps/api/test/helpers/app.ts`) repeats these
-global pipes and filters; keep the two in sync.
+The API integration harness (`apps/api/test/helpers/app.ts`) uses the same
+`configureApp`, so the tests run with the same filters and pipes.
 
 ## Modules
 
@@ -122,6 +126,14 @@ Most failures are thrown as Nest HTTP exceptions (`BadRequestException`,
 `UnauthorizedException`, `NotFoundException`) and serialised as
 `{ statusCode, message, error }`. Raw discover queries wrap database errors
 in a `500`.
+
+Messages are written in English in the code. For requests with
+`Accept-Language: hr…`, `LocalisedExceptionFilter` replaces `message` (each
+entry, for validation errors) and `error` with the Croatian version from
+`src/i18n/error-messages.ts`: an exact-match table plus patterns for messages
+that carry a value and for `class-validator`'s defaults. Messages it does not
+know are sent unchanged, so add a Croatian line there when you add a new
+message a user can see. Prisma errors are not translated.
 
 Server-sent event routes are the exception to "check inside the handler":
 Nest sends their headers before the handler runs, so rights checks for them

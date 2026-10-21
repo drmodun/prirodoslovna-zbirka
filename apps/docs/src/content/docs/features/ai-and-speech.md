@@ -25,15 +25,16 @@ prompt is not sent twice. AI is on when either `OPENAI_API_KEY` or
 `OPENAI_BASE_URL` is set; the latter alone is enough for keyless local
 servers such as Ollama.
 
-- **`exponatInfoPrompt(name)`** asks, in English, for a ~200-word Croatian
-  paragraph about the species, written like a teacher would, with sources.
+- **`exponatInfoPrompt(name)`** asks, in English, for a ~200-word
+  paragraph in the reader's language (the `NEXT_LOCALE` cookie) about the species, written like a teacher would, with sources.
   It is called with the exponat's `alternateName` every time the page
   renders (cached by Next), not stored.
   Without AI, `wikipediaSummary` fetches
-  `https://<hr|en>.wikipedia.org/api/rest_v1/page/summary/<title>` (cached
-  for a week) and appends the source link. If both fail the page says the
+  `https://<hr|en>.wikipedia.org/api/rest_v1/page/summary/<title>`, the
+  reader's language first (cached for a week) and appends the source link. If both fail the page says the
   description is not available.
-- **`summarisePostPrompt(title, content)`** asks for a Croatian summary of a
+- **`summarisePostPrompt(title, content)`** asks for a summary in the
+  reader's language of a
   fifth to a third of the post's length. Without AI, `leadSentences` strips
   HTML and Markdown and keeps whole sentences up to about a quarter of the
   text (at least 200 characters).
@@ -53,7 +54,8 @@ servers such as Ollama.
      `sr_RS-serbski_institut-medium` voice (Serbian is the closest available
      to Croatian).
    - **Google Cloud**, if `GOOGLE_CLOUD_API_KEY` is set: voice
-     `sr-RS-Standard-A`, LINEAR16.
+     `en-US-Standard-C` for English readers, otherwise `sr-RS-Standard-A`,
+     LINEAR16.
 4. The WAV is uploaded with `POST /blobs/audio/<dir>/<name>` and its URL
    returned.
 
@@ -74,8 +76,8 @@ Text inputs and text areas offer a microphone button (`SpeechToText`, `useRecord
 - `isSpeechToTextConfigured()` tells the client whether the server can
   transcribe: AI must be enabled and `OPENAI_TRANSCRIPTION_MODEL` non-empty.
 - If yes, the browser records with `MediaRecorder`, sends base64 audio to
-  `whisperPrompt`, which calls `audio.transcriptions.create` with
-  `language: "hr"`.
+  `whisperPrompt`, which calls `audio.transcriptions.create` with the
+  reader's language (`en` or `hr`).
 - If not, it uses the browser's `SpeechRecognition` (Chrome, Edge, Safari)
   directly.
 

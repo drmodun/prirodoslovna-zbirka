@@ -9,7 +9,7 @@ sidebar:
 
 A **work** is a publication by a member on behalf of an organisation: a
 paper, poster, thesis, presentation, report and so on (20 `WorkType`s, from
-`JOURNAL` to `FILM`, labelled in Croatian).
+`JOURNAL` to `FILM`, labelled in the reader's language).
 
 Members create one at `/organisation/[id]/createWork` (`WorksForm`,
 `POST /works/:organisationId`) with a title, description, type, tags and up

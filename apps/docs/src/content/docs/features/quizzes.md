@@ -27,7 +27,8 @@ text (5+ characters), a type (`MULTIPLE_CHOICE`, `TRUE_FALSE`,
 seconds. A quiz needs at least one question.
 
 The API validates enums by **key** (`MULTIPLE_CHOICE`), the value the
-database stores; the Croatian labels are only for display.
+database stores; the labels (from the web app's messages) are only for
+display.
 
 Quizzes are always created for the organisation in the URL and start
 unapproved. Creating needs organisation admin rights (or `SUPER`); platform

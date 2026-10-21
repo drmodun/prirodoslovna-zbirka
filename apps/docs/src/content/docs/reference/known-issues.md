@@ -33,6 +33,13 @@ than wrong behaviour, or need a schema change.
 - **No page for taking a quiz.** The attempt API exists (see
   [Quizzes](/docs/features/quizzes/#taking-a-quiz)), but the web app has no
   page that uses it yet.
+- **Old notifications and database errors stay in one language.**
+  Notifications stored before message keys existed keep their Croatian text,
+  and Prisma error messages (for example a unique-constraint violation) are
+  passed on in English.
+- **User content is not translated.** Exponat, post and organisation texts
+  are shown as their authors wrote them; only the generated AI texts follow
+  the reader's language.
 
 ## Fixed on `fix/open-issues`
 

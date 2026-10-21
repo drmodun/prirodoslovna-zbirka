@@ -34,7 +34,8 @@ endpoints create or delete that row.
 **User**: `email` (unique), `username`, `firstName`, `lastName`, `bio`
 (defaults to "Homo sapiens u biosferi"), `location` (a Croatian `County`),
 `password` (bcrypt hash), `hasProfileImage`, `isActivated`,
-`isEmailNotificationsEnabled`, and a platform `role`:
+`isEmailNotificationsEnabled`, `language` (`EN` or `HR`, default `EN`: the
+interface and account mail language), and a platform `role`:
 
 | `Role`  | Meaning |
 | ------- | ------- |
@@ -107,7 +108,8 @@ a `literatureId`, an id in GBIF's literature API, not a local record.
 
 ## Notifications
 
-**Notification** holds the message once (`title`, `text`, `link`,
+**Notification** holds the message once (`messageKey` and `params`, which the
+API renders in each reader's language, an English `title` and `text`, `link`,
 `notificationImage`, `type`); **UserNotification** fans it out to recipients
 with a per-user `isRead`. `NotificationType` lists every reason a
 notification is sent (approvals, membership requests and changes, new

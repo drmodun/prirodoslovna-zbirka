@@ -7,7 +7,8 @@ import starlight from "@astrojs/starlight";
 // PUBLIC_URL is the address people open, as in docker-compose.yml.
 export default defineConfig({
   site: process.env.PUBLIC_URL || "http://localhost",
-  base: "/docs",
+  // Set DOCS_BASE="" (e.g. on Vercel) to serve from the root instead.
+  base: process.env.DOCS_BASE ?? "/docs",
   trailingSlash: "ignore",
   integrations: [
     starlight({
