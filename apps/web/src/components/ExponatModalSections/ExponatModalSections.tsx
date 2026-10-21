@@ -12,6 +12,7 @@ import { useMemo, useRef, useState } from "react";
 import clsx from "clsx";
 import AuthorshipTable from "components/AuthorshipTable";
 import { Indexable } from "@biosfera/types/src/jsonObjects";
+import { useTranslations } from "next-intl";
 
 export interface ExponatModalSectionsProps {
   exponat: ExponatExtendedResponse;
@@ -20,6 +21,7 @@ export interface ExponatModalSectionsProps {
 export const ExponatModalSections = ({
   exponat,
 }: ExponatModalSectionsProps) => {
+  const t = useTranslations("ExponatModalSections");
   const [extended, setExtended] = useState<boolean>(false);
   const box = useRef<HTMLDivElement>(null);
   const parsed = useMemo(
@@ -41,7 +43,7 @@ export const ExponatModalSections = ({
             <div className={classes.image}>
               <Image src={desc} alt={exponat.title} layout="fill" />
             </div>
-            <span className={classes.titleText}>Kratki opis</span>
+            <span className={classes.titleText}>{t("description")}</span>
           </div>
           <div className={classes.description}>{exponat.description}</div>
         </div>
@@ -50,7 +52,7 @@ export const ExponatModalSections = ({
             <div className={classes.image}>
               <Image src={list} alt={exponat.title} layout="fill" />
             </div>
-            <span className={classes.titleText}>Fun Facts</span>
+            <span className={classes.titleText}>{t("funFacts")}</span>
           </div>
           <div className={classes.funFacts}>
             {exponat.funFacts.map((fact, index) => (
@@ -68,7 +70,7 @@ export const ExponatModalSections = ({
             <div className={classes.image}>
               <Image src={table} alt={exponat.title} />
             </div>
-            <span className={classes.titleText}>Tablica</span>
+            <span className={classes.titleText}>{t("attributes")}</span>
           </div>
           <div className={classes.table}>
             {Object.keys(parsed).map((key, index) => (

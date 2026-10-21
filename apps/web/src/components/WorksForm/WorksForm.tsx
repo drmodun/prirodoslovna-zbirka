@@ -1,11 +1,6 @@
 "use client";
 import { CreateWorkRequest, usePostWork } from "@/api/usePostWork";
-import {
-  Directories,
-  getEnumValue,
-  WorkResponseExtended,
-  WorkType,
-} from "@biosfera/types";
+import { Directories, WorkResponseExtended } from "@biosfera/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FieldValues, useForm } from "react-hook-form";
 import { z } from "zod";
@@ -22,6 +17,7 @@ import { useUploadFile } from "@/api/useUploadFile";
 import { UpdateWorkRequest, useUpdateWork } from "@/api/useUpdateWork";
 import { useUploadDocument } from "@/api/useUploadDocument";
 import { getLiteratureTypesList } from "@/utility/static/getEnumLists";
+import { useTranslations } from "next-intl";
 
 export interface WorksFormProps {
   isEdit?: boolean;
@@ -29,27 +25,22 @@ export interface WorksFormProps {
   organisationId: string;
 }
 
-const schema = z.object({
-  title: z.string().min(5, "Naslov mora biti najmanje 5 slova dug"),
-  description: z
-    .string()
-    .min(100, "Abstrakt treba biti dug najmanje 100 slova"),
-  poster: z.optional(z.any()),
-  document: z.optional(z.any()),
-  presentation: z.optional(z.any()),
-  tags: z.array(z.string()),
-  type: z.enum([
-    "",
-    ...(getLiteratureTypesList().map(
-      (type: string) => type as string,
-    ) as string[]),
-  ]),
-});
-
-const workTypeOptions = [...getLiteratureTypesList()].map((type) => ({
-  value: type,
-  label: getEnumValue(WorkType, type),
-}));
+// `t` reads the WorksForm messages.
+const createSchema = (t: (key: string) => string) =>
+  z.object({
+    title: z.string().min(5, t("titleMin")),
+    description: z.string().min(100, t("descriptionMin")),
+    poster: z.optional(z.any()),
+    document: z.optional(z.any()),
+    presentation: z.optional(z.any()),
+    tags: z.array(z.string()),
+    type: z.enum([
+      "",
+      ...(getLiteratureTypesList().map(
+        (type: string) => type as string,
+      ) as string[]),
+    ]),
+  });
 
 const getDefaultValues = (work: WorkResponseExtended) =>
   ({
@@ -68,9 +59,15 @@ type Upload = (params: {
 }) => Promise<string | undefined>;
 
 export const WorksForm = ({ isEdit, work, organisationId }: WorksFormProps) => {
+  const t = useTranslations("WorksForm");
+  const tTypes = useTranslations("Enums.WorkType");
+  const workTypeOptions = getLiteratureTypesList().map((type) => ({
+    value: type,
+    label: tTypes(type),
+  }));
   const form = useForm({
     defaultValues: isEdit && work ? getDefaultValues(work) : {},
-    resolver: zodResolver(schema),
+    resolver: zodResolver(createSchema(t)),
   });
   const { errors } = form.formState;
 
@@ -98,18 +95,14 @@ export const WorksForm = ({ isEdit, work, organisationId }: WorksFormProps) => {
   };
 
   const handleUploadPoster = () =>
-    uploadFirst(workPoster, uploadImage, "Greška prilikom uploada postera");
+    uploadFirst(workPoster, uploadImage, t("posterUploadFailed"));
   const handleUploadDocument = () =>
-    uploadFirst(
-      workDocument,
-      uploadDocument,
-      "Greška prilikom uploada dokumenta",
-    );
+    uploadFirst(workDocument, uploadDocument, t("documentUploadFailed"));
   const handleUploadPresentation = () =>
     uploadFirst(
       workPresentation,
       uploadDocument,
-      "Greška prilikom uploada prezentacije",
+      t("presentationUploadFailed"),
     );
 
   const onSubmit = async (data: any) => {
@@ -158,51 +151,55 @@ export const WorksForm = ({ isEdit, work, organisationId }: WorksFormProps) => {
       <Input
         form={form}
         attribute="title"
-        question="Naslov"
+        question={t("title")}
         error={errors.title?.message?.toString()}
       />
       <Textarea
         form={form}
         attribute="description"
-        question="Abstrakt"
+        question={t("description")}
         error={errors.description?.message?.toString()}
       />
       <SelectInput
         name="type"
         form={form}
-        label="Tip rada"
+        label={t("type")}
         options={workTypeOptions}
       />
       <ListInput
         attribute="tags"
         form={form}
-        question="Tagovi"
+        question={t("tags")}
         initValue={work?.tags}
         error={errors.tags?.message?.toString()}
       />
       {work?.poster && !replacing.poster ? (
         <BaseButton
-          text="Izmijeni poster"
+          text={t("replacePoster")}
           isNotSubmit
           onClick={replace("poster")}
         />
       ) : (
-        <FileUpload isFullWidth onChange={setWorkPoster} name="Poster" />
+        <FileUpload isFullWidth onChange={setWorkPoster} name={t("poster")} />
       )}
 
       {work?.document && !replacing.document ? (
         <BaseButton
-          text="Izmijeni dokument"
+          text={t("replaceDocument")}
           isNotSubmit
           onClick={replace("document")}
         />
       ) : (
-        <FileUpload isFullWidth onChange={setWorkDocument} name="Dokument" />
+        <FileUpload
+          isFullWidth
+          onChange={setWorkDocument}
+          name={t("document")}
+        />
       )}
 
       {work?.presentation && !replacing.presentation ? (
         <BaseButton
-          text="Izmijeni prezentaciju"
+          text={t("replacePresentation")}
           isNotSubmit
           onClick={replace("presentation")}
         />
@@ -210,11 +207,11 @@ export const WorksForm = ({ isEdit, work, organisationId }: WorksFormProps) => {
         <FileUpload
           isFullWidth
           onChange={setWorkPresentation}
-          name="Prezentacija"
+          name={t("presentation")}
         />
       )}
 
-      <BaseButton text="Pošalji" />
+      <BaseButton text={t("submit")} />
     </form>
   );
 };

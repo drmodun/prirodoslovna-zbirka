@@ -5,6 +5,7 @@ import {
   getCreateAuthorshipInfoDto,
   getUpdateAuthorshipInfoDto,
 } from "@biosfera/types";
+import { useTranslations } from "next-intl";
 
 export const _createAuthorshipInfoDto = getCreateAuthorshipInfoDto();
 
@@ -14,12 +15,13 @@ export const uploadAuthorshipInfo = async (data: CreateAuthorshipInfoDto) =>
   await api.post("/authorship-info", data);
 
 export const useUploadAuthorshipInfo = () => {
+  const t = useTranslations("Toasts");
   return useMutation(uploadAuthorshipInfo, {
     onError: (error) => {
-      toast.error("Failed to upload authorship info");
+      toast.error(t("authorshipUploadFailed"));
     },
     onSuccess: () => {
-      toast.success("Authorship info uploaded successfully");
+      toast.success(t("authorshipUploaded"));
     },
   });
 };

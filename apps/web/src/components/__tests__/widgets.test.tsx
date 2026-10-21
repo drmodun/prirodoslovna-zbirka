@@ -190,7 +190,7 @@ describe("ListInput", () => {
       screen.getByPlaceholderText("Upišite vrijednost"),
       "Brza",
     );
-    await userEvent.click(screen.getByTitle("add"));
+    await userEvent.click(screen.getByTitle("Dodaj"));
     expect(screen.getByText("Brza")).toBeInTheDocument();
     await waitFor(() => expect(form.getValues("facts")).toEqual(["Brza"]));
     expect(screen.getByPlaceholderText("Upišite vrijednost")).toHaveValue("");
@@ -198,13 +198,13 @@ describe("ListInput", () => {
 
   it("ignores empty values and duplicates", async () => {
     mount();
-    await userEvent.click(screen.getByTitle("add"));
+    await userEvent.click(screen.getByTitle("Dodaj"));
     for (let i = 0; i < 2; i++) {
       await userEvent.type(
         screen.getByPlaceholderText("Upišite vrijednost"),
         "Brza",
       );
-      await userEvent.click(screen.getByTitle("add"));
+      await userEvent.click(screen.getByTitle("Dodaj"));
     }
     expect(screen.getAllByText("Brza")).toHaveLength(1);
     expect(form.getValues("facts")).toEqual(["Brza"]);
@@ -217,9 +217,9 @@ describe("ListInput", () => {
         screen.getByPlaceholderText("Upišite vrijednost"),
         value,
       );
-      await userEvent.click(screen.getByTitle("add"));
+      await userEvent.click(screen.getByTitle("Dodaj"));
     }
-    await userEvent.click(screen.getAllByTitle("remove")[0]);
+    await userEvent.click(screen.getAllByTitle("Ukloni")[0]);
     expect(screen.queryByText("a")).toBeNull();
     expect(screen.getByText("b")).toBeInTheDocument();
     await waitFor(() => expect(form.getValues("facts")).toEqual(["b"]));
@@ -243,7 +243,7 @@ describe("ListInput", () => {
       screen.getByTitle("Odabir vrijednosti"),
       "two",
     );
-    await userEvent.click(screen.getByTitle("add"));
+    await userEvent.click(screen.getByTitle("Dodaj"));
     await waitFor(() => expect(form.getValues("facts")).toEqual(["two"]));
   });
 
@@ -279,7 +279,7 @@ describe("FileUpload", () => {
     await screen.findByText("a.png");
     expect(input(container)).toBeDisabled();
     expect(
-      screen.getByText("Maskimalni broj datoteka je stavljen"),
+      screen.getByText("Maksimalni broj datoteka je stavljen"),
     ).toBeInTheDocument();
   });
 
@@ -299,7 +299,7 @@ describe("FileUpload", () => {
     );
     await userEvent.upload(input(container), png());
     await screen.findByText("a.png");
-    await userEvent.click(screen.getByTitle("remove"));
+    await userEvent.click(screen.getByTitle("Ukloni"));
     expect(screen.queryByText("a.png")).toBeNull();
     expect(input(container)).not.toBeDisabled();
     // mount, upload, removal

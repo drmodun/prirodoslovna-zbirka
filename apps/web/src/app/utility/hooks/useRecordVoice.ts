@@ -4,6 +4,8 @@ import toast from "react-hot-toast";
 import { blobToBase64 } from "../static/blobToBase64";
 import { createMediaStream } from "../static/createMediaStream";
 import { isSpeechToTextConfigured, whisperPrompt } from "@/api/AI";
+import { useLocale, useTranslations } from "next-intl";
+import { Locale, SPEECH_LANGUAGES } from "i18n/config";
 
 // Asked once per page; the answer cannot change while the server runs.
 let serverTranscribes: Promise<boolean> | undefined;
@@ -17,6 +19,8 @@ const getBrowserRecognition = () =>
       (window as any).webkitSpeechRecognition;
 
 export const useRecordVoice = () => {
+  const t = useTranslations("SpeechToText");
+  const locale = useLocale();
   const [text, setText] = useState("");
   const [recording, setRecording] = useState(false);
   const mediaRecorder = useRef<MediaRecorder | null>(null);
@@ -70,12 +74,12 @@ export const useRecordVoice = () => {
     const Recognition = getBrowserRecognition();
     if (!Recognition) {
       isRecording.current = false;
-      toast.error("Prepoznavanje govora nije dostupno u ovom pregledniku");
+      toast.error(t("unavailable"));
       return;
     }
 
     const session = new Recognition();
-    session.lang = "hr-HR";
+    session.lang = SPEECH_LANGUAGES[locale as Locale] ?? SPEECH_LANGUAGES.hr;
     session.onresult = (event: any) => setText(event.results[0][0].transcript);
     session.onend = () => setRecording(false);
     session.onerror = () => setRecording(false);

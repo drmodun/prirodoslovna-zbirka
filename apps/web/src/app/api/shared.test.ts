@@ -75,6 +75,19 @@ describe("api client", () => {
     expect(seen?.headers?.Authorization).toBeUndefined();
   });
 
+  it("asks for answers in the language of the interface", async () => {
+    const seen: (string | undefined)[] = [];
+    api.defaults.adapter = async (config: any) => {
+      seen.push(config.headers["Accept-Language"]);
+      return respondWith({ status: 200, data: {} })(config);
+    };
+    await api.get("/x");
+    document.cookie = "NEXT_LOCALE=hr; path=/";
+    await api.get("/x");
+    document.cookie = "NEXT_LOCALE=; path=/; max-age=0";
+    expect(seen).toEqual(["en", "hr"]);
+  });
+
   it("resolves with the response body, not the axios response", async () => {
     api.defaults.adapter = respondWith({ status: 200, data: { id: 1 } });
     await expect(api.get("/x")).resolves.toEqual({ id: 1 });

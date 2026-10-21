@@ -6,6 +6,7 @@ import { OrganisationResponseShort, ShortUserResponse } from "@biosfera/types";
 import { useToggleFollowOrganisation } from "@/api/useToggleFollowOrganisation";
 import useUser from "@/utility/context/UserContext";
 import { useToggleFollow } from "@/api/useToggleFollowUser";
+import { useTranslations } from "next-intl";
 
 export interface FollowButtonProps {
   object: ShortUserResponse | OrganisationResponseShort;
@@ -13,6 +14,7 @@ export interface FollowButtonProps {
 }
 
 export const MembershipFollowButton = ({ object, type }: FollowButtonProps) => {
+  const t = useTranslations("FollowButton");
   const {
     followedOrganisations,
     updateFollowedOrganisation,
@@ -51,10 +53,10 @@ export const MembershipFollowButton = ({ object, type }: FollowButtonProps) => {
   return (
     <button
       className={clsx(classes.button, isFollow && classes.following)}
-      title="follow"
+      title={t("follow")}
       onClick={toggleFollow}
     >
-      {!isFollow ? "Prati" : "Prestani pratiti"}
+      {!isFollow ? t("follow") : t("unfollow")}
     </button>
   );
 };

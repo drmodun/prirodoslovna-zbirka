@@ -259,7 +259,7 @@ describe("WorksForm", () => {
       screen.getByPlaceholderText("Upišite vrijednost"),
       "flora",
     );
-    await userEvent.click(screen.getByTitle("add"));
+    await userEvent.click(screen.getByTitle("Dodaj"));
     await submit();
     await waitFor(() => expect(api.createWork.mutateAsync).toHaveBeenCalled());
     expect(api.createWork.mutateAsync).toHaveBeenCalledWith({

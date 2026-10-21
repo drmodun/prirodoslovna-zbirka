@@ -6,6 +6,8 @@ import clsx from "clsx";
 import Image from "next/image";
 import playIcon from "assets/icons/play.svg";
 import pauseIcon from "assets/icons/pause.svg";
+import { useLocale, useTranslations } from "next-intl";
+import { Locale, SPEECH_LANGUAGES } from "i18n/config";
 
 export interface AudioButtonProps {
   src?: string;
@@ -15,12 +17,14 @@ export interface AudioButtonProps {
 }
 
 export const AudioButton = ({ src, text, onPlay }: AudioButtonProps) => {
+  const t = useTranslations("AudioButton");
+  const locale = useLocale();
   const [isPlaying, setIsPlaying] = useState(false);
   const ref = useRef<HTMLAudioElement>(null);
 
   const speak = () => {
     const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = "hr-HR";
+    utterance.lang = SPEECH_LANGUAGES[locale as Locale] ?? SPEECH_LANGUAGES.hr;
     utterance.onend = () => setIsPlaying(false);
     utterance.onerror = () => setIsPlaying(false);
     window.speechSynthesis.cancel();
@@ -49,7 +53,7 @@ export const AudioButton = ({ src, text, onPlay }: AudioButtonProps) => {
     <div className={classes.container}>
       {src && <audio ref={ref} src={src} onPlay={onPlay} />}
       <button
-        title={!isPlaying ? "play" : "pause"}
+        title={!isPlaying ? t("play") : t("pause")}
         className={clsx(classes.play, isPlaying && classes.playing)}
         onClick={handleClick}
       >

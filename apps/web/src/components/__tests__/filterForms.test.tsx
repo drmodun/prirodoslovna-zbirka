@@ -186,7 +186,7 @@ describe("ExponatFilter", () => {
     );
     render(<ExponatFilter />);
     expect(
-      screen.getByPlaceholderText("Izaberi Kraljevstvo"),
+      screen.getByPlaceholderText("Izaberi kraljevstvo"),
     ).toBeInTheDocument();
     expect(screen.getByPlaceholderText("Izaberi koljeno")).toBeInTheDocument();
     expect(screen.getByPlaceholderText("Izaberi vrstu")).toBeInTheDocument();
@@ -198,7 +198,7 @@ describe("ExponatFilter", () => {
       rank === "KINGDOM" ? species(["Animalia"]) : { data: undefined },
     );
     render(<ExponatFilter />);
-    await userEvent.click(screen.getByPlaceholderText("Izaberi Kraljevstvo"));
+    await userEvent.click(screen.getByPlaceholderText("Izaberi kraljevstvo"));
     await userEvent.click(screen.getByText("Animalia"));
     await waitFor(() =>
       expect(mockTaxonomy).toHaveBeenCalledWith("", "PHYLUM", 100),
@@ -220,7 +220,7 @@ describe("ExponatFilter", () => {
     await waitFor(() => expect(searchQuery().phylum).toBe("Chordata"));
 
     // picking a broader rank again resets the phylum
-    await userEvent.click(screen.getByPlaceholderText("Izaberi Kraljevstvo"));
+    await userEvent.click(screen.getByPlaceholderText("Izaberi kraljevstvo"));
     await userEvent.click(screen.getByText("Animalia"));
     await waitFor(() => {
       expect(searchQuery().kingdom).toBe("Animalia");

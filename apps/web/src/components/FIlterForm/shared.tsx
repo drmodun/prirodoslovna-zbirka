@@ -3,17 +3,16 @@ import { FieldValues, UseFormReturn } from "react-hook-form";
 import BaseButton from "components/BaseButton";
 import SelectInput from "components/SelectInput";
 import classes from "./FilterForm.module.scss";
+import { useTranslations } from "next-intl";
 
 interface Option {
   label: string;
   value: string;
 }
 
-// Default "sort by" choice: results come back in the API's own order.
+// Default "sort by" choice: results come back in the API's own order. Only
+// a form value; the label comes from the Filters messages.
 export const RELEVANCE = "Relevantnost";
-
-export const sortPairMessage =
-  "Smjer i atribut samo mogu biti oboje odabrani ili oboje prazni";
 
 // zod refinement for the attribute/direction pair.
 export const refineSortPair = (data: {
@@ -56,30 +55,38 @@ interface SortSelectsProps {
   options: Option[];
 }
 
-export const SortSelects = ({ form, options }: SortSelectsProps) => (
-  <>
-    <SelectInput
-      name="attribute"
-      label="Sortiraj po"
-      form={form}
-      options={[{ label: RELEVANCE, value: RELEVANCE }, ...options]}
-      error={form.formState.errors.attribute?.message?.toString()}
-    />
-    <SelectInput
-      name="direction"
-      label="Smjer"
-      form={form}
-      options={[
-        { label: "Uzlazno", value: "asc" },
-        { label: "Silazno", value: "desc" },
-      ]}
-      error={form.formState.errors.direction?.message?.toString()}
-    />
-  </>
-);
+export const SortSelects = ({ form, options }: SortSelectsProps) => {
+  const t = useTranslations("Filters");
 
-export const SearchLink = ({ query }: { query: Record<string, string> }) => (
-  <Link className={classes.button} href={{ pathname: "/search", query }}>
-    <BaseButton text="Pretraži" />
-  </Link>
-);
+  return (
+    <>
+      <SelectInput
+        name="attribute"
+        label={t("sortBy")}
+        form={form}
+        options={[{ label: t("relevance"), value: RELEVANCE }, ...options]}
+        error={form.formState.errors.attribute?.message?.toString()}
+      />
+      <SelectInput
+        name="direction"
+        label={t("direction")}
+        form={form}
+        options={[
+          { label: t("ascending"), value: "asc" },
+          { label: t("descending"), value: "desc" },
+        ]}
+        error={form.formState.errors.direction?.message?.toString()}
+      />
+    </>
+  );
+};
+
+export const SearchLink = ({ query }: { query: Record<string, string> }) => {
+  const t = useTranslations("Filters");
+
+  return (
+    <Link className={classes.button} href={{ pathname: "/search", query }}>
+      <BaseButton text={t("search")} />
+    </Link>
+  );
+};

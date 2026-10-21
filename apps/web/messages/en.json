@@ -1,0 +1,791 @@
+{
+  "Metadata": {
+    "description": "A social platform for sharing knowledge between students and schools about minerals, plants, animals and other biological entities."
+  },
+  "LanguageToggle": {
+    "label": "Language",
+    "en": "English",
+    "hr": "Hrvatski"
+  },
+  "Toasts": {
+    "genericError": "Something went wrong, please try again later",
+    "noPermission": "You do not have permission for this action",
+    "invalidAuthorization": "Invalid authorization",
+    "saving": "Saving...",
+    "saveFailed": "Saving failed",
+    "saved": "Saved successfully",
+    "uploadFailed": "Upload failed",
+    "uploadingDocument": "Uploading document...",
+    "documentUploadFailed": "Document upload failed",
+    "membershipRemoved": "Membership removed",
+    "mustBeAdminToRemoveMembership": "You must be an admin to remove a membership",
+    "exponatCreated": "Exhibit created successfully",
+    "exponatRemoved": "Exhibit removed",
+    "mustBeAdminToRemoveExponat": "You must be an admin to remove an exhibit",
+    "exponatUpdated": "Exhibit details updated",
+    "exponatUpdateFailed": "Something went wrong while updating the exhibit",
+    "postRemoved": "Post removed",
+    "mustBeAdminToRemovePost": "You must be an admin to remove a post",
+    "postUpdated": "Post details updated",
+    "postUpdateFailed": "Something went wrong while updating the post",
+    "userInfoUpdated": "User information updated",
+    "followStatusChanged": "Follow status changed",
+    "mustBeLoggedInToFollowOrganisation": "You must be logged in to follow an organisation",
+    "mustBeLoggedInToFollowUser": "You must be logged in to follow a user",
+    "mustBeLoggedInToFavourite": "You must be logged in to add an exhibit to favourites",
+    "mustBeLoggedInToLike": "You must be logged in to like a post",
+    "organisationDeleted": "Organisation deleted",
+    "organisationDeleteFailed": "Deleting the organisation failed",
+    "organisationUpdated": "Organisation details updated",
+    "organisationUpdateFailed": "Something went wrong while updating the organisation",
+    "userDeleted": "User deleted",
+    "userDeleteFailed": "Deleting the user failed",
+    "markAsReadFailed": "Marking the notifications as read failed",
+    "registering": "Registering...",
+    "registered": "Registered successfully",
+    "registerFailed": "Something went wrong while creating the account, the e-mail may already be in use",
+    "passwordResetEmailSent": "The password reset e-mail was sent",
+    "passwordResetEmailFailed": "Sending the password reset e-mail failed",
+    "creatingWork": "Creating the work...",
+    "workCreated": "Work created successfully",
+    "workCreateFailed": "Creating the work failed",
+    "updatingWork": "Updating the work...",
+    "workUpdated": "Work updated successfully",
+    "workUpdateFailed": "Updating the work failed",
+    "deletingWork": "Deleting the work...",
+    "workDeleted": "Work deleted successfully",
+    "workDeleteFailed": "Deleting the work failed",
+    "loggingIn": "Logging in...",
+    "loggedIn": "Logged in successfully!",
+    "resettingPassword": "Resetting the password...",
+    "passwordReset": "Password reset successfully, redirecting to login",
+    "passwordResetFailed": "Resetting the password failed",
+    "creatingSocialPost": "Creating the post...",
+    "socialPostCreated": "Post created successfully",
+    "socialPostCreateFailed": "Creating the post failed",
+    "updatingSocialPost": "Updating the post...",
+    "socialPostUpdated": "Post updated successfully",
+    "socialPostUpdateFailed": "Updating the post failed",
+    "roleUpdated": "User role changed successfully",
+    "roleUpdateFailed": "Changing the role failed",
+    "fetchFailed": "Something went wrong while loading the data",
+    "verifying": "Verifying the account...",
+    "verified": "Verified successfully, redirecting to login",
+    "verifyFailed": "Verification failed",
+    "leftOrganisation": "You left the organisation",
+    "membershipRequested": "The membership request was sent",
+    "mustBeLoggedInToRequestMembership": "You must be logged in to request a membership",
+    "mustBeAdminToChangeVisibility": "You must be an admin to change the visibility",
+    "authorshipUpdated": "Authorship info updated successfully",
+    "authorshipUpdateFailed": "Updating the authorship info failed",
+    "authorshipUploaded": "Authorship info uploaded successfully",
+    "authorshipUploadFailed": "Uploading the authorship info failed",
+    "ownershipTransferred": "Ownership of the organisation transferred successfully",
+    "ownershipTransferFailed": "Transferring the ownership failed",
+    "profilePictureUpdated": "Profile picture changed",
+    "creatingQuiz": "Creating the quiz...",
+    "quizCreated": "Quiz created successfully",
+    "quizCreateFailed": "Creating the quiz failed",
+    "updatingQuiz": "Updating the quiz...",
+    "quizUpdated": "Quiz updated successfully",
+    "quizUpdateFailed": "Updating the quiz failed"
+  },
+  "Landing": {
+    "hero": {
+      "title": "Your digital collection.",
+      "description": "Show the contents of your institution's natural history collection in just a few clicks!"
+    },
+    "exponats": {
+      "title": "Browse exhibits",
+      "description": "Explore the natural history collections of every organisation."
+    },
+    "posts": {
+      "title": "Browse posts",
+      "description": "Read what users write about the exhibits, with all the information and fun facts"
+    },
+    "organisations": {
+      "title": "Browse organisations",
+      "description": "See every organisation that has joined the platform and explore their exhibits, posts and members",
+      "create": "Create an organisation"
+    },
+    "browse": "Browse",
+    "login": "Log in",
+    "browseContent": "Browse content"
+  },
+  "NotFound": {
+    "title": "404 - Page not found!"
+  },
+  "Footer": {
+    "documentation": "Documentation"
+  },
+  "Counties": {
+    "SPLITSKO_DALMATINSKA": "Split-Dalmatia County",
+    "DUBROVACKO_NERETVANSKA": "Dubrovnik-Neretva County",
+    "SIBENSKO_KNINSKA": "Šibenik-Knin County",
+    "ZADARSKA": "Zadar County",
+    "ZAGREBACKA": "Zagreb County",
+    "KARLOVACKA": "Karlovac County",
+    "VARAZDINSKA": "Varaždin County",
+    "KOPRIVNICKO_KRIZEVACKA": "Koprivnica-Križevci County",
+    "KRAPINSKO_ZAGORSKA": "Krapina-Zagorje County",
+    "MEDIMURSKA": "Međimurje County",
+    "OSIJECKO_BARANJSKA": "Osijek-Baranja County",
+    "POZESKO_SLAVONSKA": "Požega-Slavonia County",
+    "PRIMORSKO_GORANSKA": "Primorje-Gorski Kotar County",
+    "SISACKO_MOSLAVACKA": "Sisak-Moslavina County",
+    "VUKOVARSKO_SRIJEMSKA": "Vukovar-Syrmia County",
+    "GRAD_ZAGREB": "City of Zagreb",
+    "BJELOVARSKO_BILOGORSKA": "Bjelovar-Bilogora County",
+    "BRODSKO_POSAVSKA": "Brod-Posavina County",
+    "ISTARSKA": "Istria County",
+    "LICKO_SENJSKA": "Lika-Senj County",
+    "VIROVITICKO_PODRAVSKA": "Virovitica-Podravina County",
+    "OTHER": "Other"
+  },
+  "SideMenu": {
+    "logoutConfirm": "Are you sure you want to log out?",
+    "notLoggedIn": "Not logged in",
+    "search": "Search...",
+    "language": "Language",
+    "profile": "Profile",
+    "discover": "Discover",
+    "logout": "Log out"
+  },
+  "Common": {
+    "ok": "OK",
+    "noResults": "No results",
+    "loading": "Loading...",
+    "search": "Search"
+  },
+  "AttributeInput": {
+    "attribute": "Attribute",
+    "value": "Value",
+    "remove": "Remove",
+    "add": "Add"
+  },
+  "AudioButton": {
+    "play": "Play",
+    "pause": "Pause"
+  },
+  "Authorship": {
+    "addButton": "Add authorship information",
+    "modalTitle": "Add image authorship information",
+    "modalText": "Enter the image authorship information",
+    "locationOfOccurrence": "Place of finding",
+    "dateOfOccurrence": "Date of finding",
+    "nonPlatformAuthor": "Author",
+    "identifiedBy": "Identified by",
+    "photographer": "Photographer",
+    "literature": "Literature",
+    "deviceName": "Device name",
+    "submit": "Submit"
+  },
+  "AuthorshipTable": {
+    "locationOfOccurrence": "Place of occurrence",
+    "dateOfOccurrence": "Date of occurrence",
+    "nonPlatformAuthor": "Author",
+    "identifiedBy": "Identified by",
+    "photographer": "Photographer",
+    "literature": "Literature",
+    "deviceName": "Device name",
+    "authorName": "Author name"
+  },
+  "CardCollection": {
+    "sortBy": "Sort by:",
+    "ascending": "Ascending",
+    "descending": "Descending",
+    "sortDirection": "Sort direction"
+  },
+  "CreateButton": {
+    "label": "Create"
+  },
+  "Validation": {
+    "emailFormat": "The e-mail address is not in a valid format",
+    "urlFormat": "The link is not in a valid format"
+  },
+  "OrganisationForm": {
+    "nameMin": "The name must have at least 2 characters",
+    "nameMax": "The name can have at most 100 characters",
+    "descriptionMin": "The description must have at least 2 characters",
+    "descriptionMax": "The description can have at most 200 characters",
+    "loginRequired": "You must be logged in to create an organisation",
+    "name": "Organisation name",
+    "description": "Description",
+    "websiteUrl": "Website link",
+    "location": "Location",
+    "email": "E-mail address",
+    "mainImage": "Upload the main image of your organisation",
+    "edit": "Save changes",
+    "create": "Create organisation"
+  },
+  "CreationModal": {
+    "title": "Create something new",
+    "text": "Choose what you want to create",
+    "close": "Close",
+    "type": "Type",
+    "types": {
+      "organisation": "Organisation",
+      "exponat": "Exhibit",
+      "post": "Post",
+      "work": "Work"
+    },
+    "organisation": "Organisation",
+    "exponat": "Exhibit",
+    "noExponats": "No exhibits available",
+    "create": "Create"
+  },
+  "DeleteOrganisationButton": {
+    "confirm": "Are you sure you want to delete the organisation?",
+    "label": "Delete organisation"
+  },
+  "DeleteUserButton": {
+    "confirm": "Are you sure you want to delete the user?",
+    "label": "Delete user"
+  },
+  "DocumentReader": {
+    "loadFailed": "Loading the document failed",
+    "previousPage": "Previous page",
+    "nextPage": "Next page",
+    "openDocument": "Open the whole document"
+  },
+  "EditUserForm": {
+    "firstNameMin": "The first name must have at least 2 characters",
+    "firstNameMax": "The first name can have at most 100 characters",
+    "lastNameMin": "The last name must have at least 2 characters",
+    "lastNameMax": "The last name can have at most 100 characters",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "username": "Username",
+    "bio": "Bio",
+    "county": "County",
+    "changePicture": "Change your profile picture",
+    "removePicture": "Remove the profile picture",
+    "language": "Interface language",
+    "save": "Save changes"
+  },
+  "MemberRoles": {
+    "OWNER": "Owner",
+    "ADMIN": "Admin",
+    "MEMBER": "Member",
+    "REQUESTED": "Request (not a member)",
+    "REQUESTED_SHORT": "Request"
+  },
+  "EditUserRoleModal": {
+    "confirm": "Are you sure you want to change the user's role?",
+    "changeRole": "Change role",
+    "text": "Here you can change the user's role in the organisation",
+    "title": "Changing the user's role",
+    "role": "Role"
+  },
+  "ExponatKinds": {
+    "PROCARIOT": "Prokaryote",
+    "EUCARIOT": "Eukaryote",
+    "MINERAL": "Mineral"
+  },
+  "ExponatCard": {
+    "favourites": "Number of favourites",
+    "view": "View exhibit"
+  },
+  "ExponatForm": {
+    "nameMin": "The name must have more than 5 characters",
+    "nameMax": "The name must have fewer than 100 characters",
+    "descriptionMin": "The description must have more than 10 characters",
+    "descriptionMax": "The description must have fewer than 2000 characters",
+    "nomenclatureMin": "The nomenclature must have more than 2 characters",
+    "funFactMin": "Must have more than 2 characters",
+    "funFactsMin": "There must be at least one fun fact",
+    "authorRequired": "An author is required",
+    "attributesMin": "There must be at least one attribute",
+    "nomenclature": "Nomenclature",
+    "species": "Scientific species of the exhibit",
+    "name": "Name",
+    "kind": "Exhibit kind",
+    "description": "Description",
+    "funFacts": "Fun facts",
+    "mainImage": "Main image of the exhibit",
+    "model": "3D model",
+    "video": "Video",
+    "attributes": "Attributes",
+    "submit": "Submit",
+    "invalidNomenclature": "The nomenclature is not valid",
+    "categorizationFailed": "Creating the categorization failed",
+    "mainImageRequired": "The exhibit needs a main image"
+  },
+  "ExponatModal": {
+    "share": "Check out the exhibit {title} on biosfera.trema.hr",
+    "organisation": "Exhibit organisation: {name}",
+    "serialNumber": "Serial number: {serialNumber}"
+  },
+  "Enums": {
+    "WorkType": {
+      "JOURNAL": "Journal",
+      "BOOK": "Book",
+      "GENERIC": "Work",
+      "BOOK_SECTION": "Book section",
+      "CONFERENCE_PROCEEDINGS": "Conference proceedings",
+      "WORKING_PAPER": "Working paper",
+      "REPORT": "Report",
+      "WEB_PAGE": "Web page",
+      "THESIS": "Thesis",
+      "MAGAZINE_ARTICLE": "Magazine article",
+      "STATUTE": "Statute",
+      "PATENT": "Patent",
+      "NEWSPAPER_ARTICLE": "Newspaper article",
+      "COMPUTER_PROGRAM": "Computer program",
+      "HEARING": "Hearing",
+      "TELEVISION_BROADCAST": "Television broadcast",
+      "ENCYCLOPEDIA_ARTICLE": "Encyclopedia article",
+      "CASE": "Case",
+      "FILM": "Film",
+      "BILL": "Bill"
+    },
+    "Topics": {
+      "AGRICULTURE": "Agriculture",
+      "BIODIVERSITY_SCIENCE": "Biodiversity science",
+      "BIOGEOGRAPHY": "Biogeography",
+      "CITIZEN_SCIENCE": "Citizen science",
+      "CLIMATE_CHANGE": "Climate change",
+      "CONSERVATION": "Conservation",
+      "DATA_MANAGEMENT": "Data management",
+      "DATA_PAPER": "Data paper",
+      "ECOLOGY": "Ecology",
+      "ECOSYSTEM_SERVICES": "Ecosystem services",
+      "EVOLUTION": "Evolution",
+      "FRESHWATER": "Freshwater",
+      "HUMAN_HEALTH": "Human health",
+      "INVASIVES": "Invasive species",
+      "MARINE": "Marine",
+      "PHYLOGENETICS": "Phylogenetics",
+      "SPECIES_DISTRIBUTIONS": "Species distributions",
+      "TAXONOMY": "Taxonomy"
+    },
+    "SocialPostType": {
+      "STORY": "Story",
+      "EU_PROJECT": "EU project",
+      "EVENT": "Event",
+      "OTHER": "Other",
+      "GUIDE": "Guide",
+      "NEWS": "News",
+      "ANNOUNCEMENT": "Announcement",
+      "WORKSHOP": "Workshop"
+    },
+    "QuizDifficulty": {
+      "EASY": "Easy",
+      "MEDIUM": "Medium",
+      "HARD": "Hard",
+      "UNSET": "Not set"
+    },
+    "QuestionType": {
+      "MULTIPLE_CHOICE": "Multiple choice",
+      "TRUE_FALSE": "True/False",
+      "FILL_IN_THE_BLANK": "Fill in the blank"
+    },
+    "TimeLimitType": {
+      "NONE": "No time limit",
+      "TOTAL": "Total time",
+      "PER_QUESTION": "Time per question"
+    }
+  },
+  "Filters": {
+    "relevance": "Relevance",
+    "sortBy": "Sort by",
+    "direction": "Direction",
+    "ascending": "Ascending",
+    "descending": "Descending",
+    "search": "Search",
+    "name": "Name",
+    "title": "Title",
+    "createdAt": "Creation date",
+    "postAmount": "Number of posts",
+    "favourites": "Number of favourites",
+    "location": "Location",
+    "points": "Points",
+    "county": "County",
+    "exponat": {
+      "title": "Filter exhibits",
+      "alternateName": "Alternative name",
+      "ranks": {
+        "kingdom": "Choose a kingdom",
+        "phylum": "Choose a phylum",
+        "class": "Choose a class",
+        "order": "Choose an order",
+        "genus": "Choose a genus",
+        "family": "Choose a family",
+        "species": "Choose a species"
+      }
+    },
+    "literature": {
+      "title": "Filter literature",
+      "topic": "Literature topic",
+      "publisher": "Publisher",
+      "source": "Source",
+      "year": "Year",
+      "type": "Literature type",
+      "invalidTopic": "The value must be a valid GBIF topic, such as {topics}"
+    },
+    "organisation": {
+      "title": "Filter organisations"
+    },
+    "post": {
+      "title": "Filter posts",
+      "author": "Author name",
+      "exponatName": "Exhibit name",
+      "createdAt": "Creation date"
+    },
+    "user": {
+      "title": "Filter users",
+      "username": "Username",
+      "name": "Name"
+    },
+    "work": {
+      "title": "Filter works",
+      "tags": "Tags",
+      "createdAt": "Creation date",
+      "saves": "Number of saves"
+    },
+    "sortPair": "The direction and the attribute must either both be chosen or both be empty"
+  },
+  "ExponatModalSections": {
+    "description": "Short description",
+    "funFacts": "Fun facts",
+    "attributes": "Attributes"
+  },
+  "ExtrasExponatButton": {
+    "viewModel": "View the 3D model",
+    "viewVideo": "View multimedia content",
+    "modelTitle": "3D model",
+    "modelText": "Three-dimensional model of the exhibit",
+    "videoTitle": "Video",
+    "videoText": "Video of the exhibit"
+  },
+  "FavouriteButton": {
+    "label": "Favourite"
+  },
+  "FileUpload": {
+    "tooManyFiles": "Too many files",
+    "dropHere": "Drop files here or click to add them",
+    "release": "Drop the files here ...",
+    "unsupported": "Unsupported file format",
+    "tooLarge": "The file is too large",
+    "limitReached": "The maximum number of files has been added",
+    "remove": "Remove"
+  },
+  "Hamburger": {
+    "label": "Toggle menu"
+  },
+  "LeaveOrganisationButton": {
+    "confirm": "Are you sure you want to leave the organisation?",
+    "label": "Leave organisation"
+  },
+  "LikeButton": {
+    "label": "Like"
+  },
+  "ListInput": {
+    "select": "Choose a value",
+    "placeholder": "Enter a value",
+    "remove": "Remove",
+    "add": "Add"
+  },
+  "FollowButton": {
+    "follow": "Follow",
+    "unfollow": "Unfollow",
+    "followUser": "Follow"
+  },
+  "Notifications": {
+    "title": "Notifications",
+    "noText": "No text",
+    "text": "Here you can see all your notifications",
+    "close": "Close",
+    "empty": "No notifications",
+    "markAllAsRead": "Mark all as read",
+    "arrived": "New notification: {title}"
+  },
+  "OrganisationCard": {
+    "visit": "Visit organisation"
+  },
+  "PostForm": {
+    "titleMin": "The title must have at least 5 characters",
+    "textMin": "The text must have at least 10 characters",
+    "textMax": "The text can have at most 20000 characters",
+    "imagesRequired": "You must add images",
+    "editTitle": "Edit post",
+    "createTitle": "Create a new post",
+    "title": "Title",
+    "text": "Enter the text of the post, markdown is supported",
+    "thumbnail": "Cover image",
+    "image": "Main image",
+    "submit": "Create post"
+  },
+  "QrCode": {
+    "generateFailed": "Generating the QR code failed",
+    "generate": "Generate QR code",
+    "text": "Your QR code",
+    "title": "QR code: {name}",
+    "download": "Download QR code"
+  },
+  "QuestionForm": {
+    "questionMin": "The question must have at least 5 characters",
+    "typeRequired": "Choose the question type",
+    "pointsRequired": "Enter the number of points",
+    "question": "Question",
+    "image": "Image",
+    "type": "Question type",
+    "options": "Answers",
+    "correct": "Correct answers",
+    "true": "True",
+    "false": "False",
+    "points": "Points",
+    "timeLimit": "Time to answer (seconds)",
+    "add": "Add question"
+  },
+  "QuestionInputPreview": {
+    "cancel": "Cancel",
+    "points": "Worth: {points}",
+    "edit": "Edit",
+    "delete": "Delete"
+  },
+  "QuizForm": {
+    "questionsMin": "The quiz must have at least one question",
+    "title": "Quiz title",
+    "description": "Quiz description",
+    "coverImage": "Cover image",
+    "timeLimitType": "Time limit type",
+    "timeLimitTotal": "Total time (in minutes)",
+    "difficulty": "Quiz difficulty",
+    "isRetakeable": "Can be retaken",
+    "isAnonymousAllowed": "Can be taken anonymously",
+    "isTest": "The quiz is a test (going back to questions is allowed and all questions are visible at once)",
+    "newQuestion": "Add question",
+    "submit": "Create quiz"
+  },
+  "Auth": {
+    "firstNameMin": "The first name must have at least 2 characters",
+    "firstNameMax": "The first name can have at most 100 characters",
+    "lastNameMin": "The last name must have at least 2 characters",
+    "lastNameMax": "The last name can have at most 100 characters",
+    "emailFormat": "The e-mail address must be valid",
+    "passwordStrength": "The password must have at least 8 characters, one uppercase letter, one lowercase letter, one number and one special character",
+    "passwordsMismatch": "The passwords do not match",
+    "registeredTitle": "Success",
+    "registeredText": "The account was created, please confirm your e-mail and then log in",
+    "goToLogin": "Go to login",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "username": "Username",
+    "bio": "Bio",
+    "county": "County",
+    "email": "E-mail address",
+    "password": "Password",
+    "confirmPassword": "Confirm password",
+    "newPassword": "New password",
+    "register": "Register",
+    "login": "Log in",
+    "resetPassword": "Reset password",
+    "forgotPassword": "Forgot your password?",
+    "recoveryTitle": "Password recovery",
+    "recoveryText": "Enter the e-mail address you used to register",
+    "close": "Close",
+    "recoveryEmail": "Recovery e-mail address",
+    "sendRecovery": "Send password recovery e-mail"
+  },
+  "RemoveExponatButton": {
+    "confirm": "Are you sure you want to remove the exhibit?",
+    "label": "Remove exhibit",
+    "edit": "Edit"
+  },
+  "RemovePostButton": {
+    "confirm": "Are you sure you want to remove the post?",
+    "label": "Remove post",
+    "edit": "Edit"
+  },
+  "RemoveWorkButton": {
+    "confirm": "Are you sure you want to remove the work?",
+    "label": "Remove work",
+    "edit": "Edit"
+  },
+  "RemoveMembershipButton": {
+    "confirm": "Are you sure you want to remove this membership?",
+    "label": "Remove membership"
+  },
+  "SaveButton": {
+    "label": "Save"
+  },
+  "SerialNumber": {
+    "title": "Serial number",
+    "mustBeNumber": "The serial number must be a number",
+    "text": "Enter the serial number of the exhibit",
+    "confirm": "Confirm"
+  },
+  "ShareButton": {
+    "copied": "Link copied to the clipboard",
+    "share": "Share",
+    "copy": "Copy link"
+  },
+  "SocialPostCard": {
+    "post": "Post"
+  },
+  "SpeechToText": {
+    "record": "Hold to record",
+    "unavailable": "Speech recognition is not available in this browser"
+  },
+  "UserCard": {
+    "posts": "Posts:",
+    "likes": "Drops:",
+    "followers": "{count, plural, one {# follower} other {# followers}}",
+    "following": "following {count, plural, one {# user} other {# users}}"
+  },
+  "WorkCard": {
+    "noAbstract": "There is no abstract"
+  },
+  "ToggleApprovalButton": {
+    "hide": "Hide",
+    "approve": "Approve",
+    "visible": "visible",
+    "hidden": "hidden"
+  },
+  "SocialPostForm": {
+    "titleMin": "The title must have more than 5 characters",
+    "titleMax": "The title must have fewer than 100 characters",
+    "textMin": "The text must have more than 10 characters",
+    "textMax": "The text must have fewer than 5000 characters",
+    "authorshipRequired": "You must add authorship information for the images",
+    "confirmCreate": "Are you sure you want to create the post? It will be visible to all members and followers right away.",
+    "confirmUpdate": "Are you sure you want to change the post? It will be visible to all members and followers right away.",
+    "title": "Title",
+    "text": "Text",
+    "type": "Post type",
+    "images": "Images (max 5)",
+    "submit": "Publish"
+  },
+  "WorksForm": {
+    "titleMin": "The title must be at least 5 characters long",
+    "descriptionMin": "The abstract must be at least 100 characters long",
+    "posterUploadFailed": "Uploading the poster failed",
+    "documentUploadFailed": "Uploading the document failed",
+    "presentationUploadFailed": "Uploading the presentation failed",
+    "title": "Title",
+    "description": "Abstract",
+    "type": "Work type",
+    "tags": "Tags",
+    "replacePoster": "Replace poster",
+    "poster": "Poster",
+    "replaceDocument": "Replace document",
+    "document": "Document",
+    "replacePresentation": "Replace presentation",
+    "presentation": "Presentation",
+    "submit": "Submit"
+  },
+  "Tabs": {
+    "users": "Users",
+    "organisations": "Organisations",
+    "exponats": "Exhibits",
+    "posts": "Posts",
+    "works": "Works",
+    "gbifWorks": "Works (GBIF)",
+    "literature": "Literature",
+    "home": "Home",
+    "members": "Members",
+    "edit": "Edit",
+    "followers": "Followers",
+    "following": "Following",
+    "liked": "Liked",
+    "favourites": "Favourites",
+    "saved": "Saved",
+    "read": "Read",
+    "about": "About",
+    "creations": "Creations",
+    "reactions": "Reactions",
+    "memberships": "Memberships"
+  },
+  "Sort": {
+    "alphabetical": "Alphabetical",
+    "publishDate": "Publish date",
+    "likes": "Likes",
+    "saves": "Number of saves",
+    "scientificName": "Scientific name",
+    "favourites": "Number of favourites",
+    "location": "Location",
+    "role": "Role",
+    "popular": "Most popular",
+    "newest": "Newest",
+    "name": "Name",
+    "type": "Type",
+    "county": "County",
+    "username": "Username",
+    "posts": "Number of posts",
+    "author": "Author name"
+  },
+  "UserPageBody": {
+    "editProfile": "Edit profile",
+    "noBio": "This user has no bio"
+  },
+  "OrganisationBody": {
+    "createWork": "Create a work"
+  },
+  "AI": {
+    "noDescription": "The description is not available at the moment. An AI generated description needs an AI service to be set up (OPENAI_API_KEY).",
+    "source": "Source: {url}",
+    "warning": "Please check that the information is accurate. AI keeps getting better, but it still makes mistakes fairly often",
+    "postSummary": "AI generated summary of the post",
+    "exponatDescription": "AI generated short description of the exhibit"
+  },
+  "Pages": {
+    "editExponat": "Edit the exhibit",
+    "createExponat": "Create a new exhibit",
+    "createQuiz": "Create a new quiz",
+    "createSocialPost": "Create a new post",
+    "createWork": "Create a new work",
+    "newOrganisation": "New <br></br>organisation",
+    "newOrganisationText": "Welcome to the natural history collection! By filling in this form you will create a new organisation on our platform and be able to collaborate with other users.",
+    "login": "Log in",
+    "register": "Registration",
+    "registerText": "Welcome to the natural history collection! By filling in this form you will create a new account to access the site and its resources.",
+    "resetPassword": "Reset password",
+    "verified": "Verified successfully, redirecting to login",
+    "verifyFailed": "Verification failed",
+    "verifying": "Verifying the user"
+  },
+  "OrganisationAbout": {
+    "about": "Who are we?",
+    "visitWebsite": "Visit the website"
+  },
+  "OrganisationExponatsView": {
+    "memberNotice": "As a member you can add an exhibit, but it will not be visible on the page until an admin approves it",
+    "addExponat": "Add exhibit",
+    "search": "Search exhibits"
+  },
+  "OrganisationHomepage": {
+    "leaveConfirm": "Are you sure you want to leave the organisation?",
+    "requestConfirm": "Are you sure you want to send a membership request?",
+    "actions": "Actions",
+    "unfollow": "Unfollow",
+    "follow": "Follow",
+    "leave": "Leave organisation",
+    "join": "Become a member",
+    "share": "Share the profile of the organisation {name}",
+    "postCount": "Posts",
+    "exponatCount": "Exhibits",
+    "addPost": "Add a new post",
+    "posts": "Posts"
+  },
+  "PostView": {
+    "viewExponat": "View exhibit",
+    "viewSummary": "View summary",
+    "share": "Check out the post {title} on biosfera.trema.hr"
+  },
+  "SingleExponatView": {
+    "addPost": "Add post",
+    "posts": "Posts"
+  },
+  "UserDescription": {
+    "location": "Location: {county}",
+    "lastUpdated": "Last updated: {date}",
+    "share": "Share the profile of {username}"
+  },
+  "WorkPage": {
+    "viewOrganisation": "View organisation",
+    "share": "Share the work",
+    "document": "Work document",
+    "presentation": "Work presentation"
+  }
+}

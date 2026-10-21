@@ -13,9 +13,11 @@ import Link from "next/link";
 import classes from "../page.module.scss";
 import { useGetClientWork } from "@/api/useGetClientWork";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 
 const WorkPage = ({ params }: { params: any }) => {
   const { data: workInfo } = useGetClientWork(params.workId);
+  const t = useTranslations("WorkPage");
   return workInfo ? (
     <div className={classes.container}>
       {workInfo.poster && (
@@ -46,11 +48,11 @@ const WorkPage = ({ params }: { params: any }) => {
           className={classes.button}
           href={`/organisation/${workInfo.organisationId}`}
         >
-          Pogledaj organizaciju
+          {t("viewOrganisation")}
         </Link>
 
         <div className={classes.sharing}>
-          <ShareButton text="Podeli rad" title="Podijeli rad" />
+          <ShareButton text={t("share")} title={workInfo.title} />
           <QrCodeGenerator isIcon name={workInfo.title} />
         </div>
       </div>
@@ -63,14 +65,14 @@ const WorkPage = ({ params }: { params: any }) => {
       <div className={classes.documents}>
         {workInfo.document && (
           <div className={classes.pdfReader}>
-            <span className={classes.name}>Dokument projekta</span>
+            <span className={classes.name}>{t("document")}</span>
             <DocumentReader src={workInfo.document} />
           </div>
         )}
 
         {workInfo.presentation && (
           <div className={classes.pdfReader}>
-            <span className={classes.name}>Prezentacija projekta</span>
+            <span className={classes.name}>{t("presentation")}</span>
             <DocumentReader isLandscape src={workInfo.presentation} />
           </div>
         )}

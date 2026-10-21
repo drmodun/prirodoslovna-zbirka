@@ -2,6 +2,7 @@
 
 import { createHash } from "crypto";
 import { OpenAI } from "openai";
+import { getLocale, getTranslations } from "next-intl/server";
 import { apiFetch } from "./getUrlServer";
 
 // Any OpenAI-compatible API: OpenAI itself, OpenRouter, Groq, Mistral, or a
@@ -53,13 +54,23 @@ export const getGPT = async (prompt: string) => {
 };
 
 const WIKIPEDIA_LANGUAGES = ["hr", "en"];
-const NO_DESCRIPTION =
-  "Opis trenutno nije dostupan. Za AI generirani opis potrebno je postaviti AI servis (OPENAI_API_KEY).";
+// Generated texts are written in the reader's language.
+const LANGUAGE_NAMES: Record<string, string> = {
+  en: "English",
+  hr: "Croatian",
+};
 
 // Backup for the AI description: the lead paragraph of the Wikipedia article,
-// Croatian first.
+// in the reader's language first.
 const wikipediaSummary = async (title: string) => {
-  for (const language of WIKIPEDIA_LANGUAGES) {
+  const locale = await getLocale();
+  const t = await getTranslations("AI");
+  const languages = [
+    locale,
+    ...WIKIPEDIA_LANGUAGES.filter((language) => language !== locale),
+  ];
+
+  for (const language of languages) {
     try {
       const response = await fetch(
         `https://${language}.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(
@@ -70,7 +81,9 @@ const wikipediaSummary = async (title: string) => {
       if (!response.ok) continue;
       const page = await response.json();
       if (page.type === "standard" && page.extract)
-        return `${page.extract}\n\nIzvor: ${page.content_urls?.desktop?.page ?? `${language}.wikipedia.org`}`;
+        return `${page.extract}\n\n${t("source", {
+          url: page.content_urls?.desktop?.page ?? `${language}.wikipedia.org`,
+        })}`;
     } catch (error) {
       console.log(error);
     }
@@ -101,18 +114,21 @@ const askGPT = async (prompt: string): Promise<string | undefined> => {
   return response?.choices?.[0]?.message?.content;
 };
 
+const answerLanguage = async () =>
+  LANGUAGE_NAMES[await getLocale()] ?? LANGUAGE_NAMES.en;
+
 export const exponatInfoPrompt = async (exponat: any) => {
-  const prompt = `You are a biology expert. Like a teacher, tell me some interesting and essential information about the ${exponat}. Write about the characteristics od this species and mention the most important known things. Use official sources, possibly query info from GBIF, and list all used sources below (check that links actually exist). Keep it structured in one paragraph, at about 200 (+/- 10%) words, the answer has to be written in croatian.`;
+  const prompt = `You are a biology expert. Like a teacher, tell me some interesting and essential information about the ${exponat}. Write about the characteristics od this species and mention the most important known things. Use official sources, possibly query info from GBIF, and list all used sources below (check that links actually exist). Keep it structured in one paragraph, at about 200 (+/- 10%) words, the answer has to be written in ${await answerLanguage()}.`;
 
   return (
     (await askGPT(prompt)) ??
     (await wikipediaSummary(String(exponat))) ??
-    NO_DESCRIPTION
+    (await getTranslations("AI"))("noDescription")
   );
 };
 
 export const summarisePostPrompt = async (title: string, content: string) => {
-  const prompt = `You are a biology expert. Like a teacher, summarise the post about ${title}. The post is: ${content}. Write about the main points and the most important information. Keep it structured in one paragraph, at about 1/5 to 1/3 of the words of the original posts, the answer has to be written in croatian.`;
+  const prompt = `You are a biology expert. Like a teacher, summarise the post about ${title}. The post is: ${content}. Write about the main points and the most important information. Keep it structured in one paragraph, at about 1/5 to 1/3 of the words of the original posts, the answer has to be written in ${await answerLanguage()}.`;
 
   return (await askGPT(prompt)) ?? leadSentences(content);
 };
@@ -132,7 +148,7 @@ export const whisperPrompt = async (audio: any) => {
     const response = await openai.audio.transcriptions.create({
       file: file,
       model: ai.transcriptionModel,
-      language: "hr",
+      language: await getLocale(),
     });
 
     return response;
@@ -157,7 +173,11 @@ const synthesise = async (text: string): Promise<Buffer | undefined> => {
     method: "POST",
     body: JSON.stringify({
       input: { text: text },
-      voice: { languageCode: "sr-RS", name: "sr-RS-Standard-A" },
+      voice:
+        (await getLocale()) === "en"
+          ? { languageCode: "en-US", name: "en-US-Standard-C" }
+          : // Google has no Croatian voice; Serbian reads it closest.
+            { languageCode: "sr-RS", name: "sr-RS-Standard-A" },
       audioConfig: { audioEncoding: "LINEAR16", pitch: 0 },
     }),
     headers: { "Content-Type": "application/json" },

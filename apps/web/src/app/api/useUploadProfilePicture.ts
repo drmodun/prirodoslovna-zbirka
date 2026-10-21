@@ -1,6 +1,7 @@
 import toast from "react-hot-toast";
 import { api } from "./shared";
 import { useMutation } from "react-query";
+import { useTranslations } from "next-intl";
 
 export const uploadProfilePicture = async (file: File) => {
   const data = new FormData();
@@ -10,12 +11,13 @@ export const uploadProfilePicture = async (file: File) => {
 };
 
 export const useUploadProfilePicture = () => {
+  const t = useTranslations("Toasts");
   return useMutation(uploadProfilePicture, {
     onError: (error) => {
-      toast.error("Greška prilikom uploada", { id: "upload-profile-picture" });
+      toast.error(t("uploadFailed"), { id: "upload-profile-picture" });
     },
     onSuccess: () => {
-      toast.success("Promijenjena slika profila", {
+      toast.success(t("profilePictureUpdated"), {
         id: "upload-profile-picture",
       });
     },

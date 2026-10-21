@@ -1,6 +1,7 @@
 import { useMutation, useQueryClient } from "react-query";
 import { api } from "./shared";
 import toast from "react-hot-toast";
+import { useTranslations } from "next-intl";
 
 const removeMembership = async (params: {
   organisationId: string;
@@ -12,10 +13,11 @@ const removeMembership = async (params: {
 };
 
 export const useRemoveMembership = () => {
+  const t = useTranslations("Toasts");
   const queryClient = useQueryClient();
   return useMutation(removeMembership, {
     onSuccess: () => {
-      toast.success("Članstvo ukinuto", {
+      toast.success(t("membershipRemoved"), {
         icon: "👋",
         id: "membership_removal_success",
       });
@@ -27,12 +29,12 @@ export const useRemoveMembership = () => {
         error.includes("Unauthorized") ||
         error.includes("You")
       ) {
-        toast.error("Morate biti admin da biste uklonili clanstvo", {
+        toast.error(t("mustBeAdminToRemoveMembership"), {
           icon: "🔒",
           id: "unauthorized",
         });
       } else {
-        toast.error("Došlo je do greške, molimo pokušajte kasnije", {
+        toast.error(t("genericError"), {
           icon: "🚨",
           id: "error",
         });

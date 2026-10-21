@@ -18,6 +18,7 @@ import ShareButton from "components/ShareButton";
 import Link from "next/link";
 import BaseButton from "components/BaseButton";
 import { isSuperRole } from "@/utility/static/roles";
+import { useTranslations } from "next-intl";
 
 export interface OrganisationHomepageProps {
   organisation: ExtendedOrganisationResponse;
@@ -26,6 +27,7 @@ export interface OrganisationHomepageProps {
 export const OrganisationHomepage = ({
   organisation,
 }: OrganisationHomepageProps) => {
+  const t = useTranslations("OrganisationHomepage");
   const {
     memberships,
     followedOrganisations,
@@ -53,9 +55,7 @@ export const OrganisationHomepage = ({
   const handleMembership = async () => {
     const isMember = memberships.some((x) => x.id === organisation.id);
     if (isMember) {
-      const confirm = window.confirm(
-        "Jeste li sigurni da želite napustiti organizaciju?",
-      );
+      const confirm = window.confirm(t("leaveConfirm"));
       if (!confirm) return;
       await leaveOrganisation(organisation.id);
       const memershipToRemove = memberships.find(
@@ -65,9 +65,7 @@ export const OrganisationHomepage = ({
       return;
     }
 
-    const confirm = window.confirm(
-      "Jeste li sigurni da želite poslati zahtjev za članstvo?",
-    );
+    const confirm = window.confirm(t("requestConfirm"));
     if (!confirm) return;
     await requestMembership(organisation.id);
     const organisationToUpdate = {
@@ -89,7 +87,7 @@ export const OrganisationHomepage = ({
         <div className={classes.topRow}>
           <OrganisationAbout organisation={organisation} />
           <div className={classes.actions}>
-            <span className={classes.title}>Akcije</span>
+            <span className={classes.title}>{t("actions")}</span>
             <div className={classes.actionsRow}>
               <button
                 className={clsx(
@@ -100,8 +98,8 @@ export const OrganisationHomepage = ({
                 onClick={handleToggleFollow}
               >
                 {followedOrganisations.some((x) => x.id === organisation.id)
-                  ? "Prestani pratiti"
-                  : "Prati"}
+                  ? t("unfollow")
+                  : t("follow")}
               </button>
               <span className={classes.actionStat}>
                 {organisation.followersAmount}
@@ -118,8 +116,8 @@ export const OrganisationHomepage = ({
                 onClick={handleMembership}
               >
                 {memberships.some((x) => x.id === organisation.id)
-                  ? "Napusti organizaciju"
-                  : "Postani član"}
+                  ? t("leave")
+                  : t("join")}
               </button>
               <span className={classes.actionStat}>
                 {organisation.membersAmount}
@@ -128,19 +126,19 @@ export const OrganisationHomepage = ({
             <div className={classes.social}>
               <QrCodeGenerator name={organisation.name} isIcon />
               <ShareButton
-                text={`Podijelite profil organizacije ${organisation.name}`}
+                text={t("share", { name: organisation.name })}
                 title={organisation.name}
               />
             </div>
             <div className={classes.stats}>
               <div className={classes.bigStat}>
-                <span className={classes.title}>Objava</span>
+                <span className={classes.title}>{t("postCount")}</span>
                 <span className={classes.stat}>
                   {organisation.posts ? organisation.posts.length : 0}
                 </span>
               </div>
               <div className={classes.bigStat}>
-                <span className={classes.title}>Eksponata</span>
+                <span className={classes.title}>{t("exponatCount")}</span>
                 <span className={classes.stat}>
                   {organisation.exponats?.length}
                 </span>
@@ -155,12 +153,12 @@ export const OrganisationHomepage = ({
               (x.role === "ADMIN" || x.role === "OWNER"),
           )) && (
           <Link href={`/organisation/${organisation.id}/createSocialPost`}>
-            <BaseButton text="Dodaj novu objavu" />
+            <BaseButton text={t("addPost")} />
           </Link>
         )}
         {organisation?.socialPosts?.length && (
           <div className={classes.socialPostWrapper}>
-            <span className={classes.title}>Objave</span>
+            <span className={classes.title}>{t("posts")}</span>
             {organisation.socialPosts?.map((post) => (
               <SocialPostCard key={post.id} post={post} />
             ))}

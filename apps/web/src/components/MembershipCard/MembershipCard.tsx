@@ -15,7 +15,8 @@ import LeaveOrganisationButton from "components/LeaveOrganisationButton";
 import RemoveMembershipButton from "components/RemoveMembershipButton";
 import ImageWithFallback from "components/ImageWithFallback/ImageWithFallback";
 import EditUserRoleModal from "components/EditUserRoleModal";
-import { makeCountyName } from "@/utility/static/countyNameMaker";
+import { useCountyName } from "@/utility/hooks/useCountyName";
+import { useTranslations } from "next-intl";
 
 export const memberWeight = {
   ADMIN: 2,
@@ -52,6 +53,8 @@ export const MembershipCard = ({
   type,
   object: oq,
 }: MemberShipCardProps) => {
+  const t = useTranslations("MemberRoles");
+  const countyName = useCountyName();
   return (
     <div className={classes.container}>
       <div className={classes.entity}>
@@ -62,22 +65,16 @@ export const MembershipCard = ({
           <Link href={`/${type}/${id}`}>
             <span className={classes.name}>{name}</span>
           </Link>
-          <span className={classes.description}>
-            {makeCountyName(description)}
-          </span>
+          <span className={classes.description}>{countyName(description)}</span>
         </div>
       </div>
       <div className={classes.last}>
         <div className={clsx(classes.role, classes[role?.toLowerCase()])}>
-          {role === "ADMIN"
-            ? "Admin"
-            : role === "OWNER"
-              ? "Vlasnik"
-              : role === "MEMBER"
-                ? "Član"
-                : role === "REQUESTED"
-                  ? "Zahtjev"
-                  : makeCountyName(role)}
+          {role === "REQUESTED"
+            ? t("REQUESTED_SHORT")
+            : ["ADMIN", "OWNER", "MEMBER"].includes(role)
+              ? t(role)
+              : countyName(role)}
         </div>
         <UserWrapper>
           <div className={classes.buttons}>

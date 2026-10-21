@@ -8,12 +8,14 @@ import clsx from "clsx";
 import { useToggleFavourite } from "@/api/useToggleFavourite";
 import { useEffect, useState } from "react";
 import { ExponatResponseShort } from "@biosfera/types";
+import { useTranslations } from "next-intl";
 
 export interface FavouriteButtonProps {
   exponat: ExponatResponseShort;
 }
 
 export const FavouriteButton = ({ exponat }: FavouriteButtonProps) => {
+  const t = useTranslations("FavouriteButton");
   const { favouriteExponats, updateFavourites, loading } = useUser();
   const { mutateAsync } = useToggleFavourite();
 
@@ -35,11 +37,11 @@ export const FavouriteButton = ({ exponat }: FavouriteButtonProps) => {
     !loading && (
       <button
         className={clsx(classes.drop, isFavourite && classes.favourite)}
-        title="like"
+        title={t("label")}
         onClick={toggleFavourite}
       >
         <div className={classes.favouriteDrop}>
-          <Image src={favouriteDrop} alt="kapljica za favorite" layout="fill" />
+          <Image src={favouriteDrop} alt={t("label")} layout="fill" />
         </div>
       </button>
     )

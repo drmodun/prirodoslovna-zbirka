@@ -14,6 +14,7 @@ import useUser from "@/utility/context/UserContext";
 import { UserWrapper } from "@/utility/wrappers/userWrapper";
 import BaseButton from "components/BaseButton";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 
 export interface OrganisationExponatsViewProps {
   exponats: ExponatResponseShort[];
@@ -28,6 +29,8 @@ export const OrganisationExponatsView = ({
   isMember,
   isAdmin,
 }: OrganisationExponatsViewProps) => {
+  const t = useTranslations("OrganisationExponatsView");
+  const tSort = useTranslations("Sort");
   const [domain, setDomain] = useState(Domains.EUCARIOT);
   const [searchValue, setSearchValue] = useState("");
 
@@ -36,20 +39,15 @@ export const OrganisationExponatsView = ({
       {isMember && (
         <Link
           className={classes.button}
-          onClick={() =>
-            !isAdmin &&
-            alert(
-              "Kao samo član, možete dodati eksponat ali neće odmah biti vidljiv na stranic već morate pričekati dopuštenje admina",
-            )
-          }
+          onClick={() => !isAdmin && alert(t("memberNotice"))}
           href={`/organisation/${organisationId}/createExponat`}
         >
-          <BaseButton text="Dodaj eksponat" />
+          <BaseButton text={t("addExponat")} />
         </Link>
       )}
       <div className={classes.searchBar}>
         <SingleInput
-          question="Pretraži eksponate"
+          question={t("search")}
           value={searchValue}
           onChange={setSearchValue}
           image={search}
@@ -86,11 +84,11 @@ export const OrganisationExponatsView = ({
             .map((exponat) => exponat)}
           type="exponat"
           sortBy={[
-            { label: "Abecedno", value: "name" },
-            { label: "Abecedno (znanstveno ime)", value: "alternateName" },
-            { label: "Datum Objave", value: "updatedAt" },
-            { label: "Broj Favorita", value: "favouriteCount" },
-            { label: "Broj objava", value: "postCount" },
+            { label: tSort("alphabetical"), value: "name" },
+            { label: tSort("scientificName"), value: "alternateName" },
+            { label: tSort("publishDate"), value: "updatedAt" },
+            { label: tSort("favourites"), value: "favouriteCount" },
+            { label: tSort("posts"), value: "postCount" },
           ]}
         />
       </UserWrapper>

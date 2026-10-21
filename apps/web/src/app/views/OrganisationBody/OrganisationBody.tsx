@@ -20,6 +20,7 @@ import DeleteOrganisationButton from "components/DeleteOrganisationButton";
 import BaseButton from "components/BaseButton";
 import Link from "next/link";
 import { isModeratorRole, isSuperRole } from "@/utility/static/roles";
+import { useTranslations } from "next-intl";
 export interface OrganisationBodyProps {
   organisation: ExtendedOrganisationResponse;
   works: WorkResponseShort[];
@@ -39,22 +40,23 @@ const tabs = [
   "Radovi",
 ];
 
+// Labels are Sort message keys.
 const postSortOptions = [
-  { label: "Abecedno", value: "title" },
-  { label: "Najpopularnije", value: "likeScore" },
-  { label: "Ime autora", value: "authorName" },
-  { label: "Novo", value: "updatedAt" },
+  { label: "alphabetical", value: "title" },
+  { label: "popular", value: "likeScore" },
+  { label: "author", value: "authorName" },
+  { label: "newest", value: "updatedAt" },
 ];
 
 const memberSortOptions = [
-  { label: "Abecedno", value: "username" },
-  { label: "Uloga", value: "role" },
+  { label: "alphabetical", value: "username" },
+  { label: "role", value: "role" },
 ];
 
 const workSortOptions = [
-  { label: "Ime", value: "title" },
-  { label: "Broj spremanja", value: "amountOfSaves" },
-  { label: "Vrsta", value: "type" },
+  { label: "name", value: "title" },
+  { label: "saves", value: "amountOfSaves" },
+  { label: "type", value: "type" },
 ];
 
 interface TabPanelProps {
@@ -65,6 +67,10 @@ interface TabPanelProps {
 
 const TabPanel = ({ activeTab, organisation, works }: TabPanelProps) => {
   const { memberships, user } = useUser();
+  const t = useTranslations("OrganisationBody");
+  const tSort = useTranslations("Sort");
+  const translated = (options: { label: string; value: string }[]) =>
+    options.map((option) => ({ ...option, label: tSort(option.label) }));
 
   switch (activeTab) {
     case "Početna":
@@ -100,7 +106,7 @@ const TabPanel = ({ activeTab, organisation, works }: TabPanelProps) => {
           items={organisation.posts}
           type="post"
           organisationId={organisation.id}
-          sortBy={postSortOptions}
+          sortBy={translated(postSortOptions)}
         />
       );
     case "Članovi":
@@ -109,7 +115,7 @@ const TabPanel = ({ activeTab, organisation, works }: TabPanelProps) => {
           <CardCollection
             items={organisation.members}
             type="user-member"
-            sortBy={memberSortOptions}
+            sortBy={translated(memberSortOptions)}
             organisationId={organisation.id}
             pageSize={10}
           />
@@ -122,13 +128,13 @@ const TabPanel = ({ activeTab, organisation, works }: TabPanelProps) => {
             className={classes.link}
             href={`/organisation/${organisation.id}/createWork`}
           >
-            <BaseButton text="Napravi rad" isNotSubmit />
+            <BaseButton text={t("createWork")} isNotSubmit />
           </Link>
           <CardCollection
             items={works}
             organisationId={organisation.id}
             userId={user?.id}
-            sortBy={workSortOptions}
+            sortBy={translated(workSortOptions)}
             type="work"
           />
         </UserWrapper>

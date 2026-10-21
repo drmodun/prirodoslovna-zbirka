@@ -204,7 +204,7 @@ describe("CardCollection", () => {
       />,
     );
     expect(screen.getByText("Rastuće")).toBeInTheDocument();
-    await userEvent.click(screen.getByTitle("direkcija sortiranja"));
+    await userEvent.click(screen.getByTitle("Smjer sortiranja"));
     expect(screen.getByText("Opadajuće")).toBeInTheDocument();
     expect(ids()).toEqual(["id-Cc", "id-Bb", "id-Aa"]);
   });
@@ -216,7 +216,7 @@ describe("CardCollection", () => {
       { id: "c", name: "x", points: 25 },
     ];
     render(<CardCollection items={numbers} type="exponat" sortBy={sortBy} />);
-    await userEvent.selectOptions(screen.getByTitle("sortBy"), "points");
+    await userEvent.selectOptions(screen.getByTitle("Sortiraj po:"), "points");
     expect(ids()).toEqual(["a", "c", "b"]);
   });
 

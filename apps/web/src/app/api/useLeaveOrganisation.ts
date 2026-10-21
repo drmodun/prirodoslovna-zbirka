@@ -1,16 +1,18 @@
 import { useMutation, useQueryClient } from "react-query";
 import { api } from "./shared";
 import toast from "react-hot-toast";
+import { useTranslations } from "next-intl";
 
 const leaveMembership = async (id: string) => {
   return api.delete(`/members/${id}/leave`);
 };
 
 export const useLeaveMembership = () => {
+  const t = useTranslations("Toasts");
   const queryClient = useQueryClient();
   return useMutation(leaveMembership, {
     onSuccess: () => {
-      toast.success("Izašli ste iz organizacije", {
+      toast.success(t("leftOrganisation"), {
         icon: "👋",
         id: "membership_removal_success",
       });
@@ -22,12 +24,12 @@ export const useLeaveMembership = () => {
         error.includes("Unauthorized") ||
         error.includes("You")
       ) {
-        toast.error("Neispravna autorizacija", {
+        toast.error(t("invalidAuthorization"), {
           icon: "🔒",
           id: "unauthorized",
         });
       } else {
-        toast.error("Došlo je do greške, molimo pokušajte kasnije", {
+        toast.error(t("genericError"), {
           icon: "🚨",
           id: "error",
         });

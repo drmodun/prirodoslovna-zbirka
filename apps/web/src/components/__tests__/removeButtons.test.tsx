@@ -69,7 +69,7 @@ describe("RemovePostButton", () => {
   it("asks for confirmation before deleting", async () => {
     confirm(true);
     render(<RemovePostButton postId="p1" />);
-    await userEvent.click(screen.getByTitle("Delete Post"));
+    await userEvent.click(screen.getByTitle("Makni objavu"));
     expect(window.confirm).toHaveBeenCalled();
     expect(state.removePost.mutate).toHaveBeenCalledWith("p1");
   });
@@ -77,7 +77,7 @@ describe("RemovePostButton", () => {
   it("does nothing on the server when the user cancels", async () => {
     confirm(false);
     render(<RemovePostButton postId="p1" />);
-    await userEvent.click(screen.getByTitle("Delete Post"));
+    await userEvent.click(screen.getByTitle("Makni objavu"));
     expect(state.removePost.mutate).not.toHaveBeenCalled();
   });
 
@@ -88,7 +88,7 @@ describe("RemovePostButton", () => {
       likedPosts: [{ id: "p1" }],
     });
     render(<RemovePostButton postId="p1" />);
-    await userEvent.click(screen.getByTitle("Delete Post"));
+    await userEvent.click(screen.getByTitle("Makni objavu"));
     expect(ctx.updatePosts).toHaveBeenCalledWith({ id: "p1" });
     expect(ctx.updateLikes).toHaveBeenCalledWith({ id: "p1" });
   });
@@ -100,7 +100,7 @@ describe("RemovePostButton", () => {
       likedPosts: [{ id: "p1" }],
     });
     render(<RemovePostButton postId="p1" />);
-    await userEvent.click(screen.getByTitle("Delete Post"));
+    await userEvent.click(screen.getByTitle("Makni objavu"));
     expect(ctx.updatePosts).not.toHaveBeenCalled();
     expect(ctx.updateLikes).not.toHaveBeenCalled();
   });
@@ -128,10 +128,10 @@ describe("RemoveWorkButton", () => {
   it("deletes after confirmation only", async () => {
     confirm(false);
     render(<RemoveWorkButton workId="w1" />);
-    await userEvent.click(screen.getByTitle("Delete Work"));
+    await userEvent.click(screen.getByTitle("Makni projekt"));
     expect(state.removeWork.mutate).not.toHaveBeenCalled();
     confirm(true);
-    await userEvent.click(screen.getByTitle("Delete Work"));
+    await userEvent.click(screen.getByTitle("Makni projekt"));
     expect(state.removeWork.mutate).toHaveBeenCalledWith("w1");
   });
 
@@ -153,7 +153,7 @@ describe("RemoveExponatButton", () => {
     confirm(true);
     const ctx = setUserContext({ favouriteExponats: [{ id: "e1" }] });
     render(<RemoveExponatButton exponatId="e1" />);
-    await userEvent.click(screen.getByTitle("Delete Exponat"));
+    await userEvent.click(screen.getByTitle("Makni eksponat"));
     expect(state.removeExponat.mutate).toHaveBeenCalledWith("e1");
     expect(ctx.updateFavourites).toHaveBeenCalledWith({ id: "e1" });
   });
@@ -161,7 +161,7 @@ describe("RemoveExponatButton", () => {
   it("does not delete when cancelled", async () => {
     confirm(false);
     render(<RemoveExponatButton exponatId="e1" />);
-    await userEvent.click(screen.getByTitle("Delete Exponat"));
+    await userEvent.click(screen.getByTitle("Makni eksponat"));
     expect(state.removeExponat.mutate).not.toHaveBeenCalled();
   });
 
@@ -169,7 +169,7 @@ describe("RemoveExponatButton", () => {
     confirm(false);
     const ctx = setUserContext({ favouriteExponats: [{ id: "e1" }] });
     render(<RemoveExponatButton exponatId="e1" />);
-    await userEvent.click(screen.getByTitle("Delete Exponat"));
+    await userEvent.click(screen.getByTitle("Makni eksponat"));
     expect(ctx.updateFavourites).not.toHaveBeenCalled();
   });
 
@@ -190,7 +190,7 @@ describe("LeaveOrganisationButton", () => {
     const ctx = setUserContext({ memberships: [{ id: "o1" }] });
     const onRemove = jest.fn();
     render(<LeaveOrganisationButton organisationId="o1" onRemove={onRemove} />);
-    await userEvent.click(screen.getByTitle("Leave Organisation"));
+    await userEvent.click(screen.getByTitle("Napusti organizaciju"));
     expect(state.leave.mutate).toHaveBeenCalledWith("o1");
     expect(ctx.updateMemberships).toHaveBeenCalledWith({ id: "o1" });
     expect(onRemove).toHaveBeenCalledWith("o1");
@@ -200,7 +200,7 @@ describe("LeaveOrganisationButton", () => {
     confirm(false);
     const ctx = setUserContext({ memberships: [{ id: "o1" }] });
     render(<LeaveOrganisationButton organisationId="o1" />);
-    await userEvent.click(screen.getByTitle("Leave Organisation"));
+    await userEvent.click(screen.getByTitle("Napusti organizaciju"));
     expect(state.leave.mutate).not.toHaveBeenCalled();
     expect(ctx.updateMemberships).not.toHaveBeenCalled();
   });
@@ -217,7 +217,7 @@ describe("RemoveMembershipButton", () => {
         onRemove={onRemove}
       />,
     );
-    await userEvent.click(screen.getByTitle("Remove Membership"));
+    await userEvent.click(screen.getByTitle("Ukloni članstvo"));
     expect(state.removeMembership.mutate).toHaveBeenCalledWith({
       organisationId: "o1",
       userId: "u1",
@@ -235,7 +235,7 @@ describe("RemoveMembershipButton", () => {
         onRemove={onRemove}
       />,
     );
-    await userEvent.click(screen.getByTitle("Remove Membership"));
+    await userEvent.click(screen.getByTitle("Ukloni članstvo"));
     expect(state.removeMembership.mutate).not.toHaveBeenCalled();
     expect(onRemove).not.toHaveBeenCalled();
   });

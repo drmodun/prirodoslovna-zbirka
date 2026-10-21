@@ -3,6 +3,7 @@ import React, { use, useEffect, useState } from "react";
 import classes from "./Dropdown.module.scss";
 import clsx from "clsx";
 import { FieldValues, UseFormReturn, set } from "react-hook-form";
+import { useTranslations } from "next-intl";
 
 interface Option {
   label: string;
@@ -30,6 +31,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
   initSelected,
   initPlaceholder,
 }: DropdownProps) => {
+  const t = useTranslations("Common");
   const { setValue } = form;
 
   const [searchTerm, setSearchTerm] = useState<string | number>(
@@ -40,7 +42,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
   const [placeholder, setPlaceholder] = useState<string>(
     options.find((option) => option.value == initSelected)?.label ||
       initPlaceholder ||
-      "Search",
+      t("search"),
   );
 
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -69,7 +71,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
   const handleReset = () => {
     setSelected("");
     setSearchTerm("");
-    setPlaceholder(initPlaceholder || "Search");
+    setPlaceholder(initPlaceholder || t("search"));
     onSelect && onSelect("");
     setVisible(false);
   };

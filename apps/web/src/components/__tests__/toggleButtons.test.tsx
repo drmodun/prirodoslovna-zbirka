@@ -64,23 +64,23 @@ describe("LikeButton", () => {
   it("is not marked as liked when the post is not in the user's likes", () => {
     setUserContext();
     render(<LikeButton post={post} />);
-    expect(screen.getByTitle("like").className).not.toMatch(/liked/);
+    expect(screen.getByTitle("Lajk").className).not.toMatch(/liked/);
   });
 
   it("is marked as liked when the post is already liked", () => {
     setUserContext({ likedPosts: [{ id: "p1" }] });
     render(<LikeButton post={post} />);
-    expect(screen.getByTitle("like").className).toMatch(/liked/);
+    expect(screen.getByTitle("Lajk").className).toMatch(/liked/);
   });
 
   it("toggles on the server, updates the shared state and flips the style", async () => {
     const ctx = setUserContext();
     render(<LikeButton post={post} />);
-    await userEvent.click(screen.getByTitle("like"));
+    await userEvent.click(screen.getByTitle("Lajk"));
     expect(toggles.like).toHaveBeenCalledWith("p1");
     expect(ctx.updateLikes).toHaveBeenCalledWith(post);
     await waitFor(() =>
-      expect(screen.getByTitle("like").className).toMatch(/liked/),
+      expect(screen.getByTitle("Lajk").className).toMatch(/liked/),
     );
   });
 });
@@ -91,17 +91,17 @@ describe("FavouriteButton", () => {
   it("reflects the user's favourites", () => {
     setUserContext({ favouriteExponats: [{ id: "e1" }] });
     render(<FavouriteButton exponat={exponat} />);
-    expect(screen.getByTitle("like").className).toMatch(/favourite/);
+    expect(screen.getByTitle("Favorit").className).toMatch(/favourite/);
   });
 
   it("toggles on the server and in the shared state", async () => {
     const ctx = setUserContext();
     render(<FavouriteButton exponat={exponat} />);
-    await userEvent.click(screen.getByTitle("like"));
+    await userEvent.click(screen.getByTitle("Favorit"));
     expect(toggles.favourite).toHaveBeenCalledWith("e1");
     expect(ctx.updateFavourites).toHaveBeenCalledWith(exponat);
     await waitFor(() =>
-      expect(screen.getByTitle("like").className).toMatch(/favourite/),
+      expect(screen.getByTitle("Favorit").className).toMatch(/favourite/),
     );
   });
 
@@ -117,19 +117,19 @@ describe("SaveButton", () => {
     const ctx = setUserContext();
     const work = { id: "w1" } as any;
     render(<SaveButton work={work} />);
-    await userEvent.click(screen.getByTitle("save"));
+    await userEvent.click(screen.getByTitle("Spremi"));
     expect(toggles.saveWork).toHaveBeenCalledWith("w1");
     expect(toggles.saveLiterature).not.toHaveBeenCalled();
     expect(ctx.updateSavedWorks).toHaveBeenCalledWith(work);
     await waitFor(() =>
-      expect(screen.getByTitle("save").className).toMatch(/saved/),
+      expect(screen.getByTitle("Spremi").className).toMatch(/saved/),
     );
   });
 
   it("saves a GBIF publication through the literature endpoint", async () => {
     const ctx = setUserContext();
     render(<SaveButton work={{ id: "lit-1", isGbif: true } as any} />);
-    await userEvent.click(screen.getByTitle("save"));
+    await userEvent.click(screen.getByTitle("Spremi"));
     expect(toggles.saveLiterature).toHaveBeenCalledWith("lit-1");
     expect(toggles.saveWork).not.toHaveBeenCalled();
     expect(ctx.updateSavedLiterature).toHaveBeenCalledWith(
@@ -143,16 +143,16 @@ describe("SaveButton", () => {
       savedLiterature: [{ literatureId: "lit-1" }],
     });
     const { unmount } = render(<SaveButton work={{ id: "w1" } as any} />);
-    expect(screen.getByTitle("save").className).toMatch(/saved/);
+    expect(screen.getByTitle("Spremi").className).toMatch(/saved/);
     unmount();
     render(<SaveButton work={{ id: "lit-1", isGbif: true } as any} />);
-    expect(screen.getByTitle("save").className).toMatch(/saved/);
+    expect(screen.getByTitle("Spremi").className).toMatch(/saved/);
   });
 
   it("a work id only counts in its own list", () => {
     setUserContext({ savedWorks: [{ id: "x1" }] });
     render(<SaveButton work={{ id: "x1", isGbif: true } as any} />);
-    expect(screen.getByTitle("save").className).not.toMatch(/saved/);
+    expect(screen.getByTitle("Spremi").className).not.toMatch(/saved/);
   });
 });
 
@@ -162,7 +162,7 @@ describe("FollowButton (user)", () => {
   it("offers to follow, then to unfollow", async () => {
     const ctx = setUserContext();
     render(<FollowButton user={user} />);
-    const button = screen.getByTitle("follow user");
+    const button = screen.getByTitle("Zaprati");
     expect(button).toHaveTextContent("Zaprati");
     await userEvent.click(button);
     expect(toggles.followUser).toHaveBeenCalledWith("u2");
@@ -173,9 +173,7 @@ describe("FollowButton (user)", () => {
   it("starts as 'following' for followed users", () => {
     setUserContext({ following: [{ id: "u2" }] });
     render(<FollowButton user={user} />);
-    expect(screen.getByTitle("follow user")).toHaveTextContent(
-      "Prestani pratiti",
-    );
+    expect(screen.getByTitle("Zaprati")).toHaveTextContent("Prestani pratiti");
   });
 });
 
@@ -184,7 +182,7 @@ describe("MembershipFollowButton", () => {
     const ctx = setUserContext();
     const object = { id: "u2" } as any;
     render(<MembershipFollowButton object={object} type="user" />);
-    await userEvent.click(screen.getByTitle("follow"));
+    await userEvent.click(screen.getByTitle("Prati"));
     expect(toggles.followUser).toHaveBeenCalledWith("u2");
     expect(toggles.followOrganisation).not.toHaveBeenCalled();
     expect(ctx.updateFollowing).toHaveBeenCalledWith(object);
@@ -194,7 +192,7 @@ describe("MembershipFollowButton", () => {
     const ctx = setUserContext();
     const object = { id: "o1" } as any;
     render(<MembershipFollowButton object={object} type="organisation" />);
-    await userEvent.click(screen.getByTitle("follow"));
+    await userEvent.click(screen.getByTitle("Prati"));
     expect(toggles.followOrganisation).toHaveBeenCalledWith("o1");
     expect(toggles.followUser).not.toHaveBeenCalled();
     expect(ctx.updateFollowedOrganisation).toHaveBeenCalledWith(object);
@@ -208,7 +206,7 @@ describe("MembershipFollowButton", () => {
         type="organisation"
       />,
     );
-    expect(screen.getByTitle("follow")).toHaveTextContent("Prati");
+    expect(screen.getByTitle("Prati")).toHaveTextContent("Prati");
   });
 });
 
@@ -227,7 +225,7 @@ describe("ToggleApprovalButton", () => {
 
   it("toggles on the server and flips the icon", async () => {
     render(<ToggleApprovalButton id="p1" entity="posts" isApproved={false} />);
-    await userEvent.click(screen.getByTitle("Toggle Approval"));
+    await userEvent.click(screen.getByTitle("Odobri"));
     expect(toggles.approval).toHaveBeenCalledWith({
       id: "p1",
       entity: "posts",

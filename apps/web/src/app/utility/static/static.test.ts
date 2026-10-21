@@ -1,6 +1,5 @@
-import { County, Topics, WorkType } from "@biosfera/types";
+import { Topics, WorkType } from "@biosfera/types";
 import { blobToBase64 } from "./blobToBase64";
-import { makeCountyName } from "./countyNameMaker";
 import { createMediaStream } from "./createMediaStream";
 import { dateShortener, dateShortenerWithoutTime } from "./dateShortener";
 import {
@@ -42,43 +41,6 @@ describe("shortenText", () => {
   });
   it("0 words leaves only the ending", () => {
     expect(shortenText("a b", 0)).toBe("...");
-  });
-});
-
-describe("makeCountyName", () => {
-  it.each([
-    ["GRAD_ZAGREB", "Grad Zagreb"],
-    ["OTHER", "Ostalo"],
-    ["ZAGREBACKA", "Zagrebačka županija"],
-    ["SPLITSKO_DALMATINSKA", "Splitsko-dalmatinska županija"],
-    ["DUBROVACKO_NERETVANSKA", "Dubrovačko-neretvanska županija"],
-    ["VARAZDINSKA", "Varaždinska županija"],
-    ["KOPRIVNICKO_KRIZEVACKA", "Koprivničko-križevačka županija"],
-    ["KRAPINSKO_ZAGORSKA", "Krapinsko-zagorska županija"],
-    ["SIBENSKO_KNINSKA", "Šibensko-kninska županija"],
-    ["MEDIMURSKA", "Međimurska županija"],
-    ["ISTARSKA", "Istarska županija"],
-  ])("%s -> %s", (county, expected) => {
-    expect(makeCountyName(county)).toBe(expected);
-  });
-
-  it("returns unknown values unchanged", () => {
-    expect(makeCountyName("ATLANTIS")).toBe("ATLANTIS");
-    expect(makeCountyName("")).toBe("");
-  });
-
-  it("names every county in the enum", () => {
-    for (const county of Object.keys(County)) {
-      const name = makeCountyName(county);
-      expect(name).toBeTruthy();
-      expect(name).not.toContain("_");
-    }
-  });
-
-  it("spells Požeško-slavonska županija correctly", () => {
-    expect(makeCountyName("POZESKO_SLAVONSKA")).toBe(
-      "Požeško-slavonska županija",
-    );
   });
 });
 

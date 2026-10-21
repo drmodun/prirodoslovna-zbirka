@@ -1,0 +1,46 @@
+@import "styles/variables.scss";
+@import "styles/calc.scss";
+
+.container {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px;
+  gap: 2px;
+  border-radius: 100px;
+  border: 1px solid $stroke-color;
+  background-color: $background-color;
+}
+
+.option {
+  min-width: vw-calc(48);
+  padding: vw-calc(6) vw-calc(12);
+  border: none;
+  border-radius: 100px;
+  background: none;
+  color: $secondary;
+  font-size: vw-calc(16);
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease-in-out,
+    color 0.2s ease-in-out;
+
+  @media (max-width: 768px) {
+    min-width: vw-mobile-calc(28);
+    padding: vw-mobile-calc(4) vw-mobile-calc(8);
+    font-size: vw-mobile-calc(10);
+  }
+
+  &:hover:not(.active) {
+    background-color: $secondary-background-color;
+  }
+
+  &:disabled {
+    cursor: wait;
+  }
+
+  &.active {
+    background-color: $blue;
+    color: white;
+  }
+}

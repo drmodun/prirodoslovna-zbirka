@@ -17,7 +17,9 @@ import {
 } from "@biosfera/types";
 import { SelectInput } from "components/SelectInput/SelectInput";
 import { useRegister } from "@/api/useRegister";
-import { makeCountyName } from "@/utility/static/countyNameMaker";
+import { useCountyName } from "@/utility/hooks/useCountyName";
+import LanguageToggle from "components/LanguageToggle";
+import useUser from "@/utility/context/UserContext";
 import Modal from "components/BaseModal";
 import Textarea from "components/Textarea";
 import userImg from "assets/images/user-alt.svg";
@@ -26,6 +28,7 @@ import { useEffect, useState } from "react";
 import { useEditUserInfo } from "@/api/useEditUserInfo";
 import { useUploadProfilePicture } from "@/api/useUploadProfilePicture";
 import { useAdminUpdateUserInfo } from "@/api/useAdminUpdateUserInfo";
+import { useTranslations } from "next-intl";
 
 export const EditUserForm = ({
   user,
@@ -34,15 +37,18 @@ export const EditUserForm = ({
   user: ExtendedUserResponse;
   isSuper?: boolean;
 }) => {
+  const t = useTranslations("EditUserForm");
+  const countyName = useCountyName();
+  const { user: loggedUser } = useUser();
   const schema = z.object({
     firstName: z
       .string()
-      .min(2, "Ime mora imati najmanje 2 slova")
-      .max(100, "Ime mora imati najviše 100 slova"),
+      .min(2, t("firstNameMin"))
+      .max(100, t("firstNameMax")),
     lastName: z
       .string()
-      .min(2, "Prezime mora imati najmanje 2 slova")
-      .max(100, "Prezime mora imati najviše 100 slova"),
+      .min(2, t("lastNameMin"))
+      .max(100, t("lastNameMax")),
     location: z.enum([
       "SPLITSKO_DALMATINSKA",
       "DUBROVACKO_NERETVANSKA",
@@ -120,32 +126,32 @@ export const EditUserForm = ({
         <Input
           form={form}
           attribute="firstName"
-          question="Ime"
+          question={t("firstName")}
           image={userImg}
           error={form.formState.errors.firstName?.message?.toString()}
         />
         <Input
           form={form}
           attribute="lastName"
-          question="Prezime"
+          question={t("lastName")}
           image={userImg}
           error={form.formState.errors.lastName?.message?.toString()}
         />
         <Input
           form={form}
           attribute="username"
-          question="Korisničko ime"
+          question={t("username")}
           image={email}
           error={form.formState.errors.username?.message?.toString()}
         />
-        <Textarea form={form} attribute="bio" question="Opis" />
+        <Textarea form={form} attribute="bio" question={t("bio")} />
         <SelectInput
-          label="Županija"
+          label={t("county")}
           name="location"
           options={Object.values(County)
             .filter((county) => county.length > 2)
             .map((county) => ({
-              label: makeCountyName(county),
+              label: countyName(county),
               value: county,
             }))
             .sort((a, b) => a.label.localeCompare(b.label))}
@@ -155,18 +161,24 @@ export const EditUserForm = ({
         {!isSuper &&
           (!hasProfilePic ? (
             <FileUpload
-              name="Promjenite profilnu sliku"
+              name={t("changePicture")}
               onChange={setProfilePicture}
             />
           ) : (
             <BaseButton
-              text="Uklonite profilnu sliku"
+              text={t("removePicture")}
               isNotSubmit
               onClick={() => setHasProfilePic(false)}
             ></BaseButton>
           ))}
+        {loggedUser?.id === user.id && (
+          <div className={classes.language}>
+            <span>{t("language")}</span>
+            <LanguageToggle />
+          </div>
+        )}
         <div className={classes.buttons}>
-          <BaseButton text="Spremi promjene" />
+          <BaseButton text={t("save")} />
         </div>
       </form>
     </>

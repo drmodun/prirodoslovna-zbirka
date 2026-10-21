@@ -38,6 +38,31 @@ jest.mock("react-hot-toast", () => {
   return { __esModule: true, default: toast, toast, Toaster: () => null };
 });
 
+// Components read their text through next-intl. Tests render the Croatian
+// messages without a provider; test-utils/intl switches the language.
+jest.mock("next-intl", () => {
+  const actual = jest.requireActual("next-intl");
+  const { intlState } = require("test-utils/intl");
+  return {
+    ...actual,
+    useLocale: () => intlState.locale,
+    useTranslations: (namespace?: string) =>
+      actual.createTranslator({
+        locale: intlState.locale,
+        messages: intlState.messages(),
+        namespace,
+      }),
+  };
+});
+
+jest.mock("next-intl/server", () => {
+  const { intlState, translator } = require("test-utils/intl");
+  return {
+    getLocale: async () => intlState.locale,
+    getTranslations: async (namespace?: string) => translator(namespace),
+  };
+});
+
 jest.mock("next/navigation", () => {
   const { mockRouter, routerState } = require("test-utils/router");
   return {
@@ -59,6 +84,7 @@ beforeEach(() => {
   }
   jest.clearAllMocks();
   require("test-utils/router").setLocation("/");
+  require("test-utils/intl").setTestLocale("hr");
   localStorage.clear();
   // Hooks and server helpers log errors on purpose; keep the output readable.
   jest.spyOn(console, "log").mockImplementation(() => {});

@@ -6,68 +6,58 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import Input from "components/Input";
 import SelectInput from "components/SelectInput";
 import { County } from "@biosfera/types";
-import { makeCountyName } from "@/utility/static/countyNameMaker";
+import { useCountyName } from "@/utility/hooks/useCountyName";
+import { useTranslations } from "next-intl";
 import {
   RELEVANCE,
   SearchLink,
   SortSelects,
   buildSearchQuery,
   refineSortPair,
-  sortPairMessage,
 } from "./shared";
 
 interface Props {
   searchParams?: any;
 }
 
-const schema = z
-  .object({
-    location: z.optional(
-      z.enum([
-        "SPLITSKO_DALMATINSKA",
-        "DUBROVACKO_NERETVANSKA",
-        "SIBENSKO_KNINSKA",
-        "ZADARSKA",
-        "ZAGREBACKA",
-        "KARLOVACKA",
-        "VARAZDINSKA",
-        "KOPRIVNICKO_KRIZEVACKA",
-        "KRAPINSKO_ZAGORSKA",
-        "MEDIMURSKA",
-        "OSIJECKO_BARANJSKA",
-        "POZESKO_SLAVONSKA",
-        "PRIMORSKO_GORANSKA",
-        "SISACKO_MOSLAVACKA",
-        "VUKOVARSKO_SRIJEMSKA",
-        "GRAD_ZAGREB",
-        "BJELOVARSKO_BILOGORSKA",
-        "BRODSKO_POSAVSKA",
-        "ISTARSKA",
-        "LICKO_SENJSKA",
-        "VIROVITICKO_PODRAVSKA",
-        "OTHER",
-      ]),
-    ),
-    username: z.optional(z.string()),
-    attribute: z.optional(
-      z.enum(["name", "createdAt", "postAmount", "favourites"]),
-    ),
-    direction: z.optional(z.enum(["asc", "desc"])),
-  })
-  .refine(refineSortPair, sortPairMessage);
-
-const countyOptions = Object.values(County)
-  .filter((county) => county.length > 2)
-  .map((county) => ({
-    label: makeCountyName(county),
-    value: county,
-  }));
-
-const sortOptions = [
-  { label: "Ime", value: "username" },
-  { label: "Lokacija", value: "location" },
-  { label: "Bodovi", value: "points" },
-];
+// `sortPair` is the message for a direction without an attribute or the
+// reverse.
+const createSchema = (sortPair: string) =>
+  z
+    .object({
+      location: z.optional(
+        z.enum([
+          "SPLITSKO_DALMATINSKA",
+          "DUBROVACKO_NERETVANSKA",
+          "SIBENSKO_KNINSKA",
+          "ZADARSKA",
+          "ZAGREBACKA",
+          "KARLOVACKA",
+          "VARAZDINSKA",
+          "KOPRIVNICKO_KRIZEVACKA",
+          "KRAPINSKO_ZAGORSKA",
+          "MEDIMURSKA",
+          "OSIJECKO_BARANJSKA",
+          "POZESKO_SLAVONSKA",
+          "PRIMORSKO_GORANSKA",
+          "SISACKO_MOSLAVACKA",
+          "VUKOVARSKO_SRIJEMSKA",
+          "GRAD_ZAGREB",
+          "BJELOVARSKO_BILOGORSKA",
+          "BRODSKO_POSAVSKA",
+          "ISTARSKA",
+          "LICKO_SENJSKA",
+          "VIROVITICKO_PODRAVSKA",
+          "OTHER",
+        ]),
+      ),
+      username: z.optional(z.string()),
+      attribute: z.optional(
+        z.enum(["name", "createdAt", "postAmount", "favourites"]),
+      ),
+      direction: z.optional(z.enum(["asc", "desc"])),
+    })
+    .refine(refineSortPair, sortPair);
 
 const getDefaultValues = (searchParams?: any) =>
   ({
@@ -79,8 +69,21 @@ const getDefaultValues = (searchParams?: any) =>
   }) as FieldValues;
 
 export const UserFilter = ({ searchParams }: Props) => {
+  const t = useTranslations("Filters");
+  const countyName = useCountyName();
+  const countyOptions = Object.values(County)
+    .filter((county) => county.length > 2)
+    .map((county) => ({
+      label: countyName(county),
+      value: county,
+    }));
+  const sortOptions = [
+    { label: t("user.name"), value: "username" },
+    { label: t("location"), value: "location" },
+    { label: t("points"), value: "points" },
+  ];
   const form = useForm({
-    resolver: zodResolver(schema),
+    resolver: zodResolver(createSchema(t("sortPair"))),
     defaultValues: getDefaultValues(searchParams),
   });
 
@@ -93,10 +96,10 @@ export const UserFilter = ({ searchParams }: Props) => {
         onSubmit={form.handleSubmit(handleFilter)}
         className={classes.filter}
       >
-        <h2>Filter korisnika</h2>
-        <Input form={form} attribute="username" question="Korisničko ime" />
+        <h2>{t("user.title")}</h2>
+        <Input form={form} attribute="username" question={t("user.username")} />
         <SelectInput
-          label="Županija"
+          label={t("county")}
           name="location"
           options={countyOptions}
           form={form}

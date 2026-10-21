@@ -11,6 +11,7 @@ import { useUploadFile } from "@/api/useUploadFile";
 import { useUploadThreeDimensionalModel } from "@/api/useUploadThreeDimensionalModel";
 import { useUploadVideo } from "@/api/useUploadVideo";
 import { isMineral } from "./exponatSchema";
+import { useTranslations } from "next-intl";
 
 export interface ExponatFiles {
   mainImage: File[];
@@ -31,6 +32,7 @@ export const useExponatSubmit = ({
   values,
   species,
 }: UseExponatSubmitParams) => {
+  const t = useTranslations("ExponatForm");
   const { mutateAsync: readOrCreateCategorization } =
     useReadOrCreateCategorization();
   const { mutateAsync: createExponat } = useCreateExponat();
@@ -50,7 +52,7 @@ export const useExponatSubmit = ({
       );
 
     if (!match && !isEdit) {
-      alert("Nomenklatura nije validna");
+      alert(t("invalidNomenclature"));
       return null;
     }
 
@@ -64,7 +66,7 @@ export const useExponatSubmit = ({
     const speciesId = await readOrCreateCategorization(categorization);
 
     if (!speciesId) {
-      toast.error("Greška prilikom kreiranja kategorizacije");
+      toast.error(t("categorizationFailed"));
       return null;
     }
 
@@ -84,7 +86,7 @@ export const useExponatSubmit = ({
 
   return async (formData: any, files: ExponatFiles) => {
     if (files.mainImage.length === 0 && !isEdit) {
-      toast.error("Mora postojati glavna slika eksponata");
+      toast.error(t("mainImageRequired"));
       return;
     }
 

@@ -7,6 +7,7 @@ import BaseButton from "components/BaseButton";
 import { useState } from "react";
 import { FieldValues, UseFormReturn } from "react-hook-form";
 import classes from "./AuthorshipButton.module.scss";
+import { useTranslations } from "next-intl";
 
 export interface AuthorshipButtonProps {
   form: UseFormReturn<FieldValues>;
@@ -19,12 +20,13 @@ export const AuthorshipButton = ({
   form,
   type,
 }: AuthorshipButtonProps) => {
+  const t = useTranslations("Authorship");
   const [isOpen, setIsOpen] = useState(false);
   return (
     <div className={classes.container}>
       <BaseButton
         onClick={() => setIsOpen(true)}
-        text="Dodavanje autorskih informacija"
+        text={t("addButton")}
         isNotSubmit
       />
       <AuthorshipInfoModal

@@ -1,6 +1,7 @@
 import { useMutation } from "react-query";
 import { api } from "./shared";
 import toast from "react-hot-toast";
+import { useTranslations } from "next-intl";
 
 const ownerUpdateUserRole = async (params: {
   organisationId: string;
@@ -16,15 +17,16 @@ const ownerUpdateUserRole = async (params: {
 };
 
 export const useOwnerUpdateUserRole = () => {
+  const t = useTranslations("Toasts");
   return useMutation(ownerUpdateUserRole, {
     onSuccess: () => {
-      toast.success("Uspješno promijenjenja uloga korisnika", {
+      toast.success(t("roleUpdated"), {
         id: "update-user-role",
         icon: "👏",
       });
     },
     onError: (error) => {
-      toast.error("Greška sa mijenanjem uloge", {
+      toast.error(t("roleUpdateFailed"), {
         id: "update-user-role",
         icon: "👏",
       });

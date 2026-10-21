@@ -1,13 +1,14 @@
 "use client";
 
 import { NotificationResponse } from "@biosfera/types";
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useRef, useState } from "react";
 import useUser from "./UserContext";
 import { baseURL } from "@/api/shared";
 import { fetchEventSource } from "@microsoft/fetch-event-source";
 import { useGetNotifications } from "@/api/useGetNotifications";
 import toast from "react-hot-toast";
 import { NotificationModal } from "components/NotificationModal/NotificationModal";
+import { useTranslations } from "next-intl";
 
 export const NotificationContext = createContext<{
   notifications: NotificationResponse[];
@@ -30,6 +31,10 @@ export const NotificationsProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
+  const t = useTranslations("Notifications");
+  // The event stream outlives a language switch, so it reads the latest t.
+  const tRef = useRef(t);
+  tRef.current = t;
   const [notifications, setNotifications] = useState<NotificationResponse[]>(
     [],
   );
@@ -78,9 +83,12 @@ export const NotificationsProvider = ({
         if (!event.data) return;
         const newNotification = JSON.parse(event.data);
         setNotifications((prev) => [newNotification, ...prev]);
-        toast.success("Nova obavijest stigla: " + newNotification.title, {
-          icon: "🚀",
-        });
+        toast.success(
+          tRef.current("arrived", { title: newNotification.title }),
+          {
+            icon: "🚀",
+          },
+        );
       },
     }).catch(() => {});
 

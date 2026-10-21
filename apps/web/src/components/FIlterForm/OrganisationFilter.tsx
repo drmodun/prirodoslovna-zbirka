@@ -7,15 +7,17 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import Input from "components/Input";
 import SelectInput from "components/SelectInput";
 import BaseButton from "components/BaseButton";
-import { error } from "console";
 import { County } from "@biosfera/types";
-import { makeCountyName } from "@/utility/static/countyNameMaker";
+import { useCountyName } from "@/utility/hooks/useCountyName";
+import { useTranslations } from "next-intl";
 
 interface Props {
   searchParams?: any;
 }
 
 export const OrganisationFilter = ({ searchParams }: Props) => {
+  const t = useTranslations("Filters");
+  const countyName = useCountyName();
   const schema = z
     .object({
       name: z.optional(z.string()),
@@ -57,7 +59,7 @@ export const OrganisationFilter = ({ searchParams }: Props) => {
       if (data.attribute && !data.direction) {
         return false;
       }
-    }, "Smjer i atribut samo mogu biti oboje odabrani ili oboje prazni");
+    }, t("sortPair"));
 
   const form = useForm({
     resolver: zodResolver(schema),
@@ -77,15 +79,15 @@ export const OrganisationFilter = ({ searchParams }: Props) => {
         onSubmit={form.handleSubmit(handleFilter)}
         className={classes.filter}
       >
-        <h2>Filter organizacija</h2>
-        <Input form={form} attribute="name" question="Naziv" />
+        <h2>{t("organisation.title")}</h2>
+        <Input form={form} attribute="name" question={t("name")} />
         <SelectInput
-          label="Županija"
+          label={t("county")}
           name="location"
           options={Object.values(County)
             .filter((county) => county.length > 2)
             .map((county) => ({
-              label: makeCountyName(county),
+              label: countyName(county),
               value: county,
             }))}
           form={form}
@@ -93,23 +95,23 @@ export const OrganisationFilter = ({ searchParams }: Props) => {
         />
         <SelectInput
           name="attribute"
-          label="Sortiraj po"
+          label={t("sortBy")}
           form={form}
           options={[
-            { label: "Relevantnost", value: "Relevantnost" },
-            { label: "Naslov", value: "name" },
-            { label: "Lokacija", value: "location" },
-            { label: "Bodovi", value: "points" },
+            { label: t("relevance"), value: "Relevantnost" },
+            { label: t("title"), value: "name" },
+            { label: t("location"), value: "location" },
+            { label: t("points"), value: "points" },
           ]}
           error={form.formState.errors.attribute?.message?.toString()}
         />
         <SelectInput
           name="direction"
-          label="Smjer"
+          label={t("direction")}
           form={form}
           options={[
-            { label: "Uzlazno", value: "asc" },
-            { label: "Silazno", value: "desc" },
+            { label: t("ascending"), value: "asc" },
+            { label: t("descending"), value: "desc" },
           ]}
           error={form.formState.errors.direction?.message?.toString()}
         />
@@ -137,7 +139,7 @@ export const OrganisationFilter = ({ searchParams }: Props) => {
           },
         }}
       >
-        <BaseButton text="Pretraži" />
+        <BaseButton text={t("search")} />
       </Link>
     </div>
   );

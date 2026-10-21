@@ -6,8 +6,10 @@ import useNotification from "@/utility/context/NotificationContext";
 import { useMarkAllAsRead } from "@/api/useMarkAllAsRead";
 import BaseButton from "components/BaseButton";
 import { useMemo } from "react";
+import { useTranslations } from "next-intl";
 
 export const NotificationModal = () => {
+  const t = useTranslations("Notifications");
   const { notifications, hideModal, isVisibleModal, markAllAsRead } =
     useNotification();
   const { mutateAsync } = useMarkAllAsRead();
@@ -26,11 +28,11 @@ export const NotificationModal = () => {
 
   return (
     <Modal
-      text="Ovdje možete vidjeti sve notifikacije"
+      text={t("text")}
       open={isVisibleModal}
       deMount={hideModal}
-      title="Obavijesti"
-      actionText="Zatvori"
+      title={t("title")}
+      actionText={t("close")}
     >
       <div className={classes.container}>
         <div className={classes.notifications}>
@@ -39,12 +41,12 @@ export const NotificationModal = () => {
               <NotificationCard key={n.id} notification={n} />
             ))
           ) : (
-            <div className={classes.empty}>Nema obavijesti</div>
+            <div className={classes.empty}>{t("empty")}</div>
           )}
         </div>
       </div>
       <BaseButton
-        text="Označi sve kao pročitano"
+        text={t("markAllAsRead")}
         onClick={handleMarkAllAsRead}
       />
     </Modal>

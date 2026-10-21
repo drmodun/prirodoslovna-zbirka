@@ -25,10 +25,11 @@ jest.mock("@/api/useUploadThreeDimensionalModel", () => ({
 jest.mock("@/api/useUploadVideo", () => ({ useUploadVideo: () => api.video }));
 
 import {
-  exponatKindOptions,
-  exponatSchema,
+  createExponatSchema,
+  getExponatKindOptions,
   isMineral,
 } from "../ExponatForm/exponatSchema";
+import { translator } from "test-utils/intl";
 import { useExponatSubmit } from "../ExponatForm/useExponatSubmit";
 
 const UUID = "5b2f3c1e-2a4d-4c6e-9d1a-3e7f8a9b0c1d";
@@ -44,7 +45,7 @@ const valid = (over: Record<string, unknown> = {}) => ({
   ...over,
 });
 const issues = (data: unknown) => {
-  const result = exponatSchema.safeParse(data);
+  const result = createExponatSchema(translator("ExponatForm")).safeParse(data);
   return result.success
     ? []
     : result.error.issues.map((i) => `${i.path.join(".")}: ${i.message}`);
@@ -89,6 +90,9 @@ describe("exponatSchema", () => {
   );
 
   it("offers the same kinds as the schema accepts, with Croatian labels", () => {
+    const exponatKindOptions = getExponatKindOptions(
+      translator("ExponatKinds"),
+    );
     expect(exponatKindOptions.map((o) => o.value)).toEqual([
       "EUCARIOT",
       "PROCARIOT",
@@ -96,7 +100,7 @@ describe("exponatSchema", () => {
     ]);
     expect(exponatKindOptions.map((o) => o.label)).toEqual([
       "Eukariot",
-      "Procariot",
+      "Prokariot",
       "Mineral",
     ]);
   });

@@ -1,6 +1,7 @@
 import toast from "react-hot-toast";
 import { useMutation } from "react-query";
 import { api } from "./shared";
+import { useTranslations } from "next-intl";
 
 const resetPassword = (data: {
   userActivationCode: string;
@@ -11,13 +12,14 @@ const resetPassword = (data: {
   });
 
 export const useResetPassword = () => {
+  const t = useTranslations("Toasts");
   return useMutation(resetPassword, {
     onMutate: () => {
-      return { toastId: toast.loading("Resetting password...") };
+      return { toastId: toast.loading(t("resettingPassword")) };
     },
     onSuccess: (_data, _variables, context) => {
       toast.success(
-        "Uspješno resetiranje lozinke, preusmjeravanje na prijavu",
+        t("passwordReset"),
         {
           id: context?.toastId,
         },
@@ -27,7 +29,7 @@ export const useResetPassword = () => {
       }, 2000);
     },
     onError: (error: string, _variables, context) => {
-      toast.error("Greška pri resetiranju šifre", { id: context?.toastId });
+      toast.error(t("passwordResetFailed"), { id: context?.toastId });
     },
   });
 };

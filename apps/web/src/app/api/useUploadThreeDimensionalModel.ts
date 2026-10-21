@@ -2,6 +2,7 @@ import { useMutation } from "react-query";
 import { api, fileApi } from "./shared";
 import { FileUploadProps } from "./useUploadFile";
 import toast from "react-hot-toast";
+import { useTranslations } from "next-intl";
 
 const uploadModel = async (params: FileUploadProps) => {
   const data = new FormData();
@@ -14,9 +15,10 @@ const uploadModel = async (params: FileUploadProps) => {
 };
 
 export const useUploadThreeDimensionalModel = () => {
+  const t = useTranslations("Toasts");
   return useMutation(uploadModel, {
     onError: (error) => {
-      toast.error("Greška prilikom uploada");
+      toast.error(t("uploadFailed"));
     },
   });
 };

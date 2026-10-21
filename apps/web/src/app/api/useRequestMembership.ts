@@ -1,15 +1,17 @@
 import { useMutation } from "react-query";
 import { api } from "./shared";
 import toast from "react-hot-toast";
+import { useTranslations } from "next-intl";
 
 const requestMembership = async (id: string) => {
   return await api.post(`/members/${id}`);
 };
 
 export const useRequestMembership = () => {
+  const t = useTranslations("Toasts");
   return useMutation(requestMembership, {
     onSuccess: () => {
-      toast.success("Zahtjev za članstvo je poslan", {
+      toast.success(t("membershipRequested"), {
         icon: "🎉",
         id: "success",
       });
@@ -21,14 +23,14 @@ export const useRequestMembership = () => {
         error.includes("You")
       ) {
         toast.error(
-          "Morate biti logirani da biste poslali zahtjev za članstvo",
+          t("mustBeLoggedInToRequestMembership"),
           {
             icon: "🔒",
             id: "unauthorized",
           },
         );
       } else {
-        toast.error("Greška se dogodila, molim vas pokušajte kasnije", {
+        toast.error(t("genericError"), {
           icon: "🚨",
           id: "error",
         });

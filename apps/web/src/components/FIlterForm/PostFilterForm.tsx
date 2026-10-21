@@ -7,12 +7,14 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import Input from "components/Input";
 import SelectInput from "components/SelectInput";
 import BaseButton from "components/BaseButton";
+import { useTranslations } from "next-intl";
 
 interface Props {
   searchParams?: any;
 }
 
 export const PostFilter = ({ searchParams }: Props) => {
+  const t = useTranslations("Filters");
   const schema = z
     .object({
       title: z.optional(z.string()),
@@ -30,7 +32,7 @@ export const PostFilter = ({ searchParams }: Props) => {
       if (data.attribute && !data.direction) {
         return false;
       }
-    }, "Smjer i atribut samo mogu biti oboje odabrani ili oboje prazni");
+    }, t("sortPair"));
 
   const form = useForm({
     resolver: zodResolver(schema),
@@ -50,33 +52,37 @@ export const PostFilter = ({ searchParams }: Props) => {
         onSubmit={form.handleSubmit(handleFilter)}
         className={classes.filter}
       >
-        <h2>Filter objava</h2>
-        <Input form={form} attribute="title" question="Naziv" />
+        <h2>{t("post.title")}</h2>
+        <Input form={form} attribute="title" question={t("name")} />
         <Input
           form={form}
           attribute="userName"
-          question="Ime autora"
+          question={t("post.author")}
           error={form.formState.errors.userName?.message?.toString()}
         />
-        <Input form={form} attribute="exponatName" question="Naziv eksponata" />
+        <Input
+          form={form}
+          attribute="exponatName"
+          question={t("post.exponatName")}
+        />
         <SelectInput
           name="attribute"
-          label="Sortiraj po"
+          label={t("sortBy")}
           form={form}
           options={[
-            { label: "Relevantnost", value: "Relevantnost" },
-            { label: "Naslov", value: "title" },
-            { label: "Datumu kreiranja", value: "createdAt" },
+            { label: t("relevance"), value: "Relevantnost" },
+            { label: t("title"), value: "title" },
+            { label: t("post.createdAt"), value: "createdAt" },
           ]}
           error={form.formState.errors.attribute?.message?.toString()}
         />
         <SelectInput
           name="direction"
-          label="Smjer"
+          label={t("direction")}
           form={form}
           options={[
-            { label: "Uzlazno", value: "asc" },
-            { label: "Silazno", value: "desc" },
+            { label: t("ascending"), value: "asc" },
+            { label: t("descending"), value: "desc" },
           ]}
           error={form.formState.errors.direction?.message?.toString()}
         />
@@ -107,7 +113,7 @@ export const PostFilter = ({ searchParams }: Props) => {
           },
         }}
       >
-        <BaseButton text="Pretraži" />
+        <BaseButton text={t("search")} />
       </Link>
     </div>
   );

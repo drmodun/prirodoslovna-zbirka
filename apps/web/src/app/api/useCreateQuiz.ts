@@ -2,6 +2,7 @@ import { getCreateQuizRequest, QuizResponseExtended } from "@biosfera/types";
 import { api } from "./shared";
 import toast from "react-hot-toast";
 import { useMutation } from "react-query";
+import { useTranslations } from "next-intl";
 
 const _getCreateQuizRequest = getCreateQuizRequest();
 
@@ -18,15 +19,16 @@ export const createQuiz = async (params: {
 };
 
 export const useCreateQuiz = () => {
+  const t = useTranslations("Toasts");
   return useMutation(createQuiz, {
     onMutate: () => {
-      return { toastId: toast.loading("Izrada kviza") };
+      return { toastId: toast.loading(t("creatingQuiz")) };
     },
     onSuccess: (_data, _variables, context) => {
-      toast.success("Kviz uspješno napravljen", { id: context?.toastId });
+      toast.success(t("quizCreated"), { id: context?.toastId });
     },
     onError: (error: string, _variables, context) => {
-      toast.error("Greška pri izradi kviza", { id: context?.toastId });
+      toast.error(t("quizCreateFailed"), { id: context?.toastId });
     },
   });
 };

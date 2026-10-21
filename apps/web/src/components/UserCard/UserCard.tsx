@@ -10,61 +10,69 @@ import UserFollowButton from "components/UserFollowButton";
 import { getPfpUrl } from "@/utility/static/getPfpUrl";
 import ImageWithFallback from "components/ImageWithFallback/ImageWithFallback";
 import { useGetMe } from "@/api/useGetMe";
+import { useTranslations } from "next-intl";
 export interface UserCardProps {
   user: ExtendedUserResponse;
 }
 
-export const UserCard = ({ user }: UserCardProps) => (
-  <div className={classes.container}>
-    <div className={classes.picture}>
-      <ImageWithFallback
-        src={getPfpUrl(user.id)}
-        fallbackSrc={placeholder}
-        layout="fill"
-        alt={user.username}
-      />
-    </div>
-    <span className={classes.name}>{`${user.firstName} ${user.lastName}`}</span>
-    <span className={classes.email}>{user.username}</span>
-    <div className={classes.info}>
-      <div className={clsx(classes.attribute, classes.posts)}>
-        <span>Broj objava:</span>
-        <span>{user.posts.length}</span>
-      </div>
-      <div className={clsx(classes.attribute, classes.likes)}>
-        <span>Broj kapljica:</span>
-        <span>{user.likeCount}</span>
-      </div>
-    </div>
-    <div className={classes.follows}>
-      <Link
-        className={classes.link}
-        href={{
-          pathname: "/follows/" + user.id,
-          query: { tab: "Followers" },
-        }}
-      >
-        {user.followerCount} pratitelja
-      </Link>
-      <Link
-        className={classes.link}
-        href={{
-          pathname: "/follows/" + user.id,
-          query: { tab: "Following" }, //this will make a lot more sense later
-        }}
-      >
-        prati {user.followingCount} korisnika
-      </Link>
-    </div>
-    {user.id !== useGetMe().data?.id ? (
-      <UserWrapper>
-        <UserFollowButton
-          user={{
-            ...user,
-            postCount: user.posts.length,
-          }}
+export const UserCard = ({ user }: UserCardProps) => {
+  const t = useTranslations("UserCard");
+  const { data: me } = useGetMe();
+
+  return (
+    <div className={classes.container}>
+      <div className={classes.picture}>
+        <ImageWithFallback
+          src={getPfpUrl(user.id)}
+          fallbackSrc={placeholder}
+          layout="fill"
+          alt={user.username}
         />
-      </UserWrapper>
-    ) : null}
-  </div>
-);
+      </div>
+      <span
+        className={classes.name}
+      >{`${user.firstName} ${user.lastName}`}</span>
+      <span className={classes.email}>{user.username}</span>
+      <div className={classes.info}>
+        <div className={clsx(classes.attribute, classes.posts)}>
+          <span>{t("posts")}</span>
+          <span>{user.posts.length}</span>
+        </div>
+        <div className={clsx(classes.attribute, classes.likes)}>
+          <span>{t("likes")}</span>
+          <span>{user.likeCount}</span>
+        </div>
+      </div>
+      <div className={classes.follows}>
+        <Link
+          className={classes.link}
+          href={{
+            pathname: "/follows/" + user.id,
+            query: { tab: "Followers" },
+          }}
+        >
+          {t("followers", { count: user.followerCount })}
+        </Link>
+        <Link
+          className={classes.link}
+          href={{
+            pathname: "/follows/" + user.id,
+            query: { tab: "Following" }, //this will make a lot more sense later
+          }}
+        >
+          {t("following", { count: user.followingCount })}
+        </Link>
+      </div>
+      {user.id !== me?.id ? (
+        <UserWrapper>
+          <UserFollowButton
+            user={{
+              ...user,
+              postCount: user.posts.length,
+            }}
+          />
+        </UserWrapper>
+      ) : null}
+    </div>
+  );
+};

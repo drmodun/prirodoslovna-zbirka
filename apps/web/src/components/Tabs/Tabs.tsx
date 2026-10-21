@@ -1,6 +1,7 @@
 "use client";
 import clsx from "clsx";
 import classes from "./Tabs.module.scss";
+import { useTabLabel } from "./useTabLabel";
 
 export enum Variant {
   NORMAL = "normal",
@@ -15,6 +16,8 @@ export interface TabsProps {
 }
 
 export const Tabs = ({ tabs, activeTab, variant, onSelect }: TabsProps) => {
+  const tabLabel = useTabLabel();
+
   return (
     <div className={classes.container}>
       {tabs.map((tab, index) => (
@@ -27,7 +30,7 @@ export const Tabs = ({ tabs, activeTab, variant, onSelect }: TabsProps) => {
             activeTab === tab && classes.active,
           )}
         >
-          {tab}
+          {tabLabel(tab)}
         </button>
       ))}
     </div>

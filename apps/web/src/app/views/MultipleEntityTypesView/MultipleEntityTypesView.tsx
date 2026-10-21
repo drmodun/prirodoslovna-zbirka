@@ -12,6 +12,7 @@ import classes from "./MultipleEntityTypesView.module.scss";
 import Tabs from "components/Tabs";
 import CardCollection from "components/CardCollection";
 import { Variant } from "components/Tabs/Tabs";
+import { useTranslations } from "next-intl";
 
 export type reactionsType = "Lajkano" | "Favoriti" | "Spremljeno" | "Čitano";
 
@@ -36,6 +37,7 @@ export const MultipleEntityTypesView = ({
   availableTabs,
   initTab = availableTabs[0],
 }: MultipleEntityTypesViewProps) => {
+  const t = useTranslations("Sort");
   const [tab, setTab] = useState<tabType | reactionsType>(initTab);
 
   return (
@@ -50,9 +52,9 @@ export const MultipleEntityTypesView = ({
         <CardCollection
           items={posts}
           sortBy={[
-            { label: "Abecedno", value: "title" },
-            { label: "Datum Objave", value: "updatedAt" },
-            { label: "Likeovi", value: "likeScore" },
+            { label: t("alphabetical"), value: "title" },
+            { label: t("publishDate"), value: "updatedAt" },
+            { label: t("likes"), value: "likeScore" },
           ]}
           type="post"
         />
@@ -61,9 +63,9 @@ export const MultipleEntityTypesView = ({
         <CardCollection
           items={works}
           sortBy={[
-            { label: "Abecedno", value: "title" },
-            { label: "Datum Objave", value: "updatedAt" },
-            { label: "Broj sejvanih radova", value: "amountOfSaves" },
+            { label: t("alphabetical"), value: "title" },
+            { label: t("publishDate"), value: "updatedAt" },
+            { label: t("saves"), value: "amountOfSaves" },
           ]}
           type="work"
         />
@@ -72,10 +74,10 @@ export const MultipleEntityTypesView = ({
         <CardCollection
           items={exponats}
           sortBy={[
-            { label: "Abecedno", value: "title" },
-            { label: "Znanstveno ime", value: "alternateName" },
-            { label: "Datum Objave", value: "updatedAt" },
-            { label: "Broj Favorita", value: "Favourite Count" },
+            { label: t("alphabetical"), value: "title" },
+            { label: t("scientificName"), value: "alternateName" },
+            { label: t("publishDate"), value: "updatedAt" },
+            { label: t("favourites"), value: "Favourite Count" },
           ]}
           type="exponat"
         />
@@ -84,9 +86,9 @@ export const MultipleEntityTypesView = ({
         <CardCollection
           items={literature}
           sortBy={[
-            { label: "Abecedno", value: "title" },
-            { label: "Datum Objave", value: "updatedAt" },
-            { label: "Broj Favorita", value: "Favourite Count" },
+            { label: t("alphabetical"), value: "title" },
+            { label: t("publishDate"), value: "updatedAt" },
+            { label: t("favourites"), value: "Favourite Count" },
           ]}
           type="work"
         />
@@ -96,9 +98,9 @@ export const MultipleEntityTypesView = ({
           items={organisations}
           userId={userId}
           sortBy={[
-            { label: "Abecedno", value: "name" },
-            { label: "Lokacija", value: "location" },
-            { label: "Uloga", value: "role" },
+            { label: t("alphabetical"), value: "name" },
+            { label: t("location"), value: "location" },
+            { label: t("role"), value: "role" },
           ]}
           type="organisation-member"
         />

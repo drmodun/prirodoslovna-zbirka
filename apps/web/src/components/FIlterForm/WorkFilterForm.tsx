@@ -8,12 +8,14 @@ import Input from "components/Input";
 import SelectInput from "components/SelectInput";
 import BaseButton from "components/BaseButton";
 import ListInput from "components/ListInput";
+import { useTranslations } from "next-intl";
 
 interface Props {
   searchParams?: any;
 }
 
 export const WorkFilter = ({ searchParams }: Props) => {
+  const t = useTranslations("Filters");
   const schema = z
     .object({
       title: z.optional(z.string()),
@@ -28,7 +30,7 @@ export const WorkFilter = ({ searchParams }: Props) => {
       if (data.attribute && !data.direction) {
         return false;
       }
-    }, "Smjer i atribut samo mogu biti oboje odabrani ili oboje prazni");
+    }, t("sortPair"));
 
   const form = useForm({
     resolver: zodResolver(schema),
@@ -48,28 +50,28 @@ export const WorkFilter = ({ searchParams }: Props) => {
         onSubmit={form.handleSubmit(handleFilter)}
         className={classes.filter}
       >
-        <h2>Filter radova</h2>
-        <Input form={form} attribute="title" question="Naziv" />
-        <ListInput form={form} attribute="tags" question="Tagovi" />
+        <h2>{t("work.title")}</h2>
+        <Input form={form} attribute="title" question={t("name")} />
+        <ListInput form={form} attribute="tags" question={t("work.tags")} />
         <SelectInput
           name="attribute"
-          label="Sortiraj po"
+          label={t("sortBy")}
           form={form}
           options={[
-            { label: "Relevantnost", value: "Relevantnost" },
-            { label: "Naslov", value: "title" },
-            { label: "Datum kreiranja", value: "createdAt" },
-            { label: "Broj favorita", value: "saves" },
+            { label: t("relevance"), value: "Relevantnost" },
+            { label: t("title"), value: "title" },
+            { label: t("work.createdAt"), value: "createdAt" },
+            { label: t("work.saves"), value: "saves" },
           ]}
           error={form.formState.errors.attribute?.message?.toString()}
         />
         <SelectInput
           name="direction"
-          label="Smjer"
+          label={t("direction")}
           form={form}
           options={[
-            { label: "Uzlazno", value: "asc" },
-            { label: "Silazno", value: "desc" },
+            { label: t("ascending"), value: "asc" },
+            { label: t("descending"), value: "desc" },
           ]}
           error={form.formState.errors.direction?.message?.toString()}
         />
@@ -97,7 +99,7 @@ export const WorkFilter = ({ searchParams }: Props) => {
           },
         }}
       >
-        <BaseButton text="Pretraži" />
+        <BaseButton text={t("search")} />
       </Link>
     </div>
   );

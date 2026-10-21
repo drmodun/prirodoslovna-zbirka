@@ -8,6 +8,7 @@ import { useEffect } from "react";
 import { PostResponse } from "@biosfera/types";
 import useUser from "@/utility/context/UserContext";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 
 export interface RemovePostButtonProps {
   postId: string;
@@ -22,13 +23,12 @@ export const RemovePostButton: React.FC<RemovePostButtonProps> = ({
   onRemove,
   isHidden,
 }) => {
+  const t = useTranslations("RemovePostButton");
   const { mutate, isSuccess } = useRemovePost();
   const { posts, updatePosts, likedPosts, updateLikes } = useUser();
 
   const handleDelete = () => {
-    const confirm = window.confirm(
-      "Jeste li sigurni da želite maknuti objavu?",
-    );
+    const confirm = window.confirm(t("confirm"));
     if (!confirm) return;
     mutate(postId);
 
@@ -53,14 +53,14 @@ export const RemovePostButton: React.FC<RemovePostButtonProps> = ({
     <div className={classes.container}>
       <button
         onClick={handleDelete}
-        title="Delete Post"
+        title={t("label")}
         className={classes.removalButton}
       >
-        <Image title="Makni objavu" src={remove} alt="Makni objavu" />
+        <Image src={remove} alt={t("label")} />
       </button>
       {!isHidden && !isAdmin && (
         <Link href={`/post/${postId}/edit`} className={classes.edit}>
-          <Image src={edit} alt="edit" />
+          <Image src={edit} alt={t("edit")} />
         </Link>
       )}
     </div>

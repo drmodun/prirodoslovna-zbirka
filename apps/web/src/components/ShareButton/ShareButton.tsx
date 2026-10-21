@@ -27,6 +27,7 @@ import {
   XIcon,
 } from "react-share";
 import toast from "react-hot-toast";
+import { useTranslations } from "next-intl";
 
 export interface ShareButtonProps {
   title: string;
@@ -35,6 +36,7 @@ export interface ShareButtonProps {
 }
 
 const ShareButton = ({ text, imageUrl, title }: ShareButtonProps) => {
+  const t = useTranslations("ShareButton");
   const [isOpen, setIsOpen] = useState(false);
   // window is not available while the server renders this component.
   const [url, setUrl] = useState("");
@@ -61,13 +63,17 @@ const ShareButton = ({ text, imageUrl, title }: ShareButtonProps) => {
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(url);
-    toast.success("Link kopiran u međuspremnik");
+    toast.success(t("copied"));
   };
 
   return (
-    <button title="share" className={classes.container} onClick={handleShare}>
+    <button
+      title={t("share")}
+      className={classes.container}
+      onClick={handleShare}
+    >
       <Image alt="share" src={share} />
-      <Modal open={isOpen} deMount={handleClose} title="Podijeli" text={text}>
+      <Modal open={isOpen} deMount={handleClose} title={t("share")} text={text}>
         <div className={classes.sharingRow}>
           <TwitterShareButton title={title} url={url}>
             <XIcon size={64} round />
@@ -99,7 +105,7 @@ const ShareButton = ({ text, imageUrl, title }: ShareButtonProps) => {
             <TumblrIcon size={64} round />
           </TumblrShareButton>
           <button onClick={copyToClipboard} className={classes.copyToClipboard}>
-            <Image alt="kopiraj vezu" src={copy} />
+            <Image alt={t("copy")} src={copy} />
           </button>
         </div>
       </Modal>

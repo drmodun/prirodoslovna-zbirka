@@ -117,6 +117,25 @@ describe("exponatInfoPrompt", () => {
     await expect(exponatInfoPrompt("Fox")).resolves.toContain("OPENAI_API_KEY");
   });
 
+  it("writes for English readers in English, trying English Wikipedia first", async () => {
+    fetchMock.mockResolvedValue(completion("The fox is ..."));
+    let ai = load({ OPENAI_API_KEY: "k" });
+    // load() resets the modules, so the language is set on the fresh copy.
+    require("test-utils/intl").setTestLocale("en");
+    await ai.exponatInfoPrompt("Vulpes vulpes");
+    expect(
+      JSON.parse(fetchMock.mock.calls[0][1].body).messages[0].content,
+    ).toContain("written in English");
+
+    fetchMock.mockReset();
+    fetchMock.mockResolvedValue(wikipedia("The fox is a canid."));
+    ai = load();
+    require("test-utils/intl").setTestLocale("en");
+    const text = await ai.exponatInfoPrompt("Vulpes vulpes");
+    expect(fetchMock.mock.calls[0][0]).toContain("https://en.wikipedia.org");
+    expect(text).toContain("Source: https://hr.wikipedia.org/wiki/Lisica");
+  });
+
   it("explains how to enable descriptions when nothing is available", async () => {
     fetchMock.mockRejectedValue(new Error("offline"));
     const { exponatInfoPrompt } = load();

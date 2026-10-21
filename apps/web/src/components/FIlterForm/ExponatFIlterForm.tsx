@@ -13,8 +13,8 @@ import {
   SortSelects,
   buildSearchQuery,
   refineSortPair,
-  sortPairMessage,
 } from "./shared";
+import { useTranslations } from "next-intl";
 
 interface Props {
   searchParams?: any;
@@ -22,41 +22,44 @@ interface Props {
 
 // Broadest to narrowest. Picking a rank clears every rank after it.
 const TAXONOMY_RANKS = [
-  { rank: "kingdom", placeholder: "Izaberi Kraljevstvo" },
-  { rank: "phylum", placeholder: "Izaberi koljeno" },
-  { rank: "class", placeholder: "Izaberi razred" },
-  { rank: "order", placeholder: "Izaberi red" },
-  { rank: "genus", placeholder: "Izaberi rod" },
-  { rank: "family", placeholder: "Izaberi porodicu" },
-  { rank: "species", placeholder: "Izaberi vrstu" },
+  { rank: "kingdom" },
+  { rank: "phylum" },
+  { rank: "class" },
+  { rank: "order" },
+  { rank: "genus" },
+  { rank: "family" },
+  { rank: "species" },
 ] as const;
 
 type Rank = (typeof TAXONOMY_RANKS)[number]["rank"];
 
-const schema = z
-  .object({
-    name: z.optional(z.string()),
-    alternateName: z.optional(z.string()),
-    kingdom: z.optional(z.string()),
-    phylum: z.optional(z.string()),
-    class: z.optional(z.string()),
-    order: z.optional(z.string()),
-    genus: z.optional(z.string()),
-    family: z.optional(z.string()),
-    species: z.optional(z.string()),
-    attribute: z.optional(
-      z.enum(["name", "createdAt", "postAmount", "favourites"]),
-    ),
-    direction: z.optional(z.enum(["asc", "desc"])),
-  })
-  .refine(refineSortPair, sortPairMessage);
+// `sortPair` is the message for a direction without an attribute or the
+// reverse.
+const createSchema = (sortPair: string) =>
+  z
+    .object({
+      name: z.optional(z.string()),
+      alternateName: z.optional(z.string()),
+      kingdom: z.optional(z.string()),
+      phylum: z.optional(z.string()),
+      class: z.optional(z.string()),
+      order: z.optional(z.string()),
+      genus: z.optional(z.string()),
+      family: z.optional(z.string()),
+      species: z.optional(z.string()),
+      attribute: z.optional(
+        z.enum(["name", "createdAt", "postAmount", "favourites"]),
+      ),
+      direction: z.optional(z.enum(["asc", "desc"])),
+    })
+    .refine(refineSortPair, sortPair);
 
-const sortOptions = [
-  { label: "Naslov", value: "name" },
-  { label: "Datumu kreiranja", value: "createdAt" },
-  { label: "Broju postova", value: "postAmount" },
-  { label: "Broju favorita", value: "favourites" },
-];
+const SORT_ATTRIBUTES = [
+  ["name", "title"],
+  ["createdAt", "createdAt"],
+  ["postAmount", "postAmount"],
+  ["favourites", "favourites"],
+] as const;
 
 const QUERY_FIELDS = [
   "name",
@@ -111,8 +114,13 @@ const useTaxonomyEntities = (
 };
 
 export const ExponatFilter = ({ searchParams }: Props) => {
+  const t = useTranslations("Filters");
+  const sortOptions = SORT_ATTRIBUTES.map(([value, label]) => ({
+    value,
+    label: t(label),
+  }));
   const form = useForm({
-    resolver: zodResolver(schema),
+    resolver: zodResolver(createSchema(t("sortPair"))),
     defaultValues: getDefaultValues(searchParams),
   });
   const values = form.watch();
@@ -135,23 +143,23 @@ export const ExponatFilter = ({ searchParams }: Props) => {
         onSubmit={form.handleSubmit(handleFilter)}
         className={styles.filter}
       >
-        <h2>Filter eksponata</h2>
-        <Input form={form} attribute="name" question="Naziv" />
+        <h2>{t("exponat.title")}</h2>
+        <Input form={form} attribute="name" question={t("name")} />
         <Input
           form={form}
           attribute="alternateName"
-          question="Alternativni naziv"
+          question={t("exponat.alternateName")}
           error={form.formState.errors.alternateName?.message?.toString()}
         />
         <SortSelects form={form} options={sortOptions} />
-        {TAXONOMY_RANKS.map(({ rank, placeholder }, index) => (
+        {TAXONOMY_RANKS.map(({ rank }, index) => (
           <Dropdown
             key={rank}
             attribute={rank}
             form={form}
             options={toOptions(entities[rank])}
             initSelected={rank === "kingdom" ? values.kingdom : undefined}
-            initPlaceholder={placeholder}
+            initPlaceholder={t(`exponat.ranks.${rank}`)}
             onSelect={(value) => selectRank(index, value)}
           />
         ))}

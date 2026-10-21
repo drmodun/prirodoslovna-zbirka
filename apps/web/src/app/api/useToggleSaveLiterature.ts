@@ -1,15 +1,17 @@
 import { useMutation } from "react-query";
 import { api } from "./shared";
 import toast from "react-hot-toast";
+import { useTranslations } from "next-intl";
 
 export const toggleSaveLiterature = async (literatureId: string) => {
   await api.patch(`/literature/${literatureId}`);
 };
 
-export const useToggleSaveLiterature = () =>
-  useMutation(toggleSaveLiterature, {
+export const useToggleSaveLiterature = () => {
+  const t = useTranslations("Toasts");
+  return useMutation(toggleSaveLiterature, {
     onMutate: (literatureId: string) => {
-      toast.loading("Spremanje...", { id: "saving literature" });
+      toast.loading(t("saving"), { id: "saving literature" });
       return { literatureId };
     },
     onSettled: (_data, _error, context) => {
@@ -17,10 +19,11 @@ export const useToggleSaveLiterature = () =>
     },
     onError: (error: string, _variables, context) => {
       console.log(error);
-      toast.error("Greška pri spremanju");
+      toast.error(t("saveFailed"));
     },
     onSuccess: (_data, _error, context) => {
       console.log(context);
-      toast.success("Uspješno spremljeno");
+      toast.success(t("saved"));
     },
   });
+};

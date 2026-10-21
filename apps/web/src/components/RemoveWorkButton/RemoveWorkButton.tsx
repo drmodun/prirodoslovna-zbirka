@@ -8,6 +8,7 @@ import { WorkResponseShort } from "@biosfera/types";
 import useUser from "@/utility/context/UserContext";
 import Link from "next/link";
 import { useRemoveWork } from "@/api/useRemoveWork";
+import { useTranslations } from "next-intl";
 
 export interface RemoveWorkButtonProps {
   workId: string;
@@ -20,12 +21,11 @@ export const RemoveWorkButton: React.FC<RemoveWorkButtonProps> = ({
   isHidden,
   onRemove,
 }) => {
+  const t = useTranslations("RemoveWorkButton");
   const { mutate, isSuccess = false } = useRemoveWork();
 
   const handleDelete = () => {
-    const confirm = window.confirm(
-      "Jeste li sigurni da želite maknuti projekt?",
-    );
+    const confirm = window.confirm(t("confirm"));
     confirm && mutate(workId);
   };
 
@@ -39,14 +39,14 @@ export const RemoveWorkButton: React.FC<RemoveWorkButtonProps> = ({
     <div className={classes.container}>
       <button
         onClick={handleDelete}
-        title="Delete Work"
+        title={t("label")}
         className={classes.removalButton}
       >
-        <Image title="Makni projekt" src={remove} alt="Makni projekt" />
+        <Image src={remove} alt={t("label")} />
       </button>
       {!isHidden && (
         <Link href={`/work/${workId}/edit`} className={classes.edit}>
-          <Image src={edit} alt="edit" />
+          <Image src={edit} alt={t("edit")} />
         </Link>
       )}
     </div>

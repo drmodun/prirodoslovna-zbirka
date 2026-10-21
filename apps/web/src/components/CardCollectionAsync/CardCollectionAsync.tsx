@@ -14,6 +14,7 @@ import { useOnScrollToBottom } from "@/utility/hooks/useOnScrollToBottom";
 import { BackToTopButton } from "components/CardCollection/BackToTopButton";
 import { CollectionCard } from "components/CardCollection/CollectionCard";
 import { useCardPermissions } from "components/CardCollection/useCardPermissions";
+import { useTranslations } from "next-intl";
 
 export interface CardCollectionAsyncProps {
   items: (
@@ -57,6 +58,7 @@ export const CardCollectionAsync: React.FC<CardCollectionAsyncProps> = ({
   const list = useRef<HTMLDivElement>(null);
   const [failed, setFailed] = useState<boolean>(false);
   const permissions = useCardPermissions();
+  const t = useTranslations("Common");
 
   const handleDelete = (id: string) => {
     setItemsToShow((prev) => prev.filter((item) => item.id !== id));
@@ -100,7 +102,7 @@ export const CardCollectionAsync: React.FC<CardCollectionAsyncProps> = ({
   if (!(itemsToShow?.length > 0))
     return (
       <div className={classes.noResults} ref={list}>
-        <h1>Nema rezultata</h1>
+        <h1>{t("noResults")}</h1>
       </div>
     );
 

@@ -1,16 +1,18 @@
 import { useMutation, useQueryClient } from "react-query";
 import { api } from "./shared";
 import toast from "react-hot-toast";
+import { useTranslations } from "next-intl";
 
 const removePost = async (id: string) => {
   return api.delete(`/posts/${id}`);
 };
 
 export const useRemovePost = () => {
+  const t = useTranslations("Toasts");
   const queryClient = useQueryClient();
   return useMutation(removePost, {
     onSuccess: () => {
-      toast.success("Eksponat maknut", {
+      toast.success(t("postRemoved"), {
         icon: "👋",
         id: "post_removal_success",
       });
@@ -23,12 +25,12 @@ export const useRemovePost = () => {
         error.includes("Unauthorized") ||
         error.includes("You")
       ) {
-        toast.error("Morate biti admin da biste uklonili eksponat", {
+        toast.error(t("mustBeAdminToRemovePost"), {
           icon: "🔒",
           id: "unauthorized",
         });
       } else {
-        toast.error("Došlo je do greške, molimo pokušajte kasnije", {
+        toast.error(t("genericError"), {
           icon: "🚨",
           id: "error",
         });

@@ -85,6 +85,11 @@
     flex-direction: column;
     width: 70%;
 
+    .languageToggle {
+      align-self: flex-start;
+      margin-bottom: vw-calc(30);
+    }
+
     h2 {
       font-size: vw-calc(80);
       line-height: 100%;

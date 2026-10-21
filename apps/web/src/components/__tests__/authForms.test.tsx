@@ -217,7 +217,7 @@ describe("RegisterForm", () => {
   it("shows the confirmation dialog once registered", () => {
     hooks.register.isSuccess = true;
     renderWithClient(<RegisterForm />);
-    expect(screen.getByText("Success")).toBeInTheDocument();
+    expect(screen.getByText("Uspjeh")).toBeInTheDocument();
     expect(
       screen.getByRole("link", { name: "Otiđi na prijavu" }),
     ).toHaveAttribute("href", "/login");
@@ -265,7 +265,7 @@ describe("ResetPaswordForm", () => {
     renderWithClient(<ResetPaswordForm code="c" />);
     await submit(STRONG, "Other1!Pass");
     expect(
-      await screen.findByText("Lozinke se ne poklapaju"),
+      await screen.findByText("Lozinke se ne podudaraju"),
     ).toBeInTheDocument();
     expect(hooks.resetPassword.mutateAsync).not.toHaveBeenCalled();
   });

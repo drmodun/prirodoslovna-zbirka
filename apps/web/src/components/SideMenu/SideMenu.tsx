@@ -9,7 +9,7 @@ import LogoutIcon from "../../assets/icons/logout.svg";
 import SearchIcon from "../../assets/icons/search.svg";
 import IconButton from "./IconButton";
 import useUser from "@/utility/context/UserContext";
-import { makeCountyName } from "@/utility/static/countyNameMaker";
+import { useCountyName } from "@/utility/hooks/useCountyName";
 import ImageWithFallback from "components/ImageWithFallback/ImageWithFallback";
 import { getPfpUrl } from "@/utility/static/getPfpUrl";
 import SingleInput from "components/SingleInput";
@@ -17,6 +17,8 @@ import { useEffect, useState } from "react";
 import useSideMenu from "@/utility/context/SideMenuContext";
 import Link from "next/link";
 import DiscoveryIcon from "assets/icons/discovery.svg";
+import { useTranslations } from "next-intl";
+import LanguageToggle from "components/LanguageToggle";
 
 type UserData = {
   image: string;
@@ -27,13 +29,15 @@ type UserData = {
 };
 
 const SideMenu = () => {
+  const t = useTranslations("SideMenu");
+  const countyName = useCountyName();
   const [search, setSearch] = useState("");
   const { active, toggleActive } = useSideMenu();
 
   const { user, logout } = useUser();
 
   const handleLogout = () => {
-    const confirm = window.confirm("Jeste li sigurni da se želite odjaviti?");
+    const confirm = window.confirm(t("logoutConfirm"));
     confirm && logout && logout();
   };
 
@@ -56,21 +60,30 @@ const SideMenu = () => {
             </div>
             <div className={c.userInfoWrapper}>
               <p className={c.name}>
-                {user?.firstName || "Niste"} {user?.lastName || "prijavljeni"}
+                {user ? `${user.firstName} ${user.lastName}` : t("notLoggedIn")}
               </p>
-              <p className={c.county}>{makeCountyName(user?.location || "")}</p>
+              <p className={c.county}>{countyName(user?.location)}</p>
             </div>
           </div>
           <div className={c.buttonsWrapper} onClick={toggleActive}>
             <Link href={user?.id ? `/user/${user.id}` : "/login"}>
-              <IconButton className={c.link} icon={UserIcon} />
+              <IconButton
+                className={c.link}
+                icon={UserIcon}
+                aria-label={t("profile")}
+              />
             </Link>
             <Link href="/discover">
-              <IconButton className={c.link} icon={DiscoveryIcon} />
+              <IconButton
+                className={c.link}
+                icon={DiscoveryIcon}
+                aria-label={t("discover")}
+              />
             </Link>
             <IconButton
               className={c.link}
               icon={LogoutIcon}
+              aria-label={t("logout")}
               onClick={handleLogout}
             />
           </div>
@@ -79,13 +92,17 @@ const SideMenu = () => {
           value={search}
           onChange={setSearch}
           image={SearchIcon}
-          question="Pretraži..."
+          question={t("search")}
           linkedImage={{
             pathname: "/search",
             query: { name: search },
           }}
           onImageClick={toggleActive}
         />
+        <div className={c.language}>
+          <span>{t("language")}</span>
+          <LanguageToggle />
+        </div>
       </div>
     </>
   );

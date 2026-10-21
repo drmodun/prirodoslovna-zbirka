@@ -10,6 +10,7 @@ import QrCodeGenerator from "components/QrCodeButton";
 import ShareButton from "components/ShareButton";
 import { Json } from "@biosfera/types/src/jsonObjects";
 import { Carousel } from "react-responsive-carousel";
+import { useTranslations } from "next-intl";
 export interface ExponatModalProps {
   exponat: ExponatExtendedResponse;
 }
@@ -30,6 +31,7 @@ const getImages = (exponat: ExponatExtendedResponse) => {
 };
 
 export const ExponatModal = ({ exponat }: ExponatModalProps) => {
+  const t = useTranslations("ExponatModal");
   return (
     <div className={classes.container}>
       <div className={classes.mainImage}>
@@ -64,7 +66,7 @@ export const ExponatModal = ({ exponat }: ExponatModalProps) => {
         <QrCodeGenerator name={exponat.title} />
         <ShareButton
           title={exponat.title}
-          text={`Pogledajte eksponat ${exponat.title} na biosfera.trema.hr`}
+          text={t("share", { title: exponat.title })}
         />
       </div>
       {!(exponat.exponatKind.toLowerCase() === "mineral") &&
@@ -75,10 +77,10 @@ export const ExponatModal = ({ exponat }: ExponatModalProps) => {
         href={`/organisation/${exponat.organizationId}`}
         className={classes.orgName}
       >
-        Organizacija eksponata: {exponat.organizationName}
+        {t("organisation", { name: exponat.organizationName })}
       </Link>
       <span className={classes.serialNumber}>
-        Serijski broj: {exponat.serialNumber}
+        {t("serialNumber", { serialNumber: exponat.serialNumber })}
       </span>
       <ExponatModalSections exponat={exponat} />
     </div>

@@ -4,6 +4,7 @@ import Modal from "components/BaseModal";
 import SingleInput from "components/SingleInput";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 
 export interface SerialModalProps {
   isOpen: boolean;
@@ -11,6 +12,7 @@ export interface SerialModalProps {
 }
 
 export const SerialModal = ({ isOpen, onClose }: SerialModalProps) => {
+  const t = useTranslations("SerialNumber");
   const [serialNumber, setSerialNumber] = useState<number>();
   const [serialNumberInput, setSerialNumberInput] = useState<string>();
   const { data, isSuccess } = useGetBySerialNumber(serialNumber);
@@ -19,7 +21,7 @@ export const SerialModal = ({ isOpen, onClose }: SerialModalProps) => {
   const handleClick = () => {
     const number = parseInt(serialNumberInput || "");
     if (isNaN(number)) {
-      alert("Serijski broj mora biti broj");
+      alert(t("mustBeNumber"));
       setSerialNumberInput("");
     }
     setSerialNumber(number);
@@ -34,18 +36,13 @@ export const SerialModal = ({ isOpen, onClose }: SerialModalProps) => {
   }, [data, onClose, isSuccess, router]);
 
   return (
-    <Modal
-      open={isOpen}
-      text="Upišite serijski broj eksponata"
-      title="Serijski broj"
-      deMount={onClose}
-    >
+    <Modal open={isOpen} text={t("text")} title={t("title")} deMount={onClose}>
       <SingleInput
         value={serialNumberInput || ""}
         onChange={(e) => setSerialNumberInput(e)}
-        question="Serijski broj"
+        question={t("title")}
       />
-      <BaseButton onClick={handleClick} text="Potvrdi" />
+      <BaseButton onClick={handleClick} text={t("confirm")} />
     </Modal>
   );
 };

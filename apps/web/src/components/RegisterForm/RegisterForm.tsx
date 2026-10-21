@@ -13,22 +13,27 @@ import { ButtonColor } from "@/shared/enums";
 import { County } from "@biosfera/types";
 import { SelectInput } from "components/SelectInput/SelectInput";
 import { useRegister } from "@/api/useRegister";
-import { makeCountyName } from "@/utility/static/countyNameMaker";
+import { useCountyName } from "@/utility/hooks/useCountyName";
+import { localeToLanguage, Locale } from "i18n/config";
 import Modal from "components/BaseModal";
 import Textarea from "components/Textarea";
 import user from "assets/images/user-alt.svg";
+import { useLocale, useTranslations } from "next-intl";
 
 export const RegisterForm = () => {
+  const t = useTranslations("Auth");
+  const countyName = useCountyName();
+  const locale = useLocale() as Locale;
   const schema = z
     .object({
       firstName: z
         .string()
-        .min(2, "Ime mora imati najmanje 2 slova")
-        .max(100, "Ime mora imati najviše 100 slova"),
+        .min(2, t("firstNameMin"))
+        .max(100, t("firstNameMax")),
       lastName: z
         .string()
-        .min(2, "Prezime mora imati najmanje 2 slova")
-        .max(100, "Prezime mora imati najviše 100 slova"),
+        .min(2, t("lastNameMin"))
+        .max(100, t("lastNameMax")),
       location: z.enum([
         "SPLITSKO_DALMATINSKA",
         "DUBROVACKO_NERETVANSKA",
@@ -55,17 +60,17 @@ export const RegisterForm = () => {
       ]),
       username: z.string(),
       bio: z.string().optional(),
-      email: z.string().email("Mail mora biti pravilan"),
+      email: z.string().email(t("emailFormat")),
       password: z
         .string()
         .regex(
           /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*]).{8,}$/,
-          "Lozinka mora imati najmanje 8 znakova, jedno veliko slovo, jedno malo slovo, jedan broj i jedan specijalni znak",
+          t("passwordStrength"),
         ),
       passwordConfirmation: z.string(),
     })
     .refine((data) => data.password === data.passwordConfirmation, {
-      message: "Lozinke se ne podudaraju",
+      message: t("passwordsMismatch"),
       path: ["passwordConfirmation"],
     });
 
@@ -76,15 +81,16 @@ export const RegisterForm = () => {
   const { mutateAsync, isSuccess, isLoading } = useRegister();
 
   const onSubmit = async (data: any) => {
-    await mutateAsync(data);
+    // The language the account was created in becomes its preference.
+    await mutateAsync({ ...data, language: localeToLanguage(locale) });
   };
 
   return (
     <>
       <Modal
-        title="Success"
-        text="Uspješno napravljen korisnik, molimo potvrdie email pa se prijavite"
-        actionText="Otiđi na prijavu"
+        title={t("registeredTitle")}
+        text={t("registeredText")}
+        actionText={t("goToLogin")}
         actionLink="/login"
         open={isSuccess}
       />
@@ -92,32 +98,32 @@ export const RegisterForm = () => {
         <Input
           form={form}
           attribute="firstName"
-          question="Ime"
+          question={t("firstName")}
           image={user}
           error={form.formState.errors.firstName?.message?.toString()}
         />
         <Input
           form={form}
           attribute="lastName"
-          question="Prezime"
+          question={t("lastName")}
           image={user}
           error={form.formState.errors.lastName?.message?.toString()}
         />
         <Input
           form={form}
           attribute="username"
-          question="Korisničko ime"
+          question={t("username")}
           image={email}
           error={form.formState.errors.username?.message?.toString()}
         />
-        <Textarea form={form} attribute="bio" question="Opis" />
+        <Textarea form={form} attribute="bio" question={t("bio")} />
         <SelectInput
-          label="Županija"
+          label={t("county")}
           name="location"
           options={Object.values(County)
             .filter((county) => county.length > 2)
             .map((county) => ({
-              label: makeCountyName(county),
+              label: countyName(county),
               value: county,
             }))}
           form={form}
@@ -126,14 +132,14 @@ export const RegisterForm = () => {
         <Input
           form={form}
           attribute="email"
-          question="Adresa e-pošte"
+          question={t("email")}
           image={email}
           error={form.formState.errors.email?.message?.toString()}
         />
         <Input
           form={form}
           attribute="password"
-          question="Lozinka"
+          question={t("password")}
           isPassword
           image={password}
           isDisabled={isLoading}
@@ -142,16 +148,16 @@ export const RegisterForm = () => {
         <Input
           form={form}
           attribute="passwordConfirmation"
-          question="Potvrdi lozinku"
+          question={t("confirmPassword")}
           isPassword
           image={password}
           isDisabled={isLoading}
           error={form.formState.errors.passwordConfirmation?.message?.toString()}
         />
         <div className={classes.buttons}>
-          <BaseButton text="Registrirajte se" />
+          <BaseButton text={t("register")} />
           <Link href="/login">
-            <BaseButton text="Prijavite se" initColor={ButtonColor.BLUE} />
+            <BaseButton text={t("login")} initColor={ButtonColor.BLUE} />
           </Link>
         </div>
       </form>

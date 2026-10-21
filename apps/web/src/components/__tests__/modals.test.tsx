@@ -3,6 +3,11 @@ import userEvent from "@testing-library/user-event";
 import { mockRouter } from "test-utils/router";
 import { setUserContext } from "test-utils/userContext";
 
+// Has its own test; here it only has to show up.
+jest.mock("components/LanguageToggle", () => ({
+  __esModule: true,
+  default: () => <div data-testid="language-toggle" />,
+}));
 jest.mock("@/utility/context/UserContext", () => ({
   __esModule: true,
   default: () => require("test-utils/userContext").mockUserContext,
@@ -472,5 +477,12 @@ describe("SideMenu", () => {
     expect(ctx.logout).not.toHaveBeenCalled();
     await userEvent.click(logout());
     expect(ctx.logout).toHaveBeenCalled();
+  });
+
+  it("offers the language switch to everyone", () => {
+    setUserContext();
+    render(<SideMenu />);
+    expect(screen.getByTestId("language-toggle")).toBeInTheDocument();
+    expect(screen.getByText("Jezik")).toBeInTheDocument();
   });
 });

@@ -6,23 +6,25 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import password from "assets/images/password.svg";
 import classes from "./ResetPasswordForm.module.scss";
+import { useTranslations } from "next-intl";
 export interface ResetPaswordFormProps {
   code: string;
 }
 
 export const ResetPaswordForm: React.FC<ResetPaswordFormProps> = ({ code }) => {
+  const t = useTranslations("Auth");
   const schema = z
     .object({
       password: z
         .string()
         .regex(
           /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*]).{8,}$/,
-          "Lozinka mora imati najmanje 8 znakova, jedno veliko slovo, jedno malo slovo, jedan broj i jedan specijalni znak",
+          t("passwordStrength"),
         ),
       confirmPassword: z.string(),
     })
     .refine((data) => data.password === data.confirmPassword, {
-      message: "Lozinke se ne poklapaju",
+      message: t("passwordsMismatch"),
       path: ["confirmPassword"],
     });
   const form = useForm({
@@ -40,7 +42,7 @@ export const ResetPaswordForm: React.FC<ResetPaswordFormProps> = ({ code }) => {
       <Input
         form={form}
         attribute="password"
-        question="Nova lozinka"
+        question={t("newPassword")}
         error={form.formState.errors.password?.message?.toString()}
         image={password}
         isPassword
@@ -49,12 +51,12 @@ export const ResetPaswordForm: React.FC<ResetPaswordFormProps> = ({ code }) => {
       <Input
         form={form}
         attribute="confirmPassword"
-        question="Potvrdi lozinku"
+        question={t("confirmPassword")}
         error={form.formState.errors.confirmPassword?.message?.toString()}
         image={password}
         isPassword
       />
-      <BaseButton text="Resetiraj lozinku" />
+      <BaseButton text={t("resetPassword")} />
     </form>
   );
 };

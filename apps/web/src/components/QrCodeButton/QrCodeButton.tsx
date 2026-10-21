@@ -10,6 +10,7 @@ import BaseButton from "components/BaseButton";
 import clsx from "clsx";
 import qrCodeIcon from "assets/icons/qr-code.svg";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 
 interface QrCodeButtonProps {
   name: string;
@@ -17,6 +18,7 @@ interface QrCodeButtonProps {
 }
 
 function QrCodeGenerator({ isIcon, name }: QrCodeButtonProps) {
+  const t = useTranslations("QrCode");
   const qrCodeRef = useRef<HTMLDivElement>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [url, setUrl] = useState<string>();
@@ -35,7 +37,8 @@ function QrCodeGenerator({ isIcon, name }: QrCodeButtonProps) {
         link.click();
       })
       .catch(function (error) {
-        toast.error("Greška pri generaciji qr koda:", error);
+        console.error(error);
+        toast.error(t("generateFailed"));
       });
   };
 
@@ -52,20 +55,20 @@ function QrCodeGenerator({ isIcon, name }: QrCodeButtonProps) {
       className={clsx(classes.container, isIcon && classes.icon)}
     >
       {isIcon ? (
-        <Image src={qrCodeIcon} alt="qr code" />
+        <Image src={qrCodeIcon} alt={t("generate")} />
       ) : (
-        <span>Generiraj QR kod</span>
+        <span>{t("generate")}</span>
       )}
       <Modal
         open={isModalOpen}
         deMount={handleModalClose}
-        text="Vaš QR kod"
-        title={`QR kod: ${name}`}
+        text={t("text")}
+        title={t("title", { name })}
       >
         <div className={classes.qrCode} ref={qrCodeRef}>
           <QRCode value={url || ""} size={500} />
         </div>
-        <BaseButton text="Preuzmi QR kod" onClick={downloadQRCode}></BaseButton>
+        <BaseButton text={t("download")} onClick={downloadQRCode}></BaseButton>
       </Modal>
     </button>
   );

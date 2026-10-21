@@ -3,6 +3,7 @@ import React, { PropsWithChildren, use, useEffect, useState } from "react";
 import classes from "./BaseModal.module.scss";
 import { createPortal } from "react-dom";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 
 interface ModalProps {
   title: string;
@@ -23,6 +24,7 @@ export const Modal: React.FC<ModalProps> = ({
   actionLink,
   actionText,
 }) => {
+  const t = useTranslations("Common");
   const [mounted, setMounted] = useState<boolean>(open);
 
   useEffect(() => {
@@ -59,7 +61,7 @@ export const Modal: React.FC<ModalProps> = ({
             <div className={classes.children}>{children}</div>
             {actionLink ? (
               <Link className={classes.link} href={actionLink}>
-                {actionText || "U redu"}
+                {actionText || t("ok")}
               </Link>
             ) : (
               <button
@@ -67,7 +69,7 @@ export const Modal: React.FC<ModalProps> = ({
                 className={classes.modalButton}
                 onClick={unMount}
               >
-                {actionText || "U redu"}
+                {actionText || t("ok")}
               </button>
             )}
           </div>

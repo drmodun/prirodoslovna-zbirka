@@ -110,7 +110,7 @@ describe("ExponatCard", () => {
     expect(screen.getByText("Crvena lisica")).toBeInTheDocument();
     expect(screen.getByText("Vulpes vulpes")).toBeInTheDocument();
     expect(screen.getByText("7")).toBeInTheDocument();
-    expect(screen.getByText("Eucariot")).toBeInTheDocument();
+    expect(screen.getByText("Eukariot")).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "Muzej" })).toHaveAttribute(
       "href",
       "/organisation/o1",

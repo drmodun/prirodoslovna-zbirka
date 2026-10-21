@@ -17,6 +17,7 @@ import { useOnScrollToBottom } from "@/utility/hooks/useOnScrollToBottom";
 import { BackToTopButton } from "./BackToTopButton";
 import { CollectionCard } from "./CollectionCard";
 import { useCardPermissions } from "./useCardPermissions";
+import { useTranslations } from "next-intl";
 
 const DEFAULT_PAGE_SIZE = 20;
 
@@ -75,36 +76,43 @@ const SortControls = ({
   onSortBy,
   onToggleDirection,
   anchor,
-}: SortControlsProps) => (
-  <div className={classes.sortSelect}>
-    <div className={classes.section}>
-      <span className={classes.sectionLabel}>Sortiraj po:</span>
-      <select
-        title="sortBy"
-        className={classes.select}
-        onChange={(e) => onSortBy(e.target.value)}
-      >
-        {sortBy.map((option) => (
-          <option key={option.value} value={option.value}>
-            {option.label}
-          </option>
-        ))}
-      </select>
+}: SortControlsProps) => {
+  const t = useTranslations("CardCollection");
+
+  return (
+    <div className={classes.sortSelect}>
+      <div className={classes.section}>
+        <span className={classes.sectionLabel}>{t("sortBy")}</span>
+        <select
+          title={t("sortBy")}
+          className={classes.select}
+          onChange={(e) => onSortBy(e.target.value)}
+        >
+          {sortBy.map((option) => (
+            <option key={option.value} value={option.value}>
+              {option.label}
+            </option>
+          ))}
+        </select>
+      </div>
+      <div className={classes.section} ref={anchor}>
+        <span className={classes.sectionLabel}>
+          {!isDescending ? t("ascending") : t("descending")}
+        </span>
+        <button
+          title={t("sortDirection")}
+          className={clsx(
+            classes.direction,
+            !isDescending && classes.descending,
+          )}
+          onClick={onToggleDirection}
+        >
+          <Image alt={t("sortDirection")} src={dArrow} />
+        </button>
+      </div>
     </div>
-    <div className={classes.section} ref={anchor}>
-      <span className={classes.sectionLabel}>
-        {!isDescending ? "Rastuće" : "Opadajuće"}
-      </span>
-      <button
-        title="direkcija sortiranja"
-        className={clsx(classes.direction, !isDescending && classes.descending)}
-        onClick={onToggleDirection}
-      >
-        <Image alt="strelica" src={dArrow} />
-      </button>
-    </div>
-  </div>
-);
+  );
+};
 
 export const CardCollection: React.FC<CardCollectionProps> = ({
   items,
@@ -121,6 +129,7 @@ export const CardCollection: React.FC<CardCollectionProps> = ({
   const [itemsToShow, setItemsToShow] = useState<Indexable[]>(items);
   const list = useRef<HTMLDivElement>(null);
   const permissions = useCardPermissions();
+  const t = useTranslations("Common");
 
   const handleDelete = (id: string) => {
     if (!id) return;
@@ -153,7 +162,7 @@ export const CardCollection: React.FC<CardCollectionProps> = ({
   if (itemsToShow.length === 0)
     return (
       <div className={classes.noResults} ref={list}>
-        <h1>Nema rezultata</h1>
+        <h1>{t("noResults")}</h1>
       </div>
     );
 

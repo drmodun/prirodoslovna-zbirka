@@ -7,6 +7,11 @@ jest.mock("components/SpeechToText", () => ({
   __esModule: true,
   default: () => null,
 }));
+// Has its own test; here it only has to show up.
+jest.mock("components/LanguageToggle", () => ({
+  __esModule: true,
+  default: () => <div data-testid="language-toggle" />,
+}));
 jest.mock("@/utility/context/UserContext", () => ({
   __esModule: true,
   default: () => require("test-utils/userContext").mockUserContext,
@@ -76,7 +81,7 @@ describe("OrganisationForm", () => {
       "Prirodoslovni muzej",
     );
     await userEvent.type(
-      screen.getByPlaceholderText("Description"),
+      screen.getByPlaceholderText("Opis"),
       "Muzej prirodnih znanosti",
     );
     await userEvent.type(
@@ -129,7 +134,7 @@ describe("OrganisationForm", () => {
       "a too short name",
       "Naziv organizacije",
       "A",
-      "Ime more imati najmanje 2 slova",
+      "Ime mora imati najmanje 2 slova",
     ],
     [
       "an invalid e-mail",
@@ -159,7 +164,7 @@ describe("OrganisationForm", () => {
   it("names the real description limit in its error message", async () => {
     render(<OrganisationForm />);
     await fillValid();
-    const field = screen.getByPlaceholderText("Description");
+    const field = screen.getByPlaceholderText("Opis");
     await userEvent.clear(field);
     await userEvent.type(field, "x".repeat(201), { delay: null });
     await userEvent.click(
@@ -189,7 +194,9 @@ describe("OrganisationForm", () => {
         screen.getByPlaceholderText("Naziv organizacije"),
         "Novi naziv",
       );
-      await userEvent.click(screen.getByRole("button", { name: "Uredi" }));
+      await userEvent.click(
+        screen.getByRole("button", { name: "Spremi promjene" }),
+      );
 
       await waitFor(() =>
         expect(api.updateOrganisation.mutateAsync).toHaveBeenCalled(),
@@ -209,7 +216,9 @@ describe("OrganisationForm", () => {
         <OrganisationForm isEdit initvalues={organisation} />,
       );
       await userEvent.upload(fileInput(container), png());
-      await userEvent.click(screen.getByRole("button", { name: "Uredi" }));
+      await userEvent.click(
+        screen.getByRole("button", { name: "Spremi promjene" }),
+      );
       await waitFor(() =>
         expect(api.updateOrganisation.mutateAsync).toHaveBeenCalled(),
       );
@@ -333,6 +342,16 @@ describe("EditUserForm", () => {
       true,
     );
   });
+
+  it("offers the language switch on the user's own profile only", () => {
+    const { unmount } = render(<EditUserForm user={user()} />);
+    expect(screen.getByTestId("language-toggle")).toBeInTheDocument();
+    expect(screen.getByText("Jezik sučelja")).toBeInTheDocument();
+    unmount();
+
+    render(<EditUserForm user={user({ id: "someone-else" })} isSuper />);
+    expect(screen.queryByTestId("language-toggle")).toBeNull();
+  });
 });
 
 describe("NotificationBell", () => {
@@ -418,7 +437,7 @@ describe("CreateButton", () => {
   it("opens the creation modal and hides itself when clicked", async () => {
     state.isVisibleButton = true;
     render(<CreateButton />);
-    await userEvent.click(screen.getByRole("button", { name: "+" }));
+    await userEvent.click(screen.getByRole("button", { name: "Kreiraj" }));
     expect(state.showModal).toHaveBeenCalled();
     expect(state.hideButton).toHaveBeenCalled();
   });

@@ -2,6 +2,7 @@ import { useMutation } from "react-query";
 import { fileApi } from "./shared";
 import { FileUploadProps } from "./useUploadFile";
 import toast from "react-hot-toast";
+import { useTranslations } from "next-intl";
 
 const uploadVideo = async (params: FileUploadProps) => {
   const data = new FormData();
@@ -14,9 +15,10 @@ const uploadVideo = async (params: FileUploadProps) => {
 };
 
 export const useUploadVideo = () => {
+  const t = useTranslations("Toasts");
   return useMutation(uploadVideo, {
     onError: (error) => {
-      toast.error("Greška prilikom uploada");
+      toast.error(t("uploadFailed"));
     },
   });
 };
