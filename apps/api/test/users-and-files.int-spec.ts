@@ -560,12 +560,15 @@ describe('users, notifications & file uploads (integration)', () => {
         .expect(201);
     });
 
+    const internal = { 'x-internal-key': 'integration-test-internal-key' };
+
     it('named audio uploads can be looked up again', async () => {
       const clip = 'e1-0123456789ab';
       await ctx.http().get(`/blobs/audio/audio-exponat/${clip}`).expect(404);
       await ctx
         .http()
         .post(`/blobs/audio/audio-exponat/${clip}`)
+        .set(internal)
         .attach('file', mp3, {
           filename: 'a.mp3',
           contentType: 'audio/mpeg',
@@ -582,13 +585,30 @@ describe('users, notifications & file uploads (integration)', () => {
       await ctx
         .http()
         .post(`/blobs/audio/audio-exponat/${clip}`)
+        .set(internal)
         .attach('file', mp3, { filename: 'a.mp3', contentType: 'audio/mpeg' })
         .expect(409);
       await ctx
         .http()
         .post('/blobs/audio/exponat/clip1')
+        .set(internal)
         .attach('file', mp3, { filename: 'a.mp3', contentType: 'audio/mpeg' })
         .expect(400);
+    });
+
+    it('named audio uploads need the internal key', async () => {
+      const clip = 'e2-0123456789ab';
+      for (const headers of [{}, { 'x-internal-key': 'wrong' }])
+        await ctx
+          .http()
+          .post(`/blobs/audio/audio-exponat/${clip}`)
+          .set(headers)
+          .attach('file', mp3, {
+            filename: 'a.mp3',
+            contentType: 'audio/mpeg',
+          })
+          .expect(401);
+      await ctx.http().get(`/blobs/audio/audio-exponat/${clip}`).expect(404);
     });
 
     it('rejects path traversal in the local file route', async () => {

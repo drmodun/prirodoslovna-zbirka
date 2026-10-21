@@ -40,10 +40,13 @@ services:
     environment:
       NODE_ENV: production
       JWT_SECRET: ${JWT_SECRET:?set JWT_SECRET in the env file}
+      INTERNAL_API_KEY: ${INTERNAL_API_KEY:?set INTERNAL_API_KEY in the env file}
       WEB_URL: ${PUBLIC_URL:?set PUBLIC_URL in the env file, e.g. https://biosfera.example.com}
 
   web:
     restart: unless-stopped
+    environment:
+      INTERNAL_API_KEY: ${INTERNAL_API_KEY:?set INTERNAL_API_KEY in the env file}
 
   docs:
     restart: unless-stopped

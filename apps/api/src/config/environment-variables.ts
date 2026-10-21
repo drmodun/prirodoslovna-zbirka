@@ -16,6 +16,7 @@ export interface EnvironmentVariables {
   SENDGRID_API_KEY?: string;
   API_PUBLIC_URL?: string;
   UPLOAD_DIR?: string;
+  INTERNAL_API_KEY?: string;
 }
 
 const optional = Joi.string().allow('').optional();
@@ -36,4 +37,5 @@ export const validationSchemaForEnv = Joi.object<EnvironmentVariables, true>({
   SENDGRID_API_KEY: optional,
   API_PUBLIC_URL: optional,
   UPLOAD_DIR: optional,
+  INTERNAL_API_KEY: optional,
 });

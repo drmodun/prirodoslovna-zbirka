@@ -89,6 +89,7 @@ services:
     environment: &api-env
       DATABASE_URL: postgresql://postgres:${POSTGRES_PASSWORD:-postgres}@postgres:5432/biosfera
       JWT_SECRET: ${JWT_SECRET:-local-development-secret}
+      INTERNAL_API_KEY: ${INTERNAL_API_KEY:-local-development-internal-key}
       WEB_URL: ${WEB_URL:-${PUBLIC_URL:-http://localhost}}
       AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID-biosfera}
       AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY-biosfera-local-secret}
@@ -150,6 +151,7 @@ services:
     environment:
       WEB_URL: ${WEB_URL:-${PUBLIC_URL:-http://localhost}}
       API_INTERNAL_URL: http://api:5500
+      INTERNAL_API_KEY: ${INTERNAL_API_KEY:-local-development-internal-key}
       # Any OpenAI-compatible API; see .env.sample.
       OPENAI_API_KEY: ${OPENAI_API_KEY:-}
       OPENAI_BASE_URL: ${OPENAI_BASE_URL:-}

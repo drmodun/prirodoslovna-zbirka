@@ -1,5 +1,6 @@
 import { BadRequestException, StreamableFile } from '@nestjs/common';
 import { Readable } from 'stream';
+import { InternalKeyGuard } from 'src/auth/internal-key.guard';
 import { BlobController } from './blob.controller';
 
 describe('BlobController', () => {
@@ -115,8 +116,6 @@ describe('BlobController', () => {
     });
   });
 
-  // namedAudioUpload is written by the web server for anonymous visitors and
-  // is restricted by name instead (see above).
   it.each(['upload', 'pdfUpload', 'modelUpload', 'videoUpload'] as const)(
     '%s requires authentication',
     (method) => {
@@ -127,4 +126,15 @@ describe('BlobController', () => {
       expect(guards?.length).toBeGreaterThan(0);
     },
   );
+
+  // Written by the web server for anonymous visitors, so it takes the
+  // internal key instead of a user's token.
+  it('namedAudioUpload requires the internal key', () => {
+    expect(
+      Reflect.getMetadata(
+        '__guards__',
+        BlobController.prototype.namedAudioUpload,
+      ),
+    ).toEqual([InternalKeyGuard]);
+  });
 });

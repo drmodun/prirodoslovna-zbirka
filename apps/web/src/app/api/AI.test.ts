@@ -13,6 +13,7 @@ const ENV = [
   "OPENAI_TRANSCRIPTION_MODEL",
   "TTS_URL",
   "GOOGLE_CLOUD_API_KEY",
+  "INTERNAL_API_KEY",
 ];
 
 /** AI.ts reads its configuration from process.env on import. */
@@ -211,18 +212,19 @@ describe("speech to text", () => {
 
 describe("ttsPrompt", () => {
   const ok = (text: string) => ({ ok: true, text: async () => text });
+  const key = { INTERNAL_API_KEY: "internal" };
 
   it("does nothing without text or a speech service", async () => {
     await expect(
       load().ttsPrompt("hello", "exponat", "1"),
     ).resolves.toBeUndefined();
     await expect(
-      load({ TTS_URL: "http://piper" }).ttsPrompt("", "exponat", "1"),
+      load({ TTS_URL: "http://piper", ...key }).ttsPrompt("", "exponat", "1"),
     ).resolves.toBeUndefined();
   });
 
   it("returns the stored recording when it already exists", async () => {
-    const m = load({ TTS_URL: "http://piper" });
+    const m = load({ TTS_URL: "http://piper", ...key });
     m.apiFetch.mockResolvedValue(ok("http://files/audio"));
     await expect(m.ttsPrompt("hello", "exponat", "7")).resolves.toBe(
       "http://files/audio",
@@ -234,7 +236,7 @@ describe("ttsPrompt", () => {
   });
 
   it("the recording name changes when the text changes", async () => {
-    const m = load({ TTS_URL: "http://piper" });
+    const m = load({ TTS_URL: "http://piper", ...key });
     m.apiFetch.mockResolvedValue(ok("u"));
     await m.ttsPrompt("one", "exponat", "7");
     await m.ttsPrompt("two", "exponat", "7");
@@ -244,7 +246,7 @@ describe("ttsPrompt", () => {
   });
 
   it("synthesises with Piper and uploads the result", async () => {
-    const m = load({ TTS_URL: "http://piper/" });
+    const m = load({ TTS_URL: "http://piper/", ...key });
     m.apiFetch
       .mockResolvedValueOnce({ ok: false }) // nothing stored yet
       .mockResolvedValueOnce(ok("http://files/new")); // upload result
@@ -263,11 +265,24 @@ describe("ttsPrompt", () => {
     });
     const upload = m.apiFetch.mock.calls[1][1];
     expect(upload.method).toBe("POST");
+    expect(upload.headers).toEqual({ "x-internal-key": "internal" });
     expect(upload.body.get("file").type).toBe("audio/wav");
   });
 
+  it("only looks up stored recordings without the internal key", async () => {
+    const m = load({ TTS_URL: "http://piper" });
+    m.apiFetch.mockResolvedValueOnce(ok("http://files/audio"));
+    await expect(m.ttsPrompt("hello", "post", "9")).resolves.toBe(
+      "http://files/audio",
+    );
+    m.apiFetch.mockResolvedValueOnce({ ok: false });
+    await expect(m.ttsPrompt("hello", "post", "9")).resolves.toBeUndefined();
+    expect(fetchMock).not.toHaveBeenCalled();
+    expect(m.apiFetch).toHaveBeenCalledTimes(2); // no upload attempted
+  });
+
   it("uses Google text-to-speech when only a Google key is set", async () => {
-    const m = load({ GOOGLE_CLOUD_API_KEY: "g-key" });
+    const m = load({ GOOGLE_CLOUD_API_KEY: "g-key", ...key });
     m.apiFetch
       .mockResolvedValueOnce({ ok: false })
       .mockResolvedValueOnce(ok("u"));
@@ -287,8 +302,8 @@ describe("ttsPrompt", () => {
   ])("gives up quietly when %s", async (_n, response) => {
     const m = load(
       _n === "Piper fails"
-        ? { TTS_URL: "http://piper" }
-        : { GOOGLE_CLOUD_API_KEY: "k" },
+        ? { TTS_URL: "http://piper", ...key }
+        : { GOOGLE_CLOUD_API_KEY: "k", ...key },
     );
     m.apiFetch.mockResolvedValue({ ok: false });
     fetchMock.mockResolvedValue(response);
@@ -297,7 +312,7 @@ describe("ttsPrompt", () => {
   });
 
   it("returns undefined when the upload is rejected or the API is down", async () => {
-    const m = load({ TTS_URL: "http://piper" });
+    const m = load({ TTS_URL: "http://piper", ...key });
     fetchMock.mockResolvedValue({
       ok: true,
       arrayBuffer: async () => new ArrayBuffer(2),

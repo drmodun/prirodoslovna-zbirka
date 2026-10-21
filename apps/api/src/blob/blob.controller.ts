@@ -15,8 +15,18 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { ApiBearerAuth, ApiBody, ApiConsumes, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiBody,
+  ApiConsumes,
+  ApiHeader,
+  ApiTags,
+} from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/jwt-auth-guard';
+import {
+  INTERNAL_KEY_HEADER,
+  InternalKeyGuard,
+} from 'src/auth/internal-key.guard';
 import { BlobService } from './blob.service';
 import { randomUUID } from 'crypto';
 import { Directories } from '@biosfera/types';
@@ -150,6 +160,8 @@ export class BlobController {
       },
     },
   })
+  @ApiHeader({ name: INTERNAL_KEY_HEADER, description: 'INTERNAL_API_KEY' })
+  @UseGuards(InternalKeyGuard)
   @UseInterceptors(FileInterceptor('file'))
   async namedAudioUpload(
     @Param('directory') directory: Directories,
@@ -165,8 +177,9 @@ export class BlobController {
     file: Express.Multer.File,
   ) {
     // The web server stores text-to-speech recordings here while rendering
-    // pages for anyone, so there is no user to authenticate. Instead the
-    // endpoint only takes recording names and never replaces a file.
+    // pages for anyone, so there is no user to authenticate; it proves itself
+    // with the internal key instead. The endpoint still only takes recording
+    // names and never replaces a file.
     if (!AUDIO_DIRECTORY.test(directory) || !AUDIO_NAME.test(name))
       throw new BadRequestException('Invalid recording name');
     if (await this.blobService.find(directory, name))

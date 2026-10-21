@@ -12,6 +12,8 @@ const config = {
   moduleDirectories: ["node_modules", "<rootDir>/src"],
   moduleNameMapper: {
     "^@/(.*)$": "<rootDir>/src/app/$1",
+    // Only throws outside React server components, which Jest is not.
+    "^server-only$": "<rootDir>/src/test-utils/empty.ts",
   },
   testMatch: ["<rootDir>/src/**/*.test.{ts,tsx}"],
   collectCoverageFrom: [

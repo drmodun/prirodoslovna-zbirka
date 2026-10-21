@@ -11,9 +11,9 @@ const waitFor: typeof import("@testing-library/react").waitFor = (
   ...a: any[]
 ) => (rtl.waitFor as any)(...a);
 
-jest.mock("@/api/AI", () => ({
+jest.mock("@/api/speechToText", () => ({
   isSpeechToTextConfigured: jest.fn(),
-  whisperPrompt: jest.fn(),
+  transcribe: jest.fn(),
 }));
 jest.mock("../static/createMediaStream", () => ({
   createMediaStream: jest.fn(),
@@ -49,7 +49,7 @@ const load = (serverTranscribes: boolean | Error) => {
   jest.resetModules();
   // "pure" does not register its own auto-cleanup hooks (not allowed in a test)
   rtl = require("@testing-library/react/pure");
-  const ai = require("@/api/AI");
+  const ai = require("@/api/speechToText");
   if (serverTranscribes instanceof Error)
     ai.isSpeechToTextConfigured.mockRejectedValue(serverTranscribes);
   else ai.isSpeechToTextConfigured.mockResolvedValue(serverTranscribes);
@@ -73,6 +73,9 @@ beforeEach(() => {
 });
 
 describe("useRecordVoice with server side transcription", () => {
+  beforeEach(() => localStorage.setItem("access_token", "TOKEN"));
+  afterEach(() => localStorage.clear());
+
   it("only asks for the microphone when recording starts", async () => {
     const { useRecordVoice } = load(true);
     const { result } = renderHook(() => useRecordVoice());
@@ -86,7 +89,7 @@ describe("useRecordVoice with server side transcription", () => {
 
   it("transcribes the recording when it stops", async () => {
     const { useRecordVoice, ai } = load(true);
-    ai.whisperPrompt.mockResolvedValue({ text: "dobar dan" });
+    ai.transcribe.mockResolvedValue({ text: "dobar dan" });
     const { result } = renderHook(() => useRecordVoice());
 
     await act(async () => {
@@ -95,7 +98,7 @@ describe("useRecordVoice with server side transcription", () => {
     act(() => result.current.stopRecording());
 
     await waitFor(() => expect(result.current.text).toBe("dobar dan"));
-    expect(ai.whisperPrompt).toHaveBeenCalledWith("BASE64");
+    expect(ai.transcribe).toHaveBeenCalledWith("BASE64", "TOKEN");
     expect(result.current.recording).toBe(false);
   });
 
@@ -139,7 +142,7 @@ describe("useRecordVoice with server side transcription", () => {
 
   it("keeps the previous text when transcription fails", async () => {
     const { useRecordVoice, ai } = load(true);
-    ai.whisperPrompt.mockResolvedValue(undefined);
+    ai.transcribe.mockResolvedValue(undefined);
     const { result } = renderHook(() => useRecordVoice());
     await act(async () => {
       await result.current.startRecording();
@@ -209,14 +212,28 @@ describe("useRecordVoice without server transcription", () => {
     expect(result.current.recording).toBe(false);
   });
 
+  it("uses the browser's recognition when nobody is logged in", async () => {
+    (window as any).SpeechRecognition = FakeRecognition;
+    const { useRecordVoice, ai } = load(true);
+    const { result } = renderHook(() => useRecordVoice());
+    await act(async () => {
+      await result.current.startRecording();
+    });
+    expect(FakeRecognition.last.start).toHaveBeenCalled();
+    expect(getUserMedia).not.toHaveBeenCalled();
+    expect(ai.transcribe).not.toHaveBeenCalled();
+  });
+
   it("treats a failing capability check as 'no server transcription'", async () => {
     (window as any).SpeechRecognition = FakeRecognition;
+    localStorage.setItem("access_token", "TOKEN");
     const { useRecordVoice } = load(new Error("server down"));
     const { result } = renderHook(() => useRecordVoice());
     await act(async () => {
       await result.current.startRecording();
     });
     expect(FakeRecognition.last.start).toHaveBeenCalled();
+    localStorage.clear();
   });
 });
 

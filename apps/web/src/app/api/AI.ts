@@ -1,4 +1,8 @@
-"use server";
+// Server-only, deliberately not "use server": every export of a "use server"
+// file is a public endpoint, and these spend this deployment's AI and speech
+// credits on whatever text they are given. Server components call them; the
+// browser's only way in is ./speechToText.
+import "server-only";
 
 import { createHash } from "crypto";
 import { OpenAI } from "openai";
@@ -27,6 +31,8 @@ const openai =
 const piperUrl = process.env.TTS_URL?.replace(/\/+$/, "");
 const googleKey = process.env.GOOGLE_CLOUD_API_KEY;
 const googleTtsUrl = `https://texttospeech.googleapis.com/v1/text:synthesize?key=${googleKey}`;
+// Lets this server store recordings in the API; it never reaches a browser.
+const internalKey = process.env.INTERNAL_API_KEY;
 
 //General function to get chat completions
 
@@ -205,6 +211,8 @@ export const ttsPrompt = async (
   try {
     const existing = await apiFetch(stored, { cache: "no-store" });
     if (existing.ok) return await existing.text();
+    // The API would refuse the upload, so do not pay for the synthesis.
+    if (!internalKey) return;
 
     const audio = await synthesise(text);
     if (!audio) return;
@@ -215,7 +223,11 @@ export const ttsPrompt = async (
       new File([new Uint8Array(audio)], `${id}.wav`, { type: "audio/wav" }),
     );
 
-    const upload = await apiFetch(stored, { method: "POST", body: request });
+    const upload = await apiFetch(stored, {
+      method: "POST",
+      body: request,
+      headers: { "x-internal-key": internalKey },
+    });
     if (!upload.ok) return;
     return await upload.text();
   } catch (error) {

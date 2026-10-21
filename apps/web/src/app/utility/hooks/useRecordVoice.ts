@@ -3,7 +3,7 @@ import { useState, useRef } from "react";
 import toast from "react-hot-toast";
 import { blobToBase64 } from "../static/blobToBase64";
 import { createMediaStream } from "../static/createMediaStream";
-import { isSpeechToTextConfigured, whisperPrompt } from "@/api/AI";
+import { isSpeechToTextConfigured, transcribe } from "@/api/speechToText";
 import { useLocale, useTranslations } from "next-intl";
 import { Locale, SPEECH_LANGUAGES } from "i18n/config";
 
@@ -11,6 +11,10 @@ import { Locale, SPEECH_LANGUAGES } from "i18n/config";
 let serverTranscribes: Promise<boolean> | undefined;
 const canServerTranscribe = () =>
   (serverTranscribes ??= isSpeechToTextConfigured().catch(() => false));
+
+// Server transcription is only offered to logged-in users.
+const accessToken = () =>
+  typeof window === "undefined" ? null : localStorage.getItem("access_token");
 
 const getBrowserRecognition = () =>
   typeof window === "undefined"
@@ -30,7 +34,7 @@ export const useRecordVoice = () => {
 
   const getText = async (base64data: any) => {
     try {
-      const response = await whisperPrompt(base64data);
+      const response = await transcribe(base64data, accessToken() ?? "");
       const { text } = response!;
       setText(text);
     } catch (error) {
@@ -68,8 +72,8 @@ export const useRecordVoice = () => {
     return mediaRecorder.current;
   };
 
-  // Backup when the server has no OPENAI_API_KEY: the browser's own speech
-  // recognition, where it exists (Chromium and Safari).
+  // Backup when the server has no OPENAI_API_KEY or nobody is logged in: the
+  // browser's own speech recognition, where it exists (Chromium and Safari).
   const startBrowserRecognition = () => {
     const Recognition = getBrowserRecognition();
     if (!Recognition) {
@@ -91,7 +95,7 @@ export const useRecordVoice = () => {
   const startRecording = async () => {
     isRecording.current = true;
     try {
-      if (!(await canServerTranscribe())) {
+      if (!accessToken() || !(await canServerTranscribe())) {
         if (isRecording.current) startBrowserRecognition();
         return;
       }

@@ -47,6 +47,7 @@
     "react-responsive-carousel": "^3.2.23",
     "react-share": "^5.1.0",
     "sass": "^1.75.0",
+    "server-only": "^0.0.1",
     "sharp": "^0.35.5",
     "three": "^0.165.0",
     "zod": "^3.22.4"

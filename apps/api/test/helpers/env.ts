@@ -12,6 +12,7 @@ process.env.DATABASE_URL = `${TEST_DATABASE_URL}${
 }connection_limit=2`;
 process.env.JWT_SECRET = 'integration-test-secret';
 process.env.WEB_URL = 'http://web.test';
+process.env.INTERNAL_API_KEY = 'integration-test-internal-key';
 delete process.env.SMTP_URL;
 delete process.env.SENDGRID_API_KEY;
 for (const key of [
