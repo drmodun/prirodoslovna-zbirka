@@ -12,7 +12,7 @@ import {
 import { MemberRoleType } from 'src/members/members.dto';
 import { BlobService } from 'src/blob/blob.service';
 import { EmailService } from 'src/email/email.service';
-import { User } from '@prisma/client';
+import { Language, User } from '@prisma/client';
 
 export const PASSWORD_RESET_TTL_MS = 60 * 60 * 1000;
 
@@ -249,6 +249,15 @@ export class UsersService {
     });
   }
 
+  async updateLanguage(id: string, language: Language) {
+    return await this.prisma.user.update({
+      where: {
+        id: id,
+      },
+      data: { language },
+    });
+  }
+
   async remove(id: string) {
     return await this.prisma.user.delete({
       where: {
@@ -306,8 +315,17 @@ export class UsersService {
   async sendVefificationEmail(user: User) {
     const baseUrl = process.env.WEB_URL || 'http://localhost:3000';
 
-    const subject = `${user.firstName}, verificirajte e-mail adresu`;
-    const text = `${user.firstName} ${user.lastName}, molimo vas da verificirate vašu e-mail adresu (${user.email}) klikom na link ${baseUrl}/activateUser/${user.activationCode}`;
+    const link = `${baseUrl}/activateUser/${user.activationCode}`;
+    const [subject, text] =
+      user.language === Language.HR
+        ? [
+            `${user.firstName}, verificirajte e-mail adresu`,
+            `${user.firstName} ${user.lastName}, molimo vas da verificirate vašu e-mail adresu (${user.email}) klikom na link ${link}`,
+          ]
+        : [
+            `${user.firstName}, verify your e-mail address`,
+            `${user.firstName} ${user.lastName}, please verify your e-mail address (${user.email}) by following the link ${link}`,
+          ];
     const mail = await this.email.sendMail(user.email, subject, text);
 
     return mail;
@@ -348,8 +366,17 @@ export class UsersService {
     });
 
     const baseUrl = process.env.WEB_URL || 'http://localhost:3000';
-    const subject = `Resetiranje lozinke na biosfera.trema`;
-    const text = `Poštovani, molimo vas da resetirate lozinku klikom na link: ${baseUrl}/resetPassword/${token}. Link vrijedi jedan sat.`;
+    const link = `${baseUrl}/resetPassword/${token}`;
+    const [subject, text] =
+      user.language === Language.HR
+        ? [
+            `Resetiranje lozinke na biosfera.trema`,
+            `Poštovani, molimo vas da resetirate lozinku klikom na link: ${link}. Link vrijedi jedan sat.`,
+          ]
+        : [
+            `Password reset on biosfera.trema`,
+            `Hello, you can reset your password by following the link: ${link}. The link is valid for one hour.`,
+          ];
     await this.email.sendMail(email, subject, text);
   }
 

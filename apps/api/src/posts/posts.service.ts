@@ -256,16 +256,12 @@ export class PostsService {
     post: Post,
     userId: string,
   ): NotificationPromise {
-    const notificationText = post.isApproved
-      ? `Vaša objava ${post.title} je odobrena`
-      : `Vaša objava ${post.title} je odbijena`;
-
     const makeNotification = await this.notificationService.create(
       {
-        text: notificationText,
+        messageKey: post.isApproved ? 'postApproved' : 'postRejected',
+        params: { title: post.title },
         type: 'POST_APPROVAL',
         link: `${env.WEB_URL ?? 'localhost:3000'}/post/${post.id}`,
-        title: 'Obavijest o objavi',
         notificationImage: post.thumbnailImage,
       },
       [userId],
@@ -287,14 +283,18 @@ export class PostsService {
     const splitText = post.text.split(' ');
     const notification = await this.notificationService.create(
       {
-        text:
-          splitText.length > 20
-            ? `${splitText.slice(0, 20).join(' ')}...`
-            : post.text,
+        messageKey: 'newPost',
+        params: {
+          author: posterId,
+          title: post.title,
+          excerpt:
+            splitText.length > 20
+              ? `${splitText.slice(0, 20).join(' ')}...`
+              : post.text,
+        },
         type: 'POST_BY_FOLLOWED_ACCOUNT',
         notificationImage: post.thumbnailImage,
         link: `${env.WEB_URL ?? 'localhost:3000'}/post/${post.id}`,
-        title: `Nova objava od korisnika ${posterId}: ${post.title}`,
       },
       followerIds,
     );
@@ -318,10 +318,10 @@ export class PostsService {
   ): NotificationPromise {
     const notification = await this.notificationService.create(
       {
-        text: `Novi zahtjev za objavu ${post.title} korisnika`,
+        messageKey: 'newPostRequest',
+        params: { title: post.title },
         type: 'NEW_POST_REQUEST',
         link: `${env.WEB_URL ?? 'localhost:3000'}/post/${post.id}/admin`,
-        title: 'Novi zahtjev za objavu',
         notificationImage: post.thumbnailImage,
       },
       adminsId,

@@ -234,40 +234,34 @@ describe('PostsService', () => {
       }) as any;
 
     it.each([
-      [true, 'odobrena'],
-      [false, 'odbijena'],
-    ])(
-      'approval notification for isApproved=%s says %s',
-      async (flag, word) => {
-        await service.makeApprovalNotification(
-          post({ isApproved: flag }),
-          'u1',
-        );
-        expect(notifications.create).toHaveBeenCalledWith(
-          expect.objectContaining({
-            type: 'POST_APPROVAL',
-            text: expect.stringContaining(word),
-          }),
-          ['u1'],
-        );
-        expect(notificationUsers.publishNotification).toHaveBeenCalledWith(
-          'u1',
-          {
-            id: 'n1',
-          },
-        );
-      },
-    );
+      [true, 'postApproved'],
+      [false, 'postRejected'],
+    ])('approval notification for isApproved=%s is %s', async (flag, word) => {
+      await service.makeApprovalNotification(post({ isApproved: flag }), 'u1');
+      expect(notifications.create).toHaveBeenCalledWith(
+        expect.objectContaining({
+          type: 'POST_APPROVAL',
+          messageKey: word,
+          params: { title: 'Title' },
+        }),
+        ['u1'],
+      );
+      expect(notificationUsers.publishNotification).toHaveBeenCalledWith('u1', {
+        id: 'n1',
+      });
+    });
 
     it('new post notification keeps short text intact', async () => {
       await service.makeNewPostNotification('u', post(), ['f']);
-      expect(notifications.create.mock.calls[0][0].text).toBe('short text');
+      expect(notifications.create.mock.calls[0][0].params.excerpt).toBe(
+        'short text',
+      );
     });
 
     it('new post notification truncates text over 20 words', async () => {
       const text = Array.from({ length: 30 }, (_, i) => `w${i}`).join(' ');
       await service.makeNewPostNotification('u', post({ text }), ['f']);
-      const sent = notifications.create.mock.calls[0][0].text;
+      const sent = notifications.create.mock.calls[0][0].params.excerpt;
       expect(sent.endsWith('...')).toBe(true);
       expect(sent.replace('...', '').split(' ')).toHaveLength(20);
     });
@@ -298,7 +292,7 @@ describe('PostsService', () => {
 
       expect(notifications.create.mock.calls[0][0]).toMatchObject({
         type: 'POST_APPROVAL',
-        text: expect.stringContaining('odobrena'),
+        messageKey: 'postApproved',
       });
       expect(prisma.post.update).toHaveBeenLastCalledWith({
         where: { id: 'p1' },
@@ -328,7 +322,9 @@ describe('PostsService', () => {
     it('un-approving tells the author and skips followers', async () => {
       prisma.post.findUnique.mockResolvedValue(stored({ isApproved: true }));
       await service.toggleApproval('p1');
-      expect(notifications.create.mock.calls[0][0].text).toContain('odbijena');
+      expect(notifications.create.mock.calls[0][0].messageKey).toBe(
+        'postRejected',
+      );
       expect(follows.getFollowers).not.toHaveBeenCalled();
       expect(prisma.post.update).toHaveBeenCalledWith({
         where: { id: 'p1' },

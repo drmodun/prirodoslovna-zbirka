@@ -162,6 +162,35 @@ describe('users, notifications & file uploads (integration)', () => {
       });
     });
 
+    it('users can change their interface language, which their own profile returns', async () => {
+      const { user, auth } = await createSession(ctx);
+      await ctx
+        .http()
+        .patch('/users/language')
+        .set(auth)
+        .send({ language: 'HR' })
+        .expect(200);
+
+      const me = await ctx.http().get('/auth/detailed').set(auth).expect(200);
+      expect(me.body.language).toBe('HR');
+      expect(
+        (await ctx.prisma.user.findUniqueOrThrow({ where: { id: user.id } }))
+          .language,
+      ).toBe('HR');
+
+      await ctx
+        .http()
+        .patch('/users/language')
+        .set(auth)
+        .send({ language: 'DE' })
+        .expect(400);
+      await ctx
+        .http()
+        .patch('/users/language')
+        .send({ language: 'EN' })
+        .expect(401);
+    });
+
     it('a profile update cannot escalate privileges', async () => {
       const { user, auth } = await createSession(ctx);
       await ctx
@@ -237,6 +266,54 @@ describe('users, notifications & file uploads (integration)', () => {
   });
 
   describe('notifications', () => {
+    it("are shown, live and in the list, in each reader's language", async () => {
+      const croatian = await createSession(ctx);
+      const english = await createSession(ctx);
+      await ctx.prisma.user.update({
+        where: { id: croatian.user.id },
+        data: { language: 'HR' },
+      });
+      const follower = await createSession(ctx);
+      await ctx
+        .http()
+        .post(`/follows/${croatian.user.id}`)
+        .set(follower.auth)
+        .expect(201);
+      await ctx
+        .http()
+        .post(`/follows/${english.user.id}`)
+        .set(follower.auth)
+        .expect(201);
+
+      const titles = async (auth: Record<string, string>) =>
+        (
+          await ctx.http().get('/notification-users').set(auth).expect(200)
+        ).body.map((n: any) => [n.title, n.text]);
+      const username = follower.user.username;
+      expect(await titles(croatian.auth)).toEqual([
+        ['Novi pratitelj', `Korisnik ${username} te sada prati`],
+      ]);
+      expect(await titles(english.auth)).toEqual([
+        ['New follower', `${username} is now following you`],
+      ]);
+
+      // switching the language changes the stored ones too
+      await ctx
+        .http()
+        .patch('/users/language')
+        .set(croatian.auth)
+        .send({ language: 'EN' })
+        .expect(200);
+      expect(await titles(croatian.auth)).toEqual([
+        ['New follower', `${username} is now following you`],
+      ]);
+      // and the mails went out in the reader's language
+      expect(ctx.mails.map((mail) => mail.subject).sort()).toEqual([
+        'New follower',
+        'Novi pratitelj',
+      ]);
+    });
+
     it('are listed per user, can be marked as read individually or all at once', async () => {
       const a = await createSession(ctx);
       const b = await createSession(ctx);

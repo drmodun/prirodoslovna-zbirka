@@ -12,6 +12,7 @@ describe('UsersController', () => {
       findAll: jest.fn(),
       findOne: jest.fn(),
       update: jest.fn(),
+      updateLanguage: jest.fn(),
       remove: jest.fn(),
       getJoinRequests: jest.fn(),
       uploadProfileImage: jest.fn(),
@@ -145,6 +146,14 @@ describe('UsersController', () => {
     ).resolves.toBe(true);
     expect(svc.remove).toHaveBeenCalledWith('me');
     expect(svc.update).toHaveBeenCalledWith('me', { bio: 'b' });
+  });
+
+  it('updateLanguage saves the language of the authenticated user', async () => {
+    svc.updateLanguage.mockResolvedValue({});
+    await expect(
+      controller.updateLanguage({ language: 'HR' } as any, as('user', 'me')),
+    ).resolves.toBe(true);
+    expect(svc.updateLanguage).toHaveBeenCalledWith('me', 'HR');
   });
 
   describe('admin-only routes', () => {

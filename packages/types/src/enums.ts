@@ -4,6 +4,13 @@ export enum Role {
   USER,
 }
 
+// Interface language a user picked; the web app keeps the matching lowercase
+// locale ("en", "hr") in a cookie.
+export enum Language {
+  EN = "EN",
+  HR = "HR",
+}
+
 export enum ExponatKind {
   PROCARIOT,
   EUCARIOT,

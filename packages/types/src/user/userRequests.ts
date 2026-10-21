@@ -8,7 +8,7 @@ import {
   IsBoolean,
 } from "class-validator";
 import { LoginRequest } from "../auth";
-import { County } from "../enums";
+import { County, Language } from "../enums";
 
 export const getRegisterUserDto = (ApiPropertySwagger?: any) => {
   const ApiProperty = ApiPropertySwagger || function () {};
@@ -44,6 +44,11 @@ export const getRegisterUserDto = (ApiPropertySwagger?: any) => {
     @IsEmail()
     @ApiProperty()
     email: string;
+
+    @IsOptional()
+    @IsEnum(Language)
+    @ApiProperty({ required: false, enum: Language })
+    language?: Language;
   }
 
   return RegisterUserDto;
@@ -84,9 +89,26 @@ export const getUpateUserDto = (ApiPropertySwagger?: any) => {
     @IsBoolean()
     @ApiProperty({ required: false })
     isEmailNotificationsEnabled?: boolean;
+
+    @IsOptional()
+    @IsEnum(Language)
+    @ApiProperty({ required: false, enum: Language })
+    language?: Language;
   }
 
   return UpdateUserDto;
+};
+
+export const getUpdateLanguageDto = (ApiPropertySwagger?: any) => {
+  const ApiProperty = ApiPropertySwagger || function () {};
+
+  class UpdateLanguageDto {
+    @IsEnum(Language)
+    @ApiProperty({ enum: Language })
+    language: Language;
+  }
+
+  return UpdateLanguageDto;
 };
 
 export interface UpdateUserInfoRequest {

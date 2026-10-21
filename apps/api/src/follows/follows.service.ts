@@ -17,11 +17,11 @@ export class FollowsService {
   ) {
     const notification = await this.notificationsService.create(
       {
-        title: 'Novi pratitelj',
+        messageKey: 'newFollower',
+        params: { username: follower.username },
         link: `/user/${follower.id}`,
         type: 'NEW_FOLLOWER',
         notificationImage: follower.id,
-        text: `Korisnik ${follower.username} te sada prati`,
       },
       [followeeId],
     );

@@ -167,8 +167,12 @@ export class ExponatsService {
   ) {
     const notification = await this.notificationsService.create(
       {
-        text: `Novi zahtev za eksponat ${exponat.name} (${exponat.alternateName}) organizacije ${exponat.Organisation.name}`,
-        title: `Organizacija ${exponat.Organisation.name} je dobila novi zahtev za eksponat ${exponat.name}`,
+        messageKey: 'newExponatRequest',
+        params: {
+          name: exponat.name,
+          alternateName: exponat.alternateName,
+          organisation: exponat.Organisation.name,
+        },
         link: `${env.WEB_URL}/exponat/${exponat.id}/admin`,
         type: 'NEW_EXPONAT_REQUEST',
         notificationImage: exponat.mainImage,
@@ -193,8 +197,8 @@ export class ExponatsService {
   ) {
     const notification = await this.notificationsService.create(
       {
-        title: `Novi eksponat organizacije ${exponat.Organisation.name}`,
-        text: `Organizacija ${exponat.Organisation.name} je dodala novi eksponat ${exponat.name}`,
+        messageKey: 'newExponat',
+        params: { name: exponat.name, organisation: exponat.Organisation.name },
         link: `${env.WEB_URL}/exponat/${exponat.id}`,
         type: 'EXPONAT_BY_FOLLOWED_ORGANISATION',
         notificationImage: exponat.mainImage,

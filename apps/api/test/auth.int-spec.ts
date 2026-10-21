@@ -47,6 +47,40 @@ describe('auth & user registration (integration)', () => {
       );
     });
 
+    it('keeps the language the user registered in, English by default', async () => {
+      const english = await ctx
+        .http()
+        .post('/users')
+        .send(registration())
+        .expect(201);
+      const croatian = await ctx
+        .http()
+        .post('/users')
+        .send(
+          registration({
+            email: 'iva@test.hr',
+            username: 'iva',
+            language: 'HR',
+          }),
+        )
+        .expect(201);
+
+      const language = async (id: string) =>
+        (await ctx.prisma.user.findUniqueOrThrow({ where: { id } })).language;
+      expect(await language(english.text)).toBe('EN');
+      expect(await language(croatian.text)).toBe('HR');
+      expect(ctx.mails[0].subject).toBe('Ana, verify your e-mail address');
+      expect(ctx.mails[1].subject).toBe('Ana, verificirajte e-mail adresu');
+    });
+
+    it('rejects an unknown language', async () => {
+      await ctx
+        .http()
+        .post('/users')
+        .send(registration({ language: 'DE' }))
+        .expect(400);
+    });
+
     it('registers a user who leaves the optional bio out', async () => {
       const { bio, ...withoutBio } = registration();
       void bio;
@@ -144,6 +178,33 @@ describe('auth & user registration (integration)', () => {
         .post('/auth/login')
         .send({ email: 'ghost@test.hr', password: PASSWORD })
         .expect(400);
+    });
+
+    it('answers errors in the language the request asks for', async () => {
+      const user = await createUser(ctx);
+      const login = () =>
+        ctx
+          .http()
+          .post('/auth/login')
+          .send({ email: user.email, password: 'Wrong!Passw0rd' });
+
+      expect((await login().expect(400)).body.message).toBe(
+        'Invalid credentials',
+      );
+      expect(
+        (await login().set('Accept-Language', 'hr').expect(400)).body.message,
+      ).toBe('Neispravni podaci za prijavu');
+
+      // validation errors too
+      const invalid = await ctx
+        .http()
+        .post('/users')
+        .set('Accept-Language', 'hr')
+        .send(registration({ email: 'not-an-email' }))
+        .expect(400);
+      expect(invalid.body.message).toContain(
+        'email mora biti ispravna e-mail adresa',
+      );
     });
 
     it('validates the payload', async () => {

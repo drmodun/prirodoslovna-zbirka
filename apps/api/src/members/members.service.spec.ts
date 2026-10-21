@@ -151,7 +151,8 @@ describe('MembersService', () => {
         expect.objectContaining({
           type: 'MEMBERSHIP_CHANGE',
           link: '/organisation/o1',
-          text: expect.stringContaining('member'),
+          messageKey: 'membershipChange',
+          params: expect.objectContaining({ role: 'MEMBER' }),
         }),
         ['u1'],
       );
@@ -243,7 +244,7 @@ describe('MembersService', () => {
         OR: [{ role: 'REQUESTED' }, { role: 'MEMBER' }],
       });
       expect(arg.data).toEqual({ role: 'ADMIN' });
-      expect(notifications.create.mock.calls[0][0].text).toContain('admin');
+      expect(notifications.create.mock.calls[0][0].params.role).toBe('ADMIN');
     });
   });
 
@@ -307,7 +308,7 @@ describe('MembersService', () => {
         },
         data: { role: 'OWNER' },
       });
-      expect(notifications.create.mock.calls[0][0].text).toContain('owner');
+      expect(notifications.create.mock.calls[0][0].params.role).toBe('OWNER');
       expect(result.membership).toEqual({ count: 1 });
       expect(result.newMembership.user).toBe(user);
     });

@@ -536,7 +536,7 @@ describe('posts, likes & follows (integration)', () => {
       await ctx.http().post(`/follows/${b.user.id}`).set(a.auth).expect(201);
       await ctx.http().post(`/follows/${c.user.id}`).set(a.auth).expect(201);
 
-      const notified = ctx.mails.filter((m) => m.subject === 'Novi pratitelj');
+      const notified = ctx.mails.filter((m) => m.subject === 'New follower');
       expect(notified.map((m) => m.to)).toEqual([b.user.email]);
     });
 

@@ -40,6 +40,7 @@ describe('AuthController', () => {
       expect(res).toMatchObject({
         id: 'u1',
         role: 'USER',
+        language: 'HR',
         followerCount: 7,
         followingCount: 8,
         likeCount: 7,

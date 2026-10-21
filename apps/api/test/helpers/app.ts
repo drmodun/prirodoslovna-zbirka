@@ -1,9 +1,4 @@
-import {
-  ClassSerializerInterceptor,
-  INestApplication,
-  ValidationPipe,
-} from '@nestjs/common';
-import { HttpAdapterHost, Reflector } from '@nestjs/core';
+import { INestApplication } from '@nestjs/common';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 import { Test } from '@nestjs/testing';
 import * as bcrypt from 'bcrypt';
@@ -11,7 +6,7 @@ import { randomUUID } from 'crypto';
 import * as request from 'supertest';
 import { AppModule } from 'src/app.module';
 import { EmailService } from 'src/email/email.service';
-import { PrismaClientExceptionFilter } from 'src/prisma-client-exception/prisma-client-exception.filter';
+import { configureApp } from 'src/app.setup';
 import { PrismaService } from 'src/prisma/prisma.service';
 
 export interface SentMail {
@@ -72,10 +67,7 @@ export async function createTestContext(
   const moduleRef = await builder.compile();
 
   const app = moduleRef.createNestApplication();
-  const { httpAdapter } = app.get(HttpAdapterHost);
-  app.useGlobalFilters(new PrismaClientExceptionFilter(httpAdapter));
-  app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
-  app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
+  configureApp(app);
   BigInt.prototype['toJSON'] = function () {
     return Number.parseInt(this.toString());
   };

@@ -21,6 +21,7 @@ import { UsersService } from './users.service';
 import {
   RegisterUserDto,
   ResetPasswordDto,
+  UpdateLanguageDto,
   UpdateUserDto,
 } from './dto/users.dto';
 import {
@@ -323,6 +324,17 @@ export class UsersController {
     );
 
     return addedUserProfilePicture;
+  }
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
+  @Patch('/language')
+  async updateLanguage(
+    @Body() { language }: UpdateLanguageDto,
+    @Req() req: any,
+  ) {
+    return (
+      (await this.usersService.updateLanguage(req.user.id, language)) !== null
+    );
   }
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()

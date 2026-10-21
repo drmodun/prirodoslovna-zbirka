@@ -1,8 +1,12 @@
 import { NotificationTypeEnumType } from '@biosfera/types';
+import {
+  NotificationMessageKey,
+  NotificationParams,
+} from '../notification-messages';
 
 export interface CreateNotificationDto {
-  title: string;
-  text: string;
+  messageKey: NotificationMessageKey;
+  params: NotificationParams;
   link: string;
   notificationImage?: string;
   type: NotificationTypeEnumType;

@@ -99,10 +99,8 @@ export class MembersService {
   ): NotificationPromise {
     const notification = await this.notificationsService.create(
       {
-        title: 'Promjena statusa članstva',
-        text: `Vaš status članstva u organizaciji ${
-          organisation.name
-        } je promijenjen u ${status.toLowerCase()}`,
+        messageKey: 'membershipChange',
+        params: { organisation: organisation.name, role: status },
         link: `/organisation/${organisation.id}`,
         notificationImage: organisation.mainImage,
         type: 'MEMBERSHIP_CHANGE',
@@ -124,8 +122,8 @@ export class MembersService {
   ): NotificationPromise {
     const notification = await this.notificationsService.create(
       {
-        title: 'Zahtjev za članstvo',
-        text: `Korisnik ${user.username} je poslao zahtjev za članstvo u organizaciji ${organisation.name}`,
+        messageKey: 'membershipRequest',
+        params: { username: user.username, organisation: organisation.name },
         link: `/organisation/${organisation.id}`,
         notificationImage: organisation.mainImage,
         type: 'MEMBERSHIP_REQUEST',

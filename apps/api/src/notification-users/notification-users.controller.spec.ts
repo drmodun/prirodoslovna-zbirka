@@ -13,6 +13,7 @@ describe('NotificationUsersController', () => {
   beforeEach(() => {
     svc = {
       getAllForUser: jest.fn(),
+      getLanguage: jest.fn(),
       markAllAsRead: jest.fn(),
       markAsRead: jest.fn(),
     };
@@ -66,6 +67,29 @@ describe('NotificationUsersController', () => {
       },
     ]);
     expect(svc.getAllForUser).toHaveBeenCalledWith('me');
+  });
+
+  it("getNotifications renders keyed notifications in the user's language", async () => {
+    svc.getLanguage.mockResolvedValue('HR');
+    svc.getAllForUser.mockResolvedValue([
+      {
+        notificationId: 'n1',
+        isRead: false,
+        notification: {
+          title: 'New follower',
+          text: 'ana is now following you',
+          messageKey: 'newFollower',
+          params: { username: 'ana' },
+          type: 'NEW_FOLLOWER',
+        },
+      },
+    ]);
+    const [notification] = await controller.getNotifications(req);
+    expect(notification).toMatchObject({
+      title: 'Novi pratitelj',
+      text: 'Korisnik ana te sada prati',
+    });
+    expect(svc.getLanguage).toHaveBeenCalledWith('me');
   });
 
   it('mark as read actions are scoped to the authenticated user', async () => {

@@ -34,10 +34,13 @@ export class SocialPostsService {
   ) {
     const notification = await this.notificationService.create(
       {
-        title: `Nova najava organizacije ${socialPost.organisation.name}`,
+        messageKey: 'newSocialPost',
+        params: {
+          organisation: socialPost.organisation.name,
+          title: socialPost.title,
+        },
         link: `/organisation/${socialPost.organisation.id}`,
         type: 'NEW_SOCIAL_POST',
-        text: `Nova najava organizacije ${socialPost.organisation.name}: ${socialPost.title}`,
       },
       userIds,
     );

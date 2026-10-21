@@ -10,6 +10,7 @@ import {
   OrganisationResponseShort,
   ExtendedUserResponse,
   WorkResponseShort,
+  Language,
 } from '@biosfera/types';
 import { UsersService } from 'src/users/users.service';
 import { isModerator } from './roles';
@@ -184,6 +185,7 @@ export class AuthController {
       likeCount: item.Posts.reduce((agg, curr) => agg + curr._count.Likes, 0),
       favouriteExponats,
       role: item.role,
+      language: item.language as Language,
       memberships,
     };
 

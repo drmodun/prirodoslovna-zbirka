@@ -36,6 +36,7 @@ export const fullUserItem = () => {
     location: 'ZAGREB',
     bio: 'bio',
     role: 'USER',
+    language: 'HR',
     hasProfileImage: true,
     createdAt: date,
     updatedAt: date,

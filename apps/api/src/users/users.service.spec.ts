@@ -166,6 +166,54 @@ describe('UsersService', () => {
     expect(prisma.user.delete).toHaveBeenCalledWith({ where: { id: 'u' } });
   });
 
+  it('updateLanguage stores only the language of the user', async () => {
+    await service.updateLanguage('u', 'HR');
+    expect(prisma.user.update).toHaveBeenCalledWith({
+      where: { id: 'u' },
+      data: { language: 'HR' },
+    });
+  });
+
+  describe('mail language', () => {
+    const user = (language?: string) =>
+      ({
+        email: 'a@b.c',
+        firstName: 'Ana',
+        lastName: 'Anić',
+        activationCode: 'zzz',
+        language,
+      }) as any;
+
+    it('writes the verification mail in English by default', async () => {
+      await service.sendVefificationEmail(user('EN'));
+      const [, subject, text] = email.sendMail.mock.calls[0];
+      expect(subject).toBe('Ana, verify your e-mail address');
+      expect(text).toContain('please verify your e-mail address');
+    });
+
+    it('writes the verification mail in Croatian for Croatian users', async () => {
+      await service.sendVefificationEmail(user('HR'));
+      const [, subject, text] = email.sendMail.mock.calls[0];
+      expect(subject).toBe('Ana, verificirajte e-mail adresu');
+      expect(text).toContain('/activateUser/zzz');
+    });
+
+    it.each([
+      ['EN', 'Password reset on biosfera.trema'],
+      ['HR', 'Resetiranje lozinke na biosfera.trema'],
+    ])(
+      'writes the reset mail for %s users in their language',
+      async (language, subject) => {
+        prisma.user.findUnique.mockResolvedValue({ id: 'u1', language });
+        await service.sendPasswordResetEmail('a@b.c');
+        expect(email.sendMail.mock.calls[0][1]).toBe(subject);
+        expect(email.sendMail.mock.calls[0][2]).toMatch(
+          /\/resetPassword\/[0-9a-f]{64}/,
+        );
+      },
+    );
+  });
+
   it('getJoinRequests only returns REQUESTED memberships', async () => {
     await service.getJoinRequests('u');
     const where = prisma.organisationUser.findMany.mock.calls[0][0].where;

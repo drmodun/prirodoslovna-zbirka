@@ -35,7 +35,8 @@ describe('FollowsService', () => {
         type: 'NEW_FOLLOWER',
         link: '/user/a',
         notificationImage: 'a',
-        text: expect.stringContaining('ana'),
+        messageKey: 'newFollower',
+        params: { username: 'ana' },
       }),
       ['b'],
     );

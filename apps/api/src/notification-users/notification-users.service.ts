@@ -3,6 +3,41 @@ import { BadRequestException, Injectable, Logger } from '@nestjs/common';
 import { NotificationBusService } from 'src/notification-bus/notification-bus.service';
 import { EmailService } from 'src/email/email.service';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { Language } from '@prisma/client';
+import { localiseNotification } from 'src/notifications/notification-messages';
+
+// A stored notification, as NotificationsService.create returns it.
+export interface PublishedNotification {
+  id: string;
+  title: string;
+  text?: string | null;
+  link?: string | null;
+  notificationImage?: string | null;
+  createdAt: Date;
+  type: string;
+  messageKey?: string | null;
+  params?: unknown;
+}
+
+interface Recipient {
+  id: string;
+  email: string;
+  language: Language;
+  isActivated: boolean;
+  isEmailNotificationsEnabled: boolean;
+}
+
+const toResponse = (
+  notification: PublishedNotification,
+): NotificationResponse => ({
+  id: notification.id,
+  title: notification.title,
+  text: notification.text ?? '',
+  link: notification.link ?? undefined,
+  notificationImage: notification.notificationImage ?? undefined,
+  createdAt: notification.createdAt,
+  type: notification.type as NotificationResponse['type'],
+});
 
 @Injectable()
 export class NotificationUsersService {
@@ -16,20 +51,50 @@ export class NotificationUsersService {
 
   public async publishNotification(
     userId: string,
-    message: NotificationResponse,
+    notification: PublishedNotification,
   ) {
-    await this.publishToBus(userId, message);
-    await this.sendEmails([userId], message);
+    await this.publishManyNotifications([userId], notification);
   }
 
+  // Every recipient gets the notification in their own language, live and by
+  // mail.
   public async publishManyNotifications(
     userIds: string[],
-    message: NotificationResponse,
+    notification: PublishedNotification,
   ) {
+    if (!userIds.length) return [];
+
+    // Without the recipients the notification still goes out live, in English.
+    const recipients = await this.prisma.user
+      .findMany({
+        where: { id: { in: userIds } },
+        select: {
+          id: true,
+          email: true,
+          language: true,
+          isActivated: true,
+          isEmailNotificationsEnabled: true,
+        },
+      })
+      .catch((error): Recipient[] => {
+        this.logger.error('Could not load notification recipients', error);
+        return [];
+      });
+    const byId = new Map(recipients.map((user) => [user.id, user]));
+    const messageFor = (userId: string) =>
+      toResponse(
+        localiseNotification(notification, byId.get(userId)?.language),
+      );
+
     const results = await Promise.all(
-      userIds.map((userId) => this.publishToBus(userId, message)),
+      userIds.map((userId) => this.publishToBus(userId, messageFor(userId))),
     );
-    await this.sendEmails(userIds, message);
+    await this.sendEmails(
+      recipients.filter(
+        (user) => user.isActivated && user.isEmailNotificationsEnabled,
+      ),
+      messageFor,
+    );
 
     return results;
   }
@@ -45,40 +110,38 @@ export class NotificationUsersService {
   }
 
   // Best effort: a mail failure must not fail the action that caused the
-  // notification. One query finds every recipient, the mails go out together.
-  private async sendEmails(userIds: string[], message: NotificationResponse) {
-    if (!userIds.length) return;
+  // notification. The mails go out together.
+  private async sendEmails(
+    users: { id: string; email: string }[],
+    messageFor: (userId: string) => NotificationResponse,
+  ) {
+    const baseUrl = process.env.WEB_URL || 'http://localhost:3000';
 
-    try {
-      const users = await this.prisma.user.findMany({
-        where: {
-          id: { in: userIds },
-          isActivated: true,
-          isEmailNotificationsEnabled: true,
-        },
-        select: { id: true, email: true },
-      });
+    await Promise.all(
+      users.map((user) => {
+        const message = messageFor(user.id);
+        const text = [message.text, message.link && `${baseUrl}${message.link}`]
+          .filter(Boolean)
+          .join('\n\n');
 
-      const baseUrl = process.env.WEB_URL || 'http://localhost:3000';
-      const text = [message.text, message.link && `${baseUrl}${message.link}`]
-        .filter(Boolean)
-        .join('\n\n');
-
-      await Promise.all(
-        users.map((user) =>
-          this.email
-            .sendMail(user.email, message.title, text)
-            .catch((error) =>
-              this.logger.error(
-                `Could not mail notification to ${user.id}`,
-                error,
-              ),
+        return this.email
+          .sendMail(user.email, message.title, text)
+          .catch((error) =>
+            this.logger.error(
+              `Could not mail notification to ${user.id}`,
+              error,
             ),
-        ),
-      );
-    } catch (error) {
-      this.logger.error('Could not mail notifications', error);
-    }
+          );
+      }),
+    );
+  }
+
+  public async getLanguage(userId: string) {
+    const user = await this.prisma.user.findUnique({
+      where: { id: userId },
+      select: { language: true },
+    });
+    return user?.language;
   }
 
   public async markAsRead(notificationId: string, userId: string) {

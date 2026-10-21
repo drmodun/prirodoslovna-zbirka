@@ -15,6 +15,7 @@ import { OwnStreamGuard } from './own-stream.guard';
 import { NotificationResponse } from '@biosfera/types';
 import { fromEvent, map, Observable } from 'rxjs';
 import { EventEmitter2 } from '@nestjs/event-emitter';
+import { localiseNotification } from 'src/notifications/notification-messages';
 
 @ApiTags('notification-users')
 @Controller('notification-users')
@@ -42,19 +43,22 @@ export class NotificationUsersController {
   @Get()
   async getNotifications(@Req() req: any): Promise<NotificationResponse[]> {
     const userId = req.user?.id;
-    const notifications =
-      await this.notificationUsersService.getAllForUser(userId);
+    const [notifications, language] = await Promise.all([
+      this.notificationUsersService.getAllForUser(userId),
+      this.notificationUsersService.getLanguage(userId),
+    ]);
 
-    return notifications.map((notification) => {
+    return notifications.map(({ notification, isRead, notificationId }) => {
+      const { title, text } = localiseNotification(notification, language);
       return {
-        createdAt: notification.notification.createdAt,
-        id: notification.notificationId,
-        notificationImage: notification.notification.notificationImage,
-        title: notification.notification.title,
-        link: notification.notification.link,
-        read: notification.isRead,
-        text: notification.notification.text ?? '',
-        type: notification.notification.type,
+        createdAt: notification.createdAt,
+        id: notificationId,
+        notificationImage: notification.notificationImage,
+        title,
+        link: notification.link,
+        read: isRead,
+        text: text ?? '',
+        type: notification.type,
       } as NotificationResponse;
     });
   }

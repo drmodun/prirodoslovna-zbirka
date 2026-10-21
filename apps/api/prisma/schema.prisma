@@ -18,6 +18,11 @@ enum Role {
   USER
 }
 
+enum Language {
+  EN
+  HR
+}
+
 enum TimeLimitType {
   NONE
   TOTAL
@@ -174,6 +179,7 @@ model User {
   SavedLiterature             SavedLiterature[]
   UserNotification            UserNotification[]
   isEmailNotificationsEnabled Boolean                    @default(true) @map("IsEmailNotificationsEnabled")
+  language                    Language                   @default(EN)
   AuthorshipInfo              AuthorshipInfo[]
   Attempt                     Attempt[]
 }
@@ -360,6 +366,10 @@ model Notification {
   notificationImage String?
   UserNotification  UserNotification[]
   type              NotificationType
+  // Renders title and text in each reader's language; title and text keep
+  // an English copy for rows from before keys existed.
+  messageKey        String?
+  params            Json?
 }
 
 model AuthorshipInfo {

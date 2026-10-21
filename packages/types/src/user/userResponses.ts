@@ -5,6 +5,7 @@ import {
 import { ExponatResponseShort } from "../exponat/exponatResponses";
 import { OrganisationResponseShort } from "../organisation/organisationResponses";
 import { PostResponse } from "../post/postResponse";
+import { Language } from "../enums";
 
 export interface ExtendedUserResponse {
   id: string;
@@ -13,6 +14,8 @@ export interface ExtendedUserResponse {
   // Present for the user themself and for super users.
   email?: string;
   role?: string;
+  // Present only on the user's own profile.
+  language?: Language;
   bio: string;
   followerCount: number;
   username: string;
