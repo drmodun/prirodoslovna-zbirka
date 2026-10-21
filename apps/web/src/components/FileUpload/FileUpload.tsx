@@ -10,6 +10,7 @@ import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import alertImage from "assets/images/alert.svg";
 import clsx from "clsx";
+import { useTranslations } from "next-intl";
 export interface FileUploadProps {
   name: string;
   maxFiles?: number;
@@ -27,6 +28,7 @@ const FileUpload = ({
   maxFiles = 1,
   onChange,
 }: FileUploadProps) => {
+  const t = useTranslations("FileUpload");
   const {
     isDragActive,
     getRootProps,
@@ -50,7 +52,7 @@ const FileUpload = ({
 
   useEffect(() => {
     if (files.length + acceptedFiles.length > maxFiles) {
-      toast.error("Previše datoteka");
+      toast.error(t("tooManyFiles"));
       return;
     }
     setFiles((prev) => [...prev, ...acceptedFiles]);
@@ -89,26 +91,22 @@ const FileUpload = ({
           />
         </div>
         {!isDragActive && files.length < maxFiles && (
-          <span className={classes.text}>
-            Ovdje prenesite datoteke ili kliknite da bi ih dodali
-          </span>
+          <span className={classes.text}>{t("dropHere")}</span>
         )}
         {isDragActive && !isDragReject && (
-          <span className={classes.text}>Pustite datoteke ovdje ...</span>
+          <span className={classes.text}>{t("release")}</span>
         )}
         {isDragReject && (
-          <span className={classes.error}>Nepodržani format datoteke</span>
+          <span className={classes.error}>{t("unsupported")}</span>
         )}
         {isFileTooLarge && (
-          <span className={classes.error}>Datoteka je prevelika</span>
+          <span className={classes.error}>{t("tooLarge")}</span>
         )}
         {files.length > maxFiles && (
-          <span className={classes.error}>Previše datoteka</span>
+          <span className={classes.error}>{t("tooManyFiles")}</span>
         )}
         {files.length === maxFiles && (
-          <span className={classes.text}>
-            Maskimalni broj datoteka je stavljen
-          </span>
+          <span className={classes.text}>{t("limitReached")}</span>
         )}
       </div>
       {files.length > 0 && (
@@ -123,7 +121,7 @@ const FileUpload = ({
                 <button
                   className={classes.remove}
                   type="button"
-                  title="remove"
+                  title={t("remove")}
                   onClick={() => removeFile(file)}
                 >
                   <Image src={dash} alt="remove" layout="fill" />

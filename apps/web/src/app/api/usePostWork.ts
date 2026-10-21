@@ -2,6 +2,7 @@ import { getCreateWorkDto, WorkResponseExtended } from "@biosfera/types";
 import { api } from "./shared";
 import toast from "react-hot-toast";
 import { useMutation } from "react-query";
+import { useTranslations } from "next-intl";
 
 const createWorkRequest = getCreateWorkDto();
 
@@ -17,15 +18,16 @@ const postWork = async (data: {
   );
 
 export const usePostWork = () => {
+  const t = useTranslations("Toasts");
   return useMutation(postWork, {
     onMutate: () => {
-      return { toastId: toast.loading("Izrada projekta") };
+      return { toastId: toast.loading(t("creatingWork")) };
     },
-    onSuccess: ({}, _variables, context) => {
-      toast.success("Projekt uspješno napravljen", { id: context?.toastId });
+    onSuccess: (_data, _variables, context) => {
+      toast.success(t("workCreated"), { id: context?.toastId });
     },
     onError: (error: string, _variables, context) => {
-      toast.error("Greška pri izradi projekta", { id: context?.toastId });
+      toast.error(t("workCreateFailed"), { id: context?.toastId });
     },
   });
 };

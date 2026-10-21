@@ -10,12 +10,14 @@ import useNotification from "@/utility/context/NotificationContext";
 import { getPfpUrl } from "@/utility/static/getPfpUrl";
 import ImageWithFallback from "components/ImageWithFallback/ImageWithFallback";
 import placeholder from "assets/images/profile-image-placeholder.png";
+import { useTranslations } from "next-intl";
 
 export interface NotificationCardProps {
   notification: NotificationResponse;
 }
 
 export const NotificationCard = ({ notification }: NotificationCardProps) => {
+  const t = useTranslations("Notifications");
   const { mutateAsync } = useMarkAsRead();
   const router = useRouter();
   const { markAsRead } = useNotification();
@@ -54,7 +56,7 @@ export const NotificationCard = ({ notification }: NotificationCardProps) => {
           </span>
         </div>
         <span className={classes.text}>
-          {notification.text ? notification.text : "Nema teksta"}
+          {notification.text ? notification.text : t("noText")}
         </span>
       </div>
     </div>

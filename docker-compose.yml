@@ -1,57 +1,199 @@
-version: "3.8"
-
+# The whole stack, self-contained: no external accounts needed.
+#
+# Local (this file + docker-compose.override.yml, picked up automatically):
+#   docker compose up -d --build      # then open http://localhost
+#   docker compose run --rm seed      # wipe the database and load mock data
+#
+# Production (this file + docker-compose.prod.yml, see that file):
+#   docker compose --env-file .env.production \
+#     -f docker-compose.yml -f docker-compose.prod.yml up -d --build
+#
+# This file publishes no ports; the two files above decide how the stack is
+# reached. Values in the env file override the defaults below. The web and
+# docs images bake PUBLIC_URL in, so rebuild them after changing that.
+#
+# S3 variables use ${VAR-default}: leaving one out selects the bundled store,
+# setting it to nothing (AWS_ENDPOINT_URL_S3=) really clears it.
 services:
-  reverse-proxy:
-    image: nginx:latest
-    container_name: nginx_container
-    ports:
-      - 80:80
-    depends_on:
-      - postgres
-    volumes:
-      - ./packages/config/nginx.conf:/etc/nginx/nginx.conf
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
-
   postgres:
     image: postgres:15
     environment:
-      - POSTGRES_DB=biosfera
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
+      POSTGRES_DB: biosfera
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
     volumes:
       - db_data:/var/lib/postgresql/data
-    ports:
-      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d biosfera"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  # S3-compatible file storage (SeaweedFS). The API writes with the key
+  # below; anyone can read the bucket, which the proxy serves at /files.
+  s3:
+    image: chrislusf/seaweedfs
+    environment: &s3-env
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID-biosfera}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY-biosfera-local-secret}
+      AWS_S3_BUCKET: ${AWS_S3_BUCKET-biosfera}
+    entrypoint: ["/bin/sh", "-c"]
+    command:
+      - |
+        cat > /tmp/s3.json <<JSON
+        {"identities": [
+          {"name": "api",
+           "credentials": [{"accessKey": "$$AWS_ACCESS_KEY_ID", "secretKey": "$$AWS_SECRET_ACCESS_KEY"}],
+           "actions": ["Admin", "Read", "Write", "List", "Tagging"]},
+          {"name": "anonymous", "actions": ["Read:$$AWS_S3_BUCKET"]}
+        ]}
+        JSON
+        exec weed server -dir=/data -s3 -s3.config=/tmp/s3.json
+    volumes:
+      - s3_data:/data
+    healthcheck:
+      test: ["CMD-SHELL", "nc -z 127.0.0.1 8333 && nc -z 127.0.0.1 9333"]
+      interval: 5s
+      timeout: 3s
+      retries: 30
+
+  # One-shot: makes sure the bucket exists.
+  s3-init:
+    image: chrislusf/seaweedfs
+    environment: *s3-env
+    entrypoint: ["/bin/sh", "-c"]
+    command:
+      - |
+        for attempt in 1 2 3 4 5 6 7 8 9 10; do
+          if echo "s3.bucket.list" | weed shell -master=s3:9333 2>/dev/null | grep -q "$$AWS_S3_BUCKET"; then exit 0; fi
+          echo "s3.bucket.create -name $$AWS_S3_BUCKET" | weed shell -master=s3:9333
+          sleep 2
+        done
+        exit 1
+    depends_on:
+      s3:
+        condition: service_healthy
+
+  # Text-to-speech (Piper) with a Serbian voice; reads descriptions and posts.
+  piper:
+    build:
+      context: docker/piper
+      args:
+        PIPER_VOICE: ${PIPER_VOICE:-sr_RS-serbski_institut-medium}
 
   api:
-    container_name: api_container
-    ports:
-      - "5500:5500"
-    depends_on:
-      - postgres
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
     build:
-      dockerfile: ./apps/api/Dockerfile
+      context: .
+      dockerfile: apps/api/Dockerfile
       target: runner
-    env_file:
-      - ./.env
-  web:
-    container_name: web_container
-    ports:
-      - "3000:3000"
+    environment: &api-env
+      DATABASE_URL: postgresql://postgres:${POSTGRES_PASSWORD:-postgres}@postgres:5432/biosfera
+      JWT_SECRET: ${JWT_SECRET:-local-development-secret}
+      WEB_URL: ${WEB_URL:-${PUBLIC_URL:-http://localhost}}
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID-biosfera}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY-biosfera-local-secret}
+      AWS_S3_BUCKET: ${AWS_S3_BUCKET-biosfera}
+      AWS_ENDPOINT_URL_S3: ${AWS_ENDPOINT_URL_S3-http://s3:8333}
+      AWS_S3_URL: ${AWS_S3_URL-${PUBLIC_URL:-http://localhost}/files}
+      AWS_REGION: ${AWS_REGION:-}
+      AWS_S3_FORCE_PATH_STYLE: ${AWS_S3_FORCE_PATH_STYLE:-}
+      SMTP_URL: ${SMTP_URL:-}
+      MAIL_FROM: ${MAIL_FROM:-}
+      SENDGRID_API_KEY: ${SENDGRID_API_KEY:-}
+      # Only used when the S3 variables are cleared: uploads then go to the
+      # volume below and the API serves them itself at this address.
+      API_PUBLIC_URL: ${NEXT_PUBLIC_API_URL:-${PUBLIC_URL:-http://localhost}/api}
+    volumes:
+      - uploads:/app/apps/api/uploads
     depends_on:
-      - api
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
+      postgres:
+        condition: service_healthy
+      s3-init:
+        condition: service_completed_successfully
+    healthcheck:
+      test:
+        - CMD
+        - node
+        - -e
+        - fetch('http://localhost:5500/api-json').then(r=>process.exit(r.ok?0:1),()=>process.exit(1))
+      interval: 5s
+      timeout: 5s
+      retries: 30
+      start_period: 10s
+
+  seed:
+    profiles: [seed]
     build:
-      dockerfile: ./apps/web/Dockerfile
+      context: .
+      dockerfile: apps/api/Dockerfile
+      target: seed
+    environment:
+      <<: *api-env
+      NODE_ENV: development
+    depends_on:
+      api:
+        condition: service_healthy
+
+  web:
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
       target: runner
       args:
-        - WEB_URL=${WEB_URL:-http://localhost:3000}
-    env_file:
-      - ./.env
+        WEB_URL: ${WEB_URL:-${PUBLIC_URL:-http://localhost}}
+        NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-${PUBLIC_URL:-http://localhost}/api}
+        NEXT_PUBLIC_FILES_URL: ${NEXT_PUBLIC_FILES_URL:-}
+        AWS_S3_URL: ${AWS_S3_URL-${PUBLIC_URL:-http://localhost}/files}
+        AWS_S3_BUCKET: ${AWS_S3_BUCKET-biosfera}
+        AWS_REGION: ${AWS_REGION:-}
+        FILES_FALLBACK: local
+    environment:
+      WEB_URL: ${WEB_URL:-${PUBLIC_URL:-http://localhost}}
+      API_INTERNAL_URL: http://api:5500
+      # Any OpenAI-compatible API; see .env.sample.
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      OPENAI_BASE_URL: ${OPENAI_BASE_URL:-}
+      OPENAI_MODEL: ${OPENAI_MODEL:-}
+      OPENAI_TRANSCRIPTION_MODEL: ${OPENAI_TRANSCRIPTION_MODEL-whisper-1}
+      TTS_URL: ${TTS_URL-http://piper:5000}
+      GOOGLE_CLOUD_API_KEY: ${GOOGLE_CLOUD_API_KEY:-}
+    depends_on:
+      api:
+        condition: service_healthy
+
+  # This documentation site (apps/docs), static, at /docs behind the proxy.
+  docs:
+    build:
+      context: .
+      dockerfile: apps/docs/Dockerfile
+      target: runner
+      args:
+        PUBLIC_URL: ${PUBLIC_URL:-http://localhost}
+
+  # Catches outgoing mail for local testing; inbox at http://localhost:8025.
+  #   SMTP_URL=smtp://mailpit:1025 docker compose --profile mail up -d
+  mailpit:
+    profiles: [mail]
+    image: axllent/mailpit
+
+  reverse-proxy:
+    image: caddy:2
+    environment:
+      SITE_ADDRESS: ${SITE_ADDRESS:-:80}
+      AWS_S3_BUCKET: ${AWS_S3_BUCKET-biosfera}
+    volumes:
+      - ./packages/config/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - api
+      - web
+      - s3
+      - docs
 
 volumes:
   db_data:
+  s3_data:
+  uploads:
+  caddy_data:
+  caddy_config:

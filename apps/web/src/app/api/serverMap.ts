@@ -4,7 +4,7 @@ import { MapPossibility } from "@biosfera/types";
 
 export const getMapPossibility = async (id: number) => {
   const request = await fetch(
-    `https://api.gbif.org/v2/map/occurrence/density/capabilities.json?taxonKey=${id}`,
+    `https://api.gbif.org/v2/map/occurrence/density/capabilities.json?taxonKey=${encodeURIComponent(id)}`,
     {
       next: {
         revalidate: 1 * 60 * 60 * 24 * 7, // weekly revalidation
@@ -18,7 +18,7 @@ export const getMapPossibility = async (id: number) => {
 
 export const getCroatianMapPossibility = async (id: number) => {
   const request = await fetch(
-    `https://api.gbif.org/v2/map/occurrence/density/capabilities.json?taxonKey=${id}&country=HR`,
+    `https://api.gbif.org/v2/map/occurrence/density/capabilities.json?taxonKey=${encodeURIComponent(id)}&country=HR`,
     {
       next: {
         revalidate: 1 * 60 * 60 * 24 * 7, // weekly revalidation
@@ -31,7 +31,7 @@ export const getCroatianMapPossibility = async (id: number) => {
 
 export const getMap = async (id: string) => {
   const mapData = await fetch(
-    `https://api.gbif.org/v2/map/occurrence/density/0/0/0%401x.png?srs=EPSG%3A3857&bin=square&hexPerTile=51&squareSize=16&style=greenHeat.point&taxonKey=${id}`,
+    `https://api.gbif.org/v2/map/occurrence/density/0/0/0%401x.png?srs=EPSG%3A3857&bin=square&hexPerTile=51&squareSize=16&style=greenHeat.point&taxonKey=${encodeURIComponent(id)}`,
     {
       next: {
         revalidate: 1 * 60 * 60 * 24 * 7, // weekly revalidation
@@ -44,7 +44,7 @@ export const getMap = async (id: string) => {
 
 export const getCroatianMap = async (id: string) => {
   const mapData = await fetch(
-    `https://api.gbif.org/v2/map/occurrence/density/0/0/0%401x.png?srs=EPSG%3A3857&bin=square&hexPerTile=51&squareSize=16&style=greenHeat.point&taxonKey=${id}`, //later figure out zoom
+    `https://api.gbif.org/v2/map/occurrence/density/0/0/0%401x.png?srs=EPSG%3A3857&bin=square&hexPerTile=51&squareSize=16&style=greenHeat.point&taxonKey=${encodeURIComponent(id)}`, //later figure out zoom
     {
       next: {
         revalidate: 1 * 60 * 60 * 24 * 7, // weekly revalidation

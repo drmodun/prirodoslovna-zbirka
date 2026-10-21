@@ -13,9 +13,11 @@ import {
 import ShareButton from "components/ShareButton";
 import QrCodeGenerator from "components/QrCodeButton";
 import DocumentReader from "components/DocumentReader";
+import { getTranslations } from "next-intl/server";
 
 const WorkPage = async ({ params }: { params: any }) => {
   const workInfo: WorkResponseExtended = await getWork(params.workId);
+  const t = await getTranslations("WorkPage");
 
   return workInfo ? (
     <div className={classes.container}>
@@ -47,11 +49,11 @@ const WorkPage = async ({ params }: { params: any }) => {
           className={classes.button}
           href={`/organisation/${workInfo.organisationId}`}
         >
-          Pogledaj organizaciju
+          {t("viewOrganisation")}
         </Link>
 
         <div className={classes.sharing}>
-          <ShareButton text="Podeli rad" title="Podijeli rad" />
+          <ShareButton text={t("share")} title={workInfo.title} />
           <QrCodeGenerator isIcon name={workInfo.title} />
         </div>
       </div>
@@ -64,14 +66,14 @@ const WorkPage = async ({ params }: { params: any }) => {
       <div className={classes.documents}>
         {workInfo.document && (
           <div className={classes.pdfReader}>
-            <span className={classes.name}>Dokument projekta</span>
+            <span className={classes.name}>{t("document")}</span>
             <DocumentReader src={workInfo.document} />
           </div>
         )}
 
         {workInfo.presentation && (
           <div className={classes.pdfReader}>
-            <span className={classes.name}>Prezentacija projekta</span>
+            <span className={classes.name}>{t("presentation")}</span>
             <DocumentReader isLandscape src={workInfo.presentation} />
           </div>
         )}

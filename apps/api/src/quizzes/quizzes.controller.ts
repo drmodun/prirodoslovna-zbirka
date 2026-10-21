@@ -10,6 +10,7 @@ import {
   Req,
   UnauthorizedException,
   Query,
+  NotFoundException,
 } from '@nestjs/common';
 import { QuizzesService } from './quizzes.service';
 import { CreateQuizDto, QuizQuery, UpdateQuizDto } from './quizzes.dto';
@@ -36,13 +37,15 @@ export class QuizzesController {
     @Param('organisationId') organisation: string,
     @Req() req: any,
   ) {
+    // Creating is not moderation, so platform moderators do not pass.
     const isValid = await this.membersService.hasAdminRights(
       req.user.id,
       organisation,
     );
 
     if (!isValid) throw new UnauthorizedException();
-    await this.quizzesService.create(createQuizDto);
+    // The quiz belongs to the organisation the rights were checked for.
+    await this.quizzesService.create(createQuizDto, organisation);
   }
 
   @Get()
@@ -58,7 +61,7 @@ export class QuizzesController {
         attemptsAmount: quiz._count.attempts,
         description: quiz.description,
         organisationMainImage: quiz.organisation.mainImage,
-        organisationName: quiz.organisation.mainImage,
+        organisationName: quiz.organisation.name,
         questionAmount: quiz._count.questions,
         timeLimitTotal: quiz.timeLimitTotal,
         isRetakeable: quiz.isRetakeable,
@@ -75,6 +78,7 @@ export class QuizzesController {
   @Get(':id')
   async findOne(@Param('id') id: string) {
     const quiz = await this.quizzesService.findOne(id);
+    if (!quiz) throw new NotFoundException();
 
     const questionsMapped: QuestionResponse[] = quiz.questions.map(
       (question) => {
@@ -91,7 +95,7 @@ export class QuizzesController {
 
     const mapped: QuizResponseExtended = {
       attemptsAmount: quiz._count.attempts,
-      averageAttemptScore: 0, //TODO: implement fast calculation function here
+      averageAttemptScore: await this.quizzesService.averageScore(quiz.id),
       description: quiz.description,
       difficulty: quiz.difficulty,
       isAnonymousAllowed: quiz.isAnonymousAllowed,
@@ -121,30 +125,34 @@ export class QuizzesController {
     @Req() req: any,
     @Param('organisationId') organisation: string,
   ) {
-    const isValid = await this.membersService.hasAdminRights(
+    const isValid = await this.membersService.hasModerationRights(
       req.user.id,
       organisation,
     );
 
     if (!isValid) throw new UnauthorizedException();
+    if (!(await this.quizzesService.belongsTo(id, organisation)))
+      throw new NotFoundException();
 
     return await this.quizzesService.update(id, updateQuizDto);
   }
 
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
-  @Delete(':orgnisationId/:id')
+  @Delete(':organisationId/:id')
   async remove(
     @Param('id') id: string,
     @Req() req: any,
     @Param('organisationId') organisation: string,
   ) {
-    const isValid = await this.membersService.hasAdminRights(
+    const isValid = await this.membersService.hasModerationRights(
       req.user.id,
       organisation,
     );
 
     if (!isValid) throw new UnauthorizedException();
+    if (!(await this.quizzesService.belongsTo(id, organisation)))
+      throw new NotFoundException();
     return await this.quizzesService.remove(id);
   }
   @UseGuards(JwtAuthGuard)
@@ -155,12 +163,14 @@ export class QuizzesController {
     @Req() req: any,
     @Param('organisationId') organisation: string,
   ) {
-    const isValid = await this.membersService.hasAdminRights(
+    const isValid = await this.membersService.hasModerationRights(
       req.user.id,
       organisation,
     );
 
     if (!isValid) throw new UnauthorizedException();
+    if (!(await this.quizzesService.belongsTo(id, organisation)))
+      throw new NotFoundException();
 
     return await this.quizzesService.toggleApprovalStatus(id);
   }
@@ -171,12 +181,12 @@ export class QuizzesController {
     @Param('organisationId') organisation: string,
     @Req() req: any,
   ) {
-    const isValid = await this.membersService.hasAdminRights(
+    const isValid = await this.membersService.hasModerationRights(
       req.user.id,
       organisation,
     );
     if (!isValid) throw new UnauthorizedException();
-    const quiz = await this.quizzesService.getWaitingForApproval();
+    const quiz = await this.quizzesService.getWaitingForApproval(organisation);
     const mapped = quiz.map((quiz) => {
       return {
         id: quiz.id,
@@ -207,12 +217,16 @@ export class QuizzesController {
     @Req() req: any,
     @Param('id') id: string,
   ) {
-    const isValid = await this.membersService.hasAdminRights(
+    const isValid = await this.membersService.hasModerationRights(
       req.user.id,
       organisation,
     );
     if (!isValid) throw new UnauthorizedException();
-    const quiz = await this.quizzesService.getSingleWaitingForApproval(id);
+    const quiz = await this.quizzesService.getSingleWaitingForApproval(
+      id,
+      organisation,
+    );
+    if (!quiz) throw new NotFoundException();
     const questions = quiz.questions.map((question) => {
       return {
         id: question.id,
@@ -241,7 +255,7 @@ export class QuizzesController {
       difficulty: quiz.difficulty,
       isAnonymousAllowed: quiz.isAnonymousAllowed,
       updatedAt: quiz.updatedAt,
-      averageAttemptScore: 0,
+      averageAttemptScore: await this.quizzesService.averageScore(quiz.id),
       questions,
     } as QuizResponseExtended;
 

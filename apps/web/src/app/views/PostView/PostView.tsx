@@ -16,6 +16,7 @@ import { LoaderIcon } from "react-hot-toast";
 import AudioButton from "components/AudioButton";
 import chatgpt from "assets/images/gpt.svg";
 import AuthorshipTable from "components/AuthorshipTable";
+import { useTranslations } from "next-intl";
 
 export interface PostViewProps {
   post: PostResponseExtended;
@@ -24,6 +25,9 @@ export interface PostViewProps {
 }
 
 export const PostView = ({ audio, post, summary }: PostViewProps) => {
+  const t = useTranslations("PostView");
+  const tAI = useTranslations("AI");
+  const tCommon = useTranslations("Common");
   const [showSummary, setShowSummary] = useState<boolean>(false);
 
   const toggleSummary = () => {
@@ -57,18 +61,18 @@ export const PostView = ({ audio, post, summary }: PostViewProps) => {
       </div>
       <div className={classes.buttons}>
         <Link href={`/exponat/${post.exponatId}`} className={classes.button}>
-          Pogledaj eksponat
+          {t("viewExponat")}
         </Link>
         <button className={classes.button} onClick={toggleSummary}>
-          Pogledaj sažetak
+          {t("viewSummary")}
         </button>
         <QrCodeGenerator name={post.title} isIcon />
         <ShareButton
           title={post.title}
-          text={`Pogledajte post ${post.title} na biosfera.trema.hr`}
+          text={t("share", { title: post.title })}
         />
-        {audio ? (
-          <AudioButton src={audio} />
+        {audio || post.content ? (
+          <AudioButton src={audio} text={`${post.title}. ${post.content}`} />
         ) : (
           <div className={classes.spinnerContainer}>
             <div className={classes.spinner}></div>
@@ -82,15 +86,12 @@ export const PostView = ({ audio, post, summary }: PostViewProps) => {
             <div className={classes.icon}>
               <Image src={chatgpt} alt="chatgpt" layout="fill" />
             </div>
-            <span className={classes.title}>AI generirani sažetak objave</span>
+            <span className={classes.title}>{tAI("postSummary")}</span>
           </div>
           <pre className={classes.text}>
-            {summary ? summary : "Učitavanje..."}
+            {summary ? summary : tCommon("loading")}
           </pre>
-          <span className={classes.warning}>
-            Molimo vas da provjerite točnost informacija, AI postaje sve bolji
-            ali dalje relativno često zna griješiti
-          </span>
+          <span className={classes.warning}>{tAI("warning")}</span>
         </div>
       )}
       <div className={classes.text}>

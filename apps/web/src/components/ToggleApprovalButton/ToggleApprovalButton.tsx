@@ -7,6 +7,7 @@ import clsx from "clsx";
 import Image from "next/image";
 import approved from "assets/images/approved.svg";
 import disapproved from "assets/images/disapproved.svg";
+import { useTranslations } from "next-intl";
 
 export interface ToggleApprovalButtonProps {
   id: string;
@@ -21,6 +22,7 @@ export const ToggleApprovalButton: React.FC<ToggleApprovalButtonProps> = ({
   onToggle,
   isApproved,
 }) => {
+  const t = useTranslations("ToggleApprovalButton");
   const [approval, setApproval] = useState<Boolean>(isApproved ?? true);
   const { mutateAsync } = useToggleApproval();
   const handleToggle = async () => {
@@ -39,7 +41,7 @@ export const ToggleApprovalButton: React.FC<ToggleApprovalButtonProps> = ({
   return (
     <button
       onClick={handleToggle}
-      title="Toggle Approval"
+      title={approval ? t("hide") : t("approve")}
       className={clsx(
         classes.toggleButton,
         approval ? classes.approved : classes.disapproved,
@@ -48,7 +50,7 @@ export const ToggleApprovalButton: React.FC<ToggleApprovalButtonProps> = ({
       <div className={classes.image}>
         <Image
           src={approval ? approved : disapproved}
-          alt={approval ? "vidljiv" : "sakriven"}
+          alt={approval ? t("visible") : t("hidden")}
         />
       </div>
     </button>

@@ -105,7 +105,7 @@ export interface QueryResponse<T> {
 }
 
 export const sortExponatQueryBuilderWithComplexFilters = (
-  request: SortingRequest
+  request: SortingRequest,
 ) => {
   const simple = sortQueryBuilder(request);
   if (simple) return simple;
@@ -153,7 +153,7 @@ export const worksSortQueryBuilder = (request: SortingRequest) => {
 };
 
 export const sortCategorizationQueryBuilderWithComplexFilters = (
-  request: SortingRequest
+  request: SortingRequest,
 ) => {
   switch (request.attribute) {
     case SortingEnum.EXPONAT_AMOUNT:

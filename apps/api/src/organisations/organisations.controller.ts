@@ -37,6 +37,7 @@ import { County } from '@prisma/client';
 import { JwtAuthGuard } from 'src/auth/jwt-auth-guard';
 import { OptionalJwtAuthGuard } from 'src/auth/optional-jwt-auth-guard';
 import { MembersService } from 'src/members/members.service';
+import { isModerator } from 'src/auth/roles';
 
 @Controller('organisations')
 @ApiTags('organisations')
@@ -102,7 +103,7 @@ export class OrganisationsController {
     @Query() filter?: OrganisationQuery,
     @Req() req?: any,
   ) {
-    const isAdmin = req?.user?.role === 'super';
+    const isAdmin = isModerator(req?.user);
     const items = await this.organisationsService.findAllShort(
       filter,
       sorting,
@@ -175,7 +176,7 @@ export class OrganisationsController {
   @Get(':id')
   async findOne(@Param('id') id: string, @Req() req?: any) {
     const isAdmin =
-      req?.user?.role === 'super' ||
+      isModerator(req?.user) ||
       (req.user &&
         (await this.membersService.hasAdminRights(req.user?.id, id)));
 
@@ -226,7 +227,8 @@ export class OrganisationsController {
         firstName: member.user.firstName,
         lastName: member.user.lastName,
         role: member.role,
-        email: member.user.email,
+        // Contact details are for the organisation's admins only.
+        ...(isAdmin && { email: member.user.email }),
         followerCount: member.user._count.followers,
         avatar: member.user.hasProfileImage,
         username: member.user.username,
@@ -285,8 +287,8 @@ export class OrganisationsController {
   @ApiBearerAuth()
   @Get(':id/requests')
   async getRequests(@Param('id') id: string, @Req() req?: any) {
-    const check = this.membersService.hasAdminRights(req.user.id, id);
-    if (!check) return new UnauthorizedException("You don't have admin rights");
+    const check = await this.membersService.hasAdminRights(req.user.id, id);
+    if (!check) throw new UnauthorizedException("You don't have admin rights");
     return await this.organisationsService.getJoinRequests(id);
   }
 
@@ -298,10 +300,10 @@ export class OrganisationsController {
     @Body() updateOrganisationDto: UpdateOrganisationDto,
     @Req() req?: any,
   ) {
-    const check = this.membersService.hasAdminRights(req.user.id, id);
+    const check = await this.membersService.hasAdminRights(req.user.id, id);
 
     if (!check)
-      return new UnauthorizedException(
+      throw new UnauthorizedException(
         "You don't have admin rights for this organisation",
       );
 
@@ -312,18 +314,25 @@ export class OrganisationsController {
   @ApiBearerAuth()
   @Delete(':id')
   async remove(@Param('id') id: string, @Req() req?: any) {
-    const check = this.membersService.hasAdminRights(req.user.id, id);
+    const check = await this.membersService.hasAdminRights(req.user.id, id);
 
     if (!check)
-      return new UnauthorizedException(
+      throw new UnauthorizedException(
         "You don't have admin rights for this organisation",
       );
 
     return await this.organisationsService.remove(id);
   }
 
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @Patch(':id/approval')
-  async changeApprovalStatus(@Param('id') id: string) {
+  async changeApprovalStatus(@Param('id') id: string, @Req() req?: any) {
+    if (!isModerator(req?.user))
+      throw new UnauthorizedException(
+        'Only platform moderators can approve organisations',
+      );
+
     return await this.organisationsService.changeApprovalStatus(id);
   }
 }

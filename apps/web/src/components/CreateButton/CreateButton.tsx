@@ -4,12 +4,14 @@ import classes from "./CreateButton.module.scss";
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 import useUser from "@/utility/context/UserContext";
+import { useTranslations } from "next-intl";
 
 export const CreateButton = () => {
   const { isVisibleButton, hideButton, showModal, showButton } =
     useCreateButton();
   const { user } = useUser();
   const path = usePathname();
+  const t = useTranslations("CreateButton");
 
   useEffect(() => {
     if (!user) {
@@ -55,6 +57,8 @@ export const CreateButton = () => {
       <button
         onClick={handleClickCreateButton}
         className={classes.createButton}
+        aria-label={t("label")}
+        title={t("label")}
       >
         +
       </button>

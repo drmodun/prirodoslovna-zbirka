@@ -7,6 +7,7 @@ import clsx from "clsx";
 import { useGetCurrentScreenSize } from "@/utility/hooks/useGetCurrentScreenSize";
 import BaseButton from "components/BaseButton";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 
 pdfjs.GlobalWorkerOptions.workerSrc =
   "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
@@ -17,6 +18,7 @@ export interface DocumentReaderProps {
 }
 
 export const DocumentReader = ({ src, isLandscape }: DocumentReaderProps) => {
+  const t = useTranslations("DocumentReader");
   const [numPages, setNumPages] = useState<number>();
   const [pageNumber, setPageNumber] = useState(1);
 
@@ -64,11 +66,7 @@ export const DocumentReader = ({ src, isLandscape }: DocumentReaderProps) => {
           rotate={!isLandscape ? 90 : 0}
           file={src}
           onLoadSuccess={onDocumentLoadSuccess}
-          noData={
-            <span className={classes.error}>
-              Greška pri učitavanju dokumenta{" "}
-            </span>
-          }
+          noData={<span className={classes.error}>{t("loadFailed")}</span>}
           loading={
             <div className={classes.spinnerContainer}>
               <div className={classes.spinner}></div>
@@ -87,15 +85,15 @@ export const DocumentReader = ({ src, isLandscape }: DocumentReaderProps) => {
       </div>
       <div className={classes.buttons}>
         <button onClick={handleDecreasePage} className={classes.button}>
-          Prethodna stranica
+          {t("previousPage")}
         </button>
         <span className={classes.pageNumber}>{pageNumber}</span>
         <button onClick={handleIncreasePage} className={classes.button}>
-          Sljedeća stranica
+          {t("nextPage")}
         </button>
       </div>
       <Link className={classes.link} href={src} target="_blank">
-        <BaseButton text="Otvori cijeli dokument" />
+        <BaseButton text={t("openDocument")} />
       </Link>
     </div>
   );

@@ -211,14 +211,12 @@ export class OrganisationsService {
     const allUsers = organisation.OrganisationUsers.map((user) => user.userId);
     const notification = await this.notificationsService.create(
       {
-        title: `Organizacija ${organisation.name} je ${
-          organisation.isApproved ? 'odobrena' : 'odbijena'
-        }`,
-        text: `Organizacija ${organisation.name} je ${
-          organisation.isApproved ? 'odobrena' : 'odbijena'
-        }`,
+        messageKey: organisation.isApproved
+          ? 'organisationApproved'
+          : 'organisationRejected',
+        params: { organisation: organisation.name },
         type: 'ORGANISATION_APPROVAL',
-        link: `${env.WEB_URL}/organisations/${organisation.id}`,
+        link: `${env.WEB_URL}/organisation/${organisation.id}`,
         notificationImage: organisation.mainImage,
       },
       allUsers,
@@ -263,7 +261,10 @@ export class OrganisationsService {
       },
     });
 
-    await this.makeApprovalChangeNotification(current);
+    await this.makeApprovalChangeNotification({
+      ...current,
+      isApproved: !current.isApproved,
+    });
   }
 
   async getJoinRequests(organisationId: string) {

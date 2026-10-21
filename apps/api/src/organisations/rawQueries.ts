@@ -41,9 +41,10 @@ export const anonymousOrganisationDiscover = async (
     left join ( 
     select "organisationId", COUNT(*) as "amountOfMembers"
     from "OrganisationUser" m
-    where m.role != 'MEMBER'
+    where m.role != 'REQUESTED'
     group by "organisationId"
     ) ou on ou."organisationId" = o.id
+    where o."isApproved" = true
     order by ("points") desc, o."name" asc
     limit ${size}
     offset (${size}*(${page}-1))
@@ -97,9 +98,10 @@ export const personalizedOrganisationDiscover = async (
  left join ( 
  select "organisationId", COUNT(*) as "amountOfMembers"
  from "OrganisationUser" m
- where m.role != 'MEMBER'
+ where m.role != 'REQUESTED'
  group by "organisationId"
  ) ou on ou."organisationId" = o.id
+ where o."isApproved" = true
  order by ("points") desc, o."name" asc
  limit ${size}
  offset (${size}*(${page}-1))

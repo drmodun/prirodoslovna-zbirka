@@ -18,12 +18,13 @@ import {
 } from "@biosfera/types";
 import { SelectInput } from "components/SelectInput/SelectInput";
 import { useCreateOrganisation } from "@/api/useCreateOrganisation";
-import { makeCountyName } from "@/utility/static/countyNameMaker";
+import { useCountyName } from "@/utility/hooks/useCountyName";
 import FileUpload from "components/FileUpload";
 import { useEffect, useState } from "react";
 import { useUploadFile } from "@/api/useUploadFile";
 import { useUpdateOrganisation } from "@/api/useUpdateOrganisation";
 import useUser from "@/utility/context/UserContext";
+import { useTranslations } from "next-intl";
 
 export interface CreateOrganisationFormProps {
   initvalues?: ExtendedOrganisationResponse;
@@ -34,15 +35,15 @@ export const OrganisationForm = ({
   initvalues,
   isEdit,
 }: CreateOrganisationFormProps) => {
+  const t = useTranslations("OrganisationForm");
+  const tValidation = useTranslations("Validation");
+  const countyName = useCountyName();
   const schema = z.object({
-    name: z
-      .string()
-      .min(2, "Ime more imati najmanje 2 slova")
-      .max(100, "Ime more imati najvise 100 slova"),
+    name: z.string().min(2, t("nameMin")).max(100, t("nameMax")),
     description: z
       .string()
-      .min(2, "Opis mora imati najmanje 2 slova")
-      .max(200, "Opis mora imati najviše 100 slova"),
+      .min(2, t("descriptionMin"))
+      .max(200, t("descriptionMax")),
     location: z.enum([
       "SPLITSKO_DALMATINSKA",
       "DUBROVACKO_NERETVANSKA",
@@ -67,8 +68,8 @@ export const OrganisationForm = ({
       "VIROVITICKO_PODRAVSKA",
       "OTHER",
     ]),
-    email: z.string().email("Adresa e-pošte nije pravilnog formata"),
-    websiteUrl: z.string().url("Poveznica nije pravilnog formata"),
+    email: z.string().email(tValidation("emailFormat")),
+    websiteUrl: z.string().url(tValidation("urlFormat")),
   });
 
   const [image, setImage] = useState<File[]>([]);
@@ -79,7 +80,7 @@ export const OrganisationForm = ({
 
   useEffect(() => {
     if (!user) {
-      alert("Morate biti prijavljeni da biste mogli kreirati organizaciju");
+      alert(t("loginRequired"));
     }
   }, []);
 
@@ -122,7 +123,7 @@ export const OrganisationForm = ({
       <Input
         form={form}
         attribute="name"
-        question="Naziv organizacije"
+        question={t("name")}
         image={email}
         error={form.formState.errors.name?.message?.toString()}
       />
@@ -130,7 +131,7 @@ export const OrganisationForm = ({
       <Input
         form={form}
         attribute="description"
-        question="Description"
+        question={t("description")}
         image={description}
         error={form.formState.errors.description?.message?.toString()}
       />
@@ -138,18 +139,18 @@ export const OrganisationForm = ({
       <Input
         form={form}
         attribute="websiteUrl"
-        question="Poveznica na web stranicu"
+        question={t("websiteUrl")}
         image={url}
         error={form.formState.errors.websiteUrl?.message?.toString()}
       />
 
       <SelectInput
-        label="Location"
+        label={t("location")}
         name="location"
         options={Object.values(County)
           .filter((county) => county.length > 2)
           .map((county) => ({
-            label: makeCountyName(county),
+            label: countyName(county),
             value: county,
           }))}
         form={form}
@@ -159,18 +160,15 @@ export const OrganisationForm = ({
       <Input
         form={form}
         attribute="email"
-        question="Adresa e-pošte"
+        question={t("email")}
         image={email}
         error={form.formState.errors.email?.message?.toString()}
       />
 
-      <FileUpload
-        name="Prenesite glavnu sliku za vašu organizaciju"
-        onChange={setImage}
-      />
+      <FileUpload name={t("mainImage")} onChange={setImage} />
 
       <div className={classes.buttons}>
-        <BaseButton text={isEdit ? "Uredi" : "Stvori organizaciju"} />
+        <BaseButton text={isEdit ? t("edit") : t("create")} />
       </div>
     </form>
   );

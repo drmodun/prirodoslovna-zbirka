@@ -68,7 +68,6 @@ export class LiteratureController {
 
     const mapped = data.map((connection) => {
       return {
-        email: connection.user.email,
         id: connection.userId,
         lastName: connection.user.lastName,
         firstName: connection.user.firstName,

@@ -3,12 +3,7 @@
 import { useUploadFile } from "@/api/useUploadFile";
 import { ButtonColor } from "@/shared/enums";
 import { getQuestionTypesList } from "@/utility/static/getEnumLists";
-import {
-  Directories,
-  getEnumValue,
-  QuestionResponseExtended,
-  QuestionTypeEnum,
-} from "@biosfera/types";
+import { Directories, QuestionResponseExtended } from "@biosfera/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import BaseButton from "components/BaseButton";
 import FileUpload from "components/FileUpload";
@@ -18,19 +13,38 @@ import SelectInput from "components/SelectInput";
 import { useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import { z } from "zod";
+import { useTranslations } from "next-intl";
 
-export const questionSchema = z.object({
-  id: z.string(),
-  question: z.string(),
-  image: z.string().optional(),
-  questionType: z.enum(["", ...getQuestionTypesList()]),
-  options: z.array(z.string()),
-  correct: z.array(z.string()),
-  timeLimit: z.number().optional(),
-  points: z.number(),
-});
+// Inputs hand over text; empty means "not given".
+export const optionalNumber = z.preprocess(
+  (value) =>
+    value === "" || value === null || value === undefined
+      ? undefined
+      : Number(value),
+  z.number().optional(),
+);
 
-export type questionSchemaType = z.infer<typeof questionSchema>;
+// `t` reads the QuestionForm messages.
+export const createQuestionSchema = (t: (key: string) => string) =>
+  z.object({
+    id: z.string().optional(),
+    question: z.string().min(5, t("questionMin")),
+    image: z.string().optional(),
+    questionType: z.enum(getQuestionTypesList() as [string, ...string[]], {
+      errorMap: () => ({ message: t("typeRequired") }),
+    }),
+    options: z.array(z.string()).default([]),
+    correct: z.array(z.string()).default([]),
+    timeLimit: optionalNumber,
+    points: z.preprocess(
+      (value) => (value === "" ? undefined : Number(value)),
+      z.number({ invalid_type_error: t("pointsRequired") }),
+    ),
+  });
+
+export type questionSchemaType = z.infer<
+  ReturnType<typeof createQuestionSchema>
+>;
 
 export interface QuestionFormProps {
   defaultValues?: questionSchemaType | QuestionResponseExtended;
@@ -43,9 +57,11 @@ export const QuestionForm = ({
   defaultValues,
   onSubmit,
 }: QuestionFormProps) => {
+  const t = useTranslations("QuestionForm");
+  const tTypes = useTranslations("Enums.QuestionType");
   const form = useForm({
     defaultValues: defaultValues as FieldValues,
-    resolver: zodResolver(questionSchema),
+    resolver: zodResolver(createQuestionSchema(t)),
   });
 
   const { mutateAsync: uploadFile } = useUploadFile();
@@ -63,7 +79,8 @@ export const QuestionForm = ({
         file: image,
         directory: Directories.QUESTION,
       });
-      data.image = response.url;
+      // The upload resolves with the file's URL.
+      data.image = response;
     }
     onSubmit(data);
   };
@@ -73,11 +90,11 @@ export const QuestionForm = ({
       <Input
         form={form}
         attribute="question"
-        question="Pitanje"
+        question={t("question")}
         error={form.formState.errors.question?.message?.toString()}
       />
       <FileUpload
-        name="Slika"
+        name={t("image")}
         isFullWidth
         onChange={(files) => {
           setTitleImage(files);
@@ -86,9 +103,9 @@ export const QuestionForm = ({
       <SelectInput
         form={form}
         name="questionType"
-        label="Tip pitanja"
+        label={t("type")}
         options={getQuestionTypesList().map((type) => ({
-          label: getEnumValue(QuestionTypeEnum, type),
+          label: tTypes(type),
           value: type,
         }))}
         error={form.formState.errors.questionType?.message?.toString()}
@@ -97,7 +114,7 @@ export const QuestionForm = ({
         <ListInput
           form={form}
           attribute="options"
-          question="Odgovori"
+          question={t("options")}
           initValue={form.getValues("options")}
           error={form.formState.errors.options?.message?.toString()}
         />
@@ -105,7 +122,7 @@ export const QuestionForm = ({
       <ListInput
         form={form}
         attribute="correct"
-        question="Tocni odgovori"
+        question={t("correct")}
         initValue={form.getValues("correct")}
         isSelect={
           form.watch("questionType") === "MULTIPLE_CHOICE" ||
@@ -118,8 +135,8 @@ export const QuestionForm = ({
               })
             : form.watch("questionType") === "TRUE_FALSE"
               ? [
-                  { label: "Tocno", value: "true" },
-                  { label: "Netocno", value: "false" },
+                  { label: t("true"), value: "true" },
+                  { label: t("false"), value: "false" },
                 ]
               : []
         }
@@ -128,7 +145,7 @@ export const QuestionForm = ({
       <Input
         form={form}
         attribute="points"
-        question="Broj bodova"
+        question={t("points")}
         isNumber
         error={form.formState.errors.points?.message?.toString()}
       />
@@ -136,12 +153,12 @@ export const QuestionForm = ({
         <Input
           form={form}
           attribute="timeLimit"
-          question="Vrijeme za odgovor (sekunde)"
+          question={t("timeLimit")}
           error={form.formState.errors.timeLimit?.message?.toString()}
         />
       )}
       <BaseButton
-        text="Dodaj pitanje"
+        text={t("add")}
         onClick={form.handleSubmit(handleSubmit)}
         initColor={ButtonColor.BLUE}
       />

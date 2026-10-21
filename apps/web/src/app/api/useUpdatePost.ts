@@ -2,6 +2,7 @@ import { PostResponse, getUpdatePostRequest } from "@biosfera/types";
 import { api } from "./shared";
 import { useMutation } from "react-query";
 import toast from "react-hot-toast";
+import { useTranslations } from "next-intl";
 
 export const _updatePostDto = getUpdatePostRequest();
 export class UpdatePostDto extends _updatePostDto {}
@@ -12,11 +13,12 @@ export const updatePost = async (params: {
 }) => {
   await api.patch<UpdatePostDto, PostResponse>(
     `/posts/${params.postId}`,
-    params.updatePostDto
+    params.updatePostDto,
   );
 };
 
 export const useUpdatePost = () => {
+  const t = useTranslations("Toasts");
   return useMutation(updatePost, {
     onError: (error: string) => {
       if (
@@ -24,19 +26,19 @@ export const useUpdatePost = () => {
         error.includes("Unauthorized") ||
         error.includes("You")
       ) {
-        toast.error("Nemate ovlasti za ovu akciju", {
+        toast.error(t("noPermission"), {
           icon: "🔒",
           id: "unauthorized",
         });
       } else {
         console.log(error);
-        toast.error("Greška se dogodila tijekom mijenjanja podataka objave", {
+        toast.error(t("postUpdateFailed"), {
           id: "update-post",
         });
       }
     },
     onSuccess: () => {
-      toast.success("Promijenjeni podaci objave", {
+      toast.success(t("postUpdated"), {
         id: "update-post",
       });
     },

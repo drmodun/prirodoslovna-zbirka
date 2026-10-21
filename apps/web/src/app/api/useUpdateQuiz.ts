@@ -2,6 +2,7 @@ import { getUpdateQuizRequest } from "@biosfera/types";
 import { api } from "./shared";
 import toast from "react-hot-toast";
 import { useMutation } from "react-query";
+import { useTranslations } from "next-intl";
 
 const _getUpdateQuizRequest = getUpdateQuizRequest();
 
@@ -13,22 +14,23 @@ export const updateQuiz = async (params: {
   id: string;
 }) => {
   return await api.patch<UpdateQuizRequest>(
-    `/${params.organisationId}/quizzes/${params.id}`,
+    `/quizzes/${params.organisationId}/${params.id}`,
     params.data,
   );
 };
 
 export const useUpdateQuiz = () => {
+  const t = useTranslations("Toasts");
   return useMutation(updateQuiz, {
     onMutate: () => {
-      return { toastId: toast.loading("Izrada kviza") };
+      return { toastId: toast.loading(t("updatingQuiz")) };
     },
-    onSuccess: ({}, _variables, context) => {
-      toast.success("Kviz uspješno nadograđen", { id: context?.toastId });
+    onSuccess: (_data, _variables, context) => {
+      toast.success(t("quizUpdated"), { id: context?.toastId });
     },
     //Test quiz edit capabilities
     onError: (error: string, _variables, context) => {
-      toast.error("Greška pri izradi kviza", { id: context?.toastId });
+      toast.error(t("quizUpdateFailed"), { id: context?.toastId });
     },
   });
 };

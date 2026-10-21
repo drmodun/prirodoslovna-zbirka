@@ -1,0 +1,30 @@
+# Local development: publishes the stack on this machine's ports. Compose
+# loads this file automatically next to docker-compose.yml; production uses
+# docker-compose.prod.yml instead and publishes nothing.
+services:
+  reverse-proxy:
+    ports:
+      - "${PROXY_PORT:-80}:80"
+      - "${PROXY_TLS_PORT:-443}:443"
+
+  # Direct access, handy for debugging and for Swagger at :5500/api.
+  web:
+    ports:
+      - "${WEB_PORT:-3000}:3000"
+
+  api:
+    ports:
+      - "${API_PORT:-5500}:5500"
+
+  # The docs are served under /docs: http://localhost:4321/docs
+  docs:
+    ports:
+      - "${DOCS_PORT:-4321}:80"
+
+  postgres:
+    ports:
+      - "${POSTGRES_PORT:-5433}:5432"
+
+  mailpit:
+    ports:
+      - "${MAILPIT_PORT:-8025}:8025"

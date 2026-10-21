@@ -6,6 +6,7 @@ import {
   Role,
 } from '@prisma/client';
 import { env } from 'process';
+import * as bcrypt from 'bcrypt';
 const prisma = new PrismaClient();
 
 async function main() {
@@ -232036,6 +232037,28 @@ const userFollowers = [{"followerId":users[88].id,"followeeId":users[8].id},
     data: userFollowers,
     skipDuplicates: true
   })
+
+  // Known login for local development: dev@biosfera.local / biosfera123
+  const devUser = await prisma.user.create({
+    data: {
+      firstName: 'Dev',
+      lastName: 'Biosfera',
+      username: 'dev',
+      email: 'dev@biosfera.local',
+      password: await bcrypt.hash('biosfera123', 10),
+      location: County.SPLITSKO_DALMATINSKA,
+      role: Role.SUPER,
+      isActivated: true,
+    },
+  });
+
+  await prisma.organisationUser.create({
+    data: {
+      organisationId: organisations[0].id,
+      userId: devUser.id,
+      role: MemberRole.OWNER,
+    },
+  });
 }
 
 main()

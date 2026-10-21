@@ -26,6 +26,7 @@ import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { OptionalJwtAuthGuard } from 'src/auth/optional-jwt-auth-guard';
 import { PaginationParams } from 'src/config/pagination';
 import { SortingParams } from 'src/config/sorting';
+import { isModerator, isSuperUser } from 'src/auth/roles';
 
 @Controller('works')
 @ApiTags('works')
@@ -44,15 +45,15 @@ export class WorksController {
     createWorkDto.organisationId = organisationId;
 
     if (
-      req?.user?.role === 'super' ||
-      this.worksService.checkIsAdmin(req?.user?.id, organisationId)
+      isSuperUser(req?.user) ||
+      (await this.worksService.checkIsAdmin(req?.user?.id, organisationId))
     ) {
       createWorkDto.isApproved = true;
       createWorkDto.approvedBy = req?.user?.id;
     }
 
     const check =
-      req?.user?.role === 'super' ||
+      isSuperUser(req?.user) ||
       (await this.worksService.checkMembership(req.user.id, organisationId));
 
     if (!check)
@@ -75,7 +76,7 @@ export class WorksController {
     sorting?: SortingRequest,
     @Query() query?: WorkQuery,
   ) {
-    const isAdmin = req?.user?.role === 'super';
+    const isAdmin = isModerator(req?.user);
 
     const check =
       !isAdmin &&
@@ -118,11 +119,14 @@ export class WorksController {
   @ApiBearerAuth()
   @Get(':id')
   async findOne(@Req() req: any, @Param('id') id: string) {
-    const entity = await this.worksService.findOne(id);
+    // Pending works are loaded too; who may see them is decided below.
+    const entity = await this.worksService.findOne(id, false);
 
     if (!entity) throw new BadRequestException('Work not found');
 
-    const check = await this.worksService.checkRights(req?.user?.id, id);
+    const check =
+      !entity.isApproved &&
+      (await this.worksService.checkRights(req?.user?.id, id));
 
     if (!entity.isApproved && !check)
       throw new UnauthorizedException('Work not approved');
@@ -158,7 +162,6 @@ export class WorksController {
     @Param('id') id: string,
     @Body() updateWorkDto: UpdateWorkDto,
   ) {
-    updateWorkDto.authorId = req.user.id;
     const authorCheck = await this.worksService.checkRights(req.user.id, id);
 
     if (!authorCheck)
@@ -191,7 +194,7 @@ export class WorksController {
   @ApiBearerAuth()
   @Patch(':id/approval')
   async approve(@Req() req: any, @Param('id') id: string) {
-    const check = await this.worksService.checkRights(req.user.id, id);
+    const check = await this.worksService.checkRights(req.user.id, id, true);
 
     if (!check)
       throw new UnauthorizedException(

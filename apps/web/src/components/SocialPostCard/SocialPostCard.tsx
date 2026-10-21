@@ -1,8 +1,4 @@
-import {
-  getEnumValue,
-  ShortSocialPostResponse,
-  SocialPostType,
-} from "@biosfera/types";
+import { ShortSocialPostResponse, SocialPostType } from "@biosfera/types";
 import classes from "./SocialPostCard.module.scss";
 import Image from "next/image";
 import Link from "next/link";
@@ -11,6 +7,7 @@ import ImageWithFallback from "components/ImageWithFallback/ImageWithFallback";
 import { Carousel } from "react-responsive-carousel";
 import AuthorshipTable from "components/AuthorshipTable";
 import { dateShortener } from "@/utility/static/dateShortener";
+import { useTranslations } from "next-intl";
 
 export interface SocialPostCardProps {
   post: ShortSocialPostResponse;
@@ -31,40 +28,47 @@ const settings = {
   autoPlay: true,
 };
 
-export const SocialPostCard = ({ post }: SocialPostCardProps) => (
-  <div className={classes.container}>
-    <div className={classes.author}>
-      <div className={classes.authorImage}>
-        <ImageWithFallback
-          src={post.organisationMainImage}
-          alt="author"
-          layout="fill"
-        />
-      </div>
-      <Link
-        href={`/organisation/${post.organisationId}`}
-        className={classes.authorName}
-      >
-        {post.organisationName}
-      </Link>
-      <span className={classes.date}>{dateShortener(post.updatedAt)}</span>
-    </div>
-    <div className={classes.content}>
-      <span className={classes.type}>
-        {getEnumValue(post.type, SocialPostType) || "Objava"}
-      </span>
-      <span className={classes.title}>{post.title}</span>
-      <span className={classes.text}>{post.text}</span>
-    </div>
-    <Carousel {...settings} className={classes.carousel}>
-      {post.images.map((image, index) => (
-        <div key={index}>
-          <img src={image} alt="post image" />
+export const SocialPostCard = ({ post }: SocialPostCardProps) => {
+  const t = useTranslations("Enums.SocialPostType");
+  const tPost = useTranslations("SocialPostCard");
+
+  return (
+    <div className={classes.container}>
+      <div className={classes.author}>
+        <div className={classes.authorImage}>
+          <ImageWithFallback
+            src={post.organisationMainImage}
+            alt="author"
+            layout="fill"
+          />
         </div>
-      ))}
-    </Carousel>
-    {post.authorhipInfo && (
-      <AuthorshipTable authorshipInfo={post.authorhipInfo} />
-    )}
-  </div>
-);
+        <Link
+          href={`/organisation/${post.organisationId}`}
+          className={classes.authorName}
+        >
+          {post.organisationName}
+        </Link>
+        <span className={classes.date}>{dateShortener(post.updatedAt)}</span>
+      </div>
+      <div className={classes.content}>
+        <span className={classes.type}>
+          {post.type && post.type in SocialPostType
+            ? t(post.type)
+            : tPost("post")}
+        </span>
+        <span className={classes.title}>{post.title}</span>
+        <span className={classes.text}>{post.text}</span>
+      </div>
+      <Carousel {...settings} className={classes.carousel}>
+        {post.images.map((image, index) => (
+          <div key={index}>
+            <img src={image} alt="post image" />
+          </div>
+        ))}
+      </Carousel>
+      {post.authorhipInfo && (
+        <AuthorshipTable authorshipInfo={post.authorhipInfo} />
+      )}
+    </div>
+  );
+};

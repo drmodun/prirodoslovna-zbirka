@@ -9,6 +9,7 @@ import {
   UseGuards,
   Req,
   Query,
+  NotFoundException,
 } from '@nestjs/common';
 import { SocialPostsService } from './social-posts.service';
 import {
@@ -27,6 +28,7 @@ import {
 import { PaginationParams } from 'src/config/pagination';
 import { SortingParams } from 'src/config/sorting';
 import { OptionalJwtAuthGuard } from 'src/auth/optional-jwt-auth-guard';
+import { isModerator } from 'src/auth/roles';
 
 @ApiTags('social-posts')
 @Controller('social-posts')
@@ -64,17 +66,22 @@ export class SocialPostsController {
     return mapped;
   }
 
+  @UseGuards(OptionalJwtAuthGuard)
+  @ApiBearerAuth()
   @Get()
   async findAll(
     @PaginationParams() paginationParam?: PaginationRequest,
     @SortingParams([SortingEnum.TITLE, SortingEnum.ORGANISATION])
     sorting?: SortingRequest,
     @Query() filter?: SocialPostQuery,
+    @Req() req?: any,
   ) {
+    // Only platform moderators get unapproved posts in the public list.
     const posts = await this.socialPostsService.findAll(
       filter,
       sorting,
       paginationParam,
+      !isModerator(req?.user),
     );
 
     const mapped = posts.map((post) => {
@@ -107,6 +114,7 @@ export class SocialPostsController {
         id,
       ));
     const post = await this.socialPostsService.findOne(id, !isAdmin);
+    if (!post) throw new NotFoundException();
 
     const mapped: ShortSocialPostResponse = {
       createdAt: post.createdAt,
@@ -147,6 +155,8 @@ export class SocialPostsController {
     return socialPost !== null;
   }
 
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @Delete(':organizationId/:id')
   async remove(
     @Param('organizationId') organisationId: string,
@@ -155,8 +165,8 @@ export class SocialPostsController {
   ) {
     const socialPost = await this.socialPostsService.remove(
       id,
-      req.user.id,
       organisationId,
+      req.user.id,
     );
 
     return socialPost !== null;

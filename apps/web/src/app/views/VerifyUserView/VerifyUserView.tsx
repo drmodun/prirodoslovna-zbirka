@@ -4,12 +4,14 @@ import { useVerifyUser } from "@/api/useVerifyUser";
 import classes from "./VerifyUserView.module.scss";
 import GreenDrop from "../GreenDrop/GreenDrop";
 import { useEffect } from "react";
+import { useTranslations } from "next-intl";
 
 export interface VerifyUserViewProps {
   code: string;
 }
 
 export const VerifyUserView = ({ code }: VerifyUserViewProps) => {
+  const t = useTranslations("Pages");
   const { mutate, isSuccess, isError } = useVerifyUser();
 
   useEffect(() => {
@@ -21,10 +23,10 @@ export const VerifyUserView = ({ code }: VerifyUserViewProps) => {
       <GreenDrop />
       <h1 className={classes.process}>
         {isSuccess
-          ? "Uspješna verifikacija, preusmjeravanje na prijavu"
+          ? t("verified")
           : isError
-          ? "Greška pri verifikaciji"
-          : "Verifickacija korisnika"}
+            ? t("verifyFailed")
+            : t("verifying")}
       </h1>
     </div>
   );

@@ -1,0 +1,175 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+    branches: [master]
+  workflow_dispatch:
+
+# A new push to the same ref makes the previous run obsolete.
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    name: Lint, type-check and build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version-file: .nvmrc
+          cache: yarn
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Lint
+        run: yarn lint:check
+
+      - name: Type-check
+        run: yarn type-check
+
+      - name: Build
+        run: yarn build
+
+  unit-tests:
+    name: Unit tests (API and web)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version-file: .nvmrc
+          cache: yarn
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      # Both apps import the compiled shared types, and the API tests use the
+      # generated Prisma client (enums and error classes).
+      - name: Build the shared types
+        run: yarn workspace @biosfera/types build
+
+      - name: Generate the Prisma client
+        run: npx prisma generate
+        working-directory: apps/api
+
+      - name: API unit tests
+        run: yarn workspace api test:ci
+
+      - name: Web unit tests
+        run: yarn workspace web test:ci
+
+  api-integration:
+    name: API integration tests (Postgres)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_DB: biosfera_test
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d biosfera_test"
+          --health-interval 5s
+          --health-timeout 3s
+          --health-retries 20
+
+    env:
+      # The suite refuses databases whose name does not end in _test.
+      TEST_DATABASE_URL: postgresql://postgres:postgres@localhost:5432/biosfera_test
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version-file: .nvmrc
+          cache: yarn
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Build the shared types
+        run: yarn workspace @biosfera/types build
+
+      - name: Generate the Prisma client
+        run: npx prisma generate
+        working-directory: apps/api
+
+      # Applies the migrations, then runs every suite against the real app.
+      - name: Integration tests
+        run: yarn workspace api test:integration
+
+  e2e:
+    name: End-to-end tests (Playwright)
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_DB: biosfera_e2e
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d biosfera_e2e"
+          --health-interval 5s
+          --health-timeout 3s
+          --health-retries 20
+
+    env:
+      # The suite refuses databases whose name does not end in _e2e.
+      E2E_DATABASE_URL: postgresql://postgres:postgres@localhost:5432/biosfera_e2e
+      NEXT_TELEMETRY_DISABLED: "1"
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version-file: .nvmrc
+          cache: yarn
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      # The web app bakes the API and file addresses in at build time, so the
+      # stack is built for the e2e ports (see apps/e2e/support/build-stack.mjs).
+      - name: Build the API and the web app
+        run: yarn workspace e2e build:stack
+
+      - name: Install the browser
+        run: npx playwright install --with-deps chromium
+        working-directory: apps/e2e
+
+      # Playwright starts the API (which applies the migrations) and the web
+      # app itself, on ports that differ from the dev ones.
+      - name: End-to-end tests
+        run: yarn workspace e2e test

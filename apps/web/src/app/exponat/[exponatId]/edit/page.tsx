@@ -7,15 +7,17 @@ import { UserWrapper } from "@/utility/wrappers/userWrapper";
 import { serverGetExponat } from "@/api/serverExponat";
 import { serverGetOrganisation } from "@/api/serverOrganisation";
 import { AdminCheckingWrapper } from "@/utility/wrappers/adminCheckWrapper";
+import { getTranslations } from "next-intl/server";
 
 const ExponatCreate = async ({ params }: { params: any }) => {
   const exponat = await serverGetExponat(params.exponatId);
+  const t = await getTranslations("Pages");
   return (
     exponat && (
       <div className={classes.container}>
         <div className={classes.content}>
           <div className={classes.title}>
-            <span>Uredi sadašnji eksponat</span>
+            <span>{t("editExponat")}</span>
           </div>
           <div className={classes.form}>
             <UserWrapper>

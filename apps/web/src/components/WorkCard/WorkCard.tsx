@@ -1,4 +1,4 @@
-import { getEnumValue, WorkResponseShort, WorkType } from "@biosfera/types";
+import { Topics, WorkResponseShort, WorkType } from "@biosfera/types";
 import classes from "./WorkCard.module.scss";
 import { QueryClientWrapper } from "@/utility/wrappers/queryWrapper";
 import ImageWithFallback from "components/ImageWithFallback/ImageWithFallback";
@@ -11,6 +11,7 @@ import SaveButton from "components/SaveButton";
 import { useState } from "react";
 import { shortenText } from "@/utility/static/shortenText";
 import { UserWrapper } from "@/utility/wrappers/userWrapper";
+import { useTranslations } from "next-intl";
 
 export interface WorkCardProps {
   work: WorkResponseShort;
@@ -19,6 +20,9 @@ export interface WorkCardProps {
 }
 
 export const WorkCard = ({ work, isAdmin, onDelete }: WorkCardProps) => {
+  const t = useTranslations("WorkCard");
+  const tTypes = useTranslations("Enums.WorkType");
+  const tTopics = useTranslations("Enums.Topics");
   return (
     <div className={classes.container}>
       {work.poster && !work.isGbif && (
@@ -28,11 +32,13 @@ export const WorkCard = ({ work, isAdmin, onDelete }: WorkCardProps) => {
       )}
       <div className={classes.content}>
         <div className={classes.upper}>
-          <Link href={!work.isGbif ? `/work/${work.id}` : work.website! ?? "#"}>
+          <Link
+            href={!work.isGbif ? `/work/${work.id}` : (work.website! ?? "#")}
+          >
             <span className={classes.title}>{shortenText(work.title, 20)}</span>
           </Link>
           <span className={classes.type}>
-            {getEnumValue(WorkType, work.type)}
+            {work.type in WorkType ? tTypes(work.type) : work.type}
           </span>
         </div>
         <div className={classes.divider}></div>
@@ -70,12 +76,12 @@ export const WorkCard = ({ work, isAdmin, onDelete }: WorkCardProps) => {
         <span className={classes.description}>
           {work.description
             ? shortenText(work.description, 150)
-            : "Ne postoji abstrakt"}
+            : t("noAbstract")}
         </span>
         <div className={classes.tags}>
           {work?.tags?.map((tag, index) => (
             <span key={tag + index} className={classes.tag}>
-              {tag}
+              {tag in Topics ? tTopics(tag) : tag}
             </span>
           ))}
         </div>

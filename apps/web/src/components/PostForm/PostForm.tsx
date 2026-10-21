@@ -16,6 +16,7 @@ import { useUpdatePost } from "@/api/useUpdatePost";
 import toast from "react-hot-toast";
 import AuthorshipButton from "components/AuthorshipButton";
 import { AuthorshipInfoFields } from "components/AuthorshipInfoModal/AuthorshipInfoModal";
+import { useTranslations } from "next-intl";
 
 export interface PostFormProps {
   exponatId: string;
@@ -24,12 +25,12 @@ export interface PostFormProps {
 }
 
 export const PostForm = ({ exponatId, isEdit, values }: PostFormProps) => {
+  const t = useTranslations("PostForm");
   const schema = z.object({
-    title: z.string().min(5, "Naslov mora imati najmanje 5 znakova"),
-    text: z
-      .string()
-      .min(10, "Tekst mora imati najmanje 10 znakova")
-      .max(20000, "Tekst mora imati najviše 20000 znakova"),
+    title: z.string().min(5, t("titleMin")),
+    text: z.string().min(10, t("textMin")).max(20000, t("textMax")),
+    // Set by the AuthorshipButton; the resolver drops keys it does not know.
+    authorshipInfoId: z.string().optional(),
   });
 
   const { mutateAsync: uploadFile } = useUploadFile();
@@ -51,7 +52,7 @@ export const PostForm = ({ exponatId, isEdit, values }: PostFormProps) => {
 
   const onSumbit = async (data: any) => {
     if ((image.length === 0 || thumbnail.length === 0) && !isEdit) {
-      toast.error("Morate dodati slike", { id: "create-post" });
+      toast.error(t("imagesRequired"), { id: "create-post" });
       return;
     }
     const imageResponse =
@@ -84,32 +85,32 @@ export const PostForm = ({ exponatId, isEdit, values }: PostFormProps) => {
   return (
     <div className={classes.container}>
       <span className={classes.title}>
-        {isEdit ? "Uredi" : "Napravite novu"} objavu
+        {isEdit ? t("editTitle") : t("createTitle")}
       </span>
       <form onSubmit={form.handleSubmit(onSumbit)} className={classes.form}>
         <Input
           form={form}
           attribute="title"
-          question="Naslov"
+          question={t("title")}
           error={form.formState.errors.title?.message?.toString()}
         />
         <Textarea
           form={form}
           attribute="text"
           minRows={15}
-          question="Unesite tekst objave, markdown je podržan"
+          question={t("text")}
           error={form.formState.errors.text?.message?.toString()}
         />
         <div className={classes.fileUploads}>
-          <FileUpload onChange={setThumbnail} name="Naslovna slika" />
-          <FileUpload onChange={setImage} name="Glavna slika" />
+          <FileUpload onChange={setThumbnail} name={t("thumbnail")} />
+          <FileUpload onChange={setImage} name={t("image")} />
         </div>
         <AuthorshipButton
           form={form}
           type={AuthorshipInfoFields.POST}
           currentValues={values?.authorshipInfo}
         />
-        <BaseButton text="Napravi objavu" />
+        <BaseButton text={t("submit")} />
       </form>
     </div>
   );

@@ -4,6 +4,7 @@ import classes from "./page.module.scss";
 import { OrganisationBody } from "@/views/OrganisationBody/OrganisationBody";
 import { UserWrapper } from "@/utility/wrappers/userWrapper";
 import { getWorks } from "@/api/serverWorks";
+import { notFound } from "next/navigation";
 
 const organisationCalls = async (organisationId: string) => {
   const organisationInfo = serverGetOrganisation(organisationId);
@@ -16,6 +17,8 @@ const organisationCalls = async (organisationId: string) => {
 
 const OrganisationPage = async ({ params }: { params: any }) => {
   const [info, works] = await organisationCalls(params.organisationId);
+  // Unknown or unapproved: answer 404 with the not-found page.
+  if (!info) return notFound();
 
   return (
     <div className={classes.container}>

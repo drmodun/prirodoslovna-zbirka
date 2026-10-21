@@ -1,13 +1,14 @@
 "use client";
 
 import { NotificationResponse } from "@biosfera/types";
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useRef, useState } from "react";
 import useUser from "./UserContext";
 import { baseURL } from "@/api/shared";
 import { fetchEventSource } from "@microsoft/fetch-event-source";
 import { useGetNotifications } from "@/api/useGetNotifications";
 import toast from "react-hot-toast";
 import { NotificationModal } from "components/NotificationModal/NotificationModal";
+import { useTranslations } from "next-intl";
 
 export const NotificationContext = createContext<{
   notifications: NotificationResponse[];
@@ -30,6 +31,10 @@ export const NotificationsProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
+  const t = useTranslations("Notifications");
+  // The event stream outlives a language switch, so it reads the latest t.
+  const tRef = useRef(t);
+  tRef.current = t;
   const [notifications, setNotifications] = useState<NotificationResponse[]>(
     [],
   );
@@ -64,25 +69,31 @@ export const NotificationsProvider = ({
   };
 
   useEffect(() => {
-    if (!isSuccess) return;
-    const source = new EventSource(
-      `${baseURL}/notification-users/subscribe/${user?.id}`,
-    );
+    if (!isSuccess || !user?.id) return;
+    // The stream needs the login token, which EventSource cannot send.
+    const token = localStorage.getItem("access_token");
+    if (!token) return;
+    const controller = new AbortController();
 
-    source.onopen = () => {
-      console.log("Connection established");
-    };
-
-    source.onmessage = (event) => {
-      const newNotification = JSON.parse(event.data);
-      setNotifications((prev) => [newNotification, ...prev]);
-      toast.success("Nova obavijest stigla: " + newNotification.title, {
-        icon: "🚀",
-      });
-    };
+    fetchEventSource(`${baseURL}/notification-users/subscribe/${user.id}`, {
+      headers: { Authorization: `Bearer ${token}` },
+      signal: controller.signal,
+      openWhenHidden: true,
+      onmessage: (event) => {
+        if (!event.data) return;
+        const newNotification = JSON.parse(event.data);
+        setNotifications((prev) => [newNotification, ...prev]);
+        toast.success(
+          tRef.current("arrived", { title: newNotification.title }),
+          {
+            icon: "🚀",
+          },
+        );
+      },
+    }).catch(() => {});
 
     return () => {
-      source.close();
+      controller.abort();
     };
   }, [user, isSuccess]);
 

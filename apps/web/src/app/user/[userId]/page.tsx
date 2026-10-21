@@ -8,17 +8,21 @@ import {
 } from "@biosfera/types";
 import { UserPageBody } from "components/UserPageBody/UserPageBody";
 import { UserWrapper } from "@/utility/wrappers/userWrapper";
-import NotFound from "@/not-found";
 import { getGbifWork } from "@/api/serverLiterature";
+import { notFound } from "next/navigation";
+
 const UserPage = async ({ params }: { params: any }) => {
   const userInfo: ExtendedUserResponse = await serverGetUser(params.userId);
+  // Answers 404 with the not-found page.
+  if (!userInfo) return notFound();
+
   const getAllLiterature = await Promise.all(
-    userInfo.savedLiterature.map((literature) =>
+    (userInfo.savedLiterature ?? []).map((literature) =>
       getGbifWork(literature.literatureId),
     ),
   );
 
-  return userInfo ? (
+  return (
     <div className={classes.container}>
       <div className={classes.background} />
       <div className={classes.userBody}>
@@ -41,8 +45,6 @@ const UserPage = async ({ params }: { params: any }) => {
         )}
       </div>
     </div>
-  ) : (
-    <NotFound />
   );
 };
 

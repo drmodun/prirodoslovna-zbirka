@@ -8,12 +8,14 @@ import clsx from "clsx";
 import { useToggleLike } from "@/api/useToggleLike";
 import { useEffect, useState } from "react";
 import { PostResponse, PostResponseExtended } from "@biosfera/types";
+import { useTranslations } from "next-intl";
 
 export interface LikeButtonProps {
   post: PostResponse | PostResponseExtended;
 }
 
 export const LikeButton = ({ post }: LikeButtonProps) => {
+  const t = useTranslations("LikeButton");
   const { likedPosts, updateLikes, loading } = useUser();
   const { mutateAsync } = useToggleLike();
 
@@ -25,10 +27,6 @@ export const LikeButton = ({ post }: LikeButtonProps) => {
     setIsLiked(likedPosts.find((x) => x.id === post.id) != null);
   }, [likedPosts, loading, post.id]);
 
-  useEffect(() => {
-    setIsLiked(likedPosts.find((x) => x.id === post.id) != null);
-  }, []);
-
   const toggleLike = async () => {
     await mutateAsync(post.id);
     updateLikes(post);
@@ -39,11 +37,11 @@ export const LikeButton = ({ post }: LikeButtonProps) => {
     !loading && (
       <button
         className={clsx(classes.leaf, isLiked && classes.liked)}
-        title="like"
+        title={t("label")}
         onClick={toggleLike}
       >
         <div className={classes.likeLeaf}>
-          <Image src={likeLeaf} alt="list za like" layout="fill" />
+          <Image src={likeLeaf} alt={t("label")} layout="fill" />
         </div>
       </button>
     )

@@ -7,11 +7,11 @@ import { useMutation } from "react-query";
 import toast from "react-hot-toast";
 
 const readOrCreateCategorization = async (
-  categorization: CreateCategorizationRequest
+  categorization: CreateCategorizationRequest,
 ) => {
   try {
     const exists = await api.get<never, CategorizationResponse>(
-      `/categorizations/name/${categorization.species}`
+      `/categorizations/name/${categorization.species}`,
     );
 
     if (exists) return exists.id;

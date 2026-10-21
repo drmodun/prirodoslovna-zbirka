@@ -11,8 +11,10 @@ import SelectInput from "components/SelectInput";
 import useUser from "@/utility/context/UserContext";
 import BaseButton from "components/BaseButton";
 import { useEffect } from "react";
+import { useTranslations } from "next-intl";
 
 export const CreationModal = () => {
+  const t = useTranslations("CreationModal");
   const { isVisibleModal, hideButton, hideModal } = useCreateButton();
   const { memberships } = useUser();
   const router = useRouter();
@@ -74,28 +76,28 @@ export const CreationModal = () => {
 
   return (
     <Modal
-      title="Kreiraj novi entitet"
+      title={t("title")}
       deMount={handleClickCloseModal}
-      text="Odaberite što želite napraviti"
+      text={t("text")}
       open={isVisibleModal || false}
-      actionText="Zatvori"
+      actionText={t("close")}
     >
       <form onSubmit={form.handleSubmit(onFormSubmit)}>
         <SelectInput
           form={form}
-          label="Tip entiteta"
+          label={t("type")}
           name="type"
           options={[
-            { value: "organisation", label: "Organizacija" },
-            { value: "exponat", label: "Eksponat" },
-            { value: "post", label: "Objava" },
-            { value: "work", label: "Rad" },
+            { value: "organisation", label: t("types.organisation") },
+            { value: "exponat", label: t("types.exponat") },
+            { value: "post", label: t("types.post") },
+            { value: "work", label: t("types.work") },
           ]}
         />
         {form.watch("type") !== "organisation" && (
           <SelectInput
             form={form}
-            label="Organizacija"
+            label={t("organisation")}
             name="organisationId"
             options={memberships
               .filter((membership) => membership.role !== "REQUESTED")
@@ -108,7 +110,7 @@ export const CreationModal = () => {
         {form.watch("type") === "post" && (
           <SelectInput
             form={form}
-            label="Exponat"
+            label={t("exponat")}
             name="exponatId"
             isDisabled={!availableExponats?.length}
             options={
@@ -120,13 +122,13 @@ export const CreationModal = () => {
                 : [
                     {
                       value: "no-exponats",
-                      label: "Nema dostupnih eksponata",
+                      label: t("noExponats"),
                     },
                   ]
             }
           />
         )}
-        <BaseButton text="Kreiraj" />
+        <BaseButton text={t("create")} />
       </form>
     </Modal>
   );

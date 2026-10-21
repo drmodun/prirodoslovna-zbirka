@@ -19,6 +19,7 @@ import topRight from "assets/images/topRight.png";
 import bottomLeft from "assets/images/bottomLeft.png";
 import bottomRight from "assets/images/bottomRight.png";
 import clsx from "clsx";
+import { useTranslations } from "next-intl";
 export interface SingleExponatViewProps {
   exponat: ExponatExtendedResponse;
   generatedDescription?: string;
@@ -28,6 +29,10 @@ export interface SingleExponatViewProps {
 }
 
 export const SingleExponatView = (props: SingleExponatViewProps) => {
+  const t = useTranslations("SingleExponatView");
+  const tAI = useTranslations("AI");
+  const tCommon = useTranslations("Common");
+  const tSort = useTranslations("Sort");
   const { memberships } = useUser();
 
   return (
@@ -37,11 +42,12 @@ export const SingleExponatView = (props: SingleExponatViewProps) => {
           <div className={classes.icon}>
             <Image src={chatgpt} alt="chatgpt" layout="fill" />
           </div>
-          <span className={classes.title}>
-            AI generirani kratki opis eksponata
-          </span>
-          {props.audioDescription ? (
-            <AudioButton src={props.audioDescription} />
+          <span className={classes.title}>{tAI("exponatDescription")}</span>
+          {props.audioDescription || props.generatedDescription ? (
+            <AudioButton
+              src={props.audioDescription}
+              text={props.generatedDescription}
+            />
           ) : (
             <LoaderIcon />
           )}
@@ -49,12 +55,9 @@ export const SingleExponatView = (props: SingleExponatViewProps) => {
         <pre className={classes.text}>
           {props.generatedDescription
             ? props.generatedDescription
-            : "Učitavanje..."}
+            : tCommon("loading")}
         </pre>
-        <span className={classes.warning}>
-          Molimo vas da provjerite točnost informacija, AI postaje sve bolji ali
-          dalje relativno često zna griješiti
-        </span>
+        <span className={classes.warning}>{tAI("warning")}</span>
       </div>
       {props.isMapPossible && (
         <div className={classes.maps}>
@@ -143,17 +146,17 @@ export const SingleExponatView = (props: SingleExponatViewProps) => {
             href={`/exponat/${props.exponat.id}/createPost`}
             className={classes.buttonWrapper}
           >
-            <BaseButton text="Dodaj Objavu" />
+            <BaseButton text={t("addPost")} />
           </Link>
         )}
-        <span className={classes.title}>Objave</span>
+        <span className={classes.title}>{t("posts")}</span>
         <CardCollection
           items={props.exponat.posts}
           type="post"
           sortBy={[
-            { label: "Abecedno", value: "title" },
-            { label: "Likeovi", value: "likeScore" },
-            { label: "Datum Objave", value: "updatedAt" },
+            { label: tSort("alphabetical"), value: "title" },
+            { label: tSort("likes"), value: "likeScore" },
+            { label: tSort("publishDate"), value: "updatedAt" },
           ]}
           pageSize={12}
         />

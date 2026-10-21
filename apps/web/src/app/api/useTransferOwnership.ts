@@ -1,6 +1,7 @@
 import { useMutation } from "react-query";
 import { api } from "./shared";
 import toast from "react-hot-toast";
+import { useTranslations } from "next-intl";
 
 const transferOwnership = async (params: {
   organisationId: string;
@@ -8,20 +9,21 @@ const transferOwnership = async (params: {
   role: string;
 }) => {
   return await api.put(
-    `/members/${params.organisationId}/${params.userId}/transfer`
+    `/members/${params.organisationId}/${params.userId}/transfer`,
   );
 };
 
 export const useTransferOwnership = () => {
+  const t = useTranslations("Toasts");
   return useMutation(transferOwnership, {
     onSuccess: () => {
-      toast.success("Uspješno predano vlasništvo nad organizacijom", {
+      toast.success(t("ownershipTransferred"), {
         id: "update-user-role",
         icon: "👏",
       });
     },
     onError: (error) => {
-      toast.error("Greška sa prenošenjem vlasništva", {
+      toast.error(t("ownershipTransferFailed"), {
         id: "update-user-role",
         icon: "👏",
       });

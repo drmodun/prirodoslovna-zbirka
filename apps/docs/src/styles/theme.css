@@ -1,0 +1,11 @@
+/* Greens to match the Biosfera web app. */
+:root {
+  --sl-color-accent-low: #12301f;
+  --sl-color-accent: #2f7d4f;
+  --sl-color-accent-high: #b9e4c9;
+}
+:root[data-theme="light"] {
+  --sl-color-accent-low: #d3eedd;
+  --sl-color-accent: #2a7047;
+  --sl-color-accent-high: #143823;
+}

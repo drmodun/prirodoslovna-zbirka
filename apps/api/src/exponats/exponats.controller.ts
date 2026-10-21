@@ -1,4 +1,5 @@
 import {
+  UnauthorizedException,
   Controller,
   Get,
   Post,
@@ -30,6 +31,7 @@ import { SortingParams } from 'src/config/sorting';
 import { ApiBearerAuth, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/jwt-auth-guard';
 import { OptionalJwtAuthGuard } from 'src/auth/optional-jwt-auth-guard';
+import { isModerator } from 'src/auth/roles';
 
 @ApiTags('exponats')
 @Controller('exponats')
@@ -86,7 +88,7 @@ export class ExponatsController {
     @Query() filter?: ExponatQuery,
     @Req() req?: any,
   ) {
-    const isAdmin = req.user?.role === 'super';
+    const isAdmin = isModerator(req.user);
     console.log(filter);
     const items = await this.exponatsService.findAll(
       filter,
@@ -154,7 +156,7 @@ export class ExponatsController {
   async findOne(@Param('id') id: string, @Req() req?: any) {
     const isAdmin =
       req.user &&
-      (req.user.role === 'super' ||
+      (isModerator(req.user) ||
         (await this.exponatsService.checkUserRole(req?.user?.id, id)));
     const item = await this.exponatsService.findOne(id, !isAdmin);
 
@@ -231,8 +233,17 @@ export class ExponatsController {
     );
   }
 
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @Delete(':id')
-  async remove(@Param('id') id: string) {
+  async remove(@Param('id') id: string, @Req() req: any) {
+    const allowed = await this.exponatsService.checkUserRole(req.user.id, id);
+
+    if (!allowed)
+      throw new UnauthorizedException(
+        'Only organisation admins can delete an exponat',
+      );
+
     return await this.exponatsService.remove(id);
   }
 

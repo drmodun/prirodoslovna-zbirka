@@ -1,5 +1,6 @@
 import classes from "./RemoveMembershipButton.module.scss";
 import { useRemoveMembership } from "@/api/useRemoveMembership";
+import { useTranslations } from "next-intl";
 
 export interface LeaveOrganisationButtonProps {
   organisationId: string;
@@ -12,12 +13,11 @@ export const RemoveMembershipButton: React.FC<LeaveOrganisationButtonProps> = ({
   onRemove,
   userId,
 }) => {
+  const t = useTranslations("RemoveMembershipButton");
   const { mutate } = useRemoveMembership();
 
   const handleLeave = () => {
-    const confirm = window.confirm(
-      "jeste li sigurni da želite ukinuti ovo članstvo?"
-    );
+    const confirm = window.confirm(t("confirm"));
     if (!confirm) return;
     mutate({
       organisationId,
@@ -28,10 +28,10 @@ export const RemoveMembershipButton: React.FC<LeaveOrganisationButtonProps> = ({
   return (
     <button
       onClick={handleLeave}
-      title="Remove Membership"
+      title={t("label")}
       className={classes.kickButton}
     >
-      Ukloni članstvo
+      {t("label")}
     </button>
   );
 };

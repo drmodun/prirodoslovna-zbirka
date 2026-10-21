@@ -2,9 +2,9 @@
 
 import {
   QuestionForm,
-  questionSchema,
   questionSchemaType,
 } from "components/QuestionForm/QuestionForm";
+import { useTranslations } from "next-intl";
 
 export interface QuestionInputPreviewProps {
   question: questionSchemaType;
@@ -27,6 +27,7 @@ export const QuestionInputPreview = ({
   index,
   onEdit,
 }: QuestionInputPreviewProps) => {
+  const t = useTranslations("QuestionInputPreview");
   const [isEditMode, setIsEditMode] = useState<boolean>(false);
 
   return isEditMode ? (
@@ -39,7 +40,7 @@ export const QuestionInputPreview = ({
         }}
       />
       <BaseButton
-        text="Odustani"
+        text={t("cancel")}
         onClick={() => setIsEditMode(false)}
         className={classes.deleteButton}
         isNotSubmit
@@ -68,16 +69,18 @@ export const QuestionInputPreview = ({
         </div>
       )}
       <div className={classes.correct}>{question.correct.toString()}</div>
-      <div className={classes.points}>Vrijedi: {question.points}</div>
+      <div className={classes.points}>
+        {t("points", { points: question.points })}
+      </div>
       <BaseButton
         isNotSubmit
-        text="Uredi"
+        text={t("edit")}
         initColor={ButtonColor.BLUE}
         onClick={() => setIsEditMode(true)}
       />
       <BaseButton
         isNotSubmit
-        text="Obriši"
+        text={t("delete")}
         className={classes.deleteButton}
         onClick={() => onDelete(index)}
       />

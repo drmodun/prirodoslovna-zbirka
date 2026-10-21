@@ -1,6 +1,7 @@
 import { useAdminDeleteUser } from "@/api/useAdminDeleteUser";
 import classes from "./DeleteUserButton.module.scss";
 import { useDeleteUser } from "@/api/useDeleteUser";
+import { useTranslations } from "next-intl";
 
 export interface DeleteUserButtonProps {
   isSuper?: boolean;
@@ -11,13 +12,12 @@ export const DeleteUserButton = ({
   isSuper,
   userId,
 }: DeleteUserButtonProps) => {
+  const t = useTranslations("DeleteUserButton");
   const { mutateAsync: deleteUser } = useDeleteUser();
   const { mutateAsync: deleteUserAdmin } = useAdminDeleteUser();
 
   const handleDelete = async () => {
-    const confirm = window.confirm(
-      `Jeste li sigurni da želite obrisati korisnika?`
-    );
+    const confirm = window.confirm(t("confirm"));
     if (!confirm) return;
 
     isSuper ? await deleteUserAdmin(userId!) : await deleteUser();
@@ -27,9 +27,9 @@ export const DeleteUserButton = ({
     <button
       onClick={handleDelete}
       className={classes.deleteButton}
-      title="Obriši korisnika"
+      title={t("label")}
     >
-      Obriši korisnika
+      {t("label")}
     </button>
   );
 };

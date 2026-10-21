@@ -1,50 +1,27 @@
 import { getOrganisationQuery } from "@biosfera/types";
-import queryString from "query-string";
-import { useQuery } from "react-query";
-import { getBaseUrl } from "./getUrlServer";
+import { apiFetch } from "./getUrlServer";
+import { buildListQuery, fetchDiscover } from "./listQuery";
 export const _organisationQuery = getOrganisationQuery();
 export class OrganisationQuery extends _organisationQuery {}
 
+const SORTABLE = ["name", "createdAt", "alternateName", "postAmount", "points"];
+
 export const getOrganisations = async (
   queryDto: OrganisationQuery,
-  page?: number
+  page?: number,
 ) => {
   try {
-    if (page) queryDto.page = page;
-    queryDto.size = 20;
-    if (!queryDto.page) queryDto.page = 1;
-    if (
-      queryDto.attribute !== "name" &&
-      queryDto.attribute !== "createdAt" &&
-      queryDto.attribute !== "alternateName" &&
-      queryDto.attribute !== "postAmount" &&
-      queryDto.attribute !== "points"
-    )
-      delete queryDto.attribute;
     if ((queryDto as any).title) queryDto.name = (queryDto as any).title;
-    const query = queryString.stringify(queryDto);
-    const response = await fetch(`${getBaseUrl()}/organisations?${query}`);
+    const query = buildListQuery(queryDto, SORTABLE, page);
+    const response = await apiFetch(["organisations"], {
+      query,
+      cache: "no-store",
+    });
     return response.json();
   } catch (error) {
     console.log(error);
   }
 };
 
-export const discoverOrganisations = async (params: {
-  page: number;
-  size: number;
-}) => {
-  try {
-    if (!params.size) params.size = 20;
-    if (!params.page) params.page = 1;
-
-    const response = await fetch(
-      `${getBaseUrl()}/organisations/discover?page=${params.page}&size=${
-        params.size
-      }`
-    );
-    return response.json();
-  } catch (error) {
-    console.log(error);
-  }
-};
+export const discoverOrganisations = (params: { page: number; size: number }) =>
+  fetchDiscover("organisations", params);

@@ -8,13 +8,16 @@ import desc from "assets/images/desc.svg";
 import favouriteDrop from "assets/images/favourite-drop.svg";
 import userDark from "assets/images/user-dark.svg";
 import Link from "next/link";
-import { makeCountyName } from "@/utility/static/countyNameMaker";
+import { useCountyName } from "@/utility/hooks/useCountyName";
+import { useTranslations } from "next-intl";
 
 export interface OrganisationCardProps {
   organisation: OrganisationResponseShort;
 }
 
 export const OrganisationCard = ({ organisation }: OrganisationCardProps) => {
+  const t = useTranslations("OrganisationCard");
+  const countyName = useCountyName();
   return (
     <div className={classes.container}>
       <div className={classes.image}>
@@ -28,7 +31,7 @@ export const OrganisationCard = ({ organisation }: OrganisationCardProps) => {
         <div className={classes.text}>
           <span className={classes.name}>{organisation.name}</span>
           <span className={classes.location}>
-            {makeCountyName(organisation.location)}
+            {countyName(organisation.location)}
           </span>
           <span className={classes.description}>
             {organisation.description}
@@ -52,7 +55,7 @@ export const OrganisationCard = ({ organisation }: OrganisationCardProps) => {
           href={`/organisation/${organisation.id}`}
           className={classes.button}
         >
-          Posjeti organizaciju
+          {t("visit")}
         </Link>
       </div>
     </div>

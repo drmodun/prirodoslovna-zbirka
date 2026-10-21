@@ -7,6 +7,7 @@ import clsx from "clsx";
 import { ShortUserResponse } from "@biosfera/types";
 import CardCollection from "components/CardCollection";
 import Tabs from "components/Tabs";
+import { useTranslations } from "next-intl";
 
 interface FollowsTableProps {
   followers: ShortUserResponse[];
@@ -19,9 +20,10 @@ export const FollowsTable = ({
   following,
   firstTab = "Followers",
 }: FollowsTableProps) => {
+  const t = useTranslations("Sort");
   const [tab, setTab] = useState<string>(firstTab);
   const [listToRender, setListToRender] = useState(
-    firstTab === "Following" ? following : followers
+    firstTab === "Following" ? following : followers,
   );
   useEffect(() => {
     setListToRender(tab.toLowerCase() === "followers" ? followers : following);
@@ -43,11 +45,11 @@ export const FollowsTable = ({
           items={listToRender}
           type="user"
           sortBy={[
-            { label: "Abecedno", value: "firstName" },
-            { label: "Korisničko Ime", value: "username" },
-            { label: "Županija", value: "location" },
-            { label: "Broj Postova", value: "postCount" },
-            { label: "Broj Favorita", value: "likeCount" },
+            { label: t("alphabetical"), value: "firstName" },
+            { label: t("username"), value: "username" },
+            { label: t("county"), value: "location" },
+            { label: t("posts"), value: "postCount" },
+            { label: t("favourites"), value: "likeCount" },
           ]}
           pageSize={20}
         />

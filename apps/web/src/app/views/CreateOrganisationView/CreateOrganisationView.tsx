@@ -4,18 +4,16 @@ import logoWithBackground from "assets/images/logoWithBackground.svg";
 import { QueryClientWrapper } from "@/utility/wrappers/queryWrapper";
 import CreateOrganisationForm from "components/CreateOrganisationForm";
 import { RegistrationImage } from "../RegistrationImage/RegistrationImage";
+import { useTranslations } from "next-intl";
 export const CreateOrganisationView = () => {
+  const t = useTranslations("Pages");
   return (
     <div className={classes.container}>
       <div className={classes.formSection}>
         <div className={classes.title}>
-          Nova <br></br>organizacija
+          {t.rich("newOrganisation", { br: () => <br /> })}
         </div>
-        <div className={classes.description}>
-          Dobrodošli u Prirodoslovnu zbirku! Ispunjavanjem ove forme stvorit
-          ćete novu organizaciju na našoj platformi te ćete moći surađivati sa
-          ostalim korisnicima.
-        </div>
+        <div className={classes.description}>{t("newOrganisationText")}</div>
         <QueryClientWrapper>
           <CreateOrganisationForm />
         </QueryClientWrapper>

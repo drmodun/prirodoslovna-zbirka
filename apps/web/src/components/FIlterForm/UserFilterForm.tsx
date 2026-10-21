@@ -1,22 +1,29 @@
 "use client";
-import Link from "next/link";
 import classes from "./FilterForm.module.scss";
 import { z } from "zod";
 import { FieldValues, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Input from "components/Input";
 import SelectInput from "components/SelectInput";
-import BaseButton from "components/BaseButton";
-import { error } from "console";
 import { County } from "@biosfera/types";
-import { makeCountyName } from "@/utility/static/countyNameMaker";
+import { useCountyName } from "@/utility/hooks/useCountyName";
+import { useTranslations } from "next-intl";
+import {
+  RELEVANCE,
+  SearchLink,
+  SortSelects,
+  buildSearchQuery,
+  refineSortPair,
+} from "./shared";
 
 interface Props {
   searchParams?: any;
 }
 
-export const UserFilter = ({ searchParams }: Props) => {
-  const schema = z
+// `sortPair` is the message for a direction without an attribute or the
+// reverse.
+const createSchema = (sortPair: string) =>
+  z
     .object({
       location: z.optional(
         z.enum([
@@ -50,30 +57,38 @@ export const UserFilter = ({ searchParams }: Props) => {
       ),
       direction: z.optional(z.enum(["asc", "desc"])),
     })
-    .refine((data) => {
-      if (data.direction && !data.attribute) {
-        return false;
-      }
-      if (data.attribute && !data.direction) {
-        return false;
-      }
-    }, "Smjer i atribut samo mogu biti oboje odabrani ili oboje prazni");
+    .refine(refineSortPair, sortPair);
 
+const getDefaultValues = (searchParams?: any) =>
+  ({
+    username:
+      searchParams?.username || searchParams?.name || searchParams?.title || "",
+    location: searchParams?.location,
+    attribute: searchParams?.attribute || RELEVANCE,
+    direction: searchParams?.direction || "desc",
+  }) as FieldValues;
+
+export const UserFilter = ({ searchParams }: Props) => {
+  const t = useTranslations("Filters");
+  const countyName = useCountyName();
+  const countyOptions = Object.values(County)
+    .filter((county) => county.length > 2)
+    .map((county) => ({
+      label: countyName(county),
+      value: county,
+    }));
+  const sortOptions = [
+    { label: t("user.name"), value: "username" },
+    { label: t("location"), value: "location" },
+    { label: t("points"), value: "points" },
+  ];
   const form = useForm({
-    resolver: zodResolver(schema),
-    defaultValues: {
-      username:
-        searchParams?.username ||
-        searchParams?.name ||
-        searchParams?.title ||
-        "",
-      location: searchParams?.location,
-      attribute: searchParams?.attribute || "Relevantnost",
-      direction: searchParams?.direction || "desc",
-    } as FieldValues,
+    resolver: zodResolver(createSchema(t("sortPair"))),
+    defaultValues: getDefaultValues(searchParams),
   });
 
-  const handleFilter = (data: any) => {};
+  // Searching happens through the link below; submitting does nothing.
+  const handleFilter = () => {};
 
   return (
     <div className={classes.container}>
@@ -81,68 +96,20 @@ export const UserFilter = ({ searchParams }: Props) => {
         onSubmit={form.handleSubmit(handleFilter)}
         className={classes.filter}
       >
-        <h2>Filter korisnika</h2>
-        <Input form={form} attribute="username" question="Korisničko ime" />
+        <h2>{t("user.title")}</h2>
+        <Input form={form} attribute="username" question={t("user.username")} />
         <SelectInput
-          label="Županija"
+          label={t("county")}
           name="location"
-          options={Object.values(County)
-            .filter((county) => county.length > 2)
-            .map((county) => ({
-              label: makeCountyName(county),
-              value: county,
-            }))}
+          options={countyOptions}
           form={form}
           error={form.formState.errors.location?.message?.toString()}
         />
-        <SelectInput
-          name="attribute"
-          label="Sortiraj po"
-          form={form}
-          options={[
-            { label: "Relevantnost", value: "Relevantnost" },
-            { label: "Ime", value: "username" },
-            { label: "Lokacija", value: "location" },
-            { label: "Bodovi", value: "points" },
-          ]}
-          error={form.formState.errors.attribute?.message?.toString()}
-        />
-        <SelectInput
-          name="direction"
-          label="Smjer"
-          form={form}
-          options={[
-            { label: "Uzlazno", value: "asc" },
-            { label: "Silazno", value: "desc" },
-          ]}
-          error={form.formState.errors.direction?.message?.toString()}
-        />
+        <SortSelects form={form} options={sortOptions} />
       </form>
-      <Link
-        className={classes.button}
-        href={{
-          pathname: "/search",
-          query: {
-            kind: "user",
-            ...(form.watch("location") && {
-              location: form.watch("location"),
-            }),
-            ...(form.watch("username") && {
-              username: form.watch("username"),
-            }),
-            ...(form.watch("attribute") &&
-              form.watch("attribute") !== "Relevantnost" && {
-                attribute: form.watch("attribute"),
-              }),
-            ...(form.watch("direction") &&
-              form.watch("attribute") !== "Relevantnost" && {
-                direction: form.watch("direction"),
-              }),
-          },
-        }}
-      >
-        <BaseButton text="Pretraži" />
-      </Link>
+      <SearchLink
+        query={buildSearchQuery("user", form.watch(), ["location", "username"])}
+      />
     </div>
   );
 };

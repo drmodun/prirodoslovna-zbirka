@@ -1,6 +1,8 @@
 import {
   Controller,
+  Get,
   Post,
+  StreamableFile,
   UseInterceptors,
   UploadedFile,
   Param,
@@ -8,18 +10,41 @@ import {
   FileTypeValidator,
   MaxFileSizeValidator,
   BadRequestException,
+  ConflictException,
+  NotFoundException,
+  UseGuards,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { ApiBody, ApiConsumes, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody, ApiConsumes, ApiTags } from '@nestjs/swagger';
+import { JwtAuthGuard } from 'src/auth/jwt-auth-guard';
 import { BlobService } from './blob.service';
 import { randomUUID } from 'crypto';
 import { Directories } from '@biosfera/types';
+
+// Recordings made by the web server: audio-<directory>/<id>-<12 hex chars>.
+const AUDIO_DIRECTORY = /^audio-[a-z-]+$/;
+const AUDIO_NAME = /^[\w-]+-[0-9a-f]{12}$/;
 
 @ApiTags('blobs')
 @Controller('blobs')
 export class BlobController {
   constructor(private readonly blobService: BlobService) {}
 
+  // Serves files kept on disk when S3 is not configured.
+  @Get('file/:directory/:name')
+  async file(
+    @Param('directory') directory: string,
+    @Param('name') name: string,
+  ) {
+    const { stream, mimetype } = await this.blobService.readLocal(
+      directory,
+      name,
+    );
+    return new StreamableFile(stream, { type: mimetype });
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @Post(':directory')
   @ApiConsumes('multipart/form-data')
   @ApiBody({
@@ -54,11 +79,12 @@ export class BlobController {
       file.mimetype,
     );
 
-    if (url)
-      return `https://biosfera-files.s3.eu-north-1.amazonaws.com/${directory}/${name}`;
+    if (url) return url;
     else throw new BadRequestException('File upload failed');
   }
 
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @Post('/pdf/:directory')
   @ApiConsumes('multipart/form-data')
   @ApiBody({
@@ -94,12 +120,22 @@ export class BlobController {
       file.mimetype,
     );
 
-    if (url)
-      return `https://biosfera-files.s3.eu-north-1.amazonaws.com/${directory}/${name}`;
+    if (url) return url;
     else throw new BadRequestException('File upload failed');
   }
 
   //TODO: if needed add pptx upload possibility, currently because of file size and usage it is much more efficient and simple to use pdf for presentations
+
+  // URL of an existing recording, so the web app synthesises each text once.
+  @Get('/audio/:directory/:name')
+  async findAudio(
+    @Param('directory') directory: string,
+    @Param('name') name: string,
+  ) {
+    const url = await this.blobService.find(directory, name);
+    if (!url) throw new NotFoundException();
+    return url;
+  }
 
   @Post('/audio/:directory/:name')
   @ApiConsumes('multipart/form-data')
@@ -128,6 +164,14 @@ export class BlobController {
     )
     file: Express.Multer.File,
   ) {
+    // The web server stores text-to-speech recordings here while rendering
+    // pages for anyone, so there is no user to authenticate. Instead the
+    // endpoint only takes recording names and never replaces a file.
+    if (!AUDIO_DIRECTORY.test(directory) || !AUDIO_NAME.test(name))
+      throw new BadRequestException('Invalid recording name');
+    if (await this.blobService.find(directory, name))
+      throw new ConflictException('Recording already exists');
+
     const url = await this.blobService.upload(
       directory,
       name,
@@ -135,11 +179,12 @@ export class BlobController {
       file.mimetype,
     );
 
-    if (url)
-      return `https://biosfera-files.s3.eu-north-1.amazonaws.com/${directory}/${name}`;
+    if (url) return url;
     else throw new BadRequestException('File upload failed');
   }
 
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @Post('/model/:directory')
   @ApiConsumes('multipart/form-data')
   @ApiBody({
@@ -170,11 +215,12 @@ export class BlobController {
       file.buffer,
       file.mimetype,
     );
-    if (url)
-      return `https://biosfera-files.s3.eu-north-1.amazonaws.com/${directory}/${name}`;
+    if (url) return url;
     else throw new BadRequestException('File upload failed');
   }
 
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @Post('/video/:directory')
   @ApiConsumes('multipart/form-data')
   @ApiBody({
@@ -209,8 +255,7 @@ export class BlobController {
       file.buffer,
       file.mimetype,
     );
-    if (url)
-      return `https://biosfera-files.s3.eu-north-1.amazonaws.com/${directory}/${name}`;
+    if (url) return url;
     else throw new BadRequestException('File upload failed');
   }
 }

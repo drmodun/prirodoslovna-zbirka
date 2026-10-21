@@ -1,4 +1,5 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
+import { createHash, randomBytes } from 'crypto';
 import { RegisterUserDto, UpdateUserDto } from './dto/users.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import * as bcrypt from 'bcrypt';
@@ -11,7 +12,14 @@ import {
 import { MemberRoleType } from 'src/members/members.dto';
 import { BlobService } from 'src/blob/blob.service';
 import { EmailService } from 'src/email/email.service';
-import { User } from '@prisma/client';
+import { Language, User } from '@prisma/client';
+
+export const PASSWORD_RESET_TTL_MS = 60 * 60 * 1000;
+
+// Only a hash of the reset token is stored, so a leaked database row cannot
+// be used to reset the password.
+export const hashResetToken = (token: string) =>
+  createHash('sha256').update(token).digest('hex');
 
 @Injectable()
 export class UsersService {
@@ -241,6 +249,15 @@ export class UsersService {
     });
   }
 
+  async updateLanguage(id: string, language: Language) {
+    return await this.prisma.user.update({
+      where: {
+        id: id,
+      },
+      data: { language },
+    });
+  }
+
   async remove(id: string) {
     return await this.prisma.user.delete({
       where: {
@@ -298,8 +315,17 @@ export class UsersService {
   async sendVefificationEmail(user: User) {
     const baseUrl = process.env.WEB_URL || 'http://localhost:3000';
 
-    const subject = `${user.firstName}, verificirajte e-mail adresu`;
-    const text = `${user.firstName} ${user.lastName}, molimo vas da verificirate vašu e-mail adresu (${user.email}) klikom na link ${baseUrl}/activateUser/${user.activationCode}`;
+    const link = `${baseUrl}/activateUser/${user.activationCode}`;
+    const [subject, text] =
+      user.language === Language.HR
+        ? [
+            `${user.firstName}, verificirajte e-mail adresu`,
+            `${user.firstName} ${user.lastName}, molimo vas da verificirate vašu e-mail adresu (${user.email}) klikom na link ${link}`,
+          ]
+        : [
+            `${user.firstName}, verify your e-mail address`,
+            `${user.firstName} ${user.lastName}, please verify your e-mail address (${user.email}) by following the link ${link}`,
+          ];
     const mail = await this.email.sendMail(user.email, subject, text);
 
     return mail;
@@ -317,27 +343,68 @@ export class UsersService {
   }
 
   async sendPasswordResetEmail(email: string) {
-    const user = await this.prisma.user.findUniqueOrThrow({
+    const user = await this.prisma.user.findUnique({
       where: {
         email,
       },
     });
+
+    // Unknown addresses get the same answer as known ones, so the endpoint
+    // does not reveal which e-mails have an account.
+    if (!user) return;
+
+    const token = randomBytes(32).toString('hex');
+
+    await this.prisma.user.update({
+      where: {
+        id: user.id,
+      },
+      data: {
+        passwordResetToken: hashResetToken(token),
+        passwordResetExpiresAt: new Date(Date.now() + PASSWORD_RESET_TTL_MS),
+      },
+    });
+
     const baseUrl = process.env.WEB_URL || 'http://localhost:3000';
-    const subject = `Resetiranje lozinke na biosfera.trema`;
-    const text = `Poštovani, molimo vas da resetirate lozinku klikom na link: ${baseUrl}/resetPassword/${user.activationCode}`;
-    const mail = await this.email.sendMail(email, subject, text);
-    return mail;
+    const link = `${baseUrl}/resetPassword/${token}`;
+    const [subject, text] =
+      user.language === Language.HR
+        ? [
+            `Resetiranje lozinke na biosfera.trema`,
+            `Poštovani, molimo vas da resetirate lozinku klikom na link: ${link}. Link vrijedi jedan sat.`,
+          ]
+        : [
+            `Password reset on biosfera.trema`,
+            `Hello, you can reset your password by following the link: ${link}. The link is valid for one hour.`,
+          ];
+    await this.email.sendMail(email, subject, text);
   }
 
-  async resetPassword(userActivationCode: string, newPassword: string) {
+  async resetPassword(token: string, newPassword: string) {
+    const user = await this.prisma.user.findUnique({
+      where: {
+        passwordResetToken: hashResetToken(token),
+      },
+    });
+
+    if (
+      !user ||
+      !user.passwordResetExpiresAt ||
+      user.passwordResetExpiresAt.getTime() < Date.now()
+    )
+      throw new BadRequestException('Reset link is invalid or has expired');
+
     const hashedPassword = await bcrypt.hash(newPassword, 10);
 
+    // Clearing the token makes the link single-use.
     return await this.prisma.user.update({
       where: {
-        activationCode: userActivationCode,
+        id: user.id,
       },
       data: {
         password: hashedPassword,
+        passwordResetToken: null,
+        passwordResetExpiresAt: null,
       },
     });
   }

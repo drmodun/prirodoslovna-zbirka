@@ -3,12 +3,13 @@ import { FieldValues, UseFormReturn } from "react-hook-form";
 import classes from "./ListInput.module.scss";
 import dash from "assets/images/dash.svg";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import SingleInput from "components/SingleInput";
 import leaf from "assets/images/like-leaf-green.svg";
 import plus from "assets/images/plus.svg";
 import ErrorText from "components/Error";
 import { Option, SelectInput } from "components/SelectInput/SelectInput";
+import { useTranslations } from "next-intl";
 
 export interface ListInputProps {
   question: string;
@@ -31,6 +32,7 @@ export const ListInput = ({
   options,
   initValue,
 }: ListInputProps) => {
+  const t = useTranslations("ListInput");
   const { setValue } = form;
   const [elements, setElements] = useState<string[]>(initValue || []);
   const [newValue, setNewValue] = useState<string>("");
@@ -42,11 +44,20 @@ export const ListInput = ({
     setNewValue("");
   };
 
+  // Switching between free text and a list of options starts over, but the
+  // first render keeps initValue. Options are compared by value, since
+  // callers often build a new array on every render.
+  const optionsKey = options?.map((option) => option.value).join("\u0000");
+  const mounted = useRef(false);
   useEffect(() => {
+    if (!mounted.current) {
+      mounted.current = true;
+      return;
+    }
     setElements([]);
     setNewValue(options?.[0]?.value || "");
     setValue(attribute, []);
-  }, [isSelect, options]);
+  }, [isSelect, optionsKey]);
 
   const handleDelete = (index: number) => {
     setElements((prev) => prev.filter((_, i) => i !== index));
@@ -66,7 +77,7 @@ export const ListInput = ({
             <button
               className={classes.delete}
               type="button"
-              title="remove"
+              title={t("remove")}
               onClick={() => handleDelete(index)}
             >
               <Image src={dash} alt="delete" layout="fill" />
@@ -78,7 +89,7 @@ export const ListInput = ({
           <button
             className={classes.button}
             type="button"
-            title="add"
+            title={t("add")}
             onClick={() => handleOnChange()}
           >
             <Image src={plus} alt="add" layout="fill" />
@@ -86,7 +97,7 @@ export const ListInput = ({
           {isSelect ? (
             <select
               name="select"
-              title="Odabir vrijednosti"
+              title={t("select")}
               value={newValue}
               className={classes.select}
               onChange={(e) => setNewValue(e.target.value)}
@@ -100,7 +111,7 @@ export const ListInput = ({
           ) : (
             <SingleInput
               onChange={setNewValue}
-              question="Upišite vrijednost"
+              question={t("placeholder")}
               value={newValue}
               image={leaf}
             />

@@ -3,6 +3,7 @@ import { api } from "./shared";
 import toast from "react-hot-toast";
 import { getUpdateAuthorshipInfoDto } from "@biosfera/types";
 import { _updateOrganisationDto } from "./useUpdateOrganisation";
+import { useTranslations } from "next-intl";
 
 export const _updateAuthorshipInfoDto = getUpdateAuthorshipInfoDto();
 
@@ -17,12 +18,13 @@ export const updateAuthorshipInfo = async (data: {
 };
 
 export const useUpdateAuthorshipInfo = () => {
+  const t = useTranslations("Toasts");
   return useMutation(updateAuthorshipInfo, {
     onError: (error) => {
-      toast.error("Failed to update authorship info");
+      toast.error(t("authorshipUpdateFailed"));
     },
     onSuccess: () => {
-      toast.success("Authorship info updated successfully");
+      toast.success(t("authorshipUpdated"));
     },
   });
 };

@@ -2,6 +2,7 @@ import { Directories } from "@biosfera/types";
 import { api, fileApi } from "./shared";
 import { useMutation } from "react-query";
 import toast from "react-hot-toast";
+import { useTranslations } from "next-intl";
 
 export interface FileUploadProps {
   file: File;
@@ -16,9 +17,10 @@ const uploadFile = async (params: FileUploadProps) => {
 };
 
 export const useUploadFile = () => {
+  const t = useTranslations("Toasts");
   return useMutation(uploadFile, {
     onError: (error) => {
-      toast.error("Greška prilikom uploada");
+      toast.error(t("uploadFailed"));
     },
   });
 };

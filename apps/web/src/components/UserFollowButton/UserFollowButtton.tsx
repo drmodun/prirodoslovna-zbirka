@@ -5,22 +5,24 @@ import clsx from "clsx";
 import { useEffect, useState } from "react";
 import { ShortUserResponse } from "@biosfera/types";
 import { useToggleFollow } from "@/api/useToggleFollowUser";
+import { useTranslations } from "next-intl";
 
 export interface FollowButtonProps {
   user: ShortUserResponse;
 }
 
 export const FollowButton = ({ user }: FollowButtonProps) => {
+  const t = useTranslations("FollowButton");
   const { following, updateFollowing, loading } = useUser();
   const { mutateAsync } = useToggleFollow();
 
   const [isFollow, setIsFollow] = useState(
-    following.find((x) => x.id === user.id) != null
+    following.find((x) => x.id === user.id) != null,
   );
 
   useEffect(() => {
     setIsFollow(following?.find((x) => x.id === user.id) != null);
-  }, [following, loading]);
+  }, [following, loading, user.id]);
 
   const toggleFollow = async () => {
     await mutateAsync(user.id);
@@ -32,10 +34,10 @@ export const FollowButton = ({ user }: FollowButtonProps) => {
     following && (
       <button
         className={clsx(classes.button, isFollow && classes.following)}
-        title="follow user"
+        title={t("followUser")}
         onClick={toggleFollow}
       >
-        {!isFollow ? "Zaprati" : "Prestani pratiti"}
+        {!isFollow ? t("followUser") : t("unfollow")}
       </button>
     )
   );

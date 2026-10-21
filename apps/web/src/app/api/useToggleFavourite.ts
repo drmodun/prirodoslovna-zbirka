@@ -1,10 +1,12 @@
 import { useMutation, useQueryClient } from "react-query";
 import { api } from "./shared";
 import toast from "react-hot-toast";
+import { useTranslations } from "next-intl";
 
 const toggleFavourite = (id: string) => api.patch(`/favourite-exponats/${id}`);
 
 export const useToggleFavourite = () => {
+  const t = useTranslations("Toasts");
   const queryClient = useQueryClient();
   return useMutation(toggleFavourite, {
     onSuccess: () => {
@@ -16,12 +18,12 @@ export const useToggleFavourite = () => {
         error.includes("Unauthorized") ||
         error.includes("You")
       ) {
-        toast.error("You must be logged in to favourite a post", {
+        toast.error(t("mustBeLoggedInToFavourite"), {
           icon: "🔒",
           id: "unauthorized",
         });
       } else {
-        toast.error("An error occurred, please try again later", {
+        toast.error(t("genericError"), {
           icon: "🚨",
           id: "error",
         });

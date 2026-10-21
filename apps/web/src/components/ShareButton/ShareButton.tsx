@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import classes from "./ShareButton.module.scss";
 import Image from "next/image";
 import share from "assets/icons/share.svg";
@@ -27,6 +27,7 @@ import {
   XIcon,
 } from "react-share";
 import toast from "react-hot-toast";
+import { useTranslations } from "next-intl";
 
 export interface ShareButtonProps {
   title: string;
@@ -35,12 +36,19 @@ export interface ShareButtonProps {
 }
 
 const ShareButton = ({ text, imageUrl, title }: ShareButtonProps) => {
+  const t = useTranslations("ShareButton");
   const [isOpen, setIsOpen] = useState(false);
+  // window is not available while the server renders this component.
+  const [url, setUrl] = useState("");
+
+  useEffect(() => {
+    setUrl(window.location.href);
+  }, []);
 
   const handleShare = async () => {
     if (navigator.share) {
       try {
-        await navigator.share({ title, text, url: window.location.href });
+        await navigator.share({ title, text, url });
       } catch (error) {
         console.error("Error sharing:", error);
       }
@@ -54,50 +62,50 @@ const ShareButton = ({ text, imageUrl, title }: ShareButtonProps) => {
   };
 
   const copyToClipboard = () => {
-    navigator.clipboard.writeText(window.location.href);
-    toast.success("Link kopiran u međuspremnik");
+    navigator.clipboard.writeText(url);
+    toast.success(t("copied"));
   };
 
   return (
-    <button title="share" className={classes.container} onClick={handleShare}>
+    <button
+      title={t("share")}
+      className={classes.container}
+      onClick={handleShare}
+    >
       <Image alt="share" src={share} />
-      <Modal open={isOpen} deMount={handleClose} title="Podijeli" text={text}>
+      <Modal open={isOpen} deMount={handleClose} title={t("share")} text={text}>
         <div className={classes.sharingRow}>
-          <TwitterShareButton title={title} url={window.location.href}>
+          <TwitterShareButton title={title} url={url}>
             <XIcon size={64} round />
           </TwitterShareButton>
-          <FacebookShareButton url={window.location.href}>
+          <FacebookShareButton url={url}>
             <FacebookIcon size={64} round />
           </FacebookShareButton>
-          <WhatsappShareButton title={title} url={window.location.href}>
+          <WhatsappShareButton title={title} url={url}>
             <WhatsappIcon size={64} round />
           </WhatsappShareButton>
-          <EmailShareButton
-            subject={title}
-            body={text}
-            url={window.location.href}
-          >
+          <EmailShareButton subject={title} body={text} url={url}>
             <EmailIcon size={64} round />
           </EmailShareButton>
           {imageUrl && (
-            <PinterestShareButton media={imageUrl} url={window.location.href}>
+            <PinterestShareButton media={imageUrl} url={url}>
               <PinterestIcon size={64} round />
             </PinterestShareButton>
           )}
-          <TelegramShareButton title={title} url={window.location.href}>
+          <TelegramShareButton title={title} url={url}>
             <TelegramIcon size={64} round />
           </TelegramShareButton>
-          <ViberShareButton title={title} url={window.location.href}>
+          <ViberShareButton title={title} url={url}>
             <ViberIcon size={64} round />
           </ViberShareButton>
-          <RedditShareButton title={title} url={window.location.href}>
+          <RedditShareButton title={title} url={url}>
             <RedditIcon size={64} round />
           </RedditShareButton>
-          <TumblrShareButton title={title} url={window.location.href}>
+          <TumblrShareButton title={title} url={url}>
             <TumblrIcon size={64} round />
           </TumblrShareButton>
           <button onClick={copyToClipboard} className={classes.copyToClipboard}>
-            <Image alt="kopiraj vezu" src={copy} />
+            <Image alt={t("copy")} src={copy} />
           </button>
         </div>
       </Modal>

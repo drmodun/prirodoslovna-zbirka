@@ -1,10 +1,12 @@
 import { useMutation } from "react-query";
 import { api } from "./shared";
 import toast from "react-hot-toast";
+import { useTranslations } from "next-intl";
 
 const toggleFollow = (id: string) => api.post(`/follows/${id}`);
 
 export const useToggleFollow = () => {
+  const t = useTranslations("Toasts");
   return useMutation(toggleFollow, {
     onError: (error: string) => {
       if (
@@ -12,9 +14,9 @@ export const useToggleFollow = () => {
         error.includes("Unauthorized") ||
         error.includes("You")
       ) {
-        toast.error("You must be logged in to favourite a post");
+        toast.error(t("mustBeLoggedInToFollowUser"));
       } else {
-        toast.error("An error occurred, please try again later");
+        toast.error(t("genericError"));
       }
     },
   });

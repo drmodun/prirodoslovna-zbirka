@@ -1,14 +1,16 @@
 import { useMutation } from "react-query";
 import { api } from "./shared";
 import toast from "react-hot-toast";
+import { useTranslations } from "next-intl";
 
 export const followOrganisation = async (organisationId: string) =>
   await api.patch(`/favourite-organisations/${organisationId}`);
 
 export const useFollowOrganisation = () => {
+  const t = useTranslations("Toasts");
   return useMutation(followOrganisation, {
     onSuccess: () => {
-      toast.success("Promijenjen status praćenja", {
+      toast.success(t("followStatusChanged"), {
         icon: "🎉",
         id: "success",
       });
@@ -19,12 +21,12 @@ export const useFollowOrganisation = () => {
         error.includes("Unauthorized") ||
         error.includes("You")
       ) {
-        toast.error("Morate biti logirani da pratite organizaciju", {
+        toast.error(t("mustBeLoggedInToFollowOrganisation"), {
           icon: "🔒",
           id: "unauthorized",
         });
       } else {
-        toast.error("Greška se dogodila, molim vas pokušajte kasnije", {
+        toast.error(t("genericError"), {
           icon: "🚨",
           id: "error",
         });

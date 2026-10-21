@@ -1,6 +1,7 @@
 "use client";
 
 import useUser from "../context/UserContext";
+import { isModeratorRole } from "../static/roles";
 
 export interface RightCheckingWrapperProps {
   children: React.ReactNode;
@@ -13,12 +14,12 @@ export const AdminCheckingWrapper = ({
 }: RightCheckingWrapperProps) => {
   const { user, memberships } = useUser();
 
-  return user?.role?.toLowerCase() === "super" ||
+  return isModeratorRole(user?.role) ||
     memberships.some(
       (x) =>
         x.id == id &&
         (x.role?.toLocaleLowerCase() === "admin" ||
-          x.role?.toLocaleLowerCase() === "owner")
+          x.role?.toLocaleLowerCase() === "owner"),
     )
     ? children
     : null;

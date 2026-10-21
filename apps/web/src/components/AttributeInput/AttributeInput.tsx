@@ -10,6 +10,7 @@ import plus from "assets/images/plus.svg";
 import { Json } from "@biosfera/types/src/jsonObjects";
 import ErrorText from "components/Error";
 import { init } from "next/dist/compiled/webpack/webpack";
+import { useTranslations } from "next-intl";
 
 export interface AttributeInputProps {
   question: string;
@@ -26,6 +27,7 @@ export const AttributeInput = ({
   initValue,
   error,
 }: AttributeInputProps) => {
+  const t = useTranslations("AttributeInput");
   const { setValue } = form;
   const [object, setObject] = useState<Json>(initValue || {});
   const [newAttribute, setNewAttribute] = useState<string>("");
@@ -65,7 +67,7 @@ export const AttributeInput = ({
             <button
               className={classes.delete}
               type="button"
-              title="remove"
+              title={t("remove")}
               onClick={() => handleDelete(key)}
             >
               <Image src={dash} alt="delete" layout="fill" />
@@ -80,18 +82,18 @@ export const AttributeInput = ({
           <div className={classes.input}>
             <SingleInput
               onChange={setNewAttribute}
-              question="Atribut"
+              question={t("attribute")}
               value={newAttribute}
             />
             <SingleInput
               onChange={setNewValue}
-              question="Vrijednost"
+              question={t("value")}
               value={newValue}
             />
           </div>
           <button
             className={classes.button}
-            title="add"
+            title={t("add")}
             type="button"
             onClick={() => handleOnChange()}
           >

@@ -28,7 +28,7 @@ export interface PostCardProps {
 export const PostCard = ({
   post,
   isUser,
-  isAdmin = true,
+  isAdmin = false,
   onRemove,
 }: PostCardProps) =>
   post && (

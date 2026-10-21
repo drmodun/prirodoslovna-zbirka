@@ -2,7 +2,7 @@ import {
   IsString,
   MinLength,
   IsOptional,
-  IsEnum,
+  IsIn,
   IsNumber,
   Min,
   Max,
@@ -18,7 +18,7 @@ export const getCreateQuestionDto = (ApiPropertySwagger?: any) => {
     @ApiProperty()
     question: string;
 
-    @IsEnum(QuestionTypeEnum)
+    @IsIn(Object.keys(QuestionTypeEnum))
     @ApiProperty()
     questionType: QuestionTypeEnumType;
 
@@ -54,31 +54,36 @@ export const getUpdateQuestionDto = (ApiPropertySwagger?: any) => {
   const ApiProperty = ApiPropertySwagger || function () {};
 
   class UpdateQuestionDto {
+    @IsOptional()
     @IsString()
     @MinLength(5)
-    @ApiProperty()
-    question: string;
+    @ApiProperty({ required: false })
+    question?: string;
 
-    @IsEnum(QuestionTypeEnum)
-    @ApiProperty()
-    questionType: QuestionTypeEnumType;
+    @IsOptional()
+    @IsIn(Object.keys(QuestionTypeEnum))
+    @ApiProperty({ required: false })
+    questionType?: QuestionTypeEnumType;
 
+    @IsOptional()
     @IsString({ each: true })
-    @ApiProperty()
-    options: string[];
+    @ApiProperty({ required: false })
+    options?: string[];
 
+    @IsOptional()
     @IsString({ each: true })
-    @ApiProperty()
-    correct: string[];
+    @ApiProperty({ required: false })
+    correct?: string[];
 
     @IsOptional()
     @IsString()
-    @ApiProperty()
+    @ApiProperty({ required: false })
     image?: string;
 
+    @IsOptional()
     @IsNumber()
-    @ApiProperty()
-    points: number;
+    @ApiProperty({ required: false })
+    points?: number;
 
     @IsOptional()
     @IsNumber()
@@ -95,9 +100,10 @@ export const getQuestionQuery = (ApiPropertySwagger?: any) => {
   const ApiProperty = ApiPropertySwagger || function () {};
 
   class QuestionQuery {
+    @IsOptional()
     @IsString()
-    @ApiProperty()
-    quizId: string;
+    @ApiProperty({ required: false })
+    quizId?: string;
   }
   return QuestionQuery;
 };

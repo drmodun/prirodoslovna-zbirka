@@ -4,16 +4,14 @@ import logoWithBackground from "assets/images/logoWithBackground.svg";
 import { QueryClientWrapper } from "@/utility/wrappers/queryWrapper";
 import RegisterForm from "components/RegisterForm";
 import { RegistrationImage } from "../RegistrationImage/RegistrationImage";
+import { useTranslations } from "next-intl";
 export const RegisterView = () => {
+  const t = useTranslations("Pages");
   return (
     <div className={classes.container}>
       <div className={classes.registerSection}>
-        <div className={classes.title}>Registracija</div>
-        <div className={classes.description}>
-          Dobrodošli u Prirodoslovnu zbirku! Ispunjavanjem ove forme stvorit
-          ćete novi račun s kojim ćete moći pristupiti stranici i njenim
-          resursima.
-        </div>
+        <div className={classes.title}>{t("register")}</div>
+        <div className={classes.description}>{t("registerText")}</div>
         <QueryClientWrapper>
           <RegisterForm />
         </QueryClientWrapper>

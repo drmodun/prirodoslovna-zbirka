@@ -7,13 +7,7 @@ import {
   getDifficultyTypesList,
   getTimeLimitTypesList,
 } from "@/utility/static/getEnumLists";
-import {
-  Directories,
-  getEnumValue,
-  QuizDifficulty,
-  QuizResponseExtended,
-  TimeLimitTypeEnum,
-} from "@biosfera/types";
+import { Directories, QuizResponseExtended } from "@biosfera/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import BaseButton from "components/BaseButton";
 import CheckboxInput from "components/CheckboxInput";
@@ -21,8 +15,9 @@ import FileUpload from "components/FileUpload";
 import Input from "components/Input";
 import classes from "./QuizForm.module.scss";
 import {
+  optionalNumber,
   QuestionForm,
-  questionSchema,
+  createQuestionSchema,
   questionSchemaType,
 } from "components/QuestionForm/QuestionForm";
 import QuestionInputPreview from "components/QuestionInputPreview";
@@ -30,6 +25,7 @@ import SelectInput from "components/SelectInput";
 import { useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import { z } from "zod";
+import { useTranslations } from "next-intl";
 
 export interface QuizFormProps {
   organisationId: string;
@@ -37,17 +33,27 @@ export interface QuizFormProps {
 }
 
 export const QuizForm = ({ organisationId, defaultValues }: QuizFormProps) => {
+  const t = useTranslations("QuizForm");
+  const tQuestion = useTranslations("QuestionForm");
+  const tTimeLimits = useTranslations("Enums.TimeLimitType");
+  const tDifficulties = useTranslations("Enums.QuizDifficulty");
   const schema = z.object({
     title: z.string(),
     description: z.string(),
     coverImage: z.string().optional(),
-    isRetakeable: z.boolean(),
-    isTest: z.boolean(),
-    timeLimitType: z.enum(["", ...getTimeLimitTypesList()]),
-    timeLimitTotal: z.number().optional(),
-    difficulty: z.enum(["", ...getDifficultyTypesList()]),
-    isAnonymousAllowed: z.boolean(),
-    questions: z.array(questionSchema),
+    isRetakeable: z.boolean().default(false),
+    isTest: z.boolean().default(false),
+    timeLimitType: z
+      .enum(getTimeLimitTypesList() as [string, ...string[]])
+      .default("NONE"),
+    timeLimitTotal: optionalNumber,
+    difficulty: z
+      .enum(getDifficultyTypesList() as [string, ...string[]])
+      .default("UNSET"),
+    isAnonymousAllowed: z.boolean().default(false),
+    questions: z
+      .array(createQuestionSchema(tQuestion))
+      .min(1, t("questionsMin")),
   });
 
   const { mutateAsync: createQuiz, isError: errorOnCreate } = useCreateQuiz();
@@ -69,7 +75,7 @@ export const QuizForm = ({ organisationId, defaultValues }: QuizFormProps) => {
   };
 
   const handleAddQuestion = (data: questionSchemaType) => {
-    form.setValue("questions", [...form.getValues("questions"), data]);
+    form.setValue("questions", [...(form.getValues("questions") ?? []), data]);
   };
 
   const form = useForm({
@@ -89,7 +95,7 @@ export const QuizForm = ({ organisationId, defaultValues }: QuizFormProps) => {
           directory: Directories.QUIZ,
         })
       : Promise.resolve(null);
-    data.image = await upload;
+    data.coverImage = (await upload) ?? data.coverImage;
 
     if (defaultValues) {
       await updateQuiz({ organisationId, id: defaultValues.id, data });
@@ -100,7 +106,7 @@ export const QuizForm = ({ organisationId, defaultValues }: QuizFormProps) => {
     if (errorOnCreate || errorOnUpdate) return;
 
     setTimeout(() => {
-      window.location.href = `organisation/${organisationId}`;
+      window.location.href = `/organisation/${organisationId}`;
     }, 3000);
   };
 
@@ -109,26 +115,26 @@ export const QuizForm = ({ organisationId, defaultValues }: QuizFormProps) => {
       <Input
         form={form}
         attribute="title"
-        question="Naziv kviza"
+        question={t("title")}
         error={form.formState.errors.title?.message?.toString()}
       />
       <Input
         form={form}
         attribute="description"
-        question="Opis kviza"
+        question={t("description")}
         error={form.formState.errors.description?.message?.toString()}
       />
       <FileUpload
         onChange={(files) => setTitleImage(files)}
-        name="Naslovna slika"
+        name={t("coverImage")}
         isFullWidth
       />
       <SelectInput
         form={form}
         name="timeLimitType"
-        label="Tip ograničenja vremena"
+        label={t("timeLimitType")}
         options={getTimeLimitTypesList().map((type) => ({
-          label: getEnumValue(TimeLimitTypeEnum, type),
+          label: tTimeLimits(type),
           value: type,
         }))}
         error={form.formState.errors.timeLimitType?.message?.toString()}
@@ -136,53 +142,56 @@ export const QuizForm = ({ organisationId, defaultValues }: QuizFormProps) => {
       <Input
         form={form}
         attribute="timeLimitTotal"
-        question="Ukupno vrijeme (u minutama)"
+        question={t("timeLimitTotal")}
         isNumber
         error={form.formState.errors.timeLimitTotal?.message?.toString()}
       />
       <SelectInput
         form={form}
         name="difficulty"
-        label="Težina kviza"
+        label={t("difficulty")}
         options={getDifficultyTypesList().map((type) => ({
-          label: getEnumValue(QuizDifficulty, type),
+          label: tDifficulties(type),
           value: type,
         }))}
         error={form.formState.errors.difficulty?.message?.toString()}
       />
       <CheckboxInput
         initValue={form.getValues("isRetakeable")}
-        question="Dozvoljeno ponavljanje"
+        question={t("isRetakeable")}
         onChange={(e) => form.setValue("isRetakeable", e.target.checked)}
         error={form.formState.errors.isRetakeable?.message?.toString()}
       />
       <CheckboxInput
         initValue={form.getValues("isAnonymousAllowed")}
-        question="Dozvoljeno anonimno rješavanje"
+        question={t("isAnonymousAllowed")}
         onChange={(e) => form.setValue("isAnonymousAllowed", e.target.checked)}
         error={form.formState.errors.isAnonymousAllowed?.message?.toString()}
       />
       <CheckboxInput
         initValue={form.getValues("isTest")}
-        question="Kviz je testnog oblika (dozvoljeno vraćanje na pitanja i sva pitanja su odmah vidljiva"
+        question={t("isTest")}
         onChange={(e) => form.setValue("isTest", e.target.checked)}
         error={form.formState.errors.isTest?.message?.toString()}
       />
 
-      {form.watch("questions")?.map((question: questionSchemaType) => {
-        <QuestionInputPreview
-          question={question}
-          onEdit={handleEditQuestion}
-          index={form.watch("questions").indexOf(question)}
-          onDelete={handleDeleteQuestion}
-        />; //Test if this creates a new question or not
-      })}
-      <span className={classes.newQuestion}>Dodaj pitanje</span>
+      {form
+        .watch("questions")
+        ?.map((question: questionSchemaType, index: number) => (
+          <QuestionInputPreview
+            key={question.id ?? index}
+            question={question}
+            onEdit={handleEditQuestion}
+            index={index}
+            onDelete={handleDeleteQuestion}
+          />
+        ))}
+      <span className={classes.newQuestion}>{t("newQuestion")}</span>
       <QuestionForm
         hasTimeLimit={form.watch("timeLimitType") === "PER_QUESTION"}
         onSubmit={handleAddQuestion}
       />
-      <BaseButton text="Kreiraj kviz" isNotSubmit={false} />
+      <BaseButton text={t("submit")} isNotSubmit={false} />
     </form>
   );
 };

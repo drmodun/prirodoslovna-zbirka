@@ -18,6 +18,11 @@ enum Role {
   USER
 }
 
+enum Language {
+  EN
+  HR
+}
+
 enum TimeLimitType {
   NONE
   TOTAL
@@ -154,6 +159,8 @@ model User {
   password                    String
   hasProfileImage             Boolean                    @default(false)
   activationCode              String                     @unique @default(uuid())
+  passwordResetToken          String?                    @unique
+  passwordResetExpiresAt      DateTime?
   role                        Role                       @default(USER)
   createdAt                   DateTime                   @default(now())
   updatedAt                   DateTime                   @default(now()) @updatedAt
@@ -171,7 +178,8 @@ model User {
   SavedWorks                  SavedWorks[]
   SavedLiterature             SavedLiterature[]
   UserNotification            UserNotification[]
-  IsEmailNotificationsEnabled Boolean                    @default(true)
+  isEmailNotificationsEnabled Boolean                    @default(true) @map("IsEmailNotificationsEnabled")
+  language                    Language                   @default(EN)
   AuthorshipInfo              AuthorshipInfo[]
   Attempt                     Attempt[]
 }
@@ -358,23 +366,28 @@ model Notification {
   notificationImage String?
   UserNotification  UserNotification[]
   type              NotificationType
+  // Renders title and text in each reader's language; title and text keep
+  // an English copy for rows from before keys existed.
+  messageKey        String?
+  params            Json?
 }
 
 model AuthorshipInfo {
-  locationOfOccurence String?
-  dateOfOccurence     DateTime?
-  authorId            String?
-  author              User?       @relation(fields: [authorId], references: [id], onDelete: Cascade)
-  nonPlatformAuthor   String?
-  identifiedBy        String?
-  deviceName          String?
-  photographer        String?
-  literature          String[]
-  id                  String      @id @default(uuid())
-  Post                Post?
-  postId              String?
-  Exponat             Exponat?
-  SocialPost          SocialPost?
+  // The columns keep their original (misspelled) names.
+  locationOfOccurrence String?     @map("locationOfOccurence")
+  dateOfOccurrence     DateTime?   @map("dateOfOccurence")
+  authorId             String?
+  author               User?       @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  nonPlatformAuthor    String?
+  identifiedBy         String?
+  deviceName           String?
+  photographer         String?
+  literature           String[]
+  id                   String      @id @default(uuid())
+  Post                 Post?
+  postId               String?
+  Exponat              Exponat?
+  SocialPost           SocialPost?
 }
 
 //TODO: thik wether identification should be a separate model
@@ -427,22 +440,33 @@ model Question {
 }
 
 model Attempt {
-  id        String   @id @default(uuid())
-  userId    String?
-  user      User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
-  quizId    String
-  Answer    Answer[]
-  quiz      Quiz     @relation(fields: [quizId], references: [id], onDelete: Cascade)
-  startedAt DateTime @default(now())
-  timeTaken Int
+  id          String    @id @default(uuid())
+  userId      String?
+  user        User?     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  quizId      String
+  Answer      Answer[]
+  quiz        Quiz      @relation(fields: [quizId], references: [id], onDelete: Cascade)
+  startedAt   DateTime  @default(now())
+  // Milliseconds between startedAt and submittedAt, measured by the server.
+  timeTaken   Int       @default(0)
+  // Null while the attempt is in progress.
+  submittedAt DateTime?
+  score       Int       @default(0)
+  maxScore    Int       @default(0)
+
+  @@index([quizId, userId])
 }
 
 model Answer {
+  // JSON array of the chosen options / typed answers.
   answer          String
   questionId      String
   attemptId       String
   questionOpenned DateTime @default(now())
+  // Seconds, as reported by the client (used for per-question limits).
   timeTaken       Int
+  isCorrect       Boolean  @default(false)
+  points          Int      @default(0)
   attempt         Attempt  @relation(fields: [attemptId], references: [id], onDelete: Cascade)
   question        Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
 

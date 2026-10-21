@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import Modal from "components/BaseModal";
 import clsx from "clsx";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 
 export interface ExtrasExponatButtonProps {
   thirdDimensionalModel?: string;
@@ -16,6 +17,7 @@ export const ExtrasExponatButton = ({
   thirdDimensionalModel,
   video,
 }: ExtrasExponatButtonProps) => {
+  const t = useTranslations("ExtrasExponatButton");
   const [isModelOpen, setIsModelOpen] = useState(false);
   const [isVideoOpen, setIsVideoOpen] = useState(false);
 
@@ -33,7 +35,7 @@ export const ExtrasExponatButton = ({
           <div className={classes.icon}>
             <Image src={modelIcon} alt="model icon" layout="fill" />
           </div>
-          <span>Pogledaj 3d model</span>
+          <span>{t("viewModel")}</span>
         </div>
       )}
       {video && (
@@ -44,13 +46,13 @@ export const ExtrasExponatButton = ({
           <div className={classes.icon}>
             <Image src={videoIcon} alt="multimedia icon" layout="fill" />
           </div>
-          <span>Pogledaj multimedijski sadržaj</span>
+          <span>{t("viewVideo")}</span>
         </div>
       )}
       <Modal
-        title="3d model"
+        title={t("modelTitle")}
         open={isModelOpen}
-        text="Trodimenzionalni model eksponata"
+        text={t("modelText")}
         deMount={() => setIsModelOpen(false)}
       >
         <div
@@ -61,9 +63,9 @@ export const ExtrasExponatButton = ({
         ></div>
       </Modal>
       <Modal
-        title="Video"
+        title={t("videoTitle")}
         open={isVideoOpen}
-        text="Video eksponata"
+        text={t("videoText")}
         deMount={() => setIsVideoOpen(false)}
       >
         <video src={video} controls></video>

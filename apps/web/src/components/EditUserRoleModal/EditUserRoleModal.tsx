@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import { z } from "zod";
 import { useTransferOwnership } from "@/api/useTransferOwnership";
+import { useTranslations } from "next-intl";
 
 export interface EditUserRoleModalProps {
   userId: string;
@@ -28,13 +29,15 @@ export const EditUserRoleModal = ({
   userRole,
   isOpen = false,
 }: EditUserRoleModalProps) => {
+  const t = useTranslations("EditUserRoleModal");
+  const tRoles = useTranslations("MemberRoles");
   const { mutateAsync: updateUserRole } = useUpdateUserRole();
   const { mutateAsync: ownerUpdateUserRole } = useOwnerUpdateUserRole();
   const { mutateAsync: transferOwnership } = useTransferOwnership();
   const { user, memberships } = useUser();
   const [open, setOpen] = useState(isOpen);
   const [isOwner, setIsOwner] = useState(
-    memberships?.some((m) => m.id === organisationId && m.role === "OWNER")
+    memberships?.some((m) => m.id === organisationId && m.role === "OWNER"),
   );
 
   const schema = z.object({
@@ -49,9 +52,7 @@ export const EditUserRoleModal = ({
   });
 
   const onSubmit = async (data: any) => {
-    const confirm = window.confirm(
-      `Jeste li sigurni da želite promijeniti ulogu korisnika?`
-    );
+    const confirm = window.confirm(t("confirm"));
     if (!confirm) return;
     isOwner
       ? data.role === "OWNER"
@@ -69,7 +70,7 @@ export const EditUserRoleModal = ({
 
   useEffect(() => {
     setIsOwner(
-      memberships?.some((m) => m.id === organisationId && m.role === "OWNER")
+      memberships?.some((m) => m.id === organisationId && m.role === "OWNER"),
     );
   }, [memberships, organisationId]);
 
@@ -85,34 +86,31 @@ export const EditUserRoleModal = ({
         ((userRole === "OWNER" || userRole === "ADMIN") && !isOwner)
       ) && (
         <div onClick={() => setOpen(true)} className={classes.button}>
-          Promijeni ulogu
+          {t("changeRole")}
         </div>
       )}
       <Modal
         open={open}
-        text="Ovje možete promijeniti ulogu korisnika u organizaciji"
-        title="Mijenjanje uloge korisnika"
+        text={t("text")}
+        title={t("title")}
         deMount={handleClose}
       >
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <SelectInput
             form={form}
-            label="Uloga"
+            label={t("role")}
             name="role"
-            options={[
-              { value: "ADMIN", label: "Admin" },
-              { value: "MEMBER", label: "Član" },
-              { value: "OWNER", label: "Vlasnik" },
-              { value: "REQUESTED", label: "Zahtjev (nije član)" },
-            ].filter((option) => {
-              if (isOwner) {
-                return option;
-              } else {
-                return option.value !== "OWNER" && option.value !== "ADMIN";
-              }
-            })}
+            options={(["ADMIN", "MEMBER", "OWNER", "REQUESTED"] as const)
+              .map((value) => ({ value, label: tRoles(value) }))
+              .filter((option) => {
+                if (isOwner) {
+                  return option;
+                } else {
+                  return option.value !== "OWNER" && option.value !== "ADMIN";
+                }
+              })}
           />
-          <BaseButton text="Promijeni ulogu" />
+          <BaseButton text={t("changeRole")} />
         </form>
       </Modal>
     </>

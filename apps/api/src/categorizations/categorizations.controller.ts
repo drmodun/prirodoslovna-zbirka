@@ -7,6 +7,10 @@ import {
   Param,
   Delete,
   Query,
+  NotFoundException,
+  Req,
+  UnauthorizedException,
+  UseGuards,
 } from '@nestjs/common';
 import { CategorizationsService } from './categorizations.service';
 import {
@@ -24,7 +28,9 @@ import {
 } from '@biosfera/types';
 import { PaginationParams } from 'src/config/pagination';
 import { SortingParams } from 'src/config/sorting';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { JwtAuthGuard } from 'src/auth/jwt-auth-guard';
+import { isModerator } from 'src/auth/roles';
 
 @ApiTags('categorizations')
 @Controller('categorizations')
@@ -33,6 +39,8 @@ export class CategorizationsController {
     private readonly categorizationsService: CategorizationsService,
   ) {}
 
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @Post()
   async create(@Body() createOrganisationDto: CreateCategorizationDto) {
     const item = await this.categorizationsService.create(
@@ -86,6 +94,7 @@ export class CategorizationsController {
   @Get(':id')
   async findOne(@Param('id') id: string) {
     const item = await this.categorizationsService.findOne(id);
+    if (!item) throw new NotFoundException();
 
     const exponats: ExponatResponseShort[] = item.Exponat.map((exponat) => {
       return {
@@ -109,7 +118,7 @@ export class CategorizationsController {
       family: item.family,
       order: item.order,
       id: item.id,
-      kingom: item.kingdom,
+      kingdom: item.kingdom,
       phylum: item.phylum,
       speciesKey: item.speciesKey,
       genus: item.genus,
@@ -120,19 +129,30 @@ export class CategorizationsController {
     return mapped;
   }
 
+  // Categorizations are shared by every organisation's exponats, so only
+  // platform moderators may change or delete one.
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @Patch(':id')
   async update(
     @Param('id') id: string,
     @Body() updateCategorizationDto: UpdateCategorizationDto,
+    @Req() req?: any,
   ) {
+    if (!isModerator(req?.user)) throw new UnauthorizedException();
+
     return await this.categorizationsService.update(
       id,
       updateCategorizationDto,
     );
   }
 
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @Delete(':id')
-  async remove(@Param('id') id: string) {
+  async remove(@Param('id') id: string, @Req() req?: any) {
+    if (!isModerator(req?.user)) throw new UnauthorizedException();
+
     return await this.categorizationsService.remove(id);
   }
 

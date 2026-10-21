@@ -24,6 +24,12 @@ import {
 import { NotificationsService } from 'src/notifications/notifications.service';
 import { NotificationUsersService } from 'src/notification-users/notification-users.service';
 import { env } from 'process';
+import {
+  buildExponatOrderBy,
+  buildExponatWhere,
+  needsFavouriteCounts,
+} from './exponats.query';
+import { isModeratorRole } from 'src/auth/roles';
 
 @Injectable()
 export class ExponatsService {
@@ -34,15 +40,19 @@ export class ExponatsService {
   ) {}
 
   async create(createExponatDto: CreateExponatDto, userId: string) {
+    // Creating is not moderation: platform moderators need a membership.
     const check = await this.checkForValidity(
       userId,
       createExponatDto.authorId,
+      false,
+      false,
     );
 
     const adminCheck = await this.checkForValidity(
       userId,
       createExponatDto.authorId,
       true,
+      false,
     );
 
     if (!check) throw new UnauthorizedException();
@@ -157,8 +167,12 @@ export class ExponatsService {
   ) {
     const notification = await this.notificationsService.create(
       {
-        text: `Novi zahtev za eksponat ${exponat.name} (${exponat.alternateName}) organizacije ${exponat.Organisation.name}`,
-        title: `Organizacija ${exponat.Organisation.name} je dobila novi zahtev za eksponat ${exponat.name}`,
+        messageKey: 'newExponatRequest',
+        params: {
+          name: exponat.name,
+          alternateName: exponat.alternateName,
+          organisation: exponat.Organisation.name,
+        },
         link: `${env.WEB_URL}/exponat/${exponat.id}/admin`,
         type: 'NEW_EXPONAT_REQUEST',
         notificationImage: exponat.mainImage,
@@ -183,8 +197,8 @@ export class ExponatsService {
   ) {
     const notification = await this.notificationsService.create(
       {
-        title: `Novi eksponat organizacije ${exponat.Organisation.name}`,
-        text: `Organizacija ${exponat.Organisation.name} je dodala novi eksponat ${exponat.name}`,
+        messageKey: 'newExponat',
+        params: { name: exponat.name, organisation: exponat.Organisation.name },
         link: `${env.WEB_URL}/exponat/${exponat.id}`,
         type: 'EXPONAT_BY_FOLLOWED_ORGANISATION',
         notificationImage: exponat.mainImage,
@@ -214,118 +228,14 @@ export class ExponatsService {
     approval?: boolean,
   ) {
     const sort = sorting && sortExponatQueryBuilderWithComplexFilters(sorting);
+    const favouriteCounts = needsFavouriteCounts(filter)
+      ? await this.prisma.favouriteExponat.groupBy({
+          by: ['ExponatId'],
+          _count: { _all: true },
+        })
+      : undefined;
     return await this.prisma.exponat.findMany({
-      where: {
-        ...(filter?.name && {
-          name: {
-            search: filter.name.split(' ').join(' | '),
-            mode: 'insensitive',
-          },
-        }),
-        ...(filter?.alternateName && {
-          alternateName: {
-            search: filter.alternateName.split(' ').join(' | '),
-            mode: 'insensitive',
-          },
-        }),
-        ...(filter?.organisationId && {
-          organisationId: filter.organisationId,
-        }),
-        ...(filter?.class && {
-          search: filter.class.split(' ').join(' <-> '),
-          Categorization: {
-            is: {
-              class: {
-                mode: 'insensitive',
-              },
-            },
-          },
-        }),
-        ...(filter?.family && {
-          Categorization: {
-            is: {
-              family: {
-                search: filter.family.split(' ').join(' <-> '),
-                mode: 'insensitive',
-              },
-            },
-          },
-        }),
-        ...(filter?.genus && {
-          Categorization: {
-            is: {
-              genus: {
-                search: filter.genus.split(' ').join(' <-> '),
-                mode: 'insensitive',
-              },
-            },
-          },
-        }),
-        ...(filter?.order && {
-          Categorization: {
-            is: {
-              order: {
-                search: filter.order.split(' ').join(' <-> '),
-                mode: 'insensitive',
-              },
-            },
-          },
-        }),
-        ...(filter?.kingdom && {
-          Categorization: {
-            is: {
-              kingdom: {
-                search: filter.kingdom.split(' ').join(' <-> '),
-                mode: 'insensitive',
-              },
-            },
-          },
-        }),
-
-        ...(filter?.phylum && {
-          Categorization: {
-            is: {
-              phylum: {
-                search: filter.phylum.split(' ').join(' <-> '),
-                mode: 'insensitive',
-              },
-            },
-          },
-        }),
-        ...(filter?.species && {
-          Categorization: {
-            is: {
-              species: {
-                search: filter.species.split(' ').join(' <-> '),
-                mode: 'insensitive',
-              },
-            },
-          },
-        }),
-
-        ...(filter.minFavoriteCount && {
-          _count: {
-            FavouriteExponats: {
-              gte: filter.minFavoriteCount,
-            },
-          },
-        }),
-        ...(filter.maxFavoriteCount && {
-          _count: {
-            FavouriteExponats: {
-              lte: filter.maxFavoriteCount,
-            },
-          },
-        }),
-        ...(filter.createdAt && {
-          createdAt: {
-            gte: filter.createdAt,
-          },
-        }),
-        ...(approval && {
-          isApproved: approval,
-        }),
-      },
+      where: buildExponatWhere(filter, approval, favouriteCounts),
       include: {
         _count: {
           select: {
@@ -341,19 +251,7 @@ export class ExponatsService {
           },
         },
       },
-      orderBy: {
-        ...(sort
-          ? sort
-          : filter.name
-            ? {
-                _relevance: {
-                  fields: ['name'],
-                  search: filter?.name.split(' ').join(' <-> '),
-                  sort: 'desc',
-                },
-              }
-            : null),
-      },
+      orderBy: buildExponatOrderBy(filter, sort),
       skip: (pagination?.page - 1) * pagination?.size,
       take: pagination?.size,
     });
@@ -524,6 +422,7 @@ export class ExponatsService {
     userId: string,
     organisationId: string,
     adminOnly: boolean = false,
+    allowModerators: boolean = true,
   ) {
     const connection = await this.prisma.organisationUser.findFirst({
       where: {
@@ -538,9 +437,15 @@ export class ExponatsService {
       },
     });
 
-    if (checkForSuper.role === Role.SUPER) {
+    if (
+      checkForSuper?.role === Role.SUPER ||
+      (allowModerators && isModeratorRole(checkForSuper?.role))
+    ) {
       return true;
     }
+
+    if (!connection || connection.role === MemberRoleType.REQUESTED)
+      return false;
 
     if (adminOnly) {
       return (

@@ -10,6 +10,7 @@ import { FieldValues, useForm } from "react-hook-form";
 import { z } from "zod";
 import classes from "./AuthorshipInfoModal.module.scss";
 import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 
 export enum AuthorshipInfoFields {
   SOCIAL_POST,
@@ -32,6 +33,7 @@ export const AuthorshipInfoModal = ({
   type,
   onClose,
 }: AuthorshipInfoModalProps) => {
+  const t = useTranslations("Authorship");
   const { mutateAsync: uploadAuthorshipInfo } = useUploadAuthorshipInfo();
   const { mutateAsync: updateAuthorshipInfo } = useUpdateAuthorshipInfo();
   const [open, setOpen] = useState(false);
@@ -47,7 +49,11 @@ export const AuthorshipInfoModal = ({
 
   const schema = z
     .object({
-      dateOfOccurrence: z.optional(z.date()),
+      // The date picker gives "YYYY-MM-DD", or "" when left empty.
+      dateOfOccurrence: z.preprocess(
+        (value) => (value ? new Date(value as string) : undefined),
+        z.date().optional(),
+      ),
       locationOfOccurrence: z.optional(z.string()),
       nonPlatformAuthor: z.optional(z.string()),
       identifiedBy: z.optional(z.string()),
@@ -73,6 +79,8 @@ export const AuthorshipInfoModal = ({
             data.locationOfOccurrence !== undefined &&
             data.photographer !== undefined
           );
+        default:
+          return true;
       }
     });
 
@@ -97,51 +105,55 @@ export const AuthorshipInfoModal = ({
   return (
     <Modal
       open={isOpen}
-      title="Dodaj informacije o autorstvu slike"
-      text="Unesite informacije o autorstvu slike"
+      title={t("modalTitle")}
+      text={t("modalText")}
       deMount={onClose}
     >
       <form className={classes.container}>
         <Input
           form={form}
-          attribute="locationOfOccurence"
-          question="Mjesto pronalaska"
+          attribute="locationOfOccurrence"
+          question={t("locationOfOccurrence")}
           error={form.formState.errors.locationOfOccurrence?.message?.toString()}
         />
-        <input type="date" {...form.register("dateOfOccurrence")} />
+        <input
+          type="date"
+          title={t("dateOfOccurrence")}
+          {...form.register("dateOfOccurrence")}
+        />
         <Input
           form={form}
           attribute="nonPlatformAuthor"
-          question="Autor"
+          question={t("nonPlatformAuthor")}
           error={form.formState.errors.nonPlatformAuthor?.message?.toString()}
         />
         <Input
           form={form}
           attribute="identifiedBy"
-          question="Identifikovao"
+          question={t("identifiedBy")}
           error={form.formState.errors.identifiedBy?.message?.toString()}
         />
         <Input
           form={form}
           attribute="photographer"
-          question="Fotograf"
+          question={t("photographer")}
           error={form.formState.errors.photographer?.message?.toString()}
         />
         <ListInput
           form={form}
           attribute="literature"
-          question="Literatura"
+          question={t("literature")}
           error={form.formState.errors.literature?.message?.toString()}
         />
         <Input
           form={form}
           attribute="deviceName"
-          question="Naziv uređaja"
+          question={t("deviceName")}
           error={form.formState.errors.deviceName?.message?.toString()}
         />
         <BaseButton
           isNotSubmit
-          text="Submit"
+          text={t("submit")}
           onClick={() => onSubmit(form.getValues())}
         />
       </form>

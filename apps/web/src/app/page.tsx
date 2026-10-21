@@ -7,19 +7,20 @@ import Link from "next/link";
 import clsx from "clsx";
 import blogPost from "assets/images/blogPost.svg";
 import organisationCard from "assets/images/organisationCard.png";
-import { useGetMe } from "./api/useGetMe";
 import LandingPageButton from "components/LandingPageButton";
+import LanguageToggle from "components/LanguageToggle";
+import { getTranslations } from "next-intl/server";
 
-export default function Home() {
+export default async function Home() {
+  const t = await getTranslations("Landing");
+
   return (
     <main>
       <section className={c.landingSection}>
         <div className={c.content}>
-          <h2>Vaša digitalna zbirka.</h2>
-          <p>
-            Jednostavno prikažite sadržaj prirodoslovne zbirke vaše ustanove u
-            samo nekoliko klikova!
-          </p>
+          <LanguageToggle className={c.languageToggle} />
+          <h2>{t("hero.title")}</h2>
+          <p>{t("hero.description")}</p>
           <LandingPageButton />
         </div>
         <Image className={c.plantImage} src={PlantPicture} alt="plant" />
@@ -27,15 +28,15 @@ export default function Home() {
 
       <section className={clsx(c.landingSection, c.exponats)}>
         <div className={c.content}>
-          <h2>Pregledaj eksponate</h2>
-          <p>Pogledaj sadržaj prirodoslovnih zbirki svih organizacija.</p>
+          <h2>{t("exponats.title")}</h2>
+          <p>{t("exponats.description")}</p>
           <Link
             href={{
               pathname: "/discover",
               query: { kind: "exponat" },
             }}
           >
-            <BaseButton className={c.button} text="Pregledaj" />
+            <BaseButton className={c.button} text={t("browse")} />
           </Link>
         </div>
         <Image className={c.plantImage} src={ExponatGroupPicture} alt="plant" />
@@ -43,18 +44,15 @@ export default function Home() {
 
       <section className={clsx(c.landingSection, c.posts)}>
         <div className={c.content}>
-          <h2>Pregledaj objave</h2>
-          <p>
-            Pogledajte objave korisnika o eksponatima, sve informacije i
-            zanimljivosti
-          </p>
+          <h2>{t("posts.title")}</h2>
+          <p>{t("posts.description")}</p>
           <Link
             href={{
               pathname: "/discover",
               query: { kind: "post" },
             }}
           >
-            <BaseButton className={c.button} text="Pregledaj" />
+            <BaseButton className={c.button} text={t("browse")} />
           </Link>
         </div>
         <Image className={c.plantImage} src={blogPost} alt="plant" />
@@ -62,21 +60,21 @@ export default function Home() {
 
       <section className={clsx(c.landingSection, c.organisations)}>
         <div className={c.content}>
-          <h2>Pregledaj organizacije</h2>
-          <p>
-            Pogledajte sve organizacije koje su se pridružile platformi i
-            pregledajte njihove eksponate, objave i članove
-          </p>
+          <h2>{t("organisations.title")}</h2>
+          <p>{t("organisations.description")}</p>
           <Link
             href={{
               pathname: "/discover",
               query: { kind: "organisation" },
             }}
           >
-            <BaseButton className={c.button} text="Pregledaj" />
+            <BaseButton className={c.button} text={t("browse")} />
           </Link>
           <Link href="/createOrganisation">
-            <BaseButton className={c.altButton} text="Stvori organizaciju" />
+            <BaseButton
+              className={c.altButton}
+              text={t("organisations.create")}
+            />
           </Link>
         </div>
         <Image className={c.plantImage} src={organisationCard} alt="plant" />

@@ -6,8 +6,10 @@ import notifBell from "assets/images/notif-bell.svg";
 import Image from "next/image";
 import { useMemo } from "react";
 import useUser from "@/utility/context/UserContext";
+import { useTranslations } from "next-intl";
 
 export const NotificationBell = () => {
+  const t = useTranslations("Notifications");
   const { notifications, showModal } = useNotification();
   const { user } = useUser();
 
@@ -26,7 +28,7 @@ export const NotificationBell = () => {
           <span className={classes.number}>{unread > 9 ? "9+" : unread}</span>
         </div>
         <figure className={classes.bell}>
-          <Image src={notifBell} layout="fill" alt="notification bell" />
+          <Image src={notifBell} layout="fill" alt={t("title")} />
         </figure>
       </button>
     )

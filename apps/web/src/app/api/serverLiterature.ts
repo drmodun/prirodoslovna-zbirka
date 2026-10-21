@@ -3,8 +3,6 @@
 import {
   LiteratureResponseGBIF,
   WorkResponseShort,
-  getEnumValue,
-  Topics,
   FullLiteratureResponseGBIF,
   GbifQuery,
 } from "@biosfera/types";
@@ -27,11 +25,10 @@ export const LiteratureToWorkMapper = (
     organisationName: literature.publisher,
     updatedAt: literature.published, //TODO: decide what to use here discovered or published
     amountOfSaves: 0,
-    tags: literature.topics
-      .map((topic) => getEnumValue(Topics, topic)) //Format tags
-      .concat(
-        literature.keywords.filter((keyword) => keyword.length < 20), //Remove large not needed keywords
-      ),
+    // Topics stay keys; the cards show them in the reader's language.
+    tags: literature.topics.concat(
+      literature.keywords.filter((keyword) => keyword.length < 20), //Remove large not needed keywords
+    ),
     isGbif: true,
     type: literature.literatureType,
     website: literature.websites[0],
@@ -67,11 +64,14 @@ export const getGbifWork = async (
   id: string,
 ): Promise<WorkResponseShort | undefined> => {
   try {
-    const response = await fetch(`https://api.gbif.org/v1/literature/${id}`, {
-      next: {
-        revalidate: 1 * 60 * 60 * 24 * 7, //weekly revalidation
+    const response = await fetch(
+      `https://api.gbif.org/v1/literature/${encodeURIComponent(id)}`,
+      {
+        next: {
+          revalidate: 1 * 60 * 60 * 24 * 7, //weekly revalidation
+        },
       },
-    });
+    );
 
     const data: LiteratureResponseGBIF = await response.json();
 

@@ -10,8 +10,10 @@ import {
   OrganisationResponseShort,
   ExtendedUserResponse,
   WorkResponseShort,
+  Language,
 } from '@biosfera/types';
 import { UsersService } from 'src/users/users.service';
+import { isModerator } from './roles';
 
 @Controller('auth')
 @ApiTags('auth')
@@ -44,7 +46,7 @@ export class AuthController {
   @ApiBearerAuth()
   @Get('detailed')
   async detailed(@Req() { user }) {
-    const isAdmin = user?.role === 'super';
+    const isAdmin = isModerator(user);
     const item = await this.usersService.findOne(user.id, false);
 
     const posts: PostResponse[] = item.Posts.map((post) => {
@@ -183,6 +185,7 @@ export class AuthController {
       likeCount: item.Posts.reduce((agg, curr) => agg + curr._count.Likes, 0),
       favouriteExponats,
       role: item.role,
+      language: item.language as Language,
       memberships,
     };
 

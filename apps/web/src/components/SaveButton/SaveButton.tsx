@@ -10,12 +10,14 @@ import { useEffect, useState } from "react";
 import { WorkResponseShort } from "@biosfera/types";
 import { useToggleSaveWork } from "@/api/useToggleSaveWork";
 import { useToggleSaveLiterature } from "@/api/useToggleSaveLiterature";
+import { useTranslations } from "next-intl";
 
 export interface SaveButtonProps {
   work: WorkResponseShort;
 }
 
 export const SaveButton = ({ work }: SaveButtonProps) => {
+  const t = useTranslations("SaveButton");
   const {
     savedWorks,
     updateSavedWorks,
@@ -36,15 +38,7 @@ export const SaveButton = ({ work }: SaveButtonProps) => {
         ? savedLiterature.find((x) => x.literatureId === work.id) != null
         : savedWorks.find((x) => x.id === work.id) != null,
     );
-  }, [savedWorks, savedLiterature, loading]);
-
-  useEffect(() => {
-    setIsSaved(
-      work.isGbif
-        ? savedLiterature.find((x) => x.literatureId === work.id) != null
-        : savedWorks.find((x) => x.id === work.id) != null,
-    );
-  }, []);
+  }, [savedWorks, savedLiterature, loading, work.id, work.isGbif]);
 
   const toggleSave = async () => {
     work.isGbif
@@ -63,11 +57,11 @@ export const SaveButton = ({ work }: SaveButtonProps) => {
     !loading && (
       <button
         className={clsx(classes.container, isSaved && classes.saved)}
-        title="save"
+        title={t("label")}
         onClick={toggleSave}
       >
         <div className={classes.saveIcon}>
-          <Image src={saveIcon} alt="botun za save" layout="fill" />
+          <Image src={saveIcon} alt={t("label")} layout="fill" />
         </div>
       </button>
     )

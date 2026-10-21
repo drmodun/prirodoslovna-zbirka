@@ -1,0 +1,60 @@
+# Production, behind a reverse proxy that already runs in Docker on this
+# machine (nginx, nginx-proxy-manager, Traefik, another Caddy, ...).
+#
+#   docker compose --env-file .env.production \
+#     -f docker-compose.yml -f docker-compose.prod.yml up -d --build
+#
+# Nothing is published on the host. The stack's own Caddy joins the main
+# proxy's network as "biosfera"; the main proxy terminates TLS and forwards
+# the site to http://biosfera:80 (packages/config/nginx-site.example.conf).
+# Copy .env.production.sample to .env.production first: the values marked
+# required below have no defaults here on purpose.
+services:
+  reverse-proxy:
+    restart: unless-stopped
+    environment:
+      # Plain HTTP inside the network; the main proxy holds the certificate.
+      SITE_ADDRESS: ":80"
+    networks:
+      default:
+      proxy:
+        aliases:
+          - ${PROXY_ALIAS:-biosfera}
+
+  postgres:
+    restart: unless-stopped
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in the env file}
+
+  s3:
+    restart: unless-stopped
+    environment:
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID:?set AWS_ACCESS_KEY_ID in the env file}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY:?set AWS_SECRET_ACCESS_KEY in the env file}
+
+  piper:
+    restart: unless-stopped
+
+  api:
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      JWT_SECRET: ${JWT_SECRET:?set JWT_SECRET in the env file}
+      WEB_URL: ${PUBLIC_URL:?set PUBLIC_URL in the env file, e.g. https://biosfera.example.com}
+
+  web:
+    restart: unless-stopped
+
+  docs:
+    restart: unless-stopped
+
+  # The seed wipes every table. Not something to reach for here.
+  seed:
+    entrypoint: ["sh", "-c", "echo 'The seed is disabled in production: it deletes all data.'; exit 1"]
+
+networks:
+  # The main proxy's network. Must exist already:
+  #   docker network create proxy
+  proxy:
+    external: true
+    name: ${PROXY_NETWORK:-proxy}

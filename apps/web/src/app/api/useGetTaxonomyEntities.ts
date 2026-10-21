@@ -1,6 +1,7 @@
 import { TaxonomyGbifType, TaxonomyRankGbif } from "@biosfera/types";
 import toast from "react-hot-toast";
 import { useQuery } from "react-query";
+import { useTranslations } from "next-intl";
 
 const getTaxonomyEntities = async (
   search: string,
@@ -11,7 +12,7 @@ const getTaxonomyEntities = async (
     const response = await fetch(
       `https://api.gbif.org/v1/species/suggest?rank=${rank}${
         higherTaxonId ? `&higherTaxonKey=${higherTaxonId}` : ""
-      }&q=${search || ""}`,
+      }&q=${encodeURIComponent(search || "")}`,
     );
     const data = await response.json();
     console.log(data);
@@ -27,13 +28,14 @@ export const useGetTaxonomyEntities = (
   rank: TaxonomyGbifType,
   higherTaxonKey?: number,
 ) => {
+  const t = useTranslations("Toasts");
   return useQuery(
     ["species" + rank + search + higherTaxonKey],
     () => getTaxonomyEntities(search, rank, higherTaxonKey),
     {
       onError: (error) => {
         console.log(error);
-        toast.error("Došlo je do greške prilikom dohvaćanja podataka");
+        toast.error(t("fetchFailed"));
       },
     },
   );

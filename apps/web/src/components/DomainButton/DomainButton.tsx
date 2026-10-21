@@ -11,6 +11,7 @@ import clsx from "clsx";
 import { ExponatKind } from "@biosfera/types";
 import { Domains } from "@/views/OrganisationBody/OrganisationBody";
 import { Dispatch, SetStateAction } from "react";
+import { useTranslations } from "next-intl";
 
 export const DomainButton = ({
   image,
@@ -18,6 +19,7 @@ export const DomainButton = ({
   domain,
   selected,
 }: DomainButtonProps) => {
+  const t = useTranslations("ExponatKinds");
   const handleOnClick = () => {
     onClick(domain);
   };
@@ -27,14 +29,16 @@ export const DomainButton = ({
       className={clsx(
         classes.container,
         selected && classes.active,
-        domain && classes[domain]
+        domain && classes[domain],
       )}
       onClick={handleOnClick}
     >
       <div className={classes.domainImage}>
         <Image src={image} alt={domain} />
       </div>
-      <div className={classes.domainName}>{domain.toLocaleUpperCase()}</div>
+      <div className={classes.domainName}>
+        {t(domain.toUpperCase()).toLocaleUpperCase()}
+      </div>
     </button>
   );
 };

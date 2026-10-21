@@ -1,0 +1,14 @@
+# Serves the built site. Pages live under /docs, the prefix the build uses,
+# so the stack's reverse proxy forwards /docs/* here unchanged.
+:80 {
+	root * /srv
+	encode zstd gzip
+	# Opened directly (DOCS_PORT), the bare address leads to the site.
+	redir / /docs/ 308
+	file_server
+
+	handle_errors 404 {
+		rewrite * /docs/404.html
+		file_server
+	}
+}

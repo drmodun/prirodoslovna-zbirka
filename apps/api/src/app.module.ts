@@ -7,8 +7,6 @@ import { PrismaModule } from './prisma/prisma.module';
 import { OrganisationsModule } from './organisations/organisations.module';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
-import { ServeStaticModule } from '@nestjs/serve-static';
-import { join } from 'path';
 import { ExponatsModule } from './exponats/exponats.module';
 import { FavouritesOrganisationsModule } from './favourites-organisations/favourites-organisations.module';
 import { SocialPostsModule } from './social-posts/social-posts.module';
@@ -26,16 +24,14 @@ import { LiteratureModule } from './literature/literature.module';
 import { NotificationsModule } from './notifications/notifications.module';
 import { NotificationUsersModule } from './notification-users/notification-users.module';
 import { EventEmitterModule } from '@nestjs/event-emitter';
+import { NotificationBusModule } from './notification-bus/notification-bus.module';
 import { AuthorshipInfoModule } from './authorship-info/authorship-info.module';
 import { QuizzesModule } from './quizzes/quizzes.module';
 import { QuestionsModule } from './questions/questions.module';
+import { AttemptsModule } from './attempts/attempts.module';
 
 @Module({
   imports: [
-    ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', '..', '..', 'web', 'dist'),
-      exclude: ['/api/(.*)'],
-    }),
     ConfigModule.forRoot({
       isGlobal: true,
       validationSchema: validationSchemaForEnv,
@@ -61,9 +57,11 @@ import { QuestionsModule } from './questions/questions.module';
     NotificationsModule,
     NotificationUsersModule,
     EventEmitterModule.forRoot(),
+    NotificationBusModule,
     AuthorshipInfoModule,
     QuizzesModule,
     QuestionsModule,
+    AttemptsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

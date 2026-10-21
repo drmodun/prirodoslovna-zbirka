@@ -3,6 +3,7 @@ import { fileApi } from "./shared";
 import { useMutation } from "react-query";
 import toast from "react-hot-toast";
 import { time } from "console";
+import { useTranslations } from "next-intl";
 
 export interface DocumentUploadProps {
   file: File;
@@ -23,12 +24,13 @@ const uploadDocument = async (params: DocumentUploadProps) => {
 };
 
 export const useUploadDocument = () => {
+  const t = useTranslations("Toasts");
   return useMutation(uploadDocument, {
     onMutate: () => {
-      toast.loading("Upload dokumenta...");
+      toast.loading(t("uploadingDocument"));
     },
     onError: (error) => {
-      toast.error("Greška prilikom uploada dokumenta");
+      toast.error(t("documentUploadFailed"));
     },
   });
 };

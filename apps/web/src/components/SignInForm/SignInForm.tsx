@@ -16,8 +16,10 @@ import Modal from "components/BaseModal";
 import { useState } from "react";
 import SingleInput from "components/SingleInput";
 import { useSendPasswordResetEmail } from "@/api/useSendPasswordResetEmail";
+import { useTranslations } from "next-intl";
 
 export const SignInForm = () => {
+  const t = useTranslations("Auth");
   const schema = z.object({
     email: z.string().email(),
     password: z.string().min(6).max(100),
@@ -50,45 +52,45 @@ export const SignInForm = () => {
       <Input
         form={form}
         attribute="email"
-        question="Adresa e-pošte"
+        question={t("email")}
         image={email}
       />
       <Input
         form={form}
         attribute="password"
-        question="Lozinka"
+        question={t("password")}
         isPassword
         image={password}
         isDisabled={login.isLoading}
       />
       <span className={classes.forgotPassword}>
-        <span onClick={() => setOpen(true)}>Zaboravili ste lozinku?</span>
+        <span onClick={() => setOpen(true)}>{t("forgotPassword")}</span>
       </span>
       <Modal
         open={open}
-        title="Oporavak lozinke"
-        text="Unesite adresu e-pošte koju ste koristili prilikom registracije"
-        actionText="Zatvori"
+        title={t("recoveryTitle")}
+        text={t("recoveryText")}
+        actionText={t("close")}
         deMount={() => setOpen(false)}
       >
         <div className={classes.modalInput}>
           <SingleInput
             onChange={setResetEmail}
-            question="Adresa e-pošte za oporavak"
+            question={t("recoveryEmail")}
             value={resetEmail}
             image={email}
           />
           <BaseButton
             isNotSubmit
             onClick={sendResetEmail}
-            text="Pošalji e-poštu za oporavak lozinke"
+            text={t("sendRecovery")}
           />
         </div>
       </Modal>
       <div className={classes.buttons}>
-        <BaseButton text="Prijavite se" />
+        <BaseButton text={t("login")} />
         <Link href="/register">
-          <BaseButton text="Registrirajte se" initColor={ButtonColor.BLUE} />
+          <BaseButton text={t("register")} initColor={ButtonColor.BLUE} />
         </Link>
       </div>
     </form>

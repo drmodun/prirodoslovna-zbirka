@@ -5,7 +5,7 @@ import {
   SocialPostQuery,
   UpdateSocialPostDto,
 } from './dto/socialPost.dto';
-import { Role, SocialPost } from '@prisma/client';
+import { MemberRole, Role, SocialPost } from '@prisma/client';
 import {
   PaginationRequest,
   SortingRequest,
@@ -13,6 +13,7 @@ import {
 } from '@biosfera/types';
 import { NotificationsService } from 'src/notifications/notifications.service';
 import { NotificationUsersService } from 'src/notification-users/notification-users.service';
+import { isModeratorRole } from 'src/auth/roles';
 
 @Injectable()
 export class SocialPostsService {
@@ -33,10 +34,13 @@ export class SocialPostsService {
   ) {
     const notification = await this.notificationService.create(
       {
-        title: `Nova najava organizacije ${socialPost.organisation.name}`,
-        link: `/social-posts/${socialPost.id}`,
+        messageKey: 'newSocialPost',
+        params: {
+          organisation: socialPost.organisation.name,
+          title: socialPost.title,
+        },
+        link: `/organisation/${socialPost.organisation.id}`,
         type: 'NEW_SOCIAL_POST',
-        text: `Nova najava organizacije ${socialPost.organisation.name}: ${socialPost.title}`,
       },
       userIds,
     );
@@ -44,7 +48,13 @@ export class SocialPostsService {
     return notification;
   }
 
-  async checkForValidity(userId: string, orgranisationId: string) {
+  // Organisation admins and owner, SUPER, and (unless creating) platform
+  // moderators.
+  async checkForValidity(
+    userId: string,
+    orgranisationId: string,
+    allowModerators = true,
+  ) {
     const connection = await this.prisma.organisationUser.findFirst({
       where: {
         userId,
@@ -59,12 +69,18 @@ export class SocialPostsService {
         },
       });
 
-      if (checkIsSuper.role !== Role.SUPER) throw new UnauthorizedException();
+      const passes =
+        checkIsSuper?.role === Role.SUPER ||
+        (allowModerators && isModeratorRole(checkIsSuper?.role));
+      if (!passes) throw new UnauthorizedException();
 
       return true;
     }
 
-    return connection?.role === Role.ADMIN;
+    return (
+      connection?.role === MemberRole.ADMIN ||
+      connection?.role === MemberRole.OWNER
+    );
   }
 
   async create(
@@ -72,7 +88,7 @@ export class SocialPostsService {
     organisationId: string,
     userId: string,
   ) {
-    const check = await this.checkForValidity(userId, organisationId);
+    const check = await this.checkForValidity(userId, organisationId, false);
 
     if (!check) throw new UnauthorizedException();
 
@@ -81,6 +97,7 @@ export class SocialPostsService {
         text: createSocialPostDto.text,
         title: createSocialPostDto.title,
         images: createSocialPostDto.images,
+        ...(createSocialPostDto.type && { type: createSocialPostDto.type }),
         isApproved: true,
         AuthorshipInfo: {
           connect: {
@@ -125,11 +142,13 @@ export class SocialPostsService {
     pagination?: PaginationRequest,
     approval?: boolean,
   ) {
-    const sort = socialPostSortQueryBuilder(sorting);
+    const sort = sorting ? socialPostSortQueryBuilder(sorting) : undefined;
     const posts = this.prisma.socialPost.findMany({
       where: {
         ...(filter?.title && { title: filter.title }),
-        ...(filter?.authorId && { title: filter.authorId }),
+        ...(filter?.authorId && {
+          AuthorshipInfo: { is: { authorId: filter.authorId } },
+        }),
         ...(approval && { isApproved: approval }),
       },
 
@@ -173,6 +192,7 @@ export class SocialPostsService {
     return await this.prisma.socialPost.update({
       where: {
         id,
+        organisationId,
       },
       data: updateSocialPostDto,
     });
@@ -186,6 +206,7 @@ export class SocialPostsService {
     return await this.prisma.socialPost.deleteMany({
       where: {
         id,
+        organisationId,
       },
     });
   }

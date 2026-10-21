@@ -3,6 +3,7 @@ import { useMutation } from "react-query";
 
 import { api } from "./shared";
 import toast from "react-hot-toast";
+import { useTranslations } from "next-intl";
 
 const registerRequest = getRegisterUserDto();
 
@@ -12,18 +13,16 @@ const register = (data: RegisterRequest) =>
   api.post<never, JWTResponse>("/users", data);
 
 export const useRegister = () => {
+  const t = useTranslations("Toasts");
   return useMutation(register, {
     onMutate: () => {
-      return { toastId: toast.loading("Register in...") };
+      return { toastId: toast.loading(t("registering")) };
     },
-    onSuccess: ({}, _variables, context) => {
-      toast.success("Uspješno registrirani", { id: context?.toastId });
+    onSuccess: (_data, _variables, context) => {
+      toast.success(t("registered"), { id: context?.toastId });
     },
     onError: (error: string, _variables, context) => {
-      toast.error(
-        "Došlo je do greške pri stvaranju računa, moguće je da je taj mail već korišten",
-        { id: context?.toastId }
-      );
+      toast.error(t("registerFailed"), { id: context?.toastId });
     },
   });
 };

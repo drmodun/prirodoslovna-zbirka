@@ -1,6 +1,7 @@
 import { useLeaveMembership } from "@/api/useLeaveOrganisation";
 import classes from "./LeaveOrganisationButton.module.scss";
 import useUser from "@/utility/context/UserContext";
+import { useTranslations } from "next-intl";
 
 export interface LeaveOrganisationButtonProps {
   organisationId: string;
@@ -10,13 +11,12 @@ export interface LeaveOrganisationButtonProps {
 export const LeaveOrganisationButton: React.FC<
   LeaveOrganisationButtonProps
 > = ({ organisationId, onRemove }) => {
+  const t = useTranslations("LeaveOrganisationButton");
   const { mutate } = useLeaveMembership();
   const { memberships, updateMemberships } = useUser();
 
   const handleLeave = () => {
-    const confirm = window.confirm(
-      "Jeste li sigurni da želite napustiti organizaciju?"
-    );
+    const confirm = window.confirm(t("confirm"));
     if (!confirm) return;
     mutate(organisationId);
     const membershipToRemove = memberships.find((x) => x.id === organisationId);
@@ -27,10 +27,10 @@ export const LeaveOrganisationButton: React.FC<
   return (
     <button
       onClick={handleLeave}
-      title="Leave Organisation"
+      title={t("label")}
       className={classes.leaveButton}
     >
-      Napusti organizaciju
+      {t("label")}
     </button>
   );
 };

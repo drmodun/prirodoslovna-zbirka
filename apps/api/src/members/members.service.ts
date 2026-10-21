@@ -9,6 +9,7 @@ import { MemberRoleType } from './members.dto';
 import { NotificationPromise } from '@biosfera/types';
 import { NotificationsService } from 'src/notifications/notifications.service';
 import { NotificationUsersService } from 'src/notification-users/notification-users.service';
+import { isModeratorRole } from 'src/auth/roles';
 @Injectable()
 export class MembersService {
   constructor(
@@ -18,6 +19,9 @@ export class MembersService {
   ) {}
 
   async hasAdminRights(userId: string, organisationId: string) {
+    // findFirst with an undefined id would match any user.
+    if (!userId) return false;
+
     const userIsAdmin = await this.prisma.user.findFirst({
       where: {
         id: userId,
@@ -39,7 +43,26 @@ export class MembersService {
     );
   }
 
+  // Organisation admins and owner, and platform moderators (SUPER, ADMIN).
+  // Used for content checks; organisation and membership changes use
+  // hasAdminRights / hasOwnerRights, which only let SUPER through.
+  async hasModerationRights(userId: string, organisationId: string) {
+    if (!userId) return false;
+
+    const user = await this.prisma.user.findFirst({
+      where: {
+        id: userId,
+      },
+    });
+
+    if (isModeratorRole(user?.role)) return true;
+
+    return await this.hasAdminRights(userId, organisationId);
+  }
+
   async hasOwnerRights(userId: string, organisationId: string) {
+    if (!userId) return false;
+
     const userIsAdmin = await this.prisma.user.findFirst({
       where: {
         id: userId,
@@ -76,11 +99,9 @@ export class MembersService {
   ): NotificationPromise {
     const notification = await this.notificationsService.create(
       {
-        title: 'Promjena statusa članstva',
-        text: `Vaš status članstva u organizaciji ${
-          organisation.name
-        } je promijenjen u ${status.toLowerCase()}`,
-        link: `/organisations/${organisation.id}`,
+        messageKey: 'membershipChange',
+        params: { organisation: organisation.name, role: status },
+        link: `/organisation/${organisation.id}`,
         notificationImage: organisation.mainImage,
         type: 'MEMBERSHIP_CHANGE',
       },
@@ -101,10 +122,10 @@ export class MembersService {
   ): NotificationPromise {
     const notification = await this.notificationsService.create(
       {
-        title: 'Zahtjev za članstvo',
-        text: `Korisnik ${user.username} je poslao zahtjev za članstvo u organizaciji ${organisation.name}`,
-        link: `/organisations/${user.id}`,
-        notificationImage: user.id,
+        messageKey: 'membershipRequest',
+        params: { username: user.username, organisation: organisation.name },
+        link: `/organisation/${organisation.id}`,
+        notificationImage: organisation.mainImage,
         type: 'MEMBERSHIP_REQUEST',
       },
       organisation.OrganisationUsers.map((member) => member.userId),
@@ -123,7 +144,7 @@ export class MembersService {
 
     if (memberCheck) return;
 
-    if (memberCheck) return new BadRequestException('Already a member');
+    if (memberCheck) throw new BadRequestException('Already a member');
 
     const membership = await this.prisma.organisationUser.create({
       data: {
@@ -149,7 +170,7 @@ export class MembersService {
   async removeMember(userId: string, organisationId: string) {
     const memberCheck = await this.checkForMember(userId, organisationId);
 
-    if (!memberCheck) return new NotFoundException('Member not found');
+    if (!memberCheck) throw new NotFoundException('Member not found');
 
     const membership = await this.prisma.organisationUser.deleteMany({
       where: {
@@ -168,7 +189,7 @@ export class MembersService {
   ) {
     const memberCheck = await this.checkForMember(userId, organisationId);
 
-    if (!memberCheck) return new NotFoundException('Member not found');
+    if (!memberCheck) throw new NotFoundException('Member not found');
 
     const action = await this.prisma.organisationUser.update({
       where: {
@@ -204,7 +225,7 @@ export class MembersService {
   async makeRequest(userId: string, organisationId: string) {
     const memberCheck = await this.checkForMember(userId, organisationId);
 
-    if (memberCheck) return new BadRequestException('Already a member');
+    if (memberCheck) throw new BadRequestException('Already a member');
 
     const membership = await this.prisma.organisationUser.create({
       data: {
@@ -243,7 +264,7 @@ export class MembersService {
   async leaveOrganisation(userId: string, organisationId: string) {
     const memberCheck = await this.checkForMember(userId, organisationId);
 
-    if (!memberCheck) return new NotFoundException('You are not a member');
+    if (!memberCheck) throw new NotFoundException('You are not a member');
 
     const membership = await this.prisma.organisationUser.deleteMany({
       where: {
@@ -262,7 +283,7 @@ export class MembersService {
   ) {
     const memberCheck = await this.checkForMember(userId, organisationId);
 
-    if (!memberCheck) return new NotFoundException('Member not found');
+    if (!memberCheck) throw new NotFoundException('Member not found');
 
     const membership = await this.prisma.organisationUser.update({
       where: {
@@ -296,7 +317,7 @@ export class MembersService {
   ) {
     const memberCheck = await this.checkForMember(newOwnerId, organisationId);
 
-    if (!memberCheck) return new NotFoundException('Member not found');
+    if (!memberCheck) throw new NotFoundException('Member not found');
 
     const membership = await this.prisma.organisationUser.updateMany({
       where: {

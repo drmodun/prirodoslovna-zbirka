@@ -1,10 +1,13 @@
 import {
+  ArrayMinSize,
+  IsArray,
   IsBoolean,
-  IsEnum,
+  IsIn,
   IsNumber,
   IsOptional,
   IsString,
   Max,
+  Min,
   MinLength,
   ValidateNested,
 } from "class-validator";
@@ -20,7 +23,7 @@ import { SortingEnum, SortType } from "../query";
 export const getCreateQuizRequest = (
   ApiPropertySwagger?: any,
   TypeTest?: any,
-  schema?: any
+  schema?: any,
 ) => {
   const ApiProperty = ApiPropertySwagger || function () {};
   const Type = TypeTest || function () {};
@@ -41,7 +44,7 @@ export const getCreateQuizRequest = (
     @ApiProperty()
     coverImage: string;
 
-    @IsEnum(TimeLimitTypeEnum)
+    @IsIn(Object.keys(TimeLimitTypeEnum))
     @ApiProperty()
     timeLimitType: TimeLimitTypeEnumType;
 
@@ -51,12 +54,12 @@ export const getCreateQuizRequest = (
 
     @IsOptional()
     @IsNumber()
-    @MinLength(1000 * 60 * 5)
+    @Min(1000 * 60 * 5)
     @Max(24 * 60 * 60 * 1000)
     @ApiProperty()
     timeLimitTotal?: number;
 
-    @IsEnum(QuizDifficulty)
+    @IsIn(Object.keys(QuizDifficulty))
     @ApiProperty()
     difficulty: QuizDifficultyType;
 
@@ -68,9 +71,10 @@ export const getCreateQuizRequest = (
     @ApiProperty()
     isAnonymousAllowed?: boolean;
 
+    @IsArray()
+    @ArrayMinSize(1)
     @ValidateNested({ each: true })
     @Type(() => schema || CreateQuestionDto)
-    @MinLength(1)
     @ApiProperty()
     questions: any[]; //TODO: Test this later
   }
@@ -81,7 +85,7 @@ export const getCreateQuizRequest = (
 export const getUpdateQuizRequest = (
   ApiPropertySwagger?: any,
   TypeTest?: any,
-  schema?: any
+  schema?: any,
 ) => {
   const ApiProperty = ApiPropertySwagger || function () {};
   const Type = TypeTest || function () {};
@@ -106,9 +110,9 @@ export const getUpdateQuizRequest = (
     coverImage?: string;
 
     @IsOptional()
-    @IsEnum(TimeLimitTypeEnum)
+    @IsIn(Object.keys(TimeLimitTypeEnum))
     @ApiProperty()
-    quizType?: TimeLimitTypeEnumType;
+    timeLimitType?: TimeLimitTypeEnumType;
 
     @IsOptional()
     @IsBoolean()
@@ -117,13 +121,13 @@ export const getUpdateQuizRequest = (
 
     @IsOptional()
     @IsNumber()
-    @MinLength(1000 * 60 * 5)
+    @Min(1000 * 60 * 5)
     @Max(24 * 60 * 60 * 1000)
     @ApiProperty()
     timeLimitTotal?: number;
 
     @IsOptional()
-    @IsEnum(QuizDifficulty)
+    @IsIn(Object.keys(QuizDifficulty))
     @ApiProperty()
     difficulty?: QuizDifficultyType;
 
@@ -136,6 +140,7 @@ export const getUpdateQuizRequest = (
     isAnonymousAllowed?: boolean;
 
     @IsOptional()
+    @IsArray()
     @ValidateNested({ each: true })
     @Type(() => schema || CreateQuestionDto)
     @ApiProperty()

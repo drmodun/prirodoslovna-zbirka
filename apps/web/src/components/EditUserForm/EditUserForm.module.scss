@@ -23,3 +23,16 @@
     justify-content: space-between;
   }
 }
+
+.language {
+  display: flex;
+  align-items: center;
+  gap: vw-calc(16);
+  font-size: vw-calc(18);
+  color: $secondary;
+
+  @media (max-width: 768px) {
+    gap: vw-mobile-calc(10);
+    font-size: vw-mobile-calc(12);
+  }
+}

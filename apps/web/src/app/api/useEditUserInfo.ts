@@ -2,6 +2,7 @@ import { getUpateUserDto } from "@biosfera/types";
 import { api } from "./shared";
 import { useMutation } from "react-query";
 import toast from "react-hot-toast";
+import { useTranslations } from "next-intl";
 
 export const _updateUserDto = getUpateUserDto();
 
@@ -11,12 +12,13 @@ const editUserInfo = async (userInfo: UpdateUserDto) =>
   await api.patch("/users", userInfo);
 
 export const useEditUserInfo = () => {
+  const t = useTranslations("Toasts");
   return useMutation(editUserInfo, {
     onError: (error: string) => {
       toast.error(error, { id: "edit-user-info" });
     },
     onSuccess: () => {
-      toast.success("Promijenjene informacije o korisniku", {
+      toast.success(t("userInfoUpdated"), {
         id: "edit-user-info",
       });
     },

@@ -13,22 +13,25 @@ import {
   getTopicsList,
   getTopicsValues,
 } from "@/utility/static/getEnumLists";
-import { getEnumValue, Topics, WorkType } from "@biosfera/types";
+import { useTranslations } from "next-intl";
 
 interface Props {
   searchParams?: any;
 }
 
 export const LiteratureFilter = ({ searchParams }: Props) => {
+  const t = useTranslations("Filters");
+  const tTopics = useTranslations("Enums.Topics");
+  const tWorkTypes = useTranslations("Enums.WorkType");
   const schema = z.object({
     q: z.optional(z.string()),
     publisher: z.optional(z.array(z.string())),
     source: z.optional(z.array(z.string())),
     topics: z.optional(
       z.enum(["", ...getTopicsValues()], {
-        invalid_type_error: `Vrijednost mora biti validna gbif tema poput ${[
-          ...getTopicsValues(),
-        ]}`,
+        invalid_type_error: t("literature.invalidTopic", {
+          topics: getTopicsValues().join(", "),
+        }),
       }),
     ),
     year: z.optional(z.array(z.number())),
@@ -55,16 +58,16 @@ export const LiteratureFilter = ({ searchParams }: Props) => {
         onSubmit={form.handleSubmit(handleFilter)}
         className={classes.filter}
       >
-        <h2>Filter literature</h2>
-        <Input form={form} attribute="q" question="Naziv" />
+        <h2>{t("literature.title")}</h2>
+        <Input form={form} attribute="q" question={t("name")} />
         <SelectInput
           name="topics"
-          label="Tema literature"
+          label={t("literature.topic")}
           form={form}
           options={[
-            { label: "Tema literature", value: "" },
+            { label: t("literature.topic"), value: "" },
             ...getTopicsList().map((type) => ({
-              label: getEnumValue(Topics, type),
+              label: tTopics(type),
               value: type,
             })),
           ]}
@@ -72,29 +75,29 @@ export const LiteratureFilter = ({ searchParams }: Props) => {
         <ListInput
           form={form}
           attribute="publisher"
-          question="Izdavač"
+          question={t("literature.publisher")}
           initValue={searchParams.publisher}
         />
         <ListInput
           form={form}
           attribute="source"
-          question="Izvor"
+          question={t("literature.source")}
           initValue={searchParams.source}
         />
         <ListInput
           form={form}
           attribute="year"
-          question="Godina"
+          question={t("literature.year")}
           initValue={searchParams.year}
         />
         <SelectInput
           name="literatureType"
-          label="Vrsta literature"
+          label={t("literature.type")}
           form={form}
           options={[
-            { label: "Vrsta literature", value: "" },
+            { label: t("literature.type"), value: "" },
             ...getLiteratureTypesList().map((type) => ({
-              label: getEnumValue(WorkType, type),
+              label: tWorkTypes(type),
               value: type,
             })),
           ]}
@@ -127,7 +130,7 @@ export const LiteratureFilter = ({ searchParams }: Props) => {
           },
         }}
       >
-        <BaseButton text="Pretraži" />
+        <BaseButton text={t("search")} />
       </Link>
     </div>
   );

@@ -6,20 +6,20 @@ import {
   ShortUserResponse,
   WorkResponseShort,
 } from "@biosfera/types";
-import { ExponatCard } from "components/ExponatCard";
 import classes from "./CardCollection.module.scss";
-import MembershipCard from "components/MembershipCard";
-import { PostCard } from "components/PostCard";
 import { useEffect, useRef, useState } from "react";
 import dArrow from "assets/images/d-arrow.svg";
 import Image from "next/image";
 import clsx from "clsx";
 import { Indexable } from "@biosfera/types/src/jsonObjects";
-import BaseButton from "components/BaseButton";
 import { useIsInView } from "@/utility/hooks/useIsInView";
-import useUser from "@/utility/context/UserContext";
-import { getPfpUrl } from "@/utility/static/getPfpUrl";
-import WorkCard from "components/WorkCard";
+import { useOnScrollToBottom } from "@/utility/hooks/useOnScrollToBottom";
+import { BackToTopButton } from "./BackToTopButton";
+import { CollectionCard } from "./CollectionCard";
+import { useCardPermissions } from "./useCardPermissions";
+import { useTranslations } from "next-intl";
+
+const DEFAULT_PAGE_SIZE = 20;
 
 export interface SortOption {
   label: string;
@@ -49,6 +49,71 @@ export interface CardCollectionProps {
   pageSize?: number;
 }
 
+// Numeric fields sort by value, everything else alphabetically.
+const compareBy =
+  (attribute: string, isDescending: boolean) =>
+  (a: Indexable, b: Indexable) => {
+    const first = isDescending ? b : a;
+    const second = isDescending ? a : b;
+    return isNaN(b[attribute])
+      ? first[attribute]
+          ?.toString()
+          ?.localeCompare(second[attribute]?.toString())
+      : first[attribute] - second[attribute];
+  };
+
+interface SortControlsProps {
+  sortBy: SortOption[];
+  isDescending: boolean;
+  onSortBy: (value: string) => void;
+  onToggleDirection: () => void;
+  anchor: React.RefObject<HTMLDivElement>;
+}
+
+const SortControls = ({
+  sortBy,
+  isDescending,
+  onSortBy,
+  onToggleDirection,
+  anchor,
+}: SortControlsProps) => {
+  const t = useTranslations("CardCollection");
+
+  return (
+    <div className={classes.sortSelect}>
+      <div className={classes.section}>
+        <span className={classes.sectionLabel}>{t("sortBy")}</span>
+        <select
+          title={t("sortBy")}
+          className={classes.select}
+          onChange={(e) => onSortBy(e.target.value)}
+        >
+          {sortBy.map((option) => (
+            <option key={option.value} value={option.value}>
+              {option.label}
+            </option>
+          ))}
+        </select>
+      </div>
+      <div className={classes.section} ref={anchor}>
+        <span className={classes.sectionLabel}>
+          {!isDescending ? t("ascending") : t("descending")}
+        </span>
+        <button
+          title={t("sortDirection")}
+          className={clsx(
+            classes.direction,
+            !isDescending && classes.descending,
+          )}
+          onClick={onToggleDirection}
+        >
+          <Image alt={t("sortDirection")} src={dArrow} />
+        </button>
+      </div>
+    </div>
+  );
+};
+
 export const CardCollection: React.FC<CardCollectionProps> = ({
   items,
   type,
@@ -57,24 +122,24 @@ export const CardCollection: React.FC<CardCollectionProps> = ({
   organisationId,
   pageSize,
 }) => {
+  const size = pageSize || DEFAULT_PAGE_SIZE;
   const [sortByValue, setSortByValue] = useState<string>("");
   const [isDescending, setIsDescending] = useState<boolean>(false);
-  const [amount, setAmount] = useState<number>(pageSize || 20);
-  const { memberships, user } = useUser();
+  const [amount, setAmount] = useState<number>(size);
   const [itemsToShow, setItemsToShow] = useState<Indexable[]>(items);
   const list = useRef<HTMLDivElement>(null);
+  const permissions = useCardPermissions();
+  const t = useTranslations("Common");
 
   const handleDelete = (id: string) => {
     if (!id) return;
-    console.log(id);
     setItemsToShow((prev) => prev.filter((item) => item.id !== id));
   };
 
-  const handleScroll = async () => {
+  const showMore = () => {
     if (amount <= items.length) {
       setAmount(
-        (prev) =>
-          prev + Math.max(Math.min(pageSize || 20, items.length - prev), 0),
+        (prev) => prev + Math.max(Math.min(size, items.length - prev), 0),
       );
     }
   };
@@ -85,216 +150,54 @@ export const CardCollection: React.FC<CardCollectionProps> = ({
 
   useEffect(() => {
     setItemsToShow(items);
-    console.log(items);
   }, [items]);
 
   useEffect(() => {
-    setAmount(pageSize || 20);
+    setAmount(pageSize || DEFAULT_PAGE_SIZE);
   }, [sortByValue, pageSize]);
 
-  const handleChangeDirection = () => {
-    setIsDescending((prev) => !prev);
-  };
-
   const listInView = useIsInView(list);
+  useOnScrollToBottom(showMore);
 
-  useEffect(() => {
-    const handleScrolling = () => {
-      const { scrollTop, clientHeight, scrollHeight } =
-        document.documentElement;
-      if (scrollTop + clientHeight >= scrollHeight - 20) {
-        handleScroll();
-      }
-    };
-    window.addEventListener("scroll", handleScrolling);
-    return () => window.removeEventListener("scroll", handleScrolling);
-  });
-
-  const checkAdminMembership = (organisationId: string) => {
+  if (itemsToShow.length === 0)
     return (
-      user?.role?.toLowerCase() === "super" ||
-      memberships.some(
-        (membership) =>
-          membership.id === organisationId &&
-          (membership.role === "ADMIN" || membership.role === "OWNER"),
-      )
+      <div className={classes.noResults} ref={list}>
+        <h1>{t("noResults")}</h1>
+      </div>
     );
-  };
-  const checkIsAuthor = (authorId: string) => {
-    return authorId === user?.id;
-  };
 
-  const checkIsAdminForPost = (organisationId: string) => {
-    return (
-      user?.role?.toLowerCase() === "super" ||
-      checkAdminMembership(organisationId)
-    );
-  };
-
-  return itemsToShow.length > 0 ? (
+  return (
     <div className={classes.container}>
-      <div className={classes.sortSelect}>
-        <div className={classes.section}>
-          <span className={classes.sectionLabel}>Sortiraj po:</span>
-          <select
-            title="sortBy"
-            className={classes.select}
-            onChange={(e) => setSortByValue(e.target.value)}
-          >
-            {sortBy.map((option) => (
-              <option key={option.value} value={option.value}>
-                {option.label}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div className={classes.section} ref={list}>
-          <span className={classes.sectionLabel}>
-            {!isDescending ? "Rastuće" : "Opadajuće"}
-          </span>
-          <button
-            title="direkcija sortiranja"
-            className={clsx(
-              classes.direction,
-              !isDescending && classes.descending,
-            )}
-            onClick={handleChangeDirection}
-          >
-            <Image alt="strelica" src={dArrow} />
-          </button>
-        </div>
-      </div>
+      <SortControls
+        sortBy={sortBy}
+        isDescending={isDescending}
+        onSortBy={setSortByValue}
+        onToggleDirection={() => setIsDescending((prev) => !prev)}
+        anchor={list}
+      />
       <div className={classes.cardContainer}>
-        {itemsToShow
-          .sort((a, b) => {
-            const first = isDescending ? b : a;
-            const second = isDescending ? a : b;
-            return isNaN(b[sortByValue])
-              ? first[sortByValue]
-                  ?.toString()
-                  ?.localeCompare(second[sortByValue]?.toString())
-              : first[sortByValue] - second[sortByValue];
-          })
+        {[...itemsToShow]
+          .sort(compareBy(sortByValue, isDescending))
           .slice(0, Math.min(amount, items.length))
-          .map((item, index) => {
-            switch (type) {
-              case "exponat":
-                return (
-                  <ExponatCard
-                    key={index}
-                    exponat={item as ExponatResponseShort}
-                    isAdmin={checkAdminMembership(
-                      (item as ExponatResponseShort).organizationId,
-                    )}
-                    onRemove={handleDelete}
-                  />
-                );
-              case "post":
-                return (
-                  <PostCard
-                    key={index}
-                    post={item as PostResponse}
-                    isAdmin={checkIsAdminForPost(
-                      organisationId ?? (item as PostResponse).organisationId,
-                    )}
-                    onRemove={handleDelete}
-                    isUser={checkIsAuthor((item as PostResponse).authorId)}
-                  />
-                );
-              case "user-member":
-                item = item as ShortUserResponse;
-                return (
-                  <MembershipCard
-                    description={item.email}
-                    type="user"
-                    image={getPfpUrl(item.id)}
-                    object={item as ShortUserResponse}
-                    role={item.role as string}
-                    isUser={checkIsAuthor(item.id)}
-                    onRemove={handleDelete}
-                    organisationId={organisationId}
-                    isAdmin={
-                      user?.role?.toLowerCase() === "super" ||
-                      checkAdminMembership(organisationId!)
-                    }
-                    name={item.username}
-                    id={item.id}
-                  />
-                );
-              case "user":
-                item = item as ShortUserResponse;
-                return (
-                  <MembershipCard
-                    description={item.email}
-                    type="user"
-                    image={item.hasProfileImage && getPfpUrl(item.id)}
-                    object={item as ShortUserResponse}
-                    role={item.location}
-                    isUser={checkIsAuthor(item.id)}
-                    onRemove={handleDelete}
-                    isFollowCard
-                    organisationId={organisationId}
-                    isAdmin={
-                      user?.role?.toLowerCase() === "super" ||
-                      checkAdminMembership(organisationId!)
-                    }
-                    name={item.username}
-                    id={item.id}
-                  />
-                );
-              case "organisation-member":
-                item = item as OrganisationResponseShort;
-                return (
-                  <MembershipCard
-                    description={item.location}
-                    type="organisation"
-                    image={item.mainImage}
-                    object={item as OrganisationResponseShort}
-                    role={item.role as string}
-                    name={item.name}
-                    onRemove={handleDelete}
-                    id={item.id}
-                    organisationId={item.id}
-                    isAdmin={checkAdminMembership(item.id)}
-                    isUser={checkIsAuthor(userId!)}
-                  />
-                );
-              case "work":
-                return (
-                  <WorkCard
-                    work={item as WorkResponseShort}
-                    isAdmin={checkAdminMembership(item.organisationId)}
-                    onDelete={handleDelete}
-                  />
-                );
-            }
-          })}
+          .map((item, index) => (
+            <CollectionCard
+              key={index}
+              type={type}
+              item={item}
+              permissions={permissions}
+              onRemove={handleDelete}
+              onRemoveWork={handleDelete}
+              organisationId={organisationId}
+              userId={userId}
+            />
+          ))}
       </div>
 
-      <div
-        className={clsx(
-          classes.floatingButton,
-          amount > (pageSize || 20) && !listInView
-            ? classes.show
-            : classes.hide,
-        )}
-      >
-        <div
-          className={classes.image}
-          onClick={() =>
-            list.current?.scrollIntoView({
-              behavior: "smooth",
-              block: "start",
-            })
-          }
-        >
-          <Image src={dArrow} alt="back to top arrow" />
-        </div>
-      </div>
-    </div>
-  ) : (
-    <div className={classes.noResults} ref={list}>
-      <h1>Nema rezultata</h1>
+      <BackToTopButton
+        classes={classes}
+        visible={amount > size && !listInView}
+        target={list}
+      />
     </div>
   );
 };

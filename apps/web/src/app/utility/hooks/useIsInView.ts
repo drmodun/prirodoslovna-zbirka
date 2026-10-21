@@ -1,24 +1,23 @@
-import { useState, useMemo, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 export function useIsInView(ref: React.RefObject<HTMLDivElement>) {
   const [isIntersecting, setIsIntersecting] = useState(false);
 
-  const observer = useMemo(
-    () =>
-      new IntersectionObserver(([entry]) =>
-        setIsIntersecting(
-          entry.isIntersecting || ref.current?.getBoundingClientRect().y! > 0
-        )
-      ),
-    [ref.current]
-  );
-
+  // Created in an effect: IntersectionObserver does not exist during SSR.
   useEffect(() => {
-    observer.observe(ref.current!);
+    const element = ref.current;
+    if (!element) return;
+
+    const observer = new IntersectionObserver(([entry]) =>
+      setIsIntersecting(
+        entry.isIntersecting || element.getBoundingClientRect().y > 0,
+      ),
+    );
+    observer.observe(element);
 
     return () => {
       observer.disconnect();
     };
-  }, [ref, observer]);
+  }, [ref]);
   return isIntersecting;
 }
