@@ -21,7 +21,10 @@ rest. In order:
 2. `PrismaClientExceptionFilter`: maps known Prisma errors to HTTP
    statuses: unique-constraint violations (`P2002`) to `409`, missing records
    (`P2025`) to `404`, broken relations (`P2003`, `P2016`, `P2017`) to `400`,
-   and connection timeouts (`P1008`, `P1009`, `P1011`) to `408`.
+   and connection timeouts (`P1008`, `P1009`, `P1011`) to `408`. It answers
+   with a fixed message (`Already exists: email`, `Not Found`, …) in the
+   request's language; Prisma's own message names tables and code locations,
+   so it is only logged.
 3. `ValidationPipe({ whitelist: true })`: every body and query DTO is
    validated with `class-validator`, and properties without decorators are
    stripped.
@@ -133,7 +136,8 @@ entry, for validation errors) and `error` with the Croatian version from
 `src/i18n/error-messages.ts`: an exact-match table plus patterns for messages
 that carry a value and for `class-validator`'s defaults. Messages it does not
 know are sent unchanged, so add a Croatian line there when you add a new
-message a user can see. Prisma errors are not translated.
+message a user can see. `PrismaClientExceptionFilter` translates its fixed
+messages with the same table.
 
 Server-sent event routes are the exception to "check inside the handler":
 Nest sends their headers before the handler runs, so rights checks for them

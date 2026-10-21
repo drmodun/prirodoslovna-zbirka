@@ -1,6 +1,6 @@
 ---
 title: Known issues
-description: Limitations that are still open, and the bugs that were fixed on the known-issues and open-issues branches.
+description: Limitations that are still open, and the bugs that were fixed on the known-issues, open-issues and translation-improvements-and-tts branches.
 sidebar:
   order: 3
 ---
@@ -19,27 +19,40 @@ grep -rn "test.fail" apps/e2e/tests
 ```
 
 **There are none at the moment.** Every pinned bug was fixed on the
-`fix/known-issues` and `fix/open-issues` branches (summaries below).
+`fix/known-issues`, `fix/open-issues` and `translation-improvements-and-tts`
+branches (summaries below).
 
 ## Still open
 
 These are known, but no test pins them, because they are design limits rather
 than wrong behaviour, or need a schema change.
 
-- **The text-to-speech upload endpoint is unauthenticated** by design: the web
-  server writes recordings to it while rendering pages for anonymous
-  visitors. It only accepts recording names (`audio-<dir>/<id>-<hash>`) and
-  never replaces a file, see [File storage](/docs/architecture/file-storage/).
 - **No page for taking a quiz.** The attempt API exists (see
   [Quizzes](/docs/features/quizzes/#taking-a-quiz)), but the web app has no
   page that uses it yet.
-- **Old notifications and database errors stay in one language.**
-  Notifications stored before message keys existed keep their Croatian text,
-  and Prisma error messages (for example a unique-constraint violation) are
-  passed on in English.
 - **User content is not translated.** Exponat, post and organisation texts
   are shown as their authors wrote them; only the generated AI texts follow
   the reader's language.
+
+## Fixed on `translation-improvements-and-tts`
+
+- **Database errors are answered in the reader's language.**
+  `PrismaClientExceptionFilter` sends a fixed message (`Already exists:
+  email`, `Not Found`, …) through the error translations and no longer passes
+  on Prisma's message, which named tables and code locations.
+- **Old notifications follow the reader's language.** A migration gave
+  notifications stored before message keys existed their key and parameters,
+  read back out of the Croatian templates they were written with. Rows that
+  do not match their template keep their stored text.
+- **AI and speech functions are no longer public endpoints.** `AI.ts` was a
+  `"use server"` file, so every export, including `getGPT(prompt)` and
+  `ttsPrompt(text, …)`, could be called by anyone with any arguments,
+  spending the deployment's AI and text-to-speech credits. It is
+  `server-only` now; the browser can only reach voice input, and only when
+  logged in.
+- **Text-to-speech uploads need the internal key.** The web server sends
+  `INTERNAL_API_KEY`, which never reaches a browser, so the upload endpoint is
+  no longer open to anyone (see [File storage](/docs/architecture/file-storage/#audio-recordings)).
 
 ## Fixed on `fix/open-issues`
 

@@ -12,7 +12,7 @@ under the alias `biosfera`, and the main proxy holds the certificate and
 forwards the site to `http://biosfera:80`.
 
 ```sh
-cp .env.production.sample .env.production   # PUBLIC_URL, JWT_SECRET, passwords, PROXY_NETWORK
+cp .env.production.sample .env.production   # PUBLIC_URL, JWT_SECRET, INTERNAL_API_KEY, passwords, PROXY_NETWORK
 docker network create proxy                 # only if the main proxy's network does not exist yet
 docker compose --env-file .env.production \
   -f docker-compose.yml -f docker-compose.prod.yml up -d --build
@@ -37,6 +37,7 @@ defaults for them on purpose:
 | ----------------------- | ---------------------------------------------------- |
 | `PUBLIC_URL`            | The address people open, e.g. `https://biosfera.example.com` |
 | `JWT_SECRET`            | Signing login tokens                                 |
+| `INTERNAL_API_KEY`      | The web server storing text-to-speech recordings     |
 | `POSTGRES_PASSWORD`     | The database                                         |
 | `AWS_ACCESS_KEY_ID`     | The bundled S3 store's write key (or a real store's) |
 | `AWS_SECRET_ACCESS_KEY` | Same                                                 |

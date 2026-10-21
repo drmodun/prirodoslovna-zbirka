@@ -6,9 +6,14 @@ sidebar:
 ---
 
 Biosfera uses three kinds of optional service. All of them run on the **web
-server** as Next.js server actions in `apps/web/src/app/api/AI.ts`, so keys
-never reach the browser, and every one of them has a fallback that works with
-no configuration at all.
+server** in `apps/web/src/app/api/AI.ts`, so keys never reach the browser,
+and every one of them has a fallback that works with no configuration at all.
+
+`AI.ts` is a `server-only` module, not a `"use server"` file. Every export of
+a `"use server"` file becomes a public endpoint that anyone can call with any
+arguments, which would let anyone send prompts, or text to synthesise, at the
+deployment's expense. Server components call `AI.ts` directly; the browser
+can only reach the two voice-input actions in `speechToText.ts`.
 
 | Feature | Service | Fallback |
 | ------- | ------- | -------- |
@@ -48,7 +53,8 @@ servers such as Ollama.
    `audio-<directory>`. Editing the text gives it a new name, so stale audio
    is never played.
 2. `GET /blobs/audio/<dir>/<name>`: if it exists, its URL is returned.
-3. Otherwise the text is synthesised:
+3. Otherwise, if `INTERNAL_API_KEY` is set (the API refuses the upload
+   without it), the text is synthesised:
    - **Piper**, if `TTS_URL` is set: `POST <TTS_URL>/synthesize` with
      `{ text }`, returns WAV. Compose runs `docker/piper` with the
      `sr_RS-serbski_institut-medium` voice (Serbian is the closest available
@@ -56,8 +62,8 @@ servers such as Ollama.
    - **Google Cloud**, if `GOOGLE_CLOUD_API_KEY` is set: voice
      `en-US-Standard-C` for English readers, otherwise `sr-RS-Standard-A`,
      LINEAR16.
-4. The WAV is uploaded with `POST /blobs/audio/<dir>/<name>` and its URL
-   returned.
+4. The WAV is uploaded with `POST /blobs/audio/<dir>/<name>`, sending the
+   key as `x-internal-key`, and its URL returned.
 
 When nothing is configured, or anything fails, `AudioButton` falls back to
 the browser's `speechSynthesis`.
@@ -75,10 +81,13 @@ Text inputs and text areas offer a microphone button (`SpeechToText`, `useRecord
 
 - `isSpeechToTextConfigured()` tells the client whether the server can
   transcribe: AI must be enabled and `OPENAI_TRANSCRIPTION_MODEL` non-empty.
-- If yes, the browser records with `MediaRecorder`, sends base64 audio to
+- If yes and someone is logged in, the browser records with
+  `MediaRecorder` and sends base64 audio and the access token to the
+  `transcribe` action. It checks the token with `GET /auth/me` and then calls
   `whisperPrompt`, which calls `audio.transcriptions.create` with the
-  reader's language (`en` or `hr`).
-- If not, it uses the browser's `SpeechRecognition` (Chrome, Edge, Safari)
+  reader's language (`en` or `hr`). Transcription is paid for, so it is not
+  offered to anonymous visitors.
+- Otherwise it uses the browser's `SpeechRecognition` (Chrome, Edge, Safari)
   directly.
 
 Many OpenAI-compatible providers have no transcription endpoint; set

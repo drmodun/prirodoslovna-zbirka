@@ -85,7 +85,7 @@ as `%40` and `MAIL_FROM` set to the same address.
 
 ## AI text and speech to text
 
-Read by the web server (Next.js server actions in `apps/web/src/app/api/AI.ts`).
+Read by the web server (`apps/web/src/app/api/AI.ts`).
 Works with any OpenAI-compatible API: OpenAI, OpenRouter, Groq, Mistral, or
 a local server such as Ollama (`OPENAI_BASE_URL=http://localhost:11434/v1`, no
 key needed).
@@ -107,6 +107,7 @@ post; voice input uses the browser's speech recognition.
 | ---------------------- | ------- |
 | `TTS_URL`              | A Piper HTTP server (`docker/piper`); wins over Google. Compose sets `http://piper:5000` |
 | `GOOGLE_CLOUD_API_KEY` | Google Cloud Text-to-Speech, voice `sr-RS-Standard-A` |
+| `INTERNAL_API_KEY`     | Read by both apps, the same random string in each: the web server sends it when it stores a recording, and the API refuses recordings without it. Compose sets a development value; production requires one |
 
 **Fallback**: the play button reads the text with the browser's speech
 synthesis.

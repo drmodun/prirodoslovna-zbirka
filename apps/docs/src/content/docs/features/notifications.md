@@ -95,8 +95,10 @@ holds the English and Croatian templates; the API renders them in the
 reader's saved `language` for the list (`GET /notification-users`), the live
 stream and the e-mail, so a reader who switches language sees older
 notifications in the new language too. `title` and `text` keep an English
-copy; rows from before message keys existed are shown with the text they were
-stored with. Links point at
+copy. Rows from before message keys existed were given a key by the
+`backfill_notification_message_keys` migration, which reads the parameters
+back out of their Croatian text; the few that did not match their template
+are shown with the text they were stored with. Links point at
 web routes (`/exponat/…`, `/post/…`, `/organisation/…`, `/user/…`): absolute
 (`${WEB_URL}/…`) for exponats, posts and organisation approval, relative for
 the rest.

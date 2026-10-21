@@ -75,10 +75,15 @@ Three kinds of module live here:
   `localStorage`, unwraps `response.data`, and turns errors into the API's
   `message` string (toasting on `401`). Mutations typically show a
   `react-hot-toast` loading toast and replace it with success or error.
-- **Server actions** (`"use server"`): `AI.ts` (completions, transcription,
-  text to speech), `serverMap.ts` (GBIF occurrence maps),
-  `serverLiterature.ts` (GBIF literature). Keys for third-party services
-  therefore never reach the browser.
+- **Server actions** (`"use server"`): `speechToText.ts` (voice input),
+  `serverMap.ts` (GBIF occurrence maps), `serverLiterature.ts` (GBIF
+  literature). Every export of such a file is a public endpoint, callable by
+  anyone with any arguments, so only put functions there that the browser
+  needs and that are safe to expose.
+- **Server-only modules** (`import "server-only"`): `AI.ts` (completions,
+  transcription, text to speech), called from server components. Keys for
+  third-party services never reach the browser, and nobody outside can make
+  the server spend them.
 
 A few hooks call third-party APIs straight from the browser, e.g.
 `useGetSpecies` (GBIF species suggest) while filling in the exponat form.

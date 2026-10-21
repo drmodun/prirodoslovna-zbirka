@@ -142,7 +142,7 @@ Paths are relative to the API root (behind the proxy, prefix them with
 | `POST` | `/notifications` | — | Create a notification with no recipients |
 | `POST` | `/blobs/:directory` | JWT | Upload an image (10 MB) |
 | `POST` | `/blobs/pdf/:directory` | JWT | Upload a PDF (100 MB) |
-| `POST` | `/blobs/audio/:directory/:name` | — | Store a text-to-speech recording (100 MB, see File storage) |
+| `POST` | `/blobs/audio/:directory/:name` | internal key | Store a text-to-speech recording (100 MB, see File storage) |
 | `GET` | `/blobs/audio/:directory/:name` | — | URL of a stored recording |
 | `POST` | `/blobs/model/:directory` | JWT | Upload a 3D model (200 MB) |
 | `POST` | `/blobs/video/:directory` | JWT | Upload an MP4 (200 MB) |

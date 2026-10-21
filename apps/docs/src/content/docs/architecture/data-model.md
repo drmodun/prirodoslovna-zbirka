@@ -109,7 +109,7 @@ a `literatureId`, an id in GBIF's literature API, not a local record.
 ## Notifications
 
 **Notification** holds the message once (`messageKey` and `params`, which the
-API renders in each reader's language, an English `title` and `text`, `link`,
+API renders in each reader's language, a copy in `title` and `text`: English, or Croatian for old rows without a key, `link`,
 `notificationImage`, `type`); **UserNotification** fans it out to recipients
 with a per-user `isRead`. `NotificationType` lists every reason a
 notification is sent (approvals, membership requests and changes, new

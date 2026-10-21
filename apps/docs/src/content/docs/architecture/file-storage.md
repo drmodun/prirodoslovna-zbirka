@@ -16,7 +16,7 @@ text. The web app stores that URL on the entity (e.g. `Exponat.mainImage`).
 | -------- | ------- | ----- |
 | `POST /blobs/:directory` | `image/*` | 10 MB |
 | `POST /blobs/pdf/:directory` | `application/pdf` | 100 MB |
-| `POST /blobs/audio/:directory/:name` | `audio/*`, only as `audio-<dir>/<id>-<12 hex>`, never replacing a file | 100 MB |
+| `POST /blobs/audio/:directory/:name` | `audio/*`, only as `audio-<dir>/<id>-<12 hex>`, never replacing a file; needs the internal key | 100 MB |
 | `POST /blobs/model/:directory` | any type (3D models) | 200 MB |
 | `POST /blobs/video/:directory` | `video/mp4` | 200 MB |
 | `GET /blobs/audio/:directory/:name` | — | URL of an existing recording, or `404` |
@@ -93,9 +93,11 @@ recording `<id>-<sha1(text) first 12 chars>` under `audio-<directory>`. It
 first asks `GET /blobs/audio/...`; only if that 404s does it synthesise and
 upload. Editing the text changes the hash, so a fresh recording is made.
 
-The audio upload is the one unauthenticated upload: the web server makes it
-while rendering a page for any visitor, so there is no user token to send.
-To keep it from being a general-purpose upload, it only accepts directories
-named `audio-…` and names ending in a 12-character hex hash, and answers
-`409` instead of replacing an existing recording. See
+The web server makes the audio upload while rendering a page for any
+visitor, so there is no user token to send. It sends `INTERNAL_API_KEY` in
+the `x-internal-key` header instead (`InternalKeyGuard`); the key stays on
+the server, so browsers cannot store recordings, and without it configured
+the API refuses every audio upload. The endpoint also only accepts
+directories named `audio-…` and names ending in a 12-character hex hash, and
+answers `409` instead of replacing an existing recording. See
 [AI and speech](/docs/features/ai-and-speech/).
