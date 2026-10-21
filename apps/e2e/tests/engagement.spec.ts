@@ -16,18 +16,18 @@ test.describe("favourites", () => {
 
     await page.goto("/discover?kind=exponat");
     const card = page.locator('[class*="ExponatCard_container"]', { hasText: "Granit" });
-    await card.getByTitle("like").click();
+    await card.getByTitle("Favorit").click();
     await expect
       .poll(() => prisma.favouriteExponat.count({ where: { userId: user.id, ExponatId: exponat.id } }))
       .toBe(1);
 
     await page.reload();
     await expect(
-      page.locator('[class*="ExponatCard_container"]', { hasText: "Granit" }).getByTitle("like"),
+      page.locator('[class*="ExponatCard_container"]', { hasText: "Granit" }).getByTitle("Favorit"),
     ).toHaveClass(/favourite/);
 
     // toggling again removes it
-    await page.locator('[class*="ExponatCard_container"]', { hasText: "Granit" }).getByTitle("like").click();
+    await page.locator('[class*="ExponatCard_container"]', { hasText: "Granit" }).getByTitle("Favorit").click();
     await expect
       .poll(() => prisma.favouriteExponat.count())
       .toBe(0);
@@ -38,7 +38,7 @@ test.describe("favourites", () => {
     await createExponat(org.id, { name: "Bazalt" });
     await page.goto("/discover?kind=exponat");
     await expect(page.getByRole("link", { name: "Bazalt" })).toBeVisible();
-    await expect(page.getByTitle("like")).toHaveCount(0);
+    await expect(page.getByTitle("Favorit")).toHaveCount(0);
   });
 });
 
@@ -53,7 +53,7 @@ test.describe("likes", () => {
 
     await page.goto("/discover?kind=post");
     const card = page.locator('[class*="PostCard_container"]', { hasText: "Priča o kvarcu" });
-    await card.getByTitle("like").click();
+    await card.getByTitle("Lajk").click();
     await expect
       .poll(() => prisma.like.count({ where: { userId: reader.id, postId: post.id } }))
       .toBe(1);
@@ -70,8 +70,8 @@ test.describe("following", () => {
     await loginAs(page, ana);
 
     await page.goto(`/user/${ivo.id}`);
-    await page.getByTitle("follow user").click();
-    await expect(page.getByTitle("follow user")).toHaveText("Prestani pratiti");
+    await page.getByTitle("Zaprati").click();
+    await expect(page.getByTitle("Zaprati")).toHaveText("Prestani pratiti");
     await expect
       .poll(() => prisma.userFollows.count({ where: { followerId: ana.id, followeeId: ivo.id } }))
       .toBe(1);
@@ -103,8 +103,8 @@ test.describe("following", () => {
     await prisma.userFollows.create({ data: { followerId: ana.id, followeeId: ivo.id } });
     await loginAs(page, ana);
     await page.goto(`/user/${ivo.id}`);
-    await expect(page.getByTitle("follow user")).toHaveText("Prestani pratiti");
-    await page.getByTitle("follow user").click();
+    await expect(page.getByTitle("Zaprati")).toHaveText("Prestani pratiti");
+    await page.getByTitle("Zaprati").click();
     await expect.poll(() => prisma.userFollows.count()).toBe(0);
   });
 });
@@ -120,7 +120,7 @@ test.describe("notifications", () => {
     const other = await browser.newPage();
     await loginAs(other, ana);
     await other.goto(`/user/${ivo.id}`);
-    await other.getByTitle("follow user").click();
+    await other.getByTitle("Zaprati").click();
 
     // pushed over the server-sent events stream
     await expect(page.locator('button[title="notifications"]')).toContainText("1", { timeout: 15_000 });

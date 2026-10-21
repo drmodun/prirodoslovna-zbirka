@@ -34,6 +34,7 @@ export const createUser = (
     lastName: string;
     role: "USER" | "ADMIN" | "SUPER";
     isActivated: boolean;
+    language: "EN" | "HR";
   }> = {},
 ) => {
   const id = tag();
@@ -46,6 +47,8 @@ export const createUser = (
       location: "GRAD_ZAGREB",
       password: PASSWORD_HASH,
       isActivated: true,
+      // A saved language wins over the cookie once the user is logged in.
+      language: "HR",
       ...over,
     },
   });

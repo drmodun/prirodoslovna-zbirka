@@ -16,7 +16,7 @@ test.describe("creating an organisation", () => {
 
     await page.goto("/createOrganisation");
     await page.getByPlaceholder("Naziv organizacije").fill("Prirodoslovni muzej Split");
-    await page.getByPlaceholder("Description").fill("Zbirka minerala i fosila");
+    await page.getByPlaceholder("Opis").fill("Zbirka minerala i fosila");
     await page.getByPlaceholder("Poveznica na web stranicu").fill("https://pms.example.hr");
     await page.getByPlaceholder("Adresa e-pošte").fill("info@pms.example.hr");
     await page.getByRole("combobox").selectOption("SPLITSKO_DALMATINSKA");
@@ -46,7 +46,7 @@ test.describe("creating an organisation", () => {
     await loginAs(page, user);
     await page.goto("/createOrganisation");
     await page.getByPlaceholder("Naziv organizacije").fill("Muzej s logom");
-    await page.getByPlaceholder("Description").fill("Opis organizacije");
+    await page.getByPlaceholder("Opis").fill("Opis organizacije");
     await page.getByPlaceholder("Poveznica na web stranicu").fill("https://logo.example.hr");
     await page.getByPlaceholder("Adresa e-pošte").fill("logo@example.hr");
     await page.locator('input[type="file"]').setInputFiles(LOGO);
@@ -66,7 +66,7 @@ test.describe("creating an organisation", () => {
     await page.getByPlaceholder("Adresa e-pošte").fill("nope");
     await page.getByPlaceholder("Poveznica na web stranicu").fill("not a url");
     await page.getByRole("button", { name: "Stvori organizaciju" }).click();
-    await expect(page.getByText("Ime more imati najmanje 2 slova")).toBeVisible();
+    await expect(page.getByText("Ime mora imati najmanje 2 slova")).toBeVisible();
     await expect(page.getByText("Adresa e-pošte nije pravilnog formata")).toBeVisible();
     await expect(page.getByText("Poveznica nije pravilnog formata")).toBeVisible();
     expect(await prisma.organisation.count()).toBe(0);
@@ -114,13 +114,13 @@ test.describe("organisation page", () => {
 
     await loginAs(page, owner);
     await page.goto(`/organisation/${org.id}`);
-    await expect(page.getByRole("button", { name: "Edit" })).toBeVisible();
+    await expect(page.getByRole("button", { name: "Uredi" })).toBeVisible();
 
     const other = await browser.newPage();
     await loginAs(other, stranger);
     await other.goto(`/organisation/${org.id}`);
     await expect(other.getByRole("button", { name: "Početna" })).toBeVisible();
-    await expect(other.getByRole("button", { name: "Edit" })).toHaveCount(0);
+    await expect(other.getByRole("button", { name: "Uredi" })).toHaveCount(0);
     await other.close();
   });
 
@@ -131,11 +131,11 @@ test.describe("organisation page", () => {
     ]);
     await loginAs(page, owner);
     await page.goto(`/organisation/${org.id}`);
-    await page.getByRole("button", { name: "Edit" }).click();
+    await page.getByRole("button", { name: "Uredi" }).click();
     const name = page.getByPlaceholder("Naziv organizacije");
     await expect(name).toHaveValue("Staro ime muzeja");
     await name.fill("Novo ime muzeja");
-    await page.getByRole("button", { name: "Uredi" }).click();
+    await page.getByRole("button", { name: "Spremi promjene" }).click();
     await expect
       .poll(async () => (await prisma.organisation.findUniqueOrThrow({ where: { id: org.id } })).name)
       .toBe("Novo ime muzeja");

@@ -28,7 +28,8 @@ test.describe("registration and activation", () => {
 
     // the account exists but cannot be used before it is activated
     const created = await prisma.user.findUniqueOrThrow({ where: { email: NEW_USER.email } });
-    expect(created).toMatchObject({ isActivated: false, role: "USER", location: "ZAGREBACKA" });
+    // registered in the Croatian interface, so that becomes the preference
+    expect(created).toMatchObject({ isActivated: false, role: "USER", location: "ZAGREBACKA", language: "HR" });
     expect(created.password).not.toBe(PASSWORD);
 
     // the link from the activation e-mail
@@ -87,7 +88,7 @@ test.describe("signing in", () => {
     await page.getByPlaceholder("Adresa e-pošte").fill(user.email);
     await page.getByPlaceholder("Lozinka").fill("Wrong!Passw0rd");
     await page.getByRole("button", { name: "Prijavite se" }).click();
-    await expect(page.getByText("Invalid credentials")).toBeVisible();
+    await expect(page.getByText("Neispravni podaci za prijavu")).toBeVisible();
     expect(await page.evaluate(() => localStorage.getItem("access_token"))).toBeNull();
     await expect(page).toHaveURL(/\/login$/);
   });
@@ -98,7 +99,7 @@ test.describe("signing in", () => {
     await page.getByPlaceholder("Adresa e-pošte").fill(user.email);
     await page.getByPlaceholder("Lozinka").fill(PASSWORD);
     await page.getByRole("button", { name: "Prijavite se" }).click();
-    await expect(page.getByText("User not found")).toBeVisible();
+    await expect(page.getByText("Korisnik nije pronađen")).toBeVisible();
   });
 
   test("a signed in user sees their name in the menu and can sign out", async ({ page }) => {
@@ -118,7 +119,7 @@ test.describe("signing in", () => {
 
   test("the menu button has an accessible name", async ({ page }) => {
     await page.goto("/discover");
-    await expect(page.getByRole("button", { name: /menu/i })).toBeVisible();
+    await expect(page.getByRole("button", { name: /izbornik/i })).toBeVisible();
   });
 
   test("a visitor who is not signed in is told to sign in before creating an organisation", async ({
@@ -146,7 +147,7 @@ test.describe("password reset", () => {
     await page.getByPlaceholder("Adresa e-pošte").fill(user.email);
     await page.getByPlaceholder("Lozinka").fill(PASSWORD);
     await page.getByRole("button", { name: "Prijavite se" }).click();
-    await expect(page.getByText("Invalid credentials")).toBeVisible();
+    await expect(page.getByText("Neispravni podaci za prijavu")).toBeVisible();
 
     await page.getByPlaceholder("Lozinka").fill(NEW_PASSWORD);
     await page.getByRole("button", { name: "Prijavite se" }).click();
@@ -159,6 +160,6 @@ test.describe("password reset", () => {
     await page.getByPlaceholder("Nova lozinka").fill("N3w!Passw0rd-xyz");
     await page.getByPlaceholder("Potvrdi lozinku").fill("Different1!Pass");
     await page.getByRole("button", { name: "Resetiraj lozinku" }).click();
-    await expect(page.getByText("Lozinke se ne poklapaju")).toBeVisible();
+    await expect(page.getByText("Lozinke se ne podudaraju")).toBeVisible();
   });
 });

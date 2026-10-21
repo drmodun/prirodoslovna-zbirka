@@ -33,6 +33,23 @@ export default defineConfig({
     screenshot: "only-on-failure",
     video: "off",
     locale: "hr-HR",
+    // The app defaults to English; the flows are written against the
+    // Croatian interface (language.spec.ts covers switching).
+    storageState: {
+      cookies: [
+        {
+          name: "NEXT_LOCALE",
+          value: "hr",
+          domain: new URL(WEB_URL).hostname,
+          path: "/",
+          expires: -1,
+          httpOnly: false,
+          secure: false,
+          sameSite: "Lax",
+        },
+      ],
+      origins: [],
+    },
     // Optional: drive a browser that runs elsewhere (e.g. the Playwright
     // Docker image) when the host lacks Chromium's system libraries.
     // See TESTING.md.

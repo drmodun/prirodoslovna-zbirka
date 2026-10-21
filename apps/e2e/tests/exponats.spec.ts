@@ -15,16 +15,16 @@ const fillExponatForm = async (page: Page, name: string) => {
   await page.getByPlaceholder("Ime", { exact: true }).fill(name);
   await page.getByRole("combobox").first().selectOption("MINERAL");
   await page.getByPlaceholder("Nomenklatura").fill("SiO2 kvarc");
-  await page.getByPlaceholder("Description").fill("Tvrdi mineral koji se nalazi u stijenama");
+  await page.getByPlaceholder("Opis").fill("Tvrdi mineral koji se nalazi u stijenama");
 
   // fun facts
   await page.getByPlaceholder("Upišite vrijednost").fill("Tvrdoća 7 po Mohsu");
-  await page.getByTitle("add").first().click();
+  await page.getByTitle("Dodaj").first().click();
 
   // attributes
   await page.getByPlaceholder("Atribut", { exact: true }).fill("boja");
   await page.getByPlaceholder("Vrijednost", { exact: true }).fill("bezbojan");
-  await page.getByTitle("add").last().click();
+  await page.getByTitle("Dodaj").last().click();
 
   await page.locator('input[type="file"]').first().setInputFiles(IMAGE);
 };
@@ -36,12 +36,12 @@ const addAuthorship = async (page: Page) => {
   await dialog.getByPlaceholder("Mjesto pronalaska").fill("Papuk");
   await dialog.locator('input[type="date"]').fill("2024-05-01");
   await dialog.getByPlaceholder("Autor").fill("Ana Anić");
-  await dialog.getByPlaceholder("Identifikovao").fill("Dr. Horvat");
+  await dialog.getByPlaceholder("Identificirao").fill("Dr. Horvat");
   await dialog.getByPlaceholder("Fotograf").fill("Ivo Ivić");
   await dialog.getByPlaceholder("Naziv uređaja").fill("Canon EOS");
   await dialog.getByPlaceholder("Upišite vrijednost").fill("Hrvatski minerali, 2020.");
-  await dialog.getByTitle("add").click();
-  await dialog.getByRole("button", { name: "Submit" }).click();
+  await dialog.getByTitle("Dodaj").click();
+  await dialog.getByRole("button", { name: "Pošalji" }).click();
   await expect(dialog.getByText("Dodaj informacije o autorstvu slike")).toBeHidden();
 };
 
@@ -135,7 +135,7 @@ test.describe("adding an exponat", () => {
     await adminPage.getByRole("button", { name: "Eksponati" }).click();
     await adminPage.getByRole("button", { name: "MINERAL" }).click();
     const card = adminPage.locator('[class*="ExponatCard_container"]', { hasText: "Pirit zlato" });
-    await card.getByTitle("Toggle Approval").click();
+    await card.getByTitle("Odobri").click();
     await expect
       .poll(async () => (await prisma.exponat.findUniqueOrThrow({ where: { id: exponat.id } })).isApproved)
       .toBe(true);
@@ -158,7 +158,7 @@ test.describe("managing exponats", () => {
     await page.getByRole("button", { name: "Eksponati" }).click();
     await page.getByRole("button", { name: "MINERAL" }).click();
     const card = page.locator('[class*="ExponatCard_container"]', { hasText: "Halit" });
-    await card.getByTitle("Toggle Approval").click();
+    await card.getByTitle("Sakrij").click();
     await expect
       .poll(async () => (await prisma.exponat.findUniqueOrThrow({ where: { id: exponat.id } })).isApproved)
       .toBe(false);
@@ -168,7 +168,7 @@ test.describe("managing exponats", () => {
     await expect(visitor.getByText("Halit")).toHaveCount(0);
     await visitor.close();
 
-    await card.getByTitle("Delete Exponat").click();
+    await card.getByTitle("Makni eksponat").click();
     await expect.poll(() => prisma.exponat.count()).toBe(0);
   });
 
@@ -181,7 +181,7 @@ test.describe("managing exponats", () => {
     await page.getByRole("button", { name: "Eksponati" }).click();
     await page.getByRole("button", { name: "MINERAL" }).click();
     await expect(page.getByText("Gips").first()).toBeVisible();
-    await expect(page.getByTitle("Toggle Approval")).toHaveCount(0);
-    await expect(page.getByTitle("Delete Exponat")).toHaveCount(0);
+    await expect(page.getByTitle(/^(Odobri|Sakrij)$/)).toHaveCount(0);
+    await expect(page.getByTitle("Makni eksponat")).toHaveCount(0);
   });
 });
