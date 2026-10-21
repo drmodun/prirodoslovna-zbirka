@@ -366,8 +366,9 @@ model Notification {
   notificationImage String?
   UserNotification  UserNotification[]
   type              NotificationType
-  // Renders title and text in each reader's language; title and text keep
-  // an English copy for rows from before keys existed.
+  // Renders title and text in each reader's language. title and text keep a
+  // copy: English, or the original Croatian for the few old rows that the
+  // backfill migration could not give a key.
   messageKey        String?
   params            Json?
 }
