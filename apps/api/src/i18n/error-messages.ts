@@ -26,6 +26,18 @@ const EXACT: Record<string, string> = {
   'This action needs a login, not an API token':
     'Za ovu radnju se morate prijaviti, API token nije dovoljan',
   'API token not found': 'API token nije pronađen',
+  // Quizzes on Vansy
+  'Vansy is not configured': 'Vansy nije postavljen',
+  'Vansy could not be reached': 'Vansy nije dostupan',
+  'Vansy failed to answer': 'Vansy nije odgovorio',
+  'You cannot moderate this organisation':
+    'Ne možete moderirati ovu organizaciju',
+  'This quiz needs a sign-in': 'Za ovaj kviz morate biti prijavljeni',
+  'Quiz not found': 'Kviz nije pronađen',
+  'Missing Vansy-Signature': 'Nedostaje potpis Vansyja',
+  'Invalid Vansy-Signature': 'Potpis Vansyja nije ispravan',
+  'The body does not match its signature': 'Sadržaj ne odgovara potpisu',
+  'The event does not match its signature': 'Događaj ne odgovara potpisu',
   // Organisations and members
   'Already a member': 'Već ste član',
   'Member not found': 'Član nije pronađen',

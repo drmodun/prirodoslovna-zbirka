@@ -27,6 +27,7 @@ import { EventEmitterModule } from '@nestjs/event-emitter';
 import { NotificationBusModule } from './notification-bus/notification-bus.module';
 import { AuthorshipInfoModule } from './authorship-info/authorship-info.module';
 import { QuizzesModule } from './quizzes/quizzes.module';
+import { VansyModule } from './vansy/vansy.module';
 import { QuestionsModule } from './questions/questions.module';
 import { AttemptsModule } from './attempts/attempts.module';
 
@@ -60,6 +61,7 @@ import { AttemptsModule } from './attempts/attempts.module';
     NotificationBusModule,
     AuthorshipInfoModule,
     QuizzesModule,
+    VansyModule,
     QuestionsModule,
     AttemptsModule,
   ],

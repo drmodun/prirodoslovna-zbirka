@@ -4,7 +4,8 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { configureApp } from './app.setup';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  // The raw body is kept for verifying signed webhooks (Vansy).
+  const app = await NestFactory.create(AppModule, { rawBody: true });
   configureApp(app);
   app.enableCors();
   const config = new DocumentBuilder()

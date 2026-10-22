@@ -17,6 +17,10 @@ export interface EnvironmentVariables {
   API_PUBLIC_URL?: string;
   UPLOAD_DIR?: string;
   INTERNAL_API_KEY?: string;
+  VANSY_URL?: string;
+  VANSY_TENANT_ID?: string;
+  VANSY_PRIVATE_KEY?: string;
+  VANSY_PUBLIC_KEY?: string;
 }
 
 const optional = Joi.string().allow('').optional();
@@ -38,4 +42,9 @@ export const validationSchemaForEnv = Joi.object<EnvironmentVariables, true>({
   API_PUBLIC_URL: optional,
   UPLOAD_DIR: optional,
   INTERNAL_API_KEY: optional,
+  // Vansy, the exam platform: off unless VANSY_URL and VANSY_PRIVATE_KEY are set
+  VANSY_URL: Joi.string().uri().allow('').optional(),
+  VANSY_TENANT_ID: optional,
+  VANSY_PRIVATE_KEY: optional,
+  VANSY_PUBLIC_KEY: optional,
 });
