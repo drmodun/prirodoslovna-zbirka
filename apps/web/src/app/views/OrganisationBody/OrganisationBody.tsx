@@ -11,6 +11,7 @@ import OrganisationHero from "components/OrganisationHero";
 import OrganisationExponatsView from "../OrganisationExponatsView";
 import OrganisationHomepage from "../OrganisationHomepage";
 import OrganisationAbout from "../OrganisationAbout";
+import OrganisationQuizzes from "../OrganisationQuizzes";
 import CardCollection from "components/CardCollection";
 import useUser from "@/utility/context/UserContext";
 import { api } from "@/api/shared";
@@ -38,6 +39,7 @@ const tabs = [
   "Objave",
   "Članovi",
   "Radovi",
+  "Kvizovi",
 ];
 
 // Labels are Sort message keys.
@@ -139,6 +141,23 @@ const TabPanel = ({ activeTab, organisation, works }: TabPanelProps) => {
           />
         </UserWrapper>
       );
+    case "Kvizovi": {
+      const isAdmin =
+        isSuperRole(user?.role) ||
+        memberships.some(
+          (x) =>
+            x.id === organisation.id &&
+            (x.role === "ADMIN" || x.role === "OWNER"),
+        );
+      return (
+        <OrganisationQuizzes
+          organisationId={organisation.id}
+          isAdmin={isAdmin}
+          canModerate={isAdmin || isModeratorRole(user?.role)}
+          isLoggedIn={!!user}
+        />
+      );
+    }
     default:
       return null;
   }

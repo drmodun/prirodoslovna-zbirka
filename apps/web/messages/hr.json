@@ -700,7 +700,8 @@
     "about": "O korisniku",
     "creations": "Kreacije",
     "reactions": "Reakcije",
-    "memberships": "Članstva"
+    "memberships": "Članstva",
+    "quizzes": "Kvizovi"
   },
   "Sort": {
     "alphabetical": "Abecedno",
@@ -849,5 +850,28 @@
     "share": "Podijeli rad",
     "document": "Dokument projekta",
     "presentation": "Prezentacija projekta"
+  },
+  "OrganisationQuizzes": {
+    "author": "Uredi kvizove u Vansyju",
+    "review": "Odobravanje i pregled",
+    "take": "Riješi kviz",
+    "proctor": "Nadziri",
+    "questions": "{count, plural, one {# pitanje} few {# pitanja} other {# pitanja}}",
+    "minutes": "{count} min",
+    "empty": "Ova organizacija još nema kvizova.",
+    "unavailable": "Kvizovi trenutno nisu dostupni.",
+    "loginToTake": "Prijavite se da biste riješili ovaj kviz.",
+    "launchFailed": "Kviz se nije mogao otvoriti.",
+    "state": {
+      "DRAFT": "Skica",
+      "PENDING_REVIEW": "Čeka odobrenje",
+      "PUBLISHED": "Objavljeno",
+      "REJECTED": "Odbijeno"
+    },
+    "difficulty": {
+      "EASY": "Lako",
+      "MEDIUM": "Srednje",
+      "HARD": "Teško"
+    }
   }
 }

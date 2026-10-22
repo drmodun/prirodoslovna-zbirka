@@ -24,6 +24,7 @@ const TAB_MESSAGE_KEYS: Record<string, string> = {
   Reakcije: "reactions",
   Članstva: "memberships",
   Uredi: "edit",
+  Kvizovi: "quizzes",
 };
 
 export const useTabLabel = () => {

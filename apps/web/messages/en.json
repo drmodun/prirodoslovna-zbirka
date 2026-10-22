@@ -700,7 +700,8 @@
     "about": "About",
     "creations": "Creations",
     "reactions": "Reactions",
-    "memberships": "Memberships"
+    "memberships": "Memberships",
+    "quizzes": "Quizzes"
   },
   "Sort": {
     "alphabetical": "Alphabetical",
@@ -849,5 +850,28 @@
     "share": "Share the work",
     "document": "Work document",
     "presentation": "Work presentation"
+  },
+  "OrganisationQuizzes": {
+    "author": "Write quizzes in Vansy",
+    "review": "Approval and review",
+    "take": "Take the quiz",
+    "proctor": "Proctor",
+    "questions": "{count, plural, one {# question} other {# questions}}",
+    "minutes": "{count} min",
+    "empty": "This organisation has no quizzes yet.",
+    "unavailable": "Quizzes are not available right now.",
+    "loginToTake": "Log in to take this quiz.",
+    "launchFailed": "The quiz could not be opened.",
+    "state": {
+      "DRAFT": "Draft",
+      "PENDING_REVIEW": "Waiting for approval",
+      "PUBLISHED": "Published",
+      "REJECTED": "Rejected"
+    },
+    "difficulty": {
+      "EASY": "Easy",
+      "MEDIUM": "Medium",
+      "HARD": "Hard"
+    }
   }
 }
