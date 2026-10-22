@@ -1,6 +1,7 @@
 // @ts-check
 import { defineConfig } from "astro/config";
 import starlight from "@astrojs/starlight";
+import { docsBaseLinks } from "./docs-base-links.mjs";
 
 // Where the docs are mounted depends on where they run:
 //   - behind the stack's proxy (local, docker dev, docker prod): /docs
@@ -33,6 +34,7 @@ export default defineConfig({
   base,
   trailingSlash: "ignore",
   integrations: [
+    docsBaseLinks({ base }),
     starlight({
       title: "Biosfera",
       description:
