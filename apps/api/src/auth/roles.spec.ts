@@ -1,5 +1,10 @@
 import { Role } from '@prisma/client';
-import { isModerator, isModeratorRole, isSuperUser } from './roles';
+import {
+  isModerator,
+  isModeratorRole,
+  isSuperUser,
+  toTokenRole,
+} from './roles';
 
 describe('platform roles', () => {
   it.each([
@@ -20,5 +25,15 @@ describe('platform roles', () => {
     [undefined, false],
   ])('isModeratorRole(%s) = %s', (role, expected) => {
     expect(isModeratorRole(role)).toBe(expected);
+  });
+});
+
+describe('toTokenRole', () => {
+  it.each([
+    [Role.SUPER, 'super'],
+    [Role.ADMIN, 'admin'],
+    [Role.USER, 'user'],
+  ])('%s -> %s', (role, tokenRole) => {
+    expect(toTokenRole(role)).toBe(tokenRole);
   });
 });

@@ -28,7 +28,11 @@ build bakes the API address in, so re-run `build:stack` after changing ports.
 - `support/fixtures.ts`: `test` with an automatic clean database, and
   `loginAs(page, user)`, which logs in through the API and stores the JWT where
   the app expects it (the way a sign-in does), once per tab.
-- `tests/`: `auth`, `discovery`, `organisations`, `exponats`, `engagement`.
+- `tests/`: `auth`, `discovery`, `organisations`, `exponats`, `engagement`,
+  `language` and `api-tokens` (personal access tokens: creating, expiry
+  choices and the never-expires warning, using a token on the API, scopes,
+  session-only actions, revoking, the 10-token limit, the rate limit and its
+  notifications, and the revoke prompt after a password reset).
 
 ## Browser on a machine without Chromium's system libraries
 

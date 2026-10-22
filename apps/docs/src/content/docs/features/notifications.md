@@ -85,9 +85,10 @@ one follows its `link`.
 | `POST_APPROVAL` | The post's author | Approval toggled |
 | `POST_BY_FOLLOWED_ACCOUNT` | The author's followers | A post is published |
 | `NEW_SOCIAL_POST` | The organisation's followers | A social post is created |
+| `OTHER` | The token's user | An [API token](/docs/features/api-tokens/#rate-limit-and-notifications) made 80% or all of the requests it may make in a minute (at most once a day each) |
 
-`EXPONAT_APPROVAL`, `WORK_BY_FOLLOWED_ORGANISATION`, `NEW_WORK_REQUEST`,
-`POINT_MILESTONE` and `OTHER` exist in the enum but nothing sends them yet.
+`EXPONAT_APPROVAL`, `WORK_BY_FOLLOWED_ORGANISATION`, `NEW_WORK_REQUEST` and
+`POINT_MILESTONE` exist in the enum but nothing sends them yet.
 
 Each notification is stored as a `messageKey` (such as `newFollower`) and
 its `params` (`{ username }`). `src/notifications/notification-messages.ts`

@@ -50,6 +50,12 @@ describe('translateErrorMessage', () => {
         'HR',
       ),
     ).toBe('firstName mora imati barem 2 znakova');
+    expect(
+      translateErrorMessage('You can have at most 10 active API tokens', 'HR'),
+    ).toBe('Možete imati najviše 10 aktivnih API tokena');
+    expect(
+      translateErrorMessage('expiresInDays must not be greater than 365', 'HR'),
+    ).toBe('expiresInDays ne smije biti veće od 365');
   });
 
   it('keeps unknown messages as they are', () => {

@@ -11,7 +11,12 @@ async function bootstrap() {
     .setTitle('Biosfera API')
     .setDescription('Api za aplikaciju biosfere')
     .setVersion('0.1')
-    .addBearerAuth()
+    .addBearerAuth({
+      type: 'http',
+      scheme: 'bearer',
+      description:
+        'A login token from POST /auth/login (JWT, 24 hours) or a personal access token (bsf_…) from POST /auth/tokens. Tokens are refused where a login is required (managing tokens, deleting the account).',
+    })
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);

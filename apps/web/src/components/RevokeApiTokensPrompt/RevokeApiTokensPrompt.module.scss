@@ -1,0 +1,29 @@
+@import "styles/variables.scss";
+@import "styles/calc.scss";
+
+.revokeButton {
+  width: 100%;
+  height: vw-calc(50);
+  border-radius: vw-calc(8);
+  border: none;
+  background-color: $red;
+  color: $button-text-color;
+  font-size: vw-calc(20);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  @media (max-width: 768px) {
+    height: vw-mobile-calc(40);
+    font-size: vw-mobile-calc(16);
+  }
+
+  &:hover {
+    background-color: $dark-red;
+  }
+
+  &:disabled {
+    background-color: $secondary;
+    cursor: not-allowed;
+  }
+}

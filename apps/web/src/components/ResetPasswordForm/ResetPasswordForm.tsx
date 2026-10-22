@@ -1,4 +1,6 @@
-import { useResetPassword } from "@/api/useResetPassword";
+import { afterPasswordReset, useResetPassword } from "@/api/useResetPassword";
+import RevokeApiTokensPrompt from "components/RevokeApiTokensPrompt";
+import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import BaseButton from "components/BaseButton";
 import Input from "components/Input";
@@ -32,13 +34,25 @@ export const ResetPaswordForm: React.FC<ResetPaswordFormProps> = ({ code }) => {
   });
 
   const { mutateAsync } = useResetPassword();
+  // Active API tokens the reset kept, to ask about.
+  const [keptTokens, setKeptTokens] = useState(0);
 
   const onSubmit = async (data: any) => {
-    await mutateAsync({ userActivationCode: code, newPassword: data.password });
+    const result = await mutateAsync({
+      userActivationCode: code,
+      newPassword: data.password,
+    });
+    if (result?.activeApiTokens) setKeptTokens(result.activeApiTokens);
   };
 
   return (
     <form className={classes.form} onSubmit={form.handleSubmit(onSubmit)}>
+      {keptTokens > 0 && (
+        <RevokeApiTokensPrompt
+          count={keptTokens}
+          onDone={() => afterPasswordReset(true)}
+        />
+      )}
       <Input
         form={form}
         attribute="password"

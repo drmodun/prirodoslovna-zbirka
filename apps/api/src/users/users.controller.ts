@@ -48,11 +48,17 @@ import { JwtAuthGuard } from 'src/auth/jwt-auth-guard';
 import { OptionalJwtAuthGuard } from 'src/auth/optional-jwt-auth-guard';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { isModerator, isSuperUser } from 'src/auth/roles';
+import { SessionOnly } from 'src/auth/session-only';
+import { signLoginToken } from 'src/auth/login-token';
+import { JwtService } from '@nestjs/jwt';
 
 @Controller('users')
 @ApiTags('users')
 export class UsersController {
-  constructor(private readonly usersService: UsersService) {}
+  constructor(
+    private readonly usersService: UsersService,
+    private readonly jwtService: JwtService,
+  ) {}
 
   @Post()
   async create(@Body() registerUserDto: RegisterUserDto) {
@@ -284,8 +290,7 @@ export class UsersController {
     }
   }
 
-  @UseGuards(JwtAuthGuard)
-  @ApiBearerAuth()
+  @SessionOnly()
   @Delete()
   async remove(@Req() req: any) {
     return (await this.usersService.remove(req.user.id)) !== null;
@@ -359,8 +364,7 @@ export class UsersController {
     return (await this.usersService.update(id, updateUserDto)) !== null;
   }
 
-  @UseGuards(JwtAuthGuard)
-  @ApiBearerAuth()
+  @SessionOnly()
   @Delete(':id')
   async adminDelete(@Param('id') id: string, @Req() req: any) {
     if (!isSuperUser(req.user)) {
@@ -417,6 +421,18 @@ export class UsersController {
     @Param('token') token: string,
     @Body() { newPassword }: ResetPasswordDto,
   ) {
-    await this.usersService.resetPassword(token, newPassword);
+    const user = await this.usersService.resetPassword(token, newPassword);
+
+    // Having the e-mail and the new password, the user is logged in straight
+    // away, so the web app can ask whether to revoke their API tokens (a
+    // reset keeps them). Accounts that cannot log in yet get no login.
+    return {
+      access_token: user.isActivated
+        ? signLoginToken(this.jwtService, user)
+        : null,
+      activeApiTokens: user.isActivated
+        ? await this.usersService.countActiveApiTokens(user.id)
+        : 0,
+    };
   }
 }

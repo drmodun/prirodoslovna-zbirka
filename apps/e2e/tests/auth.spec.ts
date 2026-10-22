@@ -133,7 +133,7 @@ test.describe("signing in", () => {
 });
 
 test.describe("password reset", () => {
-  test("the link from the reset e-mail lets the user choose a new password", async ({ page }) => {
+  test("the link from the reset e-mail lets the user choose a new password and logs them in", async ({ page }) => {
     const user = await createUser();
     const NEW_PASSWORD = "N3w!Passw0rd-xyz";
     const token = await createPasswordResetToken(user.id);
@@ -142,8 +142,12 @@ test.describe("password reset", () => {
     await page.getByPlaceholder("Nova lozinka").fill(NEW_PASSWORD);
     await page.getByPlaceholder("Potvrdi lozinku").fill(NEW_PASSWORD);
     await page.getByRole("button", { name: "Resetiraj lozinku" }).click();
-    await page.waitForURL("**/login", { timeout: 15_000 });
+    // the reset logs the user in
+    await page.waitForURL("**/discover", { timeout: 15_000 });
+    expect(await page.evaluate(() => localStorage.getItem("access_token"))).toBeTruthy();
 
+    await page.evaluate(() => localStorage.clear());
+    await page.goto("/login");
     await page.getByPlaceholder("Adresa e-pošte").fill(user.email);
     await page.getByPlaceholder("Lozinka").fill(PASSWORD);
     await page.getByRole("button", { name: "Prijavite se" }).click();

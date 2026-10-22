@@ -160,6 +160,30 @@ export const NOTIFICATION_MESSAGES = {
       text: (p) => `Nova najava organizacije ${p.organisation}: ${p.title}`,
     },
   },
+  apiTokenRateLimitWarning: {
+    EN: {
+      title: (p) => `API token ${p.name} is close to its rate limit`,
+      text: (p) =>
+        `Your API token ${p.name} made ${p.used} of the ${p.limit} requests it may make in a minute.`,
+    },
+    HR: {
+      title: (p) => `API token ${p.name} se približava ograničenju`,
+      text: (p) =>
+        `Vaš API token ${p.name} poslao je ${p.used} od ${p.limit} zahtjeva koje smije poslati u minuti.`,
+    },
+  },
+  apiTokenRateLimitReached: {
+    EN: {
+      title: (p) => `API token ${p.name} reached its rate limit`,
+      text: (p) =>
+        `Your API token ${p.name} made all ${p.limit} requests it may make in a minute. Further requests in that minute were refused.`,
+    },
+    HR: {
+      title: (p) => `API token ${p.name} dosegnuo je ograničenje`,
+      text: (p) =>
+        `Vaš API token ${p.name} poslao je svih ${p.limit} zahtjeva koje smije poslati u minuti. Daljnji zahtjevi u toj minuti su odbijeni.`,
+    },
+  },
 } satisfies Record<string, Record<Language, Message>>;
 
 export type NotificationMessageKey = keyof typeof NOTIFICATION_MESSAGES;

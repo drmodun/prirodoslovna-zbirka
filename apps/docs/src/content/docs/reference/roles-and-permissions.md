@@ -23,6 +23,11 @@ Permissions combine two independent roles.
 "Platform moderators" below means `SUPER` and `ADMIN`. The helpers are in
 `src/auth/roles.ts` (`isSuperUser`, `isModerator`, `isModeratorRole`).
 
+A [personal access token](/docs/features/api-tokens/) acts as its user with
+the user's **current** platform role, and can only narrow it: a read-only
+token passes `GET` and `HEAD` requests only, and no token can manage tokens or
+delete accounts.
+
 **Organisation role** (`OrganisationUser.role`, per organisation):
 `REQUESTED` → `MEMBER` → `ADMIN` → `OWNER`. See
 [Organisations and membership](/docs/features/organisations/#roles).
@@ -70,7 +75,8 @@ through your own organisation's URL answer `404`.
 | Edit / delete a categorization | Platform moderators |
 | Upload images, PDFs, models, videos | Any logged-in user |
 | Listen to a notification stream | Only its own user |
-| Edit / delete any user | Super users |
+| Edit / delete any user | Super users (deleting needs a login, not an API token) |
+| Create, list, revoke API tokens | Their user, with a login |
 
 ## Visibility of unapproved content
 

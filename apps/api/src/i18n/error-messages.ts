@@ -17,6 +17,15 @@ const EXACT: Record<string, string> = {
   'Password is required': 'Lozinka je obavezna',
   'Reset link is invalid or has expired':
     'Poveznica za resetiranje nije ispravna ili je istekla',
+  // API tokens
+  'Invalid, expired or revoked API token':
+    'API token nije ispravan, istekao je ili je opozvan',
+  'Too many requests with this API token':
+    'Previše zahtjeva s ovim API tokenom',
+  'This token is read-only': 'Ovaj token smije samo čitati',
+  'This action needs a login, not an API token':
+    'Za ovu radnju se morate prijaviti, API token nije dovoljan',
+  'API token not found': 'API token nije pronađen',
   // Organisations and members
   'Already a member': 'Već ste član',
   'Member not found': 'Član nije pronađen',
@@ -98,12 +107,33 @@ const PATTERNS: [RegExp, (...groups: string[]) => string][] = [
     (p) => `Neispravno svojstvo filtra: ${p}`,
   ],
   [/^Invalid filter rule: (.+)$/, (r) => `Neispravno pravilo filtra: ${r}`],
+  [
+    /^You can have at most (\d+) active API tokens$/,
+    (n) => `Možete imati najviše ${n} aktivnih API tokena`,
+  ],
   [/^Validation failed \((.+)\)$/, (d) => `Provjera nije uspjela (${d})`],
   [/^(\S+) must be an email$/, (f) => `${f} mora biti ispravna e-mail adresa`],
   [/^(\S+) should not be empty$/, (f) => `${f} ne smije biti prazno`],
   [/^(\S+) must be a string$/, (f) => `${f} mora biti tekst`],
   [/^(\S+) must be a boolean value$/, (f) => `${f} mora biti da ili ne`],
   [/^(\S+) must be a number.*$/, (f) => `${f} mora biti broj`],
+  [/^(\S+) must be an integer number$/, (f) => `${f} mora biti cijeli broj`],
+  [
+    /^(\S+) must not be less than (\S+)$/,
+    (f, n) => `${f} ne smije biti manje od ${n}`,
+  ],
+  [
+    /^(\S+) must not be greater than (\S+)$/,
+    (f, n) => `${f} ne smije biti veće od ${n}`,
+  ],
+  [
+    /^each value in (\S+) must be one of the following values: (.+)$/,
+    (f, v) => `svaka vrijednost u ${f} mora biti jedna od: ${v}`,
+  ],
+  [
+    /^All (\S+)'s elements must be unique$/,
+    (f) => `vrijednosti u ${f} se ne smiju ponavljati`,
+  ],
   [/^(\S+) must be a UUID$/, (f) => `${f} mora biti UUID`],
   [/^(\S+) must be an array$/, (f) => `${f} mora biti popis`],
   [

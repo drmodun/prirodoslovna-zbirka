@@ -23,6 +23,8 @@ import { useGetMe } from "./useGetMe";
 import { useGetMySavedLiterature } from "./useGetMySavedLiterature";
 import { useGetMySavedWorks } from "./useGetMySavedWorks";
 import { useGetNotifications } from "./useGetNotifications";
+import { useGetApiTokens } from "./useGetApiTokens";
+import { useGetApiTokenUsage } from "./useGetApiTokenUsage";
 
 const get = api.get as jest.Mock;
 
@@ -64,6 +66,12 @@ describe("query hooks", () => {
       "useCheckForCategorization",
       () => useCheckForCategorization("Vulpes"),
       "/categorizations/name/Vulpes",
+    ],
+    ["useGetApiTokens", () => useGetApiTokens(), "/auth/tokens"],
+    [
+      "useGetApiTokenUsage",
+      () => useGetApiTokenUsage("t1"),
+      "/auth/tokens/t1/usage",
     ],
   ])("%s requests %s", async (_n, hook, url) => {
     const { result } = renderHookWithClient(hook as () => any);

@@ -46,7 +46,8 @@ and, where needed, DTOs built from `@biosfera/types` factories.
 
 | Module | Route prefix | Responsibility |
 | ------ | ------------ | -------------- |
-| `AuthModule` | `/auth` | Login, current user |
+| `AuthModule` | `/auth` | Login, current user, the passport strategies |
+| `ApiTokensModule` | `/auth/tokens` | Personal access tokens, their usage and rate limit, see [API tokens](/docs/features/api-tokens/) |
 | `UsersModule` | `/users` | Registration, activation, password reset, profiles, profile pictures |
 | `OrganisationsModule` | `/organisations` | Organisations, discovery, join requests |
 | `MembersModule` | `/members` | Membership requests and role changes |
@@ -92,11 +93,22 @@ The full route table is in [API endpoints](/docs/reference/api-endpoints/).
   **activated** user and returns a JWT signed with `JWT_SECRET`, valid for
   24 hours. The payload is `{ id, email, role }`, with `role` lower-cased to
   `user`, `admin` or `super`.
-- `JwtAuthGuard` (passport-jwt) reads `Authorization: Bearer <token>`, checks
-  the user still exists and puts `{ id, email, role }` on `req.user`.
-- `OptionalJwtAuthGuard` tries `jwt` and falls back to `passport-anonymous`,
-  so public endpoints can still tailor their answer to a logged-in user (for
-  instance personalised discovery, or showing unapproved items to admins).
+- `JwtAuthGuard` reads `Authorization: Bearer <token>` and accepts a login
+  token (passport-jwt: checks the user still exists and puts
+  `{ id, email, role }` on `req.user`) or a
+  [personal access token](/docs/features/api-tokens/) `bsf_…` (the
+  `api-token` strategy: looks up its hash, checks expiry, revocation and that
+  the user is activated, takes the role from the user's current `role`, checks
+  the token's scope against the method and its rate limit, and adds `tokenId`
+  and `scopes` to `req.user`).
+- `OptionalJwtAuthGuard` tries `jwt` and `api-token` and falls back to
+  `passport-anonymous`, so public endpoints can still tailor their answer to a
+  logged-in user (for instance personalised discovery, or showing unapproved
+  items to admins). A bad `bsf_` token is still a `401`, not an anonymous
+  request.
+- `@SessionOnly()` (`src/auth/session-only.ts`) authenticates like
+  `JwtAuthGuard` and then refuses API tokens with `403`; it guards managing
+  tokens and deleting accounts.
 - `GET /auth/me` returns the token's user; `GET /auth/detailed` returns the
   extended profile the web app keeps in `UserContext`.
 

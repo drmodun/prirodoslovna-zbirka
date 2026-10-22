@@ -12,7 +12,11 @@ compose proxy, where `/api` is also the proxy prefix). The OpenAPI JSON is at
 
 **Auth** column:
 
-- **JWT**: `JwtAuthGuard`, a valid `Authorization: Bearer` token is required.
+- **JWT**: `JwtAuthGuard`, a valid `Authorization: Bearer` token is required:
+  a login token or a [personal access token](/docs/features/api-tokens/)
+  (`bsf_…`; read-only tokens only pass `GET` and `HEAD`).
+- **login**: `@SessionOnly()`, like **JWT** but a personal access token is
+  refused with `403`.
 - **opt.**: `OptionalJwtAuthGuard`, public, but a token changes the answer
   (personalisation, unapproved items for admins).
 - **—**: no guard. Further permission checks happen in the handler; see
@@ -29,6 +33,11 @@ Paths are relative to the API root (behind the proxy, prefix them with
 | `POST` | `/auth/login` | — | `{ email, password }` → `{ access_token }` |
 | `GET` | `/auth/me` | JWT | Token payload |
 | `GET` | `/auth/detailed` | JWT | Extended current user (memberships, likes, favourites, posts) |
+| `POST` | `/auth/tokens` | login | `{ name, scopes, expiresInDays? }` → the new token, with `token` shown only here; `expiresInDays` 1–365, left out for 90, `null` for never |
+| `GET` | `/auth/tokens` | login | Your tokens, without hash or token |
+| `DELETE` | `/auth/tokens` | login | Revoke all your active tokens → `{ revoked }` |
+| `DELETE` | `/auth/tokens/:id` | login | Revoke one of your tokens (`404` for someone else's) |
+| `GET` | `/auth/tokens/:id/usage` | login | `[{ day, requests }]` for the last 30 days |
 | `POST` | `/users` | — | Register (bio and `language` optional); sends the activation mail |
 | `GET` | `/users` | — | List / search users (no e-mail addresses) |
 | `GET` | `/users/requests` | JWT | Your pending join requests |
@@ -36,13 +45,13 @@ Paths are relative to the API root (behind the proxy, prefix them with
 | `PATCH` | `/users` | JWT | Edit yourself |
 | `PATCH` | `/users/pfp` | JWT | Upload profile picture (multipart `file`) |
 | `PATCH` | `/users/language` | JWT | `{ language: "EN" \| "HR" }`: interface language of yourself |
-| `DELETE` | `/users` | JWT | Delete yourself |
+| `DELETE` | `/users` | login | Delete yourself |
 | `PATCH` | `/users/:id` | JWT | Super: edit a user |
-| `DELETE` | `/users/:id` | JWT | Super: delete a user |
+| `DELETE` | `/users/:id` | login | Super: delete a user |
 | `GET` | `/users/:id/requests` | JWT | Super: a user's join requests |
 | `POST` | `/users/verify/:activationCode` | — | Activate account |
 | `POST` | `/users/forgot-password/:email` | — | Send a reset mail (same answer for unknown addresses) |
-| `POST` | `/users/reset-password/:token` | — | `{ newPassword }`; the token is single-use and expires after an hour |
+| `POST` | `/users/reset-password/:token` | — | `{ newPassword }` → `{ access_token, activeApiTokens }`; the token is single-use and expires after an hour; `access_token` is `null` for accounts that are not activated |
 | `POST` | `/follows/:userId` | JWT | Toggle following a user |
 | `GET` | `/follows/:userId/followers` | — | Followers |
 | `GET` | `/follows/:userId/following` | — | Following |

@@ -14,6 +14,8 @@ describe('notification messages', () => {
     organisation: 'O',
     username: 'ana',
     role: 'MEMBER',
+    used: '96',
+    limit: '120',
   };
 
   it.each(Object.keys(NOTIFICATION_MESSAGES))(

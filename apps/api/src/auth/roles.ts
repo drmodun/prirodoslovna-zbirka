@@ -9,6 +9,10 @@ import { Role } from '@prisma/client';
 //   addresses, or change organisation details, memberships or ownership.
 type TokenUser = { role?: string } | undefined | null;
 
+// The role as login and API tokens carry it.
+export const toTokenRole = (role: Role) =>
+  role === Role.SUPER ? 'super' : role === Role.ADMIN ? 'admin' : 'user';
+
 export const isSuperUser = (user: TokenUser) => user?.role === 'super';
 
 export const isModerator = (user: TokenUser) =>

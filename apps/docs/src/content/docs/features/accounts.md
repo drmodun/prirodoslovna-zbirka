@@ -45,6 +45,12 @@ password.
    The new password has to be as strong as at registration. A valid token
    sets the password and is cleared, so every link works once. Unknown,
    used and expired tokens answer `400`.
+4. The answer is `{ access_token, activeApiTokens }`: the user is logged in
+   straight away (`access_token` is `null` for an account that is not
+   activated yet, which goes to `/login` instead). A reset does **not**
+   revoke [API tokens](/docs/features/api-tokens/); if `activeApiTokens` is
+   above 0 the page asks whether to revoke them all before going on to
+   `/discover`.
 
 Unknown addresses get the same `201` as known ones and no mail is sent, so
 the endpoint does not reveal which addresses have an account. The activation

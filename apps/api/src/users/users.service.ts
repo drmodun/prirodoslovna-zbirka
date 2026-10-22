@@ -13,6 +13,7 @@ import { MemberRoleType } from 'src/members/members.dto';
 import { BlobService } from 'src/blob/blob.service';
 import { EmailService } from 'src/email/email.service';
 import { Language, User } from '@prisma/client';
+import { activeTokenWhere } from 'src/api-tokens/api-token';
 
 export const PASSWORD_RESET_TTL_MS = 60 * 60 * 1000;
 
@@ -406,6 +407,14 @@ export class UsersService {
         passwordResetToken: null,
         passwordResetExpiresAt: null,
       },
+    });
+  }
+
+  // A password reset keeps the user's API tokens; the web app offers to
+  // revoke them.
+  async countActiveApiTokens(userId: string) {
+    return await this.prisma.apiToken.count({
+      where: { userId, ...activeTokenWhere() },
     });
   }
 }

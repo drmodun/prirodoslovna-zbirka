@@ -4,6 +4,7 @@ import { fullUserItem } from 'src/test-utils/fixtures';
 
 describe('UsersController', () => {
   let svc: Record<string, jest.Mock>;
+  let jwt: { sign: jest.Mock };
   let controller: UsersController;
 
   beforeEach(() => {
@@ -19,8 +20,10 @@ describe('UsersController', () => {
       verifyUser: jest.fn(),
       sendPasswordResetEmail: jest.fn(),
       resetPassword: jest.fn(),
+      countActiveApiTokens: jest.fn(),
     };
-    controller = new UsersController(svc as any);
+    jwt = { sign: jest.fn().mockReturnValue('signed.jwt') };
+    controller = new UsersController(svc as any, jwt as any);
   });
 
   const as = (role: string, id = 'me') => ({ user: { id, role } });
@@ -205,11 +208,43 @@ describe('UsersController', () => {
 
   it('verify / forgot / reset delegate to the service', async () => {
     svc.sendPasswordResetEmail.mockResolvedValue(undefined);
+    svc.resetPassword.mockResolvedValue({ id: 'me', isActivated: false });
     await controller.verifyUser('code');
     await expect(controller.forgotPassword('a@b.c')).resolves.toBeUndefined();
     expect(svc.sendPasswordResetEmail).toHaveBeenCalledWith('a@b.c');
     await controller.resetPassword('code', { newPassword: 'pw' });
     expect(svc.verifyUser).toHaveBeenCalledWith('code');
     expect(svc.resetPassword).toHaveBeenCalledWith('code', 'pw');
+  });
+
+  describe('resetPassword', () => {
+    it('logs an activated user in and counts the API tokens it kept', async () => {
+      svc.resetPassword.mockResolvedValue({
+        id: 'me',
+        email: 'a@b.c',
+        role: 'SUPER',
+        isActivated: true,
+      });
+      svc.countActiveApiTokens.mockResolvedValue(3);
+
+      await expect(
+        controller.resetPassword('code', { newPassword: 'pw' }),
+      ).resolves.toEqual({ access_token: 'signed.jwt', activeApiTokens: 3 });
+      expect(jwt.sign).toHaveBeenCalledWith({
+        id: 'me',
+        email: 'a@b.c',
+        role: 'super',
+      });
+      expect(svc.countActiveApiTokens).toHaveBeenCalledWith('me');
+    });
+
+    it('gives an account that is not activated no login', async () => {
+      svc.resetPassword.mockResolvedValue({ id: 'me', isActivated: false });
+
+      await expect(
+        controller.resetPassword('code', { newPassword: 'pw' }),
+      ).resolves.toEqual({ access_token: null, activeApiTokens: 0 });
+      expect(jwt.sign).not.toHaveBeenCalled();
+    });
   });
 });

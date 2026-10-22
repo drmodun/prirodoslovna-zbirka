@@ -1,8 +1,8 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { Role } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { signLoginToken } from './login-token';
 
 @Injectable()
 export class AuthService {
@@ -37,19 +37,6 @@ export class AuthService {
       throw new BadRequestException('Invalid credentials');
     }
 
-    const role =
-      user.role === Role.ADMIN
-        ? 'admin'
-        : user.role === Role.SUPER
-          ? 'super'
-          : 'user';
-
-    const accessToken = this.jwtService.sign({
-      id: user.id,
-      email: user.email,
-      role: role,
-    });
-
-    return accessToken;
+    return signLoginToken(this.jwtService, user);
   }
 }

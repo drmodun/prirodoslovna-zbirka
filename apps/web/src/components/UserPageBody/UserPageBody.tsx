@@ -10,6 +10,7 @@ import { UserWrapper } from "@/utility/wrappers/userWrapper";
 import useUser from "@/utility/context/UserContext";
 import EditUserForm from "components/EditUserForm";
 import DeleteUserButton from "components/DeleteUserButton";
+import ApiTokensSection from "components/ApiTokensSection";
 import MultipleEntityTypesView from "@/views/MultipleEntityTypesView";
 import { isSuperRole } from "@/utility/static/roles";
 import { useTranslations } from "next-intl";
@@ -64,6 +65,9 @@ export const UserPageBody = ({ savedLiterature, user }: UserPageBodyProps) => {
                 isSuper={isSuperRole(loggedUser?.role)}
                 userId={user.id}
               />
+              {/* Tokens are personal: a super user editing someone else does
+                  not see theirs. */}
+              {user.id === loggedUser?.id && <ApiTokensSection />}
             </div>
           </div>
         )}

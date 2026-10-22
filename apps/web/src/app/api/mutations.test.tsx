@@ -18,6 +18,7 @@ jest.mock("./shared", () => {
 import { api, fileApi } from "./shared";
 import { useAdminDeleteUser } from "./useAdminDeleteUser";
 import { useAdminUpdateUserInfo } from "./useAdminUpdateUserInfo";
+import { useCreateApiToken } from "./useCreateApiToken";
 import { useCreateCategorization } from "./useCreateCategorization";
 import { useCreateExponat } from "./useCreateExponat";
 import { useCreateOrganisation } from "./useCreateOrganisation";
@@ -58,6 +59,8 @@ import { useUpdateUserRole } from "./useUpdateUserRole";
 import { useUpdateWork } from "./useUpdateWork";
 import { useUploadAuthorshipInfo } from "./useUploadAuthorshipInfo";
 import { useUploadProfilePicture } from "./useUploadProfilePicture";
+import { useRevokeApiToken } from "./useRevokeApiToken";
+import { useRevokeAllApiTokens } from "./useRevokeAllApiTokens";
 
 type Method = "post" | "patch" | "put" | "delete" | "patchForm";
 const http = api as unknown as Record<Method, jest.Mock>;
@@ -66,6 +69,22 @@ const http = api as unknown as Record<Method, jest.Mock>;
 const body = { any: "payload" };
 const cases: [string, () => any, unknown, Method, string, unknown?][] = [
   ["useAdminDeleteUser", useAdminDeleteUser, "u1", "delete", "/users/u1"],
+  [
+    "useCreateApiToken",
+    useCreateApiToken,
+    { name: "MCP", scopes: ["READ"], expiresInDays: null },
+    "post",
+    "/auth/tokens",
+    { name: "MCP", scopes: ["READ"], expiresInDays: null },
+  ],
+  ["useRevokeApiToken", useRevokeApiToken, "t1", "delete", "/auth/tokens/t1"],
+  [
+    "useRevokeAllApiTokens",
+    useRevokeAllApiTokens,
+    undefined,
+    "delete",
+    "/auth/tokens",
+  ],
   [
     "useAdminUpdateUserInfo",
     useAdminUpdateUserInfo,
@@ -360,18 +379,15 @@ describe("hooks that misbehave", () => {
     expect(http.delete).toHaveBeenCalledWith("/works/w1");
   });
 
-  it(
-    "useRemoveWork reports success after a successful delete",
-    async () => {
-      http.delete.mockResolvedValue({});
-      const { result } = renderHookWithClient(useRemoveWork);
-      await act(async () => {
-        await result.current.mutateAsync("w1").catch(() => {});
-      });
-      expect(toast.success).toHaveBeenCalled();
-      expect(toast.error).not.toHaveBeenCalled();
-    },
-  );
+  it("useRemoveWork reports success after a successful delete", async () => {
+    http.delete.mockResolvedValue({});
+    const { result } = renderHookWithClient(useRemoveWork);
+    await act(async () => {
+      await result.current.mutateAsync("w1").catch(() => {});
+    });
+    expect(toast.success).toHaveBeenCalled();
+    expect(toast.error).not.toHaveBeenCalled();
+  });
 
   // useCreateCategorization throws from onError instead of telling the user,
   // so a failure produces an unhandled error and no toast.
@@ -430,6 +446,37 @@ describe("quiz hooks", () => {
 });
 
 describe("hooks with special behaviour", () => {
+  describe("useResetPassword", () => {
+    const reset = async (response: unknown) => {
+      jest.useFakeTimers();
+      http.post.mockResolvedValue(response);
+      const { result } = renderHookWithClient(useResetPassword);
+      await act(async () => {
+        await result.current.mutateAsync({
+          userActivationCode: "c",
+          newPassword: "x",
+        });
+      });
+    };
+    afterEach(() => jest.useRealTimers());
+
+    it("keeps the login the reset answers with", async () => {
+      await reset({ access_token: "jwt", activeApiTokens: 0 });
+      expect(localStorage.getItem("access_token")).toBe("jwt");
+    });
+
+    it("leaves the redirect to the API token prompt when tokens are left", async () => {
+      await reset({ access_token: "jwt", activeApiTokens: 2 });
+      expect(jest.getTimerCount()).toBe(0);
+    });
+
+    it("redirects by itself when there is nothing to ask", async () => {
+      await reset({ access_token: null, activeApiTokens: 0 });
+      expect(localStorage.getItem("access_token")).toBeNull();
+      expect(jest.getTimerCount()).toBe(1);
+    });
+  });
+
   it("useLogin-like flows keep the toast id from onMutate (useResetPassword)", async () => {
     jest.useFakeTimers();
     http.post.mockResolvedValue({});

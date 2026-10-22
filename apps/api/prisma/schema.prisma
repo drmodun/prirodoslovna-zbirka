@@ -23,6 +23,13 @@ enum Language {
   HR
 }
 
+// What a personal access token may do. A token never has more rights than
+// its user.
+enum ApiTokenScope {
+  READ // GET and HEAD requests
+  WRITE // every method; implies READ
+}
+
 enum TimeLimitType {
   NONE
   TOTAL
@@ -182,6 +189,7 @@ model User {
   language                    Language                   @default(EN)
   AuthorshipInfo              AuthorshipInfo[]
   Attempt                     Attempt[]
+  ApiTokens                   ApiToken[]
 }
 
 model Exponat {
@@ -472,4 +480,40 @@ model Answer {
   question        Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
 
   @@id([attemptId, questionId])
+}
+
+// A personal access token for scripts and integrations. Only a SHA-256 hash
+// of the token is stored; it is shown to its user once, at creation.
+model ApiToken {
+  id                 String          @id @default(uuid())
+  userId             String
+  user               User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name               String
+  tokenHash          String          @unique
+  // The first characters after `bsf_`, to tell tokens apart in the list.
+  prefix             String
+  scopes             ApiTokenScope[]
+  createdAt          DateTime        @default(now())
+  // Null: never expires.
+  expiresAt          DateTime?
+  lastUsedAt         DateTime?
+  // Revoked tokens are kept, so the list still shows them and their usage.
+  revokedAt          DateTime?
+  // When the user was last told that the token used 80% / all of its rate
+  // limit, so they hear about it at most once a day.
+  rateLimitWarnedAt  DateTime?
+  rateLimitReachedAt DateTime?
+  usage              ApiTokenUsage[]
+
+  @@index([userId])
+}
+
+// Requests made with a token, one row per token per (UTC) day.
+model ApiTokenUsage {
+  tokenId  String
+  token    ApiToken @relation(fields: [tokenId], references: [id], onDelete: Cascade)
+  day      DateTime @db.Date
+  requests Int      @default(0)
+
+  @@id([tokenId, day])
 }
