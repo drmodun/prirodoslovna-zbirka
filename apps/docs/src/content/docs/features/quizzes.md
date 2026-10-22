@@ -5,6 +5,12 @@ sidebar:
   order: 9
 ---
 
+:::note
+Quizzes are now written and taken on Vansy; see
+[Quizzes on Vansy](/docs/features/quizzes-on-vansy/). This page describes the
+older quiz API, which still works.
+:::
+
 Quizzes let organisations test students on their collection. Quizzes are
 created, reviewed and read in the API and the web app; **taking** one works
 through the API (attempts, server-side scoring, results), but the web app has

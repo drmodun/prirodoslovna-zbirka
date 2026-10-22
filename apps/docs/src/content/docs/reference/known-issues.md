@@ -27,9 +27,10 @@ branches (summaries below).
 These are known, but no test pins them, because they are design limits rather
 than wrong behaviour, or need a schema change.
 
-- **No page for taking a quiz.** The attempt API exists (see
-  [Quizzes](/docs/features/quizzes/#taking-a-quiz)), but the web app has no
-  page that uses it yet.
+- **The old attempt API has no page.** Quizzes are taken on
+  [Vansy](/docs/features/quizzes-on-vansy/) from the organisation's Quizzes
+  tab; the old `/attempts` API (see
+  [Quizzes](/docs/features/quizzes/#taking-a-quiz)) still has no page.
 - **User content is not translated.** Exponat, post and organisation texts
   are shown as their authors wrote them; only the generated AI texts follow
   the reader's language.
