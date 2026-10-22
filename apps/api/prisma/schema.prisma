@@ -190,6 +190,7 @@ model User {
   AuthorshipInfo              AuthorshipInfo[]
   Attempt                     Attempt[]
   ApiTokens                   ApiToken[]
+  VansyAttemptResults         VansyAttemptResult[]
 }
 
 model Exponat {
@@ -516,4 +517,36 @@ model ApiTokenUsage {
   requests Int      @default(0)
 
   @@id([tokenId, day])
+}
+
+// Vansy (the exam platform) integration. Quizzes are authored and taken in
+// Vansy; these keep the signed results it sends back and the webhook events
+// already handled (Vansy delivers at least once).
+model VansyWebhookEvent {
+  eventId    String   @id
+  type       String
+  receivedAt DateTime @default(now())
+}
+
+model VansyAttemptResult {
+  attemptId      String    @id
+  vansyQuizId    String
+  // From the quiz owner, org:<id>; no foreign key, so a deleted organisation
+  // leaves the record of the result
+  organisationId String?
+  // Null for an anonymous taker or a user deleted since
+  userId         String?
+  user           User?     @relation(fields: [userId], references: [id], onDelete: SetNull)
+  status         String
+  score          Float
+  maxScore       Float
+  percent        Float
+  passed         Boolean?
+  durationMs     Int
+  reviewStatus   String
+  submittedAt    DateTime?
+  updatedAt      DateTime  @updatedAt
+
+  @@index([userId])
+  @@index([vansyQuizId])
 }
