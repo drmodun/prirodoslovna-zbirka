@@ -1,6 +1,6 @@
 import { INestApplication } from '@nestjs/common';
 import { EventEmitter2 } from '@nestjs/event-emitter';
-import { Test } from '@nestjs/testing';
+import { Test, TestingModuleBuilder } from '@nestjs/testing';
 import * as bcrypt from 'bcrypt';
 import { randomUUID } from 'crypto';
 import * as request from 'supertest';
@@ -40,6 +40,8 @@ export interface TestContextOptions {
    * share it unless this is set; use it to stand in for another API instance.
    */
   separateProcess?: boolean;
+  /** Replace providers before the app compiles (e.g. a fake for an external service) */
+  configure?: (builder: TestingModuleBuilder) => TestingModuleBuilder;
 }
 
 export async function createTestContext(
@@ -64,9 +66,10 @@ export async function createTestContext(
     builder = builder
       .overrideProvider(EventEmitter2)
       .useValue(new EventEmitter2());
+  if (options.configure) builder = options.configure(builder);
   const moduleRef = await builder.compile();
 
-  const app = moduleRef.createNestApplication();
+  const app = moduleRef.createNestApplication({ rawBody: true });
   configureApp(app);
   BigInt.prototype['toJSON'] = function () {
     return Number.parseInt(this.toString());
