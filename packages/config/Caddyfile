@@ -1,11 +1,17 @@
 # One public origin for the whole stack:
 #   /api/*    -> API (prefix stripped)
-#   /files/*  -> the bundled S3 bucket (anonymous reads)
+#   /files/*  -> uploaded files: FILES_UPSTREAM + FILES_PREFIX + the rest
 #   /docs/*   -> the documentation site (prefix kept, it is built for it)
 #   the rest  -> web
 #
 # SITE_ADDRESS defaults to plain HTTP on port 80. Set it to a domain
 # (e.g. biosfera.example.com) and Caddy obtains and renews a certificate.
+#
+# The web image reads files from /files on its own origin, so where they
+# really live is decided here, at runtime:
+#   bundled SeaweedFS  s3:8333                                  /<bucket>
+#   any other bucket   https://<bucket>.s3.<region>.amazonaws.com  (empty)
+#   the API's disk     api:5500                                 /blobs/file
 {
 	# Behind another proxy (production) the client address and scheme arrive in
 	# X-Forwarded-* headers; accept them from private networks only.
@@ -22,8 +28,11 @@
 	}
 
 	handle_path /files/* {
-		rewrite * /{$AWS_S3_BUCKET:biosfera}{uri}
-		reverse_proxy s3:8333
+		rewrite * {$FILES_PREFIX}{uri}
+		reverse_proxy {$FILES_UPSTREAM:s3:8333} {
+			# Hosted stores route by Host, so send the upstream's own.
+			header_up Host {upstream_hostport}
+		}
 	}
 
 	redir /docs /docs/ 308

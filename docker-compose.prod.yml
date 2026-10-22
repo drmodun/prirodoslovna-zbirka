@@ -1,63 +1,261 @@
-# Production, behind a reverse proxy that already runs in Docker on this
-# machine (nginx, nginx-proxy-manager, Traefik, another Caddy, ...).
+# Production on one server, from the published images (nothing is built).
+# Stands on its own: it does not combine with docker-compose.yml.
 #
-#   docker compose --env-file .env.production \
-#     -f docker-compose.yml -f docker-compose.prod.yml up -d --build
+#   cp .env.production.sample .env.production      # then fill it in
+#   docker compose -f docker-compose.prod.yml --env-file .env.production pull
+#   docker compose -f docker-compose.prod.yml --env-file .env.production up -d
 #
-# Nothing is published on the host. The stack's own Caddy joins the main
-# proxy's network as "biosfera"; the main proxy terminates TLS and forwards
-# the site to http://biosfera:80 (packages/config/nginx-site.example.conf).
-# Copy .env.production.sample to .env.production first: the values marked
-# required below have no defaults here on purpose.
+# Updating is the same pull + up; the API applies migrations when it starts.
+#
+# What runs is chosen with COMPOSE_PROFILES in the env file:
+#
+#   db             bundled Postgres. Leave it out and set DATABASE_URL.
+#   s3             bundled S3 store (SeaweedFS). Leave it out and set the
+#                  AWS_* variables, or clear them to keep files on disk.
+#   tts            bundled text-to-speech (Piper). Leave it out and set
+#                  TTS_URL= (or a Google key) to use something else.
+#   and exactly one way in, all serving the same Caddy:
+#   caddy          Caddy is the public server: ports 80/443, its own
+#                  certificate for PUBLIC_URL.
+#   proxy-host     behind a proxy running on the host itself (nginx,
+#                  Apache, ...): Caddy on 127.0.0.1:PROXY_PORT, plain HTTP.
+#   proxy-network  behind a proxy running in Docker (nginx, Traefik,
+#                  nginx-proxy-manager, ...): Caddy joins its network as
+#                  PROXY_ALIAS, plain HTTP, nothing published on the host.
+#
+# The main proxy terminates TLS and forwards everything for the site to
+# Caddy; packages/config/nginx-site.example.conf shows both nginx variants.
+# Mail has no bundled server in production: set SMTP_URL or SENDGRID_API_KEY.
+# The mock-data seed is not part of this file, since it wipes the database.
+
+# Docker's default log driver grows without limit.
+x-logging: &logging
+  driver: local
+  options:
+    max-size: 10m
+    max-file: "3"
+
+x-reverse-proxy: &reverse-proxy
+  image: caddy:2
+  restart: unless-stopped
+  logging: *logging
+  environment: &reverse-proxy-env
+    SITE_ADDRESS: ":80"
+    # Where /files is read from; see packages/config/Caddyfile.
+    FILES_UPSTREAM: ${FILES_UPSTREAM:-s3:8333}
+    FILES_PREFIX: ${FILES_PREFIX-/${AWS_S3_BUCKET:-biosfera}}
+  volumes:
+    - ./packages/config/Caddyfile:/etc/caddy/Caddyfile:ro
+    - caddy_data:/data
+    - caddy_config:/config
+  depends_on:
+    api:
+      condition: service_healthy
+    web:
+      condition: service_started
+    docs:
+      condition: service_started
+    s3:
+      condition: service_started
+      required: false
+
 services:
-  reverse-proxy:
+  postgres:
+    profiles: [db]
+    image: postgres:15
     restart: unless-stopped
+    logging: *logging
     environment:
-      # Plain HTTP inside the network; the main proxy holds the certificate.
-      SITE_ADDRESS: ":80"
+      POSTGRES_DB: biosfera
+      POSTGRES_USER: postgres
+      # Required with this profile; enforced through DATABASE_URL below,
+      # since a check here would also fire with the profile off.
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-}
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d biosfera"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  s3:
+    profiles: [s3]
+    image: chrislusf/seaweedfs
+    restart: unless-stopped
+    logging: *logging
+    environment: &s3-env
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID:-}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY:-}
+      AWS_S3_BUCKET: ${AWS_S3_BUCKET:-biosfera}
+    entrypoint: ["/bin/sh", "-c"]
+    command:
+      - |
+        if [ -z "$$AWS_ACCESS_KEY_ID" ] || [ -z "$$AWS_SECRET_ACCESS_KEY" ]; then
+          echo "The s3 profile needs AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY in the env file." >&2
+          exit 1
+        fi
+        cat > /tmp/s3.json <<JSON
+        {"identities": [
+          {"name": "api",
+           "credentials": [{"accessKey": "$$AWS_ACCESS_KEY_ID", "secretKey": "$$AWS_SECRET_ACCESS_KEY"}],
+           "actions": ["Admin", "Read", "Write", "List", "Tagging"]},
+          {"name": "anonymous", "actions": ["Read:$$AWS_S3_BUCKET"]}
+        ]}
+        JSON
+        exec weed server -dir=/data -s3 -s3.config=/tmp/s3.json
+    volumes:
+      - s3_data:/data
+    healthcheck:
+      test: ["CMD-SHELL", "nc -z 127.0.0.1 8333 && nc -z 127.0.0.1 9333"]
+      interval: 5s
+      timeout: 3s
+      retries: 30
+
+  # One-shot: makes sure the bucket exists.
+  s3-init:
+    profiles: [s3]
+    image: chrislusf/seaweedfs
+    logging: *logging
+    environment: *s3-env
+    entrypoint: ["/bin/sh", "-c"]
+    command:
+      - |
+        for attempt in 1 2 3 4 5 6 7 8 9 10; do
+          if echo "s3.bucket.list" | weed shell -master=s3:9333 2>/dev/null | grep -q "$$AWS_S3_BUCKET"; then exit 0; fi
+          echo "s3.bucket.create -name $$AWS_S3_BUCKET" | weed shell -master=s3:9333
+          sleep 2
+        done
+        exit 1
+    depends_on:
+      s3:
+        condition: service_healthy
+
+  # The voice is part of the image (PIPER_VOICE when it was built).
+  piper:
+    profiles: [tts]
+    image: ${IMAGE_REGISTRY:-ghcr.io/drmodun/prirodoslovna-zbirka}-piper:${IMAGE_TAG:-latest}
+    restart: unless-stopped
+    logging: *logging
+
+  api:
+    image: ${IMAGE_REGISTRY:-ghcr.io/drmodun/prirodoslovna-zbirka}-api:${IMAGE_TAG:-latest}
+    restart: unless-stopped
+    logging: *logging
+    environment:
+      NODE_ENV: production
+      DATABASE_URL: ${DATABASE_URL:-postgresql://postgres:${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD (bundled database) or DATABASE_URL in the env file}@postgres:5432/biosfera}
+      JWT_SECRET: ${JWT_SECRET:?set JWT_SECRET in the env file}
+      INTERNAL_API_KEY: ${INTERNAL_API_KEY:?set INTERNAL_API_KEY in the env file}
+      WEB_URL: ${PUBLIC_URL:?set PUBLIC_URL in the env file, e.g. https://biosfera.example.com}
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID:-}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY:-}
+      AWS_S3_BUCKET: ${AWS_S3_BUCKET:-biosfera}
+      AWS_ENDPOINT_URL_S3: ${AWS_ENDPOINT_URL_S3-http://s3:8333}
+      AWS_S3_URL: ${AWS_S3_URL-${PUBLIC_URL}/files}
+      AWS_REGION: ${AWS_REGION:-}
+      AWS_S3_FORCE_PATH_STYLE: ${AWS_S3_FORCE_PATH_STYLE:-}
+      SMTP_URL: ${SMTP_URL:-}
+      MAIL_FROM: ${MAIL_FROM:-}
+      SENDGRID_API_KEY: ${SENDGRID_API_KEY:-}
+      # Only used without S3: uploads go to the volume below.
+      API_PUBLIC_URL: ${PUBLIC_URL}/api
+    volumes:
+      - uploads:/app/apps/api/uploads
+    depends_on:
+      postgres:
+        condition: service_healthy
+        required: false
+      s3-init:
+        condition: service_completed_successfully
+        required: false
+    healthcheck:
+      test:
+        - CMD
+        - node
+        - -e
+        - fetch('http://localhost:5500/api-json').then(r=>process.exit(r.ok?0:1),()=>process.exit(1))
+      interval: 5s
+      timeout: 5s
+      retries: 30
+      start_period: 10s
+
+  web:
+    image: ${IMAGE_REGISTRY:-ghcr.io/drmodun/prirodoslovna-zbirka}-web:${IMAGE_TAG:-latest}
+    restart: unless-stopped
+    logging: *logging
+    environment:
+      API_INTERNAL_URL: http://api:5500
+      INTERNAL_API_KEY: ${INTERNAL_API_KEY:?set INTERNAL_API_KEY in the env file}
+      # Any OpenAI-compatible API; see .env.sample.
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      OPENAI_BASE_URL: ${OPENAI_BASE_URL:-}
+      OPENAI_MODEL: ${OPENAI_MODEL:-}
+      OPENAI_TRANSCRIPTION_MODEL: ${OPENAI_TRANSCRIPTION_MODEL-whisper-1}
+      TTS_URL: ${TTS_URL-http://piper:5000}
+      GOOGLE_CLOUD_API_KEY: ${GOOGLE_CLOUD_API_KEY:-}
+    depends_on:
+      api:
+        condition: service_healthy
+    healthcheck:
+      test:
+        - CMD
+        - node
+        - -e
+        - fetch('http://localhost:3000/').then(r=>process.exit(r.status<500?0:1),()=>process.exit(1))
+      interval: 10s
+      timeout: 5s
+      retries: 30
+      start_period: 10s
+
+  docs:
+    image: ${IMAGE_REGISTRY:-ghcr.io/drmodun/prirodoslovna-zbirka}-docs:${IMAGE_TAG:-latest}
+    restart: unless-stopped
+    logging: *logging
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost/docs/"]
+      interval: 10s
+      timeout: 3s
+      retries: 10
+
+  reverse-proxy:
+    <<: *reverse-proxy
+    profiles: [caddy]
+    environment:
+      <<: *reverse-proxy-env
+      # A full address works as a Caddy site: https:// gets a certificate.
+      SITE_ADDRESS: ${SITE_ADDRESS:-${PUBLIC_URL}}
+    # Certificates need 80 and 443 reachable from the internet as-is.
+    ports:
+      - "${HTTP_PORT:-80}:80"
+      - "${HTTPS_PORT:-443}:443"
+      - "${HTTPS_PORT:-443}:443/udp"
+
+  reverse-proxy-host:
+    <<: *reverse-proxy
+    profiles: [proxy-host]
+    ports:
+      - "${PROXY_BIND:-127.0.0.1}:${PROXY_PORT:-8080}:80"
+
+  reverse-proxy-network:
+    <<: *reverse-proxy
+    profiles: [proxy-network]
     networks:
       default:
       proxy:
         aliases:
           - ${PROXY_ALIAS:-biosfera}
 
-  postgres:
-    restart: unless-stopped
-    environment:
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in the env file}
-
-  s3:
-    restart: unless-stopped
-    environment:
-      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID:?set AWS_ACCESS_KEY_ID in the env file}
-      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY:?set AWS_SECRET_ACCESS_KEY in the env file}
-
-  piper:
-    restart: unless-stopped
-
-  api:
-    restart: unless-stopped
-    environment:
-      NODE_ENV: production
-      JWT_SECRET: ${JWT_SECRET:?set JWT_SECRET in the env file}
-      INTERNAL_API_KEY: ${INTERNAL_API_KEY:?set INTERNAL_API_KEY in the env file}
-      WEB_URL: ${PUBLIC_URL:?set PUBLIC_URL in the env file, e.g. https://biosfera.example.com}
-
-  web:
-    restart: unless-stopped
-    environment:
-      INTERNAL_API_KEY: ${INTERNAL_API_KEY:?set INTERNAL_API_KEY in the env file}
-
-  docs:
-    restart: unless-stopped
-
-  # The seed wipes every table. Not something to reach for here.
-  seed:
-    entrypoint: ["sh", "-c", "echo 'The seed is disabled in production: it deletes all data.'; exit 1"]
-
 networks:
-  # The main proxy's network. Must exist already:
-  #   docker network create proxy
+  # The main proxy's network, only with the proxy-network profile. Must
+  # exist already: docker network create proxy
   proxy:
     external: true
     name: ${PROXY_NETWORK:-proxy}
+
+volumes:
+  db_data:
+  s3_data:
+  uploads:
+  caddy_data:
+  caddy_config:

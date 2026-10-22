@@ -16,7 +16,7 @@ const LOCAL_API_URL =
   process.env.NEXT_PUBLIC_API_URL || "http://localhost:5500";
 
 // Where uploaded files are read from. NEXT_PUBLIC_FILES_URL overrides. Without
-// S3 settings, `next dev` and builds with FILES_FALLBACK=local (the compose
+// S3 settings, `next dev` and builds with FILES_FALLBACK=local (the e2e
 // build) read the files the API keeps on disk; anything else reads the bucket.
 const hasS3 = !!(process.env.AWS_S3_URL || process.env.AWS_S3_BUCKET);
 const useLocalFiles =
@@ -25,8 +25,11 @@ const useLocalFiles =
     process.env.FILES_FALLBACK === "local");
 // Accepts a bare host ("files.example.com") as well as a full address, and
 // returns undefined for anything that still is not a URL, so a mistyped
-// setting falls back instead of failing the build.
+// setting falls back instead of failing the build. A path ("/files") stays
+// as it is: the browser reads the files from the page's own origin, so the
+// build does not depend on the domain (the compose images use this).
 const toUrl = (value) => {
+  if (/^\/(?!\/)/.test(value ?? "")) return value.replace(/\/+$/, "");
   // No value, or a scheme other than http(s) such as s3://.
   if (!value || /^(?!https?:)[a-z0-9+.-]+:\/\//i.test(value)) return undefined;
   const withScheme = /^https?:\/\//i.test(value) ? value : `https://${value}`;
@@ -45,8 +48,10 @@ const filesUrl =
     ? `${LOCAL_API_URL}/blobs/file`
     : toUrl(process.env.AWS_S3_URL) || s3FilesUrl());
 // The image optimizer fetches from the web server, which cannot be assumed to
-// reach a plain-http (local or in-network) address the browser uses.
+// reach a plain-http (local or in-network) address the browser uses, nor a
+// path that only the reverse proxy in front of it serves.
 const filesAreLocal = !filesUrl.startsWith("https://");
+const filesHost = filesUrl.startsWith("/") ? [] : [new URL(filesUrl).hostname];
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -83,7 +88,7 @@ const nextConfig = {
       "via.placeholder.com",
       "api.gbif.org",
       "biosfera-files.s3.eu-north-1.amazonaws.com",
-      new URL(filesUrl).hostname,
+      ...filesHost,
     ].map((hostname) => ({ hostname })),
   },
 };

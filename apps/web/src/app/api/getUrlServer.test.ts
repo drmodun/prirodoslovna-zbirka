@@ -32,6 +32,10 @@ describe("publicApiUrl", () => {
     ).toBe("https://web.example.hr/api");
   });
 
+  it("keeps a same-origin path, as the Docker images are built", () => {
+    expect(load({ NEXT_PUBLIC_API_URL: "/api" }).publicApiUrl).toBe("/api");
+  });
+
   it("ignores the default local web address", () => {
     expect(
       load({ NEXT_PUBLIC_WEB_URL: "http://localhost:3000" }).publicApiUrl,

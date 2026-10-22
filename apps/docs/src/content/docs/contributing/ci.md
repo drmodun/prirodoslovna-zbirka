@@ -21,16 +21,32 @@ to the same ref cancels the older run. Actions are pinned by commit SHA.
 
 Node comes from `.nvmrc` (22) with the Yarn cache enabled.
 
-## `docker-image.yml`: Docker image build
+## `docker-image.yml`: Docker images
 
-On pushes to any branch except `master`, and on demand. A matrix builds
-`api`, `web` and `docs` from `apps/<app>/Dockerfile` with Buildx (GitHub
-Actions cache, one scope per app) and pushes to GitHub Container Registry:
+Builds `api`, `web`, `docs` (from `apps/<app>/Dockerfile`) and `piper`
+(`docker/piper`) for `linux/amd64` and `linux/arm64`, each on a native runner
+with its own GitHub Actions cache scope. On pushes to `master`, `v*` tags and
+manual runs it publishes them to GitHub Container Registry as one
+multi-platform image per app:
+
+| Trigger         | Tags                                  |
+| --------------- | ------------------------------------- |
+| push to master  | `latest`, `<commit sha>`              |
+| tag `v1.2.3`    | `1.2.3`, `1.2`, `<commit sha>`        |
+| manual run      | `<branch>`, `<commit sha>`            |
 
 ```text
-ghcr.io/<owner>/<repo>-<app>:<commit sha>
-ghcr.io/<owner>/<repo>-<app>:unstable
+ghcr.io/<owner>/<repo>-<app>:<tag>
 ```
+
+Pull requests build every image without publishing. The `compose-smoke` job
+then validates both compose files, starts the local stack, loads the seed and
+runs `docker/smoke-test.sh` (home page, `/api`, `/docs`, login, an upload read
+back through `/files`), then runs the same images through
+`docker-compose.prod.yml` (`proxy-host` profile) and repeats the test.
+
+The docs image bakes `PUBLIC_URL` into its sitemap; set it as a repository
+variable to the production address.
 
 ## `bump.yml`: API documentation on Bump.sh
 

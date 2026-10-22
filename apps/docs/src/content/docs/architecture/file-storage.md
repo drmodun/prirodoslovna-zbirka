@@ -51,6 +51,8 @@ all set.
   `<endpoint>/<bucket>/<key>` or `https://<bucket>.s3.<region>.amazonaws.com/<key>`.
   Set `AWS_S3_URL` when the endpoint is internal (as in compose, where the API
   writes to `http://s3:8333` but browsers read from `<PUBLIC_URL>/files`).
+  In compose, Caddy forwards `/files` to `FILES_UPSTREAM` + `FILES_PREFIX`, so
+  the same path works for the bundled store, another bucket or the API's disk.
 
 The bucket must be publicly readable. The compose `s3` service configures
 SeaweedFS with two identities: `api` (read/write with the key) and
@@ -76,13 +78,15 @@ In compose this fallback is used only if you clear the S3 variables; the
 `next.config.js` works out the base address once, at build time, and inlines
 it as `NEXT_PUBLIC_FILES_URL`:
 
-1. `NEXT_PUBLIC_FILES_URL` if set.
+1. `NEXT_PUBLIC_FILES_URL` if set. A path such as `/files` (the Docker
+   image's default) is kept as it is and read from the page's own origin.
 2. Otherwise, with no S3 settings and either `next dev` or
    `FILES_FALLBACK=local`: the API's `/blobs/file`.
 3. Otherwise `AWS_S3_URL`, or the bucket's default address (same rules as the
    API).
 
-The resulting host is allowed in `images.remotePatterns`. If it is not HTTPS,
+The resulting host, if any, is allowed in `images.remotePatterns`. If it is
+not HTTPS (a path included),
 Next's image optimiser is disabled so the server never tries to fetch an
 address only the browser can reach.
 

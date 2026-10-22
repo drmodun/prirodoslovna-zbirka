@@ -1,5 +1,5 @@
 # Piper text-to-speech behind a small HTTP server.
-#   POST / {"text": "..."}  ->  audio/wav
+#   POST /synthesize {"text": "..."}  ->  audio/wav
 FROM python:3.12-slim
 ARG PIPER_VOICE=sr_RS-serbski_institut-medium
 ENV PIPER_VOICE=$PIPER_VOICE

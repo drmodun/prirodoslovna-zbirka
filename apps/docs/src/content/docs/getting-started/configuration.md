@@ -62,8 +62,8 @@ to disk and serves them itself. See [File storage](/docs/architecture/file-stora
 | `AWS_S3_FORCE_PATH_STYLE` | API              | `true` when an endpoint is set (`<endpoint>/<bucket>`), else `false` |
 | `AWS_S3_URL`              | API, web (build) | Address browsers read files from. Defaults to `<endpoint>/<bucket>` or the bucket's AWS address |
 | `UPLOAD_DIR`              | API              | Local fallback directory, `uploads` relative to the API's working directory |
-| `NEXT_PUBLIC_FILES_URL`   | web (build)      | Overrides where the web app reads files from |
-| `FILES_FALLBACK`          | web (build)      | `local` makes a production build read files from the API (the compose build sets it) |
+| `NEXT_PUBLIC_FILES_URL`   | web (build)      | Overrides where the web app reads files from. A path (`/files`, the Docker image's default) reads from the page's own origin |
+| `FILES_FALLBACK`          | web (build)      | `local` makes a production build without `NEXT_PUBLIC_FILES_URL` or S3 settings read files from the API (the e2e build uses it) |
 
 The bucket must allow anonymous reads: browsers load images directly from it.
 
@@ -117,8 +117,14 @@ synthesis.
 | Variable            | Default | Meaning |
 | ------------------- | ------- | ------- |
 | `PUBLIC_URL`        | `http://localhost` | The address people open. `WEB_URL`, `<PUBLIC_URL>/api`, `<PUBLIC_URL>/files` follow from it. Also the docs' `site` |
-| `SITE_ADDRESS`      | `:80`   | What Caddy listens on; a domain name makes it fetch a certificate |
+| `SITE_ADDRESS`      | `:80`; production `caddy` profile: `PUBLIC_URL` | What Caddy listens on; a domain name makes it fetch a certificate |
+| `FILES_UPSTREAM`, `FILES_PREFIX` | `s3:8333`, `/<bucket>` | Where Caddy forwards `/files`; see [file storage options](/docs/getting-started/production/#file-storage-options) |
 | `POSTGRES_PASSWORD` | `postgres` | Applied only when the database volume is first created |
 | `PIPER_VOICE`       | `sr_RS-serbski_institut-medium` | Piper voice baked into the image |
-| `PROXY_NETWORK`, `PROXY_ALIAS` | `proxy`, `biosfera` | Production: the main proxy's network and this stack's name on it |
+| `COMPOSE_PROFILES`  | production: `db,s3,tts,caddy` | Which bundled services and which way in run; see [Production](/docs/getting-started/production/#choosing-what-runs) |
+| `IMAGE_TAG`, `IMAGE_REGISTRY` | `latest`, `ghcr.io/drmodun/prirodoslovna-zbirka` | Production: which published images to run |
+| `DATABASE_URL`      | the bundled Postgres | Production without the `db` profile: your own database |
+| `HTTP_PORT`, `HTTPS_PORT` | `80`, `443` | Production `caddy` profile: published ports |
+| `PROXY_PORT`, `PROXY_BIND` | `8080`, `127.0.0.1` | Production `proxy-host` profile: where the host's proxy reaches Caddy |
+| `PROXY_NETWORK`, `PROXY_ALIAS` | `proxy`, `biosfera` | Production `proxy-network` profile: the main proxy's network and this stack's name on it |
 | `*_PORT`            | see [Docker Compose](/docs/getting-started/docker/#files) | Published ports in local mode |

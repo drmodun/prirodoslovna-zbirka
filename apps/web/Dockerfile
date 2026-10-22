@@ -13,10 +13,13 @@ COPY --from=pruner /app/out/json/ .
 RUN yarn install --frozen-lockfile
 COPY --from=pruner /app/out/full/ .
 # NEXT_PUBLIC_* values are inlined into the client bundle at build time.
-ARG WEB_URL=http://localhost:3000
-ARG NEXT_PUBLIC_API_URL=http://localhost:5500
-# File storage: see filesUrl in next.config.js.
-ARG NEXT_PUBLIC_FILES_URL=
+# The defaults are paths on the page's own origin, which the stack's reverse
+# proxy (packages/config/Caddyfile) serves, so one image fits every domain.
+ARG WEB_URL=
+ARG NEXT_PUBLIC_API_URL=/api
+# File storage: see filesUrl in next.config.js. Set it to an absolute
+# address (a CDN, the bucket) to have browsers skip the proxy.
+ARG NEXT_PUBLIC_FILES_URL=/files
 ARG AWS_S3_URL=
 ARG AWS_S3_BUCKET=
 ARG AWS_ENDPOINT_URL_S3=

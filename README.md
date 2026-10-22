@@ -52,23 +52,35 @@ Sto se pokrece:
 
 Datoteke: `docker-compose.yml` je zajednicka osnova bez objavljenih portova, `docker-compose.override.yml` (ucitava se sam) objavljuje portove za lokalni rad.
 
-Direktni portovi: web 3000, api 5500 (swagger na `/api`), dokumentacija 4321 (na `/docs`), postgres 5433; mijenjaju se preko `WEB_PORT`, `API_PORT`, `DOCS_PORT`, `POSTGRES_PORT`, `PROXY_PORT`, `PROXY_TLS_PORT`.
+Direktni portovi: web 3000, api 5500 (swagger na `/api`), dokumentacija 4321 (na `/docs`), postgres 5433; mijenjaju se preko `WEB_PORT`, `API_PORT`, `DOCS_PORT`, `POSTGRES_PORT`, `PROXY_PORT`, `PROXY_TLS_PORT`. Web image zove API na `/api` i cita datoteke s `/files` na adresi s koje je stranica otvorena, pa aplikaciju treba otvarati preko proxyja (http://localhost); na portu 3000 stranice se renderiraju, ali pozivi iz preglednika ne prolaze.
 
 Seed dodaje i korisnika za razvoj: `dev@biosfera.local` / `biosfera123` (SUPER, vlasnik prve organizacije).
 
+Provjera stacka koji radi: `docker/smoke-test.sh http://localhost` (uz `SMOKE_EMAIL` i `SMOKE_PASSWORD` provjerava i prijavu i upload).
+
 ## Produkcija
 
-Za server na kojem vec radi glavni reverse proxy u Dockeru (nginx, nginx-proxy-manager, Traefik...). Stack ne objavljuje nijedan port: njegov Caddy se spaja na mrezu glavnog proxyja pod imenom `biosfera`, a glavni proxy drzi certifikat i prosljedjuje stranicu na `http://biosfera:80`.
+`docker-compose.prod.yml` je samostalan: povlaci objavljene image s ghcr.io (`.github/workflows/docker-image.yml`, amd64 i arm64) i nista ne builda.
 
 ```sh
-cp .env.production.sample .env.production   # PUBLIC_URL, JWT_SECRET, lozinke, PROXY_NETWORK
-docker network create proxy                 # samo ako mreza glavnog proxyja jos ne postoji
-docker compose --env-file .env.production \
-  -f docker-compose.yml -f docker-compose.prod.yml up -d --build
+cp .env.production.sample .env.production   # PUBLIC_URL, tajne, COMPOSE_PROFILES
+docker compose -f docker-compose.prod.yml --env-file .env.production pull
+docker compose -f docker-compose.prod.yml --env-file .env.production up -d
 ```
 
-- Primjer konfiguracije za glavni nginx: `packages/config/nginx-site.example.conf`. Bitni su `client_max_body_size` (uploadi do 200 MB) i `proxy_buffering off` (obavijesti su event stream).
-- Bez obaveznih vrijednosti (`PUBLIC_URL`, `JWT_SECRET`, `POSTGRES_PASSWORD`, `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`) compose se ne pokrece.
-- Seed je u produkciji iskljucen jer brise sve podatke.
-- Ako glavni nginx nije u Dockeru nego na hostu, mreza mu nije dostupna: tada objavi Caddy na lokalnom portu (`ports: ["127.0.0.1:8080:80"]` na `reverse-proxy`) i u nginxu koristi `proxy_pass http://127.0.0.1:8080`.
-- Bez glavnog proxyja, da Caddy sam drzi certifikat: lokalni compose uz `PUBLIC_URL=https://domena` i `SITE_ADDRESS=domena`.
+Azuriranje je isti `pull` + `up -d`; API pri pokretanju primijeni migracije. `IMAGE_TAG` bira verziju (`latest` prati `master`, ili release/commit SHA).
+
+`COMPOSE_PROFILES` bira sto se pokrece (zadano `db,s3,tts,caddy`):
+
+- `db`, `s3`, `tts`: ugradjeni Postgres, SeaweedFS i Piper. Bez `db` postavi `DATABASE_URL`; bez `s3` postavi `AWS_*` i `FILES_UPSTREAM` (ili obrisi kljuceve pa datoteke idu na disk); bez `tts` postavi `TTS_URL=`.
+- tocno jedan nacin pristupa, isti Caddy objavljen na tri nacina:
+  - `caddy`: nista ispred, Caddy na 80/443 sam dobiva certifikat za `PUBLIC_URL`
+  - `proxy-host`: nginx (ili drugi proxy) na hostu, Caddy na `127.0.0.1:8080` (`PROXY_PORT`)
+  - `proxy-network`: proxy u Dockeru, Caddy se spaja na njegovu mrezu (`PROXY_NETWORK`) kao `biosfera` (`PROXY_ALIAS`)
+
+Detalji i tablica za pohranu datoteka su u dokumentaciji (Getting started → Production), a vodic od praznog servera do produkcije (DNS, firewall, prvi administrator, backup, azuriranja, rjesavanje problema) u Getting started → Hosting on a server. Backup: `docker/backup.sh`.
+
+- Primjer za glavni nginx (obje varijante): `packages/config/nginx-site.example.conf`. Bitni su `client_max_body_size` (uploadi do 200 MB) i `proxy_buffering off` (obavijesti su event stream).
+- Bez `PUBLIC_URL`, `JWT_SECRET`, `INTERNAL_API_KEY` i lozinke baze (ili `DATABASE_URL`) compose se ne pokrece.
+- Seed nije dio produkcijskog compose-a jer brise sve podatke.
+- GitHub pakete stvara kao privatne: ili ih postavi javnima, ili se na serveru jednom prijavi s `docker login ghcr.io`.

@@ -55,8 +55,9 @@ needs CORS and the browser never sees an internal host name.
 - `docker-compose.yml` is the shared base. It publishes **no** ports.
 - `docker-compose.override.yml` is picked up automatically by `docker compose`
   and publishes ports for local work.
-- `docker-compose.prod.yml` replaces the override in
-  [production](/docs/getting-started/production/).
+- `docker-compose.prod.yml` stands on its own: it runs the published images
+  in [production](/docs/getting-started/production/) and does not combine with
+  the two above.
 
 Ports published by the override, each changeable with a variable:
 
@@ -64,7 +65,7 @@ Ports published by the override, each changeable with a variable:
 | ---- | -------------- | ----------------- |
 | 80   | reverse proxy  | `PROXY_PORT`      |
 | 443  | reverse proxy  | `PROXY_TLS_PORT`  |
-| 3000 | web            | `WEB_PORT`        |
+| 3000 | web (pages only, see below) | `WEB_PORT` |
 | 5500 | api (Swagger at `/api`) | `API_PORT` |
 | 4321 | docs (at `/docs`) | `DOCS_PORT`    |
 | 5433 | postgres       | `POSTGRES_PORT`   |
@@ -84,23 +85,27 @@ The inbox is at http://localhost:8025.
 
 ## Values baked in at build time
 
-The web image inlines `NEXT_PUBLIC_*` values, `WEB_URL` and the file
-addresses into its client bundle, and the docs image builds its absolute
-links from `PUBLIC_URL`. After changing `PUBLIC_URL` (or any of the address
-variables), rebuild:
+The web image calls the API at `/api` and reads files at `/files` on the
+origin the page was opened from, so it holds no address and `PUBLIC_URL` can
+change without a rebuild. The flip side: pages opened on the direct web port
+(3000) render, but their browser-side calls go to port 3000 and fail. Use the
+proxy (http://localhost).
 
-```sh
-docker compose up -d --build web docs
-```
+The docs image builds its sitemap and canonical links from `PUBLIC_URL`;
+rebuild it after changing that (`docker compose up -d --build docs`).
+`NEXT_PUBLIC_API_URL` and `NEXT_PUBLIC_FILES_URL` still override the web
+paths at build time, for example to load files from a CDN.
 
 ## Swapping in real services
 
 Every bundled stand-in can be replaced from the env file:
 
 - **Files**: set `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_S3_BUCKET`
-  and, for AWS itself, clear the bundled endpoint with `AWS_ENDPOINT_URL_S3=`
-  and `AWS_S3_URL=`. The S3 variables use `${VAR-default}`, so an empty value
-  really clears them instead of falling back.
+  and, for AWS itself, clear the bundled endpoint with `AWS_ENDPOINT_URL_S3=`.
+  Point Caddy's `/files` at the bucket with `FILES_UPSTREAM` and
+  `FILES_PREFIX` (table on the [Production](/docs/getting-started/production/#file-storage-options)
+  page). The S3 variables use `${VAR-default}`, so an empty value really
+  clears them instead of falling back.
 - **Mail**: `SMTP_URL` or `SENDGRID_API_KEY`.
 - **AI**: `OPENAI_API_KEY` and optionally `OPENAI_BASE_URL` / `OPENAI_MODEL`.
 - **Speech**: `TTS_URL` (defaults to the bundled Piper) or

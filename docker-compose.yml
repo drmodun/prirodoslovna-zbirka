@@ -4,13 +4,14 @@
 #   docker compose up -d --build      # then open http://localhost
 #   docker compose run --rm seed      # wipe the database and load mock data
 #
-# Production (this file + docker-compose.prod.yml, see that file):
-#   docker compose --env-file .env.production \
-#     -f docker-compose.yml -f docker-compose.prod.yml up -d --build
+# Production uses docker-compose.prod.yml on its own (published images, no
+# builds); see that file.
 #
-# This file publishes no ports; the two files above decide how the stack is
-# reached. Values in the env file override the defaults below. The web and
-# docs images bake PUBLIC_URL in, so rebuild them after changing that.
+# This file publishes no ports; the override above decides how the stack is
+# reached. Values in the env file override the defaults below. The web image
+# reaches the API and files at /api and /files on whatever address the page
+# was opened at, so it does not depend on PUBLIC_URL; the docs image bakes
+# PUBLIC_URL into its sitemap and canonical links.
 #
 # S3 variables use ${VAR-default}: leaving one out selects the bundled store,
 # setting it to nothing (AWS_ENDPOINT_URL_S3=) really clears it.
@@ -140,14 +141,12 @@ services:
       context: .
       dockerfile: apps/web/Dockerfile
       target: runner
+      # Paths on the page's own origin, served by the reverse proxy. Pages
+      # opened on the direct web port (3000) therefore cannot reach the API
+      # from the browser: use the proxy (http://localhost).
       args:
-        WEB_URL: ${WEB_URL:-${PUBLIC_URL:-http://localhost}}
-        NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-${PUBLIC_URL:-http://localhost}/api}
-        NEXT_PUBLIC_FILES_URL: ${NEXT_PUBLIC_FILES_URL:-}
-        AWS_S3_URL: ${AWS_S3_URL-${PUBLIC_URL:-http://localhost}/files}
-        AWS_S3_BUCKET: ${AWS_S3_BUCKET-biosfera}
-        AWS_REGION: ${AWS_REGION:-}
-        FILES_FALLBACK: local
+        NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-/api}
+        NEXT_PUBLIC_FILES_URL: ${NEXT_PUBLIC_FILES_URL:-/files}
     environment:
       WEB_URL: ${WEB_URL:-${PUBLIC_URL:-http://localhost}}
       API_INTERNAL_URL: http://api:5500
@@ -162,6 +161,16 @@ services:
     depends_on:
       api:
         condition: service_healthy
+    healthcheck:
+      test:
+        - CMD
+        - node
+        - -e
+        - fetch('http://localhost:3000/').then(r=>process.exit(r.status<500?0:1),()=>process.exit(1))
+      interval: 10s
+      timeout: 5s
+      retries: 30
+      start_period: 10s
 
   # This documentation site (apps/docs), static, at /docs behind the proxy.
   docs:
@@ -171,6 +180,11 @@ services:
       target: runner
       args:
         PUBLIC_URL: ${PUBLIC_URL:-http://localhost}
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost/docs/"]
+      interval: 10s
+      timeout: 3s
+      retries: 10
 
   # Catches outgoing mail for local testing; inbox at http://localhost:8025.
   #   SMTP_URL=smtp://mailpit:1025 docker compose --profile mail up -d
@@ -182,7 +196,10 @@ services:
     image: caddy:2
     environment:
       SITE_ADDRESS: ${SITE_ADDRESS:-:80}
-      AWS_S3_BUCKET: ${AWS_S3_BUCKET-biosfera}
+      # Where /files is read from; see packages/config/Caddyfile. Without S3
+      # (keys cleared): FILES_UPSTREAM=api:5500 and FILES_PREFIX=/blobs/file
+      FILES_UPSTREAM: ${FILES_UPSTREAM:-s3:8333}
+      FILES_PREFIX: ${FILES_PREFIX-/${AWS_S3_BUCKET-biosfera}}
     volumes:
       - ./packages/config/Caddyfile:/etc/caddy/Caddyfile:ro
       - caddy_data:/data

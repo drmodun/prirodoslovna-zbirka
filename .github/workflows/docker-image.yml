@@ -1,27 +1,135 @@
-name: Docker image build
+name: Docker images
+
+# Builds the api, web, docs and piper images for amd64 and arm64 (each on a
+# native runner) and publishes them to ghcr.io as
+# ghcr.io/<owner>/<repo>-<app>, which docker-compose.prod.yml pulls:
+#   master          latest, <commit sha>
+#   tag v1.2.3      1.2.3, 1.2, <commit sha>
+#   manual run      <branch>, <commit sha>
+# Pull requests build the images without publishing them, and run the whole
+# stack through docker/smoke-test.sh, locally and in production mode.
 
 on:
   push:
-    branches-ignore:
-      - master
+    branches: [master]
+    tags: ["v*"]
+  pull_request:
+    branches: [master]
   workflow_dispatch:
 
+concurrency:
+  group: docker-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+permissions:
+  contents: read
+
+env:
+  PUSH: ${{ github.event_name != 'pull_request' }}
+
 jobs:
-  docker_image_build:
-    name: Docker image build (${{ matrix.app }})
-    runs-on: ubuntu-latest
+  build:
+    name: Build ${{ matrix.app }} (${{ matrix.platform }})
+    runs-on: ${{ matrix.platform == 'linux/arm64' && 'ubuntu-24.04-arm' || 'ubuntu-24.04' }}
+    timeout-minutes: 45
 
     strategy:
+      fail-fast: false
       matrix:
-        app: [api, web, docs]
+        app: [api, web, docs, piper]
+        platform: [linux/amd64, linux/arm64]
 
     permissions:
       contents: read
       packages: write
 
+    env:
+      IMAGE: ghcr.io/${{ github.repository }}-${{ matrix.app }}
+
     steps:
+      - name: Name the platform for artifacts and caches
+        run: |
+          platform=${{ matrix.platform }}
+          echo "PLATFORM_PAIR=${platform//\//-}" >> "$GITHUB_ENV"
+
       - name: Checkout repository
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+
+      - name: Setup Docker Buildx
+        uses: docker/setup-buildx-action@8d2750c68a42422c14e847fe6c8ac0403b4cbd6f # v3
+
+      - name: Login to GitHub Container Registry
+        if: env.PUSH == 'true'
+        uses: docker/login-action@c94ce9fb468520275223c153574b00df6fe4bcc9 # v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      # Labels only; the tags are put on the merged image below.
+      - name: Image metadata
+        id: meta
+        uses: docker/metadata-action@c299e40c65443455700f0fdfc63efafe5b349051 # v5
+        with:
+          images: ${{ env.IMAGE }}
+
+      - name: Build (and push by digest)
+        id: build
+        uses: docker/build-push-action@10e90e3645eae34f1e60eeb005ba3a3d33f178e8 # v6
+        with:
+          context: ${{ matrix.app == 'piper' && 'docker/piper' || '.' }}
+          file: ${{ matrix.app == 'piper' && 'docker/piper/Dockerfile' || format('apps/{0}/Dockerfile', matrix.app) }}
+          platforms: ${{ matrix.platform }}
+          labels: ${{ steps.meta.outputs.labels }}
+          # The docs bake it into their sitemap and canonical links. Set the
+          # PUBLIC_URL repository variable to the production address.
+          build-args: |
+            PUBLIC_URL=${{ vars.PUBLIC_URL || 'http://localhost' }}
+          outputs: ${{ env.PUSH == 'true' && format('type=image,name={0},push-by-digest=true,name-canonical=true,push=true', env.IMAGE) || 'type=cacheonly' }}
+          cache-from: type=gha,scope=${{ matrix.app }}-${{ env.PLATFORM_PAIR }}
+          cache-to: type=gha,mode=max,scope=${{ matrix.app }}-${{ env.PLATFORM_PAIR }}
+
+      - name: Export the digest
+        if: env.PUSH == 'true'
+        run: |
+          mkdir -p "${{ runner.temp }}/digests"
+          digest="${{ steps.build.outputs.digest }}"
+          touch "${{ runner.temp }}/digests/${digest#sha256:}"
+
+      - name: Upload the digest
+        if: env.PUSH == 'true'
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: digests-${{ matrix.app }}-${{ env.PLATFORM_PAIR }}
+          path: ${{ runner.temp }}/digests/*
+          if-no-files-found: error
+          retention-days: 1
+
+  publish:
+    name: Publish ${{ matrix.app }}
+    if: github.event_name != 'pull_request'
+    needs: build
+    runs-on: ubuntu-24.04
+
+    strategy:
+      fail-fast: false
+      matrix:
+        app: [api, web, docs, piper]
+
+    permissions:
+      contents: read
+      packages: write
+
+    env:
+      IMAGE: ghcr.io/${{ github.repository }}-${{ matrix.app }}
+
+    steps:
+      - name: Download the digests
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          path: ${{ runner.temp }}/digests
+          pattern: digests-${{ matrix.app }}-*
+          merge-multiple: true
 
       - name: Setup Docker Buildx
         uses: docker/setup-buildx-action@8d2750c68a42422c14e847fe6c8ac0403b4cbd6f # v3
@@ -33,14 +141,88 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build and push docker image
-        uses: docker/build-push-action@10e90e3645eae34f1e60eeb005ba3a3d33f178e8 # v6
+      - name: Image metadata
+        id: meta
+        uses: docker/metadata-action@c299e40c65443455700f0fdfc63efafe5b349051 # v5
         with:
-          context: .
-          file: ./apps/${{ matrix.app }}/Dockerfile
-          push: true
+          images: ${{ env.IMAGE }}
           tags: |
-            ghcr.io/${{ github.repository }}-${{ matrix.app }}:${{ github.sha }}
-            ghcr.io/${{ github.repository }}-${{ matrix.app }}:${{ github.ref_name == 'master' && 'latest' || 'unstable' }}
-          cache-from: type=gha,scope=${{ matrix.app }}
-          cache-to: type=gha,mode=max,scope=${{ matrix.app }}
+            type=raw,value=latest,enable={{is_default_branch}}
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=ref,event=branch,enable=${{ github.event_name == 'workflow_dispatch' }}
+            type=sha,format=long,prefix=
+
+      - name: Create the multi-platform image
+        working-directory: ${{ runner.temp }}/digests
+        # Both substitutions expand to several arguments on purpose.
+        run: |
+          # shellcheck disable=SC2046
+          docker buildx imagetools create \
+            $(jq -cr '.tags | map("-t " + .) | join(" ")' <<< "$DOCKER_METADATA_OUTPUT_JSON") \
+            $(printf "$IMAGE@sha256:%s " *)
+
+      - name: Inspect the image
+        run: docker buildx imagetools inspect "$IMAGE:${{ steps.meta.outputs.version }}"
+
+  # The stack as people run it: locally with the default compose files, then
+  # the same images in production mode behind a host-port proxy.
+  compose-smoke:
+    name: Compose smoke test
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+
+      - name: Validate the compose files
+        run: |
+          docker compose config -q
+          cp .env.production.sample prod.env
+          sed -i -e 's/^JWT_SECRET=$/JWT_SECRET=ci/' -e 's/^INTERNAL_API_KEY=$/INTERNAL_API_KEY=ci/' \
+            -e 's/^POSTGRES_PASSWORD=$/POSTGRES_PASSWORD=ci/' -e 's/^AWS_ACCESS_KEY_ID=$/AWS_ACCESS_KEY_ID=ci/' \
+            -e 's/^AWS_SECRET_ACCESS_KEY=$/AWS_SECRET_ACCESS_KEY=ci-secret/' prod.env
+          for profiles in db,s3,tts,caddy db,s3,proxy-host proxy-network; do
+            COMPOSE_PROFILES=$profiles DATABASE_URL=postgresql://u:p@db/x \
+              docker compose -f docker-compose.prod.yml --env-file prod.env config -q
+          done
+
+      - name: Start the local stack
+        run: docker compose up -d --build --wait
+
+      - name: Load the mock data
+        run: docker compose run --rm seed
+
+      - name: Smoke test (local)
+        env:
+          SMOKE_EMAIL: dev@biosfera.local
+          SMOKE_PASSWORD: biosfera123
+        run: docker/smoke-test.sh http://localhost
+
+      - name: Logs (local)
+        if: failure()
+        run: docker compose logs --tail 200
+
+      - name: Start the production stack from the same images
+        run: |
+          docker compose down
+          cat >> prod.env <<'EOF'
+          COMPOSE_PROFILES=db,s3,tts,proxy-host
+          PUBLIC_URL=http://localhost:8080
+          PROXY_PORT=8080
+          IMAGE_REGISTRY=prirodoslovna-zbirka
+          EOF
+          docker compose -p biosfera-prod -f docker-compose.prod.yml --env-file prod.env up -d --wait
+          docker run --rm --network biosfera-prod_default -e NODE_ENV=development \
+            -e DATABASE_URL=postgresql://postgres:ci@postgres:5432/biosfera prirodoslovna-zbirka-seed
+
+      - name: Smoke test (production)
+        env:
+          SMOKE_EMAIL: dev@biosfera.local
+          SMOKE_PASSWORD: biosfera123
+        run: docker/smoke-test.sh http://localhost:8080
+
+      - name: Logs (production)
+        if: failure()
+        run: docker compose -p biosfera-prod -f docker-compose.prod.yml --env-file prod.env logs --tail 200

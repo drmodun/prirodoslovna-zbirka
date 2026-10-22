@@ -4,7 +4,8 @@ const LOCAL_API = "http://localhost:5500";
 const fromWebUrl = (webUrl?: string) =>
   webUrl && webUrl !== "http://localhost:3000" ? `${webUrl}/api` : LOCAL_API;
 
-// Address the browser uses. Inlined at build time.
+// Address the browser uses. Inlined at build time. May be a path ("/api",
+// the Docker images) when the API shares the page's origin.
 export const publicApiUrl =
   process.env.NEXT_PUBLIC_API_URL ||
   fromWebUrl(process.env.NEXT_PUBLIC_WEB_URL);
@@ -37,7 +38,8 @@ export const filesUrl =
   "https://biosfera-files.s3.eu-north-1.amazonaws.com";
 
 // Server-side fetches can reach the API on a private address (e.g. the
-// compose service name); API_INTERNAL_URL is read at runtime.
+// compose service name); API_INTERNAL_URL is read at runtime. It is required
+// when the public address is a path, which only a browser can resolve.
 export const getBaseUrl = () =>
   typeof window === "undefined"
     ? process.env.API_INTERNAL_URL || publicApiUrl

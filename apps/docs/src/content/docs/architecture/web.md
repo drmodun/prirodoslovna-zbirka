@@ -147,8 +147,11 @@ starts again with the token. The token lives for 24 hours.
 `next.config.js` decides at build time where uploaded files are read from
 (`NEXT_PUBLIC_FILES_URL`), mirroring the API's `BlobService` logic, and adds
 that host to `images.remotePatterns`. When the files address is plain HTTP
-(local or in-network), the Next image optimiser is turned off, because the
-web server cannot be assumed to reach an address meant for the browser. See
+(local or in-network) or a path, the Next image optimiser is turned off,
+because the web server cannot be assumed to reach an address meant for the
+browser. The Docker image is built with the paths `/api` and `/files`, so it
+works on any domain behind the stack's Caddy; server-side calls then go to
+`API_INTERNAL_URL`. See
 [File storage](/docs/architecture/file-storage/).
 
 The Docker image is built with `output: "standalone"` (`NEXT_OUTPUT`); plain
