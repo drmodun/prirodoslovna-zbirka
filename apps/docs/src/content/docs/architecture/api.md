@@ -5,7 +5,7 @@ sidebar:
   order: 2
 ---
 
-The API (`apps/api`) is a NestJS 10 application on Prisma 5 and PostgreSQL.
+The API (`apps/api`) is a NestJS 11 application (on Express 5) on Prisma 5 and PostgreSQL.
 It listens on `PORT` (default `5500`) and documents itself with Swagger at
 `/api` (UI) and `/api-json` (OpenAPI document, also used as the container
 health check).

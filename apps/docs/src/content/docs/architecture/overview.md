@@ -11,8 +11,8 @@ Biosfera is a TypeScript monorepo managed with **Yarn 1 workspaces** and
 ```text
 prirodoslovna-zbirka/
 ├── apps/
-│   ├── api/        NestJS 10 + Prisma 5 on Postgres         (entry: src/main.ts)
-│   ├── web/        Next.js 14 app router, React 18, MUI/Joy (entry: src/app/layout.tsx)
+│   ├── api/        NestJS 11 + Prisma 5 on Postgres         (entry: src/main.ts)
+│   ├── web/        Next.js 15 app router, React 18, MUI/Joy (entry: src/app/layout.tsx)
 │   ├── e2e/        Playwright suite against the built stack
 │   └── docs/       This Astro Starlight site
 ├── packages/

@@ -5,7 +5,7 @@ sidebar:
   order: 3
 ---
 
-The frontend (`apps/web`) is a Next.js 14 app using the **app router**, React
+The frontend (`apps/web`) is a Next.js 15 app using the **app router**, React
 18, MUI / Joy UI components and SCSS modules. The UI is in English (the
 default) and Croatian, see [Translations](#translations).
 
