@@ -5,7 +5,8 @@ import { UserWrapper } from "@/utility/wrappers/userWrapper";
 import PostView from "@/views/PostView";
 import PostForm from "components/PostForm";
 
-const PostPage = async ({ params }: { params: any }) => {
+const PostPage = async (props: { params: Promise<any> }) => {
+  const params = await props.params;
   const post = await serverGetPost(params.postId);
   return (
     <UserWrapper>

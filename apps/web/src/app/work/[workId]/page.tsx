@@ -15,7 +15,8 @@ import QrCodeGenerator from "components/QrCodeButton";
 import DocumentReader from "components/DocumentReader";
 import { getTranslations } from "next-intl/server";
 
-const WorkPage = async ({ params }: { params: any }) => {
+const WorkPage = async (props: { params: Promise<any> }) => {
+  const params = await props.params;
   const workInfo: WorkResponseExtended = await getWork(params.workId);
   const t = await getTranslations("WorkPage");
 

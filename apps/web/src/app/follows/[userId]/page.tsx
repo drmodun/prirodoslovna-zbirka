@@ -19,9 +19,9 @@ const getFollowing = async (id: string) => {
   return [];
 };
 
-const FollowsPage = async ({ params, searchParams }: any) => {
-  const id = params.userId;
-  const firstTab = searchParams?.tab as string;
+const FollowsPage = async (props: any) => {
+  const { userId: id } = await props.params;
+  const firstTab = (await props.searchParams)?.tab as string;
   const followers: ShortUserResponse[] = await getFollowers(id);
   const following: ShortUserResponse[] = await getFollowing(id);
 

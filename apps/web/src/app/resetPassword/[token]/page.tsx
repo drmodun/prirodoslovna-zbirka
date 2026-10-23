@@ -1,7 +1,8 @@
 import ResetPasswordView from "@/views/ResetPasswordView";
 
-const ResetPasswordPage = ({ params }: { params: any }) => (
-  <ResetPasswordView code={params.token} />
-);
+const ResetPasswordPage = async (props: { params: Promise<any> }) => {
+  const params = await props.params;
+  return <ResetPasswordView code={params.token} />;
+};
 
 export default ResetPasswordPage;

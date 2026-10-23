@@ -9,7 +9,8 @@ import { serverGetOrganisation } from "@/api/serverOrganisation";
 import { AdminCheckingWrapper } from "@/utility/wrappers/adminCheckWrapper";
 import { getTranslations } from "next-intl/server";
 
-const ExponatCreate = async ({ params }: { params: any }) => {
+const ExponatCreate = async (props: { params: Promise<any> }) => {
+  const params = await props.params;
   const exponat = await serverGetExponat(params.exponatId);
   const t = await getTranslations("Pages");
   return (

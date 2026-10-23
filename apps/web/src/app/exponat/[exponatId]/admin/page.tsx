@@ -1,5 +1,6 @@
 "use client";
 
+import { useParams } from "next/navigation";
 import { serverGetExponat } from "@/api/serverExponat";
 import NotFound from "@/not-found";
 import { ExponatAsyncWrapper } from "@/utility/wrappers/exponatAsyncWrapper";
@@ -12,7 +13,8 @@ import classes from "../page.module.scss";
 import { useGetClientExponat } from "@/api/useGetClientExponat";
 import ExtrasExponatButton from "components/ExtrasExponatButton";
 
-const ExponatPage = ({ params }: { params: any }) => {
+const ExponatPage = () => {
+  const params = useParams<{ exponatId: string }>();
   const { data: exponatInfo, isLoading } = useGetClientExponat(
     params.exponatId,
   );

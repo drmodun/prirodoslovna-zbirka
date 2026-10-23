@@ -32,6 +32,6 @@
     "postcss": "8.5.30",
     "decode-uri-component": "0.5.0",
     "tar": "^7.5.22",
-    "**/@next/eslint-plugin-next/glob": "10.5.0"
+    "**/@nestjs/swagger/js-yaml": "5.5.0"
   }
 }

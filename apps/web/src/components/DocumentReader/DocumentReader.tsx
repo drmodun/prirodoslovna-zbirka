@@ -9,8 +9,11 @@ import BaseButton from "components/BaseButton";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 
-pdfjs.GlobalWorkerOptions.workerSrc =
-  "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+// Bundled with the app, so the worker always matches the installed pdf.js.
+pdfjs.GlobalWorkerOptions.workerSrc = new URL(
+  "pdfjs-dist/build/pdf.worker.min.mjs",
+  import.meta.url,
+).toString();
 
 export interface DocumentReaderProps {
   src: string;
@@ -66,9 +69,7 @@ export const DocumentReader = ({ src, isLandscape }: DocumentReaderProps) => {
           rotate={!isLandscape ? 90 : 0}
           file={src}
           onLoadSuccess={onDocumentLoadSuccess}
-          noData={
-            <span className={classes.error}>{t("loadFailed")}</span>
-          }
+          noData={<span className={classes.error}>{t("loadFailed")}</span>}
           loading={
             <div className={classes.spinnerContainer}>
               <div className={classes.spinner}></div>

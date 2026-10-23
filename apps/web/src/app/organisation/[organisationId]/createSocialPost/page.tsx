@@ -1,10 +1,11 @@
 import { QueryClientWrapper } from "@/utility/wrappers/queryWrapper";
 import classes from "./page.module.scss";
 import { SocialPostForm } from "components/SocialPostForm/SocialPostForm";
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 
-const CreateSocialPost = ({ params }: { params: any }) => {
-  const t = useTranslations("Pages");
+const CreateSocialPost = async (props: { params: Promise<any> }) => {
+  const params = await props.params;
+  const t = await getTranslations("Pages");
 
   return (
     <div className={classes.container}>

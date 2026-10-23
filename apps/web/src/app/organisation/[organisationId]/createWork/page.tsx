@@ -2,10 +2,11 @@ import { QueryClientWrapper } from "@/utility/wrappers/queryWrapper";
 import classes from "./page.module.scss";
 import WorksForm from "components/WorksForm";
 import { ExponatFormImage } from "@/views/ExponatFormImage/ExponatFormImage";
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 
-const WorkCreate = ({ params }: { params: any }) => {
-  const t = useTranslations("Pages");
+const WorkCreate = async (props: { params: Promise<any> }) => {
+  const params = await props.params;
+  const t = await getTranslations("Pages");
 
   return (
     <div className={classes.container}>

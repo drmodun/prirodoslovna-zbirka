@@ -6,7 +6,8 @@ import PostView from "@/views/PostView";
 import { PostResponseExtended } from "@biosfera/types";
 import { Suspense } from "react";
 
-const PostPage = async ({ params }: { params: any }) => {
+const PostPage = async (props: { params: Promise<any> }) => {
+  const params = await props.params;
   const post = await serverGetPost(params.postId);
 
   return (

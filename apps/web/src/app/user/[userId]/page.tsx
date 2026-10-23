@@ -11,7 +11,8 @@ import { UserWrapper } from "@/utility/wrappers/userWrapper";
 import { getGbifWork } from "@/api/serverLiterature";
 import { notFound } from "next/navigation";
 
-const UserPage = async ({ params }: { params: any }) => {
+const UserPage = async (props: { params: Promise<any> }) => {
+  const params = await props.params;
   const userInfo: ExtendedUserResponse = await serverGetUser(params.userId);
   // Answers 404 with the not-found page.
   if (!userInfo) return notFound();

@@ -31,6 +31,11 @@ const ESM_PACKAGES = [
   "decode-uri-component",
   "split-on-first",
   "filter-obj",
+  "next-intl",
+  "use-intl",
+  "icu-minify",
+  "@formatjs",
+  "intl-messageformat",
 ];
 
 module.exports = async () => {

@@ -15,7 +15,8 @@ import ExtrasExponatButton from "components/ExtrasExponatButton";
 import { redirect } from "next/navigation";
 import dynamic from "next/dynamic";
 
-const ExponatPage = async ({ params }: { params: any }) => {
+const ExponatPage = async (props: { params: Promise<any> }) => {
+  const params = await props.params;
   const exponatInfo: ExponatExtendedResponse = await serverGetExponat(
     params.exponatId,
   );

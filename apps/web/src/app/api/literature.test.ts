@@ -1,8 +1,5 @@
-import {
-  getGbifWork,
-  getGbifWorks,
-  LiteratureToWorkMapper,
-} from "./serverLiterature";
+import { getGbifWork, getGbifWorks } from "./serverLiterature";
+import { LiteratureToWorkMapper } from "./literatureMapper";
 
 const literature = (over: Record<string, unknown> = {}) =>
   ({

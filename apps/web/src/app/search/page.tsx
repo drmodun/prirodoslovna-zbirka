@@ -26,13 +26,8 @@ const getTab = (tab: string): tabType => {
   }
 };
 
-const SearchPage = async ({
-  params,
-  searchParams,
-}: {
-  params: any;
-  searchParams: any;
-}) => {
+const SearchPage = async (props: { searchParams: Promise<any> }) => {
+  const searchParams = await props.searchParams;
   const initExponats = getExponats({
     name: searchParams?.name || searchParams?.title,
     alternateName: searchParams?.alternateName,

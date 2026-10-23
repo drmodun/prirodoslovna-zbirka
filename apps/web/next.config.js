@@ -58,7 +58,7 @@ const nextConfig = {
   // Set by the Dockerfile; `next start` does not serve a standalone build.
   ...(process.env.NEXT_OUTPUT === "standalone" && {
     output: "standalone",
-    experimental: { outputFileTracingRoot: path.join(__dirname, "../../") },
+    outputFileTracingRoot: path.join(__dirname, "../../"),
   }),
   transpilePackages: [
     "@biosfera/types",

@@ -1,5 +1,6 @@
 "use client";
 
+import { useParams } from "next/navigation";
 import { getWork } from "@/api/serverWork";
 import NotFound from "@/not-found";
 import { dateShortenerWithoutTime } from "@/utility/static/dateShortener";
@@ -15,7 +16,8 @@ import { useGetClientWork } from "@/api/useGetClientWork";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 
-const WorkPage = ({ params }: { params: any }) => {
+const WorkPage = () => {
+  const params = useParams<{ workId: string }>();
   const { data: workInfo } = useGetClientWork(params.workId);
   const t = useTranslations("WorkPage");
   return workInfo ? (

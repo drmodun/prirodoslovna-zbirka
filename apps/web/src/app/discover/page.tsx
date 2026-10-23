@@ -19,13 +19,8 @@ const getTab = (tab: string) => {
   }
 };
 
-const DiscoverPage = async ({
-  params,
-  searchParams,
-}: {
-  params: any;
-  searchParams: any;
-}) => {
+const DiscoverPage = async (props: { searchParams: Promise<any> }) => {
+  const searchParams = await props.searchParams;
   const initExponats = await discoverExponats({
     page: 1,
     size: 20,

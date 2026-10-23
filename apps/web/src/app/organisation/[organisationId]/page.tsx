@@ -15,7 +15,8 @@ const organisationCalls = async (organisationId: string) => {
   return await Promise.all([organisationInfo, organisationWorks]);
 };
 
-const OrganisationPage = async ({ params }: { params: any }) => {
+const OrganisationPage = async (props: { params: Promise<any> }) => {
+  const params = await props.params;
   const [info, works] = await organisationCalls(params.organisationId);
   // Unknown or unapproved: answer 404 with the not-found page.
   if (!info) return notFound();

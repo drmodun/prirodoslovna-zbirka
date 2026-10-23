@@ -151,7 +151,7 @@ describe("DiscoverPage", () => {
 
   it("loads the first page of every feed", async () => {
     const props = named(
-      await DiscoverPage({ params: {}, searchParams: {} }),
+      await DiscoverPage({ searchParams: Promise.resolve({}) }),
       "DiscoverPageView",
     );
     expect(mockData.discoverExponats).toHaveBeenCalledWith({
@@ -180,7 +180,7 @@ describe("DiscoverPage", () => {
     [undefined, "Eksponati"],
   ])("kind=%s opens the %s tab", async (kind, tab) => {
     const props = named(
-      await DiscoverPage({ params: {}, searchParams: { kind } }),
+      await DiscoverPage({ searchParams: Promise.resolve({ kind }) }),
       "DiscoverPageView",
     );
     expect(props.initTab).toBe(tab);
@@ -190,7 +190,7 @@ describe("DiscoverPage", () => {
     mockData.works.mockResolvedValue(undefined);
     mockData.gbifWorks.mockResolvedValue(undefined);
     const props = named(
-      await DiscoverPage({ params: {}, searchParams: {} }),
+      await DiscoverPage({ searchParams: Promise.resolve({}) }),
       "DiscoverPageView",
     );
     expect(props.works).toEqual([]);
@@ -200,7 +200,10 @@ describe("DiscoverPage", () => {
 
 describe("SearchPage", () => {
   const run = async (searchParams: Record<string, unknown>) =>
-    named(await SearchPage({ params: {}, searchParams }), "SearchPageView");
+    named(
+      await SearchPage({ searchParams: Promise.resolve(searchParams) }),
+      "SearchPageView",
+    );
 
   it.each([
     ["user", "Korisnici"],
@@ -316,8 +319,8 @@ describe("FollowsPage", () => {
     mockData.following.mockResolvedValue([{ id: "g" }]);
     const props = named(
       await FollowsPage({
-        params: { userId: "u1" },
-        searchParams: { tab: "Following" },
+        params: Promise.resolve({ userId: "u1" }),
+        searchParams: Promise.resolve({ tab: "Following" }),
       }),
       "FollowsTable",
     );
@@ -332,7 +335,7 @@ describe("FollowsPage", () => {
 
   it("falls back to empty lists when the API cannot be reached", async () => {
     const props = named(
-      await FollowsPage({ params: { userId: "u1" } }),
+      await FollowsPage({ params: Promise.resolve({ userId: "u1" }) }),
       "FollowsTable",
     );
     expect(props).toMatchObject({ followers: [], following: [] });
@@ -347,7 +350,9 @@ describe("ExponatPage", () => {
       video: "v",
       thirdDimensionalModel: "m",
     });
-    const tree = await ExponatPage({ params: { exponatId: "e1" } });
+    const tree = await ExponatPage({
+      params: Promise.resolve({ exponatId: "e1" }),
+    });
     expect(named(tree, "ExponatModal").exponat).toMatchObject({ id: "e1" });
     expect(named(tree, "ExtrasExponatButton")).toMatchObject({
       video: "v",
@@ -358,7 +363,9 @@ describe("ExponatPage", () => {
 
   it("an exponat that is not public is sent to its admin page", async () => {
     mockData.exponat.mockResolvedValue(null);
-    await ExponatPage({ params: { exponatId: "e9" } }).catch(() => {});
+    await ExponatPage({ params: Promise.resolve({ exponatId: "e9" }) }).catch(
+      () => {},
+    );
     expect(redirect).toHaveBeenCalledWith("/exponat/e9/admin");
   });
 });
@@ -375,14 +382,16 @@ describe("UserPage", () => {
     mockData.gbifWork
       .mockResolvedValueOnce({ id: "l1" })
       .mockResolvedValueOnce(undefined);
-    const tree = await UserPage({ params: { userId: "u1" } });
+    const tree = await UserPage({ params: Promise.resolve({ userId: "u1" }) });
     expect(named(tree, "UserCard").user.id).toBe("u1");
     expect(named(tree, "UserPageBody").savedLiterature).toEqual([{ id: "l1" }]);
   });
 
   it("answers 404 for an unknown user", async () => {
     mockData.user.mockResolvedValue(null);
-    const tree = await UserPage({ params: { userId: "nope" } });
+    const tree = await UserPage({
+      params: Promise.resolve({ userId: "nope" }),
+    });
     expect(notFound).toHaveBeenCalled();
     expect(find(tree, "UserCard")).toBeUndefined();
   });
@@ -392,7 +401,9 @@ describe("OrganisationPage", () => {
   it("passes the organisation and its works to the body", async () => {
     mockData.organisation.mockResolvedValue({ id: "o1" });
     mockData.works.mockResolvedValue([{ id: "w1" }]);
-    const tree = await OrganisationPage({ params: { organisationId: "o1" } });
+    const tree = await OrganisationPage({
+      params: Promise.resolve({ organisationId: "o1" }),
+    });
     expect(mockData.works).toHaveBeenCalledWith({ organisationId: "o1" });
     expect(named(tree, "OrganisationBody")).toMatchObject({
       organisation: { id: "o1" },
@@ -402,14 +413,16 @@ describe("OrganisationPage", () => {
 
   it("works that could not be loaded become an empty list", async () => {
     mockData.organisation.mockResolvedValue({ id: "o1" });
-    const tree = await OrganisationPage({ params: { organisationId: "o1" } });
+    const tree = await OrganisationPage({
+      params: Promise.resolve({ organisationId: "o1" }),
+    });
     expect(named(tree, "OrganisationBody").works).toEqual([]);
   });
 
   it("answers 404 for an unknown organisation", async () => {
     mockData.organisation.mockResolvedValue(null);
     const tree = await OrganisationPage({
-      params: { organisationId: "nope" },
+      params: Promise.resolve({ organisationId: "nope" }),
     });
     expect(notFound).toHaveBeenCalled();
     expect(find(tree, "OrganisationBody")).toBeUndefined();
